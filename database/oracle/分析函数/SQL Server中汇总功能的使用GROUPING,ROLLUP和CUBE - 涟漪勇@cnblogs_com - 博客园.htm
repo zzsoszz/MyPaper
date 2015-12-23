@@ -1,0 +1,1527 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0063)http://www.cnblogs.com/rippleyong/archive/2004/11/18/65143.html -->
+<HTML><HEAD id=Head><TITLE>SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs.com - 博客园</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META id=metaKeywords content=SQL,Server中汇总功能的使用GROUPING,ROLLUP和CUBE 
+name=keywords>
+<META 
+content=&nbsp;第一次看到这样的SQL语句,看不懂,其中用到了下面的不常用的聚集函数:GROUPING用于汇总数据用的运算符:ROLLUPSELECT&nbsp;CASE&nbsp;GROUPING(o.customerid)&nbsp;WHEN&amp;# 
+name=description><LINK id=CommondCss 
+href="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/common.css" 
+type=text/css rel=stylesheet><LINK id=MainCss 
+href="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/style.css" 
+type=text/css rel=stylesheet><LINK id=CommondCss2 
+href="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/common2.css" 
+type=text/css rel=stylesheet><LINK id=RSSLink title=RSS 
+href="http://www.cnblogs.com/rippleyong/rss" type=application/rss+xml 
+rel=alternate>
+<SCRIPT 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/common.js" 
+type=text/javascript></SCRIPT>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<FORM id=Form1 name=Form1 onsubmit="javascript:return WebForm_OnSubmit();" 
+action=65143.html method=post>
+<DIV><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE> </DIV>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</SCRIPT>
+
+<SCRIPT 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=JavaScript>
+									function ctlent(evt,id)
+											{
+												if(evt.ctrlKey && evt.keyCode == 13)
+												{	
+													try
+													{
+														TempSave(id);
+													}
+													catch(ex)
+													{
+													}
+													finally
+													{
+													    __doPostBack('AjaxHolder$PostComment$btnSubmit','')
+													}
+												}
+		
+												}</SCRIPT>
+
+<SCRIPT language=JavaScript>function SetReplyAuhor(author){document.getElementById('AjaxHolder_PostComment_tbComment').value+="@"+author+"\n";document.getElementById('AjaxHolder_PostComment_tbComment').focus();return false}</SCRIPT>
+
+<SCRIPT 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/ScriptResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="D:\SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files\ScriptResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="D:\SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files\ScriptResource(2).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</SCRIPT>
+<!--done-->
+<DIV id=home>
+<DIV id=header>
+<DIV id=blogTitle><A id=lnkBlogLogo 
+href="http://www.cnblogs.com/rippleyong/"><IMG id=blogLogo alt=返回主页 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/logo.gif"></A> 
+<!--done-->
+<H1><A class=headermaintitle id=Header1_HeaderTitle 
+href="http://www.cnblogs.com/rippleyong/">http://www.cnblogs.com/rippleyong/</A></H1>
+<H2>我喜欢面对计算机的那种感觉！因为我知道，在计算机前的时间越来越长，我就会成为更好的程序员<BR>
+<DIV style="FLOAT: left"><SPAN id=spd></SPAN></DIV>
+<SCRIPT language=javascript 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/spdshow.htm" 
+type=text/javascript charset=UTF-8></SCRIPT>
+</H2></DIV><!--end: blogTitle 博客的标题和副标题 -->
+<DIV id=navigator><!--done-->
+<UL id=navList>
+  <LI><A class=menu id=MyLinks1_HomeLink href="http://www.cnblogs.com/">博客园</A> 
+  </LI>
+  <LI><A class=menu id=MyLinks1_SpaceLink 
+  href="http://space.cnblogs.com/">社区</A> </LI>
+  <LI><A class=menu id=MyLinks1_MyHomeLink 
+  href="http://www.cnblogs.com/rippleyong/">首页</A> </LI>
+  <LI><A class=menu id=MyLinks1_NewPostLink 
+  href="http://www.cnblogs.com/rippleyong/admin/EditPosts.aspx?opt=1">新随笔</A> 
+  </LI>
+  <LI><A class=menu id=MyLinks1_ContactLink accessKey=9 
+  href="http://www.cnblogs.com/rippleyong/contact.aspx?id=1">联系</A> </LI>
+  <LI><A class=menu id=MyLinks1_Admin 
+  href="http://www.cnblogs.com/rippleyong/admin/EditPosts.aspx">管理</A> </LI>
+  <LI><A class=menu id=MyLinks1_Syndication 
+  href="http://www.cnblogs.com/rippleyong/rss">订阅</A> <A class=aHeaderXML 
+  id=MyLinks1_XMLLink href="http://www.cnblogs.com/rippleyong/rss"><IMG 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  alt=订阅 
+  src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/rss.gif"></A> 
+  </LI></UL>
+<DIV class=blogStats><!--done-->随笔- 120&nbsp; 文章- 27&nbsp; 评论- 433&nbsp; </DIV><!--end: blogStats --></DIV><!--end: navigator 博客导航栏 --></DIV><!--end: header 头部 -->
+<DIV id=main>
+<DIV id=mainContent>
+<DIV class=forFlow>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('AjaxHolder$scriptmanager1', document.getElementById('Form1'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls(['tAjaxHolder$UpdatePanel1'], [], [], 90);
+//]]>
+</SCRIPT>
+<!--done-->
+<DIV id=topics>
+<DIV class=post>
+<H1 class=postTitle><A class=postTitle2 id=AjaxHolder_ctl01_TitleUrl 
+href="http://www.cnblogs.com/rippleyong/archive/2004/11/18/65143.html">SQL 
+Server中汇总功能的使用GROUPING,ROLLUP和CUBE</A> </H1>
+<DIV class=clear></DIV>
+<DIV class=postBody>
+<P> </P>
+<P class=MsoNormal><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">第一次看到这样的</SPAN><SPAN 
+lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie">SQL</SPAN><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">语句</SPAN><SPAN 
+lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie">,</SPAN><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">看不懂</SPAN><SPAN 
+lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie">,</SPAN><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">其中用到了下面的不常用的</SPAN><SPAN 
+lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie"><O:P></O:P></SPAN> 
+</P>
+<P class=MsoNormal><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">聚集函数</SPAN><SPAN 
+lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie">:GROUPING<O:P></O:P></SPAN> 
+</P>
+<P class=MsoNormal><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">用于汇总数据用的运算符</SPAN><SPAN 
+lang=EN-US style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie">: 
+ROLLUP<O:P></O:P></SPAN> </P>
+<P class=MsoNormal></P>
+<DIV 
+style="BORDER-RIGHT: windowtext 0.5pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 0.5pt solid; PADDING-LEFT: 5.4pt; BACKGROUND: #e6e6e6; PADDING-BOTTOM: 4px; BORDER-LEFT: windowtext 0.5pt solid; WIDTH: 98%; WORD-BREAK: break-all; PADDING-TOP: 4px; BORDER-BOTTOM: windowtext 0.5pt solid">
+<DIV><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top><SPAN style="COLOR: #0000ff">SELECT</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;<BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top><BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top></SPAN><SPAN style="COLOR: #ff00ff">CASE</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #ff00ff">GROUPING</SPAN><SPAN 
+style="COLOR: #000000">(o.customerid)&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">WHEN</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">0</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">THEN</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;o.customerid&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">ELSE</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">(Total)</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">END</SPAN><SPAN style="COLOR: #000000">&nbsp;<BR><IMG 
+height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top><BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top></SPAN><SPAN style="COLOR: #0000ff">AS</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;AllCustomersSummary,&nbsp;<BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top><BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top></SPAN><SPAN style="COLOR: #ff00ff">CASE</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #ff00ff">GROUPING</SPAN><SPAN 
+style="COLOR: #000000">(od.orderid)&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">WHEN</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">0</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">THEN</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;od.orderid&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">ELSE</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN style="COLOR: #0000ff">END</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;<BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top><BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top></SPAN><SPAN style="COLOR: #0000ff">AS</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;IndividualCustomerSummary,&nbsp;<BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top><BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top></SPAN><SPAN style="COLOR: #ff00ff">SUM</SPAN><SPAN 
+style="COLOR: #000000">(od.quantity</SPAN><SPAN 
+style="COLOR: #808080">*</SPAN><SPAN 
+style="COLOR: #000000">od.unitprice)&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">AS</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;price&nbsp;<BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top><BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top></SPAN><SPAN style="COLOR: #0000ff">FROM</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;Orders&nbsp;o,&nbsp;</SPAN><SPAN 
+style="COLOR: #ff0000">[</SPAN><SPAN 
+style="COLOR: #ff0000">Order&nbsp;Details</SPAN><SPAN 
+style="COLOR: #ff0000">]</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;od&nbsp;<BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top><BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top></SPAN><SPAN style="COLOR: #0000ff">WHERE</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #ff00ff">Year</SPAN><SPAN 
+style="COLOR: #000000">(o.orderdate)&nbsp;</SPAN><SPAN 
+style="COLOR: #808080">=</SPAN><SPAN style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1998</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN style="COLOR: #808080">AND</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;od.orderid</SPAN><SPAN 
+style="COLOR: #808080">=</SPAN><SPAN 
+style="COLOR: #000000">o.orderid&nbsp;<BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top><BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top></SPAN><SPAN style="COLOR: #0000ff">GROUP</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN style="COLOR: #0000ff">BY</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;o.customerid,&nbsp;od.orderid&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">WITH</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;ROLLUP&nbsp;<BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top><BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top></SPAN><SPAN style="COLOR: #0000ff">ORDER</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN style="COLOR: #0000ff">BY</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;AllCustomersSummary&nbsp;<BR><IMG height=16 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/None.gif" 
+width=11 align=top></SPAN> </DIV></DIV>
+<P class=MsoNormal></P>
+<P class=MsoNormal><SPAN lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie"><O:P></O:P></SPAN> 
+</P>
+<P class=MsoNormal><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">查看</SPAN><SPAN 
+lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie">SQL 
+Server</SPAN><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">的帮助才发现</SPAN><SPAN 
+lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie">,</SPAN><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">厉害啊</SPAN><SPAN 
+lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie">,</SPAN><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">原来还有这么厉害的东西</SPAN><SPAN 
+lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie">,</SPAN><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">不由的想起以前做水晶报表的时候</SPAN><SPAN 
+lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie">,</SPAN><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">原来在</SPAN><SPAN 
+lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie">SQL 
+Server</SPAN><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">中就可以实现这样的功能</SPAN><SPAN 
+lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie">.<O:P></O:P></SPAN> 
+<BR><BR></P>
+<H1><A name=_generating_summary_rows_using_cube></A>1.用 CUBE 汇总数据</H1>
+<P>CUBE 
+运算符生成的结果集是多维数据集。多维数据集是事实数据的扩展，事实数据即记录个别事件的数据。扩展建立在用户打算分析的列上。这些列被称为维。多维数据集是一个结果集，其中包含了各维度的所有可能组合的交叉表格。</P>
+<P>CUBE 运算符在 SELECT 语句的 GROUP BY 子句中指定。该语句的选择列表应包含维度列和聚合函数表达式。GROUP BY 
+应指定维度列和关键字 WITH CUBE。结果集将包含维度列中各值的所有可能组合，以及与这些维度值组合相匹配的基础行中的聚合值。</P>
+<P>例如，一个简单的表 <B>Inventory </B>中包含： </P>
+<P class=MsoNormal></P><PRE>Item                 Color                Quantity                   
+-------------------- -------------------- -------------------------- 
+Table                Blue                 124                        
+Table                Red                  223                        
+Chair                Blue                 101                        
+Chair                Red                  210                        
+</PRE>
+<P>下列查询返回的结果集中，将包含 <B>Item</B> 和 <B>Color</B> 的所有可能组合的 <B>Quantity</B> 小计： </P>
+<P class=MsoNormal></P><PRE>SELECT Item, Color, SUM(Quantity) AS QtySum
+FROM Inventory
+GROUP BY Item, Color WITH CUBE
+</PRE>
+<P>下面是结果集：</P>
+<P class=MsoNormal></P><PRE>Item                 Color                QtySum                     
+-------------------- -------------------- -------------------------- 
+Chair                Blue                 101.00                     
+Chair                Red                  210.00                     
+Chair                (null)               311.00                     
+Table                Blue                 124.00                     
+Table                Red                  223.00                     
+Table                (null)               347.00                     
+(null)               (null)               658.00                     
+(null)               Blue                 225.00                     
+(null)               Red                  433.00                     
+</PRE>
+<P>我们着重考查下列各行：</P>
+<P class=MsoNormal></P><PRE>Chair                (null)               311.00                     
+</PRE>
+<P>这一行报告了 <B>Item</B> 维度中值为 Chair 的所有行的小计。对 <B>Color</B> 维度返回了 NULL 
+值，表示该行所报告的聚合包括 <B>Color</B> 维度为任意值的行。 </P>
+<P class=MsoNormal></P><PRE>Table                (null)               347.00                     
+</PRE>
+<P>这一行类似，但报告的是 <B>Item</B> 维度中值为 Table 的所有行的小计。 </P>
+<P class=MsoNormal></P><PRE>(null)               (null)               658.00                     
+</PRE>
+<P>这一行报告了多维数据集的总计。<B>Item</B> 和 <B>Color</B> 维度的值都是 NULL，表示两个维度中的所有值都汇总在该行中。 
+</P>
+<P class=MsoNormal></P><PRE>(null)               Blue                 225.00                     
+(null)               Red                  433.00                     
+</PRE>
+<P>这两行报告了 <B>Color</B> 维度的小计。两行中的 <B>Item</B> 维度值都是 NULL，表示聚合数据来自 <B>Item</B> 
+维度为任意值的行。 </P>
+<H5>使用 GROUPING 区分空值</H5>
+<P>CUBE 操作所生成的空值带来一个问题：如何区分 CUBE 操作所生成的 NULL 值和从实际数据中返回的 NULL 值？这个问题可用 GROUPING 
+函数解决。如果列中的值来自事实数据，则 GROUPING 函数返回 0；如果列中的值是 CUBE 操作所生成的 NULL，则返回 1。在 CUBE 
+操作中，所生成的 NULL 代表全体值。可将 SELECT 语句写成使用 GROUPING 函数将所生成的 NULL 替换为字符串 ALL。因为事实数据中的 
+NULL 表明数据值未知，所以 SELECT 语句还可译码为返回字符串 UNKNOWN 替代来自事实数据的 NULL。例如：</P>
+<P class=MsoNormal></P><PRE>SELECT CASE WHEN (GROUPING(Item) = 1) THEN 'ALL'
+            ELSE ISNULL(Item, 'UNKNOWN')
+       END AS Item,
+       CASE WHEN (GROUPING(Color) = 1) THEN 'ALL'
+            ELSE ISNULL(Color, 'UNKNOWN')
+       END AS Color,
+       SUM(Quantity) AS QtySum
+FROM Inventory
+GROUP BY Item, Color WITH CUBE
+</PRE>
+<H5>多维数据集</H5>
+<P>CUBE 运算符可用于生成 <I>n</I> 维的多维数据集，即具有任意数目维度的多维数据集。只有一个维度的多维数据集可用于生成合计，例如： </P>
+<P class=MsoNormal></P><PRE>SELECT CASE WHEN (GROUPING(Item) = 1) THEN 'ALL'
+            ELSE ISNULL(Item, 'UNKNOWN')
+       END AS Item,
+       SUM(Quantity) AS QtySum
+FROM Inventory
+GROUP BY Item WITH CUBE
+GO
+</PRE>
+<P>此 SELECT 语句返回的结果集既显示了 <B>Item</B> 中每个值的小计，也显示了 <B>Item</B> 中所有值的总计： </P>
+<P class=MsoNormal></P><PRE>Item                 QtySum                     
+-------------------- -------------------------- 
+Chair                311.00                     
+Table                347.00                     
+ALL                  658.00                     
+</PRE>
+<P>包含带有许多维度的 CUBE 的 SELECT 
+语句可能生成很大的结果集，因为这些语句会为所有维度中值的所有组合生成行。这些大结果集包含的数据可能过多而不易于阅读和理解。这个问题有一种解决办法是将 
+SELECT 语句放在视图中：</P>
+<P class=MsoNormal></P><PRE>CREATE VIEW InvCube AS
+SELECT CASE WHEN (GROUPING(Item) = 1) THEN 'ALL'
+            ELSE ISNULL(Item, 'UNKNOWN')
+       END AS Item,
+       CASE WHEN (GROUPING(Color) = 1) THEN 'ALL'
+            ELSE ISNULL(Color, 'UNKNOWN')
+       END AS Color,
+       SUM(Quantity) AS QtySum
+FROM Inventory
+GROUP BY Item, Color WITH CUBE
+</PRE>
+<P>然后即可用该视图来只查询您感兴趣的维度值：</P>
+<P class=MsoNormal></P><PRE>SELECT *
+FROM InvCube
+WHERE Item = 'Chair'
+  AND Color = 'ALL'
+
+Item                 Color                QtySum                     
+-------------------- -------------------- -------------------------- 
+Chair                ALL                  311.00                     
+
+(1 row(s) affected)
+</PRE>
+<P class=MsoNormal><BR><BR></P>
+<H1><A name=_generating_summary_rows_using_rollup></A>2.用 ROLLUP 汇总数据</H1>
+<P>在生成包含小计和合计的报表时，ROLLUP 运算符很有用。ROLLUP 运算符生成的结果集类似于 CUBE 运算符所生成的结果集。有关更多信息.</P>
+<P>CUBE 和 ROLLUP 之间的区别在于： </P>
+<UL type=disc>
+  <LI>CUBE 生成的结果集显示了所选列中值的所有组合的聚合。<BR><BR>
+  <LI>ROLLUP 生成的结果集显示了所选列中值的某一层次结构的聚合。 </LI></UL>
+<P>例如，简单表 <B>Inventory </B>中包含： </P>
+<P class=MsoNormal></P><PRE>Item                 Color                Quantity                   
+-------------------- -------------------- -------------------------- 
+Table                Blue                 124                        
+Table                Red                  223                        
+Chair                Blue                 101                        
+Chair                Red                  210                        
+</PRE>
+<P>下列查询将生成小计报表：</P>
+<P class=MsoNormal></P><PRE>SELECT CASE WHEN (GROUPING(Item) = 1) THEN 'ALL'
+            ELSE ISNULL(Item, 'UNKNOWN')
+       END AS Item,
+       CASE WHEN (GROUPING(Color) = 1) THEN 'ALL'
+            ELSE ISNULL(Color, 'UNKNOWN')
+       END AS Color,
+       SUM(Quantity) AS QtySum
+FROM Inventory
+GROUP BY Item, Color WITH ROLLUP
+
+Item                 Color                QtySum                     
+-------------------- -------------------- -------------------------- 
+Chair                Blue                 101.00                     
+Chair                Red                  210.00                     
+Chair                ALL                  311.00                     
+Table                Blue                 124.00                     
+Table                Red                  223.00                     
+Table                ALL                  347.00                     
+ALL                  ALL                  658.00                     
+
+(7 row(s) affected)
+</PRE>
+<P>如果查询中的 ROLLUP 关键字更改为 CUBE，那么 CUBE 结果集与上述结果相同，只是在结果集的末尾还会返回下列两行：</P>
+<P class=MsoNormal></P><PRE>ALL                  Blue                 225.00                     
+ALL                  Red                  433.00                     
+</PRE>
+<P>CUBE 操作为 <B>Item</B> 和 <B>Color</B> 中值的可能组合生成行。例如，CUBE 不仅报告与 <B>Item</B> 值 
+Chair 相组合的 <B>Color</B> 值的所有可能组合（Red、Blue 和 Red + Blue），而且报告与 <B>Color</B> 值 Red 
+相组合的 <B>Item</B> 值的所有可能组合（Chair、Table 和 Chair + Table）。 </P>
+<P>对于 GROUP BY 子句中右边的列中的每个值，ROLLUP 操作并不报告左边一列（或左边各列）中值的所有可能组合。例如，ROLLUP 并不对每个 
+<B>Color</B> 值报告 <B>Item</B> 值的所有可能组合。 </P>
+<P>ROLLUP 操作的结果集具有类似于 COMPUTE BY 所返回结果集的功能；然而，ROLLUP 具有下列优点： </P>
+<UL type=disc>
+  <LI>ROLLUP 返回单个结果集；COMPUTE BY 返回多个结果集，而多个结果集会增加应用程序代码的复杂性。<BR><BR>
+  <LI>ROLLUP 可以在服务器游标中使用；COMPUTE BY 不可以。<BR><BR>
+  <LI>有时，查询优化器为 ROLLUP 生成的执行计划比为 COMPUTE BY 生成的更为高效。 </LI></UL>
+<P class=MsoNormal><BR></P>
+<P class=MsoNormal><SPAN lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie"><O:P><BR>
+<H1><A name=_grouping></A>3.GROUPING</H1>
+<P>是一个聚合函数,它产生一个附加的列，当用 CUBE 或 ROLLUP 运算符添加行时，附加的列输出值为1，当所添加的行不是由 CUBE 或 ROLLUP 
+产生时，附加列值为0。</P>
+<P>仅在与包含 CUBE 或 ROLLUP 运算符的 GROUP BY 子句相联系的选择列表中才允许分组。</P>
+<H5>语法</H5>
+<P><CODE>GROUPING <B>(</B> <I>column_name </I><B>)</B></CODE> </P>
+<H5>参数</H5>
+<P><I>column_name</I> </P>
+<P class=indent>是 GROUP BY 子句中用于检查 CUBE 或 ROLLUP 空值的列。</P>
+<H5>返回类型</H5>
+<P><B>int</B> </P>
+<H5>注释</H5>
+<P>分组用于区分由 CUBE 和 ROLLUP 返回的空值和标准的空值。作为CUBE 或 ROLLUP 操作结果返回的 NULL 是 NULL 
+的特殊应用。它在结果集内作为列的占位符，意思是"全体"。</P>
+<H5>示例</H5>
+<P>下面的示例将 <B>royalty</B> 的数值分组，并聚合 <B>advance</B> 的数值。GROUPING 函数应用于 
+<B>royalty</B> 列。 </P>
+<P class=MsoNormal></P><PRE><CODE>USE pubs
+SELECT royalty, SUM(advance) 'total advance', 
+   GROUPING(royalty) 'grp'</CODE>
+   <CODE>FROM titles
+   GROUP BY royalty WITH ROLLUP</CODE>
+</PRE>
+<P>结果集在 <B>royalty </B>下显示两个空值。第一个 NULL 代表从表中这一列得到的空值组。第二个 NULL 在 ROLLUP 
+操作所添加的汇总行中。汇总行显示的是所有 <B>royalty</B> 组的 <B>advance</B> 合计数值，并且在 <B>grp</B> 列中用 1 
+标识。 </P>
+<P>下面是结果集：</P>
+<P class=MsoNormal></P><PRE><CODE>royalty        total advance              grp 
+---------      ---------------------    ---
+NULL           NULL                     0  
+10             57000.0000               0  
+12             2275.0000                0  
+14             4000.0000                0  
+16             7000.0000                0  
+24             25125.0000               0  
+NULL           95400.0000               1  
+</CODE></PRE>
+<P class=MsoNormal><BR>&nbsp; <BR></P></O:P></SPAN>
+<P></P>
+<H1><A name=_grouping></A>3.GROUPING</H1>
+<P>是一个聚合函数,它产生一个附加的列，当用 CUBE 或 ROLLUP 运算符添加行时，附加的列输出值为1，当所添加的行不是由 CUBE 或 ROLLUP 
+产生时，附加列值为0。</P>
+<P>仅在与包含 CUBE 或 ROLLUP 运算符的 GROUP BY 子句相联系的选择列表中才允许分组。</P>
+<H5>语法</H5>
+<P><CODE>GROUPING <B>(</B> <I>column_name </I><B>)</B></CODE> </P>
+<H5>参数</H5>
+<P><I>column_name</I> </P>
+<P class=indent>是 GROUP BY 子句中用于检查 CUBE 或 ROLLUP 空值的列。</P>
+<H5>返回类型</H5>
+<P><B>int</B> </P>
+<H5>注释</H5>
+<P>分组用于区分由 CUBE 和 ROLLUP 返回的空值和标准的空值。作为CUBE 或 ROLLUP 操作结果返回的 NULL 是 NULL 
+的特殊应用。它在结果集内作为列的占位符，意思是"全体"。</P>
+<H5>示例</H5>
+<P>下面的示例将 <B>royalty</B> 的数值分组，并聚合 <B>advance</B> 的数值。GROUPING 函数应用于 
+<B>royalty</B> 列。 </P>
+<P class=MsoNormal></P><PRE><CODE>USE pubs
+SELECT royalty, SUM(advance) 'total advance', 
+   GROUPING(royalty) 'grp'</CODE>
+   <CODE>FROM titles
+   GROUP BY royalty WITH ROLLUP</CODE>
+</PRE>
+<P>结果集在 <B>royalty </B>下显示两个空值。第一个 NULL 代表从表中这一列得到的空值组。第二个 NULL 在 ROLLUP 
+操作所添加的汇总行中。汇总行显示的是所有 <B>royalty</B> 组的 <B>advance</B> 合计数值，并且在 <B>grp</B> 列中用 1 
+标识。 </P>
+<P>下面是结果集：</P>
+<P class=MsoNormal></P><PRE><CODE>royalty        total advance              grp 
+---------      ---------------------    ---
+NULL           NULL                     0  
+10             57000.0000               0  
+12             2275.0000                0  
+14             4000.0000                0  
+16             7000.0000                0  
+24             25125.0000               0  
+NULL           95400.0000               1  
+</CODE></PRE>
+<P class=MsoNormal><BR>&nbsp; <BR></P>
+<P></P>
+<H1><A name=_grouping></A>3.GROUPING</H1>
+<P>是一个聚合函数,它产生一个附加的列，当用 CUBE 或 ROLLUP 运算符添加行时，附加的列输出值为1，当所添加的行不是由 CUBE 或 ROLLUP 
+产生时，附加列值为0。</P>
+<P>仅在与包含 CUBE 或 ROLLUP 运算符的 GROUP BY 子句相联系的选择列表中才允许分组。</P>
+<H5>语法</H5>
+<P><CODE>GROUPING <B>(</B> <I>column_name </I><B>)</B></CODE> </P>
+<H5>参数</H5>
+<P><I>column_name</I> </P>
+<P class=indent>是 GROUP BY 子句中用于检查 CUBE 或 ROLLUP 空值的列。</P>
+<H5>返回类型</H5>
+<P><B>int</B> </P>
+<H5>注释</H5>
+<P>分组用于区分由 CUBE 和 ROLLUP 返回的空值和标准的空值。作为CUBE 或 ROLLUP 操作结果返回的 NULL 是 NULL 
+的特殊应用。它在结果集内作为列的占位符，意思是"全体"。</P>
+<H5>示例</H5>
+<P>下面的示例将 <B>royalty</B> 的数值分组，并聚合 <B>advance</B> 的数值。GROUPING 函数应用于 
+<B>royalty</B> 列。 </P>
+<P class=MsoNormal></P><PRE><CODE>USE pubs
+SELECT royalty, SUM(advance) 'total advance', 
+   GROUPING(royalty) 'grp'</CODE>
+   <CODE>FROM titles
+   GROUP BY royalty WITH ROLLUP</CODE>
+</PRE>
+<P>结果集在 <B>royalty </B>下显示两个空值。第一个 NULL 代表从表中这一列得到的空值组。第二个 NULL 在 ROLLUP 
+操作所添加的汇总行中。汇总行显示的是所有 <B>royalty</B> 组的 <B>advance</B> 合计数值，并且在 <B>grp</B> 列中用 1 
+标识。 </P>
+<P>下面是结果集：</P>
+<P class=MsoNormal></P><PRE><CODE>royalty        total advance              grp 
+---------      ---------------------    ---
+NULL           NULL                     0  
+10             57000.0000               0  
+12             2275.0000                0  
+14             4000.0000                0  
+16             7000.0000                0  
+24             25125.0000               0  
+NULL           95400.0000               1  
+</CODE></PRE>
+<P class=MsoNormal><BR>&nbsp; <BR></P>
+<P></P>
+<H1>&nbsp;</H1>
+<P class=MsoNormal><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt"><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">对</SPAN><SPAN 
+lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie">GROUPING,ROLLUP,CUBE</SPAN><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">的介绍</SPAN>来自</SPAN><SPAN 
+lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie">SQL 
+Server2000</SPAN><SPAN 
+style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'; mso-bidi-font-size: 10.5pt">中文版的帮助</SPAN><SPAN 
+lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie">.</SPAN> 
+<BR></P>
+<P class=MsoNormal><SPAN lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie"><O:P><BR><BR>&nbsp;</O:P></SPAN> 
+</P>
+<H1 style="TEXT-JUSTIFY: inter-ideograph; TEXT-ALIGN: justify"><A 
+name=_generating_summary_rows_using_rollup></A><A name=_grouping></A></H1>
+<P class=MsoNormal><SPAN lang=EN-US 
+style="mso-bidi-font-size: 10.5pt; mso-fareast-font-family: Sophie"><O:P></O:P></SPAN> 
+</P></DIV>
+<DIV class=postDesc>posted @ 2004-11-18 10:36 <A 
+href="http://www.cnblogs.com/rippleyong/">涟漪勇</A> 阅读(1895) <A 
+href="http://www.cnblogs.com/rippleyong/archive/2004/11/18/65143.html#Post">评论(0)</A> 
+&nbsp;<A 
+href="http://www.cnblogs.com/rippleyong/admin/EditPosts.aspx?postid=65143">编辑</A> 
+<A href="http://www.cnblogs.com/rippleyong/AddToFavorite.aspx?id=65143">收藏</A> 
+<A onclick="PutInWz();return false;" 
+href="http://www.cnblogs.com/rippleyong/archive/2004/11/18/65143.html#">网摘</A> 
+所属分类: <A href="http://www.cnblogs.com/rippleyong/category/13340.html">06.SQL 
+Server</A> </DIV></DIV><IMG height=1 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/65143.jpg" 
+width=1> <!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://www.cnblogs.com/rippleyong/archive/2004/11/18/65143.html"
+dc:identifier="http://www.cnblogs.com/rippleyong/archive/2004/11/18/65143.html"
+dc:title="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE"
+trackback:ping="http://www.cnblogs.com/rippleyong/services/trackbacks/65143.aspx" />
+</rdf:RDF>
+--></DIV><!--end: topics 文章、评论容器-->
+<DIV id=AjaxHolder_UpdatePanel1>
+<STYLE>TD {
+	FONT-SIZE: 12px
+}
+.commentTextBox {
+	FONT-SIZE: 13px; FONT-FAMILY: Verdana
+}
+A.blue:visited {
+	COLOR: blue
+}
+A.blue:active {
+	COLOR: blue
+}
+A.blue:link {
+	COLOR: blue
+}
+A.blue:hover {
+	COLOR: blue
+}
+</STYLE>
+<!--Beging Temp Save-->
+<STYLE>.userData {
+	BEHAVIOR: url(#default#userdata)
+}
+</STYLE>
+
+<DIV class=userData id=CommentsPersistDiv></DIV>
+<SCRIPT type=text/javascript>
+function pageLoad()
+{
+    Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(handleInitializeRequest);
+    //Sys.WebForms.PageRequestManager.getInstance().add_endRequest(handleEndRequest);
+}
+
+function handleInitializeRequest(sender, args)
+{
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    var eid = args.get_postBackElement().id;
+    /*if (eid.indexOf("DeleteLink")>0) 
+    {
+       args.get_postBackElement().innerHTML = "<font color='red'>正在删除...</font>";         
+    }    
+    else */
+    if (eid.indexOf("btnSubmit")>0) 
+    {
+       document.getElementById("AjaxHolder_PostComment_ltSubmitMsg").innerHTML="正在提交...";
+       document.getElementById("AjaxHolder_PostComment_btnSubmit").disabled = true;       
+    }   
+    else if(eid.indexOf("refreshList")>0)
+    {
+        document.getElementById("AjaxHolder_PostComment_refreshList").innerHTML="<font color='red'>正在刷新...</font>";
+    }
+   
+}	
+
+function TempSave(ElementID)
+{
+	try
+	{
+	CommentsPersistDiv.setAttribute("CommentContent",document.getElementById(ElementID).value);
+	CommentsPersistDiv.save("CommentXMLStore");
+	}
+	catch(ex)
+	{
+	}
+	
+}
+function Restore(ElementID)
+{
+	CommentsPersistDiv.load("CommentXMLStore");
+	document.getElementById(ElementID).value=CommentsPersistDiv.getAttribute("CommentContent");
+}	
+			
+			
+</SCRIPT>
+<!--Ene TempSave-->
+<DIV id=divRefreshComments 
+style="FONT-SIZE: 12px; MARGIN-BOTTOM: 5px; MARGIN-RIGHT: 10px; TEXT-ALIGN: right"><A 
+href="http://www.cnblogs.com/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+id=AjaxHolder_PostComment_refreshList 
+href="javascript:__doPostBack('AjaxHolder$PostComment$refreshList','')">刷新评论列表</A>&nbsp;&nbsp;</DIV>
+<DIV class=commentform><SPAN id=AjaxHolder_PostComment_ltSubmitMsg 
+style="COLOR: red"></SPAN><BR><A name=Feedback></A>
+<TABLE style="WIDTH: 600px" cellSpacing=1 cellPadding=1 border=0>
+  <TBODY>
+  <TR>
+    <TD colSpan=3><BR>
+      <SCRIPT type=text/javascript><!--
+google_ad_client = "pub-4210569241504288";
+/* cnblogs_comment_box_top_468x60 */
+google_ad_slot = "7468723776";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</SCRIPT>
+
+      <SCRIPT 
+      src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/show_ads.js" 
+      type=text/javascript>
+</SCRIPT>
+      <BR><BR></TD></TR>
+  <TR>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD></TR>
+  <TR>
+    <TD width=55>标题</TD>
+    <TD colSpan=2><INPUT class=commenttb id=AjaxHolder_PostComment_tbTitle 
+      value="re: SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE" 
+      name=AjaxHolder$PostComment$tbTitle><SPAN 
+      id=AjaxHolder_PostComment_RequiredFieldValidator1 
+      style="VISIBILITY: hidden; COLOR: red">请输入标题</SPAN></TD></TR>
+  <TR>
+    <TD>姓名</TD>
+    <TD colSpan=2><INPUT class=commenttb id=AjaxHolder_PostComment_tbName 
+      name=AjaxHolder$PostComment$tbName><SPAN 
+      id=AjaxHolder_PostComment_RequiredFieldValidator2 
+      style="VISIBILITY: hidden; COLOR: red">请输入你的姓名</SPAN></TD></TR>
+  <TR>
+    <TD>主页</TD>
+    <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbUrl 
+      name=AjaxHolder$PostComment$tbUrl></TD>
+    <TD></TD></TR>
+  <TR id=AjaxHolder_PostComment_trEmail>
+    <TD>Email</TD>
+    <TD colSpan=2><INPUT class=commenttb id=AjaxHolder_PostComment_tbEmail 
+      name=AjaxHolder$PostComment$tbEmail>(博主才能看到)<SPAN 
+      id=AjaxHolder_PostComment_revContactMail 
+      style="VISIBILITY: hidden; COLOR: red">邮件地址无效</SPAN></TD></TR>
+  <TR>
+    <TD align=left colSpan=3>
+      <TABLE class=CommentForm id=AjaxHolder_PostComment_tbCaptchaImage 
+      cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD colSpan=3><SPAN 
+            id=AjaxHolder_PostComment_Requiredfieldvalidator4 
+            style="DISPLAY: none; COLOR: red">请输入验证码</SPAN> <SPAN 
+            id=AjaxHolder_PostComment_lblImage 
+            style="FONT-WEIGHT: bold; COLOR: red"></SPAN></TD></TR>
+        <TR>
+          <TD width=56>验证码</TD>
+          <TD colSpan=2><INPUT id=AjaxHolder_PostComment_CodeNumberTextBox 
+            style="WIDTH: 100px" 
+            name=AjaxHolder$PostComment$CodeNumberTextBox>*&nbsp;&nbsp;<IMG 
+            src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/JpegImage.jpg"><A 
+            id=AjaxHolder_PostComment_lkbChangeCode 
+            href="javascript:__doPostBack('AjaxHolder$PostComment$lkbChangeCode','')">看不清,换一张</A> 
+            [<A 
+            href="http://www.cnblogs.com/login.aspx?ReturnUrl=/rippleyong/archive/2004/11/18/65143.html">登录</A>][<A 
+            href="http://www.cnblogs.com/RequireRegister.aspx">注册</A>]</TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD style="TEXT-ALIGN: left" colSpan=3>
+      <DIV style="WIDTH: 600px">
+      <DIV class=divPostCommentBox>内容(请不要发表任何与政治相关的内容) <SPAN 
+      id=AjaxHolder_PostComment_RequiredFieldValidator3 
+      style="VISIBILITY: hidden; COLOR: red">请输入评论内容</SPAN><BR><TEXTAREA class=commentTextBox id=AjaxHolder_PostComment_tbComment onkeydown="ctlent(event,'AjaxHolder_PostComment_tbComment')" name=AjaxHolder$PostComment$tbComment></TEXTAREA> 
+      </DIV>
+      <DIV class=CommentBoxNav><A tabIndex=-1 href="http://www.cnblogs.com/" 
+      target=_blank>网站首页</A><BR><BR><A tabIndex=-1 
+      href="http://news.cnblogs.com/" target=_blank>新闻频道</A><BR><BR><A 
+      tabIndex=-1 href="http://space.cnblogs.com/" 
+      target=_blank>社区</A><BR><BR><A tabIndex=-1 
+      href="http://space.cnblogs.com/group.htm" target=_blank>小组</A><BR><BR><A 
+      tabIndex=-1 href="http://space.cnblogs.com/q" 
+      target=_blank>博问</A><BR><BR><A tabIndex=-1 href="http://wz.cnblogs.com/" 
+      target=_blank>网摘</A><BR><BR><A tabIndex=-1 href="http://job.cnblogs.com/" 
+      target=_blank>人才</A><BR><BR><A tabIndex=-1 href="http://zzk.cnblogs.com/" 
+      target=_blank>找找看</A><BR><BR></DIV></DIV></TD></TR>
+  <TR>
+    <TD colSpan=3><SPAN id=AjaxHolder_PostComment_Message 
+      style="COLOR: red"></SPAN></TD></TR>
+  <TR>
+    <TD colSpan=3><INPUT id=AjaxHolder_PostComment_chkRemember tabIndex=-1 
+      type=checkbox CHECKED name=AjaxHolder$PostComment$chkRemember><LABEL 
+      for=AjaxHolder_PostComment_chkRemember>Remember Me?</LABEL></TD></TR>
+  <TR>
+    <TD height=23><INPUT class=commentButton id=AjaxHolder_PostComment_btnSubmit onclick="TempSave('AjaxHolder_PostComment_tbComment');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;AjaxHolder$PostComment$btnSubmit&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" type=submit value=提交 name=AjaxHolder$PostComment$btnSubmit> 
+    </TD>
+    <TD colSpan=2 height=23>&nbsp; <A id=AjaxHolder_PostComment_lnkLogin 
+      href="http://www.cnblogs.com/login.aspx?ReturnURL=http://www.cnblogs.com/rippleyong/archive/2004/11/18/65143.html&amp;SourceURL=/rippleyong/archive/2004/11/18/65143.html">登录</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_PostComment_linkLoginComment 
+      onclick="if(document.getElementById('AjaxHolder_PostComment_tbComment').value != '') return confirm('未提交的评论内容将会丢失, 你真的要进入高级评论吗?');" 
+      href="http://www.cnblogs.com/rippleyong/archive/2004/11/18/65143.html?login=1#Post">使用高级评论</A>&nbsp;&nbsp;<A 
+      href="http://www.cnblogs.com/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+      href="http://www.cnblogs.com/rippleyong/archive/2004/11/18/65143.html#Top">返回页首</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_PostComment_lbRestore 
+      onclick="Restore('AjaxHolder_PostComment_tbComment'); return false;" 
+      href="http://www.cnblogs.com/rippleyong/archive/2004/11/18/65143.html#Post">恢复上次提交</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </TD></TR>
+  <TR>
+    <TD colSpan=3><LABEL class=CtrlEnter>[使用Ctrl+Enter键可以直接提交]</LABEL></TD></TR>
+  <TR>
+    <TD colSpan=3>该文被作者在 2004-11-18 11:03 编辑过</TD></TR>
+  <TR>
+    <TD colSpan=3></TD></TR>
+  <TR>
+    <TD colSpan=3></TD></TR>
+  <TR>
+    <TD colSpan=3><A href="http://www.cnblogs.com/search.aspx" 
+      target=_blank>Google站内搜索</A></TD></TR>
+  <TR>
+    <TD colSpan=3><A 
+      href="http://www.cnblogs.com/bookshop/archive/2008/11/27/1342446.html" 
+      target=_blank><IMG 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/wtjs_200_100.jpg"></A><A 
+      href="http://booksubject.cnblogs.com/DesignPatterns/" target=_blank><IMG 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/desing_patterns_300.jpg"></A></TD></TR>
+  <TR>
+    <TD colSpan=3><A href="http://a4.yeshj.com/rd/19973/" target=_blank><IMG 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/YU-D-S1P-19973_15.gif"></A><BR><A 
+      href="http://www.china-pub.com/itbook/" target=_blank>China-pub 
+      计算机图书网上专卖店！6.5万品种 2-8折！</A><BR><A 
+      href="http://www.china-pub.com/static/zt_mb/zt_huodong_07_secondhandbook.asp?filename=jsj_hzold_081029" 
+      target=_blank>近千种 9-95 新二手计算图书火热销售中！</A><BR><A 
+      href="http://booksubject.cnblogs.com/DesignPatterns/" 
+      target=_blank>开发者征途系统新作：《设计模式——基于C#的工程化实现及扩展》</A> </TD></TR>
+  <TR>
+    <TD colSpan=3 height=5></TD></TR>
+  <TR>
+    <TD colSpan=3><BR>
+      <DIV id=relative_posts><B>相关文章:</B><BR>
+      <SCRIPT language=javascript 
+      src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/RCS.htm" 
+      type=text/javascript charset=utf-8></SCRIPT>
+      </DIV></TD></TR>
+  <TR>
+    <TD colSpan=3>
+      <DIV id=div_a4_ads><BR><B>相关链接:</B>
+      <SCRIPT type=text/javascript>
+	        var title = document.title;
+	        document.write("<div id=\"a4_ads_output\">");
+	        document.write("<script type='text/javascript' src='http://a4.yeshj.com/adwords/EN017?num=7&title="+ encodeURIComponent(title) +"&tag="+ encodeURIComponent(GetMeta("keywords")) +"'></scri"+"pt>");
+	        document.write("</div>");
+	        </SCRIPT>
+       </DIV></TD></TR>
+  <TR>
+    <TD colSpan=3></TD></TR>
+  <TR>
+    <TD colSpan=3>
+      <DIV id=AjaxHolder_PostComment_RelativePosts1_divRelativePosts 
+      style="MARGIN-TOP: 2px"><BR><B>所属分类的其他文章:</B><BR><SPAN 
+      style="LIST-STYLE-TYPE: none"><A 
+      href="http://www.cnblogs.com/rippleyong/archive/2005/01/31/99903.html">SQL语句导入导出大全 
+      </A><BR></SPAN><SPAN style="DISPLAY: none; LIST-STYLE-TYPE: none"><A 
+      href="http://www.cnblogs.com/rippleyong/archive/2004/11/18/65143.html">SQL 
+      Server中汇总功能的使用GROUPING,ROLLUP和CUBE</A><BR></SPAN><SPAN 
+      style="LIST-STYLE-TYPE: none"><A 
+      href="http://www.cnblogs.com/rippleyong/archive/2004/10/08/49941.html">几个SQL 
+      server登陆,登录,用户,角色和组用到的系统存储过程</A><BR></SPAN></DIV>
+      <DIV class=itnews><BR><B>最新IT新闻:</B><BR><A 
+      href="http://news.cnblogs.com/n/43745/" 
+      target=_blank>51.com否认彩虹软件改名</A><BR><A 
+      href="http://news.cnblogs.com/n/43744/" target=_blank>彩虹QQ正式更名51彩虹 
+      称“上QQ从51彩虹开始”</A><BR><A href="http://news.cnblogs.com/n/43742/" 
+      target=_blank>Jadu: 将 PHP 编译成 .NET</A><BR><A 
+      href="http://news.cnblogs.com/n/43741/" 
+      target=_blank>开心网遭多个山寨版复制围抢用户</A><BR><A 
+      href="http://news.cnblogs.com/n/43740/" target=_blank>微软表示Windows 
+      7将直接在CPU上跑DirectX 10</A><BR></DIV></TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>&nbsp;</TD></TR>
+  <TR>
+    <TD colSpan=3 height=5></TD></TR>
+  <TR>
+    <TD colSpan=3 height=1></TD></TR>
+  <TR>
+    <TD colSpan=3></TD></TR>
+  <TR>
+    <TD colSpan=3></TD></TR></TBODY></TABLE></DIV>
+<DIV id=AjaxHolder_PostComment_ValidationSummary1 
+style="DISPLAY: none; COLOR: red"></DIV></DIV>
+<SCRIPT language=javascript>
+
+function GetQuote(id)
+{
+    //www.cnblogs.com.ICommentService.GetCommentText(id,SetQuote);
+    BlogServer.WebService.AjaxWS.GetComment(id,SetQuote);
+}
+
+ function SetQuote(result)
+{
+    document.getElementById('AjaxHolder_PostComment_tbComment').value+= ("--引用--------------------------------------------------\n"+result+"\n--------------------------------------------------------\n");
+    document.getElementById('AjaxHolder_PostComment_tbComment').focus(); 
+}
+
+function Favorite(entryID,title,url,element)
+{
+    document.getElementById(element.id).innerHTML = "<span style='color:red'>正在收藏...</span>";
+    BlogServer.WebService.AjaxWS.AddToFavorites(entryID,title,url,OnFavoriteSuccess);
+    document.getElementById(element.id).removeAttribute("href");
+    document.getElementById(element.id).removeAttribute("onclick");
+}
+
+function OnFavoriteSuccess(result)
+{
+    if(result == "请先登录")
+    {
+        window.location.href = "../../../../../login.aspx?ReturnUrl=" + window.location.href;
+    }
+    else
+    {
+        var returnstr = result.split(",");
+        var id = "lnkFavorite"+returnstr[0];
+        document.getElementById(id).innerHTML = "<span style='color:red'>" + returnstr[1] + "</span>";
+    }
+}
+
+function DelComment(id,element)
+{
+    if(confirm("确认要删除该评论吗?"))
+    {
+        document.getElementById(element.id).innerHTML = "<span style='color:red'>正在删除...</span>";
+        BlogServer.WebService.AjaxWS.DelComment(id,del_comment_callback);
+    }
+    return false;
+}
+
+function del_comment_callback(response)
+{
+    __doPostBack('AjaxHolder$PostComment$refreshList','');
+}
+</SCRIPT>
+</DIV><!--end: forFlow --></DIV><!--end: mainContent 主体内容容器-->
+<DIV id=sideBar>
+<DIV id=sideBarMain><!--done-->
+<DIV class=newsItem>
+<H3 class=catListTitle>公告</H3><IMG alt="" 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/o_dd.jpg" 
+width=150 border=0 hight="109"><BR>
+<P><A href="http://www.cnblogs.com/rippleyong"></A></P><SPAN 
+style="COLOR: #0000ff">Any content on this site is provided "AS IS" with no 
+warranties, and confers no rights. Additionally, all content on this site is my 
+own personal opinion and does not represent my employer's view in anyway.</SPAN> 
+
+<HR style="COLOR: red; HEIGHT: 1px">
+我为自己是水中荡起的波纹而快乐,那就是涟漪勇,就是rippleyong. 
+我喜欢面对计算机的那种感觉!因为我知道,在计算机前的时间越来越长,我就会成为更好的程序员. 
+<HR style="COLOR: red; HEIGHT: 1px">
+<STRONG>Location:LuoYang<BR>rippleyong#126.com</FONT></STRONG><BR><A 
+href="http://www.cnweblog.com/rippleyong/"><FONT face=Verdana color=#ff0000 
+size=1>Other Face</FONT></A><FONT face=Verdana color=#0000ff size=1>ON</FONT><A 
+href="http://www.cnweblog.com/"><FONT face=Verdana color=#ff0000 
+size=1>CNWeBlog</FONT></A> 
+<HR style="COLOR: red; HEIGHT: 1px">
+
+<SCRIPT type=text/JavaScript> 
+alimama_pid="mm_10399439_872028_1778449"; 
+alimama_titlecolor="0000FF"; 
+alimama_descolor ="000000"; 
+alimama_bgcolor="FFFFFF"; 
+alimama_bordercolor="E6E6E6"; 
+alimama_linkcolor="008000"; 
+alimama_bottomcolor="FFFFFF"; 
+alimama_anglesize="0"; 
+alimama_bgpic="0"; 
+alimama_icon="0"; 
+alimama_sizecode="31"; 
+alimama_width=180; 
+alimama_height=250; 
+alimama_type=2; 
+</SCRIPT>
+
+<SCRIPT 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/inf.js" 
+type=text/javascript> 
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+var pageTracker = _gat._getTracker("UA-1051632-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</SCRIPT>
+</DIV>
+<DIV id=leftcontentcontainer>
+<DIV class=catListInteraction>
+<H3 class=catListTitle>与我联系</H3>
+<UL>
+  <LI><A class=sendMsg id=SingleColumn1_ctl00_lnkSendMsg 
+  href="http://space.cnblogs.com/msg/send/æ¶æ¼ªå">发短消息</A> </LI></UL></DIV>
+<SCRIPT type=text/javascript>
+function zzk_go()
+{
+	var blogapp = 'rippleyong';
+	var keystr = encodeURIComponent("blog:"+blogapp+" "+document.getElementById('q').value);
+    window.location = "http://zzk.cnblogs.com/s?w="+keystr;
+}
+function zzk_go_enter(event)
+{
+	if(event.keyCode == 13)
+	{
+	    zzk_go();
+	    return false;
+	}
+}
+</SCRIPT>
+
+<DIV class=mySearch>
+<H3 class=catListTitle>搜索</H3>
+<DIV class=div_my_zzk><INPUT class=input_my_zzk id=q 
+onkeydown="return zzk_go_enter(event);">&nbsp;<INPUT class=btn_my_zzk id=btnZzk onclick=zzk_go() type=button value=找找看></DIV></DIV>
+<DIV class=catListLink>
+<H3 class=catListTitle>常用链接</H3>
+<UL>
+  <LI><A id=SingleColumn1_ctl02_rptMainLinks_ctl00_lnkLinkItem 
+  href="http://www.cnblogs.com/rippleyong/MyPosts.html">我的随笔</A> 
+  <LI><A id=SingleColumn1_ctl02_rptMainLinks_ctl01_lnkLinkItem 
+  href="http://space.cnblogs.com/rippleyong">我的空间</A> 
+  <LI><A id=SingleColumn1_ctl02_rptMainLinks_ctl02_lnkLinkItem 
+  href="http://space.cnblogs.com/msg/recent">我的短信</A> 
+  <LI><A id=SingleColumn1_ctl02_rptMainLinks_ctl03_lnkLinkItem 
+  href="http://www.cnblogs.com/rippleyong/MyComments.html">我的评论</A> 
+  <LI><A id=itemListLink 
+  onclick="this.blur();WarpClass('itemListLink', 'itemListLin_con');return false;" 
+  href="http://www.cnblogs.com/rippleyong/archive/2004/11/18/65143.html#">更多链接</A> 
+  </LI></UL>
+<DIV id=itemListLin_con style="DISPLAY: none">
+<UL>
+  <LI><A id=SingleColumn1_ctl02_repeaterLinks_ctl00_lnkLinkItem title=我发表过评论的随笔 
+  href="http://www.cnblogs.com/rippleyong/OtherPosts.html">我的参与</A> 
+  <LI><A id=SingleColumn1_ctl02_repeaterLinks_ctl01_lnkLinkItem 
+  href="http://www.cnblogs.com/rippleyong/MyNews.html">我的新闻</A> 
+  <LI><A id=SingleColumn1_ctl02_repeaterLinks_ctl02_lnkLinkItem 
+  href="http://www.cnblogs.com/rippleyong/RecentComments.html">最新评论</A> 
+  <LI><A id=SingleColumn1_ctl02_repeaterLinks_ctl03_lnkLinkItem 
+  href="http://www.cnblogs.com/rippleyong/tag/">我的标签</A> </LI></UL></DIV></DIV>
+<DIV class=catListNoteBook>
+<H3 class=catListTitle>留言簿</H3>
+<UL>
+  <LI><A class=sendMSG id=SingleColumn1_ctl03_lnkMessages 
+  href="http://www.cnblogs.com/rippleyong/Contact.aspx?id=1">给我留言</A> <!--<li><a id="SingleColumn1_ctl03_lnkPublicMsgView" class="viewPubMSG" href="http://www.cnblogs.com/rippleyong/default.aspx?opt=msg">查看公开留言</a><span style="font-size:11px;font-weight:normal;">(22)</span></li>-->
+  <LI><A class=viewPerMSG id=SingleColumn1_ctl03_lnkPrivateMsgView 
+  href="http://www.cnblogs.com/rippleyong/admin/MyMessages.aspx" 
+  target=_blank>查看留言</A> </LI></UL></DIV>
+<DIV class=catListMyTeams id=SingleColumn1__4019151b4022_panelMyManageGroups>
+<H3 class=catListTitle>我管理的小组</H3>
+<UL>
+  <LI><A href="http://space.cnblogs.com/group/WebControls/">ASP.NET服务器控件和组件</A> 
+  </LI></UL></DIV>
+<DIV class=catListMyTeams id=SingleColumn1__4019151b4022_panelMyAttendGroups>
+<H3 class=catListTitle>我参加的小组</H3>
+<UL>
+  <LI><A href="http://space.cnblogs.com/group/aspnet/">ASP.NET</A> 
+  <LI><A href="http://space.cnblogs.com/group/chuangye/">创业交流</A> 
+  <LI><A href="http://space.cnblogs.com/group/100319/">WCF技术研究</A> 
+</LI></UL></DIV></ASP:PANEL>
+<DIV class=catListMyTeams>
+<H3 class=catListTitle>我参与的团队</H3>
+<UL>
+  <LI><A id=SingleColumn1_ctl05_TeamList_ctl00_lnkTeam 
+  href="http://dnn.cnblogs.com/">DNN团队博客(0/372)</A> </LI></UL></DIV>
+<DIV class=catListPostCategory>
+<H3 class=catListTitle>随笔分类<SPAN 
+style="FONT-WEIGHT: normal; FONT-SIZE: 11px">(117)</SPAN></H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_Link 
+  href="http://www.cnblogs.com/rippleyong/category/4900.html">01.DotNet(51)</A> 
+  <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_RssLink 
+  title="Subscribe to 01.DotNet(51)" 
+  href="http://www.cnblogs.com/rippleyong/category/4900.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_Link 
+  href="http://www.cnblogs.com/rippleyong/category/4902.html">02.My Life(17)</A> 
+  <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_RssLink 
+  title="Subscribe to 02.My Life(17)" 
+  href="http://www.cnblogs.com/rippleyong/category/4902.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_Link 
+  href="http://www.cnblogs.com/rippleyong/category/4901.html">03.My 
+  Question(8)</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_RssLink 
+  title="Subscribe to 03.My Question(8)" 
+  href="http://www.cnblogs.com/rippleyong/category/4901.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_Link 
+  href="http://www.cnblogs.com/rippleyong/category/5500.html">04.Learn 
+  English(5)</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_RssLink 
+  title="Subscribe to 04.Learn English(5)" 
+  href="http://www.cnblogs.com/rippleyong/category/5500.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_Link 
+  href="http://www.cnblogs.com/rippleyong/category/6914.html">05.Other 
+  Tech(6)</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_RssLink 
+  title="Subscribe to 05.Other Tech(6)" 
+  href="http://www.cnblogs.com/rippleyong/category/6914.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_Link 
+  href="http://www.cnblogs.com/rippleyong/category/13340.html">06.SQL 
+  Server(3)</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_RssLink 
+  title="Subscribe to 06.SQL Server(3)" 
+  href="http://www.cnblogs.com/rippleyong/category/13340.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl07_Link 
+  href="http://www.cnblogs.com/rippleyong/category/13344.html">07.z7z8(7)</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl07_RssLink 
+  title="Subscribe to 07.z7z8(7)" 
+  href="http://www.cnblogs.com/rippleyong/category/13344.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl08_Link 
+  href="http://www.cnblogs.com/rippleyong/category/13718.html">08.DotNetNuke(1)</A> 
+  <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl08_RssLink 
+  title="Subscribe to 08.DotNetNuke(1)" 
+  href="http://www.cnblogs.com/rippleyong/category/13718.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl09_Link 
+  href="http://www.cnblogs.com/rippleyong/category/15562.html">09.MapPoint(3)</A> 
+  <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl09_RssLink 
+  title="Subscribe to 09.MapPoint(3)" 
+  href="http://www.cnblogs.com/rippleyong/category/15562.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl10_Link 
+  href="http://www.cnblogs.com/rippleyong/category/16682.html">10.JavaScript(10)</A> 
+  <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl10_RssLink 
+  title="Subscribe to 10.JavaScript(10)" 
+  href="http://www.cnblogs.com/rippleyong/category/16682.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl11_Link 
+  href="http://www.cnblogs.com/rippleyong/category/21863.html">11.Tech 
+  News(3)</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl11_RssLink 
+  title="Subscribe to 11.Tech News(3)" 
+  href="http://www.cnblogs.com/rippleyong/category/21863.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl12_Link 
+  href="http://www.cnblogs.com/rippleyong/category/52641.html">12.Enterprise 
+  Library 2.0(3)</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl12_RssLink 
+  title="Subscribe to 12.Enterprise Library 2.0(3)" 
+  href="http://www.cnblogs.com/rippleyong/category/52641.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl13_Link 
+  href="http://www.cnblogs.com/rippleyong/category/91072.html">13.CSS</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl13_RssLink 
+  title="Subscribe to 13.CSS" 
+  href="http://www.cnblogs.com/rippleyong/category/91072.html/rss">(rss)</A> 
+  </LI></UL></DIV>
+<DIV class=catListArticleCategory>
+<H3 class=catListTitle>文章分类<SPAN 
+style="FONT-WEIGHT: normal; FONT-SIZE: 11px">(19)</SPAN></H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_Link 
+  href="http://www.cnblogs.com/rippleyong/category/13341.html">Emotion(3)</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_RssLink 
+  title="Subscribe to Emotion(3)" 
+  href="http://www.cnblogs.com/rippleyong/category/13341.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl02_Link 
+  href="http://www.cnblogs.com/rippleyong/category/21781.html">HTML(3)</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl02_RssLink 
+  title="Subscribe to HTML(3)" 
+  href="http://www.cnblogs.com/rippleyong/category/21781.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl03_Link 
+  href="http://www.cnblogs.com/rippleyong/category/13342.html">Life(1)</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl03_RssLink 
+  title="Subscribe to Life(1)" 
+  href="http://www.cnblogs.com/rippleyong/category/13342.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl04_Link 
+  href="http://www.cnblogs.com/rippleyong/category/13343.html">z7z8(12)</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl04_RssLink 
+  title="Subscribe to z7z8(12)" 
+  href="http://www.cnblogs.com/rippleyong/category/13343.html/rss">(rss)</A> 
+  </LI></UL></DIV>
+<DIV class=catListImageCategory>
+<H3 class=catListTitle>相册</H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl01_Link 
+  href="http://www.cnblogs.com/rippleyong/gallery/23269.html">BeiJing</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl02_Link 
+  href="http://www.cnblogs.com/rippleyong/gallery/19291.html">LuoYang</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl03_Link 
+  href="http://www.cnblogs.com/rippleyong/gallery/19290.html">wedding</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl04_Link 
+  href="http://www.cnblogs.com/rippleyong/gallery/19292.html">贝贝</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl05_Link 
+  href="http://www.cnblogs.com/rippleyong/gallery/17565.html">我的photo</A> 
+</LI></UL></DIV>
+<DIV class=catListFavoritCategory>
+<H3 class=catListTitle>收藏夹<SPAN 
+style="FONT-WEIGHT: normal; FONT-SIZE: 11px">(44)</SPAN></H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl01_Link 
+  href="http://www.cnblogs.com/rippleyong/favorite/5406.html">CNBlog收藏夹(28)</A> 
+  <A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl01_RssLink 
+  title="Subscribe to CNBlog收藏夹(28)" 
+  href="http://www.cnblogs.com/rippleyong/favorite/5406.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl02_Link 
+  href="http://www.cnblogs.com/rippleyong/favorite/69467.html">Control (1)</A> 
+  <A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl02_RssLink 
+  title="Subscribe to Control (1)" 
+  href="http://www.cnblogs.com/rippleyong/favorite/69467.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl03_Link 
+  href="http://www.cnblogs.com/rippleyong/favorite/19106.html">DotNet 
+  Tech(12)</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl03_RssLink 
+  title="Subscribe to DotNet Tech(12)" 
+  href="http://www.cnblogs.com/rippleyong/favorite/19106.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl04_Link 
+  href="http://www.cnblogs.com/rippleyong/favorite/19105.html">z7z8(3)</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl04_RssLink 
+  title="Subscribe to z7z8(3)" 
+  href="http://www.cnblogs.com/rippleyong/favorite/19105.html/rss">(rss)</A> 
+  </LI></UL></DIV>
+<DIV class=catList>
+<H3 class=catListTitle>.</H3>
+<UL></UL></DIV>
+<DIV class=catList>
+<H3 class=catListTitle>......</H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl05_LinkList_ctl01_Link 
+  href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/netstart/html/cpconGlossary.asp">.NET 
+  Framework Glossary</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl05_LinkList_ctl02_Link 
+  href="http://www.microsoft.com/china/msdn/vstudio/glossary/default.mspx">Visual 
+  Studio.NET 术语表</A> </LI></UL></DIV>
+<DIV class=catList>
+<H3 class=catListTitle>.NET Code Wise Community</H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl01_Link 
+  href="http://www.dotnet247.com/">.NET247</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl02_Link 
+  href="http://www.4guysfromrolla.com/">4GuysFromRolla</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl03_Link 
+  href="http://www.angrycoder.com/">AngryCoder</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl04_Link 
+  href="http://aspadvice.com/">AspAdvice</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl05_Link 
+  href="http://aspalliance.com/">AspAlliance</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl06_Link 
+  href="http://www.codeproject.com/">CodeProject</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl07_Link 
+  href="http://www.devcity.net/net/">devCity.NET</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl08_Link 
+  href="http://www.devx.com/">DevX</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl09_Link 
+  href="http://www.dotnetjunkies.com/">DotNetJunkies</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl10_Link 
+  href="http://www.sqljunkies.com/">SqlJunkies</A> </LI></UL></DIV>
+<DIV class=catList>
+<H3 class=catListTitle>.Net Knowledge</H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl07_LinkList_ctl01_Link 
+  href="http://www.dnzone.com/">DotNet Zone</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl07_LinkList_ctl02_Link 
+  href="http://www.dotnetnuke.com/">DotNetNuck</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl07_LinkList_ctl03_Link 
+  href="http://www.gotdotnet.com/">GotDotNet</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl07_LinkList_ctl04_Link 
+  href="http://msdn.microsoft.com/">MSDN</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl07_LinkList_ctl05_Link 
+  href="http://www.microsoft.com/china/msdn/">MSDN中文网站</A> </LI></UL></DIV>
+<DIV class=catList>
+<H3 class=catListTitle>Football site</H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl08_LinkList_ctl01_Link 
+  href="http://www.fcbayern.t-com.de/de/index.php">【德】拜仁慕尼黑</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl08_LinkList_ctl02_Link 
+  href="http://www.borussia-dortmund.cn/">【德】多特蒙德</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl08_LinkList_ctl03_Link 
+  href="http://www.schalke04.de/">【德】沙尔克04</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl08_LinkList_ctl04_Link 
+  href="http://www.fcbarcelona.com/">【西】巴塞罗那</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl08_LinkList_ctl05_Link 
+  href="http://www.realmadrid.com/">【西】皇家马德里</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl08_LinkList_ctl06_Link 
+  href="http://www.acmilan.com/">【意】AC米兰</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl08_LinkList_ctl07_Link 
+  href="http://www.inter.it/">【意】国际米兰</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl08_LinkList_ctl08_Link 
+  href="http://www.asromacalcio.it/">【意】罗马</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl08_LinkList_ctl09_Link 
+  href="http://www.juventus.com/">【意】尤文图斯</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl08_LinkList_ctl10_Link 
+  href="http://www.arsenal.com/i">【英】阿森那</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl08_LinkList_ctl11_Link 
+  href="http://www.mcfc.co.uk/">【英】曼彻斯特城队</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl08_LinkList_ctl12_Link 
+  href="http://www.manutd.com/">【英】曼彻斯特联队</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl08_LinkList_ctl13_Link 
+  href="http://www.fifa.com/">FIFA.COM</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl08_LinkList_ctl14_Link 
+  href="http://www.footballasia.com/">FootballAsia</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl08_LinkList_ctl15_Link 
+  href="http://www.uefa.com/">UEFA.COM</A> </LI></UL></DIV>
+<DIV class=catList>
+<H3 class=catListTitle>Life Friend</H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl09_LinkList_ctl01_Link 
+  href="http://www.cnblogs.com/dyx1001">邓颖新 </A><A 
+  id=SingleColumn1_Categories_CatList_ctl09_LinkList_ctl01_RssLink 
+  title="Subscribe to 邓颖新 " 
+  href="http://www.cnblogs.com/dyx1001/CommentsRSS.aspx">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl09_LinkList_ctl02_Link 
+  href="http://www.cnblogs.com/chater/">花心小刺猬</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl09_LinkList_ctl02_RssLink 
+  title="Subscribe to 花心小刺猬" 
+  href="http://www.cnblogs.com/chater/Rss.aspx">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl09_LinkList_ctl03_Link 
+  href="http://www.cnblogs.com/changyu992">渴望成长</A> <A 
+  id=SingleColumn1_Categories_CatList_ctl09_LinkList_ctl03_RssLink 
+  title="Subscribe to 渴望成长" 
+  href="http://www.cnblogs.com/changyu992/Rss.aspx">(rss)</A> </LI></UL></DIV>
+<DIV class=catList>
+<H3 class=catListTitle>Tech Friend</H3>
+<UL></UL></DIV>
+<DIV class=catList>
+<H3 class=catListTitle>z7z8</H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl11_LinkList_ctl01_Link 
+  href="http://gmail.google.com/">GMail</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl11_LinkList_ctl02_Link 
+  href="http://12.173.57.28/timesheet/">TimeSheet</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl11_LinkList_ctl03_Link 
+  href="http://www.delphibbs.com/">令我怀念的大富翁论坛</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl11_LinkList_ctl04_Link 
+  href="http://bbs.ly.ha.cn/">洛阳BBS</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl11_LinkList_ctl05_Link 
+  href="http://www.wwenglish.com/">旺旺英语</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl11_LinkList_ctl06_Link 
+  href="http://zh.wikipedia.org/">维基百科</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl11_LinkList_ctl07_Link 
+  href="http://www.xinhuanet.com/">新华网</A> </LI></UL></DIV>
+<DIV class=catListBlogRank>
+<H3 class=catListTitle>积分与排名</H3>
+<UL>
+  <LI class=liScore>积分 - 250517 
+  <LI class=liRank>排名 - 136 </LI></UL></DIV>
+<DIV class=catListView>
+<H3 class=catListTitle>阅读排行榜</H3>
+<UL>
+  <LI><A id=SingleColumn1__293210_TopList_ctl01_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2005/01/31/99913.html">1.&nbsp;烫发种类大集合(20718)</A> 
+
+  <LI><A id=SingleColumn1__293210_TopList_ctl02_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2004/06/24/18261.html">2.&nbsp;在网页间传递参数的两种常用方法:Querystring和session。(11465)</A> 
+
+  <LI><A id=SingleColumn1__293210_TopList_ctl03_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2004/07/26/27392.html">3.&nbsp;网页设计中的自动换行问题 
+  [](9438)</A> 
+  <LI><A id=SingleColumn1__293210_TopList_ctl04_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2005/01/27/98168.html">4.&nbsp;网页中时间选取功能的实现(Popup 
+  calender).(7084)</A> 
+  <LI><A id=SingleColumn1__293210_TopList_ctl05_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2004/07/29/28358.html">5.&nbsp;让网页中的格式保持的好好的，网页固定格式的处理(6424)</A> 
+
+  <LI><A id=SingleColumn1__293210_TopList_ctl06_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2005/02/17/105087.html">6.&nbsp;介绍几款Web 
+  TimeSheet相关的软件(6306)</A> 
+  <LI><A id=SingleColumn1__293210_TopList_ctl07_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2006/05/26/410199.html">7.&nbsp;[JavaScript]利用JavaScript控制table中row的显示(5232)</A> 
+
+  <LI><A id=SingleColumn1__293210_TopList_ctl08_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2004/08/10/31977.html">8.&nbsp;用ASP.NET创建和保存图片到数据库(5067)</A> 
+
+  <LI><A id=SingleColumn1__293210_TopList_ctl09_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2004/12/15/77563.html">9.&nbsp;Multi-select 
+  ASP.NET datagrid(DataGrid多条记录选择的实现)(4620)</A> 
+  <LI><A id=SingleColumn1__293210_TopList_ctl10_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2004/10/20/54541.html">10.&nbsp;黄金分割(4456)</A> 
+
+  <LI><A id=SingleColumn1__293210_TopList_ctl11_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2004/08/04/30172.html">11.&nbsp;大家来看看我做的CnBlogs的标志吧！(4449)</A> 
+
+  <LI><A id=SingleColumn1__293210_TopList_ctl12_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2005/02/17/105100.html">12.&nbsp;建议如果内容篇幅较长,添加显示文章的摘要内容.(4391)</A> 
+
+  <LI><A id=SingleColumn1__293210_TopList_ctl13_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2005/03/09/115641.html">13.&nbsp;强! 
+  .NET程序搜索引擎:DotLucene(Open Source)(4295)</A> 
+  <LI><A id=SingleColumn1__293210_TopList_ctl14_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2004/08/01/29213.html">14.&nbsp;我申请的CQ 
+  Counter不知道为什么run不起来，真是郁闷啊！(4210)</A> 
+  <LI><A id=SingleColumn1__293210_TopList_ctl15_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2004/11/06/61011.html">15.&nbsp;在ASP.NET的服务器端使用message 
+  box(Message box Server side in ASP.Net)(4177)</A> 
+  <LI><A id=SingleColumn1__293210_TopList_ctl16_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2005/05/17/157517.html">16.&nbsp;ASP.NET自定义控件示例:ASP.NET 
+  Custom control with designer integration(4133)</A> 
+  <LI><A id=SingleColumn1__293210_TopList_ctl17_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2005/03/15/119246.html">17.&nbsp;建立基于 
+  ASP.NET 的事件日历(3864)</A> 
+  <LI><A id=SingleColumn1__293210_TopList_ctl18_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2004/12/24/81502.html">18.&nbsp;在ASP.NET中利JavaScript实现控件的聚焦(3842)</A> 
+
+  <LI><A id=SingleColumn1__293210_TopList_ctl19_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2005/05/18/158368.html">19.&nbsp;DotNetNuke发布视频教程(3704)</A> 
+
+  <LI><A id=SingleColumn1__293210_TopList_ctl20_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2006/04/11/372397.html">20.&nbsp;在Enterprise 
+  Library for .NET Framework 2.0中使用外部的配置元数据的文件(my.config)(2704)</A> 
+</LI></UL></DIV>
+<DIV class=catListFeedback>
+<H3 class=catListTitle>评论排行榜</H3>
+<UL>
+  <LI><A id=SingleColumn1__f8b700_TopList_ctl01_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2004/07/26/27392.html">1.&nbsp;网页设计中的自动换行问题 
+  [](73)</A> 
+  <LI><A id=SingleColumn1__f8b700_TopList_ctl02_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2005/05/24/161258.html">2.&nbsp;将Google工具条添加到VS.NET中!(20)</A> 
+
+  <LI><A id=SingleColumn1__f8b700_TopList_ctl03_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2004/08/31/38028.html">3.&nbsp;利用TreeView来控制显示不同的窗体(17)</A> 
+
+  <LI><A id=SingleColumn1__f8b700_TopList_ctl04_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2005/01/27/98168.html">4.&nbsp;网页中时间选取功能的实现(Popup 
+  calender).(16)</A> 
+  <LI><A id=SingleColumn1__f8b700_TopList_ctl05_Hyperlink1 
+  href="http://www.cnblogs.com/rippleyong/archive/2006/05/26/410199.html">5.&nbsp;[JavaScript]利用JavaScript控制table中row的显示(14)</A> 
+  </LI></UL></DIV></DIV></DIV><!--end: sideBarMain --></DIV><!--end: sideBar 侧边栏容器 -->
+<DIV class=clear></DIV></DIV><!--end: main -->
+<DIV class=clear></DIV>
+<DIV id=footer><!--done-->Copyright ©2008 涟漪勇 </DIV><!--end: footer --></DIV><!--end: home 自定义的最大容器 -->
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Page_ValidationSummaries =  new Array(document.getElementById("AjaxHolder_PostComment_ValidationSummary1"));
+var Page_Validators =  new Array(document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2"), document.getElementById("AjaxHolder_PostComment_revContactMail"), document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3"));
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var AjaxHolder_PostComment_RequiredFieldValidator1 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator1"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1");
+AjaxHolder_PostComment_RequiredFieldValidator1.controltovalidate = "AjaxHolder_PostComment_tbTitle";
+AjaxHolder_PostComment_RequiredFieldValidator1.errormessage = "请输入标题";
+AjaxHolder_PostComment_RequiredFieldValidator1.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator1.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator2 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator2"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2");
+AjaxHolder_PostComment_RequiredFieldValidator2.controltovalidate = "AjaxHolder_PostComment_tbName";
+AjaxHolder_PostComment_RequiredFieldValidator2.errormessage = "请输入你的姓名";
+AjaxHolder_PostComment_RequiredFieldValidator2.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator2.initialvalue = "";
+var AjaxHolder_PostComment_revContactMail = document.all ? document.all["AjaxHolder_PostComment_revContactMail"] : document.getElementById("AjaxHolder_PostComment_revContactMail");
+AjaxHolder_PostComment_revContactMail.controltovalidate = "AjaxHolder_PostComment_tbEmail";
+AjaxHolder_PostComment_revContactMail.errormessage = "邮件地址无效";
+AjaxHolder_PostComment_revContactMail.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+AjaxHolder_PostComment_revContactMail.validationexpression = "^([0-9a-zA-Z+-._]([+-._\\w]*[0-9a-zA-Z+-._])*@([0-9a-zA-Z][-\\w]*\\.)+[a-zA-Z]{2,9})$";
+var AjaxHolder_PostComment_Requiredfieldvalidator4 = document.all ? document.all["AjaxHolder_PostComment_Requiredfieldvalidator4"] : document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4");
+AjaxHolder_PostComment_Requiredfieldvalidator4.controltovalidate = "AjaxHolder_PostComment_CodeNumberTextBox";
+AjaxHolder_PostComment_Requiredfieldvalidator4.errormessage = "请输入验证码";
+AjaxHolder_PostComment_Requiredfieldvalidator4.display = "Dynamic";
+AjaxHolder_PostComment_Requiredfieldvalidator4.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_Requiredfieldvalidator4.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator3 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator3"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3");
+AjaxHolder_PostComment_RequiredFieldValidator3.controltovalidate = "AjaxHolder_PostComment_tbComment";
+AjaxHolder_PostComment_RequiredFieldValidator3.errormessage = "请输入评论内容";
+AjaxHolder_PostComment_RequiredFieldValidator3.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator3.initialvalue = "";
+var AjaxHolder_PostComment_ValidationSummary1 = document.all ? document.all["AjaxHolder_PostComment_ValidationSummary1"] : document.getElementById("AjaxHolder_PostComment_ValidationSummary1");
+AjaxHolder_PostComment_ValidationSummary1.showmessagebox = "True";
+AjaxHolder_PostComment_ValidationSummary1.showsummary = "False";
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+
+document.getElementById('AjaxHolder_PostComment_ValidationSummary1').dispose = function() {
+    Array.remove(Page_ValidationSummaries, document.getElementById('AjaxHolder_PostComment_ValidationSummary1'));
+}
+Sys.Application.initialize();
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2'));
+}
+
+document.getElementById('AjaxHolder_PostComment_revContactMail').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_revContactMail'));
+}
+
+document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3'));
+}
+//]]>
+</SCRIPT>
+</FORM>
+<SCRIPT 
+src="SQL Server中汇总功能的使用GROUPING,ROLLUP和CUBE - 涟漪勇@cnblogs_com - 博客园.files/ShowHidden.js" 
+type=text/javascript></SCRIPT>
+</BODY></HTML>

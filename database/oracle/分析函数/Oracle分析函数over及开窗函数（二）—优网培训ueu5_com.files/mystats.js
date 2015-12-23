@@ -1,0 +1,4 @@
+
+if(typeof(wea_service)=="undefined")var wea_service="s.vdoing.com";if(typeof(wea_log_service)=="undefined")var wea_log_service="js.vdoing.com";var wea_debug=1;if(typeof(_instance)=="undefined")var _instance=0;if(typeof(wea_force_load)!="undefined"&&wea_force_load==1)_instance=0;if(_instance++==0){var weaInitScript=function(){var e;try{if(null==wea_sid||0==wea_sid){}else{var wea_now=new Date();wea_start_t=wea_now.getTime();document.write("<a href=\"http:\/\/www.vdoing.com\" target=\"_blank\" title=\"Vdoing Stats No."+wea_sid+"\n www.vdoing.com\"><img src=\"http:\/\/"+wea_service+"/check.gif\" border=\"0\" align=\"absmiddle\" /></a>");var rd=200909181;var wea_script=document.createElement("script");wea_script.type="text/javascript";wea_script.src="http://"+wea_service+"/mystats_more.js?rd="+rd;document.getElementsByTagName('head').item(0).appendChild(wea_script);}}catch(e){}};weaInitScript();};
+
+

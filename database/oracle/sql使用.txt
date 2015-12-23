@@ -1,0 +1,2 @@
+select substr(s.a,9,2) as oneday,round(avg(s.c),0) as 话务量,round(avg(s.d),0) 平均通话时长 from test3 s
+group  by substr(s.a,9,2)

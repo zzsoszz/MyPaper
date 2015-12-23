@@ -1,0 +1,22 @@
+oracle Trunc()2008-03-17 13:57oracle trunc()函数的用法,sql,sql教程,Oracle基础
+
+TRUNC()函數分兩種1.TRUNC(for dates) TRUNC函数为指定元素而截去的日期值。
+
+其具体的语法格式如下： TRUNC（date[,fmt]） 
+   其中： date 一个日期值 fmt 日期格式，该日期将由指定的元素格式所截去。
+忽略它则由最近的日期截去 下面是该函数的使用情况： TRUNC（TO_DATE(’24-Nov-1999 08:00 pm’,’dd-mon-yyyy hh:mi am’)） =’24-Nov-1999 12:00:00 am’ TRUNC（TO_DATE(’24-Nov-1999 08:37 pm’,’dd-mon-yyyy hh:mi am’,’hh’)） =’24-Nov-1999 08:00:00 am’2.TRUNC(for number) TRUNC函数返回处理后的数值，其工作机制与ROUND函数极为类似，只是该函数不对指定小数前或后的部分做相应舍入选择处理，而统统截去。 
+   其具体的语法格式如下 TRUNC（number[,decimals]） 其中： number 待做截取处理的数值 decimals 指明需保留小数点后面的位数。可选项，忽略它则截去所有的小数部分 下面是该函数的使用情况： TRUNC（89.985，2）=89.98 TRUNC（89.985）=89 TRUNC（89.985，-1）=80 注意：第二个参数可以为负数，表示为小数点左边指定位数后面的部分截去，即均以0记。
+
+一个例子：
+
+假如当前数据库日期为2008/03/17 14:17:53
+
+select trunc(sysdate,'yy') from dual　　2008/01/01　今年
+select trunc(sysdate,'mm') from dual　　2008/0301　本月
+select trunc(sysdate,'d') from dual　　2008/03/16　昨天
+select trunc(sysdate,'dd') from dual　　2008/03/17　今天
+select trunc(sysdate,'hh') from dual　　2008/03/17 14:00:00 今天本小时
+select trunc(sysdate,'mi') from dual　　2008/03/17 14:17:00 今天本小时本分钟
+
+因此他可以被用来作为日期的处理函数
+ 

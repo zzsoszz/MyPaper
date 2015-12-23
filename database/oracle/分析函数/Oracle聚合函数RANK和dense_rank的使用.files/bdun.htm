@@ -1,0 +1,587 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0144)http://unstat.baidu.com/bdun.bsc?tn=bdwhx_pg&cv=0&cid=1152326&csid=242&bgcr=ffffff&ftcr=000000&urlcr=0000ff&tbsz=335&sropls=2,5,6,9,15,16&kwgp=0 -->
+<!--STATUS OK--><HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<STYLE>BODY {
+	MARGIN: 0px
+}
+TD {
+	FONT-SIZE: 12px; LINE-HEIGHT: 18px
+}
+DIV {
+	FONT-SIZE: 12px; LINE-HEIGHT: 18px
+}
+A:link {
+	COLOR: #0000cc; TEXT-DECORATION: underline
+}
+A:visited {
+	COLOR: #800080; TEXT-DECORATION: underline
+}
+A:hover {
+	COLOR: #ff0000; TEXT-DECORATION: underline
+}
+A.ch:link {
+	PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 0px; FONT-SIZE: 12px; BACKGROUND: url(http://gimg.baidu.com/unlogo/bg/tbg3.gif) no-repeat left top; FLOAT: left; PADDING-BOTTOM: 4px; WIDTH: 42px; COLOR: #000; MARGIN-RIGHT: 2px; PADDING-TOP: 4px; FONT-FAMILY: 宋体; POSITION: relative; TOP: 7px; TEXT-ALIGN: center; TEXT-DECORATION: none
+}
+A.ch:visited {
+	PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 0px; FONT-SIZE: 12px; BACKGROUND: url(http://gimg.baidu.com/unlogo/bg/tbg3.gif) no-repeat left top; FLOAT: left; PADDING-BOTTOM: 4px; WIDTH: 42px; COLOR: #000; MARGIN-RIGHT: 2px; PADDING-TOP: 4px; FONT-FAMILY: 宋体; POSITION: relative; TOP: 7px; TEXT-ALIGN: center; TEXT-DECORATION: none
+}
+A.chon:link {
+	PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 0px; FONT-SIZE: 12px; BACKGROUND: url(http://gimg.baidu.com/unlogo/bg/tbg3.gif) no-repeat left top; FLOAT: left; PADDING-BOTTOM: 4px; WIDTH: 42px; COLOR: #000; MARGIN-RIGHT: 2px; PADDING-TOP: 4px; FONT-FAMILY: 宋体; POSITION: relative; TOP: 7px; TEXT-ALIGN: center; TEXT-DECORATION: none
+}
+A.chon:visited {
+	PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 0px; FONT-SIZE: 12px; BACKGROUND: url(http://gimg.baidu.com/unlogo/bg/tbg3.gif) no-repeat left top; FLOAT: left; PADDING-BOTTOM: 4px; WIDTH: 42px; COLOR: #000; MARGIN-RIGHT: 2px; PADDING-TOP: 4px; FONT-FAMILY: 宋体; POSITION: relative; TOP: 7px; TEXT-ALIGN: center; TEXT-DECORATION: none
+}
+A.chon:link {
+	FONT-WEIGHT: bold; BACKGROUND: url(http://gimg.baidu.com/unlogo/bg/tbg2.gif) no-repeat left top; CURSOR: default; COLOR: #fff
+}
+A.chon:visited {
+	FONT-WEIGHT: bold; BACKGROUND: url(http://gimg.baidu.com/unlogo/bg/tbg2.gif) no-repeat left top; CURSOR: default; COLOR: #fff
+}
+.ls {
+	MARGIN-TOP: 5px; WIDTH: 100%
+}
+.ls TD {
+	PADDING-RIGHT: 10px
+}
+.fyb {
+	FLOAT: left; MARGIN-RIGHT: 12px; WHITE-SPACE: nowrap
+}
+.padl {
+	PADDING-LEFT: 8px
+}
+</STYLE>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<SCRIPT src="bdun.files/fyb_3.js" type=text/javascript></SCRIPT>
+
+<SCRIPT>
+	var frmact = new Array();
+var frmnm = new Array();
+var frmid = new Array();
+frmact[0] = "http://www.baidu.com/baidu";
+frmact[1] = "http://mp3.baidu.com/m";
+frmact[2] = "http://image.baidu.com/i";
+frmact[3] = "http://video.baidu.com/v";
+frmact[4] = "http://v.baidu.com/srh.php";
+frmact[5] = "http://book.baidu.com/s";
+
+frmnm[0] = "网页";
+frmnm[1] = "MP3";
+frmnm[2] = "图片";
+frmnm[3] = "视频";
+frmnm[4] = "影视";
+frmnm[5] = "图书";
+
+frmid[0] = "2";
+frmid[1] = "5";
+frmid[2] = "6";
+frmid[3] = "9";
+frmid[4] = "15";
+frmid[5] = "16";
+
+
+var fybClient1 = fybServer_3;
+//new
+function changetab(idx) 
+{
+	for (i=0;i<frmact.length;i++) {
+		if (i==idx) {document.getElementById('sitem_'+i).className="chon";}
+			else {document.getElementById('sitem_'+i).className="ch";}
+	}
+}
+
+if (frmid[0] == "1") {var bd_idx=1;}else{var bd_idx=0;}
+
+function bd_chg_idx(idx)
+{
+ bd_idx=idx;
+ //new
+ changetab(idx);
+}
+
+function addhiddenEle(parentEle, childEleName, childEleValue)
+{
+	for (var i=0; i < childEleName.length; i++) {
+		 var ur = document.createElement("input");   
+		  ur.type = "hidden";   
+		  ur.name = childEleName[i];   
+		  ur.value = childEleValue[i]; 
+		  parentEle.appendChild(ur); 
+	}
+}
+
+function removeallhiddenEle(parentEle)
+{
+	 for (var i = parentEle.length - 1; i >= 0; i--) {
+    var childEle = parentEle.elements[i];
+		if(childEle.type == "hidden"){
+			childEle.parentNode.removeChild(childEle);
+		}
+	}
+}
+
+function gowhere(formname)
+{
+ var url;
+ var idx = bd_idx;
+ if (frmact[idx] == null || frmact[idx] == "")  idx = "0";
+ url = frmact[idx];
+
+ removeallhiddenEle(formname);
+
+ switch(frmid[idx]){
+	case "1":
+		var childEleName = new Array();
+		var childEleValue = new Array();
+
+		childEleName[0] = "cl";
+		childEleValue[0] = "2";
+
+		childEleName[1] = "ct";
+		childEleValue[1] = "0";
+
+		childEleName[2] = "rn";
+		childEleValue[2] = "20";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+
+	case "2":
+		var childEleName = new Array();
+		var childEleValue = new Array();
+
+		childEleName[0] = "tn";
+		childEleValue[0] = "bdwhx_pg";		
+
+		childEleName[1] = "fyb";
+		childEleValue[1] = "0";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+
+	case "3":
+		
+		formname.word.name = "kw";
+
+		break;
+
+	case "4":
+	
+		var childEleName = new Array();
+		var childEleValue = new Array();
+
+		childEleName[0] = "ct";
+		childEleValue[0] = "17";
+
+		childEleName[1] = "pn";
+		childEleValue[1] = "0";
+
+		childEleName[2] = "rn";
+		childEleValue[2] = "10";
+
+		childEleName[3] = "tn";
+		childEleValue[3] = "ikaslist";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+
+	case "5":
+		var childEleName = new Array();
+		var childEleValue = new Array();
+
+		childEleName[0] = "ct";
+		childEleValue[0] = "134217728";
+
+		childEleName[1] = "lm";
+		childEleValue[1] = "-1";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+
+	case "6":
+		var childEleName = new Array();
+		var childEleValue = new Array();
+
+		childEleName[0] = "ct";
+		childEleValue[0] = "201326592";
+
+		childEleName[1] = "lm";
+		childEleValue[1] = "-1";
+
+		childEleName[2] = "cl";
+		childEleValue[2] = "2";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+	case "7":
+		var childEleName = new Array();
+		var childEleValue = new Array();
+
+		childEleName[0] = "ct";
+		childEleValue[0] = "17";
+
+		childEleName[1] = "lm";
+		childEleValue[1] = "0";
+
+		childEleName[2] = "tn";
+		childEleValue[2] = "baiduWikiSearch";
+
+		childEleName[3] = "pn";
+		childEleValue[3] = "0";
+
+		childEleName[4] = "rn";
+		childEleValue[4] = "0";
+
+		childEleName[5] = "submit";
+		childEleValue[5] = "search";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+
+	case "8":
+		return false;
+
+	case "9":
+		var childEleName = new Array();
+		var childEleValue = new Array();
+
+		childEleName[0] = "ct";
+		childEleValue[0] = "301989888";
+
+		childEleName[1] = "pn";
+		childEleValue[1] = "0";
+
+		childEleName[2] = "rn";
+		childEleValue[2] = "20";
+
+		childEleName[3] = "db";
+		childEleValue[3] = "0";
+
+		childEleName[4] = "s";
+		childEleValue[4] = "0";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+	case "10":
+		var childEleName = new Array();
+		var childEleValue = new Array();
+
+		childEleName[0] = "f";
+		childEleValue[0] = "ms";
+
+		childEleName[1] = "rn";
+		childEleValue[1] = "10";
+
+		childEleName[2] = "tn";
+		childEleValue[2] = "baidump3lyric";
+
+		childEleName[3] = "ct";
+		childEleValue[3] = "150994944";
+
+		childEleName[4] = "lm";
+		childEleValue[4] = "-1";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+
+	case "11":
+		var childEleName = new Array();
+		var childEleValue = new Array();
+
+		childEleName[0] = "ie";
+		childEleValue[0] = "gb2312";		
+
+		childEleName[1] = "ct";
+		childEleValue[1] = "1048576";
+
+		childEleName[2] = "cl";
+		childEleValue[2] = "3";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+	case "12":
+		var childEleName = new Array();
+		var childEleValue = new Array();
+
+		childEleName[0] = "tn";
+		childEleValue[0] = "baiduyp";		
+
+		childEleName[1] = "ct";
+		childEleValue[1] = "553648128";
+
+		childEleName[2] = "rn";
+		childEleValue[2] = "20";
+
+		childEleName[3] = "a";
+		childEleValue[3] = "-1";
+
+		childEleName[4] = "lm";
+		childEleValue[4] = "-1";
+
+		childEleName[5] = "z";
+		childEleValue[5] = "-1";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+
+	case "13":
+		var childEleName = new Array();
+		var childEleValue = new Array();
+
+		childEleName[0] = "tn";
+		childEleValue[0] = "baiduchild";		
+
+		childEleName[1] = "cl";
+		childEleValue[1] = "3";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+
+	case "14":
+		var childEleName = new Array();
+		var childEleValue = new Array();
+		
+		childEleName[0] = "tn";
+		childEleValue[0] = "baidujiaoyu";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+
+	case "15":
+	
+		var childEleName = new Array();
+		var childEleValue = new Array();
+		
+		childEleName[0] = "if";
+		childEleValue[0] = "0";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+	case "16":
+		var childEleName = new Array();
+		var childEleValue = new Array();
+		
+		childEleName[0] = "tn";
+		childEleValue[0] = "baidubook";
+
+		childEleName[1] = "ct";
+		childEleValue[1] = "2097152";
+
+		childEleName[2] = "si";
+		childEleValue[2] = "book.baidu.com";
+
+		childEleName[3] = "cl";
+		childEleValue[3] = "3";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+	case "17":
+		var childEleName = new Array();
+		var childEleValue = new Array();
+		
+		childEleName[0] = "tn";
+		childEleValue[0] = "baiduguoxue";
+
+		childEleName[1] = "ct";
+		childEleValue[1] = "2097152";
+
+		childEleName[2] = "si";
+		childEleValue[2] = "guoxue.baidu.com";
+
+		childEleName[3] = "cl";
+		childEleValue[3] = "3";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+	case "18":
+		var childEleName = new Array();
+		var childEleValue = new Array();
+		
+		childEleName[0] = "type";
+		childEleValue[0] = "0";
+
+		childEleName[1] = "sort";
+		childEleValue[1] = "1";
+
+		childEleName[2] = "entry";
+		childEleValue[2] = "1";
+
+		childEleName[3] = "region";
+		childEleValue[3] = "0";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+
+	case "19":
+		var childEleName = new Array();
+		var childEleValue = new Array();
+		
+		childEleName[0] = "tn";
+		childEleValue[0] = "baidugov";
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+
+	case "99":
+
+		var childEleName = new Array();
+		var childEleValue = new Array();
+		
+		childEleName[0] = "tn";
+		childEleValue[0] = "bdwhx_pg";
+
+		childEleName[1] = "cl";
+		childEleValue[1] = "3";
+
+		childEleName[2] = "ct";
+		childEleValue[2] = "2097152";
+
+		childEleName[3] = "si";
+		childEleValue[3] = "baidu.com";
+
+		childEleName[4] = "sts";
+		childEleValue[4] = "baidu.com";
+
+
+		addhiddenEle(formname, childEleName, childEleValue);
+
+		formname.word.name = "word";
+
+		break;
+
+	default:
+		return false;
+ }
+
+ formname.action = url;
+ return true;
+} 
+</SCRIPT>
+
+<TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <FORM id=search_form name=search_form onsubmit="return gowhere(this)" 
+      target=_blank>
+      <TABLE 
+      style="BORDER-RIGHT: #8cb4e7 1px solid; BORDER-TOP: #8cb4e7 1px solid; BORDER-LEFT: #8cb4e7 1px solid; BORDER-BOTTOM: #8cb4e7 1px solid" 
+      cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD style="PADDING-TOP: 0px" noWrap>
+            <DIV class=padl 
+            style="BACKGROUND: url(http://gimg.baidu.com/unlogo/bg/tab.gif) repeat-x 50% top; PADDING-BOTTOM: 2px; PADDING-TOP: 3px; BORDER-BOTTOM: #8cb4e7 1px solid; HEIGHT: 100%"><A 
+            style="FLOAT: right" 
+            href="http://www.baidu.com/index.php?tn=bdwhx_pg&amp;fyb=0" 
+            target=_blank><IMG style="MARGIN-RIGHT: 10px" alt=百度中文搜索引擎 
+            src="bdun.files/unlogo1.gif" border=0></A> <SPAN id=tops 
+            name="tops"></SPAN>
+            <SCRIPT>
+	content = '';
+	for (i = 0; i < frmact.length; i++)
+	{
+		if (frmid[i] == "2") {content += '<a onClick="bd_chg_idx(' + i + '); return false;"  onfocus="this.blur()" class="chon" href="#" id="sitem_' + i + '" >' + frmnm[i] + '</a>';}
+			else {content += '<a onClick="bd_chg_idx(' + i + '); return false;"  onfocus="this.blur()" class="ch" href="#" id="sitem_' + i + '" >' + frmnm[i] + '</a>';}
+	}	
+	document.getElementById('tops').innerHTML = content;
+</SCRIPT>
+            <BR clear=all></DIV>
+            <DIV class=padl 
+            style="BACKGROUND: url(http://gimg.baidu.com/unlogo/bg/btbg2.gif) repeat-x left bottom">
+            <DIV style="MARGIN-TOP: 1px; PADDING-TOP: 4px"><INPUT id=word 
+            onblur="if (this.value =='') this.value='请输入关键字'" 
+            onmouseover=this.focus() style="WIDTH: 335px" onfocus=this.select() 
+            onclick="if (this.value=='请输入关键字') this.value=''" value=请输入关键字 
+            name=word><INPUT id=_si style="MARGIN-BOTTOM: 1px; MARGIN-LEFT: 1px; WIDTH: 39px; HEIGHT: 21px" type=submit value=搜索 name=_si> 
+
+            <DIV 
+            style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 4px; PADDING-TOP: 4px">
+            <DIV style="OVERFLOW: hidden; HEIGHT: 18px">
+            <DIV class=fyb><A 
+            href="http://utility.baidu.com/traf/click.php?id=1561&amp;url=http%3A%2F%2Fskin.qianqian.com" 
+            target=_blank>画皮就有奖？</A></DIV>
+            <DIV class=fyb>
+            <SCRIPT>document.write("<a href='http://www.baidu.com/s?tn=bdwhx_pg&fyb=1&wd="+fybClient1[0]+"' target='_blank' >"+fybClient1[0]+"</a>");</SCRIPT>
+            </DIV>
+            <DIV class=fyb>
+            <SCRIPT>document.write("<a href='http://www.baidu.com/s?tn=bdwhx_pg&fyb=1&wd="+fybClient1[1]+"' target='_blank' >"+fybClient1[1]+"</a>");</SCRIPT>
+            </DIV>
+            <DIV class=fyb>
+            <SCRIPT>document.write("<a href='http://www.baidu.com/s?tn=bdwhx_pg&fyb=1&wd="+fybClient1[2]+"' target='_blank' >"+fybClient1[2]+"</a>");</SCRIPT>
+            </DIV>
+            <DIV class=fyb>
+            <SCRIPT>document.write("<a href='http://www.baidu.com/s?tn=bdwhx_pg&fyb=1&wd="+fybClient1[3]+"' target='_blank' >"+fybClient1[3]+"</a>");</SCRIPT>
+            </DIV>
+            <DIV class=fyb>
+            <SCRIPT>document.write("<a href='http://www.baidu.com/s?tn=bdwhx_pg&fyb=1&wd="+fybClient1[4]+"' target='_blank' >"+fybClient1[4]+"</a>");</SCRIPT>
+            </DIV>
+            <DIV class=fyb>
+            <SCRIPT>document.write("<a href='http://www.baidu.com/s?tn=bdwhx_pg&fyb=1&wd="+fybClient1[5]+"' target='_blank' >"+fybClient1[5]+"</a>");</SCRIPT>
+            </DIV>
+            <DIV class=fyb>
+            <SCRIPT>document.write("<a href='http://www.baidu.com/s?tn=bdwhx_pg&fyb=1&wd="+fybClient1[6]+"' target='_blank' >"+fybClient1[6]+"</a>");</SCRIPT>
+            </DIV>
+            <DIV class=fyb>
+            <SCRIPT>document.write("<a href='http://www.baidu.com/s?tn=bdwhx_pg&fyb=1&wd="+fybClient1[7]+"' target='_blank' >"+fybClient1[7]+"</a>");</SCRIPT>
+            </DIV>
+            <DIV class=fyb>
+            <SCRIPT>document.write("<a href='http://www.baidu.com/s?tn=bdwhx_pg&fyb=1&wd="+fybClient1[8]+"' target='_blank' >"+fybClient1[8]+"</a>");</SCRIPT>
+            </DIV>
+            <DIV class=fyb>
+            <SCRIPT>document.write("<a href='http://www.baidu.com/s?tn=bdwhx_pg&fyb=1&wd="+fybClient1[9]+"' target='_blank' >"+fybClient1[9]+"</a>");</SCRIPT>
+            </DIV><BR 
+      clear=all></DIV></DIV></DIV></DIV></TD></TR></TBODY></TABLE></FORM></TD></TR></TBODY></TABLE></BODY></HTML>

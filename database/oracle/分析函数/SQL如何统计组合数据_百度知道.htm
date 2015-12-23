@@ -1,0 +1,404 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0046)http://zhidao.baidu.com/question/48045086.html -->
+<!--STATUS OK--><HTML><HEAD><TITLE>SQL如何统计组合数据?_百度知道</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312"><LINK 
+title="“SQL如何统计组合数据?”的最新回答（RSS 2.0）" 
+href="http://zhidao.baidu.com/q?ct=20&amp;qid=48045086&amp;pn=65535&amp;rn=25&amp;tn=rssqb" 
+type=application/rss+xml rel=alternate><LINK 
+href="SQL如何统计组合数据_百度知道.files/ikqb.css" type=text/css rel=stylesheet>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<SCRIPT src="SQL如何统计组合数据_百度知道.files/userlogin.js" type=text/javascript></SCRIPT>
+
+<DIV id=usrbar><NOBR>
+<SCRIPT language=JavaScript>
+document.write('<a href="http://www.baidu.com/">百度首页</a>&nbsp;|&nbsp;<a href="http://zhidao.baidu.com" id="my_home" target="_blank">百度知道</a>&nbsp;|&nbsp;<a href="#" onclick="userLogin(TopLoginSuccess, TopLoginFail,\'login\');" id="log_in">登录</a>');
+</SCRIPT>
+</NOBR></DIV>
+<DIV id=tip_holder>
+<DIV id=tip>
+<DIV class=right_arrow id=tip_top></DIV>
+<DIV id=tip_con><A id=tip_url1 
+href="http://zhidao.baidu.com/question/48045086.html#" target=_blank><IMG 
+id=tip_icon height=32 width=32 border=0></A> <IMG id=tip_close height=11 alt=关闭 
+src="SQL如何统计组合数据_百度知道.files/close.gif" width=11> 
+<DL>
+  <DT id=tip_title>
+  <DD id=tip_txt>
+  <DD id=tip_detail><A id=tip_url2 
+  href="http://zhidao.baidu.com/question/48045086.html#" 
+target=_blank></A></DD></DL></DIV></DIV></DIV>
+<SCRIPT src="SQL如何统计组合数据_百度知道.files/bubble_data.js" 
+type=text/javascript></SCRIPT>
+
+<TABLE class=hd cellSpacing=0 cellPadding=0 width=750 border=0>
+  <TBODY>
+  <TR>
+    <TD vAlign=top width=146><A href="http://zhidao.baidu.com/"><IMG height=46 
+      alt=百度知道 src="SQL如何统计组合数据_百度知道.files/logo-zhidao.gif" width=137 vspace=3 
+      border=0></A></TD>
+    <TD>
+      <DIV id=tab><A class=headTit 
+      href="http://news.baidu.com/ns?cl=2&amp;rn=20&amp;tn=news&amp;word=sql+%CD%B3%BC%C6&amp;t=1">新闻</A>&nbsp;&nbsp;&nbsp;<A 
+      class=headTit 
+      href="http://www.baidu.com/s?cl=3&amp;wd=sql+%CD%B3%BC%C6">网页</A>&nbsp;&nbsp;&nbsp;<A 
+      class=headTit 
+      href="http://tieba.baidu.com/f?kw=sql+%CD%B3%BC%C6&amp;t=4">贴吧</A>&nbsp;&nbsp;&nbsp;<FONT 
+      class=headTitB>知道</FONT>&nbsp;&nbsp;&nbsp;<A class=headTit 
+      href="http://mp3.baidu.com/m?tn=baidump3&amp;ct=134217728&amp;lm=-1&amp;word=sql+%CD%B3%BC%C6&amp;t=2">MP3</A>&nbsp;&nbsp;&nbsp;<A 
+      class=headTit 
+      href="http://image.baidu.com/i?tn=baiduimage&amp;ct=201326592&amp;lm=-1&amp;cl=2&amp;word=sql+%CD%B3%BC%C6&amp;t=3">图片</A>&nbsp;&nbsp;&nbsp;<A 
+      class=headTit 
+      href="http://video.baidu.com/v?ct=301989888&amp;rn=20&amp;pn=0&amp;db=0&amp;s=22&amp;word=sql+%CD%B3%BC%C6">视频</A>&nbsp;&nbsp;&nbsp;<A 
+      class=headTit 
+      href="http://baike.baidu.com/w?ct=17&amp;lm=0&amp;tn=baiduWikiSearch&amp;pn=0&amp;rn=10&amp;word=sql+%CD%B3%BC%C6">百科</A></DIV>
+      <FORM name=ftop action=/q method=get>
+      <TABLE cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD noWrap><INPUT class=hdi tabIndex=1 maxLength=256 size=42 
+            value="sql 统计" name=word>&nbsp;&nbsp;&nbsp;</TD>
+          <TD><A 
+        href="http://www.baidu.com/search/zhidao_help.html">帮助</A></TD></TR></TBODY></TABLE>
+      <DIV style="MARGIN-TOP: 4px"><INPUT class=bnsrh tabIndex=2 type=submit value=搜索答案><INPUT 
+      type=hidden value=17 name=ct><INPUT type=hidden value=0 name=pn><INPUT 
+      type=hidden value=ikaslist name=tn><INPUT type=hidden value=10 name=rn> <INPUT class=bnsrh style="MARGIN-LEFT: 8px" onclick=NewAskTop() tabIndex=3 type=button value=我要提问> 
+      </DIV></FORM>
+      <FORM name=fask action=/q method=get><INPUT type=hidden value=17 
+      name=ct><INPUT type=hidden value=0 name=pn><INPUT type=hidden value=ikask 
+      name=tn><INPUT type=hidden value=10 name=rn><INPUT type=hidden name=word> 
+      <INPUT type=hidden value=1 name=cm><INPUT type=hidden value=394496 
+      name=lm><INPUT type=hidden value=1 name=qf> </FORM></TD></TR></TBODY></TABLE>
+<SCRIPT>
+document.domain="baidu.com";
+var url = escape(location.href);
+
+if(!G){function G(A){if(typeof (A)=="string"){return document.getElementById(A)}return A}}function ctlSubmit(A){if(A.ctrlKey&&A.keyCode==13){replyFormInit.onSubmit()}}function lockButton(A){A=G(A);A.disabled=true;setTimeout(function(){A.disabled=false},3000)}function cReply(A){if(A=="yes"){G("replyTB").style.display="";document.myform.co.focus()}if(A=="no"){G("replyTB").style.display="none"}}function fixReply(A){setTimeout("cReply('"+A+"')",300)}function showcpro(A){G("cproshow").innerHTML=A}function ga(B,A){if(document.getElementById){a=B.id.substring(1);p="";r="";g=A.target;if(g){t=g.id;f=g.parentNode;if(f){p=f.id;h=f.parentNode;if(h){r=h.id}}}else{h=A.srcElement;f=h.parentNode;if(f){p=f.id}t=h.id}if(t==a||p==a||r==a){return true}window.open(G(a).href,"_blank")}}function ss(A){window.status=A;return true}function cs(){window.status=""}var query=(function(){var D=document.forms.ftop;var B=D.word.value;if(B.length>0){D.word.focus();if(document.all){var C=D.word.createTextRange();C.select();C.collapse(false);C.select()}D.onsubmit=function(){function E(F){var H=document.createElement("input");H.type="hidden";H.name="qf";H.value="google_n"+(F?"1":"0");return H}document.forms.ftop.appendChild(E(query.isChanged()));return true}}function A(){if(B==""){return false}return B!=document.forms.ftop.word.value}return{q:B,isChanged:A}})();function statFunc(B){var A=new Image();A.src="/stat?tn=ikqb&"+B+"&t="+(new Date()).getTime()}function voteAnswer(A){document.forms.voteForm.rid.value=A;document.forms.voteForm.submit()};
+</SCRIPT>
+
+<DIV id=main><!--[if IE]>
+<SCRIPT language=JavaScript>
+var objmain = document.getElementById("main");
+function updatesize(){ 
+    var bodyw = window.document.body.offsetWidth; 
+    var w=(bodyw>=1000?"976px":(bodyw<=780?"760px":"100%"));
+    objmain.style.width=w; 
+}
+updatesize();
+ window.onresize = updatesize;
+</SCRIPT>
+<![endif]-->
+<DIV 
+style="MARGIN: 10px 0px 0px; OVERFLOW: hidden; WIDTH: 100%; TEXT-ALIGN: left">
+<SCRIPT>if(!g_f_js){var g_f_js=true;document.write('<script src=\'http://eiv.baidu.com/other/ff.js\'></'+'script>');}</SCRIPT>
+
+<SCRIPT>if (typeof(cf)=="function") {cf("http://eiv.baidu.com/maimg/20081126/1385141332.swf","760","90","http://ma.baidu.com/ma/rcv/click.php?t=uv-b5HDhTv-b5HczP1c4FMIGujYkFhVGujYkFhqsULnqniuhUWdGpv4EIzudThsqpZwYTaR1fiRzwBRzwMwoQhF9pywdQhPEUiRzwMwoQgFWIBRzwMPvFHFAmvkGmv_8TA9sFHPAIZFGuaR1wjDYn16-nWuYIiR1wA7cRWKWwAqvHjFrIbk8UZubNYNdyydAT7GcNgNunW-YHjFrIhF8RhkBU-7vmY92IhFgrZubwv9CmhdYXbszUZNpwdmYHAdCnAFgIzRzPHPDFHcvTLwbFHPDnWDhTv3qP1DhT1YsPARvn1RsP19Buj0dnjRsFMFsULnqniubIjd8iAPlThGDTd0kmhV8u6","0");}</SCRIPT>
+</DIV>
+<DIV id=path><A href="http://zhidao.baidu.com/">百度知道</A> &gt; <CC><A 
+href="http://zhidao.baidu.com/browse/74?lm=2">电脑/网络</A> &gt; <A 
+href="http://zhidao.baidu.com/browse/871?lm=2">数据库</A></CC></DIV>
+<DIV id=content>
+<DIV id=content_inner>
+<DIV class="mb12 bai">
+<DIV class=rg_1></DIV>
+<DIV class=rg_2></DIV>
+<DIV class=rg_3></DIV>
+<DIV class=rg>
+<DIV class=t1 id=question_status><SPAN 
+style="PADDING-RIGHT: 10px; MARGIN-TOP: -1px; FONT-WEIGHT: normal; FONT-SIZE: 12px; FLOAT: right"><SPAN 
+class=ico><SPAN class=irelate>&nbsp;</SPAN></SPAN><A class=lbk 
+href="http://zhidao.baidu.com/question/48045086.html#irelatelink">相关问题</A></SPAN><SPAN 
+style="FONT-WEIGHT: normal; FONT-SIZE: 12px; FLOAT: right; WIDTH: 100px">
+<DIV class=icosc></DIV><A class=lbk 
+onclick="window.open('http://cang.baidu.com/do/add?it='+encodeURIComponent(document.title)+'&amp;iu='+encodeURIComponent(location.href)+'&amp;tn=%E7%9F%A5%E9%81%93%E9%97%AE%E9%A2%98%2C&amp;fr=ik#nw=1','_s','scrollbars=no,width=600,height=450,right=75,top=20,status=no,resizable=yes'); return false;" 
+href="http://cang.baidu.com/do/add" target=_blank>添加到搜藏</A></SPAN>
+<DIV class=ico>
+<DIV class=iok></DIV></DIV>已解决 </DIV>
+<DIV class=bc0>
+<DIV class=p90>
+<DIV class="f14 B wr" id=question_title><CQ>SQL如何统计组合数据?</CQ></DIV>
+<DIV class=wr id=question_info><SPAN class=red><IMG height=16 
+src="SQL如何统计组合数据_百度知道.files/icn_point.gif" width=16 align=absMiddle> 
+悬赏分：50</SPAN> - <SPAN class=gray>解决时间：2008-3-10 14:33</SPAN></DIV>
+<DIV class="f14 wr" id=question_content><CD>比如有数据如下: <BR>编号 品名 数量 封皮颜色 <BR>1 
+A4硬皮抄 100 黑白间条 <BR>2 A4硬皮抄 250 蓝白间条 <BR><BR>想实现为: <BR>品名 数量 封皮颜色 <BR>A4硬皮抄 350 
+黑白间条,蓝白间条 <BR><BR>请问SQL语句怎么写? 谢谢拉!</CD></DIV>
+<DIV class="f14 wr" id=question_sup><B>问题补充：</B>一条不行就两条阿,应该怎么写阿? 
+<BR>之前问问题基本都无人能回答,结果造成浪费.所以现在先不送,如果有满意答案我马上提高悬赏50分再追加50分!一共给你们100分,够不?</DIV></DIV>
+<DIV class="gray wr" id=question_author align=right>提问者： <A 
+href="http://passport.baidu.com/?business&amp;aid=6&amp;un=windfeel#2" 
+target=_blank>windfeel</A> - <A 
+href="http://www.baidu.com/search/zhidao_help.html#n5" target=_blank>经理 四级</A> 
+</DIV></DIV></DIV>
+<DIV class=rg_4></DIV>
+<DIV class=rg_5></DIV>
+<DIV class=rg_1></DIV></DIV>
+<DIV class="mb12 bai">
+<DIV class=rr_1></DIV>
+<DIV class=rr_2></DIV>
+<DIV class=rr_3></DIV>
+<DIV class=rr>
+<DIV class=t1>
+<DIV class=ico>
+<DIV class=ibest></DIV></DIV>最佳答案</DIV>
+<DIV class=bc0 
+style="PADDING-RIGHT: 0pt; PADDING-LEFT: 0pt; PADDING-BOTTOM: 5px; PADDING-TOP: 5px">
+<DIV class=wr>
+<DIV class="f14 p90 pl10" id=best_answer_content><CA>设表名为TABLENAME,使用一条查询语句实现： 
+<BR>SELECT 品名,数量=sum(数量),封皮颜色=dbo.getcol(品名) from tablename group by 品名 
+<BR><BR>但要先建立一个列转行的函数： <BR>create FUNCTION getcol <BR>(@PM VARCHAR(50),--品名 
+<BR>@Deli varchar(1)=',')--可选间隔符，默认为逗点。 <BR>RETURNS varchar(1000) <BR>AS 
+<BR>BEGIN <BR>if @deli='' <BR>set @deli=' ' <BR>declare @f1 varchar(100),@result 
+varchar(1000) <BR>set @result='' <BR><BR>declare ddcursor cursor for SELECT 
+DISTINCT 封皮颜色 FROM TABLENAME WHERE 品名=@PM <BR>open ddcursor <BR>fetch next from 
+ddcursor into @f1 <BR>while @@fetch_status!=-1 <BR>begin <BR>set 
+@result=@result+@deli+isnull(@f1,'') <BR>fetch next from ddcursor into @f1 
+<BR>end <BR>close ddcursor <BR>deallocate ddcursor <BR>set 
+@result=substring(@result,2,1000) <BR><BR>return (@result) <BR>end <BR>GO 
+<BR>别忘了加分，别让我们上当，费老劲了 <BR><BR>======= <BR>如果能告诉我每个品名最多多少种颜色，一条语句也能实现。 
+<BR>＝＝＝＝＝＝＝＝＝＝＝＝＝＝ <BR><BR>已知最大颜色数时用一条语句： 
+<BR><BR>假设每品名最多有三种颜色按下面这样，如果有更多，请自己照样增加LEFT JOIN语句就行了。 <BR>SELECT 
+d.品名,数量=SL1+isnull(SL2,0)+isnull(SL3,0),封皮颜色=FP1+isnull(FP2,'')+isnull(FP3,'') 
+from <BR>(select 品名,sl1=数量,fp1=封皮颜色 from <BR>(SELECT *,SN=(SELECT COUNT(1) FROM 
+TABLENAME A WHERE A.品名=b.品名 and a.编号&lt;b.编号) tablename b) c where sn=1) d 
+<BR>left join <BR>(select 品名,sl2=数量,fp2=','+封皮颜色 from <BR>(SELECT *,SN=(SELECT 
+COUNT(1) FROM TABLENAME A WHERE A.品名=b.品名 and a.编号&lt;b.编号) tablename b) c where 
+sn=2) e <BR>on e.品名=d.品名 <BR>left join <BR>(select 品名,sl3=数量,fp3=','+封皮颜色 from 
+<BR>(SELECT *,SN=(SELECT COUNT(1) FROM TABLENAME A WHERE A.品名=b.品名 and 
+a.编号&lt;b.编号) tablename b) c where sn=3) f <BR>on f.品名=e.品名</CA></DIV>
+<DIV class=gray id=best_answer_info style="MARGIN: 5px" align=right>回答者： <A 
+href="http://www.baidu.com/search/zhidao/userelite.html" target=_blank><IMG 
+height=18 alt=分类名人 src="SQL如何统计组合数据_百度知道.files/icon_guan.gif" width=18 
+border=0></A> <A href="http://www.baidu.com/search/zhidao/userelite.html" 
+target=_blank><IMG height=18 alt=分类上升达人 
+src="SQL如何统计组合数据_百度知道.files/icon_huizhang.gif" width=12 border=0></A> <A 
+href="http://passport.baidu.com/?business&amp;aid=6&amp;un=WHITE%5FWIN#2" 
+target=_blank>WHITE_WIN</A> -<A 
+href="http://www.baidu.com/search/zhidao_help.html#n5" target=_blank> 魔导师 
+十级</A><SPAN id=im-user-1cf757484954455f57494ee402 title=WHITE_WIN>&nbsp;</SPAN> 
+<SPAN id=best_answer_time>3-10 12:57</SPAN></DIV>
+<DIV style="MARGIN: 5px; TEXT-ALIGN: right"><A 
+href="http://zhidao.baidu.com/q?ct=20&amp;qid=48045086&amp;cm=6&amp;tn=ikqbremark&amp;mrn=25" 
+target=_blank>查看用户评论(2)&gt;&gt; </A></DIV>
+<DIV class=t2>提问者对于答案的评价：</DIV>
+<DIV class="p90 pl10 f14" id=best_answer_comment>非常感谢! <BR>谁会为了那么点分数而失去信誉呢? 
+<BR>追加50+奖励50=100分请验收^_^</DIV>
+<DIV class=t2>评价已经被关闭&nbsp;&nbsp;&nbsp;&nbsp;<SPAN class="f12 gray" 
+style="FONT-WEIGHT: normal">目前有 1 个人评价</SPAN></DIV>
+<DIV class=pl10>
+<FORM name=fpj action=/q method=post>
+<TABLE cellSpacing=0 cellPadding=0 border=0>
+  <TBODY>
+  <TR vAlign=top><INPUT type=hidden value=22 name=ct> <INPUT type=hidden 
+    name=mpn> <INPUT type=hidden value=100003 name=cm> <INPUT type=hidden 
+    value=48045086 name=qid> <INPUT type=hidden value=iksubmit name=tn> <INPUT 
+    type=hidden value=/question/48045086.html name=lu>
+    <SCRIPT>function g(w){ document.fpj.mpn.value=w;};document.fpj.lu.value=escape(location.href)</SCRIPT>
+     
+    <TD class=f14 width=120>好<BR><SPAN class=red>100%</SPAN> （1）</TD>
+    <TD class=f14 width=120>不好<BR><SPAN class=grn>0% 
+</SPAN>（0）</TD></TR></TBODY></TABLE></FORM></DIV></DIV></DIV></DIV>
+<DIV class=rr_4></DIV>
+<DIV class=rr_5></DIV>
+<DIV class=rr_1></DIV></DIV><A name=irelatelink></A>
+<DIV class="mb12 bai">
+<DIV class=rg_1></DIV>
+<DIV class=rg_2></DIV>
+<DIV class=rg_3></DIV>
+<DIV class=rg>
+<DIV class=t1>
+<DIV class=ico>
+<DIV class=irelate></DIV></DIV>相关内容</DIV>
+<DIV class=bc0 id=relate_question>
+<TABLE class=relateTable id=qbRelateTable cellSpacing=0 cellPadding=0 
+  border=0><TBODY id=qbRelateTableBody>
+  <TR>
+    <TD class=gray vAlign=top width=10>&#8226; </TD>
+    <TD class=f14><A 
+      href="http://zhidao.baidu.com/question/48652672.html?fr=qrl" 
+      target=_blank><CR>追加100分-SQL如何统计组合数据之三 -_|||</CR></A></TD></TR>
+  <TR>
+    <TD class=gray vAlign=top width=10>&#8226; </TD>
+    <TD class=f14><A 
+      href="http://zhidao.baidu.com/question/48382427.html?fr=qrl" 
+      target=_blank><CR>继续追加100分-SQL如何统计组合数据之二</CR></A></TD></TR>
+  <TR>
+    <TD class=gray vAlign=top width=10>&#8226; </TD>
+    <TD class=f14><A 
+      href="http://zhidao.baidu.com/question/46484972.html?fr=qrl" 
+      target=_blank><CR>sql 一张表 组合查询急急急！！！！！！！</CR></A></TD></TR>
+  <TR>
+    <TD class=gray vAlign=top width=10>&#8226; </TD>
+    <TD class=f14><A 
+      href="http://zhidao.baidu.com/question/48731467.html?fr=qrl" 
+      target=_blank><CR>sql组合查询</CR></A></TD></TR>
+  <TR>
+    <TD class=gray vAlign=top width=10>&#8226; </TD>
+    <TD class=f14><A 
+      href="http://zhidao.baidu.com/question/57074484.html?fr=qrl" 
+      target=_blank><CR>有关sql server数据库设计的问题</CR></A></TD></TR>
+  <TR id=moreRelateQuestion>
+    <TD width=10>&nbsp;</TD>
+    <TD class=queryMore><A 
+      href="http://zhidao.baidu.com/q?word=sql+%CD%B3%BC%C6&amp;ct=17&amp;pn=0&amp;tn=ikaslist&amp;rn=10&amp;fr=qrl">更多关于<SPAN>sql 
+      统计</SPAN>的问题&gt;&gt;</A></TD></TR>
+  <TR>
+    <TD class=relateTag colSpan=2>查看同主题问题：<SPAN><A 
+      href="http://zhidao.baidu.com/topic?ct=29&amp;tn=iktopic&amp;word=sql+%CD%B3%BC%C6&amp;fr=rtag" 
+      target=_blank>sql 统计</A></SPAN> <SPAN><A 
+      href="http://zhidao.baidu.com/topic?ct=29&amp;tn=iktopic&amp;word=%D7%E9%BA%CF&amp;fr=rtag" 
+      target=_blank>组合</A></SPAN> <SPAN><A 
+      href="http://zhidao.baidu.com/topic?ct=29&amp;tn=iktopic&amp;word=%CA%FD%BE%DD&amp;fr=rtag" 
+      target=_blank>数据</A></SPAN> </TD></TR></TBODY></TABLE>
+<SCRIPT>
+          var e=G("qbRelateTableBody");
+          if(e){
+            var links=e.getElementsByTagName("a");
+            for(var l=links.length,i=0;i<l;i++){
+                var a=links[i];
+                a.href=a.href+"&fr2=query";
+            }
+          }
+      </SCRIPT>
+</DIV></DIV>
+<DIV class=rg_4></DIV>
+<DIV class=rg_5></DIV>
+<DIV class=rg_1></DIV></DIV>
+<DIV class="mb12 bai">
+<DIV class=rg_1></DIV>
+<DIV class=rg_2></DIV>
+<DIV class=rg_3></DIV>
+<DIV class=rg>
+<DIV class=t1 style="POSITION: relative">
+<DIV class=ico>
+<DIV class=ianswer></DIV></DIV>其他回答&nbsp;&nbsp;&nbsp;&nbsp;<SPAN 
+class="f12 gray" style="FONT-WEIGHT: normal">共 <SPAN id=total_count>2</SPAN> 
+条</SPAN></DIV>
+<DIV class=bc0 
+style="PADDING-RIGHT: 0pt; PADDING-LEFT: 0pt; PADDING-BOTTOM: 5px; PADDING-TOP: 5px">
+<DIV class=wr><A name=163865120></A>
+<DIV class="f14 p90 pl10"><SPAN 
+id=reply_content_163865120><CN>晕,后边是集合...一条SQL不行... <BR><BR>呵， 这不是一两条就行的哦， 
+可能要写个存储过程。。。</CN></SPAN> </DIV>
+<DIV class=gray style="MARGIN: 5px 5px 8px" align=right>回答者： <A 
+href="http://passport.baidu.com/?business&amp;aid=6&amp;un=wyehua#2" 
+target=_blank>wyehua</A> - <A 
+href="http://www.baidu.com/search/zhidao_help.html#n5" target=_blank>江湖新秀 
+五级</A><SPAN id=im-user-cba37779656875614601 title=wyehua>&nbsp;</SPAN> <SPAN 
+class=answer_time>3-10 10:38</SPAN></DIV>
+<DIV id=Lg></DIV><A name=163878718></A>
+<DIV class="f14 p90 pl10"><SPAN id=reply_content_163878718><CN>语句这么复杂 
+还不舍得给分;多搞几张表也可以实现</CN></SPAN> </DIV>
+<DIV class=gray style="MARGIN: 5px 5px 8px" align=right>回答者： <A 
+href="http://passport.baidu.com/?business&amp;aid=6&amp;un=%D6%EC%C2%FA%B8%A3#2" 
+target=_blank>朱满福</A> - <A 
+href="http://www.baidu.com/search/zhidao_help.html#n5" target=_blank>初入江湖 
+三级</A><SPAN id=im-user-2c84d6ecc2fab8a30004 title=朱满福>&nbsp;</SPAN> <SPAN 
+class=answer_time>3-10 11:00</SPAN></DIV>
+<DIV id=Lg></DIV></DIV></DIV></DIV>
+<DIV class=rg_4></DIV>
+<DIV class=rg_5></DIV>
+<DIV class=rg_1></DIV></DIV></DIV></DIV>
+<DIV id=aside>
+<DIV class="mb12 bai" id=push_question>
+<DIV class=cp_1></DIV>
+<DIV class=cp_2></DIV>
+<DIV class=cp_3></DIV>
+<DIV class=cp>
+<DIV class=t1>等待您来回答</DIV>
+<DIV class=bc0>
+<DIV class=bai id=cpush_data></DIV></DIV></DIV>
+<DIV class=cp_4></DIV>
+<DIV class=cp_5></DIV>
+<DIV class=cp_1></DIV></DIV>
+<SCRIPT>
+    function cpush(C,H,E){function F(N,K){if(N.length<=K){return N}var L=document.createElement("textarea");try{L.innerHTML=N}catch(O){L.value=N}var M=L.value;M=M.replace(new RegExp("(\\S{"+K+"})","img"),"$1<wbr>&shy;");M=M.replace(/<wbr>/img,"\1").replace(/</img,"&lt;").replace(/>/img,"&gt;").replace(/\1/img,"<wbr>");return M}function B(N,L){var K=document.getElementsByName(N);for(var O=0,M=K.length;O<M;O++){K[O].innerHTML=F(K[O].innerHTML,L)}}function I(L){var K=document.createElement("li");K.onmouseover=function(){this.className="hover"};K.onmouseout=function(){this.className=""};K.innerHTML="<a href='\1' title='\2' name='cpush_question' target='_blank'>\2</a>".replace(/\1/,"/question/"+L.id+".html?fr="+(H?"relateQuestion":"cpush")+(E?"&test="+E:"")).replace(/\2/g,L.title);try{return K}finally{K=null}}if(0==C.length){G("push_question").style.display="none"}var J=document.createElement("ul");J.className="push";for(var D=0,A=C.length;D<A;D++){J.appendChild(I(C[D]))}G("cpush_data").appendChild(J);B("cpush_question",10)};
+    
+        
+            cpush([
+{id: 76270686,title: "初学者求SQL统计语句，谢~~~"}
+
+,{id: 77510009,title: "SQL语句 按年龄段分组统计人数问题"}
+
+,{id: 77474465,title: "VB+SQL教务管理系统"}
+
+,{id: 76336640,title: "sql查询命令"}
+
+,{id: 76220954,title: "统计数据慢的问题"}
+],1);
+        
+    
+</SCRIPT>
+
+<DIV class=cprodiv id=cproshow><!--STATUS OK-->
+<SCRIPT>if(!g_f_js){var g_f_js=true;document.write('<script src=\'http://eiv.baidu.com/other/ff.js\'></'+'script>');}</SCRIPT>
+
+<TABLE cellSpacing=0 cellPadding=0 border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <DIV class=r id=bdfs0><A id=dfs0 
+      onmouseover="return ss('链接至 www.lovoinfo.com')" onmouseout=cs() 
+      href="http://www.baidu.com/baidu.php?url=3-0K00alIXx_ZI79VMrXsK3M5IQaVB8qcijp-Al80rO5LYEor7HJ8LGzurLY9BHVuIfDyO8J8G6DT9hogaWFgGU_62trW0s5f2EuoW_.DY_aBelZ5Bd8fGxvkr3ryZZnC0.U1Yk0ZDqzEvSLUOB0ZfqTL7_kXjwVfKGUHYYrfKL5fKspHYzg1c1nHT3P-tdPjnLP1-xn1c4PHTz0APzm1Ykn1Tvr0" 
+      target=_blank><FONT size=+0>最专业的<FONT color=#c60a00>sql</FONT>培训 
+      朗沃带您轻松步..</FONT> </A><BR><SPAN id=bdfs0 onclick=ga(this,event)><FONT 
+      color=#000000>朗沃是信息产业部全国首家Java软件工程师培训基地.西南地区首创高端Java项目培训,掌..</FONT><BR><FONT 
+      color=#008000>www.lovoinfo.com</FONT></SPAN> </DIV><BR>
+      <DIV class=r id=bdfs1><A id=dfs1 
+      onmouseover="return ss('链接至 www.cd-aptech.com')" onmouseout=cs() 
+      href="http://www.baidu.com/baidu.php?url=3-0K00ajd8x-zKzXCmoqB_yUbE6As4bOmzAgPOffqlXDDB8liI8TrvUA-g9cY1OeAPcmTGjTdnl3gAxdL9aHBewJmx6tBMS7lg5wnac.DR_aAer1WCF9JfGxvkr3ryZZnC0.U1Yz0ZDqzEvSLUOB0ZfqTL7_kXjwVfKGUHYYrfKL5fKspHYzg1mdnWTzPdtYPWRvPWPxn1c4PHTz0APzm1YYP1f3n0" 
+      target=_blank><FONT size=+0>培训<FONT color=#c60a00>Sql</FONT> 
+      北大青鸟金晨培训中心</FONT> </A><BR><SPAN id=bdfs1 onclick=ga(this,event)><FONT 
+      color=#000000>北大青鸟aptech成都金晨培训中心,最权威的软件人才教育培训.开设C#,.net,java,j2ee,O..</FONT><BR><FONT 
+      color=#008000>www.cd-aptech.com</FONT></SPAN> </DIV><BR>
+      <DIV class=r id=bdfs2><A id=dfs2 
+      onmouseover="return ss('链接至 www.nec-as.com.cn')" onmouseout=cs() 
+      href="http://www.baidu.com/baidu.php?url=3-0K00jdDGiBm_WZQcotCjoiZMQaPHcJlfGVk8WZQd07wMXB9Ui2mb3t7gXshlxNvdMgsNAatg0ev87---b4pqJEk1noYF3n1PifbvD.7R_inYpr9nISNMy14nYpr9npc566u8dsYgsqEXlq9hWwYFWEz_lvXVSFWx8lUrM4qMH8lX14qhHFd9knIh1_tIM1ovI5HtlS_XFWxk3qMHdWJIsn5dwrhHdsHRyKDhZr1ZHKDhZr1ZKDhZr1ZKTh6zSWQYI3MgFSOzm3v2gq_H8j-9k120.U1Y10ZDqzEvSLUOB0ZfqTL7_FHcsE2Oc86KGUHYYrfKL5fKspHYzg1DkPHTkP-t1n1n1n1wxrj0sPW0s0APzm1YYPjD3Ps" 
+      target=_blank><FONT size=+0>EXPRESSCLUSTER的<FONT 
+      color=#c60a00>SQL</FONT>数据库集群配..</FONT> </A><BR><SPAN id=bdfs2 
+      onclick=ga(this,event)><FONT color=#000000>NEC 
+      EXPRESSCLUSTER是支持Windows和Linux的专业双机集群软件.镜像和磁盘阵列共享两种..</FONT><BR><FONT 
+      color=#008000>www.nec-as.com.cn</FONT></SPAN> </DIV><BR>
+      <DIV class=r id=bdfs3><A id=dfs3 
+      onmouseover="return ss('链接至 www.zgsj.com')" onmouseout=cs() 
+      href="http://www.baidu.com/baidu.php?url=3-0K00KLrqkYSmPTECDuz2FHc-6txkYj584KpctzPrvt3kw5AAayUHgmCoNIIk6STgVmkuO7UqR1Mtu0pQexpzCohUrHKrGwFoWGVf3.7R_j9dw4R2gq_H8j-9k120.U1YY0ZDqzEvSLUOB0ZfquA-1mLNlEqyt40KGUHYYrfKL5fKspHYzg1KxPjm4Pjfkg1n1nWD1Pjm0mLFW5HndPWfY" 
+      target=_blank><FONT size=+0>中国数据提供 discuz空间 送<FONT 
+      color=#c60a00>sql</FONT>数..</FONT> </A><BR><SPAN id=bdfs3 
+      onclick=ga(this,event)><FONT 
+      color=#000000>中国著名主机提供商,域名空间购买100仅需150元,国际域名45元,虚拟空间服 
+      务器位于中..</FONT><BR><FONT color=#008000>www.zgsj.com</FONT></SPAN> 
+</DIV><BR>
+      <DIV class=r id=bdfs4><A id=dfs4 
+      onmouseover="return ss('链接至 www.xlsoft.com.cn')" onmouseout=cs() 
+      href="http://www.baidu.com/baidu.php?url=3-0K00KEi3KLQOy2gXmdWoXytSy9XeafbEN2N1TyvBudhzr3GHHBTbBtfP_KzMRM9Y-uT-HBaRZZ1mtd_o7OJJw9LKVQVXUynF8Y9sn.DR_jCCk8dY2m51xoOZtOlSgSWqxo4OlSp-OUDe64mTTz60.U1Yd0ZDqzEvSLUOB0ZfqTAs-nbu1Tys0pyYqPjb0I1Y0TAbqn-tdPH64rj-xrj0vPj0Lg1DsrHb4rHns0APzm1YdP1RvP6" 
+      target=_blank><FONT size=+0>PL/<FONT color=#c60a00>SQL</FONT> Developer 
+      世全软件一级代理</FONT> </A><BR><SPAN id=bdfs4 onclick=ga(this,event)><FONT 
+      color=#000000>PL/<FONT color=#c60a00>SQL</FONT> 
+      Developer产品是为更好更快增强开发人员在Oracle数据库上的应用,其注重于简单..</FONT><BR><FONT 
+      color=#008000>www.xlsoft.com.cn</FONT></SPAN> </DIV><BR>
+      <DIV class=r id=bdfs5><A id=dfs5 
+      onmouseover="return ss('链接至 www.yuanyangsoft.com.cn')" onmouseout=cs() 
+      href="http://www.baidu.com/baidu.php?url=3-0K00afcTyuszzlNVVP09S7hmUxr3Vds2qdKPYY4aoZeDv2mxZXjRnVG8R1sbA6kwGibcI2G03y3wiqRPvfIInkzSDrczLYzhpeaXf.7Y_jw6uBYn4CLpl7nZC-eSoqgsYym3Oz_lR_x8OqgSeOdOv5SwOjO6xzxv53xS1OjOsqxkY_Yp5sYym3Oz_lR_xkZs1rWIoC2gq_H8j-9k12.U1Yv0ZDqzEvSLUOB0ZfqTL7_FHcsTvNzIhNzFHcsnW0sPfKGUHYYrfKL5fKspHYzg1KxPjb1n1f4g1Ddrjndn100mLFW5HcdrHRz" 
+      target=_blank><FONT size=+0>微软产品核心代理 购买请选择世纪..</FONT> </A><BR><SPAN 
+      id=bdfs5 onclick=ga(this,event)><FONT color=#000000>北京世纪远扬是微软<FONT 
+      color=#c60a00>sql</FONT> server 2005核心代理,经营vista,xp ,windows server 2003等 
+      ..</FONT><BR><FONT color=#008000>www.yuanyangsoft.com.cn</FONT></SPAN> 
+      </DIV><BR>
+      <DIV class=r id=bdfs6><A id=dfs6 
+      onmouseover="return ss('链接至 www.cdshidai.net')" onmouseout=cs() 
+      href="http://www.baidu.com/baidu.php?url=3-0K000YcmCCJxLPIVSjimfTMog6qQlxPeQoaLr-XXTvknCV5G-x94v4SFUL-mEubSdMXbUvmyvplfIGoIxxPBhCR3t_83-8yFNntrc.7b_aAlroDzOssf8sHwG-REemMTZQjWhR.U1YL0ZDqzEvSLUOB0ZfqTL7_0A-V5Hf40ZTq0ZKG5HFxnHf4rj0dg1RYnjRsndtzPj61nsKWThnqnWRzrjR" 
+      target=_blank><FONT size=+0>专业<FONT color=#c60a00>sql</FONT>培训 
+      北大青鸟带您启航</FONT> </A><BR><SPAN id=bdfs6 onclick=ga(this,event)><FONT 
+      color=#000000>北大青鸟APTECH成都时代授权培训中心提供C语言,java,net,<FONT 
+      color=#c60a00>sql</FONT>等一系列课程的学习.中心..</FONT><BR><FONT 
+      color=#008000>www.cdshidai.net</FONT></SPAN> 
+</DIV><BR></TD></TR></TBODY></TABLE></DIV></DIV>
+<DIV class=clear></DIV></DIV>
+<SCRIPT>
+    var IM_Test=(function(){var A=G("path").getElementsByTagName("a")[1].href.match(/browse\/(\d+)/)[1];return A==74||A==80})();if(!IM_Test){window.startBaiduHi=(function(){var C=(navigator.userAgent.indexOf("MSIE")!=-1)&&!window.opera,F=navigator.userAgent.indexOf("Firefox")!=-1;function E(){if(document.getElementById("__IM_REDIRECT_HOLDER")){return false}var H=document.createElement("div");H.style.display="none";H.id="__IM_REDIRECT_HOLDER";document.body.insertBefore(H,document.body.firstChild);H.innerHTML="<form name = '__IM_REDIRECT' target='_blank' action=''></form>"}function A(H){var I=document.forms.__IM_REDIRECT;I.action=H;I.submit()}function D(I){var H=[];for(prop in I){if(prop!="onim"&&prop!="onwebim"){H.push(prop+"="+I[prop])}}return(H.length>0?"&"+H.join("&"):"")}function B(H,L,J,K){new Image().src="http://im.baidu.com/nop?type="+H+"&sid="+L+"&id="+J+D(K)+"&t="+new Date().getTime()}return function(J,M,K,L){B(J,M,K,L);var H="baidu://"+J+"/?sid="+M+"&id="+K+D(L),P="";if(C){H=H+"&browser=IE"}else{if(F){H=H+"&browser=FF&promo=message|addgroup|creategroup|addcontact"}}if(C){try{P=new ActiveXObject("WebDetect.Detect").GetVersion()}catch(O){}}if(F){try{if(typeof (navigator.mimeTypes["application/x-baiduhi"])=="object"){P=".*"}}catch(O){}}if(P==""){E();var N=/message|addgroup|creategroup|addcontact/i;if(J){A("http://im.baidu.com/promo/"+J+".html")}return false}var N=new RegExp(P,"i");if(C&&!N.test(J)){return false}window.location.href=H;return false}})()}else{window.startBaiduHi=(function(){var D=navigator.userAgent.indexOf("MSIE")>-1&&!window.opera,F=navigator.userAgent.indexOf("Firefox")!=-1;function C(){var B="";try{B=new ActiveXObject("WebDetect.Detect").GetVersion()}catch(I){}try{if(typeof (navigator.mimeTypes["application/x-baiduhi"])=="object"){B=".*"}}catch(I){}return B}function H(I){var B=new Date(),J=B.getTime();B.setTime(J+30*1000);document.cookie="IM_add="+escape(I+"|hi.baidu.com|"+(new Date().getTime()).toString(36))+";domain=baidu.com;path=/;expires="+B.toGMTString();if(!/(^| )IM_=/.test(document.cookie)){if(H.f&&H.f.tagName=="FORM"){H.f.submit();return }var J=document.createElement("DIV");J.style.display="none";document.body.insertBefore(J,document.body.firstChild);J.innerHTML="<form name='__IM_REDIRECT_FORM' method='get' target='baidu_webim' action='http://web.im.baidu.com'></form>";H.f=document.forms.__IM_REDIRECT_FORM;H.f.submit();J=null}}function E(I){var B=[];for(prop in I){if(prop!="onim"&&prop!="onwebim"){B.push(prop+"="+I[prop])}}return(B.length>0?"&"+B.join("&"):"")}function A(B,L,J,K){var M=document.createElement("script");document.body.appendChild(M);M.src="http://im.baidu.com/nop?type="+B+"&sid="+L+"&id="+J+E(K)+"&t="+new Date().getTime()}return function(K,N,L,M){A(K,N,L,M);var J=C();if(J==""){if(/c2cmsg|message|addcontact|addgroup|creategroup/i.test(K)){H(L);if(M&&M.onwebim){M.onwebim()}}return false}if(!(new RegExp(J.replace(/(\.)/g,"\\."),"i").test(K))){return false}var B="baidu://"+K+"/?sid="+N+"&id="+L+E(M);if(D){B=B+"&browser=IE"}else{if(F){B=B+"&browser=FF&promo=c2cmsg|message|addgroup|creategroup|addcontact"}}if(M&&M.onim){M.onim()}window.location.href=B}})()}function bdImUserInfo(D){function A(I,H){var F="";var E=I.getAttribute("title");if((!IM_Test)&&H.imuser=="0"){return }I.innerHTML="&nbsp;&nbsp;<img style='cursor: pointer;' align='absbottom' onclick='startBaiduHi(\"message\",\""+F+'","'+E+'",{clk:"icon",src:"zhidao",stat:"'+(IM_Test?"test":"normal")+"\"});return false;'src='http://img.baidu.com/img/iknow/images/"+((H.online=="1"||H.space_online=="1")?"on":"off")+"line.gif'>"}for(var C in D){var B=G("im-user-"+C);if(B){A(B,D[C])}}}(function(){function A(E){var C=document.getElementsByTagName("head")[0];var D=document.createElement("script");D.type="text/javascript";D.src="http://pdc.baidu.com/imstate/?callback=bdImUserInfo&type=json&uids="+E.join(",")+"&t="+(new Date()).getTime();C.appendChild(D)}function B(){var F=[];var H=/im-user-([a-z0-9]+)/i;var E=document.getElementsByTagName("span");for(var C=E.length,D=0;D<C;D++){if(H.test(E[D].id)){F[F.length]=E[D].id.match(H)[1]}}E=null;return F}A(B())})();
+
+    
+try{var divs = document.getElementsByTagName('DIV');for(var i = 0; i < divs.length; i ++){if(divs[i].className != 'wr') continue;var A = divs[i].lastChild;while(A.nodeType != 1)A = A.previousSibling;if(A.tagName == 'DIV' && A.id == 'Lg'){A.parentNode.removeChild(A);}}}catch(e){}
+</SCRIPT>
+
+<DIV id=ft>&copy;2008 Baidu</DIV><IMG style="DISPLAY: none" src=""> </BODY></HTML>

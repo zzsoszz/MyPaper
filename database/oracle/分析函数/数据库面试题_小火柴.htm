@@ -1,0 +1,812 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0068)http://hi.baidu.com/coollboy/blog/item/a446d162bbd081dee6113a09.html -->
+<!--STATUS OK--><HTML><HEAD><TITLE>数据库面试题_小火柴</TITLE>
+<META http-equiv=content-type content="text/html; charset=gb2312">
+<STYLE>.error {
+	FONT-SIZE: 12px; COLOR: #ff0000
+}
+</STYLE>
+
+<SCRIPT src="数据库面试题_小火柴.files/global.js" type=text/javascript></SCRIPT>
+
+<SCRIPT language=javascript src="数据库面试题_小火柴.files/popup.js"></SCRIPT>
+
+<SCRIPT language=JavaScript src="数据库面试题_小火柴.files/g_spjs.js"></SCRIPT>
+
+<SCRIPT language=javascript>
+<!--
+
+var allkey="";
+var i=0;
+var flag=0;
+function setpv(allnum)
+{
+	var num = allnum.split('_');
+	document.getElementById("result").innerHTML=num[0];
+}
+		 
+function checkMail(s) 
+{ 
+  	var pattern=/\w+@\w+\.[a-z]+/; 
+  	if(pattern.test(s)) 
+    { 
+       return true; 
+    } 
+  	else 
+   { 
+      return false; 
+   } 
+} 
+
+
+function checkeandu(eanduid)
+{
+	var eanduvalue=G(eanduid).value;
+	var len=bytes(eanduvalue);
+	if(len>128)
+	{
+		showErr(2,"您输入的网址或邮箱太长，请保持在128字节以内。");
+		return false;
+	}
+	else
+	{ 
+		 return true;
+	}
+		
+}
+
+function cmtdel(str)
+{
+	var pop=new Popup({ contentType:3,isReloadOnClose:false,width:340,height:80});
+	pop.setContent("title","删除评论");
+	pop.setContent("confirmCon","您确定要彻底删除这条评论吗？");
+	pop.setContent("callBack",delCallback2);
+	pop.setContent("parameter",{fid:str,popup:pop});
+	pop.build();
+	pop.show();
+	return false;
+}
+function delCallback2(para)
+{
+	var o_pop=para["popup"];
+	o_pop.config.contentType=1;
+	o_pop.setContent("contentUrl","");
+	o_pop.reBuild();
+	G(para["fid"]).target=o_pop.iframeIdName;
+	eval("document."+para["fid"]).submit();
+}
+
+
+
+function checkname(strid)
+{
+	var ele=document.getElementById(strid);
+	var len=bytes(ele.value);
+	if(len>49)
+	{
+		showErr(1,"您输入的姓名太长，请保持在49字节以内。");
+		return false;
+	}
+	else 
+	{		
+		if(len==0)
+		{
+			document.getElementById(strid).value="匿名网友";
+		}
+		 return true;
+	}	
+	
+}
+
+function checktext(textid)
+{
+		document.getElementById(textid).value=trimlr(textid);
+		var str=trimrn(textid);
+		len=str.length;
+		if(len==0 || ((/^[\s,　]+$/gi).test(str)) )
+		{
+			showErr(3,"您必须输入评论内容，请检查。");
+			return false;
+		}
+		else 
+		{
+				if(len>1000)
+				{
+					showErr(3,"您输入的评论内容太长，请保持在500字以内。");
+					return false;
+				}
+			return true;
+		}	
+}
+
+function showErr(index,str)
+{
+	G(index+"_err").style.display="";
+	G(index+"_err_con").innerHTML=str;
+}
+function hidErr(index)
+{
+	G(index+"_err").style.display="none";
+	G(index+"_err_con").innerHTML="";
+}
+
+function alertPop(tit,con)
+{
+	var pop=new Popup({ contentType:4,isReloadOnClose:false,width:340,height:80});
+	pop.setContent("title",tit);
+	pop.setContent("alertCon",con);
+	pop.build();
+	pop.show();
+}
+
+function cmtfull()
+{
+	var cnum=0;
+	if(cnum>=50000)
+	{
+		alertPop("发表评论","单篇日志评论数最多为50000条.");
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
+function checkcmtform()
+{
+	if(checkname("spBlogCmtor")&&checkeandu("spBlogCmtURL")&&checktext("spBlogCmtText")&&cmtfull())
+	{
+		submitForm();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+var g_pop=null;
+function submitForm()
+{
+	g_pop=new Popup({ contentType:1,isReloadOnClose:false,width:340,height:80});
+	g_pop.setContent("title","添加评论");
+	g_pop.setContent("contentUrl","");
+	g_pop.setContent("someDisabledBtn","btn_ok");
+	g_pop.build();
+	G("popFormSubmit").target=g_pop.iframeIdName;
+	g_pop.show();
+}
+
+function g_close_pop()
+{
+	g_pop.close();
+}
+
+function formatonlinpic()
+{
+var picobj=document.getElementsByName("onlinepic");
+var picnum=picobj.length;
+	
+	for(var i=0;i<picnum;i++)
+	{
+		if(picobj[i].width>200)
+		{
+			picobj[i].width=200;
+		}
+		if(picobj[i].height>200)
+		{
+			picobj[i].height=200;
+		}
+	}
+    try{document.getElementById("btn_ok").disabled = "";}catch(e){}
+}
+
+function addToFavor(){
+var blogTitle='数据库面试题'.replace(/&#39;/g,'\'');
+window.open('http://cang.baidu.com/do/add?it='+encodeURIComponent(blogTitle+'_百度空间')+'&iu='+encodeURIComponent(location.href)+'&fr=sp#nw=1','_s','scrollbars=no,width=600,height=450,right=75,top=20,status=no,resizable=yes'); 
+return false;
+}
+
+var isIE = /*@cc_on!@*/false;
+function tracker(did,a){
+	return function(){
+		var t=new Date().getTime();
+		var href=a.href;
+        if(isIE){
+            var r = /href\s*=\s*("|')?([^\s]*)\1/gi;
+            if(r.test(a.outerHTML))
+                href = RegExp.$2;
+        }
+        new Image().src = "http://hi.baidu.com/sys/statlog/1.gif?m=" + did + "&v=" + encodeURIComponent(href) + "&c=" + encodeURIComponent(location.href) + "&t="+t;
+	}
+}
+
+function tracker_init(did){
+	var _s=document.getElementById(did);
+	var as = _s.getElementsByTagName('A');
+	for(var i = 0, j = as.length; i < j; i ++){
+		var a = as[i];
+		if(isIE){
+			a.attachEvent("onclick", tracker(did,a));
+		}else{
+			a.addEventListener("click", tracker(did,a), false);
+		}
+	}
+}
+
+
+
+//-->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+/*<![CDATA[*/
+var RelatedDocData = null, GetAndEval = false;
+(function(){
+	var xhr = BdAjax.getXHR();
+	if(xhr == null){
+		RelatedDocData = -1;
+		return;
+	}
+
+	xhr.open("GET", "/sys/search?type=8&word=%CA%FD%BE%DD%BF%E2%C3%E6%CA%D4%CC%E2&item=a446d162bbd081dee6113a09&t=" + new Date().getTime(), true);	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4){
+			if(xhr.status == 0 || xhr.status == 200){
+				if(GetAndEval){
+					eval(xhr.responseText);
+				}else{
+					RelatedDocData = xhr.responseText;
+				}
+			}
+		}
+	}
+	xhr.send(null);
+})();
+/*]]>*/
+</SCRIPT>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY onload=formatonlinpic();>
+<CENTER>
+<SCRIPT type=text/javascript>
+/*<![CDATA[*/
+if(top.location != self.location){
+	top.location = self.location;
+}
+var myref = encodeURIComponent("http://hi.baidu.com/coollboy/blog/item/a446d162bbd081dee6113a09%2Ehtml");
+/*]]>*/
+</SCRIPT>
+<LINK href="数据库面试题_小火柴.files/mods.css" type=text/css rel=stylesheet><LINK 
+href="数据库面试题_小火柴.files/ada70df757990922730eec35.css" type=text/css 
+rel=stylesheet><LINK href="数据库面试题_小火柴.files/space.css" type=text/css 
+rel=stylesheet>
+<STYLE type=text/css>#usrbar {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 0px; FONT-SIZE: 12px; BACKGROUND: #ffffff; FILTER: alpha(opacity=65); PADDING-BOTTOM: 3px; WIDTH: 100%; COLOR: #000000; LINE-HEIGHT: 19px; PADDING-TOP: 4px; FONT-FAMILY: Arial; LETTER-SPACING: normal; HEIGHT: 19px; TEXT-ALIGN: right; moz-opacity: 0.5
+}
+#usrbar A {
+	COLOR: #0000cc; TEXT-DECORATION: underline
+}
+#usrbar A:link {
+	COLOR: #0000cc; TEXT-DECORATION: underline
+}
+#usrbar A:visited {
+	COLOR: #0000cc; TEXT-DECORATION: underline
+}
+#ft {
+	CLEAR: both; FONT-SIZE: 12px; COLOR: #666666; LINE-HEIGHT: 20px; FONT-FAMILY: Arial; HEIGHT: 20px; TEXT-ALIGN: center
+}
+#ft A {
+	COLOR: #7777cc; TEXT-DECORATION: underline
+}
+#ft A:link {
+	COLOR: #7777cc; TEXT-DECORATION: underline
+}
+#ft A:visited {
+	COLOR: #7777cc; TEXT-DECORATION: underline
+}
+#usrbar {
+	LETTER-SPACING: normal
+}
+#usrbar A {
+	LETTER-SPACING: normal
+}
+#usrbar A:link {
+	LETTER-SPACING: normal
+}
+#usrbar A:visited {
+	LETTER-SPACING: normal
+}
+#ft {
+	LETTER-SPACING: normal
+}
+#ft A {
+	LETTER-SPACING: normal
+}
+#ft A:link {
+	LETTER-SPACING: normal
+}
+#ft A:visited {
+	LETTER-SPACING: normal
+}
+</STYLE>
+
+<DIV id=usrbar><NOBR><A href="http://www.baidu.com/" target=_blank>百度首页</A> | <A 
+id=hi_index href="http://hi.baidu.com/" target=_blank>百度空间</A>
+<SCRIPT type=text/javascript>
+		document.write('| <a href="http://passport.baidu.com/?login&tpl=sp&tpl_reg=sp&u=http://hi.baidu.com' + encodeURIComponent('/coollboy/blog/item/a446d162bbd081dee6113a09%2Ehtml') + '">登录</a>');
+		</SCRIPT>
+ </NOBR></DIV>
+<SCRIPT type=text/javascript>
+
+function set_cookie_4_bdtip(index/* start from one */, value){
+        var bdtip = document.cookie.match(/(^| )BDTIP=([^;]*)(;|$)/);
+            if(!bdtip){
+                        bdtip=new Array(index);
+                                for(var i=0,n=bdtip.length;i<n;i++)
+                                            {
+                                                            if(bdtip[i]=="" || bdtip[i]==null)  bdtip[i]=0;
+                                                                        if(i == index - 1){
+                                                                                            bdtip[i] = value;
+                                                                                                        }
+                                                                                                                }
+                                                                                                                    }else{
+                                                                                                                                bdtip = bdtip[2].split('-');
+                                                                                                                                        if(index > bdtip.length)  bdtip.length= index;
+                                                                                                                                                for(var i = 0, j = bdtip.length; i < j; i ++){
+                                                                                                                                                                if(bdtip[i]=="" || bdtip[i]==null) bdtip[i]=0;
+                                                                                                                                                                            if(i == index - 1){
+                                                                                                                                                                                                bdtip[i] = value;
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                            bdtip = bdtip.join('-');
+                                                                                                                                                                                                                                document.cookie = "BDTIP=" + bdtip+ ";expires=Wed, 28-Nov-37 01:45:46 GMT;path=/;domain=.baidu.com";
+}
+</SCRIPT>
+
+<DIV id=main align=left><!--[if IE]>
+<SCRIPT>
+var objmain = document.getElementById("main");
+function updatesize(){ var bodyw = window.document.body.offsetWidth; if(bodyw <= 790) objmain.style.width="772px"; else if(bodyw >= 1016) objmain.style.width="996px"; else objmain.style.width="100%"; }
+updatesize(); window.onresize = updatesize;
+</SCRIPT>
+<![endif]-->
+<DIV id=header>
+<DIV class=lc>
+<DIV class=rc></DIV></DIV>
+<DIV class=tit><A class=titlink title="coollboy的空间 http://hi.baidu.com/coollboy" 
+href="http://hi.baidu.com/coollboy">小火柴</A></DIV>
+<DIV class=desc>青春像一撮茶叶，被似水的光阴冲泡开，香醇和苦涩都已随风而逝，剩下些许残渣，偶尔提醒我们有关那些人事的酸甜苦辣。</DIV>
+<DIV id=tabline></DIV>
+<DIV id=tab><A href="http://hi.baidu.com/coollboy">主页</A><A class=on 
+href="http://hi.baidu.com/coollboy/blog">博客</A><A 
+href="http://hi.baidu.com/coollboy/album">相册</A><SPAN>|</SPAN><A 
+href="http://hi.baidu.com/coollboy/profile">个人档案</A> <SPAN>|</SPAN><A 
+href="http://hi.baidu.com/coollboy/friend">好友</A> </DIV></DIV>
+<DIV class=stage>
+<DIV class=stagepad>
+<DIV style="WIDTH: 100%">
+<TABLE class=modth cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD class=modtl width=7>&nbsp;</TD>
+    <TD class=modtc noWrap>
+      <DIV class=modhead><SPAN class=modtit>查看文章</SPAN></DIV></TD>
+    <TD class=modtc noWrap align=right></TD>
+    <TD class=modtr width=7>&nbsp;</TD></TR></TBODY></TABLE>
+<DIV class=modbox id=m_blog>
+<DIV class=tit>数据库面试题</DIV>
+<DIV class=date>2007-10-17 11:43</DIV>
+<TABLE style="TABLE-LAYOUT: fixed">
+  <TBODY>
+  <TR>
+    <TD>
+      <DIV class=cnt id=blog_text>
+      <P class=MsoNormal 
+      style="BACKGROUND: white; MARGIN: 0cm 0cm 0pt; WORD-BREAK: break-all; TEXT-INDENT: 21pt; LINE-HEIGHT: 125%; TEXT-ALIGN: left; mso-pagination: widow-orphan" 
+      align=left><STRONG style="mso-bidi-font-weight: normal"><SPAN 
+      style="FONT-SIZE: 15pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-font-size: 9.0pt; mso-ascii-: 0pt"></SPAN></STRONG><STRONG 
+      style="mso-bidi-font-weight: normal"><SPAN 
+      style="FONT-SIZE: 15pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-font-size: 9.0pt; mso-bidi-: 0pt"></SPAN></STRONG></P>
+      <P class=MsoNormal 
+      style="BACKGROUND: white; MARGIN: 0cm 0cm 0pt; WORD-BREAK: break-all; TEXT-INDENT: 21pt; LINE-HEIGHT: 125%; TEXT-ALIGN: left; mso-pagination: widow-orphan" 
+      align=left><SPAN><FONT 
+      face="Times New Roman">1</FONT></SPAN><SPAN>，统计函数</SPAN><FONT 
+      face="Times New Roman"><SPAN> avg, count, max, min, sum</SPAN><STRONG 
+      style="mso-bidi-font-weight: normal"><SPAN 
+      style="FONT-SIZE: 15pt; COLOR: #4b4b4b; LINE-HEIGHT: 125%; mso-bidi-font-size: 8.5pt; mso-bidi-: 0pt"></SPAN></STRONG></FONT></P>
+      <P class=MsoNormal 
+      style="BACKGROUND: white; MARGIN: 0cm 0cm 0pt; WORD-BREAK: break-all; LINE-HEIGHT: 125%; TEXT-ALIGN: left; mso-pagination: widow-orphan" 
+      align=left><STRONG><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-font-size: 12.0pt; mso-bidi-: 0pt">1</SPAN></STRONG><STRONG><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-font-size: 12.0pt; mso-ascii-: 0pt">维护数据库的完整性、一致性、你喜欢用触发器还是自写业务逻辑？为什么</SPAN></STRONG><STRONG><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-font-size: 12.0pt; mso-bidi-: 0pt">?</SPAN></STRONG><SPAN 
+      style="FONT-SIZE: 8.5pt; COLOR: #4b4b4b; LINE-HEIGHT: 125%; mso-bidi-: 0pt"></SPAN></P>
+      <P class=MsoNormal 
+      style="BACKGROUND: white; MARGIN: 0cm 0cm 0pt; WORD-BREAK: break-all; TEXT-INDENT: 21pt; LINE-HEIGHT: 125%; TEXT-ALIGN: left; mso-pagination: widow-orphan" 
+      align=left><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">答：尽可能用约束（包括</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-: 0pt">CHECK</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">、主键、唯一键、外键、非空字段）实现，这种方式的效率最好；其次用触发器，这种方式可以保证无论何种业务系统访问数据库都能维持数据库的完整性、一致性；最后再考虑用自写业务逻辑实现，但这种方式效率最低、编程最复杂，当为下下之策。</SPAN><SPAN 
+      style="FONT-SIZE: 8.5pt; COLOR: #4b4b4b; LINE-HEIGHT: 125%; mso-bidi-: 0pt"></SPAN></P>
+      <P class=MsoNormal 
+      style="BACKGROUND: white; MARGIN: 0cm 0cm 0pt; WORD-BREAK: break-all; LINE-HEIGHT: 125%; TEXT-ALIGN: left; mso-pagination: widow-orphan" 
+      align=left><STRONG><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-font-size: 12.0pt; mso-bidi-: 0pt">2</SPAN></STRONG><STRONG><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-font-size: 12.0pt; mso-ascii-: 0pt">什么是事务？什么是锁？</SPAN></STRONG><SPAN 
+      style="FONT-SIZE: 8.5pt; COLOR: #4b4b4b; LINE-HEIGHT: 125%; mso-bidi-: 0pt"></SPAN></P>
+      <P class=MsoNormal 
+      style="BACKGROUND: white; MARGIN: 0cm 0cm 0pt; WORD-BREAK: break-all; TEXT-INDENT: 21pt; LINE-HEIGHT: 125%; TEXT-ALIGN: left; mso-pagination: widow-orphan" 
+      align=left><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">答：事务是指一个工作单元，它包含了一组数据操作命令，并且所有的命令作为一个整体一起向系统提交或撤消请求操作，即这组命令要么都执行，要么都不执行。</SPAN><SPAN 
+      style="FONT-SIZE: 8.5pt; COLOR: #4b4b4b; LINE-HEIGHT: 125%; mso-bidi-: 0pt"></SPAN></P>
+      <P class=MsoNormal 
+      style="BACKGROUND: white; MARGIN: 0cm 0cm 0pt; WORD-BREAK: break-all; LINE-HEIGHT: 125%; TEXT-ALIGN: left; mso-pagination: widow-orphan" 
+      align=left><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">锁是在多用户环境中对数据的访问的限制。</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-: 0pt">SqlServer</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">自动锁定特定记录、字段或文件，防止用户访问，以维护数据安全或防止并发数据操作问题，锁可以保证事务的完整性和并发性。</SPAN><SPAN 
+      style="FONT-SIZE: 8.5pt; COLOR: #4b4b4b; LINE-HEIGHT: 125%; mso-bidi-: 0pt"></SPAN></P>
+      <P class=MsoNormal 
+      style="BACKGROUND: white; MARGIN: 0cm 0cm 0pt; WORD-BREAK: break-all; LINE-HEIGHT: 125%; TEXT-ALIGN: left; mso-pagination: widow-orphan" 
+      align=left><STRONG><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-font-size: 12.0pt; mso-bidi-: 0pt">3</SPAN></STRONG><STRONG><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-font-size: 12.0pt; mso-ascii-: 0pt">什么是索引，有什么优点？</SPAN></STRONG><SPAN 
+      style="FONT-SIZE: 8.5pt; COLOR: #4b4b4b; LINE-HEIGHT: 125%; mso-bidi-: 0pt"></SPAN></P>
+      <P class=MsoNormal 
+      style="BACKGROUND: white; MARGIN: 0cm 0cm 0pt; WORD-BREAK: break-all; TEXT-INDENT: 21pt; LINE-HEIGHT: 125%; TEXT-ALIGN: left; mso-pagination: widow-orphan" 
+      align=left><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">答：索引象书的目录类似，索引使数据库程序无需扫描整个表，就可以在其中找到所需要的数据，索引包含了一个表中包含值的列表，其中包含了各个值的行所存储的位置，索引可以是单个或一组列，索引提供的表中数据的逻辑位置，合理划分索引能够大大提高数据库性能。</SPAN><SPAN 
+      style="FONT-SIZE: 8.5pt; COLOR: #4b4b4b; LINE-HEIGHT: 125%; mso-bidi-: 0pt"></SPAN></P>
+      <P class=MsoNormal 
+      style="BACKGROUND: white; MARGIN: 0cm 0cm 0pt; WORD-BREAK: break-all; LINE-HEIGHT: 125%; TEXT-ALIGN: left; mso-pagination: widow-orphan" 
+      align=left><STRONG><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-font-size: 12.0pt; mso-bidi-: 0pt">4</SPAN></STRONG><STRONG><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-font-size: 12.0pt; mso-ascii-: 0pt">视图是什么？游标是什么？</SPAN></STRONG><SPAN 
+      style="FONT-SIZE: 8.5pt; COLOR: #4b4b4b; LINE-HEIGHT: 125%; mso-bidi-: 0pt"></SPAN></P>
+      <P class=MsoNormal 
+      style="BACKGROUND: white; MARGIN: 0cm 0cm 0pt; WORD-BREAK: break-all; TEXT-INDENT: 21pt; LINE-HEIGHT: 125%; TEXT-ALIGN: left; mso-pagination: widow-orphan" 
+      align=left><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">答：视图是一种虚拟表，虚拟表具有和物理表相同的功能，可以对虚拟表进行增该查操作，视图通常是一个或多个表的行或列的子集，视图的结果更容易理解（修改视图对基表不影响），获取数据更容易（相比多表查询更方便），限制数据检索（比如需要隐藏某些行或列），维护更方便。</SPAN><SPAN 
+      style="FONT-SIZE: 8.5pt; COLOR: #4b4b4b; LINE-HEIGHT: 125%; mso-bidi-: 0pt"></SPAN></P>
+      <P class=MsoNormal 
+      style="BACKGROUND: white; MARGIN: 0cm 0cm 0pt; WORD-BREAK: break-all; TEXT-INDENT: 21pt; LINE-HEIGHT: 125%; TEXT-ALIGN: left; mso-pagination: widow-orphan" 
+      align=left><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">游标对查询出来的结果集作为一个单元来有效的处理，游标可以定位在结果集的特定行、从结果集的当前位置检索一行或多行、可以对结果集中当前位置进行修改、</SPAN><SPAN 
+      style="FONT-SIZE: 8.5pt; COLOR: #4b4b4b; LINE-HEIGHT: 125%; mso-bidi-: 0pt"></SPAN></P>
+      <P class=MsoNormal 
+      style="BACKGROUND: white; MARGIN: 0cm 0cm 0pt; WORD-BREAK: break-all; LINE-HEIGHT: 125%; TEXT-ALIGN: left; mso-pagination: widow-orphan" 
+      align=left><STRONG><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-font-size: 12.0pt; mso-bidi-: 0pt">5</SPAN></STRONG><STRONG><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-font-size: 12.0pt; mso-ascii-: 0pt">什么是存储过程？有什么优点？</SPAN></STRONG><SPAN 
+      style="FONT-SIZE: 8.5pt; COLOR: #4b4b4b; LINE-HEIGHT: 125%; mso-bidi-: 0pt"></SPAN></P>
+      <P class=MsoNormal 
+      style="BACKGROUND: white; MARGIN: 0cm 0cm 0pt; WORD-BREAK: break-all; TEXT-INDENT: 21pt; LINE-HEIGHT: 125%; TEXT-ALIGN: left; mso-pagination: widow-orphan" 
+      align=left><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">答：存储过程是一组予编译的</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-: 0pt">SQL</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">语句，它的优点有</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-: 0pt">1.</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">允许模块化程序设计，就是说只需要创建一次过程，以后在程序中就可以调用该过程任意次。</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-: 0pt">2.</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">允许更快执行，如果某操作需要执行大量</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-: 0pt">SQL</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">语句或重复执行，存储过程比</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-: 0pt">SQL</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">语句执行的要快。</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-: 0pt">3.</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">减少网络流量，例如一个需要数百行的</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-: 0pt">SQL</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">代码的操作有一条执行语句完成，不需要在网络中发送数百行代码。</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-: 0pt">4.</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-ascii-: 0pt">更好的安全机制，对于没有权限执行存储过程的用户，也可授权他们执行存储过程。</SPAN><SPAN 
+      style="FONT-SIZE: 8.5pt; COLOR: #4b4b4b; LINE-HEIGHT: 125%; mso-bidi-: 0pt"></SPAN></P>
+      <P class=MsoNormal 
+      style="BACKGROUND: white; MARGIN: 0cm 0cm 0pt; WORD-BREAK: break-all; LINE-HEIGHT: 125%; TEXT-ALIGN: left; mso-pagination: widow-orphan" 
+      align=left><STRONG><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-font-size: 12.0pt; mso-bidi-: 0pt">6</SPAN></STRONG><STRONG><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545; LINE-HEIGHT: 125%; mso-bidi-font-size: 12.0pt; mso-ascii-: 0pt">什么是触发器？</SPAN></STRONG><SPAN 
+      style="FONT-SIZE: 8.5pt; COLOR: #4b4b4b; LINE-HEIGHT: 125%; mso-bidi-: 0pt"></SPAN></P><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545">答：出发器是一种特殊类型的存储过程，出发器主要通过事件触发而被执行的，触发器的优点：</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545">1.</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545">强化约束，触发器能够提供比</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545">CHECK</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545">约束。</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545">2.</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545">跟踪变化，触发器可以跟踪数据库内的操作，从而不允许未经允许许可的更新和变化。</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545">3.</SPAN><SPAN 
+      style="FONT-SIZE: 9pt; COLOR: #454545">联级运算，比如某个表上的触发器中包含对另一个表的数据操作，而该操作又导致该表上的触发器被触发。</SPAN></DIV></TD></TR></TBODY></TABLE><BR>
+<DIV class=opt><A title=查看该分类中所有文章 
+href="http://hi.baidu.com/coollboy/blog/category/&Ecirc;&yacute;&frac34;&Yacute;&iquest;&acirc;sql%20server">类别：数据库sql 
+server</A> | <A title=将此文章添加到百度搜藏 onclick="return addToFavor();" 
+href="http://cang.baidu.com/do/add" target=_blank>添加到搜藏</A> | 浏览(<SPAN 
+id=result></SPAN>) | <A 
+href="http://hi.baidu.com/coollboy/blog/item/a446d162bbd081dee6113a09.html#send">评论</A>&nbsp;(0)
+<SCRIPT language=javascript>
+/*<![CDATA[*/
+var pre = [true,'数据表的连接', '数据表的连接','/coollboy/blog/item/4d9aacd397fb2537960a1608.html'];
+var post = [true,'创建数据库存储过程的增删查改','创建数据库存储过程的增删查改', '/coollboy/blog/item/a0b2a8af0035c7cf7dd92a14.html'];
+if(pre[0] || post[0]){
+	document.write('<div style="height:5px;line-height:5px;">&nbsp;</div><div id="in_nav">');
+	if(pre[0]){
+		document.write('上一篇：<a href="' + pre[3] + '" title="' + pre[1] + '">' +  pre[2] + '</a>&nbsp;&nbsp;&nbsp;&nbsp;');
+	}
+	if(post[0]){
+		document.write('下一篇：<a href="' + post[3] + '" title="' + post[1] + '">' +  post[2] + '</a>');
+	}
+	document.write('</div>');
+}
+/*]]>*/
+</SCRIPT>
+ </DIV>
+<DIV class=line></DIV>
+<STYLE type=text/css>#in_related_doc A {
+	TEXT-DECORATION: none
+}
+</STYLE>
+
+<DIV id=in_related_tmp></DIV>
+<SCRIPT language=javascript type=text/javascript>
+/*<![CDATA[*/
+function HI_MOD_IN_RELATED_DOC_CALLBACK(arg){
+    if(arg.length <= 1) return false;
+    var hasMore = arg[0];
+    var D=function(A,B){A[A.length]=B;}
+    if(arg.length % 2 == 0) D(arg, ["","","",""]);
+
+    var html = ['<div id="in_related_doc"><div class="tit">相关文章：</div>'];
+    D(html, '<table cellpadding="0" cellspacing="3" border="0">');
+    for(var i = 1, j = arg.length; i < j; i += 2){
+        D(html, '<tr>');
+        D(html, '<td width="15px"><a style="font-size:25px" >&#8226;</a></td><td><a href="http://hi.baidu.com/' + arg[i][3] + '/blog/item/' + arg[i][2] + '.html" target="_blank" title="' + arg[i][0] + '">' + arg[i][1] + '</a>');
+        D(html, new Array(10).join('\u3000'));
+        D(html, '</td>');
+        if(arg[i + 1][0] != "")
+            D(html, '<td width="15px"><a style="font-size:25px" >&#8226;</a></td><td><a href="http://hi.baidu.com/' + arg[i + 1][3] + '/blog/item/' + arg[i + 1][2] + '.html" target="_blank" title="' + arg[i + 1][0] + '">' + arg[i + 1][1] + '</a></td>');
+        else
+            D(html, '<td>&nbsp;</td><td>&nbsp;</td>');
+        D(html, '</tr>');
+    }
+    if(hasMore) D(html, '<tr><td colspan="4"><a target="_blank" href="/sys/search?pageno=1&type=7&sort=1&word=%CA%FD%BE%DD%BF%E2%C3%E6%CA%D4%CC%E2&item=a446d162bbd081dee6113a09">更多&gt;&gt;</a></td></tr>');
+    D(html, '</table></div><div class="line">&nbsp;</div>');
+
+    var div = document.getElementById('in_related_tmp');
+    if(div){
+        div.innerHTML = html.join('');
+        while(div.firstChild){
+            div.parentNode.insertBefore(div.firstChild, div);
+        }
+        div.parentNode.removeChild(div);
+    }
+	window.setTimeout("tracker_init('in_related_doc')",100);
+}
+
+if(RelatedDocData == -1){	// not supported xhr
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = '/sys/search?type=8&word=%CA%FD%BE%DD%BF%E2%C3%E6%CA%D4%CC%E2&item=a446d162bbd081dee6113a09&t=' + new Date().getTime();
+    document.getElementsByTagName('HEAD')[0].appendChild(script);
+}else if(RelatedDocData == null){
+	GetAndEval = true;
+}else{
+	eval(RelatedDocData);
+}
+
+/*]]>*/
+</SCRIPT>
+
+<DIV id=in_reader>
+<DIV class=tit>最近读者：</DIV>
+<SCRIPT>
+
+	var g_spAnnony=true;
+
+
+var g_read=[
+	
+["thewintersun","bced74686577696e74657273756ec900","thewintersun"],
+	
+["csh123911458","baca6373683132333931313435381c02","csh123911458"],
+	
+["wwj905","0e1877776a3930356700","wwj905"],
+	
+["hellocoffee","9a69b7e7bbaac0cbc8cb6901","风华浪人"],
+	
+["xieyq","d7497879713234313b01","xyq241"],
+	
+["pc%5Ffei","e86b70635f6665696303","pc_fei"],
+	
+["wangmengtianxi","67f077616e676d656e677469616e78699b03","wangmengtianxi"],
+
+{}
+];
+g_read.length=g_read.length-1;
+
+var _rh1="";
+var _rh2="";
+
+function wrreader(){
+	_rh1 += '<table width="100%" ><tr>';
+	_rh2+='<tr>';
+	if(g_spAnnony){
+		_rh1+='<td align="center" width="10%" ><img border="0" width="55" height="55" src="http://img.baidu.com/hi/img/portraitn.jpg"></td>';
+		_rh2+='<td>&nbsp;</td>';
+		if(g_read.length>0){
+			_rh1+='<td align="left" width="12%">';
+		}else{
+			_rh1+='<td align="left" width="100%">';
+		}
+		_rh1+='<a href="http://passport.baidu.com/?login&tpl=sp&tpl_reg=sp&u='+myref+'" target="_self">登录</a>后，您就出现在这里。</td>';
+		_rh2+='<td>&nbsp;</td>'
+	}
+	if(g_read.length==0){
+		if(!g_spAnnony){
+			_rh1+='<td align=left width="100%">最近还没有登录用户看过这篇文章……</td>';
+			_rh2+='<td>&nbsp;</td>';
+		}
+	}else{
+		for(i=0,len=g_read.length;i<len;i++){
+			_rh1+='<td align="center" valign="bottom" width="10%" class="user"><a href="/'+g_read[i][0]+'" target="_blank"><img border="0" src="http://himg.baidu.com/sys/portraitn/item/'+g_read[i][1]+'.jpg"></a></td>';
+			_rh2+='<td align="center" valign="top" class="user"><a href="/'+g_read[i][0]+'" target="_blank">'+g_read[i][2]+'</a></td>';
+		}
+	}
+	_rh1+='<td width="100%"></td></tr>';
+	_rh2+='<td></td></tr></table>';
+	document.write(_rh1+_rh2);
+}
+
+wrreader();
+</SCRIPT>
+</DIV>
+<DIV class=line></DIV>
+<SCRIPT language=JavaScript>
+allkey=allkey+"969ad61be5701fd5ac6e756d_a446d162bbd081dee6113a09_";
+</SCRIPT>
+
+<DIV id=in_comment><A name=comment></A>
+<DIV class=tit>网友评论：</DIV>
+<SCRIPT>
+function writecmt(type,id,cmtname,cmturl,portraitId){
+	var html1="";
+
+	if(type==1){
+			html1="<a href='"+cmturl+"' target='_blank' title='"+cmturl+"'><img  border='0' src='http://himg.baidu.com/sys/portraitn/item/"+portraitId+".jpg'><br>"+cmtname+"</a>";
+	}else{
+		if(cmtname=="" || cmtname=="匿名网友"){
+			if(cmturl==""){
+				html1="<a>匿名网友</a>";
+			}else{
+				html1="<a href='"+cmturl+"' target='_blank' title='"+cmturl+"'>"+cmtname+"</a>";
+			}
+		}else{
+			if(cmturl==""){
+				html1="<div class='f14' style='display:inline'>网友:<a>"+cmtname+"</a></div>";
+			}else{
+				html1="<div class='f14' style='display:inline'>网友:<a href='"+cmturl+"' target='_blank' title='"+cmturl+"'>"+cmtname+"</a></div>";
+			}
+		}
+	}
+	document.write(html1);
+}
+
+</SCRIPT>
+
+<DIV id=page></DIV></DIV>
+<DIV id=in_send><A name=send></A>
+<FORM id=popFormSubmit name=form1 onsubmit="return checkcmtform()" 
+action=/coollboy/commit method=post><INPUT type=hidden value=8 name=ct> <INPUT 
+type=hidden value=1 name=cm> <INPUT type=hidden value=a446d162bbd081dee6113a09 
+name=spBlogID> <INPUT id=spRefURL type=hidden name=spRefURL>
+<SCRIPT>
+    document.getElementById("spRefURL").value = window.location.href;
+</SCRIPT>
+ 
+<DIV class=tit>发表评论：</DIV>
+<TABLE cellSpacing=5 cellPadding=0 width=620 border=0>
+  <TBODY>
+  <TR>
+    <TD class=f14>姓　名：</TD>
+    <TD><INPUT id=spBlogCmtor style="WIDTH: 220px" onfocus=hidErr(1); 
+      tabIndex=1 maxLength=49 onchange="checkname('spBlogCmtor')" 
+      name=spBlogCmtor>
+      <SCRIPT>
+document.write(" &nbsp;&nbsp; <a href='http://passport.baidu.com/?reg&tpl=sp&return_method=get&skip_ok=1&u=http://hi.baidu.com/sys/reg/' target='_blank'>注册</a>");
+document.write(' | <a href="http://passport.baidu.com/?login&tpl=sp&tpl_reg=sp&u='+myref+'">登录</a>');
+
+</SCRIPT>
+       
+      <DIV id=nmerror style="DISPLAY: none">*姓名最长为50字节</DIV></TD></TR>
+  <TR id=1_err style="DISPLAY: none">
+    <TD>&nbsp;</TD>
+    <TD>
+      <DIV class=error id=1_err_con></DIV></TD></TR>
+  <TR>
+    <TD class=f14>网址或邮箱：</TD>
+    <TD><INPUT id=spBlogCmtURL style="WIDTH: 360px" onfocus=hidErr(2); 
+      tabIndex=2 maxLength=128 onchange="checkeandu('spBlogCmtURL')" 
+      name=spBlogCmtURL> (选填)</TD>
+    <SCRIPT>
+G("spBlogCmtor").value="";
+G("spBlogCmtURL").value="";
+</SCRIPT>
+  </TR>
+  <TR id=2_err style="DISPLAY: none">
+    <TD>&nbsp;</TD>
+    <TD>
+      <DIV class=error id=2_err_con></DIV></TD></TR>
+  <TR>
+    <TD class=f14 vAlign=top>内　容：</TD>
+    <TD><TEXTAREA id=spBlogCmtText style="WIDTH: 520px; HEIGHT: 155px" onfocus=hidErr(3); tabIndex=3 name=spBlogCmtText></TEXTAREA>
+      <SCRIPT>
+G("spBlogCmtor").value=G("spBlogCmtor").defaultValue;
+G("spBlogCmtText").value="";
+</SCRIPT>
+       </TD></TR>
+  <TR id=3_err style="DISPLAY: none">
+    <TD>&nbsp;</TD>
+    <TD>
+      <DIV class=error id=3_err_con></DIV></TD></TR>
+  <TR id=vercode>
+    <TD class=f14 vAlign=top>验证码：</TD>
+    <TD vAlign=top><INPUT type=hidden 
+      value=30357370616365313535383830393030383030303030303030303030303030313232373937353836377A41769DA86100C7913BDE338CE86614 
+      name=spVcode> <INPUT id=spVerifyKey onfocus=f_focus() tabIndex=4 
+      maxLength=4 size=6 name=spVerifyKey autocomplete="off"><BR>
+      <SCRIPT type=text/javascript>
+/*<![CDATA[*/
+var imgsrc="http://hiup.baidu.com/cgi-bin/genimg?30357370616365313535383830393030383030303030303030303030303030313232373937353836377A41769DA86100C7913BDE338CE86614";
+function f_focus(){
+	if(G('yanzheng').style.display=="none" ){
+		G('verifypic').src=imgsrc;
+		G('yanzheng').style.display="block";
+	}
+}
+function newverifypic(){
+	G("verifypic").src = imgsrc +"&t="+ Math.random();
+	return false;
+}
+/*]]>*/
+</SCRIPT>
+
+      <DIV id=yanzheng style="DISPLAY: none"><IMG id=verifypic height=40 
+      width=120><WBR><A title=看不清左边的字符 onfocus=this.blur(); 
+      onclick="return newverifypic();" 
+      href="http://hi.baidu.com/coollboy/blog/item/a446d162bbd081dee6113a09.html#">看不清?</A> 
+      </DIV></TD></TR>
+  <TR>
+    <TD class=f14 vAlign=top>&nbsp;</TD>
+    <TD class=f14 vAlign=top><INPUT id=btn_ok tabIndex=5 type=submit value=发表评论 name=btn_ok></TD></TR></TBODY></TABLE></FORM></DIV><BR></DIV>
+<TABLE height=8 cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD class=modbl width=7>&nbsp;</TD>
+    <TD class=modbc>&nbsp;</TD>
+    <TD class=modbr width=7>&nbsp;</TD></TR></TBODY></TABLE></DIV></DIV></DIV></DIV>
+<SCRIPT language=javascript>
+<!--
+var hstr="/coollboy/brwstat?key1=1";
+document.write("<script src='"+hstr+"&key2="+allkey+"'><\/script>");
+//-->
+</SCRIPT>
+<BR>
+<CENTER>
+<DIV id=ft>&copy;2008 Baidu</DIV></CENTER>
+<SCRIPT>
+if(document.getElementById("m_blog"))
+{
+	var imgarray = document.getElementById("m_blog").getElementsByTagName('img');
+	var imgw = document.getElementById("m_blog").offsetWidth;
+	imgw =imgw-40;
+	for(var i=0; i<imgarray.length; i++){
+	if(imgarray[i].className=="blogimg" && imgarray[i].width>=imgw) imgarray[i].width=imgw;
+	}
+}
+
+// Fix ff bugs
+var blog_text = document.getElementById('blog_text');
+blog_text.innerHTML = blog_text.innerHTML.replace(/href\s*=\s*("|')?(\.\.\/\.\.\/)/gi,"href=$1../$2");
+
+</SCRIPT>
+</CENTER><IMG style="DISPLAY: none" src=""> </BODY></HTML>

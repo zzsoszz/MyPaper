@@ -1,0 +1,1 @@
+﻿document.write('<a href=http://www.mcuol.com/aspx/adcount.aspx?&url=http://www.mcuol.com/Solution/ target=_blank><img src=http://www.mcuol.com/adphoto/AD218_solution.gif border="0" width=265 height=300 alt=解决方案 align="top" /></a>');

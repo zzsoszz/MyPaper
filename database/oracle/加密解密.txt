@@ -1,0 +1,315 @@
+---第一种 http://blog.csdn.net/strawbingo/article/details/4481832
+create or replace function decrypt(p_in varchar2, p_key varchar2)
+  return varchar2 is
+  v_in varchar2(2000);
+begin
+  dbms_obfuscation_toolkit.DES3Decrypt(input_string     => p_in,
+                                      key_string       => p_key,
+                                      decrypted_string => v_in);
+  v_in := rtrim(v_in, chr(0));
+  return v_in;
+end;
+
+
+
+
+
+
+create or replace function encrypt(p_in varchar2, p_key varchar2)
+  return varchar2 is
+  v_in  varchar2(255);
+  v_rtn varchar2(1000);
+begin
+  v_in := rpad(p_in, (trunc(length(p_in) / 8) + 1) * 8, chr(0));
+  dbms_obfuscation_toolkit.DES3Encrypt(input_string     => v_in,
+                                      key_string       => p_key,
+                                      encrypted_string => v_rtn);
+  return v_rtn;
+end;
+
+
+
+
+
+
+select decrypt(encrypt('1234567812345678','1234567812345678'),'1234567812345678') from dual;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---第二种（优化后）
+create or replace function decrypt(p_in varchar2, p_key varchar2)
+  return varchar2 is
+  v_in varchar2(2048);
+  vname_in  varchar2(2048);
+begin
+    vname_in:=UTL_RAW.cast_to_varchar2(hextoraw(p_in));
+    --dbms_output.put_line('encrypt::'||vname_in );
+    dbms_obfuscation_toolkit.DESDecrypt(input_string     => vname_in,
+                                      key_string       => p_key,
+                                      decrypted_string => v_in);
+    --dbms_output.put_line('decrypted_string:'||v_in );
+    return rtrim(v_in,chr(0));
+end;
+
+
+
+create or replace function encrypt(p_in varchar2, p_key varchar2)
+  return varchar2 is
+  v_in  varchar2(2048);
+  v_rtn varchar2(2048);
+begin
+   v_in := rpad(p_in, (trunc(length(p_in) / 8) + 1) * 8, chr(0));
+   dbms_obfuscation_toolkit.DESEncrypt(input_string     => v_in,
+                                      key_string       => p_key,
+                                      encrypted_string => v_rtn);                
+   return rawtohex(UTL_RAW.CAST_TO_RAW(v_rtn)) ;
+end;
+
+
+
+
+
+--第三种（支持中文）
+create or replace function encrypt(p_in varchar2, p_key varchar2)
+  return varchar2 is
+  v_in  varchar2(2048);
+   v_in2  varchar2(2048);
+  v_rtn varchar2(2048);
+
+begin
+   v_in2:=rawtohex(UTL_RAW.CAST_TO_RAW(    p_in   ));
+    dbms_output.put_line('v_in2::'||v_in2 );
+   v_in2 := rpad(v_in2, (trunc(length(v_in2) / 8) + 1) * 8, chr(0));
+   dbms_obfuscation_toolkit.DESEncrypt(input_string     => v_in2,
+                                      key_string       => p_key,
+                                      encrypted_string => v_rtn);
+   dbms_output.put_line('v_rtn::'|| rawtohex(UTL_RAW.CAST_TO_RAW(v_rtn)) );
+   return rawtohex(UTL_RAW.CAST_TO_RAW(v_rtn)) ;
+end;
+
+create or replace function decrypt(p_in varchar2, p_key varchar2)
+  return varchar2 deterministic  is
+  v_in varchar2(2048);
+  vname_in  varchar2(2048);
+begin
+    vname_in:=UTL_RAW.cast_to_varchar2(hextoraw(p_in));
+    --dbms_output.put_line('encrypt::'||vname_in );
+    dbms_obfuscation_toolkit.DESDecrypt(input_string     => vname_in,
+                                      key_string       => p_key,
+                                      decrypted_string => v_in);
+    --dbms_output.put_line('decrypted_string:'||v_in );
+    return UTL_RAW.cast_to_varchar2(  rtrim(v_in,chr(0))  );
+end;
+
+select decrypt(encrypt('地地道111ddddd道打fff的','12345678'),'12345678') from dual
+
+
+
+
+--样例1  测试用
+DECLARE
+   input_string        VARCHAR2(2000) := '12345678';
+   raw_input           RAW(128) := UTL_RAW.CAST_TO_RAW(input_string);
+   key_string          VARCHAR2(2000)  := '1234567812345678';
+   raw_key             RAW(128) := UTL_RAW.CAST_TO_RAW(key_string);
+   encrypted_raw               RAW(2048);
+   encrypted_string            VARCHAR2(2048);
+   decrypted_raw               RAW(2048);
+   v_raw               RAW(2048);
+   v_string            VARCHAR2(2048); 
+   decrypted_string            VARCHAR2(2048); 
+   error_in_input_buffer_length EXCEPTION;
+   PRAGMA EXCEPTION_INIT(error_in_input_buffer_length, -28232);
+   INPUT_BUFFER_LENGTH_ERR_MSG VARCHAR2(100) := '*** DES INPUT BUFFER NOT A MULTIPLE OF 8 BYTES - IGNORING  EXCEPTION ***';
+   double_encrypt_not_permitted EXCEPTION;
+   PRAGMA EXCEPTION_INIT(double_encrypt_not_permitted, -28233);
+   DOUBLE_ENCRYPTION_ERR_MSG VARCHAR2(100) := '*** CANNOT DOUBLE ENCRYPT DATA - IGNORING EXCEPTION ***';
+   BEGIN 
+      dbms_output.put_line('> input string                     : ' || input_string);
+      dbms_obfuscation_toolkit.DESEncrypt( input_string => input_string,  key_string => key_string, encrypted_string => encrypted_string );
+      dbms_output.put_line('> encrypted hex value              : ' ||  rawtohex(UTL_RAW.CAST_TO_RAW(encrypted_string)));
+      
+      v_raw := hextoraw(  rawtohex(UTL_RAW.CAST_TO_RAW(encrypted_string)) );
+      v_string:=UTL_RAW.cast_to_varchar2(v_raw);
+      
+      dbms_output.put_line('hex:'||v_string );
+      
+      dbms_obfuscation_toolkit.DESDecrypt(input_string => v_string, key_string => key_string,  decrypted_string => decrypted_string );
+      dbms_output.put_line('> decrypted string output          : ' ||  decrypted_string);
+      if input_string = decrypted_string THEN
+         dbms_output.put_line('> String DES Encyption and Decryption successful');
+      END if;
+   EXCEPTION
+      WHEN error_in_input_buffer_length THEN
+             dbms_output.put_line(' ' || INPUT_BUFFER_LENGTH_ERR_MSG);
+   END;
+
+
+
+
+
+
+--样例2
+DECLARE
+   input_string        VARCHAR2(16) := 'tigertigertigert';
+   raw_input           RAW(128) := UTL_RAW.CAST_TO_RAW(input_string);
+   key_string          VARCHAR2(8)  := 'scottsco';
+   raw_key             RAW(128) := UTL_RAW.CAST_TO_RAW(key_string);
+   encrypted_raw               RAW(2048);
+   encrypted_string            VARCHAR2(2048);
+   decrypted_raw               RAW(2048);
+   decrypted_string            VARCHAR2(2048); 
+   error_in_input_buffer_length EXCEPTION;
+   PRAGMA EXCEPTION_INIT(error_in_input_buffer_length, -28232);
+   INPUT_BUFFER_LENGTH_ERR_MSG VARCHAR2(100) :=
+    '*** DES INPUT BUFFER NOT A MULTIPLE OF 8 BYTES - IGNORING 
+EXCEPTION ***';
+   double_encrypt_not_permitted EXCEPTION;
+   PRAGMA EXCEPTION_INIT(double_encrypt_not_permitted, -28233);
+   DOUBLE_ENCRYPTION_ERR_MSG VARCHAR2(100) :=
+    '*** CANNOT DOUBLE ENCRYPT DATA - IGNORING EXCEPTION ***';
+
+-- 1. Begin testing raw data encryption and decryption
+   BEGIN
+   dbms_output.put_line('> ========= BEGIN TEST RAW DATA =========');
+   dbms_output.put_line('> Raw input                        : ' || 
+                 UTL_RAW.CAST_TO_VARCHAR2(raw_input));
+   BEGIN 
+      dbms_obfuscation_toolkit.DESEncrypt(input => raw_input, 
+               key => raw_key, encrypted_data => encrypted_raw );
+      dbms_output.put_line('> encrypted hex value              : ' || 
+               rawtohex(encrypted_raw));
+      dbms_obfuscation_toolkit.DESDecrypt(input => encrypted_raw, 
+               key => raw_key, decrypted_data => decrypted_raw);
+      dbms_output.put_line('> Decrypted raw output             : ' || 
+                    UTL_RAW.CAST_TO_VARCHAR2(decrypted_raw));
+      dbms_output.put_line('>  ');      
+      if UTL_RAW.CAST_TO_VARCHAR2(raw_input) = 
+                    UTL_RAW.CAST_TO_VARCHAR2(decrypted_raw) THEN
+         dbms_output.put_line('> Raw DES Encyption and Decryption successful');
+      END if;
+   EXCEPTION
+      WHEN error_in_input_buffer_length THEN
+             dbms_output.put_line('> ' || INPUT_BUFFER_LENGTH_ERR_MSG);
+   END;
+   dbms_output.put_line('>  ');
+
+
+-- 2. Begin testing string data encryption and decryption
+   dbms_output.put_line('> ========= BEGIN TEST STRING DATA =========');
+
+   BEGIN 
+      dbms_output.put_line('> input string                     : ' 
+                           || input_string);
+      dbms_obfuscation_toolkit.DESEncrypt(
+               input_string => input_string, 
+               key_string => key_string, 
+               encrypted_string => encrypted_string );
+      dbms_output.put_line('> encrypted hex value              : ' || 
+                   rawtohex(UTL_RAW.CAST_TO_RAW(encrypted_string)));
+      dbms_obfuscation_toolkit.DESDecrypt(
+               input_string => encrypted_string, 
+               key_string => key_string, 
+               decrypted_string => decrypted_string );
+      dbms_output.put_line('> decrypted string output          : ' || 
+                 decrypted_string);
+      if input_string = decrypted_string THEN
+         dbms_output.put_line('> String DES Encyption and Decryption 
+successful');
+      END if;
+   EXCEPTION
+      WHEN error_in_input_buffer_length THEN
+             dbms_output.put_line(' ' || INPUT_BUFFER_LENGTH_ERR_MSG);
+   END;
+   dbms_output.put_line('>  ');
+END;
+
+
+
+
+--样例3
+DECLARE
+   input_string        VARCHAR2(16) := 'tigertigertigert';
+   raw_input           RAW(128) := UTL_RAW.CAST_TO_RAW(input_string);
+   key_string          VARCHAR2(16)  := 'scottscottscotts';
+   raw_key             RAW(128) := UTL_RAW.CAST_TO_RAW(key_string);
+encrypted_raw               RAW(2048);
+   encrypted_string            VARCHAR2(2048);
+decrypted_raw               RAW(2048);
+   decrypted_string            VARCHAR2(2048); 
+   error_in_input_buffer_length EXCEPTION;
+   PRAGMA EXCEPTION_INIT(error_in_input_buffer_length, -28232);
+   INPUT_BUFFER_LENGTH_ERR_MSG VARCHAR2(100) :=
+    '*** DES INPUT BUFFER NOT A MULTIPLE OF 8 BYTES - IGNORING EXCEPTION ***';
+   double_encrypt_not_permitted EXCEPTION;
+   PRAGMA EXCEPTION_INIT(double_encrypt_not_permitted, -28233);
+   DOUBLE_ENCRYPTION_ERR_MSG VARCHAR2(100) :=
+    '*** CANNOT DOUBLE ENCRYPT DATA - IGNORING EXCEPTION ***';
+
+-- 1. Begin testing raw data encryption and decryption
+   BEGIN
+   dbms_output.put_line('> ========= BEGIN TEST RAW DATA =========');
+   dbms_output.put_line('> Raw input                        : ' || 
+                 UTL_RAW.CAST_TO_VARCHAR2(raw_input));
+   BEGIN 
+      dbms_obfuscation_toolkit.DES3Encrypt(input => raw_input, 
+               key => raw_key, encrypted_data => encrypted_raw );
+      dbms_output.put_line('> encrypted hex value              : ' || 
+               rawtohex(encrypted_raw));
+      dbms_obfuscation_toolkit.DES3Decrypt(input => encrypted_raw, 
+               key => raw_key, decrypted_data => decrypted_raw);
+      dbms_output.put_line('> Decrypted raw output             : ' || 
+                    UTL_RAW.CAST_TO_VARCHAR2(decrypted_raw));
+      dbms_output.put_line('>  ');      
+      if UTL_RAW.CAST_TO_VARCHAR2(raw_input) = 
+                    UTL_RAW.CAST_TO_VARCHAR2(decrypted_raw) THEN
+         dbms_output.put_line('> Raw DES3 Encyption and Decryption successful');
+      END if;
+   EXCEPTION
+      WHEN error_in_input_buffer_length THEN
+             dbms_output.put_line('> ' || INPUT_BUFFER_LENGTH_ERR_MSG);
+   END;
+   dbms_output.put_line('>  ');
+END;
+
+-- 2. Begin testing string data encryption and decryption
+   dbms_output.put_line('> ========= BEGIN TEST STRING DATA =========');
+
+   BEGIN 
+      dbms_output.put_line('> input string                     : ' 
+                           || input_string);
+      dbms_obfuscation_toolkit.DES3Encrypt(
+               input_string => input_string, 
+               key_string => key_string, 
+               encrypted_string => encrypted_string );
+      dbms_output.put_line('> encrypted hex value              : ' || 
+                   rawtohex(UTL_RAW.CAST_TO_RAW(encrypted_string)));
+      dbms_obfuscation_toolkit.DES3Decrypt(
+               input_string => encrypted_string, 
+               key_string => key_string, 
+               decrypted_string => decrypted_string );
+      dbms_output.put_line('> decrypted string output          : ' || 
+                 decrypted_string);
+      if input_string = decrypted_string THEN
+         dbms_output.put_line('> String DES3 Encyption and Decryption 
+successful');
+      END if;
+   EXCEPTION
+      WHEN error_in_input_buffer_length THEN
+             dbms_output.put_line(' ' || INPUT_BUFFER_LENGTH_ERR_MSG);
+   END;
+   dbms_output.put_line('>  ');
+END;
+

@@ -1,0 +1,6 @@
+创建数据库
+C:\oracle\ora92\rdbms\admin\build_db.sql
+创建数据字典表的sql.txt
+C:\oracle\ora92\rdbms\admin\sql.bsq
+创建数据字典视图
+C:\oracle\ora92\rdbms\admin\catalog.sql

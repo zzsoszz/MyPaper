@@ -1,0 +1,49 @@
+http://ss64.com/ora/syntax-numfmt.html
+
+
+Oracle Number formats
+
+A number format can be used as part a TO_CHAR or TO_DATE function to return a number in the specified format.
+Format 	Description
+	Example
+9 	Number
+(suppress leading/trailing zeros)
+Includes a leading - for negative no's or one leading space for pos no's
+
+	9999=' 123'
+0 	Number
+including leading/trailing zeros 	09999=00123
+9999D00=123.00
+FM 	Supress all leading /trailing blanks 	FM9999=123
+$ 	Include a leading $ 	$999=$123
+B 	Over-ride the '0' format and replace leading 0's with blank spaces ' ' 	B9999=' 123'
+S 	Include poth positive+ and negative - signs 	S999 =+123
+999S =123+
+PR 	Indicate SIGN with <brackets> 	PR999=<123>
+PR999=' 123 '
+MI 	Indicate Minus SIGN 	999MI=123-
+RN or rn 	Roman numeral
+(upper or lower case) 	RN99=XI
+D 	Position of decimal point(.) 	99D99=12.34
+G 	Group separator (often a comma) in desired position 	9G999=1,234
+, 	Return a comma in desired position 	9,999=1,234
+. 	Return a period in desired position 	99.99=12.34
+C 	ISO currency symbol 	C99
+L 	Local currency symbol 	L99
+EEEE 	
+
+Return a value using in scientific notation
+	9.9EEEE= 1.2E+02
+TM 	Text Minimum
+TM9(the default) or TME (Scientific notation) 	TM9=12345
+TME=1.2E+02
+U 	Returns in the specified position the Euro (or other) dual currency symbol.
+(NLS_DUAL_CURRENCY) 	U9999 = €1234
+V 	Return a value multiplied by 10n , where n is the number of 9's after the V.
+(value will be rounded up if necessary) 	999V99= 123 x 1045
+X 	Returns the hexadecimal value of the specified number of digits. 	select to_char('64','xx') from dual;
+
+Some of the format elements above can only be used at the start or end of a format string:
+MI, PR, S
+
+The default text minimum number format model is TM9, which returns the number in fixed notation unless the output exceeds 64 characters in which case the number will be returned in scientific notation.

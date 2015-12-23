@@ -1,0 +1,14 @@
+create function getCount(tablename varchar2)
+return number
+is
+mysql varchar2(100);
+allrow number;
+begin
+       dbms_output.put_line('表名字:'||tablename);
+       mysql:='select count(*) from '||tablename;
+       execute immediate mysql into allrow;
+       dbms_output.put_line('返回行数:'||allrow);
+       return allrow;
+end;
+select  t.table_name,sys.getcount(t.table_name) from user_tables t 
+where t.table_name<>'_default_auditing_options_' and t.table_name not like '%$%';

@@ -1,0 +1,75 @@
+查出死锁的对象与session
+select *
+  from v$locked_object t1, v$session t2
+ where t1.session_id = t2.sid
+ order by t2.logon_time;
+
+
+查出死锁的对象与session
+select *
+  from v$session t2, v$sqltext t3
+ where 
+    t2.sql_address = t3.address
+
+
+select 
+(select pr.SPID from v$process pr where pr.ADDR=se.PADDR) 操作系统进程id
+,(select pr.PROGRAM from v$process pr where pr.ADDR=se.PADDR) 操作系统进程名
+,lo.SESSION_ID
+,lo.ORACLE_USERNAME as Oracle用户名
+,lo.OS_USER_NAME as 操作系统用户名
+,decode(lo.LOCKED_MODE,0,'none',1,'null',2,'Row-S 行共享(RS)：共享表锁',3,'Row-X 行专用(RX)：用于行的修改',4,'Share 共享锁(S)：阻止其他DML操作',5,'S/Row-X 共享行专用(SRX)：阻止其他事务操作 ',6,'exclusive 专用(X)：独立访问使用')
+as 锁模式
+,do.object_name 对象名
+,do.object_type 对象类型
+,(select sq.sql_text
+  from v$sql sq
+ where (sq.HASH_VALUE, sq.ADDRESS) in
+       (select decode(sql_hash_value, 0, prev_hash_value, sql_hash_value),
+               decode(sql_hash_value, 0, prev_sql_addr, sql_address)
+          from v$session se2
+         where se2.SID=se.SID)
+)  死锁的sql
+from v$locked_object lo
+left join v$session se on lo.session_id = se.sid
+left join dba_objects do on lo.OBJECT_ID=do.OBJECT_ID
+order by se.logon_time;
+
+
+
+
+
+
+select /*+ NO_MERGE(a) NO_MERGE(b) NO_MERGE(c) */
+ 'Wait' "Status",
+ a.username,
+ a.machine,
+ a.sid,
+ a.serial#,
+ a.last_call_et "Seconds",
+ b.id1,
+ c.sql_text "SQL"
+  from v$session a, v$lock b, v$sqltext c
+ where a.username is not null
+   and a.lockwait = b.kaddr
+   and c.hash_value = a.sql_hash_value
+union
+select /*+ NO_MERGE(a) NO_MERGE(b) NO_MERGE(c) */
+ 'Lock' "Status",
+ a.username,
+ a.machine,
+ a.sid,
+ a.serial#,
+ a.last_call_et "Seconds",
+ b.id1,
+ c.sql_text "SQL"
+  from v$session a, v$lock b, v$sqltext c
+ where b.id1 in (select /*+ NO_MERGE(d) NO_MERGE(e) */
+                 distinct e.id1
+                   from v$session d, v$lock e
+                  where d.lockwait = e.kaddr)
+   and a.username is not null
+   and a.sid = b.sid
+   and b.request = 0
+   and c.hash_value = a.sql_hash_value;
+

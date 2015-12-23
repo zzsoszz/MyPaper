@@ -1,0 +1,86 @@
+6. Resin 3.0.19 
+Prev  Chapter 1. Application Servers  Next 
+
+--------------------------------------------------------------------------------
+
+6. Resin 3.0.19
+Download and install Resin into your preferred directory. From now on, the directory where you installed Resin will be referred to as $JBOSS_HOME.
+
+Download and install JDK 5 . Set an environment variable called %JAVA_HOME% to point to your JDK directory.
+
+Download MySQL from www.mysql.com and install.
+
+Edit $RESIN_HOME/conf/resin.conf.
+
+replace lines 60-64
+
+<class-loader>
+      <tree-loader path="${resin.home}/lib"/>
+      <tree-loader path="${server.root}/lib"/>
+    </class-loader>
+with
+
+<class-loader>
+      <tree-loader path="${resin.home}/lib"/>
+      <tree-loader path="${server.root}/lib"/>
+      <compiling-loader path="${server.rootDir}/common/classes"/>
+      <library-loader path="${server.rootDir}/common/lib"/>
+    </class-loader>
+add:
+
+<database>
+		<jndi-name>jdbc/LiferayPool</jndi-name>
+		<driver type="com.mysql.jdbc.Driver">
+		<url>jdbc:mysql://localhost/lportal?useUnicode=true&amp;characterEncoding=UTF-8</url>
+			<user></user>
+			<password></password>
+		</driver>
+		<prepared-statement-cache-size>8</prepared-statement-cache-size>
+		<max-connections>20</max-connections>
+		<max-idle-time>30s</max-idle-time>
+	</database>
+
+	<resource jndi-name="mail/MailSession" type="javax.mail.Session">
+		<init>
+			<mail.store.protocol>imap</mail.store.protocol>
+			<mail.transport.protocol>smtp</mail.transport.protocol>
+			<mail.imap.host>localhost</mail.imap.host>
+			<mail.pop3.host>localhost</mail.pop3.host>
+			<mail.smtp.host>localhost</mail.smtp.host>
+		</init>
+	</resource>
+
+	<system-property javax.xml.parsers.DocumentBuilderFactory="org.apache.xerces.jaxp.DocumentBuilderFactoryImpl" />
+	<system-property javax.xml.parsers.SAXParserFactory="org.apache.xerces.jaxp.SAXParserFactoryImpl" />
+	<system-property javax.xml.transform.TransformerFactory="org.apache.xalan.processor.TransformerFactoryImpl" />
+	<system-property org.xml.sax.driver="org.apache.xerces.parsers.SAXParser" />
+Go to $RESIN_HOME and create new directory common\lib. Download mysql-connector-java-{$version}-bin.jar and copy to this directory. (This is the JDBC connector for MySQL, for other databases, go to appropriate website to download.)
+
+Populate your database with the portal schema and default data.
+
+Download script create-mysql.sql from Liferay Portal 4.1 SQL Scripts.
+
+In command prompt, run mysql script by entering mysql < create-mysql.sql.
+
+Download portlet.jar and portal-kernel.jar from Liferay Portal 4.1 Dependencies and copy to $RESIN_HOME\common\lib.
+
+Delete contents of $RESIN_HOME\webapps\ROOT.
+
+Unzip liferay-portal-pro-4.x.war to $RESIN_HOME\webapps\ROOT.
+
+Download liferay-portal-ent-4.0.0-src.zip.
+
+Go to $\lib\development\ and copy activation.jar and mail.jar to $RESIN_HOME\common\lib , saxpath.jar and xalan.jar to $RESIN_HOME\lib 
+
+Go to $\lib\portal and copy xercesImpl.jar and xml-apis.jar to $RESIN_HOME\lib
+
+Go to $RESIN_HOME\bin and create run.bat.
+
+..\httpd.exe -Xmx512m -Dfile.encoding=UTF-8 -Duser.timezone=GMT
+Start Resin. Open your browser to http://localhost:8080. Click on My Liferay at the upper right hand corner to enter the login screen. Your login is test@liferay.com and your password is test.
+
+
+
+--------------------------------------------------------------------------------
+Prev  Up  Next 
+5. Tomcat 5.5.17  Home  7. Websphere 6.0.2.5 

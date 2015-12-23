@@ -1,0 +1,90 @@
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="${def:context}/style/userstyle.css" />
+<title>${lbl:tit_app_title}</title>
+
+<script language="JavaScript">
+	
+			function  setEnv()
+			{
+					var WScriptShell=new ActiveXObject("WScript.Shell");    
+					var EnvironmentSet = WScriptShell.Environment("system");
+					if(EnvironmentSet("nicepath")=="")
+					{
+						EnvironmentSet("nicepath")="C:\\Program Files\\Nice Systems\\Nice Playback Toolkit";
+						EnvironmentSet("path")=EnvironmentSet("nicepath")+";"+EnvironmentSet("path");
+					}
+			}
+			
+			function   PlayCall(icompoundid,iuserid)
+			{
+				
+						var strPath="Nice.Uniform.PlayBackToolKit.exe PlayCall  /un=nice  /pwd=nicecti /url=scwb-niceic:62070 /com="+icompoundid+":1:"+iuserid;
+						  try{
+									  var   objShell   =   new   ActiveXObject("wscript.shell");   
+									 // objShell.Run("file:///C:/Program%20Files/Nice%20Systems/Nice%20Playback%20Toolkit/Nice.Uniform.PlayBackToolKit.exe PlayCall  /un=nice  /pwd=nicecti /url=scwb-niceic:62070 /com="+icompoundid+":1:"+iuserid);
+									 objShell.Run(strPath);
+									 objShell   =   null;
+						  }
+						  catch   (err){
+						  	alert('找不到文件"'+strPath+'"(或它的组件之一)。请确定路径和文件名是否正确，而且所需的库文件均可用。') 
+						  	alert("错误名称: " + err.name+" ---> ");  
+						    alert("错误信息: " + err.message+" ---> ");
+						  }
+		  }
+		  
+		  /*
+		  function   SaveCall(icompoundid,iuserid)
+		  {
+		  			
+		  			var dir=document.getElementById("dirpath").value;
+		  			alert(dir);
+						 try{
+									  var   objShell   =   new   ActiveXObject("wscript.shell");
+									  
+									  objShell.Run("file:///C:/Program%20Files/Nice%20Systems/Nice%20Playback%20Toolkit/Nice.Uniform.PlayBackToolKit.exe SaveCall  /un=nice  /pwd=nicecti /url=scwb-niceic:62070 /com="+icompoundid+":1:"+iuserid+" /dir="+dirpath); 
+									  objShell   =   null;
+						  }
+						 catch   (e){
+						  	  alert('找不到文件"'+strPath+'"(或它的组件之一)。请确定路径和文件名是否正确，而且所需的库文件均可用。')
+						 }
+		  }
+		  function check_all(obj,cName)
+			{
+					    var checkboxs = document.getElementsByName(cName);
+					    for(var i=0;i<checkboxs.length;i++)
+					    {
+					    		checkboxs[i].checked = obj.checked;
+					    }
+			}
+			*/
+</script>
+</head>
+
+<body onload="setEnv()">
+
+
+<table width="100%" align="center" border="1" cellpadding="0" cellspacing="0" class="table_comm">
+	<tr>
+	    <td class="th20ce">工号</th>
+	    <td class="th20ce">主叫</th>
+	    <td class="th20ce">被叫</th>
+	    <td class="th20ce">时长</th>
+	    <td class="th20ce">操作</th>
+	</tr>
+
+	<combo-items-voice>
+	<tr>
+	    <td class="td20ce">${fld:nvcagentid}</td>
+	    <td class="td20ce">${fld:nvcphonenumber}</td>
+	    <td class="td20ce">${fld:nvcdialednumber}</td>
+	    <td class="td20ce">${fld:talktime}</td>
+	    <td class="td20ce"><img src="${def:context}/images/icon/playbottom.jpg" width="30" height="30" title="播放" onclick="PlayCall(${fld:icompoundid},${fld:iuserid})"/></td>
+	</tr>
+	</combo-items-voice>
+</table>
+
+
+</body>
+</html>

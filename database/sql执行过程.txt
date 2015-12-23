@@ -1,0 +1,17 @@
+select top 2 xtype,(select max(xtype) as maxvalue from sysobjects) 
+from sysobjects
+where id in (select top 100 id from sysobjects)
+group by xtype
+having xtype>'D'
+order by xtype desc
+
+步骤：
+1.取sysobjects一条记录
+2.执行select后from前子查询...
+3.执行where过滤 （执行select子查询）
+4.执行group by 分组和聚合是没有关系的
+5.执行having count(*) 分组后只对各组有效
+6.执行order by
+7.执行top 过滤
+
+select id,sum(id) from t4 group by id

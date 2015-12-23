@@ -1,0 +1,29 @@
+处理Oracle中杀不掉的锁 
+林哥 2009-11-05 17:01:58 回复 转载到 四川10000项目团队中国UI设计七星&扬帆7runto
+一些ORACLE中的进程被杀掉后，状态被置为"killed"，但是锁定的资源很长时间不释放，有时实在没办法，只好重启数据库。现在提供一种方法解决这种问题，那就是在ORACLE中杀不掉的，在OS一级再杀。 
+
+1.下面的语句用来查询哪些对象被锁： 
+
+select object_name,machine,s.sid,s.serial# 
+from v$locked_object l,dba_objects o ,v$session s 
+where l.object_id　=　o.object_id and l.session_id=s.sid; 
+
+2.下面的语句用来杀死一个进程： 
+alter system kill session '24,111'; (其中24,111分别是上面查询出的sid,serial#) 
+
+【注】以上两步，可以通过Oracle的管理控制台来执行。 
+
+3.如果利用上面的命令杀死一个进程后，进程状态被置为"killed"，但是锁定的资源很长时间没有被释放，那么可以在os一级再杀死相应的进程（线程），首先执行下面的语句获得进程（线程）号： 
+select spid, osuser, s.program 
+from v$session s,v$process p 
+where s.paddr=p.addr and s.sid=24 （24是上面的sid） 
+
+4.在OS上杀死这个进程（线程）： 
+1)在unix上，用root身份执行命令: 
+#kill -9 12345（即第3步查询出的spid） 
+2)在windows（unix也适用）用orakill杀死线程，orakill是oracle提供的一个可执行命令，语法为： 
+orakill sid thread 
+其中： 
+sid：表示要杀死的进程属于的实例名 
+thread：是要杀掉的线程号，即第3步查询出的spid。 
+例：c:>orakill orcl 12345

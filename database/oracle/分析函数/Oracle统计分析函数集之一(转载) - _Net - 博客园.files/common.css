@@ -1,0 +1,87 @@
+#MySignature {
+	MARGIN-TOP: 10px
+}
+#EntryTag {
+	MARGIN-TOP: 20px; FONT-SIZE: 12px; COLOR: gray
+}
+.topicListFooter {
+	MARGIN-TOP: 10px; MARGIN-RIGHT: 10px; TEXT-ALIGN: right
+}
+#divRefreshComments {
+	FONT-SIZE: 12px; MARGIN-BOTTOM: 5px; MARGIN-RIGHT: 10px; TEXT-ALIGN: right
+}
+.commentTextBox {
+	WIDTH: 480px; HEIGHT: 220px
+}
+.commenttb {
+	WIDTH: 320px
+}
+#MyIng {
+	MARGIN-TOP: 5px
+}
+.ing_title {
+	FONT-WEIGHT: bold; TEXT-ALIGN: center
+}
+.ing_body {
+	MARGIN-TOP: 5px; MARGIN-BOTTOM: 5px; WORD-BREAK: break-all
+}
+.ing_date {
+	FONT-SIZE: 11px; COLOR: gray; TEXT-ALIGN: center
+}
+.ing_footer {
+	MARGIN-RIGHT: 5px; TEXT-ALIGN: right
+}
+#divNewMsg {
+	MARGIN-TOP: 2px; TEXT-ALIGN: center
+}
+#divSendMsg {
+	
+}
+.commentform TABLE TD INPUT {
+	MARGIN: 2px auto
+}
+.sendMsg2This:link {
+	FONT-SIZE: 12px; BACKGROUND: url(/images/icoMsg.gif) no-repeat left top; TEXT-DECORATION: none
+}
+.sendMsg2This:visited {
+	FONT-SIZE: 12px; BACKGROUND: url(/images/icoMsg.gif) no-repeat left top; TEXT-DECORATION: none
+}
+.sendMsg2This:active {
+	FONT-SIZE: 12px; BACKGROUND: url(/images/icoMsg.gif) no-repeat left top; TEXT-DECORATION: none
+}
+.sendMsg2This:hover {
+	BACKGROUND: url(/images/icoMsg.gif) no-repeat left bottom
+}
+.RecentComment {
+	OVERFLOW: hidden
+}
+.cnblogs_code {
+	BORDER-RIGHT: #cccccc 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #cccccc 1px solid; PADDING-LEFT: 4px; FONT-SIZE: 13px; PADDING-BOTTOM: 4px; OVERFLOW: auto; BORDER-LEFT: #cccccc 1px solid; WIDTH: 700px; WORD-BREAK: break-all; PADDING-TOP: 4px; BORDER-BOTTOM: #cccccc 1px solid; BACKGROUND-COLOR: #eeeeee
+}
+.cnblogs_code_Collapse {
+	BORDER-RIGHT: #808080 1px solid; BORDER-TOP: #808080 1px solid; BORDER-LEFT: #808080 1px solid; BORDER-BOTTOM: #808080 1px solid; BACKGROUND-COLOR: #ffffff
+}
+.desc_img {
+	FLOAT: right
+}
+.MsoNormal {
+	FONT-SIZE: 13px
+}
+.div_my_zzk {
+	MARGIN-TOP: 5px; MARGIN-BOTTOM: 5px
+}
+.input_my_zzk {
+	WIDTH: 100px; HEIGHT: 22px
+}
+.btn_my_zzk {
+	WIDTH: 45px; FONT-FAMILY: verdana; HEIGHT: 22px; BACKGROUND-COLOR: transparent
+}
+PRE {
+	MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px
+}
+.divPostCommentBox {
+	FLOAT: left; WIDTH: 500px
+}
+.CommentBoxNav {
+	MARGIN-TOP: 20px; FONT-SIZE: 12px; FLOAT: right; WIDTH: 100px; LINE-HEIGHT: 120%
+}

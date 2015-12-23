@@ -1,0 +1,77 @@
+在Oracle数据库中，可以创建以下两种临时表：
+(1)会话特有的临时表
+CREATE GLOBAL TEMPORARY <TABLE_NAME> (<column specification>)
+ON COMMIT PRESERVE ROWS；
+
+(2)事务特有的临时表
+CREATE GLOBAL TEMPORARY <TABLE_NAME> (<column specification>)
+ON COMMIT DELETE ROWS；
+
+CREATE GLOBAL TEMPORARY TABLE TempTab as select table_name,status from user_tables;
+ 
+所建的临时表已经创建，不妨查询一下：select * from TempTab，记录为空，为什么呢？
+
+在PL/SQL Developer中查看临时表TempTab表的脚本：
+create global temporary table TEMPTAB
+(
+  TABLE_NAME VARCHAR2(30) not null,
+  STATUS VARCHAR2(8)
+)
+on commit delete rows;
+
+Oracle数据库在创建临时表如果不指定，就默认为on commit delete rows，而Oracle数据库在执行DDL语句时，又默认是提交的，所以查询临时表时记录为空。补充说明一下：
+--ON COMMIT DELETE ROWS 说明临时表是事务指定，每次提交后ORACLE将截断表（删除全部行);
+--ON COMMIT PRESERVE ROWS 说明临时表是会话指定，当中断会话时ORACLE将截断表。
+
+临时表只是保存当前会话(session)用到的数据，数据只在事务或会话期间存在。
+
+通过CREATE GLOBAL TEMPORARY TABLE命令创建一个临时表，对于事务类型的临时表，
+数据只是在事务期间存在，对于会话类型的临时表，数据在会话期间存在。
+
+会话的数据对于当前会话私有。每个会话只能看到并修改自己的数据。DML锁不会加到
+临时表的数据上。下面的语句控制行的存在性。
+
+● ON COMMIT DELETE ROWS 表名行只是在事务期间可见
+● ON COMMIT PRESERVE ROWS 表名行在整个会话期间可见,每个会话只能看到并修改自己的数据
+
+可以对临时表创建索引，视图，出发器，可以用export和import工具导入导出表的
+定义，但是不能导出数据。表的定义对所有的会话可见。
+
+例如：
+create global temporary table Temp1
+(
+  TABLE_NAME VARCHAR2(30) not null,
+  STATUS VARCHAR2(8)
+)
+on commit preserve rows;
+
+create global temporary table Temp2
+(
+  TABLE_NAME VARCHAR2(30) not null,
+  STATUS VARCHAR2(8)
+)
+on commit delete rows;
+ 
+
+Temp Table 的特点  
+
+（1） 多用户操作的独立性：对于使用同一张临时表的不同用户，ORACLE都会分配一个独立的 Temp Segment，这样就避免了多个用户在对同一张临时表操作时发生交叉，从而保证了多个用户操作的并发性和独立性；  
+
+（2） 数据的临时性：既然是临时表，顾名思义，存放在该表中的数据是临时性的。ORACLE根据你创建临时表时指定的参数（On Commit Delete Rows / On Commit Preserve Rows），自动将数据TRUNCATE掉。  
+
+对我有用[0]丢个板砖[0]引用举报管理TOP
+精华推荐：其他论坛Oracle版都是大版，火热的很，为何感觉csdn的Oracle版有些冷清？？？？
+
+wkc168
+(l_db)
+等　级：
+5
+2
+#6楼 得分：0回复于：2010-10-15 09:49:57
+ 引用楼主 yan717fang 的回复:
+
+sql server中的变量表可以进行insert、update、select操作，oracle中的临时表好像不能进行这些操作，有什么替代的吗？
+
+临时表肯定可以的 只不过是根据临时表的类型
+on commit preserve rows 是会话结束数据清空
+on commit delete rows 是事务完成就数据清空

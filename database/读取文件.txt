@@ -1,0 +1,62 @@
+/*--利用   textcopy.exe文件实现在数据库中存储/读取文件   
+    
+  需要textcopy.exe文件,该文件可以在sql   7.0安装光盘找到   
+    
+  --转贴自大力--*/   
+    
+  --建立存取处理的存储过程   
+  if   exists   (select   *   from   dbo.sysobjects   where   id   =   object_id(N'[dbo].[sp_textcopy]')   and   OBJECTPROPERTY(id,   N'IsProcedure')   =   1)   
+  drop   procedure   [dbo].[sp_textcopy]   
+  GO   
+    
+  CREATE   PROCEDURE   sp_textcopy   
+  @srvname   varchar   (30), --服务器名   
+  @login   varchar   (30),   --用户名   
+  @password   varchar   (30),   --密码   
+  @dbname   varchar   (30),   --数据库名   
+  @tbname   varchar   (30),   --表名   
+  @colname   varchar   (30),   --存储文件的字段名   
+  @filename   varchar   (30),   --要存取的文件名   
+  @whereclause   varchar   (40),   --条件   
+  @direction   char(1) **********I   为存储到数据库,O   从数据库中读出成文件*********   
+  AS     
+  DECLARE   @exec_str   varchar   (255)     
+  SELECT   @exec_str   =     
+                  'textcopy   /S"'   +   @srvname   +     
+                  '"   /U   '   +   @login   +     
+                  '   /P   '   +   @password   +     
+                  '   /D   '   +   @dbname   +     
+                  '   /T   '   +   @tbname   +     
+                  '   /C   '   +   @colname   +     
+                  '   /W   "'   +   @whereclause   +     
+                  '"   /F   "'   +   @filename   +     
+                  '"   /'   +   @direction     
+  EXEC   master..xp_cmdshell   @exec_str       
+  go   
+    
+  --调用示例:   
+  --1.创建示例表和初始化数据   
+  create   table   tb(id   int,img   image)   
+  insert   tb     
+  select   1,0x   
+  union   all   select   2,0x   
+  go   
+    
+  --2.将文件保存到数据库中   
+  declare   @srv   varchar(255),@db   sysname,@tb   sysname,@col   sysname   
+  select   @srv=@@servername --服务器名   
+  ,@db=db_name() --数据库名   
+  ,@tb='tb' --表名   
+  ,@col='img' --列名   
+  sp_textcopy   @srv,'sa','sa的密码',@db,@tb,@col,'c:\test.jpg','where   id=1','I' --保存到id=1的记录中,注意条件是:id=1   
+  sp_textcopy   @srv,'sa','sa的密码',@db,@tb,@col,'c:\test.doc','where   id=2','I' --保存到id=2的记录中,注意条件是:id=2   
+    
+  --3.从数据库中读出保存为文件   
+  sp_textcopy   @srv,'sa','sa的密码',@db,@tb,@col,'c:\test.jpg','where   id=1','O' --读出id=1的记录,注意条件是:id=1   
+  sp_textcopy   @srv,'sa','sa的密码',@db,@tb,@col,'c:\test.doc','where   id=2','O' --读出id=2的记录,注意条件是:id=2   
+    
+  --删除测试环境   
+  drop   table   tb   
+  if   exists   (select   *   from   dbo.sysobjects   where   id   =   object_id(N'[dbo].[sp_textcopy]')   and   OBJECTPROPERTY(id,   N'IsProcedure')   =   1)   
+  drop   procedure   [dbo].[sp_textcopy]   
+  

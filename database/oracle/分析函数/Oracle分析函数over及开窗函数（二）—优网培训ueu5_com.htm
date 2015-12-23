@@ -1,0 +1,726 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0044)http://www.ueu5.com/computer/data/28947.html -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Oracle分析函数over及开窗函数（二）—优网培训ueu5.com</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content=9562fbe0607affb1 name=y_key>
+<META content=ZvanpNXgDaUEclkR+eLTNeGHy2AhHKLwVVfDS1XxeI4= name=verify-v1>
+<META content=gsk5qp6CtcxD3CyP8dpd+hEbaiiHmP4Fz3VatsGeZBE= name=verify-v1>
+<SCRIPT src="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/common.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/prototype.js" 
+type=text/javascript></SCRIPT>
+<LINK href="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/total_new.css" 
+type=text/css rel=stylesheet><LINK 
+href="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/others.css" type=text/css 
+rel=stylesheet><!-- <link href="../../Style/a.css" rel="stylesheet" type="text/css" /> --><LINK 
+href="../../favicon.ico" rel="shortcut icon"><LINK href="../../favicon.ico" 
+rel=Bookmark>
+<SCRIPT type=text/javascript>
+s=navigator.appVersion;   
+if (s.indexOf("7.0")!=-1)
+{
+	document.write("<link href=\"/Style/others2.css\" rel=\"stylesheet\" type=\"text/css\" >");
+} 
+</SCRIPT>
+
+<SCRIPT>
+//document.onmousedown=function()
+//{
+//	if(event.button!=1)
+//	{				
+//		window.external.AddFavorite(location.href,document.title);	
+//	}
+//} 
+</SCRIPT>
+
+<STYLE type=text/css>.search {
+	MARGIN: 8px auto; WIDTH: 612px; HEIGHT: 60px
+}
+.search .left {
+	FLOAT: left; WIDTH: 2px; HEIGHT: 60px
+}
+.search .middle {
+	FLOAT: left; BACKGROUND-IMAGE: url(http://www.ueu5.com/images/search_04.gif); WIDTH: 608px; HEIGHT: 60px
+}
+.search .right {
+	FLOAT: left; WIDTH: 2px; HEIGHT: 60px
+}
+.search .middle .s0 {
+	MARGIN-TOP: 7px; FLOAT: left; WIDTH: 50px; HEIGHT: 22px
+}
+.search .middle .s1 {
+	MARGIN-TOP: 7px; FLOAT: left; WIDTH: 82px; PADDING-TOP: 4px; TEXT-ALIGN: right
+}
+.search .middle .s2 {
+	MARGIN-TOP: 7px; FLOAT: left; MARGIN-LEFT: 5px; WIDTH: 250px; HEIGHT: 22px
+}
+.search .middle .s2 .input1 {
+	FLOAT: left; MARGIN: 0px; WIDTH: 2px; HEIGHT: 22px; TEXT-ALIGN: right
+}
+.search .middle .s2 .input2 {
+	FLOAT: left; BACKGROUND-IMAGE: url(http://www.ueu5.com/images/search_21.gif); MARGIN: 0px; WIDTH: 246px; HEIGHT: 22px
+}
+.search .middle .s2 .input3 {
+	FLOAT: left; MARGIN: 0px; WIDTH: 2px; HEIGHT: 22px
+}
+.search .middle .s3 {
+	MARGIN-TOP: 7px; FLOAT: left; MARGIN-LEFT: 5px; WIDTH: 82px
+}
+.search .middle .s4 {
+	CLEAR: left; MARGIN-TOP: 7px; FONT-SIZE: 12px; FLOAT: left; MARGIN-LEFT: 5px; WIDTH: 598px; COLOR: #cc0000; HEIGHT: 25px
+}
+.i1 {
+	WIDTH: 244px; COLOR: #555555; BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+</STYLE>
+
+<META content=Oracle分析函数over及开窗函数（二）--优网培训ueu5.com name=keywords>
+<META 
+content="得到结果：&#10;　　A B C    SUM(C)OVER(PARTITIONBYA)&#10;　　-- -- ------- ------------------------&#10;　　h b 3     3&#10;　　m a 2    4&#10;　　m a 2 --优网培训ueu5.com" 
+name=description>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<DIV style="DISPLAY: none">
+<SCRIPT language=javascript src="" charset=UTF-8></SCRIPT>
+</DIV>
+<FORM id=aspnetForm name=aspnetForm 
+action=../../data.aspx?type=stid&amp;tid=800&amp;did=28947 method=post 
+target=_self>
+<DIV><INPUT id=__VIEWSTATE type=hidden 
+value=/wEPDwUJNTQzMDM3MzE4ZGT4rAsAtMGaeyHe3h+8Tgvwz/YTcA== name=__VIEWSTATE> 
+</DIV><!--头部--><!--<div class="head notprt">
+            <div class="top more">
+	 <a href="http://www.ueu5.com/events/index.html">优网专题</a> |
+                <a href="http://www.ueu5.com/information.html">资讯中心</a> | <a href="http://www.ueu5.com/DataCenter.html" style="color:#bc2931">
+                    学习中心</a> | <a href="http://www.ueu5.com/ALL/center/centerlist.html">机构黄页</a> | </div>
+            <div class="mdl">
+                <div class="s1">
+                    <a href="http://www.ueu5.com/" >
+                        <img src="http://www.ueu5.com/Images/logo.png" /></a></div>
+                <div class="fimg">
+                    <img id="ctl00_imgPage" src="../../Images/d0.png" style="border-width:0px;" /></div>
+                <div class="s2">
+                    <div class="t1">
+                        <ul>
+                            <li><a href="http://www.ueu5.com/it/" target="_parent">
+                                <img src="http://www.ueu5.com/Images/index_r1_r21.png" /></a></li>
+                            <li><a href="http://www.ueu5.com/language/" target="_parent">
+                                <img src="http://www.ueu5.com/Images/index_r1_r23.png" /></a></li>
+                            <li><a href="http://www.ueu5.com/abroad/" target="_parent">
+                                <img src="http://www.ueu5.com/Images/index_r1_r26.png" /></a></li>
+                            <li><a href="http://www.ueu5.com/certification/" target="_parent">
+                                <img src="http://www.ueu5.com/Images/index_r1_r22.png" /></a></li>
+                            <li><a href="http://www.ueu5.com/skill/" target="_parent">
+                                <img src="http://www.ueu5.com/Images/index_r1_r27.png" /></a></li>
+                            <li><a href="http://www.ueu5.com/management/" target="_parent">
+                                <img src="http://www.ueu5.com/Images/index_r1_r24.png" /></a></li>
+                            <li><a href="http://www.ueu5.com/study/" target="_parent">
+                                <img src="http://www.ueu5.com/Images/index_r1_r25.png" /></a></li>
+                            <li><a href="http://www.ueu5.com/kid/" target="_parent">
+                                <img src="http://www.ueu5.com/Images/index_r1_r28.png" /></a></li>
+                        </ul>
+                    </div>
+                    <div class="t2">
+                        <ul>
+                            <li class="ua"><a href="http://www.ueu5.com/it/" target="_parent">电脑培训</a></li>
+                            <li class="ua"><a href="http://www.ueu5.com/language/" target="_parent">语言培训</a></li>
+                            <li class="ua"><a href="http://www.ueu5.com/abroad/" target="_parent">出国留学</a></li>
+                            <li class="ua"><a href="http://www.ueu5.com/certification/" target="_parent">资格认证</a></li>
+                            <li class="ua"><a href="http://www.ueu5.com/skill/" target="_parent">职业技能</a></li>
+                            <li class="ua"><a href="http://www.ueu5.com/management/" target="_parent">企业管理</a></li>
+                            <li class="ua"><a href="http://www.ueu5.com/study/" target="_parent">学历招生</a></li>
+                            <li class="bg ua"><a href="http://www.ueu5.com/kid/" target="_parent">少儿培训</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+<DIV class="head notprt">
+<DIV class=top>
+<DIV style="PADDING-LEFT: 20px; FLOAT: left"><!--a href="http://www.ueu5.com/uwinic/dll-rs.html" target="_blank" style="color:red">嘀铃铃来电付费广告</a> | <a href="http://www.ueu5.com/uwinic/dj-js.html" target="_blank">点睛文中广告</a> --></DIV><A 
+href="http://www.ueu5.com/events/index.html" target=_blank>优网专题</A> | <A 
+href="http://www.ueu5.com/consultation.aspx" target=_blank>在线咨询</A> | <A 
+href="http://www.ueu5.com/org/orglogin.aspx" target=_blank>会员登录</A> | <A 
+href="http://www.ueu5.com/ywgg.aspx" target=_blank>优网公告</A> </DIV>
+<DIV class=mdl>
+<DIV class=s1><A href="http://www.ueu5.com/"><IMG 
+src="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/logo.png"></A> </DIV>
+<DIV class=s2>
+<DIV class=t1>
+<UL>
+  <LI><A href="http://www.ueu5.com/">首&nbsp;&nbsp;&nbsp;&nbsp;页</A> </LI>
+  <LI class=ua><A href="http://www.ueu5.com/it/" target=_self><SPAN 
+  id=ctl00_labITMaster>电脑培训</SPAN></A> </LI>
+  <LI class=ua><A href="http://www.ueu5.com/language/" target=_self><SPAN 
+  id=ctl00_lablanguageMaster>语言培训</SPAN></A> </LI>
+  <LI class=ua><A href="http://www.ueu5.com/abroad/" target=_self><SPAN 
+  id=ctl00_lababroadMaster>出国留学</SPAN></A> </LI>
+  <LI class=ua><A href="http://www.ueu5.com/certification/" target=_self><SPAN 
+  id=ctl00_labcertificationMaster>资格认证</SPAN></A> </LI>
+  <LI class=ua><A href="http://www.ueu5.com/skill/" target=_self><SPAN 
+  id=ctl00_labskillMaster>职业技能</SPAN></A> </LI>
+  <LI class=ua><A href="http://www.ueu5.com/management/" target=_self><SPAN 
+  id=ctl00_labmanagementMaster>补习辅导</SPAN></A> </LI>
+  <LI class=ua><A href="http://www.ueu5.com/study/" target=_self><SPAN 
+  id=ctl00_labstudyMaster>学历招生</SPAN></A> </LI>
+  <LI class=ua><A href="http://www.ueu5.com/kid/" target=_self><SPAN 
+  id=ctl00_labkidMaster>少儿培训</SPAN></A> </LI>
+  <LI class=bg><A href="http://www.ueu5.com/telcounseling.aspx" 
+  target=_blank>在线咨询</A> </LI>
+  <LI><A href="http://www.ueu5.com/ALL/center/centerlist.html" 
+  target=_self><SPAN id=ctl00_labCenterlistMaster>机构黄页</SPAN></A> </LI>
+  <LI><A href="http://www.ueu5.com/Information.html" target=_self><SPAN 
+  id=ctl00_labInfomationMaster>资讯中心</SPAN></A> </LI>
+  <LI><A href="http://www.ueu5.com/dataCenter.html" target=_self><SPAN 
+  id=ctl00_labDataCenterMaster>学习中心</SPAN></A> </LI>
+  <LI><A href="http://www.ueu5.com/oxgen.html">优网氧吧</A> </LI>
+  <LI><A style="COLOR: red" href="http://www.ueu5.com/gaokao.aspx">高考专题</A> 
+</LI>
+  <LI><!--<a  href="http://www.ueu5.com/ALL/trust/centerlist.html" >诚信机构</a>--><A 
+  style="COLOR: red" 
+  href="http://www.ueu5.com/computer/data/28947.html#">寒假专题</A> <!--http://www.ueu5.com/hjzt/hjzt.html--></LI>
+  <LI><A href="http://www.ueu5.com/policy/" target=_self><SPAN 
+  id=ctl00_labPolicyMaster>招考政策</SPAN></A> </LI>
+  <LI><A href="http://www.ueu5.com/news/" target=_self><SPAN 
+  id=ctl00_labNewsMaster>最新资讯</SPAN></A> </LI>
+  <LI><A href="http://www.ueu5.com/sign/" target=_self><SPAN 
+  id=ctl00_labSignMaster>优网视角</SPAN></A> </LI>
+  <LI class=bg><A href="http://www.ueu5.com/"><SPAN>优网社区</SPAN></A> 
+</LI></UL></DIV></DIV></DIV></DIV>
+<DIV class=data><!-- 导航条 -->
+<DIV class=menuA>
+<DIV class=s>您所在的位置 &gt; <A href="http://www.ueu5.com/Index.html">优网首页</A> &gt; 
+<A href="http://www.ueu5.com/DataCenter.html">学习中心</A> &gt; <A 
+href="http://www.ueu5.com/computer.html">计算机</A> &gt; <SPAN 
+id=ctl00_ContentPlaceHolder1_labData><A 
+href="http://www.ueu5.com/computer/it.html">IT认证</A></SPAN> &gt; <SPAN 
+id=ctl00_ContentPlaceHolder1_labDataTitle>Oracle分析函数over及开窗函数（二）</SPAN> </DIV>
+<DIV id=ad01 style="MARGIN-TOP: 0px; FLOAT: right"></DIV></DIV><!-- 广告 
+  <div class="ad890">
+      <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="890" height="90">
+    <param name="movie" value="http://www.ueu5.com/Images/890-90-161.swf" />
+    <param name="quality" value="high" />
+    <embed src="http://www.ueu5.com/Images/890-90-161.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="890" height="90"></embed>
+  </object>
+</div>
+-->
+<DIV class=lfcn>
+<DIV class=title>
+<H3>Oracle分析函数over及开窗函数（二）</H3></DIV>
+<DIV 
+class=t2>来源:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时间:2008-07-30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览量：176</DIV><!--	<div class="t1" style="height:25px; background-color:#F8F9FE">
+		<div id="ad13" style="padding-top:5px;" >Ad Loading...</div>
+		<div class="ad588" style="margin:5px;">
+			<div style="display:none" ><a href="#" target="_blank"><img src="http://www.ueu5.com/Images/588-99-1.gif"/></a></div>
+		</div>
+	</div>
+	-->
+<DIV class=con>
+<DIV id=ad03 
+style="FLOAT: left; WIDTH: 336px; PADDING-TOP: 5px; HEIGHT: 280px; TEXT-ALIGN: center">
+<SCRIPT type=text/javascript><!--
+google_ad_client = "pub-9397031284979978";
+/* ad03--336x280, 创建于 08-3-15 */
+google_ad_slot = "5058030600";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+</SCRIPT>
+
+<SCRIPT src="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+</DIV>
+<DIV style="CLEAR: both; DISPLAY: block"></DIV><!--HR style="position:relative;top:-15;right:80; border-top:1px dotted #000000;HEIGHT:0;"-->
+<DIV style="LINE-HEIGHT: 200%"><!--增加行间距-->
+<DIV>　 得到结果：</DIV>
+<DIV>　　A B C&nbsp;&nbsp;&nbsp; SUM(C)OVER(PARTITIONBYA)</DIV>
+<DIV>　　-- -- ------- ------------------------</DIV>
+<DIV>　　h b 3&nbsp;&nbsp;&nbsp;&nbsp; 3</DIV>
+<DIV>　　m a 2&nbsp;&nbsp;&nbsp; 4</DIV>
+<DIV>　　m a 2&nbsp;&nbsp;&nbsp; 4</DIV>
+<DIV>　　n a 3&nbsp;&nbsp;&nbsp;&nbsp; 6</DIV>
+<DIV>　　n b 2&nbsp;&nbsp;&nbsp;&nbsp; 6</DIV>
+<DIV>　　n b 1&nbsp;&nbsp;&nbsp;&nbsp; 6</DIV>
+<DIV>　　x b 3&nbsp;&nbsp;&nbsp;&nbsp; 9</DIV>
+<DIV>　　x b 2&nbsp;&nbsp;&nbsp;&nbsp; 9</DIV>
+<DIV>　　x b 4&nbsp;&nbsp;&nbsp;&nbsp; 9</DIV>
+<DIV>　　如果用sum，group by 则只能得到</DIV>
+<DIV>　　A SUM(C)</DIV>
+<DIV>　　-- ----------------------</DIV>
+<DIV>　　h&nbsp;&nbsp; 3</DIV>
+<DIV>　　m&nbsp; 4</DIV>
+<DIV>　　n&nbsp;&nbsp; 6</DIV>
+<DIV>　　x&nbsp;&nbsp; 9</DIV>
+<DIV>　　无法得到B列值</DIV>
+<DIV>　　=====</DIV>
+<DIV>　　二：开窗函数</DIV>
+<DIV>　　开窗函数指定了分析函数工作的数据窗口大小，这个数据窗口大小可能会随着行的变化而变化，举例如下：</DIV>
+<DIV>&nbsp;&nbsp;&nbsp;&nbsp; 1.</DIV>
+<DIV>over(order by salary) 按照salary排序进行累计，order by是个默认的开窗函数 <BR>over(partition 
+by deptno)按照部门分区 </DIV>
+<DIV><BR>&nbsp;&nbsp;&nbsp;&nbsp; 2.</DIV>
+<DIV>over(order by salary range between 5 preceding and 5 following) </DIV>
+<DIV><BR>　　每行对应的数据窗口是之前行幅度值不超过5，之后行幅度值不超过5</DIV>
+<DIV>　　例如:对于以下列</DIV>
+<DIV>　　aa</DIV>
+<DIV>　　1</DIV>
+<DIV>　　2</DIV>
+<DIV>　　2</DIV>
+<DIV>　　2</DIV>
+<DIV>　　3</DIV>
+<DIV>　　4</DIV>
+<DIV>　　5</DIV>
+<DIV>　　6</DIV>
+<DIV>　　7</DIV>
+<DIV>　　9</DIV>
+<DIV>sum(aa)over(order by aa range between 2 preceding and 2 following) </DIV>
+<DIV><BR>　　得出的结果是</DIV>
+<DIV>　　A&nbsp; A&nbsp;&nbsp; SUM</DIV>
+<DIV>　　---------------------- 
+-------------------------------------------------------</DIV>
+<DIV>　　1&nbsp;&nbsp; 1&nbsp; 0</DIV>
+<DIV>　　2&nbsp;&nbsp; 1&nbsp; 4</DIV>
+<DIV>　　2&nbsp;&nbsp; 1&nbsp; 4</DIV>
+<DIV>　　2&nbsp;&nbsp; 1&nbsp; 4</DIV>
+<DIV>　　3&nbsp;&nbsp; 1&nbsp; 8</DIV>
+<DIV>　　4&nbsp;&nbsp; 1&nbsp; 8</DIV>
+<DIV>　　5&nbsp;&nbsp; 2&nbsp; 2</DIV>
+<DIV>　　6&nbsp;&nbsp; 1&nbsp; 8</DIV>
+<DIV>　　7&nbsp;&nbsp; 2&nbsp; 2</DIV>
+<DIV>　　9&nbsp;&nbsp; 9</DIV>
+<DIV>　　就是说，对于aa=5的一行 ，sum为 5-1&lt;=aa&lt;=5+2 的和</DIV>
+<DIV>　　对于aa=2来说 ，sum=1+2+2+2+3+4=14 ;</DIV>
+<DIV>　　又如 对于aa=9 ，9-1&lt;=aa&lt;=9+2 只有9一个数，所以sum=9 ;</DIV>
+<DIV>　　3：其它：</DIV>
+<DIV>over(order by salary rows between 2 preceding and 4 following) </DIV>
+<DIV><BR>　　每行对应的数据窗口是之前2行，之后4行　</DIV>
+<DIV>over(order by salary rows between 2 preceding and 4 following) </DIV>
+<DIV><BR>　　每行对应的数据窗口是之前2行，之后4行</DIV>
+<DIV>　　4：下面三条语句等效：</DIV>
+<DIV>over(order by salary rows between unbounded preceding and unbounded 
+following) </DIV>
+<DIV><BR>　　每行对应的数据窗口是从第一行到最后一行，等效：</DIV>
+<DIV>over(order by salary range between unbounded preceding and unbounded 
+following) </DIV>
+<DIV><BR>　　等效</DIV></DIV>
+<DIV style="MARGIN-TOP: 10px; FLOAT: right; MARGIN-BOTTOM: 0px; HEIGHT: 20px"><A 
+style="FONT-SIZE: 14px; COLOR: #1a3f87" 
+href="http://www.ueu5.com/computer/it.html" target=_blank><B>→ 
+查看关于“计算机/IT认证”的全部考试资料</B></A> </DIV>
+<DIV style="CLEAR: both; DISPLAY: block"></DIV><!--<div id="ad17" style="text-align:center;background:#F0f0f0;padding-top:5px;">Ad Loading...</div>--><!--<div class="t4" style="height:0px;overfloat:hidden; display:none;" >
+	Oracle分析函数over及开窗函数（二）
+	
+	
+	</div>--></DIV>
+<DIV class=t5 style="BACKGROUND: #f7fbfe">
+<DIV id=ad12 
+style="FLOAT: left; MARGIN-LEFT: 10px; COLOR: #000000; HEIGHT: 20px; overfloat: hidden">更多内容</DIV><!--<a href="http://www.ueu5.com/computer.html" target="_blank">更多>></a>--></DIV>
+<UL style="FLOAT: left; OVERFLOW: hidden; WIDTH: 330px">
+  <LI><A title="新闻标题：对付DDoS攻击的绝招&#10;&#13;发布日期：12月1日" style="COLOR: #1a3f87" 
+  href="http://www.ueu5.com/computer/data/33563.html" 
+  target=_blank>对付DDoS攻击的绝招</A>&nbsp;&nbsp;<FONT 
+  color=#a0a0a0>2008-12-01</FONT></LI>
+  <LI><A title="新闻标题：路由交换安全七宗罪&#10;&#13;发布日期：12月1日" style="COLOR: #1a3f87" 
+  href="http://www.ueu5.com/computer/data/33562.html" 
+  target=_blank>路由交换安全七宗罪</A>&nbsp;&nbsp;<FONT 
+  color=#a0a0a0>2008-12-01</FONT></LI>
+  <LI><A title="新闻标题：如何有效管理局域网IP地址&#10;&#13;发布日期：12月1日" style="COLOR: #1a3f87" 
+  href="http://www.ueu5.com/computer/data/33561.html" 
+  target=_blank>如何有效管理局域网IP地址</A>&nbsp;&nbsp;<FONT 
+  color=#a0a0a0>2008-12-01</FONT></LI>
+  <LI><A title="新闻标题：《华为认证网络工程师》自测练习题（五）&#10;&#13;发布日期：11月28日" 
+  style="COLOR: #1a3f87" href="http://www.ueu5.com/computer/data/33482.html" 
+  target=_blank>《华为认证网络工程师》自测练习题（五）</A>&nbsp;&nbsp;<FONT 
+  color=#a0a0a0>2008-11-28</FONT></LI>
+  <LI><A title="新闻标题：《华为认证网络工程师》自测练习题（四）&#10;&#13;发布日期：11月28日" 
+  style="COLOR: #1a3f87" href="http://www.ueu5.com/computer/data/33481.html" 
+  target=_blank>《华为认证网络工程师》自测练习题（四）</A>&nbsp;&nbsp;<FONT 
+  color=#a0a0a0>2008-11-28</FONT></LI>
+  <LI><A title="新闻标题：《华为认证网络工程师》自测练习题（三）&#10;&#13;发布日期：11月28日" 
+  style="COLOR: #1a3f87" href="http://www.ueu5.com/computer/data/33480.html" 
+  target=_blank>《华为认证网络工程师》自测练习题（三）</A>&nbsp;&nbsp;<FONT 
+  color=#a0a0a0>2008-11-28</FONT></LI>
+  <LI><A title="新闻标题：《华为认证网络工程师》自测练习题（二）&#10;&#13;发布日期：11月28日" 
+  style="COLOR: #1a3f87" href="http://www.ueu5.com/computer/data/33479.html" 
+  target=_blank>《华为认证网络工程师》自测练习题（二）</A>&nbsp;&nbsp;<FONT 
+  color=#a0a0a0>2008-11-28</FONT></LI>
+  <LI><A title="新闻标题：《华为认证网络工程师》自测练习题（一）&#10;&#13;发布日期：11月28日" 
+  style="COLOR: #1a3f87" href="http://www.ueu5.com/computer/data/33478.html" 
+  target=_blank>《华为认证网络工程师》自测练习题（一）</A>&nbsp;&nbsp;<FONT 
+  color=#a0a0a0>2008-11-28</FONT></LI>
+  <LI><A title="新闻标题：网络基础篇 网络命令&#10;&#13;发布日期：11月26日" style="COLOR: #1a3f87" 
+  href="http://www.ueu5.com/computer/data/33440.html" target=_blank>网络基础篇 
+  网络命令</A>&nbsp;&nbsp;<FONT color=#a0a0a0>2008-11-26</FONT></LI>
+  <LI><A title="新闻标题：网络共享之DFS(分布式文件系统)&#10;&#13;发布日期：11月26日" 
+  style="COLOR: #1a3f87" href="http://www.ueu5.com/computer/data/33439.html" 
+  target=_blank>网络共享之DFS(分布式文件系统)</A>&nbsp;&nbsp;<FONT 
+  color=#a0a0a0>2008-11-26</FONT> </LI></UL></DIV>
+<DIV class=rt><!-- 资料搜索 -->
+<DIV class=hotCL style="MARGIN-BOTTOM: 8px; HEIGHT: auto">
+<UL style="MARGIN-TOP: 5px; MARGIN-LEFT: 10px"><IFRAME style="FLOAT: left" 
+  marginWidth=0 marginHeight=0 
+  src="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/CAC5I78X.htm" frameBorder=0 
+  width=250 scrolling=no height=60></IFRAME>
+  <DIV style="FLOAT: left; OVERFLOW: hidden; WIDTH: 250px">
+  <SCRIPT type=text/javascript><!--
+  google_ad_client = "pub-9397031284979978";
+  google_ad_format = "350x30_sdo";
+  google_link_target = 2;
+  google_color_bg = "ffffff";
+  google_color_link = "1a3f87";
+  google_encoding = "GB2312";
+//-->
+</SCRIPT>
+
+  <SCRIPT src="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/show_ads.js" 
+  type=text/javascript>
+</SCRIPT>
+  </DIV></UL></DIV><!-- 热门课程 -->
+<DIV class=hotCL>
+<DIV class="t1 tFont">
+<H4 style="FLOAT: left; MARGIN-LEFT: 8px"><A href="http://www.ueu5.com/middle/" 
+target=_blank>热门课程</A></H4><SPAN style="FLOAT: right; MARGIN-RIGHT: 8px"><A 
+href="http://www.ueu5.com/computer.html" target=_blank>更多&gt;&gt;</A></SPAN> 
+</DIV>
+<UL>
+  <LI><A title="课程名称：西餐厨师培训沈阳迎宾职业培训学校&#10;发布机构：沈阳迎宾职业培训学校&#10;开班日期：2007-09-11" 
+  href="http://www.ueu5.com/skill/course/2531.html" 
+  target=_blank>西餐厨师培训沈阳迎宾职业培训学校</A>
+  <LI><A title="课程名称：国家公共营养师&#10;发布机构：辽宁省就业培训中心公共营养师培训&#10;开班日期：2007-03-01" 
+  href="http://www.ueu5.com/certification/course/1813.html" 
+  target=_blank>国家公共营养师</A>
+  <LI><A 
+  title="课程名称：沈阳市委党校招收中央党校、辽宁省委党校函授学院大专、本科、研究生 &#10;发布机构：辽宁省委党校函授学院沈阳分院 &#10;开班日期：2006-01-01" 
+  href="http://www.ueu5.com/study/course/1391.html" 
+  target=_blank>沈阳市委党校招收中央党校、辽宁省</A>
+  <LI><A title="课程名称：辽宁师范大学成人学历教育招生&#10;发布机构：辽宁师范大学&#10;开班日期：2006-01-01" 
+  href="http://www.ueu5.com/study/course/1179.html" 
+  target=_blank>辽宁师范大学成人学历教育招生</A>
+  <LI><A title="课程名称：慕斯蛋糕&#10;发布机构：沈阳迎宾职业培训学校&#10;开班日期：2007-11-28" 
+  href="http://www.ueu5.com/skill/course/2630.html" target=_blank>慕斯蛋糕</A>
+  <LI><A 
+  title="课程名称：全国晋升职称计算机证、计算机等级证、全国NIT证培训考试&#10;发布机构：辽宁省计算机培训中心&#10;开班日期：2006-01-01" 
+  href="http://www.ueu5.com/certification/course/1616.html" 
+  target=_blank>全国晋升职称计算机证、计算机等级</A>
+  <LI><A title="课程名称：中科院最新开班简介&#10;发布机构：北京中科院计算所培训中心-沈阳分校&#10;开班日期：2007-06-13" 
+  href="http://www.ueu5.com/it/course/2050.html" target=_blank>中科院最新开班简介</A>
+  <LI><A title="课程名称：编导、导演及文化产业管理专业&#10;发布机构：沈阳七星艺术类高考培训学校&#10;开班日期：2007-04-28" 
+  href="http://www.ueu5.com/study/course/2385.html" 
+  target=_blank>编导、导演及文化产业管理专业</A>
+  <LI><A 
+  title="课程名称：哈佛美发系列——哈佛美容美发培训学校&#10;发布机构：沈阳哈佛国际美发美容摄影学校 &#10;开班日期：2006-01-01" 
+  href="http://www.ueu5.com/skill/course/1343.html" 
+  target=_blank>哈佛美发系列——哈佛美容美发培训</A>
+  <LI><A title="课程名称：沈阳硬件组装维护与网络基础培训课程&#10;发布机构：沈阳方之舟电脑培训学校&#10;开班日期：2008-11-23" 
+  href="http://www.ueu5.com/it/course/2612.html" 
+  target=_blank>沈阳硬件组装维护与网络基础培训课</A> </LI></UL></DIV><!-- 广告 -->
+<DIV class=ad270>
+<OBJECT 
+codeBase=http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0 
+height=85 width=270 classid=clsid:D27CDB6E-AE6D-11cf-96B8-444553540000><PARAM NAME="movie" VALUE="http://www.ueu5.com/Images/270-85-1.swf"><PARAM NAME="quality" VALUE="high">
+            <embed src="http://www.ueu5.com/Images/270-85-1.swf" quality="high" 
+pluginspage="http://www.macromedia.com/go/getflashplayer" 
+type="application/x-shockwave-flash" width="270" height="85"></embed>  
+</OBJECT></DIV><!-- 招考政策 -->
+<DIV class=policy>
+<DIV class="t1 tFont"><!-- <h4><a href="http://www.ueu5.com/policy/" target="_blank">招考政策</a></h4> -->
+<H4 style="FLOAT: left; MARGIN-LEFT: 8px"><A href="http://www.ueu5.com/middle/" 
+target=_blank>相关内容</A> </H4><SPAN style="FLOAT: right; MARGIN-RIGHT: 8px"><A 
+href="http://www.ueu5.com/computer.html" target=_blank>更多&gt;&gt;</A></SPAN> 
+</DIV>
+<UL>
+  <LI><A title="新闻标题：深入的理解abstract class和interface（二）&#10;&#13;发布日期：8月11日" 
+  href="http://www.ueu5.com/computer/data/29279.html" 
+  target=_blank>深入的理解abstract cla</A>
+  <LI><A title="新闻标题：深入的理解abstract class和interface（一）&#10;&#13;发布日期：8月11日" 
+  href="http://www.ueu5.com/computer/data/29278.html" 
+  target=_blank>深入的理解abstract cla</A>
+  <LI><A title="新闻标题：SQLServer开发过程中的的常见问题总结（二）&#10;&#13;发布日期：8月6日" 
+  href="http://www.ueu5.com/computer/data/29183.html" 
+  target=_blank>SQLServer开发过程中的的常</A>
+  <LI><A title="新闻标题：SQLServer开发过程中的的常见问题总结（一）&#10;&#13;发布日期：8月6日" 
+  href="http://www.ueu5.com/computer/data/29182.html" 
+  target=_blank>SQLServer开发过程中的的常</A>
+  <LI><A title="新闻标题：SQLServer2000sp4与数据链接池问题&#10;&#13;发布日期：8月6日" 
+  href="http://www.ueu5.com/computer/data/29181.html" 
+  target=_blank>SQLServer2000sp4与</A>
+  <LI><A title="新闻标题：Oracle分析函数over及开窗函数（一）&#10;&#13;发布日期：7月30日" 
+  href="http://www.ueu5.com/computer/data/28946.html" 
+  target=_blank>Oracle分析函数over及开窗</A>
+  <LI><A title="新闻标题：SQL语句字符串处理大全&#10;&#13;发布日期：7月30日" 
+  href="http://www.ueu5.com/computer/data/28945.html" 
+  target=_blank>SQL语句字符串处理大全</A>
+  <LI><A title="新闻标题：Linux系统下文件的压缩、打包与解压包介绍&#10;&#13;发布日期：7月29日" 
+  href="http://www.ueu5.com/computer/data/28942.html" 
+  target=_blank>Linux系统下文件的压缩、打包与</A>
+  <LI><A title="新闻标题：10个步骤保护IISWeb服务器安全&#10;&#13;发布日期：7月29日" 
+  href="http://www.ueu5.com/computer/data/28939.html" 
+  target=_blank>10个步骤保护IISWeb服务器安</A>
+  <LI><A title="新闻标题：在Oracle中选取有父子或树状关系的数据&#10;&#13;发布日期：7月29日" 
+  href="http://www.ueu5.com/computer/data/28905.html" 
+  target=_blank>在Oracle中选取有父子或树状关</A> </LI></UL></DIV><!-- 广告 -->
+<DIV class=ad270><A href="http://www.hanterry.com/" target=_blank><IMG 
+src="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/data_flag_2.gif"></A></DIV><!-- 考讯月历 -->
+<DIV class=calendar>
+<H4>考讯月历</H4>
+<UL>
+  <LI id=month0 onmouseover="getbg('month',0,12)"><A 
+  href="http://www.ueu5.com/Calendar.html#1" target=_blank>1月</A></LI>
+  <LI id=month1 onmouseover="getbg('month',1,12)"><A 
+  href="http://www.ueu5.com/Calendar.html#2" target=_blank>2月</A></LI>
+  <LI id=month2 onmouseover="getbg('month',2,12)"><A 
+  href="http://www.ueu5.com/Calendar.html#3" target=_blank>3月</A></LI>
+  <LI id=month3 onmouseover="getbg('month',3,12)"><A 
+  href="http://www.ueu5.com/Calendar.html#4" target=_blank>4月</A></LI>
+  <LI id=month4 onmouseover="getbg('month',4,12)"><A 
+  href="http://www.ueu5.com/Calendar.html#5" target=_blank>5月</A></LI>
+  <LI id=month5 onmouseover="getbg('month',5,12)"><A 
+  href="http://www.ueu5.com/Calendar.html#6" target=_blank>6月</A></LI>
+  <LI id=month6 onmouseover="getbg('month',6,12)"><A 
+  href="http://www.ueu5.com/Calendar.html#7" target=_blank>7月</A></LI>
+  <LI id=month7 onmouseover="getbg('month',7,12)"><A 
+  href="http://www.ueu5.com/Calendar.html#8" target=_blank>8月</A></LI>
+  <LI id=month8 onmouseover="getbg('month',8,12)"><A 
+  href="http://www.ueu5.com/Calendar.html#9" target=_blank>9月</A></LI>
+  <LI id=month9 onmouseover="getbg('month',9,12)"><A 
+  href="http://www.ueu5.com/Calendar.html#10" target=_blank>10月</A></LI>
+  <LI id=month10 onmouseover="getbg('month',10,12)"><A 
+  href="http://www.ueu5.com/Calendar.html#11" target=_blank>11月</A></LI>
+  <LI id=month11 onmouseover="getbg('month',11,12)"><A class=bg 
+  href="http://www.ueu5.com/Calendar.html#12" target=_blank>12月</A> 
+</LI></UL></DIV><!-- 资料导航 -->
+<DIV class=hotCL style="MARGIN-TOP: 8px; MARGIN-BOTTOM: 8px; HEIGHT: auto">
+<DIV class="t1 tFont">
+<H4 style="FLOAT: left; MARGIN-LEFT: 8px"><A 
+href="http://www.ueu5.com/datacenter.html" target=_blank>考试资料大全</A></H4></DIV>
+<DIV>
+<DIV class=s>
+<DIV style="CLEAR: both; DISPLAY: block"></DIV>
+<H4><A href="http://www.ueu5.com/middle.html" 
+target=_blank>中&nbsp;&nbsp;&nbsp;&nbsp;考</A>：</H4>
+<DIV class=s1><A href="http://www.ueu5.com/middle/artical.html" 
+target=_blank>语文</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/middle/math.html" 
+target=_blank>数学</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/middle/foreign.html" 
+target=_blank>外语</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/middle/pcb.html" 
+target=_blank>理化生</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/middle/hgs.html" 
+target=_blank>史地政</A> </DIV></DIV>
+<DIV style="CLEAR: both; DISPLAY: block"></DIV>
+<DIV class=s>
+<H4><A href="http://www.ueu5.com/high.html" 
+target=_blank>高&nbsp;&nbsp;&nbsp;&nbsp;考</A>：</H4>
+<DIV class=s1><A href="http://www.ueu5.com/high/artical.html" 
+target=_blank>语文</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/high/math.html" 
+target=_blank>数学</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/high/foreign.html" 
+target=_blank>外语</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/high/literature.html" 
+target=_blank>文综合</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/high/numeration.html" target=_blank>理综合</A> 
+</DIV></DIV>
+<DIV style="CLEAR: both; DISPLAY: block"></DIV>
+<DIV class=s>
+<H4><A href="http://www.ueu5.com/adult.html" 
+target=_blank>成&nbsp;&nbsp;&nbsp;&nbsp;考</A>：</H4>
+<DIV class=s1><A href="http://www.ueu5.com/adult/high.html" 
+target=_blank>高中起点</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/adult/college.html" target=_blank>专科起点</A> 
+</DIV></DIV>
+<DIV style="CLEAR: both; DISPLAY: block"></DIV>
+<DIV class=s>
+<H4><A href="http://www.ueu5.com/personal.html" 
+target=_blank>自&nbsp;&nbsp;&nbsp;&nbsp;考</A>：</H4>
+<DIV class=s1><A href="http://www.ueu5.com/personal/public.html" 
+target=_blank>公共课</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/personal/project.html" 
+target=_blank>工学</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/personal/numeration.html" 
+target=_blank>理学</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/personal/artical.html" 
+target=_blank>文法</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/personal/business.html" 
+target=_blank>经济</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/personal/physic.html" 
+target=_blank>医学</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/personal/management.html" 
+target=_blank>管理</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/personal/edu.html" 
+target=_blank>教育学</A> </DIV></DIV>
+<DIV style="CLEAR: both; DISPLAY: block"></DIV>
+<DIV class=s>
+<H4><A href="http://www.ueu5.com/graduate.html" 
+target=_blank>考&nbsp;&nbsp;&nbsp;&nbsp;研</A>：</H4>
+<DIV class=s1><A href="http://www.ueu5.com/graduate/national.html" 
+target=_blank>全国统考</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/graduate/law.html" target=_blank>法硕</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/graduate/mba.html" target=_blank>MBA</A> </DIV></DIV>
+<DIV style="CLEAR: both; DISPLAY: block"></DIV>
+<DIV class=s>
+<H4><A href="http://www.ueu5.com/sk.html" target=_blank>职业资格</A>：</H4>
+<DIV class=s1><A href="http://www.ueu5.com/sk/custom.html" 
+target=_blank>报关员</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/sk/jerque.html" 
+target=_blank>报检员</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/sk/guide.html" 
+target=_blank>导游</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/sk/project.html" 
+target=_blank>工程师</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/sk/physic.html" 
+target=_blank>医师</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/sk/accountant.html" 
+target=_blank>注会</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/sk/clerk.html" 
+target=_blank>秘书</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/sk/sws.html" 
+target=_blank>商务师</A> </DIV></DIV>
+<DIV style="CLEAR: both; DISPLAY: block"></DIV>
+<DIV class=s>
+<H4><A href="http://www.ueu5.com/offical.html" 
+target=_blank>公&nbsp;务&nbsp;员</A>：</H4>
+<DIV class=s1><A href="http://www.ueu5.com/offical/essay.html" 
+target=_blank>申论</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/offical/administration.html" target=_blank>行政能力</A> 
+</DIV></DIV>
+<DIV style="CLEAR: both; DISPLAY: block"></DIV>
+<DIV class=s>
+<H4><A href="http://www.ueu5.com/computer.html" 
+target=_blank>计&nbsp;算&nbsp;机</A>：</H4>
+<DIV class=s1><A href="http://www.ueu5.com/computer/national.html" 
+target=_blank>国家等级</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/computer/it.html" 
+target=_blank>IT认证</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/computer/cisco.html" 
+target=_blank>思科认证</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/computer/microsoft.html" 
+target=_blank>微软</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/computer/sun.html" 
+target=_blank>SUN</A> </DIV></DIV>
+<DIV style="CLEAR: both; DISPLAY: block"></DIV>
+<DIV class=s>
+<H4><A href="http://www.ueu5.com/lan.html" target=_blank>语言考试</A>：</H4>
+<DIV class=s1><A href="http://www.ueu5.com/lan/46.html" 
+target=_blank>四六级</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/lan/48.html" 
+target=_blank>专四专八</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/lan/public.html" 
+target=_blank>公共英语</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/lan/duty.html" 
+target=_blank>职称英语</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/lan/toefl.html" 
+target=_blank>托福</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/lan/ielts.html" 
+target=_blank>雅思</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/lan/gre.html" 
+target=_blank>GRE</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/lan/gmat.html" 
+target=_blank>GMAT</A>&nbsp;|&nbsp;<A href="http://www.ueu5.com/lan/bec.html" 
+target=_blank>BEC</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/lan/translate.html" 
+target=_blank>口译笔译</A>&nbsp;|&nbsp;<A 
+href="http://www.ueu5.com/lan/ordinary.html" target=_blank>普通话</A> </DIV></DIV>
+<DIV style="CLEAR: both; DISPLAY: block"></DIV>
+<DIV class=s>
+<H4><A href="http://www.ueu5.com/law.html" target=_blank>司法考试</A>：</H4>
+<DIV class=s1><A href="http://www.ueu5.com/law/law.html" target=_blank>司法考试</A> 
+</DIV></DIV>
+<DIV style="CLEAR: both; DISPLAY: block"></DIV></DIV></DIV><!--赞助商
+		<div style="margin-top:8px; width:268px; border:#B0C4CF solid 1px; background-color:#F8F9FE; text-align:left;overflow:hidden">
+			<ul style="margin-left:8px; margin-top: 5px;margin-bottom:5px; padding:0;">
+			<div id="ad18">Ad Loading...</div>
+			</ul>
+		</div>--></DIV></DIV>
+<DIV style="CLEAR: both; DISPLAY: block; FONT: 0px/0px sans-serif"></DIV><!--广告代码设置--开始
+
+<div id="ad_code_12" style="display:none">
+<script language='javascript' src='/adjs/baidu4387.js'></script>
+</div>
+<div id="ad_code_17" style="display:none">
+<!--<script language='javascript' src='/adjs/baidu4878.js'></script>
+</div>--><!--展示-->
+<SCRIPT language=javascript type=text/javascript>
+//if(document.getElementById("ad12") != null){document.getElementById("ad12").innerHTML = document.getElementById("ad_code_12").innerHTML;document.getElementById("ad_code_12").innerHTML=""};
+</SCRIPT>
+<!--弹窗
+<script language='javascript' src='/Javascript/opendata.js'></script>--><!--智能导航漂浮代码-->
+<SCRIPT language=javascript type=text/javascript>
+lastScrollY2=0;
+var url=document.getElementById("ctl00_ContentPlaceHolder1_labData").innerHTML;//导航条id
+start=url.indexOf("\"");
+end=url.indexOf(">");
+pos=url.substring(start+1,end-1);//取得上级栏目地址
+function heartBeat2(){ 
+var diffY2;
+if (document.documentElement && document.documentElement.scrollTop)
+diffY2 = document.documentElement.scrollTop;
+else if (document.body)
+diffY2 = document.body.scrollTop
+else
+{/*Netscape stuff*/}
+percent2=.1*(diffY2-lastScrollY2); 
+if(percent2>0)percent2=Math.ceil(percent2); 
+else percent2=Math.floor(percent2); 
+document.getElementById("PC_Right").style.top=parseInt(document.getElementById("PC_Right").style.top)+percent2+"px";
+lastScrollY2=lastScrollY2+percent2; }
+suspendcode2='<DIV id="PC_Right" style="right:0px;POSITION:absolute;TOP:200px;"><A HREF="'+pos+'#navdata" TARGET=_blank><IMG SRC=/Images/zndh.gif BORDER=0 WIDTH="54" HEIGHT="54" ></A></div>'
+document.write(suspendcode2); 
+window.setInterval("heartBeat2()",1);
+</SCRIPT>
+
+<DIV 
+style="BORDER-RIGHT: #1a3f87 1px dotted; BORDER-TOP: #1a3f87 1px dotted; MARGIN-TOP: 8px; BORDER-LEFT: #1a3f87 1px dotted; WIDTH: 890px; BORDER-BOTTOM: #1a3f87 1px dotted">
+<DIV style="MARGIN-TOP: 5px; FLOAT: right"><IFRAME style="FLOAT: left" 
+marginWidth=0 marginHeight=0 
+src="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/gg-top.htm" frameBorder=0 
+width=450 scrolling=no height=40></IFRAME>
+<DIV style="FLOAT: left">
+<SCRIPT type=text/javascript><!--
+  google_ad_client = "pub-9397031284979978";
+  google_ad_format = "350x30_sdo";
+  google_link_target = 2;
+  google_color_bg = "ffffff";
+  google_color_link = "0000ff";
+  google_encoding = "GB2312";
+//-->
+</SCRIPT>
+
+<SCRIPT src="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+</DIV></DIV></DIV><!-- 页尾 -->
+<DIV class="foot notprt">
+<DIV class="t1 more">| <A href="http://www.ueu5.com/about.html" 
+target=_blank>关于本站</A> | <A href="http://www.ueu5.com/declare.html" 
+target=_blank>免责声明</A> | <A href="http://www.ueu5.com/business.html" 
+target=_blank>商务合作</A> | <A style="COLOR: red" 
+href="http://www.ueu5.com/job.html" target=_blank>诚聘英才</A> | <A 
+href="http://www.ueu5.com/connect.html" target=_blank>联系我们</A> | <A 
+href="http://www.ueu5.com/link.html" target=_blank>友情链接</A> | <A 
+href="http://www.ueu5.com/sitemap.html" target=_blank>网站地图</A> |
+<SCRIPT language=javascript src="" type=text/javascript></SCRIPT>
+ | </DIV>
+<DIV class=s1><A href="http://www.ueu5.com/"><IMG 
+src="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/logo1.png"></A> </DIV>
+<DIV class=s2>沈阳优网互联信息服务有限公司 版权所有 辽ICP备08007732号<BR>Copyright &copy;2006-2007 <A 
+title=优网沈阳培训频道-致力于沈阳培训事业的推动与发展 href="http://www.ueu5.com/"><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #004080; FONT-FAMILY: 'Comic Sans MS'"><SPAN 
+style="COLOR: #ff8000">Ueu5<SPAN 
+style="COLOR: #004080">.com</SPAN></SPAN></SPAN></A> All Rights 
+Reserved<BR></DIV>
+<DIV class=s3><A href="http://www.ueu5.com/icp.html" target=_blank><IMG 
+src="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/footer_r6_c1.png"></A> </DIV>
+<DIV class=s4><A 
+href="http://ln.cyberpolice.cn/aobao/contentAction.do?method=INDE" 
+target=_blank><IMG 
+src="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/aoyun.jpg"></A> </DIV></DIV><!--左侧浮游框-->
+<SCRIPT language=javascript type=text/javascript>
+   lastScrollY2=0;
+function heartBeat12(){ 
+var diffY2;
+if (document.documentElement && document.documentElement.scrollTop)
+diffY2 = document.documentElement.scrollTop;
+else if (document.body)
+diffY2 = document.body.scrollTop
+else
+{/*Netscape stuff*/}
+percent2=.1*(diffY2-lastScrollY2); 
+if(percent2>0)percent2=Math.ceil(percent2); 
+else percent2=Math.floor(percent2); 
+document.getElementById("PC_Right").style.top=parseInt(document.getElementById("PC_Right").style.top)+percent2+"px";
+lastScrollY2=lastScrollY2+percent2; }
+suspendcode2='<div id="PC_Right" style="left:0px;POSITION:absolute;TOP:200px;"><A HREF=http://www.ueu5.com/chengpin.aspx TARGET=_blank><IMG SRC=http://www.ueu5.com/Images/chengpin.gif BORDER=0 WIDTH="54" HEIGHT="200" ></A></div>'
+document.write(suspendcode2); 
+window.setInterval("heartBeat12()",1);
+</SCRIPT>
+</FORM><!-- *** Vdoing Code -->
+<SCRIPT type=text/javascript>var wea_sid = 3041; var wea_domain="";</SCRIPT>
+
+<SCRIPT src="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/mystats.js" 
+type=text/javascript charset=UTF-8></SCRIPT>
+<NOSCRIPT><A href="http://www.vdoing.com/"><IMG 
+src="Oracle分析函数over及开窗函数（二）—优网培训ueu5_com.files/check.gif"></A></NOSCRIPT> <!-- *** End of Vdoing Code --></BODY></HTML>

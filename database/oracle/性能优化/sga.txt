@@ -1,0 +1,95 @@
+SELECT name, gets, misses, immediate_gets, immediate_misses,
+    Decode(gets,0,0,misses/gets*100) ratio1,
+    Decode(immediate_gets+immediate_misses,0,0,
+    immediate_misses/(immediate_gets+immediate_misses)*100) ratio2
+    FROM v$latch WHERE name IN ('redo allocation', 'redo copy'); 
+
+
+select sum(pins) "Total Pins", sum(reloads) "Total Reloads",
+    sum(reloads)/sum(pins) *100 libcache
+    from v$librarycache;
+    select sum(pinhits-reloads)/sum(pins) "hit radio",sum(reloads)/sum(pins) "reload percent" 
+    from v$librarycache;
+    
+    select a.value + b.value "logical_reads", c.value "phys_reads",
+    round(100 * ((a.value+b.value)-c.value) / (a.value+b.value)) "BUFFER HIT RATIO" 
+    from v$sysstat a, v$sysstat b, v$sysstat c
+    where a.statistic# = 38 and b.statistic# = 39 
+    and c.statistic# = 40;
+    
+    
+    
+    Select pga_target_for_estimate/1024/1024 ||'M' "Estimate PGA Target"
+       ,estd_pga_cache_hit_percentage "Cache Hit(%)"
+       ,estd_extra_bytes_rw/1024/1024 ||'M' "Extra Read/Write"
+       ,estd_overalloc_count "Over alloc count"
+From v$pga_target_advice
+
+
+SELECT*FROM V$SGASTAT 
+ WHERENAME= 'free memory'
+   AND POOL = 'shared pool';
+
+
+
+select
+*
+  from v$process
+
+
+SELECT NAME, VALUE
+ FROM V$SYSSTAT
+ WHERE NAME IN('session logical reads', 
+               'physical reads', 
+               'physical reads direct',
+               'physical reads direct (lob)', 
+               'db block gets', 'consistent gets');
+
+select(sum(pins-reloads))/sum(pins) "Library cache" from v$librarycache;
+select (sum(gets-getmisses-usage-fixed))/sum(gets) "Data dictionary cache" from v$rowcache;
+
+
+select
+ program c1, pga_used_mem c2, pga_alloc_mem c3, pga_max_mem c4
+  from v$process
+ order by c4 desc;
+
+select name, value
+  from v$pgastat
+ order by value desc;
+ 
+ 
+ select * from v$bh
+
+select name c1,cnt c2,decode(total, 0, 0, round(cnt*100/total)) c3
+from
+(
+select name,value cnt,(sum(value) over ()) total
+from
+v$sysstat
+where
+name like 'workarea exec%'
+);
+
+
+Select
+
+to_number(decode(SID, 65535, NULL, SID)) sid,
+
+operation_type OPERATION,
+
+trunc(WORK_AREA_SIZE/1024) WSIZE,
+
+trunc(EXPECTED_SIZE/1024) ESIZE,
+
+trunc(ACTUAL_MEM_USED/1024) MEM,
+
+trunc(MAX_MEM_USED/1024) "MAX MEM",
+
+number_passes PASS
+
+from
+
+v$sql_workarea_active
+
+order by 1,2;

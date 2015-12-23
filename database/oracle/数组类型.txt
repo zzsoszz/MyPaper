@@ -1,0 +1,236 @@
+
+定义记录类型:
+  Type temptabletype is Record(col1 varchar(100),col2 varchar(100) ); 
+  v_temptabletype temptabletype;
+
+定义记录数组：
+  TYPE T_SNO_type2 IS TABLE OF  temptabletype INDEX BY BINARY_INTEGER;
+  v_sno2 T_SNO_type2;
+
+
+
+
+存放到记录数组
+  open cursor1 for vs_min_sql;
+  LOOP
+      FETCH cursor1 bulk collect  INTO v_sno2;
+      exit when cursor1%NOTFOUND;    
+  END LOOP;
+
+使用记录数组
+              for i in 1..v_sno2.count loop
+                     dbms_output.put_line('aaaa'||v_sno2(i).col2);
+
+							end loop;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+使用案例 
+create or replace procedure ufs_order_assign_p(
+     province_code in varchar2,
+      city_code    in varchar2,
+     audit_person  in varchar2,
+     in_audit_type    in number,
+     audit_way    in number,
+     operator_id    in varchar2,
+     out_flag    out number,
+      out_msg      out varchar2,
+     datekind    in varchar2,
+      datefrom      in varchar2,
+     dateto    in varchar2
+)
+is
+
+  Type temptabletype is Record(col1 varchar(100),col2 varchar(100) ); 
+  v_temptabletype temptabletype;
+ 
+  TYPE order_cursor is ref cursor;
+  get_order_company_cursor  order_cursor;
+
+  TYPE cursortype1 is ref cursor;
+  cursor1 cursortype1;
+ -- TYPE T_SNO_type IS TABLE OF ufs_order_aud_assign_detail_t.assign_person%TYPE INDEX BY BINARY_INTEGER;
+ -- v_sno T_SNO_type;
+
+  TYPE T_SNO_type2 IS TABLE OF  temptabletype INDEX BY BINARY_INTEGER;
+  v_sno2 T_SNO_type2;
+
+  vs_sql varchar2(4000);
+  vd_audit_date date;
+  vn_order_number number(10);
+  vs_company_id varchar2(32);
+  vs_business_city varchar2(16);
+  assigned_num number(10);
+  vn_assign_no number(10);
+  vs_employee_id  varchar2(32);
+  vs_min_sql    varchar(2000);
+begin
+  out_flag:=1;
+  out_msg:='执行成功';
+  
+  
+  vs_sql :=' SELECT count(v3.order_id) order_number, v3.company_id, v3.business_city  from (';
+  vs_sql :=vs_sql||'			 select v2.company_id,v2.business_city,max(v2.order_id) as order_id from (';
+  
+  vs_sql :=vs_sql||'			 select b.company_id, b.business_city, b.order_id FROM ufs_order_hotel_t b';
+  if in_audit_type=4 then
+    vs_sql:=vs_sql||',ufs_order_audit_t d ';
+  end if;
+  
+  
+  vs_sql:=vs_sql||' WHERE to_char(b.order_begin_time,''yyyy-MM-dd'')<=to_char(sysdate,''yyyy-MM-dd'') AND b.if_valid=1 ';
+  vs_sql:=vs_sql||' AND not exists(SELECT company_id FROM ufs_order_aud_assign_detail_t c WHERE c.audit_type='||in_audit_type||' and b.company_id=c.company_id AND c.status=1 and c.assign_date=to_date(to_char(sysdate,''yyyy-MM-dd''),''yyyy-MM-dd''))';
+  if in_audit_type<>4 then
+     vs_sql:=vs_sql||' AND b.audit_way='||in_audit_type;
+     vs_sql:=vs_sql||' and b.order_status=4  ';
+  else
+     vs_sql:=vs_sql||' AND b.order_id= d.order_id AND d.if_review=1 AND d.bide_status=3 ';
+  end if;
+
+  
+  IF audit_way IS NOT NULL then
+     vs_sql:=' AND b.audit_kind='||audit_way;
+  end if;
+  if province_code is not null then
+     vs_sql:=vs_sql||' AND substr(b.Business_city,1,2) in ('||province_code||')';
+  end if;
+  if city_code is not null then
+     vs_sql:=vs_sql||' AND b.Business_city in ('||city_code||')';
+  end if;
+  
+  
+  
+  
+  
+  /*137573155@qq.com to_date(to_char(b.create_date,'''||yyyy-mm-dd||'''),''yyyy-mm-dd'')  */
+  if datefrom is not null  and dateto is not null  and datefrom !='null' and dateto !='null'  then
+     if datekind='1' then
+            vs_sql:=vs_sql||'  and to_date(to_char(b.create_date,''' || 'yyyy-mm-dd'|| '''),''' || 'yyyy-mm-dd' ||''')>=to_date('''||dateFrom||''',''yyyy-mm-dd'')';
+            vs_sql:=vs_sql||'  and to_date(to_char(b.create_date,''' || 'yyyy-mm-dd'|| '''),''' || 'yyyy-mm-dd' ||''')<=to_date('''||dateTo||''',''yyyy-mm-dd'')';
+      elsif datekind='2' then
+            vs_sql:=vs_sql||'  and b.order_begin_time >=to_date('''||dateFrom||''',''yyyy-mm-dd'')';
+            vs_sql:=vs_sql||'  and b.order_begin_time <=to_date('''||dateTo||''',''yyyy-mm-dd'')';
+      elsif datekind='3' then
+            vs_sql:=vs_sql||'  and b.order_end_time >=to_date('''||dateFrom||''',''yyyy-mm-dd'')';
+            vs_sql:=vs_sql||'  and b.order_end_time <=to_date('''||dateTo||''',''yyyy-mm-dd'')';
+      end if;
+  end if;
+
+
+  vs_sql:=vs_sql||'			  ) v2 group by v2.company_id, v2.business_city, v2.order_id';
+  vs_sql:=vs_sql||' ) v3 group by v3.company_id, v3.business_city';
+
+  dbms_output.put_line(vs_sql);
+  begin
+    if in_audit_type=1 then
+       vd_audit_date:=sysdate-1;
+    else
+       vd_audit_date:=sysdate;
+    end if;
+    --select assign_no into vn_assign_no from ufs_order_aud_assign_t where assign_type=in_audit_type and assign_date=to_date(to_char(sysdate,'yyyy-MM-dd'),'yyyy-MM-dd') and assign_person=operator_id;
+    --EXCEPTION WHEN NO_DATA_FOUND THEN
+       --BEGIN
+          INSERT INTO ufs_order_aud_assign_t(assign_no,assign_date,assign_time,assign_type,assign_person,audit_date,status)
+          VALUES(ufs_order_assign_seq.nextval,to_date(to_char(sysdate,'yyyy-MM-dd'),'yyyy-MM-dd'),sysdate,in_audit_type,operator_id,to_date(to_char(vd_audit_date,'yyyy-MM-dd'),'yyyy-MM-dd'),1) returning assign_no into vn_assign_no;
+       --END;
+    end;
+  vs_min_sql:='select order_num,f_employee_id as audit_person  from (select nvl(sum(a.order_num),0) order_num,b.f_employee_id from ufs_order_aud_assign_detail_t a right join (select f_employee_id from om_employee_t where f_employee_id in (';
+  vs_min_sql:=vs_min_sql||audit_person||')) b';
+  vs_min_sql:=vs_min_sql||' on  a.audit_type='||in_audit_type||' AND a.audit_person=b.f_employee_id AND a.status=1 group by b.f_employee_id order by  order_num asc ) ';
+  dbms_output.put_line(vs_min_sql);
+  
+  /*
+  open cursor1 for vs_min_sql;
+  LOOP
+      FETCH cursor1 bulk collect  INTO v_sno;
+      exit when cursor1%NOTFOUND;    
+  END LOOP;
+*/
+
+
+
+  open cursor1 for vs_min_sql;
+  LOOP
+      FETCH cursor1 bulk collect  INTO v_sno2;
+      exit when cursor1%NOTFOUND;    
+  END LOOP;
+
+
+  open get_order_company_cursor for vs_sql;
+  <<here>>
+  fetch get_order_company_cursor into vn_order_number,vs_company_id,vs_business_city;
+  WHILE get_order_company_cursor%FOUND LOOP
+     BEGIN
+       --select order_num,f_employee_id INTO assigned_num,vs_employee_id from (select nvl(sum(a.order_num),0) order_num,b.f_employee_id from ufs_order_aud_assign_detail_t a right join (select f_employee_id from om_employee_t where f_employee_id in ('100025','999')) b
+       --on  a.audit_person=b.f_employee_id group by b.f_employee_id order by  order_num asc ) where rownum=1;
+      
+     --assigned_num 分配的订单数，vs_employee_id工号
+
+              for i in 1..v_sno2.count loop
+                     dbms_output.put_line('aaaa'||v_sno2(i).col2);
+
+                     if datefrom is not null  and dateto is not null  and datefrom !='null' and dateto !='null'  then
+                         if datekind='1' then
+
+                                insert into ufs_order_aud_assign_detail_t(audit_person,audit_date,audit_type,prov_code,city_code,company_id,order_num,assign_no,assign_date,assign_person,status,createdate,  create_date_from,create_date_to,order_begin_time_from,order_begin_time_to,order_end_time_from,order_end_time_to)
+                                values(v_sno2(i).col2,to_date(to_char(vd_audit_date,'yyyy-MM-dd'),'yyyy-MM-dd'),in_audit_type,substr(vs_business_city,1,2),vs_business_city,vs_company_id,vn_order_number,vn_assign_no,to_date(to_char(sysdate,'yyyy-MM-dd'),'yyyy-MM-dd'),operator_id,1,sysdate,to_date(dateFrom,'yyyy-mm-dd'),to_date(dateTo,'yyyy-mm-dd'),null,null,null,null);
+
+                          elsif datekind='2' then
+
+                                insert into ufs_order_aud_assign_detail_t(audit_person,audit_date,audit_type,prov_code,city_code,company_id,order_num,assign_no,assign_date,assign_person,status,createdate,  create_date_from,create_date_to,order_begin_time_from,order_begin_time_to,order_end_time_from,order_end_time_to)
+                                values(v_sno2(i).col2,to_date(to_char(vd_audit_date,'yyyy-MM-dd'),'yyyy-MM-dd'),in_audit_type,substr(vs_business_city,1,2),vs_business_city,vs_company_id,vn_order_number,vn_assign_no,to_date(to_char(sysdate,'yyyy-MM-dd'),'yyyy-MM-dd'),operator_id,1,sysdate,null,null,to_date(dateFrom,'yyyy-mm-dd'),to_date(dateTo,'yyyy-mm-dd'),null,null);
+
+                          elsif datekind='3' then
+                                 insert into ufs_order_aud_assign_detail_t(audit_person,audit_date,audit_type,prov_code,city_code,company_id,order_num,assign_no,assign_date,assign_person,status,createdate,create_date_from,create_date_to,order_begin_time_from,order_begin_time_to,order_end_time_from,order_end_time_to)
+                                values(v_sno2(i).col2,to_date(to_char(vd_audit_date,'yyyy-MM-dd'),'yyyy-MM-dd'),in_audit_type,substr(vs_business_city,1,2),vs_business_city,vs_company_id,vn_order_number,vn_assign_no,to_date(to_char(sysdate,'yyyy-MM-dd'),'yyyy-MM-dd'),operator_id,1,sysdate,null,null,null,null,to_date(dateFrom,'yyyy-mm-dd'),to_date(dateTo,'yyyy-mm-dd'));
+                          end if;
+                       else
+                               insert into ufs_order_aud_assign_detail_t(audit_person,audit_date,audit_type,prov_code,city_code,company_id,order_num,assign_no,assign_date,assign_person,status,createdate,create_date_from,create_date_to,order_begin_time_from,order_begin_time_to,order_end_time_from,order_end_time_to)
+                                values(v_sno2(i).col2,to_date(to_char(vd_audit_date,'yyyy-MM-dd'),'yyyy-MM-dd'),in_audit_type,substr(vs_business_city,1,2),vs_business_city,vs_company_id,vn_order_number,vn_assign_no,to_date(to_char(sysdate,'yyyy-MM-dd'),'yyyy-MM-dd'),operator_id,1,sysdate,null,null,null,null,null,null);
+                       end if;
+                   
+     
+     
+                   end loop;
+
+
+
+
+       END;
+     goto here;
+  END LOOP;
+  EXCEPTION WHEN OTHERS THEN
+    out_flag := -100;
+    out_msg := 'ERROR IN ufs_order_assign_p ,'||SQLERRM;
+    
+    
+                    DBMS_OUTPUT.put_line(sqlcode);
+                    DBMS_OUTPUT.put_line(sqlerrm);
+                    dbms_output.put_line(dbms_utility.format_error_backtrace);
+                    dbms_output.put_line(dbms_utility.format_error_stack );
+
+
+end;

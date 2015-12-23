@@ -1,0 +1,251 @@
+V$PROCESS 
+
+　　本视图包含当前系统 oracle运行的所有进程信息。常被用于将 oracle或服务进程的操作系统进程 ID与数据库 session之间建立联系。在某些情况下非常有用： 
+
+1.         如果数据库瓶颈是系统资源 (如： cpu,内存 )，并且占用资源最多的用户总是停留在某几个服务进程，那么进行如下诸项： 
+
+l         找出资源进程 
+
+l         找出它们的 session,你必须将进程与会话联系起来。 
+
+l         找出为什么 session占用了如此多的资源 
+
+2.         SQL跟踪文件名是基于服务进程的操作系统进程 ID。要找出 session的跟踪文件，你必须将 session与服务进程联系起来。 
+
+3.         某些事件，如 rdbms ipc reply，鉴别 session进程的 Oracle进程 ID在等什么。要发现这些进程在做什么，你必须找出它们的 session。 
+
+4.         你所看到的服务器上的后台进程 (DBWR,LGWR,PMON等 )都是服务进程。要想知道他们在做什么，你必须找到他们的 session。 
+
+V$PROCESS 中的常用列 
+
+l         ADDR：进程对象地址 
+
+l         PID： oracle进程 ID
+
+l         SPID：操作系统进程 ID
+
+V$PROCESS 中的连接列 
+
+Column                       View                            Joined Column(s) 
+
+ADDR                          V$SESSION                 PADDR
+
+示例： 
+
+1.         查找指定系统用户在 oracle中的 session信息及进程 id，假设操作系统用户为： junsansi
+
+select s.sid,s.SERIAL#, s.username,p.spid 
+
+from v$session s, v$process p 
+
+where s.osuser = 'junsansi' 
+
+   and s.PADDR = p.ADDR 
+
+2.         查看锁和等待 
+
+SELECT /*+ rule */ 
+
+lpad( ' ' , decode(l.xidusn, 0 , 3 , 0 )) || l.oracle_username User_name, 
+
+o.owner,o.object_name,o.object_type,s.sid,s.serial#,p.spid 
+
+FROM v$locked_object l, dba_objects o, v$session s, v$process p 
+
+WHERE l.object_id = o.object_id 
+
+   AND l.session_id = s.sid and s.paddr = p.addr 
+
+ORDER BY o.object_id, xidusn DESC 
+
+3.         
+
+附注： 
+
+　　在 linux环境可以通过 ps查看进程信息包括 pid,windows中任务管理器的 PID与 v$process中 pid不能一一对应，这块在 oracleDocument中也没有找到介绍，后来 google了一下，有资料介绍说是由于 windows是多线程服务器 ,每个进程包含一系列线程。这点于 unix等不同， Unix每个 Oralce进程独立存在，在 Nt上所有线程由 Oralce进程衍生。 
+
+　　要在 windows中显示 oracle相关进程 pid，我们可以通过一个简单的 sql语句来实现。 
+
+SELECT s.SID, p.pid, p.spid signaled, s.osuser, s.program 
+
+FROM v$process p, v$session s 
+
+WHERE p.addr = s.paddr; 
+
+SID 
+ PID 
+ SIGNALED 
+ OSUSER 
+ PROGRAM 
+ 
+1 
+ 2 
+ 2452 
+ SYSTEM 
+ ORACLE.EXE 
+ 
+2 
+ 3 
+ 2460 
+ SYSTEM 
+ ORACLE.EXE 
+ 
+3 
+ 4 
+ 2472 
+ SYSTEM 
+ ORACLE.EXE 
+ 
+4 
+ 5 
+ 2492 
+ SYSTEM 
+ ORACLE.EXE 
+ 
+5 
+ 6 
+ 2496 
+ SYSTEM 
+ ORACLE.EXE 
+ 
+6 
+ 7 
+ 2508 
+ SYSTEM 
+ ORACLE.EXE 
+ 
+7 
+ 8 
+ 2520 
+ SYSTEM 
+ ORACLE.EXE 
+ 
+8 
+ 9 
+ 2524 
+ SYSTEM 
+ ORACLE.EXE 
+ 
+10 
+ 12 
+ 1316 
+ JSS"junsansi 
+ PlSqlDev.exe 
+ 
+9 
+ 13 
+ 3420 
+ JSS"junsansi 
+ PlSqlDev.exe 
+ 
+13 
+ 14 
+ 660 
+ JSS"junsansi 
+ PlSqlDev.exe 
+ 
+
+还可以通过和 v$bgprocess 连接查询到后台进程的名字： 
+
+SELECT s.SID SID, p.spid threadid, p.program processname, bg. NAME NAME 
+
+FROM v$process p, v$session s, v$bgprocess bg 
+
+WHERE p.addr = s.paddr 
+
+   AND p.addr = bg.paddr 
+
+   AND bg.paddr <> '00' ; 
+
+ 
+
+ 
+
+Eygle大师写了一段 sql脚本 getsql.sql，用来获取指定 pid正在执行的 sql语句，在此也附注上来。 
+
+REM getsql.sql
+
+REM author eygle
+
+REM 在 windows上 ,已知进程 ID,得到当前正在执行的语句 
+
+REM 在 windows上 ,进程 ID为 16进制 ,需要转换 ,在 UNIX直接为 10进制 
+
+SELECT   /*+ ORDERED */
+
+         sql_text
+
+    FROM v$sqltext a
+
+   WHERE (a.hash_value, a.address) IN (
+
+            SELECT DECODE (sql_hash_value,
+
+                            0, prev_hash_value,
+
+                           sql_hash_value
+
+                          ),
+
+                   DECODE (sql_hash_value, 0, prev_sql_addr, sql_address)
+
+              FROM v$session b
+
+             WHERE b.paddr = (SELECT addr
+
+                                FROM v$process c
+
+                               WHERE c.spid = TO_NUMBER ('&pid', 'xxxx')))
+
+ORDER BY piece ASC
+
+/
+
+ 
+
+SID 
+ THREADID 
+ PROCESSNAME 
+ NAME 
+ 
+1 
+ 2452 
+ ORACLE.EXE 
+ PMON 
+ 
+2 
+ 2460 
+ ORACLE.EXE 
+ DBW0 
+ 
+3 
+ 2472 
+ ORACLE.EXE 
+ LGWR 
+ 
+4 
+ 2492 
+ ORACLE.EXE 
+ CKPT 
+ 
+5 
+ 2496 
+ ORACLE.EXE 
+ SMON 
+ 
+6 
+ 2508 
+ ORACLE.EXE 
+ RECO 
+ 
+7 
+ 2520 
+ ORACLE.EXE 
+ CJQ0 
+ 
+8 
+ 2524 
+ ORACLE.EXE 
+ QMN0 
+
+ 

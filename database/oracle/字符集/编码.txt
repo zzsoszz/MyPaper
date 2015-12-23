@@ -1,0 +1,131 @@
+先查出数据库对应的编码
+select * from nls_database_parameters
+NLS_CHARACTERSET  对应的值得
+
+SIMPLIFIED CHINESE_CHINA.ZHS16GBK
+
+SIMPLIFIED CHINESE.UTF8
+
+ZHS16GBK
+
+
+SIMPLIFIED CHINESE_CHINA.AL32UTF8
+
+HTML中为button添加背景图片 | JSF生命周期 2010-11-10
+启动PL/SQL Developer 报字符编码不一致错误 ,Database character set (AL32UTF8) 
+博客分类： 数据库 
+SQLOracle
+Database character set (AL32UTF8) and Client character set (ZHS16GBK) are different. Character set conversion may cause unexpected results.
+ Note: you can set the client character set through the NLS_LANG environment variable or the NLS_LANG 
+ registry key in HKEY_LOCAL_MACHINE\SOFTWARE\ORACLE\HOME0. 打开注册表,通过命令regedit。找到到文中提示的路径，
+发现NLS_LANG键的值为: SIMPLIFIED CHINESE_CHINA.ZHS16GBK 修改为：SIMPLIFIED CHINESE_CHINA.AL32UTF8即可 
+
+
+
+
+
+CREATE USER "HOTEL" IDENTIFIED BY "hotel3"
+;
+
+GRANT "CONNECT" TO "HOTEL";
+GRANT "DBA" TO "HOTEL";
+GRANT "RESOURCE" TO "HOTEL";
+ALTER USER "HOTEL" DEFAULT ROLE "CONNECT", "DBA", "RESOURCE";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ORACLE NLS_LANG设置 
+博客分类： Oracle 
+OracleBashWindowsUnixMicrosoft
+1. NLS_LANG 参数组成
+NLS_LANG参数由以下部分组成:
+NLS_LANG=_.
+
+NLS_LANG各部分含义如下:
+LANGUAGE指定:
+-Oracle消息使用的语言
+-日期中月份和日显示
+TERRITORY指定
+-货币和数字格式
+-地区和计算星期及日期的习惯
+CHARACTERSET:
+-控制客户端应用程序使用的字符集
+通常设置或者等于客户端(如Windows)代码页 
+或者对于unicode应用设置为UTF8
+
+在Windows上查看当前系统的代码页可以使用chcp命令:
+E:\>chcp
+活动的代码页: 936
+
+代码页936也就是中文字符集 GBK,在Microsoft的官方站点上，我们可以遭到关于936代码页的具体编码规则
+
+
+2. 查看 NLS_LANG 的方法
+Windows使用:
+
+echo %NLS_LANG%
+如:
+E:\>echo %NLS_LANG%
+AMERICAN_AMERICA.ZHS16GBK
+
+Unix使用:
+
+env|grep NLS_LANG
+如:
+/opt/oracle>env|grep NLS_LANG
+NLS_LANG=AMERICAN_CHINA.ZHS16GBK
+
+Windows客户端设置,可以在注册表中更改NLS_LANG,具体键值位于:
+HKEY_LOCAL_MACHINE\SOFTWARE\ORACLE\HOMExx\
+xx指存在多个ORACLE_HOME时系统编号。
+
+
+3. 查看数据库当前字符集参数设置
+SELECT * FROM v$nls_parameters;
+或
+select * from nls_database_parameters
+或
+select userenv(‘language’) from dual;
+
+
+4. 查看数据库可用字符集参数设置
+SELECT * FROM v$nls_valid_values;
+
+
+5. 客户端 NLS_LANG 的设置方法
+Windows:
+# 常用中文字符集
+set NLS_LANG=SIMPLIFIED CHINESE_CHINA.ZHS16GBK
+# 常用unicode字符集
+set NLS_LANG=american_america.AL32UTF8
+可以通过修改注册表键值永久设置
+HKEY_LOCAL_MACHINE\SOFTWARE\ORACLE\HOMExx\NLS_LANG
+
+Unix:
+# 常用unicode字符集
+export NLS_LANG=american_america.AL32UTF8
+# 常用中文字符集
+export NLS_LANG="Simplified Chinese_china".ZHS16GBK
+可以编辑 bash_profile 文件进行永久设置
+vi .bash_profile
+NLS_LANG="Simplified Chinese_china".ZHS16GBK export NLS_LANG
+# 使 bash_profile 设置生效
+source .bash_profile
+

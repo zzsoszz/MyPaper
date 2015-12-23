@@ -1,0 +1,65 @@
+关于如何查询锁定的行上一篇  下一篇  2009-08-07 133144 
+
+查看( 36 )  评论( 0 )  评分( 0  0 ) 
+今天参与了一个帖子，将实验内容附上：
+
+如何查询锁定的行：
+
+ 
+
+会话1：session id =9
+SQL conn scotttiger;
+已连接。
+SQL select sid from v$mystat where rownum = 1
+  2  ;
+
+       SID
+----------
+         9
+
+SQL update dept set deptno = deptno -10;
+
+已更新5行。
+
+会话2：session id =12
+SQL select sid from v$mystat where rownum = 1;
+
+       SID
+----------
+        12
+
+SQL update dept set dname='' where deptno=50;
+被阻塞。。。。
+
+会话3：
+
+select b.owner,b.object_name,b.object_id,a.session_id
+from v$locked_object a,dba_objects b
+where a.object_id=b.object_id
+
+被阻塞的object_id=29187
+
+select t.row_wait_obj#,t.row_wait_file#,t.row_wait_block#,row_wait_row#
+from v$session t
+where sid = 12 and row_wait_obj# =29187;
+查session id是12，并且row_wait_obj#=29187的记录
+
+
+ROW_WAIT_OBJ# ROW_WAIT_FILE# ROW_WAIT_BLOCK# ROW_WAIT_ROW#
+------------- -------------- --------------- -------------
+        29187              1           82162             6
+显示等待的对象、文件、块、
+ROW_WAIT_ROW#(是不是行)
+
+ 
+
+SQL select  fromdept
+  2      where rowid = dbms_rowid.rowid_create(1, 29187, 1, 82162, 6)
+  3  
+
+    DEPTNO DNAME          LOC
+---------- -------------- -------------
+        40 transaction B  session B
+
+显示的是deptno-10后的行
+

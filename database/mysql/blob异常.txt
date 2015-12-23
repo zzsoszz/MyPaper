@@ -1,0 +1,80 @@
+1.resin.conf
+	<database>
+           <jndi-name>jdbc/jk</jndi-name>
+           <driver type="com.mysql.jdbc.Driver">
+             <url>jdbc:mysql://localhost:4411/design?useUnicode=false&amp;characterEncoding=gb2312</url>
+             <user>root</user>
+             <password>qingtian</password>
+            </driver>
+            <prepared-statement-cache-size>8</prepared-statement-cache-size>
+            <max-connections>300</max-connections>
+            <max-idle-time>30s</max-idle-time>
+    </database>     
+2.修改表的编码为gbk
+
+
+
+
+
+ 谈谈有关各数据库Blob、Clob类型字段的读取、保存更新
+分类： MySQL 2009-07-15 10:56 977人阅读 评论(1) 收藏 举报
+经常有人谈到Blob类型字段的读写问题，我也来说两句。 
+
+   最近在写一些东西，对常用数据库的数据类型、函数等作了一些比较，也写了许多了的测试代码，以下是我测试的结果： 
+
+测试数据库： MS Sql Server2000, 
+                   DB2v8.1, 
+                   Oracle9i, 
+                   Postgre7.4, 
+                   MySQL v4.1, 
+                   InterBase v6.5。 
+1、驱动程序 
+   a、微软的JDBC驱动不支持锁定更新，驱动程序声明不支持批量更新，但可  以工作，速度也还可以，不过使用JTDS的SQL Server JDBC驱动可以实现锁定更新。 
+
+   b、MySQL将字符集设为GBK时，使用参数更或插入中的字符串字段参数会引 
+      起异常，将字符集改为GB2312就可以了。手册声明subString、len等函数是多字节安全的，实际上与长度有关的函数都是按照字节操作的，与其 他的数据库（DB2除外，他的现象基本与mySQL相同）的相应函数有区别（其它数据库相应函数按字符操作）。 
+
+   c、InterBase 的驱动程序实现的最不好，常用的几个JDBC函数都没有实 
+现，而且不支持批量更新。使用批量操作(addBatch())回引起异常。无法象其他数据库一样在URL中指定编码，必须在 getConnection（）函数中带入参数，虽然在7.1版本中做了改进（可将编码事先保存在System对象中），不用再在 getConnection（）带入参数，但是好像还是不能在URL中指定编码。 
+
+2、数据类型 
+    a、只有SQL Server2000没有提供Blob和Clob，但是提供了Image类型和Text类型，对应blob和clob。使用起来一样。 
+
+    b、DB2的Blob和CloB类型必须指定大小。 
+
+    b、对于blob这几种数据库都可以使用PreparedStatement对象的setBytes()进行设置。 
+
+    c、Clob类型都可使用PreparedStatement对象的setString()进行设置。 
+
+注：对于插入和更新应使用代参数的PreparedStatement对象。 
+
+下面是读取和更新Oracle数据库Blob和Clob数据类型的代码：
+
+Java代码 
+[b]  Blob类型读取：[/b]  
+  Blob blob = rs.getBlob(index);;  
+  if  (blob!= null );{  
+     byte  buf[] =  new   byte [( int );blob.length();];;  
+     InputStream in = blob.getBinaryStream();;  
+     try  {  
+         in.read(buf);;  
+ur code  
+     } catch  (IOException e); {  
+        throw   new  SQLException();;  
+     }  
+  }  
+  [b]Clob数据类型读取：[/b]  
+Clob clob = rs.getClob(index);;  
+  if  (clob!= null );{  
+     char  buf[] =  new   char [( int );clob.length();];  
+     Reader reader = rs.getClob(index);.getCharacterStream();;  
+     try  {  
+         reader.read(buf);;  
+         //your code   
+     } catch  (IOException e); {  
+         throw   new  SQLException();;  
+     }  
+  }  
+
+
+以上的论点与原作者的经验有关，可能存在错误或片面之处，有知道者请向原作者指出，以免误导他人，也可让原作者自己纠正错误。

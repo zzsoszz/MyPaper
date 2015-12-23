@@ -1,0 +1,75 @@
+A {
+	COLOR: black; TEXT-DECORATION: underline
+}
+.selected A {
+	COLOR: white
+}
+A:hover {
+	COLOR: white
+}
+DIV#page {
+	BACKGROUND-COLOR: #e1e1e1
+}
+.comment_title {
+	BACKGROUND-COLOR: #e1e1e1
+}
+TR.mouse_over {
+	BACKGROUND-COLOR: #e1e1e1
+}
+DIV#local {
+	BORDER-LEFT-COLOR: black; BORDER-BOTTOM-COLOR: black; BORDER-TOP-COLOR: black; BACKGROUND-COLOR: white; BORDER-RIGHT-COLOR: black
+}
+DIV#main {
+	BORDER-LEFT-COLOR: black; BORDER-BOTTOM-COLOR: black; BORDER-TOP-COLOR: black; BACKGROUND-COLOR: white; BORDER-RIGHT-COLOR: black
+}
+.blog_main {
+	BORDER-LEFT-COLOR: black; BORDER-BOTTOM-COLOR: black; BORDER-TOP-COLOR: black; BACKGROUND-COLOR: white; BORDER-RIGHT-COLOR: black
+}
+.pagination A:hover {
+	BORDER-LEFT-COLOR: black; BORDER-BOTTOM-COLOR: black; BORDER-TOP-COLOR: black; BACKGROUND-COLOR: white; BORDER-RIGHT-COLOR: black
+}
+.pagination A:active {
+	BORDER-LEFT-COLOR: black; BORDER-BOTTOM-COLOR: black; BORDER-TOP-COLOR: black; BACKGROUND-COLOR: white; BORDER-RIGHT-COLOR: black
+}
+.selected A {
+	BACKGROUND-COLOR: black
+}
+A:hover {
+	BACKGROUND-COLOR: black
+}
+DIV#branding {
+	BACKGROUND-COLOR: black
+}
+INPUT.button {
+	BACKGROUND-COLOR: black
+}
+INPUT.submit {
+	BACKGROUND-COLOR: black
+}
+TD.buttons A {
+	BACKGROUND-COLOR: black
+}
+.pagination SPAN.current {
+	BACKGROUND-COLOR: black
+}
+.blog_bottom LI {
+	COLOR: black; BORDER-RIGHT-COLOR: black
+}
+TABLE.admin THEAD {
+	COLOR: black
+}
+.pagination A {
+	COLOR: black
+}
+.pagination A:visited {
+	COLOR: black
+}
+.pagination SPAN.current {
+	BORDER-LEFT-COLOR: black; BORDER-BOTTOM-COLOR: black; BORDER-TOP-COLOR: black; BORDER-RIGHT-COLOR: black
+}
+.blog_comment {
+	BORDER-TOP-COLOR: black
+}
+DIV.picture_full {
+	BORDER-TOP-COLOR: black
+}

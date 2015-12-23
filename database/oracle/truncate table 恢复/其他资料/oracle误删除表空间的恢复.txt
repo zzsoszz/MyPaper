@@ -1,0 +1,1134 @@
+oracle误删除表空间的恢复
+2014-02-12 11:26:18
+标签：oracle 误删除 恢复 表空间
+原创作品，允许转载，转载时请务必以超链接形式标明文章 原始出处 、作者信息和本声明。否则将追究法律责任。http://jiujian.blog.51cto.com/444665/1358361
+
+  对于误删除表空间的恢复，本文通过基于数据库的时间点恢复和基于表空间的时间点恢复分别加以讨论
+
+一 通过基于数据库的时间点恢复被误删除的表空间
+
+ 1 需要注意的事项
+
+a 基于数据库的时间点恢复将会回退整个数据库。
+
+b 误删除表空间，当数据库有之前可用于恢复的全库备份和相关归档，如果对数据库执行不完全恢复，恢复该数据库到删除表空间之前的状态，便可恢复误删除的表空间。但实际上当我们删除表空间，数据库备份中将不存在关于该表空间的的信息,直接进行恢复将会出现问题。如下所示：
+
+RMAN> list backup of database;
+
+using target database control file instead of recovery catalog
+
+List of Backup Sets
+===================
+
+
+BS Key  Type LV Size       Device Type Elapsed Time Completion Time    
+------- ---- -- ---------- ----------- ------------ -------------------
+34      Incr 0  2.04G      DISK        00:02:22     2014-02-09 19:13:39
+        BP Key: 34   Status: AVAILABLE  Compressed: NO  Tag: TAG20140209T191116
+        Piece Name: /backup/crm/full-20140209-14p0792l_1_1.bak
+  List of Datafiles in backup set 34
+  File LV Type Ckp SCN    Ckp Time            Name
+  ---- -- ---- ---------- ------------------- ----
+  1    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/CRM/system01.dbf
+  2    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/CRM/sysaux01.dbf
+  3    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/CRM/undotbs01.dbf
+  4    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/CRM/users01.dbf
+  5    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/jxc.dbf
+6    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/pos.dbf
+  7    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/user01.dbf
+  8    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/erp.dbf
+  9    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/undotbs03.dbf
+  12   0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/crm.dbf
+
+RMAN> host;
+
+[oracle@dest bak]$ sqlplus / as sysdba
+
+SQL*Plus: Release 11.2.0.2.0 Production on Sun Feb 9 19:16:40 2014
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL>drop tablespace pos  including contents and datafiles;
+
+Tablespace dropped.
+
+RMAN> list backup of database;
+List of Backup Sets
+===================
+
+
+BS Key  Type LV Size       Device Type Elapsed Time Completion Time    
+------- ---- -- ---------- ----------- ------------ -------------------
+34      Incr 0  2.04G      DISK        00:02:22     2014-02-09 19:13:39
+        BP Key: 34   Status: AVAILABLE  Compressed: NO  Tag: TAG20140209T191116
+        Piece Name: /backup/crm/full-20140209-14p0792l_1_1.bak
+  List of Datafiles in backup set 34
+  File LV Type Ckp SCN    Ckp Time            Name
+  ---- -- ---- ---------- ------------------- ----
+  1    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/CRM/system01.dbf
+  2    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/CRM/sysaux01.dbf
+  3    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/CRM/undotbs01.dbf
+  4    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/CRM/users01.dbf
+  5    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/jxc.dbf
+6    0  Incr 3892854    2014-02-09 19:11:17 
+  7    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/user01.dbf
+  8    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/erp.dbf
+  9    0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/undotbs03.dbf
+  12   0  Incr 3892854    2014-02-09 19:11:17 /oracle/CRM/crm.dbf
+所以，在恢复前应该先用上一次全备份时刻控制文件备份恢复当前控制文件，之后再对整个数据库执行基于时间点的不完全恢复
+
+2  创建测试表空间及相应的用户
+[oracle@dest bak]$ sqlplus / as  sysdba
+
+SQL*Plus: Release 11.2.0.2.0 Production on Sun Feb 9 18:18:28 2014
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> select group#,archived,sequence#,status from v$log;
+
+    GROUP# ARC  SEQUENCE# STATUS
+---------- --- ---------- ----------------
+         1 NO           1 CURRENT
+         2 YES          0 UNUSED
+         3 YES          0 UNUSED
+
+SQL> alter system switch logfile;
+
+System altered.
+
+SQL> /
+
+System altered.
+
+SQL> /
+
+System altered.
+
+SQL> create tablespace jxc datafile '/oracle/CRM/jxc.dbf' size 10m;
+
+Tablespace created.
+
+SQL>  create user zx identified by dhhzdhhz default tablespace jxc;
+
+User created.
+
+SQL> grant connect ,resource to zx;
+
+Grant succeeded.
+
+SQL> exit
+
+3 备份数据库
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+[oracle@dest bak]$ ls
+crm201402091452.log  crm201402091727.log  fullbk.txt  rman.sh
+[oracle@dest bak]$ cat rman.sh
+#!/bin/bash
+export today=`date +%Y%m%d%H%M`
+export ORACLE_HOME=/oracle/app/db1
+export ORACLE_SID=CRM
+$ORACLE_HOME/bin/rman target sys/DHHZDHHZ log=/oracle/bak/crm.log cmdfile=/oracle/bak/fullbk.txt
+mv /oracle/bak/crm.log  "/oracle/bak/crm${today}.log"
+
+[oracle@dest bak]$ cat fullbk.txt
+run{
+delete noprompt obsolete;
+crosscheck backup;
+delete noprompt expired backup;
+crosscheck archivelog all;
+delete noprompt expired archivelog all;
+backup incremental level=0  database format '/backup/crm/full-%T-%U.bak';
+backup archivelog all  format '/backup/crm/arch-%T-%U.bak'; 
+backup current controlfile format '/backup/crm/ctl-%T-%U.bak';
+backup spfile format '/backup/crm/spf-%T-%U.bak';
+delete noprompt archivelog all completed before 'SYSDATE - 7'; 
+}
+[oracle@dest bak]$ ./rman.sh
+RMAN> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> [oracle@dest bak]$ 
+[oracle@dest bak]$ 
+[oracle@dest bak]$ 
+[oracle@dest bak]$ rman target /
+
+Recovery Manager: Release 11.2.0.2.0 - Production on Sun Feb 9 18:32:41 2014
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: CRM (DBID=3641885733)
+
+RMAN> list backup of tablespace jxc;
+
+using target database control file instead of recovery catalog
+
+List of Backup Sets
+===================
+
+
+BS Key  Type LV Size       Device Type Elapsed Time Completion Time    
+------- ---- -- ---------- ----------- ------------ -------------------
+23      Incr 0  2.04G      DISK        00:02:29     2014-02-09 18:31:05
+        BP Key: 23   Status: AVAILABLE  Compressed: NO  Tag: TAG20140209T182835
+        Piece Name: /backup/crm/full-20140209-0np076ik_1_1.bak
+  List of Datafiles in backup set 23
+  File LV Type Ckp SCN    Ckp Time            Name
+  ---- -- ---- ---------- ------------------- ----
+  5    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/jxc.dbf
+
+RMAN> exit
+
+
+4 在表空间上创建测试数据
+[oracle@dest bak]$ sqlplus zx/dhhzdhhz
+
+SQL*Plus: Release 11.2.0.2.0 Production on Sun Feb 9 18:33:07 2014
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+
+SQL> create table test1(i int);                      
+
+Table created.
+
+SQL> begin
+  2  for i in 1..20 loop
+  3  insert into test1 values(i);
+  4  end loop;
+  5  commit;
+  6  end;
+  7  /
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from zx.test1;
+
+         I
+----------
+         1
+         2
+         3
+         4
+         5
+         6
+         7
+         8
+         9
+        10
+        11
+
+         I
+----------
+        12
+        13
+        14
+        15
+        16
+        17
+        18
+        19
+        20
+
+20 rows selected.
+SQL> exit  
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+[oracle@dest bak]$ sqlplus / as sysdba
+
+SQL*Plus: Release 11.2.0.2.0 Production on Sun Feb 9 18:34:17 2014
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> alter system checkpoint;
+
+System altered.
+
+SQL> alter system switch logfile;
+
+System altered.
+
+5 记录drop掉表空间前当前数据库的时间点。
+
+SQL> select current_scn,to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') from v$database;
+
+CURRENT_SCN TO_CHAR(SYSDATE,'YY
+----------- -------------------
+    3892004 2014-02-09 18:35:05
+
+SQL> 
+SQL> 
+SQL> alter system checkpoint;
+
+System altered.
+
+SQL> alter system switch logfile;
+
+System altered.
+
+6 drop掉表空间和相应的数据文件
+
+SQL> drop tablespace jxc including contents and datafiles;
+
+Tablespace dropped.
+
+
+7 恢复控制文件
+
+RMAN> list backup of controlfile;
+
+
+List of Backup Sets
+===================
+
+
+BS Key  Type LV Size       Device Type Elapsed Time Completion Time    
+------- ---- -- ---------- ----------- ------------ -------------------
+24      Incr 0  9.67M      DISK        00:00:04     2014-02-09 18:31:19
+        BP Key: 24   Status: AVAILABLE  Compressed: NO  Tag: TAG20140209T182835
+        Piece Name: /backup/crm/full-20140209-0op076nj_1_1.bak
+  Control File Included: Ckp SCN: 3891837      Ckp time: 2014-02-09 18:31:15
+
+BS Key  Type LV Size       Device Type Elapsed Time Completion Time    
+------- ---- -- ---------- ----------- ------------ -------------------
+34      Full    9.64M      DISK        00:00:02     2014-02-09 18:31:38
+        BP Key: 34   Status: AVAILABLE  Compressed: NO  Tag: TAG20140209T183136
+        Piece Name: /backup/crm/ctl-20140209-12p076o8_1_1.bak
+  Control File Included: Ckp SCN: 3891864      Ckp time: 2014-02-09 18:31:36
+
+RMAN> list backup of database;
+
+
+List of Backup Sets
+===================
+
+
+BS Key  Type LV Size       Device Type Elapsed Time Completion Time    
+------- ---- -- ---------- ----------- ------------ -------------------
+23      Incr 0  2.04G      DISK        00:02:29     2014-02-09 18:31:05
+        BP Key: 23   Status: AVAILABLE  Compressed: NO  Tag: TAG20140209T182835
+        Piece Name: /backup/crm/full-20140209-0np076ik_1_1.bak
+  List of Datafiles in backup set 23
+  File LV Type Ckp SCN    Ckp Time            Name
+  ---- -- ---- ---------- ------------------- ----
+  1    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/CRM/system01.dbf
+  2    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/CRM/sysaux01.dbf
+  3    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/CRM/undotbs01.dbf
+  4    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/CRM/users01.dbf
+  5    0  Incr 3891775    2014-02-09 18:28:36 
+  6    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/pos.dbf
+  7    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/user01.dbf
+  8    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/erp.dbf
+  9    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/undotbs03.dbf
+  12   0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/crm.dbf
+
+RMAN> startup force nomount;         
+
+Oracle instance started
+
+Total System Global Area     952020992 bytes
+
+Fixed Size                     2232208 bytes
+Variable Size                633340016 bytes
+Database Buffers             310378496 bytes
+Redo Buffers                   6070272 bytes
+
+
+
+RMAN> restore controlfile to '/oracle/CRM/CRM/control01.ctl' from '/backup/crm/ctl-20140209-12p076o8_1_1.bak';
+
+Starting restore at 2014-02-09 18:56:10
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=63 device type=DISK
+
+channel ORA_DISK_1: restoring control file
+channel ORA_DISK_1: restore complete, elapsed time: 00:00:01
+Finished restore at 2014-02-09 18:56:13
+
+RMAN> exit
+
+
+Recovery Manager complete.
+[oracle@dest bak]$ cd /oracle/CRM/CRM
+
+[oracle@dest CRM]$ ls -lt
+total 3325464
+-rw-r----- 1 oracle oinstall   10076160 Feb  9 18:56 control01.ctl
+-rw-r----- 1 oracle oinstall   10076160 Feb  9 18:53 control02.ctl
+-rw-r----- 1 oracle oinstall  555753472 Feb  9 18:42 sysaux01.dbf
+-rw-r----- 1 oracle oinstall  828383232 Feb  9 18:42 system01.dbf
+-rw-r----- 1 oracle oinstall  115351552 Feb  9 18:42 undotbs01.dbf
+-rw-r----- 1 oracle oinstall 1251745792 Feb  9 18:42 users01.dbf
+-rw-r----- 1 oracle oinstall  209715712 Feb  9 18:38 redo01.log
+-rw-r----- 1 oracle oinstall  209715712 Feb  9 18:35 redo03.log
+-rw-r----- 1 oracle oinstall  209715712 Feb  9 18:34 redo02.log
+-rw-r----- 1 oracle oinstall   30416896 Feb  9 15:00 temp01.dbf
+[oracle@dest CRM]$ cp control01.ctl control02.ctl
+[oracle@dest CRM]$ ls
+control01.ctl  redo01.log  redo03.log    system01.dbf  undotbs01.dbf
+control02.ctl  redo02.log  sysaux01.dbf  temp01.dbf    users01.dbf
+
+[oracle@dest CRM]$ rman target /
+
+Recovery Manager: Release 11.2.0.2.0 - Production on Sun Feb 9 18:57:57 2014
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: CRM (not mounted)
+
+RMAN> alter database mount;
+
+using target database control file instead of recovery catalog
+database mounted
+
+RMAN> list backup of database;
+
+
+List of Backup Sets
+===================
+
+
+BS Key  Type LV Size       Device Type Elapsed Time Completion Time    
+------- ---- -- ---------- ----------- ------------ -------------------
+23      Incr 0  2.04G      DISK        00:02:29     2014-02-09 18:31:05
+        BP Key: 23   Status: AVAILABLE  Compressed: NO  Tag: TAG20140209T182835
+        Piece Name: /backup/crm/full-20140209-0np076ik_1_1.bak
+  List of Datafiles in backup set 23
+  File LV Type Ckp SCN    Ckp Time            Name
+  ---- -- ---- ---------- ------------------- ----
+  1    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/CRM/system01.dbf
+  2    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/CRM/sysaux01.dbf
+  3    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/CRM/undotbs01.dbf
+  4    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/CRM/users01.dbf
+  5    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/jxc.dbf
+  6    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/pos.dbf
+  7    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/user01.dbf
+  8    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/erp.dbf
+  9    0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/undotbs03.dbf
+  12   0  Incr 3891775    2014-02-09 18:28:36 /oracle/CRM/crm.dbf
+
+
+8 执行基于数据库的时间点恢复回退整个数据库至2014-02-09 18:35:05
+RMAN> run{
+2> set until time "to_date('2014-02-09 18:35:05','YYYY-MM-DD HH24:MI:SS')"; 
+3> restore database;
+4> recover database; 
+5> }
+
+executing command: SET until clause
+
+Starting restore at 2014-02-09 18:59:02
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=63 device type=DISK
+
+skipping datafile 6; already restored to file /oracle/CRM/pos.dbf
+skipping datafile 7; already restored to file /oracle/CRM/user01.dbf
+skipping datafile 8; already restored to file /oracle/CRM/erp.dbf
+skipping datafile 9; already restored to file /oracle/CRM/undotbs03.dbf
+channel ORA_DISK_1: starting datafile backup set restore
+channel ORA_DISK_1: specifying datafile(s) to restore from backup set
+channel ORA_DISK_1: restoring datafile 00001 to /oracle/CRM/CRM/system01.dbf
+channel ORA_DISK_1: restoring datafile 00002 to /oracle/CRM/CRM/sysaux01.dbf
+channel ORA_DISK_1: restoring datafile 00003 to /oracle/CRM/CRM/undotbs01.dbf
+channel ORA_DISK_1: restoring datafile 00004 to /oracle/CRM/CRM/users01.dbf
+channel ORA_DISK_1: restoring datafile 00005 to /oracle/CRM/jxc.dbf
+channel ORA_DISK_1: restoring datafile 00012 to /oracle/CRM/crm.dbf
+channel ORA_DISK_1: reading from backup piece /backup/crm/full-20140209-0np076ik_1_1.bak
+channel ORA_DISK_1: piece handle=/backup/crm/full-20140209-0np076ik_1_1.bak tag=TAG20140209T182835
+channel ORA_DISK_1: restored backup piece 1
+channel ORA_DISK_1: restore complete, elapsed time: 00:02:28
+Finished restore at 2014-02-09 19:01:32
+
+Starting recover at 2014-02-09 19:01:33
+using channel ORA_DISK_1
+
+starting media recovery
+
+archived log for thread 1 with sequence 4 is already on disk as file /oracle/archivelog/arch_1_4_839094460.arch
+archived log for thread 1 with sequence 5 is already on disk as file /oracle/CRM/CRM/redo02.log
+archived log for thread 1 with sequence 6 is already on disk as file /oracle/CRM/CRM/redo03.log
+archived log file name=/oracle/archivelog/arch_1_4_839094460.arch thread=1 sequence=4
+archived log file name=/oracle/CRM/CRM/redo02.log thread=1 sequence=5
+archived log file name=/oracle/CRM/CRM/redo03.log thread=1 sequence=6
+media recovery complete, elapsed time: 00:00:04
+Finished recover at 2014-02-09 19:01:46
+
+RMAN> report schema;
+
+RMAN-06139: WARNING: control file is not current for REPORT SCHEMA
+Report of database schema for database with db_unique_name CRM
+
+List of Permanent Datafiles
+===========================
+File Size(MB) Tablespace           RB segs Datafile Name
+---- -------- -------------------- ------- ------------------------
+1    790      SYSTEM               ***     /oracle/CRM/CRM/system01.dbf
+2    530      SYSAUX               ***     /oracle/CRM/CRM/sysaux01.dbf
+3    110      UNDOTBS1             ***     /oracle/CRM/CRM/undotbs01.dbf
+4    1193     USERS                ***     /oracle/CRM/CRM/users01.dbf
+5    10       JXC              ***     /oracle/CRM/jxc.dbf
+6    100      POS                  ***     /oracle/CRM/pos.dbf
+7    5        USER01               ***     /oracle/CRM/user01.dbf
+8    100      ERP                  ***     /oracle/CRM/erp.dbf
+9    100      UNDOTBS3             ***     /oracle/CRM/undotbs03.dbf
+12   10       CRM                  ***     /oracle/CRM/crm.dbf
+
+List of Temporary Files
+=======================
+File Size(MB) Tablespace           Maxsize(MB) Tempfile Name
+---- -------- -------------------- ----------- --------------------
+1    29       TEMP                 29          /oracle/CRM/CRM/temp01.dbf
+
+RMAN> exit
+
+9 以resetlogs方式打开数据库
+
+[oracle@dest CRM]$ sqlplus / as sysdba
+
+SQL*Plus: Release 11.2.0.2.0 Production on Sun Feb 9 19:02:10 2014
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> alter database open resetlogs;
+
+Database altered.
+
+10 验证数据是否恢复
+SQL> select tablespace_name,status from dba_tablespaces;
+
+TABLESPACE_NAME                STATUS
+------------------------------ ---------
+SYSTEM                         ONLINE
+SYSAUX                         ONLINE
+UNDOTBS1                       ONLINE
+TEMP                           ONLINE
+USERS                          ONLINE
+JXC                            ONLINE
+POS                            ONLINE
+USER01                         ONLINE
+ERP                            ONLINE
+UNDOTBS3                       ONLINE
+CRM                            ONLINE
+
+11 rows selected.
+
+SQL> col file_name for a50
+SQL> set linesize 400
+SQL> select file_name,tablespace_name,status from dba_data_files;
+FILE_NAME                                   TABLESPACE_NAME      STATUS
+---------------------------------- ------------------------------ ---------
+/oracle/CRM/crm.dbf                              CRM                            AVAILABLE
+/oracle/CRM/undotbs03.dbf                        UNDOTBS3                       AVAILABLE
+/oracle/CRM/erp.dbf                              ERP                            AVAILABLE
+/oracle/CRM/user01.dbf                           USER01                         AVAILABLE
+/oracle/CRM/pos.dbf                              POS                            AVAILABLE
+/oracle/CRM/CRM/users01.dbf                      USERS                          AVAILABLE
+/oracle/CRM/CRM/undotbs01.dbf                    UNDOTBS1                       AVAILABLE
+/oracle/CRM/CRM/sysaux01.dbf                     SYSAUX                         AVAILABLE
+/oracle/CRM/CRM/system01.dbf                     SYSTEM                         AVAILABLE
+/oracle/CRM/jxc.dbf                              JXC                            AVAILABLE
+
+10 rows selected.
+
+SQL> select * from zx.test1;
+
+         I
+----------
+         1
+         2
+         3
+         4
+         5
+         6
+         7
+         8
+         9
+        10
+        11
+
+         I
+----------
+        12
+        13
+        14
+        15
+        16
+        17
+        18
+        19
+        20
+
+20 rows selected.
+
+
+
+
+二 通过基于表空间的时间点恢复被误删除的表空间
+
+1 创建测试用的表jxc表空间及用户
+SQL> select name from v$datafile;
+
+NAME
+--------------------------------------------------------------------------------
+/oracle/CRM/CRM/system01.dbf
+/oracle/CRM/CRM/sysaux01.dbf
+/oracle/CRM/CRM/undotbs01.dbf
+/oracle/CRM/CRM/users01.dbf
+/oracle/CRM/user01.dbf
+/oracle/CRM/erp.dbf
+/oracle/CRM/undotbs03.dbf
+/oracle/CRM/crm.dbf
+
+8 rows selected.
+
+SQL> create tablespace jxc datafile '/oracle/CRM/jxc.dbf' size 10m;
+
+Tablespace created.
+
+SQL> create user zx identified by dhhzdhhz default tablespace jxc;
+
+User created.
+
+
+SQL> grant resource,connect to zx;
+
+Grant succeeded.
+
+SQL> exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+[oracle@dest ~]$ sqlplus / as sysdba
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Feb 10 02:05:25 2014
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> alter system switch logfile;
+
+System altered.
+
+SQL> alter system switch logfile;
+
+System altered.
+
+SQL> alter system switch logfile;
+
+System altered.
+
+SQL> alter system checkpoint;
+
+System altered.
+
+SQL> /
+
+System altered.
+
+SQL> exit
+
+2 对整个数据库做一次全备份
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+[oracle@dest ~]$ rman target /
+
+Recovery Manager: Release 11.2.0.2.0 - Production on Mon Feb 10 02:07:05 2014
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: CRM (DBID=3641885733)
+
+RMAN> list backup of database;
+
+using target database control file instead of recovery catalog
+specification does not match any backup in the repository
+
+RMAN> run{
+2> delete noprompt obsolete;
+3> crosscheck backup;
+4> delete noprompt expired backup;
+5> crosscheck archivelog all;
+6> delete noprompt expired archivelog all;
+7> backup incremental level=0  database format '/backup/crm/full-%T-%U.bak';
+8> backup archivelog all  format '/backup/crm/arch-%T-%U.bak'; 
+9> backup current controlfile format '/backup/crm/ctl-%T-%U.bak';
+10> backup spfile format '/backup/crm/spf-%T-%U.bak';
+11> delete noprompt archivelog all completed before 'SYSDATE - 7'; 
+12> }
+
+.................备份过程省略.........................................
+
+3 在jxc表空间上创建测试数据
+
+[oracle@dest ~]$ sqlplus zx/dhhzdhhz
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Feb 10 02:12:17 2014
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL>  create table test1(i int);  
+
+Table created.
+
+SQL> begin
+  2  for i in 1..20 loop
+  3  insert into test1 values(i);
+  4  end loop;
+  5  commit;
+  6  end;
+  7  /
+
+PL/SQL procedure successfully completed.
+
+SQL> exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+[oracle@dest ~]$ sqlplus / as sysdba
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Feb 10 02:13:35 2014
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> alter system switch logfile;
+
+System altered.
+
+SQL> alter system switch logfile;
+
+System altered.
+
+SQL> alter system switch logfile;
+
+System altered.
+
+SQL> alter system checkpoint;
+
+System altered.
+
+4 查询当前数据库的时间
+
+SQL> select current_scn,to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') from v$database;
+
+CURRENT_SCN TO_CHAR(SYSDATE,'YY
+----------- -------------------
+    3905661 2014-02-10 02:14:23
+
+5 删除jxc表空间
+
+SQL> alter system switch logfile;
+
+System altered.
+
+SQL> alter system switch logfile;
+
+System altered.
+
+SQL> alter system checkpoint;
+
+System altered.
+
+SQL> drop tablespace jxc including contents and datafiles;
+
+Tablespace dropped.
+
+SQL> exit
+
+6 执行全自动rman管理的表空间时间点恢复
+
+[oracle@dest ~]$ rman target /
+
+Recovery Manager: Release 11.2.0.2.0 - Production on Mon Feb 10 02:17:40 2014
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: CRM (DBID=3641885733)
+
+RMAN> recover tablespace jxc until time "to_date('2014-02-10 02:14:23','yyyy-mm-dd hh24:mi:ss')" auxiliary destination '/backup';
+
+Starting recover at 2014-02-10 02:20:12
+using target database control file instead of recovery catalog
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=72 device type=DISK
+RMAN-05026: WARNING: presuming following set of tablespaces applies to specified point-in-time
+
+List of tablespaces expected to have UNDO segments
+Tablespace SYSTEM
+Tablespace UNDOTBS1
+Tablespace UNDOTBS3
+
+Creating automatic instance, with SID='DctA'
+
+initialization parameters used for automatic instance:
+db_name=CRM
+db_unique_name=DctA_tspitr_CRM
+compatible=11.2.0.0.0
+db_block_size=8192
+db_files=200
+sga_target=280M
+processes=50
+db_create_file_dest=/backup
+log_archive_dest_1='location=/backup'
+#No auxiliary parameter file used
+
+
+starting up automatic instance CRM
+
+Oracle instance started
+
+Total System Global Area     292278272 bytes
+
+Fixed Size                     2225872 bytes
+Variable Size                100665648 bytes
+Database Buffers             184549376 bytes
+Redo Buffers                   4837376 bytes
+Automatic instance created
+
+
+List of tablespaces that have been dropped from the target database:
+Tablespace jxc
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "to_date('2014-02-10 02:14:23','yyyy-mm-dd hh24:mi:ss')";
+# restore the controlfile
+restore clone controlfile;
+# mount the controlfile
+sql clone 'alter database mount clone database';
+# archive current online log 
+sql 'alter system archive log current';
+# avoid unnecessary autobackups for structural changes during TSPITR
+sql 'begin dbms_backup_restore.AutoBackupFlag(FALSE); end;';
+}
+executing Memory Script
+
+executing command: SET until clause
+
+Starting restore at 2014-02-10 02:20:39
+allocated channel: ORA_AUX_DISK_1
+channel ORA_AUX_DISK_1: SID=81 device type=DISK
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: restoring control file
+channel ORA_AUX_DISK_1: reading from backup piece /backup/crm/ctl-20140210-1up081kd_1_1.bak
+channel ORA_AUX_DISK_1: piece handle=/backup/crm/ctl-20140210-1up081kd_1_1.bak tag=TAG20140210T021020
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:00:01
+output file name=/backup/CRM/controlfile/o1_mf_9hhkqsc7_.ctl
+Finished restore at 2014-02-10 02:20:42
+
+sql statement: alter database mount clone database
+
+sql statement: alter system archive log current
+
+sql statement: begin dbms_backup_restore.AutoBackupFlag(FALSE); end;
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "to_date('2014-02-10 02:14:23','yyyy-mm-dd hh24:mi:ss')";
+# set destinations for recovery set and auxiliary set datafiles
+set newname for clone datafile  1 to new;
+set newname for clone datafile  3 to new;
+set newname for clone datafile  9 to new;
+set newname for clone datafile  2 to new;
+set newname for clone tempfile  1 to new;
+set newname for datafile  5 to 
+ "/oracle/CRM/jxc.dbf";
+# switch all tempfiles
+switch clone tempfile all;
+# restore the tablespaces in the recovery set and the auxiliary set
+restore clone datafile  1, 3, 9, 2, 5;
+switch clone datafile all;
+}
+executing Memory Script
+
+executing command: SET until clause
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+executing command: SET NEWNAME
+
+renamed tempfile 1 to /backup/CRM/datafile/o1_mf_temp_%u_.tmp in control file
+
+Starting restore at 2014-02-10 02:20:49
+using channel ORA_AUX_DISK_1
+
+channel ORA_AUX_DISK_1: starting datafile backup set restore
+channel ORA_AUX_DISK_1: specifying datafile(s) to restore from backup set
+channel ORA_AUX_DISK_1: restoring datafile 00001 to /backup/CRM/datafile/o1_mf_system_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00003 to /backup/CRM/datafile/o1_mf_undotbs1_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00009 to /backup/CRM/datafile/o1_mf_undotbs3_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00002 to /backup/CRM/datafile/o1_mf_sysaux_%u_.dbf
+channel ORA_AUX_DISK_1: restoring datafile 00005 to /oracle/CRM/jxc.dbf
+channel ORA_AUX_DISK_1: reading from backup piece /backup/crm/full-20140210-1ip081fb_1_1.bak
+channel ORA_AUX_DISK_1: piece handle=/backup/crm/full-20140210-1ip081fb_1_1.bak tag=TAG20140210T020739
+channel ORA_AUX_DISK_1: restored backup piece 1
+channel ORA_AUX_DISK_1: restore complete, elapsed time: 00:01:16
+Finished restore at 2014-02-10 02:22:05
+
+datafile 1 switched to datafile copy
+input datafile copy RECID=5 STAMP=839125325 file name=/backup/CRM/datafile/o1_mf_system_9hhkr221_.dbf
+datafile 3 switched to datafile copy
+input datafile copy RECID=6 STAMP=839125325 file name=/backup/CRM/datafile/o1_mf_undotbs1_9hhkr231_.dbf
+datafile 9 switched to datafile copy
+input datafile copy RECID=7 STAMP=839125325 file name=/backup/CRM/datafile/o1_mf_undotbs3_9hhkr24l_.dbf
+datafile 2 switched to datafile copy
+input datafile copy RECID=8 STAMP=839125325 file name=/backup/CRM/datafile/o1_mf_sysaux_9hhkr22c_.dbf
+
+contents of Memory Script:
+{
+# set requested point in time
+set until  time "to_date('2014-02-10 02:14:23','yyyy-mm-dd hh24:mi:ss')";
+# online the datafiles restored or switched
+sql clone "alter database datafile  1 online";
+sql clone "alter database datafile  3 online";
+sql clone "alter database datafile  9 online";
+sql clone "alter database datafile  2 online";
+sql clone "alter database datafile  5 online";
+# recover and open resetlogs
+recover clone database tablespace  "JXC", "SYSTEM", "UNDOTBS1", "UNDOTBS3", "SYSAUX" delete archivelog;
+alter clone database open resetlogs;
+}
+executing Memory Script
+
+executing command: SET until clause
+
+sql statement: alter database datafile  1 online
+
+sql statement: alter database datafile  3 online
+
+sql statement: alter database datafile  9 online
+
+sql statement: alter database datafile  2 online
+
+sql statement: alter database datafile  5 online
+
+Starting recover at 2014-02-10 02:22:07
+using channel ORA_AUX_DISK_1
+
+starting media recovery
+
+archived log for thread 1 with sequence 9 is already on disk as file /oracle/archivelog/arch_1_9_839098938.arch
+archived log for thread 1 with sequence 10 is already on disk as file /oracle/archivelog/arch_1_10_839098938.arch
+archived log for thread 1 with sequence 11 is already on disk as file /oracle/archivelog/arch_1_11_839098938.arch
+archived log for thread 1 with sequence 12 is already on disk as file /oracle/archivelog/arch_1_12_839098938.arch
+archived log for thread 1 with sequence 13 is already on disk as file /oracle/archivelog/arch_1_13_839098938.arch
+archived log file name=/oracle/archivelog/arch_1_9_839098938.arch thread=1 sequence=9
+archived log file name=/oracle/archivelog/arch_1_10_839098938.arch thread=1 sequence=10
+archived log file name=/oracle/archivelog/arch_1_11_839098938.arch thread=1 sequence=11
+archived log file name=/oracle/archivelog/arch_1_12_839098938.arch thread=1 sequence=12
+archived log file name=/oracle/archivelog/arch_1_13_839098938.arch thread=1 sequence=13
+media recovery complete, elapsed time: 00:00:02
+Finished recover at 2014-02-10 02:22:15
+
+database opened
+
+contents of Memory Script:
+{
+# make read only the tablespace that will be exported
+sql clone 'alter tablespace  JXC read only';
+# create directory for datapump import
+sql "create or replace directory TSPITR_DIROBJ_DPDIR as ''
+/backup''";
+# create directory for datapump export
+sql clone "create or replace directory TSPITR_DIROBJ_DPDIR as ''
+/backup''";
+}
+executing Memory Script
+
+sql statement: alter tablespace  JXC read only
+
+sql statement: create or replace directory TSPITR_DIROBJ_DPDIR as ''/backup''
+
+sql statement: create or replace directory TSPITR_DIROBJ_DPDIR as ''/backup''
+
+Performing export of metadata...
+   EXPDP> Starting "SYS"."TSPITR_EXP_DctA":  
+   EXPDP> Processing object type TRANSPORTABLE_EXPORT/PLUGTS_BLK
+   EXPDP> Processing object type TRANSPORTABLE_EXPORT/TABLE
+   EXPDP> Processing object type TRANSPORTABLE_EXPORT/POST_INSTANCE/PLUGTS_BLK
+   EXPDP> Master table "SYS"."TSPITR_EXP_DctA" successfully loaded/unloaded
+   EXPDP> ******************************************************************************
+   EXPDP> Dump file set for SYS.TSPITR_EXP_DctA is:
+   EXPDP>   /backup/tspitr_DctA_28726.dmp
+   EXPDP> ******************************************************************************
+   EXPDP> Datafiles required for transportable tablespace JXC:
+   EXPDP>   /oracle/CRM/jxc.dbf
+   EXPDP> Job "SYS"."TSPITR_EXP_DctA" successfully completed at 02:25:39
+Export completed
+
+
+contents of Memory Script:
+{
+# shutdown clone before import
+shutdown clone immediate
+}
+executing Memory Script
+
+database closed
+database dismounted
+Oracle instance shut down
+
+Performing import of metadata...
+   IMPDP> Master table "SYS"."TSPITR_IMP_DctA" successfully loaded/unloaded
+   IMPDP> Starting "SYS"."TSPITR_IMP_DctA":  
+   IMPDP> Processing object type TRANSPORTABLE_EXPORT/PLUGTS_BLK
+   IMPDP> Processing object type TRANSPORTABLE_EXPORT/TABLE
+   IMPDP> Processing object type TRANSPORTABLE_EXPORT/POST_INSTANCE/PLUGTS_BLK
+   IMPDP> Job "SYS"."TSPITR_IMP_DctA" successfully completed at 02:26:50
+Import completed
+
+
+contents of Memory Script:
+{
+# make read write and offline the imported tablespaces
+sql 'alter tablespace  JXC read write';
+sql 'alter tablespace  JXC offline';
+# enable autobackups after TSPITR is finished
+sql 'begin dbms_backup_restore.AutoBackupFlag(TRUE); end;';
+}
+executing Memory Script
+
+sql statement: alter tablespace  JXC read write
+
+sql statement: alter tablespace  JXC offline
+
+sql statement: begin dbms_backup_restore.AutoBackupFlag(TRUE); end;
+
+Removing automatic instance
+Automatic instance removed
+auxiliary instance file /backup/CRM/datafile/o1_mf_temp_9hhkvg7w_.tmp deleted
+auxiliary instance file /backup/CRM/onlinelog/o1_mf_3_9hhkv3mp_.log deleted
+auxiliary instance file /backup/CRM/onlinelog/o1_mf_2_9hhktyoc_.log deleted
+auxiliary instance file /backup/CRM/onlinelog/o1_mf_1_9hhktqyl_.log deleted
+auxiliary instance file /backup/CRM/datafile/o1_mf_sysaux_9hhkr22c_.dbf deleted
+auxiliary instance file /backup/CRM/datafile/o1_mf_undotbs3_9hhkr24l_.dbf deleted
+auxiliary instance file /backup/CRM/datafile/o1_mf_undotbs1_9hhkr231_.dbf deleted
+auxiliary instance file /backup/CRM/datafile/o1_mf_system_9hhkr221_.dbf deleted
+auxiliary instance file /backup/CRM/controlfile/o1_mf_9hhkqsc7_.ctl deleted
+Finished recover at 2014-02-10 02:27:09
+
+RMAN> exit
+
+
+Recovery Manager complete.
+
+7 online jxc测试表空间
+
+[oracle@dest ~]$ sqlplus / as sysdba
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Feb 10 02:27:55 2014
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> select tablespace_name,status from dba_tablespaces;
+
+TABLESPACE_NAME                STATUS
+------------------------------ ---------
+SYSTEM                         ONLINE
+SYSAUX                         ONLINE
+UNDOTBS1                       ONLINE
+TEMP                           ONLINE
+USERS                          ONLINE
+JXC                            OFFLINE
+USER01                         ONLINE
+ERP                            ONLINE
+UNDOTBS3                       ONLINE
+CRM                            ONLINE
+
+10 rows selected.
+
+SQL> alter tablespace jxc online;
+
+Tablespace altered.
+
+8 验证测试数据是否恢复
+
+SQL> select * from zx.test1;
+
+         I
+----------
+         1
+         2
+         3
+         4
+         5
+         6
+         7
+         8
+         9
+        10
+        11
+
+         I
+----------
+        12
+        13
+        14
+        15
+        16
+        17
+        18
+        19
+        20
+
+20 rows selected.
+
+注意：
+1 通过执行基于表空间的时间点恢复，仅仅是回退了要需要恢复的表空        间，这和基于数据库的时间点恢复，回退整个数据库是有区别的。
+2 在10g上通过基于表空间的时间点恢复误删除的表空间会报如下错误：
+        RMAN-00571: ===========================================================
+        RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+        RMAN-00571: ===========================================================
+        RMAN-03002: failure of recover command at 02/10/2014 22:25:15
+        RMAN-20202: tablespace not found in the recovery catalog
+        RMAN-06019: could not translate tablespace name "JXC"

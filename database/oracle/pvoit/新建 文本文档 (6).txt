@@ -1,0 +1,49 @@
+数据：
+品名  日期        数量
+a      2010-1-1    10
+b      2010-1-1    15
+b      2010-1-2    20
+c      2010-1-2    30
+a      2010-1-3    10
+b      2010-1-3    12
+a      2010-1-3    10
+...
+
+想要结果
+品名  合计  2010-1-1  2010-1-2  2010-1-3
+a      30        10        10        10
+b      47        15        20        12
+c      30                  30
+...
+
+品名和日期不固定，生成交叉表之前要筛选时间段。
+
+IF OBJECT_ID('TB') IS NOT NULL DROP TABLE TB
+GO
+CREATE TABLE TB(
+[品名]     VARCHAR(10)  
+,[日期]   DATETIME     
+,[数量]   INT
+)
+INSERT INTO TB
+SELECT 'a','2010-1-1',    10 UNION ALL
+SELECT 'b','2010-1-1',    15 UNION ALL
+SELECT 'b','2010-1-2',    20 UNION ALL
+SELECT 'c','2010-1-2',    30 UNION ALL
+SELECT 'a','2010-1-3',    10 UNION ALL
+SELECT 'b','2010-1-3',    12 UNION ALL
+SELECT 'a','2010-1-3',    10 
+
+DECLARE @STR NVARCHAR(4000),@BDATE DATETIME,@EDATE DATETIME
+SELECT @BDATE='2010-1-1',@EDATE='2010-1-2'    --输入起始日期和结束日期
+SELECT @STR='SELECT [品名]
+'
+SELECT @STR=@STR+',SUM(CASE WHEN [日期]='''+CONVERT(NVARCHAR(10),[日期],120)+''' THEN [数量] ELSE 0 END) AS '''+CONVERT(NVARCHAR(10),[日期],120)+'''
+'
+FROM (SELECT DISTINCT [日期] FROM TB WHERE [日期] BETWEEN @BDATE AND @EDATE) T ORDER BY [日期]
+SELECT @STR=@STR+'FROM TB
+GROUP BY [品名]'
+
+PRINT @STR
+
+EXEC (@STR)

@@ -1,0 +1,27 @@
+create or replace package pkg_test as
+type myrctype is ref cursor;
+function test_fun(str varchar) return myrctype;
+end pkg_test;
+
+
+
+create or replace package body pkg_test as
+--函数体
+function test_fun(str varchar) return myrctype is
+rc myrctype; --定义ref cursor变量
+sqlstr varchar2(500);
+begin
+
+open rc for select bx_order_hotel_t.orderid from bx_order_hotel_t ;
+return rc;
+
+
+return rc;
+end test_fun;
+
+end pkg_test;
+
+
+
+
+select pkg_test.test_fun('') from dual;

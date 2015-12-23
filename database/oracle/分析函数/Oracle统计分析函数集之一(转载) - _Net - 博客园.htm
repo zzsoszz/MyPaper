@@ -1,0 +1,1077 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0058)http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html -->
+<HTML><HEAD id=Head><TITLE>Oracle统计分析函数集之一(转载) - .Net - 博客园</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META id=metaKeywords content=Oracle统计分析函数集之一,转载 name=keywords>
+<META 
+content=分析函数over及开窗函数一：分析函数overOracle从8.1.6开始提供分析函数，分析函数用于计算基于组的某种聚合值，它和聚合函数的不同之处 
+name=description><LINK id=CommondCss 
+href="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/common.css" type=text/css 
+rel=stylesheet><LINK id=MainCss 
+href="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/style.css" type=text/css 
+rel=stylesheet><LINK id=CommondCss2 
+href="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/common2.css" type=text/css 
+rel=stylesheet><LINK id=RSSLink title=RSS href="http://www.cnblogs.com/lizw/rss" 
+type=application/rss+xml rel=alternate>
+<SCRIPT src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/common.js" 
+type=text/javascript></SCRIPT>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<FORM id=Form1 name=Form1 onsubmit="javascript:return WebForm_OnSubmit();" 
+action=729004.html method=post>
+<DIV><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE> </DIV>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</SCRIPT>
+
+<SCRIPT src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=JavaScript>
+									function ctlent(evt,id)
+											{
+												if(evt.ctrlKey && evt.keyCode == 13)
+												{	
+													try
+													{
+														TempSave(id);
+													}
+													catch(ex)
+													{
+													}
+													finally
+													{
+													    __doPostBack('AjaxHolder$PostComment$btnSubmit','')
+													}
+												}
+		
+												}</SCRIPT>
+
+<SCRIPT language=JavaScript>function SetReplyAuhor(author){document.getElementById('AjaxHolder_PostComment_tbComment').value+="@"+author+"\n";document.getElementById('AjaxHolder_PostComment_tbComment').focus();return false}</SCRIPT>
+
+<SCRIPT src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/ScriptResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="D:\Oracle统计分析函数集之一(转载) - _Net - 博客园.files\ScriptResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="D:\Oracle统计分析函数集之一(转载) - _Net - 博客园.files\ScriptResource(2).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</SCRIPT>
+
+<DIV class=pagelayout>
+<TABLE cellSpacing=0 cellPadding=2 width="97%" align=center>
+  <TBODY>
+  <TR>
+    <TD class=mytitle align=middle width="30%"><A class=headermaintitle 
+      id=Header1_HeaderTitle href="http://www.cnblogs.com/lizw/">.Net</A></TD>
+    <TD>&nbsp;</TD>
+    <TD width="50%">
+      <TABLE height=30 cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD width=100><A href="http://www.cnblogs.com/"><IMG 
+            src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/icon_hjblog.gif" 
+            border=0></A></TD>
+          <TD width=10><A href="http://www.cnblogs.com/logout.aspx"><IMG 
+            src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/out.gif" 
+        border=0></A></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD vAlign=center align=middle 
+    background="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/top.jpg" colSpan=3 
+    height=184></TD></TR></TBODY></TABLE>
+<TABLE cellSpacing=0 cellPadding=5 width="90%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD vAlign=top width=200>
+      <DIV class=listtitle>日历</DIV>
+      <TABLE height=200 width="100%">
+        <TBODY>
+        <TR>
+          <TD>
+            <TABLE id=Calendar1_entryCal title=Calendar 
+            style="BORDER-RIGHT: #f9fce9 1px solid; BORDER-TOP: #f9fce9 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #f9fce9 1px solid; WIDTH: 100%; COLOR: black; BORDER-BOTTOM: #f9fce9 1px solid; FONT-FAMILY: Verdana; BORDER-COLLAPSE: collapse; HEIGHT: 100%" 
+            cellSpacing=0 cellPadding=1 border=0>
+              <TBODY>
+              <TR>
+                <TD style="BACKGROUND-COLOR: #f9fce9" colSpan=7>
+                  <TABLE 
+                  style="FONT-SIZE: 12px; WIDTH: 100%; COLOR: black; FONT-FAMILY: Verdana; BORDER-COLLAPSE: collapse" 
+                  cellSpacing=0 border=0>
+                    <TBODY>
+                    <TR>
+                      <TD style="WIDTH: 15%" vAlign=bottom><A 
+                        title="Go to the previous month" style="COLOR: black" 
+                        href="javascript:__doPostBack('Calendar1$entryCal','V2616')">&lt;</A></TD>
+                      <TD style="WIDTH: 70%" align=middle>2007年4月</TD>
+                      <TD style="WIDTH: 15%" vAlign=bottom align=right><A 
+                        title="Go to the next month" style="COLOR: black" 
+                        href="javascript:__doPostBack('Calendar1$entryCal','V2677')">&gt;</A></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TH 
+                style="FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: black; FONT-FAMILY: Arial; BACKGROUND-COLOR: #f9fce9" 
+                scope=col align=middle abbr=日>日</TH>
+                <TH 
+                style="FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: black; FONT-FAMILY: Arial; BACKGROUND-COLOR: #f9fce9" 
+                scope=col align=middle abbr=一>一</TH>
+                <TH 
+                style="FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: black; FONT-FAMILY: Arial; BACKGROUND-COLOR: #f9fce9" 
+                scope=col align=middle abbr=二>二</TH>
+                <TH 
+                style="FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: black; FONT-FAMILY: Arial; BACKGROUND-COLOR: #f9fce9" 
+                scope=col align=middle abbr=三>三</TH>
+                <TH 
+                style="FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: black; FONT-FAMILY: Arial; BACKGROUND-COLOR: #f9fce9" 
+                scope=col align=middle abbr=四>四</TH>
+                <TH 
+                style="FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: black; FONT-FAMILY: Arial; BACKGROUND-COLOR: #f9fce9" 
+                scope=col align=middle abbr=五>五</TH>
+                <TH 
+                style="FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: black; FONT-FAMILY: Arial; BACKGROUND-COLOR: #f9fce9" 
+                scope=col align=middle abbr=六>六</TH></TR>
+              <TR>
+                <TD style="WIDTH: 14%; COLOR: #303030" align=middle>25</TD>
+                <TD style="WIDTH: 14%; COLOR: #303030" align=middle>26</TD>
+                <TD style="WIDTH: 14%; COLOR: #303030" align=middle>27</TD>
+                <TD style="WIDTH: 14%; COLOR: #303030" align=middle>28</TD>
+                <TD style="WIDTH: 14%; COLOR: #303030" align=middle>29</TD>
+                <TD style="WIDTH: 14%; COLOR: #303030" align=middle>30</TD>
+                <TD style="WIDTH: 14%; COLOR: #303030" align=middle>31</TD></TR>
+              <TR>
+                <TD style="WIDTH: 14%" align=middle><A 
+                  href="http://www.cnblogs.com/lizw/archive/2007/04/01.html"><U>1</U></A></TD>
+                <TD style="WIDTH: 14%" align=middle><A 
+                  href="http://www.cnblogs.com/lizw/archive/2007/04/02.html"><U>2</U></A></TD>
+                <TD style="WIDTH: 14%" align=middle>3</TD>
+                <TD style="WIDTH: 14%" align=middle>4</TD>
+                <TD style="WIDTH: 14%" align=middle>5</TD>
+                <TD style="WIDTH: 14%" align=middle><A 
+                  href="http://www.cnblogs.com/lizw/archive/2007/04/06.html"><U>6</U></A></TD>
+                <TD style="WIDTH: 14%" align=middle>7</TD></TR>
+              <TR>
+                <TD style="WIDTH: 14%" align=middle>8</TD>
+                <TD style="WIDTH: 14%" align=middle>9</TD>
+                <TD style="WIDTH: 14%" align=middle>10</TD>
+                <TD style="WIDTH: 14%" align=middle>11</TD>
+                <TD style="WIDTH: 14%" align=middle>12</TD>
+                <TD style="WIDTH: 14%" align=middle><A 
+                  href="http://www.cnblogs.com/lizw/archive/2007/04/13.html"><U>13</U></A></TD>
+                <TD style="WIDTH: 14%" align=middle>14</TD></TR>
+              <TR>
+                <TD style="WIDTH: 14%" align=middle><A 
+                  href="http://www.cnblogs.com/lizw/archive/2007/04/15.html"><U>15</U></A></TD>
+                <TD style="WIDTH: 14%" align=middle>16</TD>
+                <TD style="WIDTH: 14%" align=middle>17</TD>
+                <TD style="WIDTH: 14%" align=middle>18</TD>
+                <TD style="WIDTH: 14%" align=middle><A 
+                  href="http://www.cnblogs.com/lizw/archive/2007/04/19.html"><U>19</U></A></TD>
+                <TD style="WIDTH: 14%" align=middle>20</TD>
+                <TD style="WIDTH: 14%" align=middle><A 
+                  href="http://www.cnblogs.com/lizw/archive/2007/04/21.html"><U>21</U></A></TD></TR>
+              <TR>
+                <TD style="WIDTH: 14%" align=middle><A 
+                  href="http://www.cnblogs.com/lizw/archive/2007/04/22.html"><U>22</U></A></TD>
+                <TD style="WIDTH: 14%" align=middle>23</TD>
+                <TD style="WIDTH: 14%" align=middle>24</TD>
+                <TD style="WIDTH: 14%" align=middle>25</TD>
+                <TD style="WIDTH: 14%" align=middle><A 
+                  href="http://www.cnblogs.com/lizw/archive/2007/04/26.html"><U>26</U></A></TD>
+                <TD style="WIDTH: 14%" align=middle>27</TD>
+                <TD style="WIDTH: 14%" align=middle>28</TD></TR>
+              <TR>
+                <TD style="WIDTH: 14%" align=middle><A 
+                  href="http://www.cnblogs.com/lizw/archive/2007/04/29.html"><U>29</U></A></TD>
+                <TD style="WIDTH: 14%" align=middle><A 
+                  href="http://www.cnblogs.com/lizw/archive/2007/04/30.html"><U>30</U></A></TD>
+                <TD style="WIDTH: 14%; COLOR: #303030" align=middle>1</TD>
+                <TD style="WIDTH: 14%; COLOR: #303030" align=middle>2</TD>
+                <TD style="WIDTH: 14%; COLOR: #303030" align=middle>3</TD>
+                <TD style="WIDTH: 14%; COLOR: #303030" align=middle>4</TD>
+                <TD style="WIDTH: 14%; COLOR: #303030" 
+              align=middle>5</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+      <DIV class=listtitle>统计</DIV>
+      <UL class=list>
+        <LI class=listitem>随笔 - 88 
+        <LI class=listitem>文章 - 3 
+        <LI class=listitem>评论 - 9 
+        <LI class=listitem>引用 - 0 </LI></UL>
+      <H1 class=listtitle>导航</H1>
+      <UL class=list>
+        <LI class=listitem><A class=listitem id=MyLinks1_HomeLink 
+        href="http://www.cnblogs.com/">博客园</A> 
+        <LI class=listitem><A id=MyLinks1_MyHomeLink 
+        href="http://www.cnblogs.com/lizw/">首页</A> 
+        <LI class=listitem><A id=MyLinks1_NewPostLink 
+        href="http://www.cnblogs.com/lizw/admin/EditPosts.aspx?opt=1">发新随笔</A> 
+        <LI class=listitem><A class=listitem id=MyLinks1_NewArticleLink 
+        href="http://www.cnblogs.com/EnterMyBlog.aspx?NewArticle=1">发新文章</A> 
+        <LI class=listitem><A class=listitem id=MyLinks1_ContactLink accessKey=9 
+        href="http://www.cnblogs.com/lizw/contact.aspx?id=1">联系</A> 
+        <LI class=listitem><A class=listitem id=MyLinks1_Syndication 
+        href="http://www.cnblogs.com/lizw/rss">订阅</A><A id=MyLinks1_XMLLink 
+        href="http://www.cnblogs.com/lizw/rss"><IMG 
+        style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+        alt=订阅 src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/xml.gif"></A> 
+        <LI class=listitem><A class=listitem id=MyLinks1_Admin 
+        href="http://www.cnblogs.com/lizw/admin/EditPosts.aspx">管理</A> </LI></UL>
+      <DIV class=catListInteraction>
+      <H3 class=catListTitle>与我联系</H3>
+      <UL>
+        <LI><A class=sendMsg id=SingleColumn1_ctl00_lnkSendMsg 
+        href="http://space.cnblogs.com/msg/send/ä¸æ¹æ°ç§">发短消息</A> 
+      </LI></UL></DIV>
+      <SCRIPT type=text/javascript>
+function zzk_go()
+{
+	var blogapp = 'lizw';
+	var keystr = encodeURIComponent("blog:"+blogapp+" "+document.getElementById('q').value);
+    window.location = "http://zzk.cnblogs.com/s?w="+keystr;
+}
+function zzk_go_enter(event)
+{
+	if(event.keyCode == 13)
+	{
+	    zzk_go();
+	    return false;
+	}
+}
+</SCRIPT>
+
+      <DIV class=mySearch>
+      <H3 class=catListTitle>搜索</H3>
+      <DIV class=div_my_zzk><INPUT class=input_my_zzk id=q 
+      onkeydown="return zzk_go_enter(event);">&nbsp;<INPUT class=btn_my_zzk id=btnZzk onclick=zzk_go() type=button value=找找看></DIV></DIV>
+      <H3>常用链接</H3>
+      <UL>
+        <LI><A id=SingleColumn1_ctl02_rptMainLinks_ctl00_lnkLinkItem 
+        href="http://www.cnblogs.com/lizw/MyPosts.html">我的随笔</A> 
+        <LI><A id=SingleColumn1_ctl02_rptMainLinks_ctl01_lnkLinkItem 
+        href="http://space.cnblogs.com/lizw">我的空间</A> 
+        <LI><A id=SingleColumn1_ctl02_rptMainLinks_ctl02_lnkLinkItem 
+        href="http://space.cnblogs.com/msg/recent">我的短信</A> 
+        <LI><A id=SingleColumn1_ctl02_rptMainLinks_ctl03_lnkLinkItem 
+        href="http://www.cnblogs.com/lizw/MyComments.html">我的评论</A> 
+        <LI><A id=itemListLink 
+        onclick="this.blur();WarpClass('itemListLink', 'itemListLin_con');return false;" 
+        href="http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html#">更多链接</A> 
+        </LI></UL>
+      <DIV id=itemListLin_con style="DISPLAY: none">
+      <UL>
+        <LI><A id=SingleColumn1_ctl02_repeaterLinks_ctl01_lnkLinkItem 
+        title=我发表过评论的随笔 
+        href="http://www.cnblogs.com/lizw/OtherPosts.html">我的参与</A> 
+        <LI><A id=SingleColumn1_ctl02_repeaterLinks_ctl02_lnkLinkItem 
+        href="http://www.cnblogs.com/lizw/MyNews.html">我的新闻</A> 
+        <LI><A id=SingleColumn1_ctl02_repeaterLinks_ctl03_lnkLinkItem 
+        href="http://www.cnblogs.com/lizw/RecentComments.html">最新评论</A> 
+        <LI><A id=SingleColumn1_ctl02_repeaterLinks_ctl04_lnkLinkItem 
+        href="http://www.cnblogs.com/lizw/tag/">我的标签</A> </LI></UL></DIV>
+      <H3>留言簿</H3>
+      <UL>
+        <LI><A id=SingleColumn1_ctl03_lnkMessages 
+        href="http://www.cnblogs.com/lizw/Contact.aspx?id=1">给我留言</A> <!--<li><a id="SingleColumn1_ctl03_lnkPublicMsgView" href="http://www.cnblogs.com/lizw/default.aspx?opt=msg">查看公开留言</a></li>-->
+        <LI><A id=SingleColumn1_ctl03_lnkPrivateMsgView 
+        href="http://www.cnblogs.com/lizw/admin/MyMessages.aspx">查看留言</A> 
+      </LI></UL></ASP:PANEL>
+      <H1 class=listtitle>随笔档案</H1>
+      <UL class=list>
+        <LI class=listitem><A class=listitem 
+        id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_Link 
+        href="http://www.cnblogs.com/lizw/archive/2008/03.html">2008年3月 (1)</A> 
+        <LI class=listitem><A class=listitem 
+        id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_Link 
+        href="http://www.cnblogs.com/lizw/archive/2007/09.html">2007年9月 (6)</A> 
+        <LI class=listitem><A class=listitem 
+        id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_Link 
+        href="http://www.cnblogs.com/lizw/archive/2007/08.html">2007年8月 (7)</A> 
+        <LI class=listitem><A class=listitem 
+        id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_Link 
+        href="http://www.cnblogs.com/lizw/archive/2007/07.html">2007年7月 (6)</A> 
+        <LI class=listitem><A class=listitem 
+        id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_Link 
+        href="http://www.cnblogs.com/lizw/archive/2007/06.html">2007年6月 (17)</A> 
+
+        <LI class=listitem><A class=listitem 
+        id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_Link 
+        href="http://www.cnblogs.com/lizw/archive/2007/05.html">2007年5月 (13)</A> 
+
+        <LI class=listitem><A class=listitem 
+        id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl07_Link 
+        href="http://www.cnblogs.com/lizw/archive/2007/04.html">2007年4月 (21)</A> 
+
+        <LI class=listitem><A class=listitem 
+        id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl08_Link 
+        href="http://www.cnblogs.com/lizw/archive/2007/03.html">2007年3月 (17)</A> 
+        </LI></UL>
+      <H1 class=listtitle>新闻档案</H1>
+      <UL class=list>
+        <LI class=listitem><A class=listitem 
+        id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_Link 
+        href="http://www.cnblogs.com/lizw/news/2007/03.html">2007年3月 (1)</A> 
+        </LI></UL>
+      <H1 class=listtitle>相册</H1>
+      <UL class=list>
+        <LI class=listitem><A class=listitem 
+        id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl01_Link 
+        href="http://www.cnblogs.com/lizw/gallery/88847.html">常见名车标识</A> 
+</LI></UL>
+      <H3>积分与排名</H3>
+      <UL>
+        <LI>积分 - 23234 
+        <LI>排名 - 1973 </LI></UL>
+      <H3>最新评论 <A id=SingleColumn1__2d46190_RSSHyperlink1 
+      href="http://www.cnblogs.com/lizw/CommentsRSS.aspx"><IMG 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/xml.gif"></A></H3>
+      <DIV class=RecentComment id=RecentComments></DIV>
+      <H3>阅读排行榜</H3>
+      <DIV class=RecentComment id=TopViewPosts>
+      <UL style="WORD-BREAK: break-all">
+        <LI><A id=SingleColumn1__3dd3f34_TopList_ctl01_Hyperlink1 
+        href="http://www.cnblogs.com/lizw/archive/2007/04/15/714015.html">1.&nbsp;ORACLE中日期和时间函数汇总(转载) 
+        (4163)</A> 
+        <LI><A id=SingleColumn1__3dd3f34_TopList_ctl02_Hyperlink1 
+        href="http://www.cnblogs.com/lizw/archive/2007/04/26/729005.html">2.&nbsp;Oracle分析函数RANK(),ROW_NUMBER(),LAG()等的使用方法(转载)(3841)</A> 
+
+        <LI><A id=SingleColumn1__3dd3f34_TopList_ctl03_Hyperlink1 
+        href="http://www.cnblogs.com/lizw/archive/2007/04/26/729006.html">3.&nbsp;利用ORACLE的MINUS函数和OVER函数，直接通过视图实现两个记录集的比较。(转载)(2936)</A> 
+
+        <LI><A id=SingleColumn1__3dd3f34_TopList_ctl04_Hyperlink1 
+        href="http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html">4.&nbsp;Oracle统计分析函数集之一(转载)(1736)</A> 
+
+        <LI><A id=SingleColumn1__3dd3f34_TopList_ctl05_Hyperlink1 
+        href="http://www.cnblogs.com/lizw/archive/2007/06/12/779853.html">5.&nbsp;oracle查看所有函数或存储过程的代码(1032)</A> 
+        </LI></UL></DIV>
+      <H3>评论排行榜</H3>
+      <DIV class=RecentComment id=TopCommentsPosts>
+      <UL style="WORD-BREAK: break-all">
+        <LI><A id=SingleColumn1__2d1e885_TopList_ctl01_Hyperlink1 
+        href="http://www.cnblogs.com/lizw/archive/2007/05/28/763136.html">1.&nbsp;Oracle学习网址及论坛积累(2)</A> 
+
+        <LI><A id=SingleColumn1__2d1e885_TopList_ctl02_Hyperlink1 
+        href="http://www.cnblogs.com/lizw/archive/2007/09/05/883654.html">2.&nbsp;从Oracle数据库中导出SQL脚本(2)</A> 
+
+        <LI><A id=SingleColumn1__2d1e885_TopList_ctl03_Hyperlink1 
+        href="http://www.cnblogs.com/lizw/archive/2007/03/28/691113.html">3.&nbsp;梦想之一(1)</A> 
+
+        <LI><A id=SingleColumn1__2d1e885_TopList_ctl04_Hyperlink1 
+        href="http://www.cnblogs.com/lizw/archive/2007/06/12/779853.html">4.&nbsp;oracle查看所有函数或存储过程的代码(1)</A> 
+
+        <LI><A id=SingleColumn1__2d1e885_TopList_ctl05_Hyperlink1 
+        href="http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html">5.&nbsp;Oracle统计分析函数集之一(转载)(1)</A> 
+        </LI></UL></DIV>
+      <DIV class=spacer>&nbsp;</DIV></TD>
+    <TD style="PADDING-LEFT: 20px" vAlign=top>
+      <SCRIPT type=text/javascript>
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('AjaxHolder$scriptmanager1', document.getElementById('Form1'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls(['tAjaxHolder$UpdatePanel1'], [], [], 90);
+//]]>
+</SCRIPT>
+
+      <DIV class=singlepost>
+      <DIV class=posttitle><A class=singleposttitle id=AjaxHolder_ctl01_TitleUrl 
+      href="http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html">Oracle统计分析函数集之一(转载)</A> 
+      </DIV>
+      <P>分析函数over 及开窗函数&nbsp; <BR>&nbsp;</P>
+      <P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>一：分析函数over<BR>&nbsp;Oracle从8.1.6开始提供分析函数，分析函数用于计算基于组的某种聚合值，它和聚合函数的不同之处是<BR>对于每个组返回多行，而聚合函数对于每个组只返回一行。 
+      <BR>下面通过几个例子来说明其应用。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>1：统计某商店的营业额。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp;&nbsp; date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      sale<BR>&nbsp;&nbsp;&nbsp; 
+      1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      20<BR>&nbsp;&nbsp;&nbsp; 
+      2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      15<BR>&nbsp;&nbsp;&nbsp; 
+      3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      14<BR>&nbsp;&nbsp;&nbsp; 
+      4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      18<BR>&nbsp;&nbsp;&nbsp; 
+      5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30<BR>&nbsp;&nbsp; 
+      规则：按天统计：每天都统计前面几天的总额<BR>&nbsp;&nbsp; 得到的结果：<BR>&nbsp;&nbsp; DATE&nbsp; 
+      SALE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SUM<BR>&nbsp;&nbsp; ----- -------- 
+      ------<BR>&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; 
+      20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      --1天&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; 
+      15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      35&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      --1天＋2天&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; 
+      14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      49&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      --1天＋2天＋3天&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; 
+      18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      67&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      .&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <BR>&nbsp;&nbsp; 
+      5&nbsp;&nbsp;&nbsp;&nbsp; 30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      97&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      .<BR>&nbsp;&nbsp;&nbsp;&nbsp; <BR>2:统计各班成绩第一名的同学信息<BR>&nbsp;&nbsp; 
+      NAME&nbsp; CLASS 
+      S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; ----- ----- ---------------------- <BR>&nbsp;&nbsp; 
+      fda&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; 
+      80&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; ffd&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; 
+      78&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; dss&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; 
+      95&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; cfe&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; 
+      74&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; gds&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; 
+      92&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; gf&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; 
+      99&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; ddd&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; 
+      99&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; adf&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; 
+      45&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; asdf&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; 
+      55&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; 3dd&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; 
+      78&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; <BR>&nbsp;&nbsp; 通过：&nbsp;&nbsp; <BR>&nbsp;&nbsp; 
+      --<BR>&nbsp;&nbsp; select * 
+      from&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; 
+      (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; select name,class,s,rank()over(partition by class order 
+      by s desc) mm from t2<BR>&nbsp;&nbsp; 
+      )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; where mm=1 <BR>&nbsp;&nbsp; --<BR>&nbsp;&nbsp; 
+      得到结果：<BR>&nbsp;&nbsp; NAME&nbsp; CLASS 
+      S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      MM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; ----- ----- ---------------------- ---------------------- 
+      <BR>&nbsp;&nbsp; dss&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; 
+      95&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; gds&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; 
+      92&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; gf&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; 
+      99&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; ddd&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; 
+      99&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <BR>&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; 注意：<BR>&nbsp;&nbsp; 
+      1.在求第一名成绩的时候，不能用row_number()，因为如果同班有两个并列第一，row_number()只返回一个结果&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; 2.rank()和dense_rank()的区别是：<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+      --rank()是跳跃排序，有两个第二名时接下来就是第四名<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+      --dense_rank()l是连续排序，有两个第二名时仍然跟着第三名<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp; <BR>3.分类统计 (并显示信息)<BR>&nbsp;&nbsp; A&nbsp; 
+      B&nbsp; 
+      C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; -- -- ---------------------- <BR>&nbsp;&nbsp; m&nbsp; 
+      a&nbsp; 
+      2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; n&nbsp; a&nbsp; 
+      3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; m&nbsp; a&nbsp; 
+      2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; n&nbsp; b&nbsp; 
+      2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; n&nbsp; b&nbsp; 
+      1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; x&nbsp; b&nbsp; 
+      3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; x&nbsp; b&nbsp; 
+      2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; x&nbsp; b&nbsp; 
+      4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; h&nbsp; b&nbsp; 3 <BR>&nbsp; select 
+      a,c,sum(c)over(partition by a) from 
+      t2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; 得到结果：<BR>&nbsp; A&nbsp; B&nbsp; 
+      C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      SUM(C)OVER(PARTITIONBYA)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <BR>&nbsp; -- -- 
+      ------- ------------------------ <BR>&nbsp; h&nbsp; b&nbsp; 
+      3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; m&nbsp; a&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; m&nbsp; a&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; n&nbsp; a&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; n&nbsp; b&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; n&nbsp; b&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; x&nbsp; b&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; x&nbsp; b&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; x&nbsp; b&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; <BR>&nbsp; 如果用sum，group by 则只能得到<BR>&nbsp; A&nbsp; 
+      SUM(C)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; -- ---------------------- <BR>&nbsp; h&nbsp; 
+      3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; m&nbsp; 
+      4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; n&nbsp; 
+      6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; x&nbsp; 
+      9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; 无法得到B列值&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <BR>&nbsp; 
+      <BR>＝＝＝＝＝<BR>二：开窗函数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+      开窗函数指定了分析函数工作的数据窗口大小，这个数据窗口大小可能会随着行的变化而变化，举例如下： 
+      <BR>1：&nbsp;&nbsp;&nbsp;&nbsp; <BR>&nbsp;&nbsp; over（order by salary） 
+      按照salary排序进行累计，order by是个默认的开窗函数<BR>&nbsp;&nbsp; over（partition by 
+      deptno）按照部门分区<BR>2：<BR>&nbsp; over（order by salary range between 5 
+      preceding and 5 following）<BR>&nbsp; 
+      每行对应的数据窗口是之前行幅度值不超过5，之后行幅度值不超过5<BR>&nbsp; 例如:对于以下列<BR>&nbsp;&nbsp;&nbsp; 
+      aa<BR>&nbsp;&nbsp;&nbsp; 1<BR>&nbsp;&nbsp;&nbsp; 2<BR>&nbsp;&nbsp;&nbsp; 
+      2<BR>&nbsp;&nbsp;&nbsp; 2<BR>&nbsp;&nbsp;&nbsp; 3<BR>&nbsp;&nbsp;&nbsp; 
+      4<BR>&nbsp;&nbsp;&nbsp; 5<BR>&nbsp;&nbsp;&nbsp; 6<BR>&nbsp;&nbsp;&nbsp; 
+      7<BR>&nbsp;&nbsp;&nbsp; 9<BR>&nbsp;&nbsp; <BR>&nbsp; sum(aa)over（order by 
+      aa range between 2 preceding and 2 following）<BR>&nbsp; 
+      得出的结果是<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      AA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      SUM<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      ---------------------- 
+      ------------------------------------------------------- 
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp; 就是说，对于aa=5的一行 ，sum为&nbsp; 5-1&lt;=aa&lt;=5+2 的和<BR>&nbsp; 
+      对于aa=2来说 ，sum=1+2+2+2+3+4=14&nbsp;&nbsp;&nbsp; ；<BR>&nbsp; 又如 对于aa=9 
+      ，9-1&lt;=aa&lt;=9+2 只有9一个数，所以sum=9&nbsp;&nbsp; 
+      ；<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>3：其它：<BR>&nbsp;&nbsp;&nbsp;&nbsp; over（order by salary rows between 2 
+      preceding and 4 
+      following）<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      每行对应的数据窗口是之前2行，之后4行 
+      <BR>4：下面三条语句等效：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp; over（order by salary rows between unbounded 
+      preceding and unbounded 
+      following）<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      每行对应的数据窗口是从第一行到最后一行，等效：<BR>&nbsp;&nbsp;&nbsp;&nbsp; over（order by salary 
+      range between unbounded preceding and unbounded 
+      following）<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      等效<BR>&nbsp;&nbsp;&nbsp;&nbsp; over(partition by null)<BR></P>
+      <DIV class=itemdesc>posted on 2007-04-26 23:44 <A 
+      href="http://www.cnblogs.com/lizw/">东方新秀</A> 阅读(1736) <A 
+      href="http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html#Post">评论(1)</A> 
+      &nbsp;<A 
+      href="http://www.cnblogs.com/lizw/admin/EditPosts.aspx?postid=729004">编辑</A> 
+      <A href="http://www.cnblogs.com/lizw/AddToFavorite.aspx?id=729004">收藏</A> 
+      <A onclick="PutInWz();return false;" 
+      href="http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html#">网摘</A> 
+      </DIV></DIV><IMG height=1 
+      src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/729004.jpg" width=1> <!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html"
+dc:identifier="http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html"
+dc:title="Oracle统计分析函数集之一(转载)"
+trackback:ping="http://www.cnblogs.com/lizw/services/trackbacks/729004.aspx" />
+</rdf:RDF>
+-->
+      <DIV id=AjaxHolder_UpdatePanel1><A name=pagedcomment></A>评论: 
+      <DIV class=moreinfo>
+      <UL class=morelist>
+        <LI class=morelistitem>
+        <DIV class=moreinfotitle><A title="permalink: re: Oracle统计分析函数集之一(转载)" 
+        href="http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html#846415">#1楼</A>&nbsp;<A 
+        name=846415></A><A name=Post></A>&nbsp;&nbsp;<A 
+        id=AjaxHolder_Comments_CommentList_ctl01_NameLink target=_blank>从前的兔子 
+        [未注册用户]</A> Posted @ 2007-08-07 15:56 </DIV>二.2 语句和结果不匹配，应该是 <BR>sum(aa) 
+        over (order by aa range between 1 preceding and 2 following) 
+        <BR><BR>前1后2，文中写的是前2后2 &nbsp;&nbsp;<A 
+        onclick='return SetReplyAuhor("从前的兔子")' 
+        href="http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html#post">回复</A>&nbsp;&nbsp;<A 
+        onclick="GetQuote(846415);return false" 
+        href="http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html#post">引用</A>&nbsp;&nbsp;<A 
+        id=AjaxHolder_Comments_CommentList_ctl01_DeleteLink 
+        href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl01$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+        id=AjaxHolder_Comments_CommentList_ctl01_EditLink></A><BR><BR></LI></UL></DIV>
+      <STYLE>TD {
+	FONT-SIZE: 12px
+}
+.commentTextBox {
+	FONT-SIZE: 13px; FONT-FAMILY: Verdana
+}
+A.blue:visited {
+	COLOR: blue
+}
+A.blue:active {
+	COLOR: blue
+}
+A.blue:link {
+	COLOR: blue
+}
+A.blue:hover {
+	COLOR: blue
+}
+</STYLE>
+<!--Beging Temp Save-->
+      <STYLE>.userData {
+	BEHAVIOR: url(#default#userdata)
+}
+</STYLE>
+
+      <DIV class=userData id=CommentsPersistDiv></DIV>
+      <SCRIPT type=text/javascript>
+function pageLoad()
+{
+    Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(handleInitializeRequest);
+    //Sys.WebForms.PageRequestManager.getInstance().add_endRequest(handleEndRequest);
+}
+
+function handleInitializeRequest(sender, args)
+{
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    var eid = args.get_postBackElement().id;
+    /*if (eid.indexOf("DeleteLink")>0) 
+    {
+       args.get_postBackElement().innerHTML = "<font color='red'>正在删除...</font>";         
+    }    
+    else */
+    if (eid.indexOf("btnSubmit")>0) 
+    {
+       document.getElementById("AjaxHolder_PostComment_ltSubmitMsg").innerHTML="正在提交...";
+       document.getElementById("AjaxHolder_PostComment_btnSubmit").disabled = true;       
+    }   
+    else if(eid.indexOf("refreshList")>0)
+    {
+        document.getElementById("AjaxHolder_PostComment_refreshList").innerHTML="<font color='red'>正在刷新...</font>";
+    }
+   
+}	
+
+function TempSave(ElementID)
+{
+	try
+	{
+	CommentsPersistDiv.setAttribute("CommentContent",document.getElementById(ElementID).value);
+	CommentsPersistDiv.save("CommentXMLStore");
+	}
+	catch(ex)
+	{
+	}
+	
+}
+function Restore(ElementID)
+{
+	CommentsPersistDiv.load("CommentXMLStore");
+	document.getElementById(ElementID).value=CommentsPersistDiv.getAttribute("CommentContent");
+}	
+			
+			
+</SCRIPT>
+<!--Ene TempSave-->
+      <DIV id=divRefreshComments 
+      style="FONT-SIZE: 12px; MARGIN-BOTTOM: 5px; MARGIN-RIGHT: 10px; TEXT-ALIGN: right"><A 
+      href="http://www.cnblogs.com/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_PostComment_refreshList 
+      href="javascript:__doPostBack('AjaxHolder$PostComment$refreshList','')">刷新评论列表</A>&nbsp;&nbsp;</DIV>
+      <DIV class=commentform><SPAN id=AjaxHolder_PostComment_ltSubmitMsg 
+      style="COLOR: red"></SPAN><BR><A name=Feedback></A>
+      <TABLE style="WIDTH: 600px" cellSpacing=1 cellPadding=1 border=0>
+        <TBODY>
+        <TR>
+          <TD colSpan=3></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD></TD>
+          <TD></TD></TR>
+        <TR>
+          <TD width=55>标题</TD>
+          <TD colSpan=2><INPUT class=commenttb 
+            id=AjaxHolder_PostComment_tbTitle value="re: Oracle统计分析函数集之一(转载)" 
+            name=AjaxHolder$PostComment$tbTitle><SPAN 
+            id=AjaxHolder_PostComment_RequiredFieldValidator1 
+            style="VISIBILITY: hidden; COLOR: red">请输入标题</SPAN></TD></TR>
+        <TR>
+          <TD>姓名</TD>
+          <TD colSpan=2><INPUT class=commenttb 
+            id=AjaxHolder_PostComment_tbName 
+            name=AjaxHolder$PostComment$tbName><SPAN 
+            id=AjaxHolder_PostComment_RequiredFieldValidator2 
+            style="VISIBILITY: hidden; COLOR: red">请输入你的姓名</SPAN></TD></TR>
+        <TR>
+          <TD>主页</TD>
+          <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbUrl 
+            name=AjaxHolder$PostComment$tbUrl></TD>
+          <TD></TD></TR>
+        <TR id=AjaxHolder_PostComment_trEmail>
+          <TD>Email</TD>
+          <TD colSpan=2><INPUT class=commenttb 
+            id=AjaxHolder_PostComment_tbEmail 
+            name=AjaxHolder$PostComment$tbEmail>(博主才能看到)<SPAN 
+            id=AjaxHolder_PostComment_revContactMail 
+            style="VISIBILITY: hidden; COLOR: red">邮件地址无效</SPAN></TD></TR>
+        <TR>
+          <TD align=left colSpan=3>
+            <TABLE class=CommentForm id=AjaxHolder_PostComment_tbCaptchaImage 
+            cellSpacing=0 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD colSpan=3><SPAN 
+                  id=AjaxHolder_PostComment_Requiredfieldvalidator4 
+                  style="DISPLAY: none; COLOR: red">请输入验证码</SPAN> <SPAN 
+                  id=AjaxHolder_PostComment_lblImage 
+                  style="FONT-WEIGHT: bold; COLOR: red"></SPAN></TD></TR>
+              <TR>
+                <TD width=56>验证码</TD>
+                <TD colSpan=2><INPUT 
+                  id=AjaxHolder_PostComment_CodeNumberTextBox 
+                  style="WIDTH: 100px" 
+                  name=AjaxHolder$PostComment$CodeNumberTextBox>*&nbsp;&nbsp;<IMG 
+                  src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/JpegImage.jpg"><A 
+                  id=AjaxHolder_PostComment_lkbChangeCode 
+                  href="javascript:__doPostBack('AjaxHolder$PostComment$lkbChangeCode','')">看不清,换一张</A> 
+                  [<A 
+                  href="http://www.cnblogs.com/login.aspx?ReturnUrl=/lizw/archive/2007/04/26/729004.html">登录</A>][<A 
+                  href="http://www.cnblogs.com/RequireRegister.aspx">注册</A>]</TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD style="TEXT-ALIGN: left" colSpan=3>
+            <DIV style="WIDTH: 600px">
+            <DIV class=divPostCommentBox>内容(请不要发表任何与政治相关的内容) <SPAN 
+            id=AjaxHolder_PostComment_RequiredFieldValidator3 
+            style="VISIBILITY: hidden; COLOR: red">请输入评论内容</SPAN><BR><TEXTAREA class=commentTextBox id=AjaxHolder_PostComment_tbComment onkeydown="ctlent(event,'AjaxHolder_PostComment_tbComment')" name=AjaxHolder$PostComment$tbComment></TEXTAREA> 
+            </DIV>
+            <DIV class=CommentBoxNav><A tabIndex=-1 
+            href="http://www.cnblogs.com/" target=_blank>网站首页</A><BR><BR><A 
+            tabIndex=-1 href="http://news.cnblogs.com/" 
+            target=_blank>新闻频道</A><BR><BR><A tabIndex=-1 
+            href="http://space.cnblogs.com/" target=_blank>社区</A><BR><BR><A 
+            tabIndex=-1 href="http://space.cnblogs.com/group.htm" 
+            target=_blank>小组</A><BR><BR><A tabIndex=-1 
+            href="http://space.cnblogs.com/q" target=_blank>博问</A><BR><BR><A 
+            tabIndex=-1 href="http://wz.cnblogs.com/" 
+            target=_blank>网摘</A><BR><BR><A tabIndex=-1 
+            href="http://job.cnblogs.com/" target=_blank>人才</A><BR><BR><A 
+            tabIndex=-1 href="http://zzk.cnblogs.com/" 
+            target=_blank>找找看</A><BR><BR></DIV></DIV></TD></TR>
+        <TR>
+          <TD colSpan=3><SPAN id=AjaxHolder_PostComment_Message 
+            style="COLOR: red"></SPAN></TD></TR>
+        <TR>
+          <TD colSpan=3><INPUT id=AjaxHolder_PostComment_chkRemember 
+            tabIndex=-1 type=checkbox CHECKED 
+            name=AjaxHolder$PostComment$chkRemember><LABEL 
+            for=AjaxHolder_PostComment_chkRemember>Remember Me?</LABEL></TD></TR>
+        <TR>
+          <TD height=23><INPUT class=commentButton id=AjaxHolder_PostComment_btnSubmit onclick="TempSave('AjaxHolder_PostComment_tbComment');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;AjaxHolder$PostComment$btnSubmit&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" type=submit value=提交 name=AjaxHolder$PostComment$btnSubmit> 
+          </TD>
+          <TD colSpan=2 height=23>&nbsp; <A id=AjaxHolder_PostComment_lnkLogin 
+            href="http://www.cnblogs.com/login.aspx?ReturnURL=http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html&amp;SourceURL=/lizw/archive/2007/04/26/729004.html">登录</A>&nbsp;&nbsp;<A 
+            id=AjaxHolder_PostComment_linkLoginComment 
+            onclick="if(document.getElementById('AjaxHolder_PostComment_tbComment').value != '') return confirm('未提交的评论内容将会丢失, 你真的要进入高级评论吗?');" 
+            href="http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html?login=1#Post">使用高级评论</A>&nbsp;&nbsp;<A 
+            href="http://www.cnblogs.com/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+            href="http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html#Top">返回页首</A>&nbsp;&nbsp;<A 
+            id=AjaxHolder_PostComment_lbRestore 
+            onclick="Restore('AjaxHolder_PostComment_tbComment'); return false;" 
+            href="http://www.cnblogs.com/lizw/archive/2007/04/26/729004.html#Post">恢复上次提交</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+          </TD></TR>
+        <TR>
+          <TD colSpan=3><LABEL 
+        class=CtrlEnter>[使用Ctrl+Enter键可以直接提交]</LABEL></TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR>
+        <TR>
+          <TD colSpan=3><A href="http://www.cnblogs.com/search.aspx" 
+            target=_blank>Google站内搜索</A></TD></TR>
+        <TR>
+          <TD colSpan=3><A 
+            href="http://www.cnblogs.com/bookshop/archive/2008/11/27/1342446.html" 
+            target=_blank><IMG 
+            style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" 
+            src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/wtjs_200_100.jpg"></A><A 
+            href="http://booksubject.cnblogs.com/DesignPatterns/" 
+            target=_blank><IMG 
+            style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" 
+            src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/desing_patterns_300.jpg"></A></TD></TR>
+        <TR>
+          <TD colSpan=3><A href="http://a4.yeshj.com/rd/19973/" 
+            target=_blank><IMG 
+            style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" 
+            src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/YU-D-S1P-19973_15.gif"></A><BR><A 
+            href="http://www.china-pub.com/itbook/" target=_blank>China-pub 
+            计算机图书网上专卖店！6.5万品种 2-8折！</A><BR><A 
+            href="http://www.china-pub.com/static/zt_mb/zt_huodong_07_secondhandbook.asp?filename=jsj_hzold_081029" 
+            target=_blank>近千种 9-95 新二手计算图书火热销售中！</A><BR><A 
+            href="http://booksubject.cnblogs.com/DesignPatterns/" 
+            target=_blank>开发者征途系统新作：《设计模式——基于C#的工程化实现及扩展》</A> </TD></TR>
+        <TR>
+          <TD colSpan=3 height=5><BR>
+            <SCRIPT type=text/javascript><!--
+google_ad_client = "pub-4210569241504288";
+google_ad_slot = "1397853083";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</SCRIPT>
+
+            <SCRIPT src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/show_ads.js" 
+            type=text/javascript>
+</SCRIPT>
+            <BR></TD></TR>
+        <TR>
+          <TD colSpan=3><BR>
+            <DIV id=relative_posts><B>相关文章:</B><BR>
+            <SCRIPT language=javascript 
+            src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/RCS.htm" 
+            type=text/javascript charset=utf-8></SCRIPT>
+            </DIV></TD></TR>
+        <TR>
+          <TD colSpan=3>
+            <DIV id=div_a4_ads><BR><B>相关链接:</B>
+            <SCRIPT type=text/javascript>
+	        var title = document.title;
+	        document.write("<div id=\"a4_ads_output\">");
+	        document.write("<script type='text/javascript' src='http://a4.yeshj.com/adwords/EN017?num=7&title="+ encodeURIComponent(title) +"&tag="+ encodeURIComponent(GetMeta("keywords")) +"'></scri"+"pt>");
+	        document.write("</div>");
+	        </SCRIPT>
+             </DIV></TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR>
+        <TR>
+          <TD colSpan=3>
+            <DIV class=itnews><BR><B>最新IT新闻:</B><BR><A 
+            href="http://news.cnblogs.com/n/43745/" 
+            target=_blank>51.com否认彩虹软件改名</A><BR><A 
+            href="http://news.cnblogs.com/n/43744/" target=_blank>彩虹QQ正式更名51彩虹 
+            称“上QQ从51彩虹开始”</A><BR><A href="http://news.cnblogs.com/n/43742/" 
+            target=_blank>Jadu: 将 PHP 编译成 .NET</A><BR><A 
+            href="http://news.cnblogs.com/n/43741/" 
+            target=_blank>开心网遭多个山寨版复制围抢用户</A><BR><A 
+            href="http://news.cnblogs.com/n/43740/" target=_blank>微软表示Windows 
+            7将直接在CPU上跑DirectX 10</A><BR></DIV></TD></TR>
+        <TR>
+          <TD colSpan=3 height=5>&nbsp;</TD></TR>
+        <TR>
+          <TD colSpan=3 height=5></TD></TR>
+        <TR>
+          <TD colSpan=3 height=1></TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR></TBODY></TABLE></DIV>
+      <DIV id=AjaxHolder_PostComment_ValidationSummary1 
+      style="DISPLAY: none; COLOR: red"></DIV></DIV>
+      <SCRIPT language=javascript>
+
+function GetQuote(id)
+{
+    //www.cnblogs.com.ICommentService.GetCommentText(id,SetQuote);
+    BlogServer.WebService.AjaxWS.GetComment(id,SetQuote);
+}
+
+ function SetQuote(result)
+{
+    document.getElementById('AjaxHolder_PostComment_tbComment').value+= ("--引用--------------------------------------------------\n"+result+"\n--------------------------------------------------------\n");
+    document.getElementById('AjaxHolder_PostComment_tbComment').focus(); 
+}
+
+function Favorite(entryID,title,url,element)
+{
+    document.getElementById(element.id).innerHTML = "<span style='color:red'>正在收藏...</span>";
+    BlogServer.WebService.AjaxWS.AddToFavorites(entryID,title,url,OnFavoriteSuccess);
+    document.getElementById(element.id).removeAttribute("href");
+    document.getElementById(element.id).removeAttribute("onclick");
+}
+
+function OnFavoriteSuccess(result)
+{
+    if(result == "请先登录")
+    {
+        window.location.href = "../../../../../login.aspx?ReturnUrl=" + window.location.href;
+    }
+    else
+    {
+        var returnstr = result.split(",");
+        var id = "lnkFavorite"+returnstr[0];
+        document.getElementById(id).innerHTML = "<span style='color:red'>" + returnstr[1] + "</span>";
+    }
+}
+
+function DelComment(id,element)
+{
+    if(confirm("确认要删除该评论吗?"))
+    {
+        document.getElementById(element.id).innerHTML = "<span style='color:red'>正在删除...</span>";
+        BlogServer.WebService.AjaxWS.DelComment(id,del_comment_callback);
+    }
+    return false;
+}
+
+function del_comment_callback(response)
+{
+    __doPostBack('AjaxHolder$PostComment$refreshList','');
+}
+</SCRIPT>
+
+      <DIV class=spacer>&nbsp;</DIV></TD></TR></TBODY></TABLE>
+<TABLE cellSpacing=0 cellPadding=2 width="97%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD align=middle colSpan=2><A href="http://www.cnblogs.com/"><IMG 
+      src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/footer.gif" 
+border=0></A></TD></TR>
+  <TR>
+    <TD align=right width="45%">Copyright © 东方新秀</TD>
+    <TD align=left>Powered by: <A href="http://www.cnblogs.com/">博客园</A> 
+      模板提供：<A href="http://blog.hjenglish.com/">沪江博客</A> 
+</TD></TR></TBODY></TABLE></DIV>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Page_ValidationSummaries =  new Array(document.getElementById("AjaxHolder_PostComment_ValidationSummary1"));
+var Page_Validators =  new Array(document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2"), document.getElementById("AjaxHolder_PostComment_revContactMail"), document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3"));
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var AjaxHolder_PostComment_RequiredFieldValidator1 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator1"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1");
+AjaxHolder_PostComment_RequiredFieldValidator1.controltovalidate = "AjaxHolder_PostComment_tbTitle";
+AjaxHolder_PostComment_RequiredFieldValidator1.errormessage = "请输入标题";
+AjaxHolder_PostComment_RequiredFieldValidator1.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator1.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator2 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator2"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2");
+AjaxHolder_PostComment_RequiredFieldValidator2.controltovalidate = "AjaxHolder_PostComment_tbName";
+AjaxHolder_PostComment_RequiredFieldValidator2.errormessage = "请输入你的姓名";
+AjaxHolder_PostComment_RequiredFieldValidator2.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator2.initialvalue = "";
+var AjaxHolder_PostComment_revContactMail = document.all ? document.all["AjaxHolder_PostComment_revContactMail"] : document.getElementById("AjaxHolder_PostComment_revContactMail");
+AjaxHolder_PostComment_revContactMail.controltovalidate = "AjaxHolder_PostComment_tbEmail";
+AjaxHolder_PostComment_revContactMail.errormessage = "邮件地址无效";
+AjaxHolder_PostComment_revContactMail.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+AjaxHolder_PostComment_revContactMail.validationexpression = "^([0-9a-zA-Z+-._]([+-._\\w]*[0-9a-zA-Z+-._])*@([0-9a-zA-Z][-\\w]*\\.)+[a-zA-Z]{2,9})$";
+var AjaxHolder_PostComment_Requiredfieldvalidator4 = document.all ? document.all["AjaxHolder_PostComment_Requiredfieldvalidator4"] : document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4");
+AjaxHolder_PostComment_Requiredfieldvalidator4.controltovalidate = "AjaxHolder_PostComment_CodeNumberTextBox";
+AjaxHolder_PostComment_Requiredfieldvalidator4.errormessage = "请输入验证码";
+AjaxHolder_PostComment_Requiredfieldvalidator4.display = "Dynamic";
+AjaxHolder_PostComment_Requiredfieldvalidator4.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_Requiredfieldvalidator4.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator3 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator3"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3");
+AjaxHolder_PostComment_RequiredFieldValidator3.controltovalidate = "AjaxHolder_PostComment_tbComment";
+AjaxHolder_PostComment_RequiredFieldValidator3.errormessage = "请输入评论内容";
+AjaxHolder_PostComment_RequiredFieldValidator3.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator3.initialvalue = "";
+var AjaxHolder_PostComment_ValidationSummary1 = document.all ? document.all["AjaxHolder_PostComment_ValidationSummary1"] : document.getElementById("AjaxHolder_PostComment_ValidationSummary1");
+AjaxHolder_PostComment_ValidationSummary1.showmessagebox = "True";
+AjaxHolder_PostComment_ValidationSummary1.showsummary = "False";
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+
+document.getElementById('AjaxHolder_PostComment_ValidationSummary1').dispose = function() {
+    Array.remove(Page_ValidationSummaries, document.getElementById('AjaxHolder_PostComment_ValidationSummary1'));
+}
+Sys.Application.initialize();
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2'));
+}
+
+document.getElementById('AjaxHolder_PostComment_revContactMail').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_revContactMail'));
+}
+
+document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3'));
+}
+//]]>
+</SCRIPT>
+</FORM>
+<SCRIPT src="Oracle统计分析函数集之一(转载) - _Net - 博客园.files/ShowHidden.js" 
+type=text/javascript></SCRIPT>
+</BODY></HTML>

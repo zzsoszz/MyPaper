@@ -1,0 +1,572 @@
+v$sqltext
+　　存储的是完整的SQL,SQL被分割
+　　
+　　SQL> desc v$sqltext
+　　Name Null? Type
+　　----------------------------------------- -------- ----------------------------
+　　ADDRESS RAW(4) ---------
+　　HASH_VALUE NUMBER --------- 和 address 一起唯一标志一条sql
+　　COMMAND_TYPE NUMBER
+　　PIECE NUMBER ---------- 分片之后的顺序编号
+　　SQL_TEXT VARCHAR2(64) -------------- 注意长度
+　　
+　　v$sqlarea --------- 存储的SQL 和一些相关的信息，比如累计的执行次数，逻辑读，物理读等统计信息
+　　SQL> desc v$sqlarea
+　　Name Null? Type
+　　----------------------------------------- -------- ----------------------------
+　　SQL_TEXT VARCHAR2(1000)
+　　SHARABLE_MEM NUMBER
+　　PERSISTENT_MEM NUMBER
+　　RUNTIME_MEM NUMBER
+　　SORTS NUMBER
+　　VERSION_COUNT NUMBER
+　　LOADED_VERSIONS NUMBER
+　　OPEN_VERSIONS NUMBER
+　　USERS_OPENING NUMBER
+　　FETCHES NUMBER
+　　EXECUTIONS NUMBER
+　　USERS_EXECUTING NUMBER
+　　LOADS NUMBER
+　　FIRST_LOAD_TIME VARCHAR2(38)
+　　INVALIDATIONS NUMBER
+　　PARSE_CALLS NUMBER
+　　DISK_READS NUMBER
+　　BUFFER_GETS NUMBER
+　　ROWS_PROCESSED NUMBER
+　　COMMAND_TYPE NUMBER
+　　OPTIMIZER_MODE VARCHAR2(25)
+　　PARSING_USER_ID NUMBER
+　　PARSING_SCHEMA_ID NUMBER
+　　KEPT_VERSIONS NUMBER
+　　ADDRESS RAW(4)
+　　HASH_VALUE NUMBER
+　　MODULE VARCHAR2(64)
+　　MODULE_HASH NUMBER
+　　ACTION VARCHAR2(64)
+　　ACTION_HASH NUMBER
+　　SERIALIZABLE_ABORTS NUMBER
+　　CPU_TIME NUMBER
+　　ELAPSED_TIME NUMBER
+　　IS_OBSOLETE VARCHAR2(1)
+　　CHILD_LATCH NUMBER
+　　
+　　v$sql ---------- 存储的是具体的SQL 和执行计划相关信息，实际上，v$sqlarea 可以看做 v$sql 根据 sqltext 等 做了 group by 之后的信息
+　　
+　　SQL> desc v$sql
+　　Name Null? Type
+　　----------------------------------------- -------- ----------------------------
+　　SQL_TEXT VARCHAR2(1000)
+　　SHARABLE_MEM NUMBER
+　　PERSISTENT_MEM NUMBER
+　　RUNTIME_MEM NUMBER
+　　SORTS NUMBER
+　　LOADED_VERSIONS NUMBER
+　　OPEN_VERSIONS NUMBER
+　　USERS_OPENING NUMBER
+　　FETCHES NUMBER
+　　EXECUTIONS NUMBER
+　　USERS_EXECUTING NUMBER
+　　LOADS NUMBER
+　　FIRST_LOAD_TIME VARCHAR2(38)
+　　INVALIDATIONS NUMBER
+　　PARSE_CALLS NUMBER
+　　DISK_READS NUMBER
+　　BUFFER_GETS NUMBER
+　　ROWS_PROCESSED NUMBER
+　　COMMAND_TYPE NUMBER
+　　OPTIMIZER_MODE VARCHAR2(10)
+　　OPTIMIZER_COST NUMBER
+　　PARSING_USER_ID NUMBER
+　　PARSING_SCHEMA_ID NUMBER
+　　KEPT_VERSIONS NUMBER
+　　ADDRESS RAW(4)
+　　TYPE_CHK_HEAP RAW(4)
+　　HASH_VALUE NUMBER
+　　PLAN_HASH_VALUE NUMBER
+　　CHILD_NUMBER NUMBER ---------- 注意这个 
+　　MODULE VARCHAR2(64)
+　　MODULE_HASH NUMBER
+　　ACTION VARCHAR2(64)
+　　ACTION_HASH NUMBER
+　　SERIALIZABLE_ABORTS NUMBER
+　　OUTLINE_CATEGORY VARCHAR2(64)
+　　CPU_TIME NUMBER
+　　ELAPSED_TIME NUMBER
+　　OUTLINE_SID NUMBER -------------- 注意这里跟 outline 有关
+　　CHILD_ADDRESS RAW(4) 
+　　SQLTYPE NUMBER
+　　REMOTE VARCHAR2(1)
+　　OBJECT_STATUS VARCHAR2(19)
+　　LITERAL_HASH_VALUE NUMBER
+　　LAST_LOAD_TIME VARCHAR2(38)
+　　IS_OBSOLETE VARCHAR2(1)
+　　CHILD_LATCH NUMBER
+　　
+　　另外注意这个
+　　QL> desc v$sql_plan
+　　Name Null? Type
+　　----------------------------------------- -------- ----------------------------
+　　ADDRESS RAW(4)
+　　HASH_VALUE NUMBER
+　　CHILD_NUMBER NUMBER ------------ 注意这个和 v$sql 里面的相同字段
+　　OPERATION VARCHAR2(60)
+　　OPTIONS VARCHAR2(60)
+　　OBJECT_NODE VARCHAR2(20)
+　　OBJECT# NUMBER
+　　OBJECT_OWNER VARCHAR2(30)
+　　OBJECT_NAME VARCHAR2(64)
+　　OPTIMIZER VARCHAR2(40)
+　　ID NUMBER
+　　PARENT_ID NUMBER
+　　DEPTH NUMBER
+　　POSITION NUMBER
+　　SEARCH_COLUMNS NUMBER
+　　COST NUMBER
+　　CARDINALITY NUMBER
+　　BYTES NUMBER
+　　OTHER_TAG VARCHAR2(70)
+　　PARTITION_START VARCHAR2(10)
+　　PARTITION_STOP VARCHAR2(10)
+　　PARTITION_ID NUMBER
+　　OTHER VARCHAR2(4000)
+　　DISTRIBUTION VARCHAR2(40)
+　　CPU_COST NUMBER
+　　IO_COST NUMBER
+　　TEMP_SPACE NUMBER
+　　ACCESS_PREDICATES VARCHAR2(4000)
+　　FILTER_PREDICATES VARCHAR2(4000)
+　　
+　　
+　　实际上，看起来同样的一句SQL ，往往具有不同的执行计划
+　　如果是不同的数据库用户，那么相应的涉及的 对象 可能都不一样，注意v$sql 中 
+　　OBJECT# NUMBER
+　　OBJECT_OWNER VARCHAR2(30)
+　　OBJECT_NAME VARCHAR2(64)
+　　OPTIMIZER VARCHAR2(40)
+　　
+　　即使是相同的数据库用户，若 session 的优化模式、session 级的参数 等不一样，执行计划也能不同。所以即使相同的sql，也可能具有不同的执行计划！
+　　
+　　v$sql join to v$sql_plan 就代表了具体的sql的执行计划,通过下面3个字段做连接
+　　
+　　ADDRESS RAW(4)
+　　HASH_VALUE NUMBER
+　　CHILD_NUMBER NUMBER
+　　而v$SQLAREA 忽略了 执行计划 等差异，只是在形式上sql文本看起来一样！相当于做了个聚合，是多个不同执行计划的sql的聚合和累计信息 来源:考试大
+
+
+
+
+
+
+
+
+
+
+v$sqlarea,v$sql,v$sqltext的区别和联系Oracle 2004-10-13 09:39:18 阅读57 评论0   字号：大中小 订阅 
+v$sqltext 存储的是完整的SQL,SQL被分割
+
+SQL> desc v$sqltext
+Name Null? Type
+----------------------------------------- -------- ----------------------------
+ADDRESS RAW(4) ---------
+HASH_VALUE NUMBER --------- 和 address 一起唯一标志一条sql
+COMMAND_TYPE NUMBER
+PIECE NUMBER ---------- 分片之后的顺序编号
+SQL_TEXT VARCHAR2(64) -------------- 注意长度
+
+v$sqlarea  存储的SQL 和一些相关的信息，比如累计的执行次数，逻辑读，物理读等统计信息
+SQL> desc v$sqlarea
+Name Null? Type
+----------------------------------------- -------- ----------------------------
+SQL_TEXT VARCHAR2(1000)
+SHARABLE_MEM NUMBER
+PERSISTENT_MEM NUMBER
+RUNTIME_MEM NUMBER
+SORTS NUMBER
+VERSION_COUNT NUMBER
+LOADED_VERSIONS NUMBER
+OPEN_VERSIONS NUMBER
+USERS_OPENING NUMBER
+FETCHES NUMBER
+EXECUTIONS NUMBER
+USERS_EXECUTING NUMBER
+LOADS NUMBER
+FIRST_LOAD_TIME VARCHAR2(38)
+INVALIDATIONS NUMBER
+PARSE_CALLS NUMBER
+DISK_READS NUMBER
+BUFFER_GETS NUMBER
+ROWS_PROCESSED NUMBER
+COMMAND_TYPE NUMBER
+OPTIMIZER_MODE VARCHAR2(25)
+PARSING_USER_ID NUMBER
+PARSING_SCHEMA_ID NUMBER
+KEPT_VERSIONS NUMBER
+ADDRESS RAW(4)
+HASH_VALUE NUMBER
+MODULE VARCHAR2(64)
+MODULE_HASH NUMBER
+ACTION VARCHAR2(64)
+ACTION_HASH NUMBER
+SERIALIZABLE_ABORTS NUMBER
+CPU_TIME NUMBER
+ELAPSED_TIME NUMBER
+IS_OBSOLETE VARCHAR2(1)
+CHILD_LATCH NUMBER
+
+
+v$sql  存储的是具体的SQL 和执行计划相关信息，实际上，v$sqlarea 可以看做 v$sql 根据 sqltext 等 做了 group by 之后的信息
+
+SQL> desc v$sql
+Name Null? Type
+----------------------------------------- -------- ----------------------------
+SQL_TEXT VARCHAR2(1000)
+SHARABLE_MEM NUMBER
+PERSISTENT_MEM NUMBER
+RUNTIME_MEM NUMBER
+SORTS NUMBER
+LOADED_VERSIONS NUMBER
+OPEN_VERSIONS NUMBER
+USERS_OPENING NUMBER
+FETCHES NUMBER
+EXECUTIONS NUMBER
+USERS_EXECUTING NUMBER
+LOADS NUMBER
+FIRST_LOAD_TIME VARCHAR2(38)
+INVALIDATIONS NUMBER
+PARSE_CALLS NUMBER
+DISK_READS NUMBER
+BUFFER_GETS NUMBER
+ROWS_PROCESSED NUMBER
+COMMAND_TYPE NUMBER
+OPTIMIZER_MODE VARCHAR2(10)
+OPTIMIZER_COST NUMBER
+PARSING_USER_ID NUMBER
+PARSING_SCHEMA_ID NUMBER
+KEPT_VERSIONS NUMBER
+ADDRESS RAW(4)
+TYPE_CHK_HEAP RAW(4)
+HASH_VALUE NUMBER
+PLAN_HASH_VALUE NUMBER
+CHILD_NUMBER NUMBER ---------- 注意这个 
+MODULE VARCHAR2(64)
+MODULE_HASH NUMBER
+ACTION VARCHAR2(64)
+ACTION_HASH NUMBER
+SERIALIZABLE_ABORTS NUMBER
+OUTLINE_CATEGORY VARCHAR2(64)
+CPU_TIME NUMBER
+ELAPSED_TIME NUMBER
+OUTLINE_SID NUMBER -------------- 注意这里跟 outline 有关
+CHILD_ADDRESS RAW(4) 
+SQLTYPE NUMBER
+REMOTE VARCHAR2(1)
+OBJECT_STATUS VARCHAR2(19)
+LITERAL_HASH_VALUE NUMBER
+LAST_LOAD_TIME VARCHAR2(38)
+IS_OBSOLETE VARCHAR2(1)
+CHILD_LATCH NUMBER
+
+
+另外注意这个
+QL> desc v$sql_plan
+Name Null? Type
+----------------------------------------- -------- ----------------------------
+ADDRESS RAW(4)
+HASH_VALUE NUMBER
+CHILD_NUMBER NUMBER ------------ 注意这个和 v$sql 里面的相同字段
+OPERATION VARCHAR2(60)
+OPTIONS VARCHAR2(60)
+OBJECT_NODE VARCHAR2(20)
+OBJECT# NUMBER
+OBJECT_OWNER VARCHAR2(30)
+OBJECT_NAME VARCHAR2(64)
+OPTIMIZER VARCHAR2(40)
+ID NUMBER
+PARENT_ID NUMBER
+DEPTH NUMBER
+POSITION NUMBER
+SEARCH_COLUMNS NUMBER
+COST NUMBER
+CARDINALITY NUMBER
+BYTES NUMBER
+OTHER_TAG VARCHAR2(70)
+PARTITION_START VARCHAR2(10)
+PARTITION_STOP VARCHAR2(10)
+PARTITION_ID NUMBER
+OTHER VARCHAR2(4000)
+DISTRIBUTION VARCHAR2(40)
+CPU_COST NUMBER
+IO_COST NUMBER
+TEMP_SPACE NUMBER
+ACCESS_PREDICATES VARCHAR2(4000)
+FILTER_PREDICATES VARCHAR2(4000)
+
+
+实际上，看起来同样的一句SQL ，往往具有不同的执行计划，如果是不同的数据库用户，那么相应的涉及的 对象 可能都不一样，注意v$sql 中 
+OBJECT# NUMBER
+OBJECT_OWNER VARCHAR2(30)
+OBJECT_NAME VARCHAR2(64)
+OPTIMIZER VARCHAR2(40)
+
+即使是相同的数据库用户，若 session 的优化模式、session 级的参数 等不一样，执行计划也能不同。所以即使相同的sql，也可能具有不同的执行计划！
+
+v$sql join to v$sql_plan 就代表了具体的sql的执行计划,通过下面3个字段做连接
+
+ADDRESS RAW(4)
+HASH_VALUE NUMBER
+CHILD_NUMBER NUMBER
+
+
+而v$SQLAREA 忽略了 执行计划 等差异，只是在形式上sql文本看起来一样！相当于做了个聚合，是多个不同执行计划的sql的聚合和累计信息
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+******************************
+
+
+
+
+v$sqltext：存储的是完整的SQL,SQL被分割
+
+v$sqlarea：存储的SQL 和一些相关的信息，比如累计的执行次数，逻辑读，物理读等统计信息（统计）
+
+v$sql：内存共享SQL区域中已经解析的SQL语句。（即时） 
+
+ 
+
+根据sid查找完整sql语句：
+
+select sql_text from v$sqltext a where a.hash_value = (select sql_hash_value from v$session b where b.sid = '&sid'    )
+order by piece asc
+
+
+select a.CPU_TIME,--CPU时间 百万分之一（微秒）
+       a.OPTIMIZER_MODE,--优化方式
+       a.EXECUTIONS,--执行次数
+       a.DISK_READS,--读盘次数
+       a.SHARABLE_MEM,--占用shared pool的内存多少
+       a.BUFFER_GETS,--读取缓冲区的次数
+       a.COMMAND_TYPE,--命令类型(3:select,2:insert;6:update;7delete;47:pl/sql程序单元)
+       a.SQL_TEXT,--Sql语句
+       a.SHARABLE_MEM,
+       a.PERSISTENT_MEM,
+       a.RUNTIME_MEM,
+       a.PARSE_CALLS,
+       a.DISK_READS,
+       a.DIRECT_WRITES,
+       a.CONCURRENCY_WAIT_TIME,
+       a.USER_IO_WAIT_TIME
+  from SYS.V_$SQLAREA a
+ WHERE PARSING_SCHEMA_NAME = 'CHEA_FILL'--表空间
+ order by a.CPU_TIME desc
+
+ 
+
+引用：http://jenniferok.javaeye.com/blog/700985
+
+
+从V$SQLAREA中查询最占用资源的查询 
+select b.username username,a.disk_reads reads,
+    a.executions exec,a.disk_reads/decode(a.executions,0,1,a.executions) rds_exec_ratio,
+    a.sql_text Statement
+from  v$sqlarea a,dba_users b
+where a.parsing_user_id=b.user_id
+ and a.disk_reads > 100000
+order by a.disk_reads desc;
+用buffer_gets列来替换disk_reads列可以得到占用最多内存的sql语句的相关信息。
+
+
+v$sql：内存共享SQL区域中已经解析的SQL语句。（即时） 
+
+列出使用频率最高的5个查询： 
+select sql_text,executions
+from (select sql_text,executions,
+   rank() over
+    (order by executions desc) exec_rank
+   from v$sql)
+where exec_rank <=5;
+
+消耗磁盘读取最多的sql top5：
+select disk_reads,sql_text
+from (select sql_text,disk_reads,
+   dense_rank() over
+     (order by disk_reads desc) disk_reads_rank
+   from v$sql)
+where disk_reads_rank <=5;
+
+找出需要大量缓冲读取（逻辑读）操作的查询： 
+select buffer_gets,sql_text
+from (select sql_text,buffer_gets,
+   dense_rank() over
+     (order by buffer_gets desc) buffer_gets_rank
+   from v$sql)
+where buffer_gets_rank<=5;
+
+
+v$sqlarea字段定义：http://happyhou.blog.sohu.com/60494432.html
+SQL_TEXT
+ VARCHAR2(1000)
+ First thousand characters of the SQL text for the current cursor 
+SQL_ID
+ VARCHAR2(13)
+ SQL identifier of the parent cursor in the library cache 
+SHARABLE_MEM
+ NUMBER
+ Amount of shared memory used by a cursor. If multiple child cursors exist, then the sum of all shared memory used by all child cursors. 
+PERSISTENT_MEM
+ NUMBER
+ Fixed amount of memory used for the lifetime of an open cursor. If multiple child cursors exist, the fixed sum of memory used for the lifetime of all the child cursors. 
+RUNTIME_MEM
+ NUMBER
+ Fixed amount of memory required during execution of a cursor. If multiple child cursors exist, the fixed sum of all memory required during execution of all the child cursors. 
+SORTS
+ NUMBER
+ Sum of the number of sorts that were done for all the child cursors 
+VERSION_COUNT
+ NUMBER
+ Number of child cursors that are present in the cache under this parent 
+LOADED_VERSIONS
+ NUMBER
+ Number of child cursors that are present in the cache and have their context heap (KGL heap 6) loaded 
+OPEN_VERSIONS
+ NUMBER
+ The number of child cursors that are currently open under this current parent 
+USERS_OPENING
+ NUMBER
+ Number of users that have any of the child cursors open 
+FETCHES
+ NUMBER
+ Number of fetches associated with the SQL statement 
+EXECUTIONS
+ NUMBER
+ Total number of executions, totalled over all the child cursors 
+END_OF_FETCH_COUNT
+ NUMBER
+ Number of times this cursor was fully executed since the cursor was brought into the library cache. The value of this statistic is not incremented when the cursor is partially executed, either because it failed during the execution or because only the first few rows produced by this cursor are fetched before the cursor is closed or re-executed. By definition, the value of the END_OF_FETCH_COUNT
+column should be less or equal to the value of the EXECUTIONS
+column. 
+USERS_EXECUTING
+ NUMBER
+ Total number of users executing the statement over all child cursors 
+LOADS
+ NUMBER
+ Number of times the object was loaded or reloaded 
+FIRST_LOAD_TIME
+ VARCHAR2(19)
+ Timestamp of the parent creation time 
+INVALIDATIONS
+ NUMBER
+ Total number of invalidations over all the child cursors 
+PARSE_CALLS
+ NUMBER
+ Sum of all parse calls to all the child cursors under this parent 
+DISK_READS
+ NUMBER
+ Sum of the number of disk reads over all child cursors 
+DIRECT_WRITES
+ NUMBER
+ Sum of the number of direct writes over all child cursors 
+BUFFER_GETS
+ NUMBER
+ Sum of buffer gets over all child cursors 
+APPLICATION_WAIT_TIME
+ NUMBER
+ Application wait time 
+CONCURRENCY_WAIT_TIME
+ NUMBER
+ Concurrency wait time 
+CLUSTER_WAIT_TIME
+ NUMBER
+ Cluster wait time 
+USER_IO_WAIT_TIME
+ NUMBER
+ User I/O Wait Time 
+PLSQL_EXEC_TIME
+ NUMBER
+ PL/SQL execution time 
+JAVA_EXEC_TIME
+ NUMBER
+ Java execution time 
+ROWS_PROCESSED
+ NUMBER
+ Total number of rows processed on behalf of this SQL statement 
+COMMAND_TYPE
+ NUMBER
+ Oracle command type definition 
+OPTIMIZER_MODE
+ VARCHAR2(25)
+ Mode under which the SQL statement was executed 
+PARSING_USER_ID
+ NUMBER
+ User ID of the user that has parsed the very first cursor under this parent 
+PARSING_SCHEMA_ID
+ NUMBER
+ Schema ID that was used to parse this child cursor 
+KEPT_VERSIONS
+ NUMBER
+ Number of child cursors that have been marked to be kept using the DBMS_SHARED_POOL
+package 
+ADDRESS
+ RAW(4 | 8)
+ Address of the handle to the parent for this cursor 
+HASH_VALUE
+ NUMBER
+ Hash value of the parent statement in the library cache 
+OLD_HASH_VALUE
+ NUMBER
+ Old SQL hash value 
+MODULE
+ VARCHAR2(64)
+ Contains the name of the module that was executing at the time that the SQL statement was first parsed as set by calling DBMS_APPLICATION_INFO
+.SET_MODULE
+ 
+MODULE_HASH
+ NUMBER
+ Hash value of the module that is named in the MODULE
+column 
+ACTION
+ VARCHAR2(64)
+ Contains the name of the action that was executing at the time that the SQL statement was first parsed as set by calling DBMS_APPLICATION_INFO
+.SET_ACTION
+ 
+ACTION_HASH
+ NUMBER
+ Hash value of the action that is named in the ACTION
+column 
+SERIALIZABLE_ABORTS
+ NUMBER
+ Number of times the transaction fails to serialize, producing ORA-08177
+errors, totalled over all the child cursors 
+CPU_TIME
+ NUMBER
+ CPU time (in microseconds) used by this cursor for parsing/executing/fetching 
+ELAPSED_TIME
+ NUMBER
+ Elapsed time (in microseconds) used by this cursor for parsing/executing/fetching 
+IS_OBSOLETE
+ VARCHAR2(1)
+ Indicates whether the cursor has become obsolete (Y
+) or not (N
+). This can happen if the number of child cursors is too large. 
+CHILD_LATCH
+ NUMBER
+ Child latch number that is protecting the cursor 
+PROGRAM_ID
+ NUMBER
+ Program identifie
+ 

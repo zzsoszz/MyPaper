@@ -1,0 +1,10 @@
+﻿document.write("<div class=\"title-b\">               \n");
+document.write("	<h3>赞助商链接</h3>\n");
+document.write("</div>		\n");
+document.write(" <div class=\"list-b\">\n");
+document.write("		<ul class=\"list\">\n");
+document.write("			<li>\n");
+document.write("	<iframe src=\"/Counter/Right.html\" frameborder=\"0\" width=\"250\" height=\"250\" frameborder=\"0\" scrolling=\"no\"></iframe>\n");
+document.write("			</li>\n");
+document.write("		</ul>\n");
+document.write("</div>\n");

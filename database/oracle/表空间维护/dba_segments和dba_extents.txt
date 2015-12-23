@@ -1,0 +1,66 @@
+发现dba_segments和dba_extents中统计段空间大小居然不一样 
+=========================================================== 
+发现dba_segments和dba_extents中统计段空间大小居然不一样
+作者: yaanzy(http://yaanzy.itpub.net)
+发表于: 2008.08.28 11:05
+分类: Oracle技术 
+出处: http://yaanzy.itpub.net/post/1263/469662
+--------------------------------------------------------------- 
+最近在测试系统上发现dba_segments和dba_extents中统计段空间大小居然不一样
+
+SQL> select bytes,blocks,extents from dba_segments where segment_name='PROFILE' and owner='NAP3';
+
+BYTES BLOCKS EXTENTS
+---------- ---------- ----------
+0 0 0
+
+SQL> select bytes,blocks,extent_id from dba_extents where segment_name='PROFILE' and owner='NAP3';
+
+BYTES BLOCKS EXTENT_ID
+---------- ---------- ----------
+167772160 20480 0
+
+
+在metalink上搜索到如下资料： Doc ID: Note:463101.1
+HOW TO DISCOVER AND FIX THE MISTMATCH BETWEEN DBA_SEGMENTS AND DBA_EXTENTS DICTIONARY VIEWS
+
+里面讲到当DML/DDL操作(parallel index creation, frequent deletes/inserts)会导致这种不一致，
+导致dba_segments中的不正确, 所以dba_extents中记录的分配给段的空间值才是可信的值。。
+
+解决方法是执行一个Oracle internal的未写入文档的procedure:
+
+
+DBMS_SPACE_ADMIN.TABLESPACE_FIX_SEGMENT_EXTBLKS('<tablespace_name>'); 
+
+（注意要把COMPATIBLE设置到10.0.0以上）
+
+Issuing DBMS_SPACE_ADMIN.TABLESPACE_FIX_SEGMENT_EXTBLKS fixes the DBA_SEGMENTS values. The tablespace 
+must be kept
+online and read/write when this procedure is called. Runing this procedure requires 
+COMPATIBLE parameter to be set to 10.0.0.0 or greater. 
+The procedure fixes extents, blocks and bytes in the segment headers to synchronize seg$ and 
+segment header entries.
+It holds the allocation enqueue for the tablespace till the command 
+is completed and this may delay some sort of operations in this tablespace (new extent allocation, 
+deallocate extent, etc.). So it needs to be run during an idle period. 
+
+
+可以通过如下语句来检查系统中所有不一致的segment：
+
+select
+/*+ RULE */ s.tablespace_name, s.segment_name segment, s.partition_name, 
+s.owner owner, s.segment_type,
+s.blocks sblocks, e.blocks eblocks, 
+s.extents sextents, e.extents eextents, s.bytes sbytes, e.bytes ebytes
+from
+dba_segments s, 
+(select count(*) extents, sum(blocks) blocks, sum(bytes) bytes, segment_name, 
+partition_name, segment_type, owner 
+from dba_extents 
+group
+by segment_name,partition_name,segment_type,owner) e 
+where s.segment_name=e.segment_name 
+and s.owner = e.owner 
+and (s.partition_name = e.partition_name or s.partition_name is
+null) 
+and s.segment_type = e.segment_type 

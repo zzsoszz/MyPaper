@@ -1,0 +1,105 @@
+ oracle 查看 用户，用户权限，用户表空间，用户默认表空间。
+分类： ORACLE 2010-04-14 08:47 7518人阅读 评论(0) 收藏 举报
+查看用户和默认表空间的关系。   
+  select   username,default_tablespace   from   dba_users;
+
+ 
+
+1.查看表结构：desc表名
+
+2.查看当前用户的表：
+
+select table_name from user_tables; 
+3.查看所有用户的表名：
+
+select  table_name  from all_tables;  
+4.查看所有表名（其中包括系统表）
+
+select table_name  from all_tables;   
+5.查看所有的表:
+
+select  *  from  tab/dba_tables/dba_objects/cat; 
+下面介绍Oracle查询用户表空间
+
+◆Oracle查询用户表空间：select * from user_all_tables
+
+◆Oracle查询所有函数和储存过程：select * from user_source
+
+◆Oracle查询所有用户：select * from all_users.select * from dba_users
+
+◆Oracle查看当前用户连接：select * from v$Session
+
+◆Oracle查看当前用户权限：select * from session_privs
+
+◆Oracle查看用户表空间使用情况：
+
+select a.file_id "FileNo",a.tablespace_name  
+
+"Tablespace_name",  
+
+a.bytes "Bytes",a.bytes-sum(nvl(b.bytes,0)) "Used",  
+
+sum(nvl(b.bytes,0)) "Free",  
+
+sum(nvl(b.bytes,0))/a.bytes*100 "%free"  
+
+from dba_data_files a, dba_free_space b  
+
+where a.file_id = b .file_id(+)  
+
+group by a.tablespace_name ,  
+
+a.file_id,a.bytes order by a.tablespace_name;
+1.查看所有用户：
+
+  select * from dba_user;
+
+  select * from all_users;
+
+  select * from user_users;
+
+2.查看用户系统权限：
+
+  select * from dba_sys_privs;
+
+  select * from all_sys_privs;
+
+  select * from user_sys_privs;
+
+3.查看用户对象权限：
+
+  select * from dba_tab_privs;
+
+  select * from all_tab_privs;
+
+  select * from user_tab_privs;
+
+4.查看所有角色：
+
+  select * from dba_roles;
+
+5.查看用户所拥有的角色：
+
+  select * from dba_role_privs;
+
+  select * from user_role_privs; 
+6.查看角色所拥有的权限: 
+  select * from role_sys_privs; 
+  select * from role_tab_privs; 
+7.查看所有系统权限 
+  select * from system_privilege_map; 
+8.查看所有对象权限 
+  select * from table_privilege_map; 
+以上是在Oracle中查看用户权限 ，
+
+在DB2中为：
+
+  select * from syscat.dbauth
+
+  或者
+
+  get authorizations 
+查看sid
+
+select * from v$instance
+==================================

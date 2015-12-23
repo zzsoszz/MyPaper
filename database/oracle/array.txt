@@ -1,0 +1,163 @@
+-----------------------------------------------------∞∏¿˝1
+CREATE OR REPLACE TYPE num_array AS TABLE OF NUMBER;
+
+
+
+CREATE OR REPLACE PROCEDURE return_array_test (array_in IN num_array, array_out OUT num_array) AS
+  
+   temp NUMBER;
+  
+  BEGIN
+          array_out := num_array();
+   FOR i IN 1 .. array_in.count
+   LOOP
+    array_out.extend;
+    array_out(i) := array_in(i)*2;
+   END LOOP;
+  END return_array_test;
+
+
+
+
+
+
+DECLARE 
+ 
+   array_in   num_array := num_array(1,2,3,4,5);
+   array_out  num_array := num_array(1,2,3,4,5);
+   
+ BEGIN
+ 
+   return_array_test (array_in, array_out);
+ 
+   dbms_output.put_line('Result(s)...');
+   For i IN 1 .. array_out.count
+   Loop
+     dbms_output.put_line(array_out(i));
+   END LOOP;
+ 
+end ;
+
+
+
+
+
+
+---------------------------------------------------------∞∏¿˝2
+
+
+
+
+CREATE OR REPLACE FUNCTION SPLIT2 (p_in_string VARCHAR2, p_delim VARCHAR2)
+   RETURN t_array
+ IS
+   i number :=0;
+   pos number :=0;
+   lv_str varchar2(50) := ltrim(p_in_string,p_delim);
+   strings t_array := t_array();
+ BEGIN
+   -- determine first chuck of string
+   pos := instr(lv_str,p_delim,1,1);
+   -- while there are chunks left, loop
+   WHILE ( pos != 0)
+   LOOP
+     -- increment counter
+     i := i + 1;
+     -- create array element for chuck of string
+     strings.extend;
+     strings(i) := substr(lv_str,1,pos-1);
+     -- remove chunk from string
+     lv_str := substr(lv_str,pos+1,length(lv_str));
+     -- determine next chunk
+     pos := instr(lv_str,p_delim,1,1);
+     -- no last chunk, add to array
+     IF pos = 0
+     THEN
+       strings.extend;
+       strings(i+1) := lv_str;
+     END IF;
+   END LOOP;
+   -- return array
+   RETURN strings;
+ END SPLIT2;
+
+
+
+
+ 
+ select split2( ',a,b,c', ',' ) from dual;
+
+
+
+
+
+
+
+
+
+
+≤‚ ‘1
+-- Created on 2013/3/30 by QINGTIAN 
+declare 
+  -- Local variables here
+  i integer;
+begin
+  -- Test statements here
+ for i in 1..split2( ',a,b,c', ',' ).count loop
+   dbms_output.put_line(i); 
+ end loop; 
+
+end;
+
+
+≤‚ ‘2
+
+-- Created on 2013/3/30 by QINGTIAN 
+declare 
+  -- Local variables here
+  i integer;
+  arraym t_array;
+begin
+  -- Test statements here
+ arraym:=split2( ',a,b,c', ',' );
+ for i in 1..arraym.count loop
+   dbms_output.put_line(arraym(i)); 
+   
+   
+ end loop; 
+
+end;
+
+
+
+
+
+
+
+
+
+≤‚ ‘3
+
+-- Created on 2013/3/30 by QINGTIAN 
+declare 
+  -- Local variables here
+  i integer;
+  arraym t_array;
+  arraym2 t_array;
+begin
+  -- Test statements here
+ arraym:=split2( 'pay_way`pay_kind`fee_kind`pay_fee~pay_way`pay_kind`fee_kind`pay_fee', '~' );
+ for i in 1..arraym.count loop
+   dbms_output.put_line(arraym(i)); 
+   arraym2:=split2(arraym(i),'`');
+   
+    for i in 1..arraym2.count loop
+        dbms_output.put_line(arraym2(i)); 
+    end loop; 
+ 
+ end loop; 
+
+end;
+
+
+

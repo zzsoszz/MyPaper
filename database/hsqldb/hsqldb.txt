@@ -1,0 +1,116 @@
+服务器模式启动：
+java -cp hsqldb.jar org.hsqldb.Server -database.0 file:c:/hsqldb/xxx -dbname.0 x -database.1 c:/hsqldb/test/mydatabase2 -dbname.1 db2   
+java -cp hsqldb.jar org.hsqldb.Server -database.0 file:c:/hsqldb/xxx -dbname.0 x -database.1 c:/hsqldb/test/mydatabase2 -dbname.1 db2 
+
+java -cp ..\lib\hsqldb.jar org.hsqldb.Server -database mydb  
+java -cp ../lib/hsqldb.jar org.hsqldb.Server -database.0 mydb -dbname.0 mydb  
+
+
+进程模式：
+jdbc:hsqldb:file:/C:/mydb/myDbName
+jdbc:hsqldb:file:/opt/db/myDbName
+jdbc:hsqldb:file:myDbName
+
+内存模式:
+jdbc:hsqldb:mem:myDbName
+
+
+启动管理器：
+java -cp hsqldb.jar org.hsqldb.util.DatabaseManager   
+
+
+
+
+hsqldb使用
+关键字: hsqldb使用 
+hsqldb有下面几种模式
+
+1.Server模式
+
+首先要启动server 端：
+
+例如，在命令行窗口执行：
+
+E:\1008\study\hsqldb\hsqldb_1_8_0_9\hsqldb\lib>java -cp hsqldb.jar org.hsqldb.Se    
+rver -database.0 file:c:/hsqldb/xxx -dbname.0 x -database.1 c:/hsqldb/test/mydat    
+abase2 -dbname.1 db2   
+ 
+
+创建了2个数据库，如：database.0 database.1 最多只能创建10个
+
+dbname.0 x ,dbname.1 db2这里的x和db2都是给客户端链接时使用的。
+
+database.0 file:c:/hsqldb/xxx,database.1 c:/hsqldb/test/mydatabase2 这里的xxx和mydatabase2是hsqldb文件的文件名，客户端链接时不能使用这个名字
+
+然后启动工具窗口可以对建立的数据库进行操作。比如：
+
+java 代码
+E:\1008\study\hsqldb\hsqldb_1_8_0_9\hsqldb\lib>java -cp hsqldb.jar org.hsqldb.util.DatabaseManager   
+ 
+
+ 这时会弹出一个工具窗口，可以对其进行设置
+
+Recent：选择你最近的登录方案，[可选] 
+Setting Name：本次登录方案名称，如果本次登录成功，那么等你下次登录的时候在Recent下拉列表中将看到你的成功登录方案[可选] 
+Type：登录模式，其中包括In-Memory模式、Standalone(In-process)模式、Server模式、WebServer模式... ...[必选] 
+Driver：连接数据库的驱动程序[必选] 
+URL：连接数据库的URL[必选] 
+User：用户名[必选] 
+Password：密码[ 除非密码为空] ，默认密码是为空的，可以登录后对密码进行修改。只需要set password "123456"，修改的只是当前链接的数据库，对其它数据库没有影响,hsqldb可以看着是一个库一个密码
+
+2. 嵌入式In-Process打开
+
+In-Process方式不用启动Server，直接设定JDBC URL即可，非常方便。但有一个缺点是只能在Java进程内共享信息，如果另外打开一个管理器，是没办法看到In-Process时的状态 
+
+jdbc:hsqldb:file:C:\hsqldb\testdb   
+
+
+
+
+其中路径是script文件不带后缀名的全路径，可以绝对路径，也可以是打开应用的相对路径。
+
+另外有一种读取jar/classpath中的script文件的In-Process方式，方便发布war时不知道具体路径的情况。不过这种方式是只读不存盘的，利用来单元测试也不错。下面的设置将读取classpath根目录下的test.script 
+
+jdbc:hsqldb:res:/hsqldb/testdb   
+
+ 
+
+3.Memory方式打开
+与In-Process方式最大区别是不能读取Script文件进行初始化
+
+Connection c = DriverManager.getConnection("jdbc:hsqldb:mem:dbName", "sa", "");   
+ 
+
+注意事项：当一个服务器实例启动或者建立一个in-process数据库连接的时候，如果指定的路径没有数据库存在，那么就会创建一个新的空的数据库。这个特点的副作用就是让那些新用户产生疑惑。在指定连接已存在的数据库路径的时候，如果出现了什么错误的话，就会建立一个指向新数据库的连接。为了解决这个问题，你可以指定一个连接属性ifexists=true只允许和已存在的数据库建立连接而避免创建新的数据库，如果数据库不存在的话，getConnection()方法将会抛出异常。
+
+
+在hibernate中，使用hsql中，如果设置主键类型用Idenetity，那么java的field用Integer类型，不能用Long。
+
+当你启动数据库执行创建表，增加数据的时候就会生成对应的sql语句。删除操作不会记录在script文件中。如果没有以正确的方式退出hsqldb那么会增加*.lck和*.log文件，来记录你的操作，直到你正确保存数据并且退出数据库，这两个文件才会消失。 
+正确的退出数据库是执行shutdown命令 
+
+比如：
+
+public class Test {    
+   
+    public static void main(String[] args){    
+        try{        
+            Class.forName("org.hsqldb.jdbcDriver");              
+            Connection conn = DriverManager.getConnection("jdbc:hsqldb:file:C:/hsqldb/testdb4/mydb4","sa","");        
+            Statement  st = conn.createStatement(); // statement objects can be reused with        
+            ResultSet  rs = st.executeQuery("select * from users"); // run the query        
+            while(rs.next()){       
+                String s1=rs.getString("name");        
+                System.out.println(s1);    
+            }    
+            st.close();        
+            st = conn.createStatement();        
+            st.execute("SHUTDOWN");        
+            conn.close(); // if there are no other open connection        
+            }catch(Exception e){        
+                e=null;        
+                e.printStackTrace();    
+            }       
+   
+    }    
+}   

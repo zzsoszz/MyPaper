@@ -1,0 +1,1694 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0059)http://www.cnblogs.com/paker/archive/2007/04/18/718507.html -->
+<HTML><HEAD id=Head><TITLE>Oracle Sql 语法收集. - 坡南街的杰 - 博客园</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META id=metaKeywords content=Oracle,Sql,语法收集. name=keywords>
+<META content=鉴于Oracle使用的深入,此文章专门积累开发过程中涉及到的sql使用经验或相关的资料.会坚持更新下去. 
+name=description><LINK id=CommondCss 
+href="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/common.css" type=text/css 
+rel=stylesheet><LINK id=MainCss 
+href="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/style.css" type=text/css 
+rel=stylesheet><LINK id=CommondCss2 
+href="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/common2.css" type=text/css 
+rel=stylesheet><LINK id=RSSLink title=RSS 
+href="http://www.cnblogs.com/paker/rss" type=application/rss+xml rel=alternate>
+<SCRIPT src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/common.js" 
+type=text/javascript></SCRIPT>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<FORM id=Form1 name=Form1 onsubmit="javascript:return WebForm_OnSubmit();" 
+action=718507.html method=post>
+<DIV><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE> </DIV>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</SCRIPT>
+
+<SCRIPT src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=JavaScript>
+									function ctlent(evt,id)
+											{
+												if(evt.ctrlKey && evt.keyCode == 13)
+												{	
+													try
+													{
+														TempSave(id);
+													}
+													catch(ex)
+													{
+													}
+													finally
+													{
+													    __doPostBack('AjaxHolder$PostComment$btnSubmit','')
+													}
+												}
+		
+												}</SCRIPT>
+
+<SCRIPT language=JavaScript>function SetReplyAuhor(author){document.getElementById('AjaxHolder_PostComment_tbComment').value+="@"+author+"\n";document.getElementById('AjaxHolder_PostComment_tbComment').focus();return false}</SCRIPT>
+
+<SCRIPT src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/ScriptResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="D:\Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files\ScriptResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="D:\Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files\ScriptResource(2).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</SCRIPT>
+
+<TABLE class=Framework cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD colSpan=3>
+      <DIV id=top>
+      <TABLE cellSpacing=0 cellPadding=10>
+        <TBODY>
+        <TR>
+          <TD noWrap>
+            <H1><A class=headermaintitle id=Header1_HeaderTitle 
+            href="http://www.cnblogs.com/paker/">坡南街的杰</A></H1></TD></TR></TBODY></TABLE></DIV>
+      <DIV id=sub>
+      <DIV id=sub-right></DIV>&nbsp; <A id=Header1_MyLinks1_HomeLink 
+      href="http://www.cnblogs.com/">博客园</A>&nbsp;:: <A 
+      id=Header1_MyLinks1_MyHomeLink 
+      href="http://www.cnblogs.com/paker/">首页</A>&nbsp;:: &nbsp;:: &nbsp;:: 
+      &nbsp;:: <A id=Header1_MyLinks1_Admin 
+      href="http://www.cnblogs.com/paker/admin/EditPosts.aspx">管理</A> 
+  </DIV></TD></TR>
+  <TR>
+    <TD class=LeftCell>
+      <DIV id=leftmenu></DIV></TD>
+    <TD class=MainCell>
+      <DIV id=main>
+      <SCRIPT type=text/javascript>
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('AjaxHolder$scriptmanager1', document.getElementById('Form1'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls(['tAjaxHolder$UpdatePanel1'], [], [], 90);
+//]]>
+</SCRIPT>
+
+      <DIV class=post>
+      <DIV class=posthead>
+      <H2><A class=singleposttitle id=AjaxHolder_ctl01_TitleUrl 
+      href="http://www.cnblogs.com/paker/archive/2007/04/18/718507.html">Oracle 
+      Sql 语法收集.</A> </H2>Posted on 2007-04-18 16:50 <A 
+      href="http://www.cnblogs.com/paker/">Paker Liu</A> 阅读(3603) <A 
+      href="http://www.cnblogs.com/paker/archive/2007/04/18/718507.html#Post">评论(0)</A> 
+      &nbsp;<A 
+      href="http://www.cnblogs.com/paker/admin/EditPosts.aspx?postid=718507">编辑</A> 
+      <A href="http://www.cnblogs.com/paker/AddToFavorite.aspx?id=718507">收藏</A> 
+      <A onclick="PutInWz();return false;" 
+      href="http://www.cnblogs.com/paker/archive/2007/04/18/718507.html#">网摘</A> 
+      <IMG height=1 src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/718507.jpg" 
+      width=1> <!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://www.cnblogs.com/paker/archive/2007/04/18/718507.html"
+dc:identifier="http://www.cnblogs.com/paker/archive/2007/04/18/718507.html"
+dc:title="Oracle Sql 语法收集."
+trackback:ping="http://www.cnblogs.com/paker/services/trackbacks/718507.aspx" />
+</rdf:RDF>
+--></DIV>
+      <DIV class=postbody>1.Update 的其他用法.<BR>
+      <DIV 
+      style="BORDER-RIGHT: #cccccc 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #cccccc 1px solid; PADDING-LEFT: 4px; FONT-SIZE: 13px; PADDING-BOTTOM: 4px; BORDER-LEFT: #cccccc 1px solid; WIDTH: 98%; WORD-BREAK: break-all; PADDING-TOP: 4px; BORDER-BOTTOM: #cccccc 1px solid; BACKGROUND-COLOR: #eeeeee"><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top><SPAN 
+      style="COLOR: #000000">为了方便起见,建立了以下简单模型,和构造了部分测试数据:<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;在某个业务受理子系统BSS中，<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;</SPAN><SPAN style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">客户资料表</SPAN><SPAN style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">create</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">table</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;customers<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;(<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;customer_id&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #000000">number</SPAN><SPAN 
+      style="COLOR: #000000">(</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">8</SPAN><SPAN 
+      style="COLOR: #000000">)&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">not</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">null</SPAN><SPAN 
+      style="COLOR: #000000">,&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;客户标示</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;city_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #000000">varchar2</SPAN><SPAN 
+      style="COLOR: #000000">(</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">10</SPAN><SPAN 
+      style="COLOR: #000000">)&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">not</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">null</SPAN><SPAN 
+      style="COLOR: #000000">,&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;所在城市</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;customer_type&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #000000">char</SPAN><SPAN 
+      style="COLOR: #000000">(</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+      style="COLOR: #000000">)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">not</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">null</SPAN><SPAN 
+      style="COLOR: #000000">,&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;客户类型</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;<IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/dot.gif"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">create</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">unique</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">index</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;PK_customers&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">on</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;customers&nbsp;(customer_id)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;由于某些原因，客户所在城市这个信息并不什么准确，但是在<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;客户服务部的CRM子系统中，通过主动服务获取了部分客户20</SPAN><SPAN 
+      style="COLOR: #808080">%</SPAN><SPAN style="COLOR: #000000">的所在<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;城市等准确信息，于是你将该部分信息提取至一张临时表中：<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">create</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">table</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;tmp_cust_city<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;(<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;customer_id&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #000000">number</SPAN><SPAN 
+      style="COLOR: #000000">(</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">8</SPAN><SPAN 
+      style="COLOR: #000000">)&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">not</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">null</SPAN><SPAN style="COLOR: #000000">,<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;citye_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #000000">varchar2</SPAN><SPAN 
+      style="COLOR: #000000">(</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">10</SPAN><SPAN 
+      style="COLOR: #000000">)&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">not</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">null</SPAN><SPAN style="COLOR: #000000">，<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;customer_type&nbsp;&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #000000">char</SPAN><SPAN 
+      style="COLOR: #000000">(</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+      style="COLOR: #000000">)&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">not</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">null</SPAN><SPAN style="COLOR: #000000"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+      style="COLOR: #000000">)&nbsp;最简单的形式<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">经确认customers表中所有customer_id小于1000均为'北京'</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">1000以内的均是公司走向全国之前的本城市的老客户:)</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">update</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;customers<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">set</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;city_name</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN style="COLOR: #ff0000">'</SPAN><SPAN 
+      style="COLOR: #ff0000">北京</SPAN><SPAN style="COLOR: #ff0000">'</SPAN><SPAN 
+      style="COLOR: #000000"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;customer_id</SPAN><SPAN 
+      style="COLOR: #808080">&lt;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">1000</SPAN><SPAN 
+      style="COLOR: #000000"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+      style="COLOR: #000000">)&nbsp;两表(多表)关联update&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;仅在where字句中的连接</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">这次提取的数据都是VIP，且包括新增的,所以顺便更新客户类别</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">update</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;customers&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;使用别名</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">set</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;customer_type</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN style="COLOR: #ff0000">'</SPAN><SPAN 
+      style="COLOR: #ff0000">01</SPAN><SPAN style="COLOR: #ff0000">'</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">01&nbsp;为vip，00为普通</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">exists</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;(</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;tmp_cust_city&nbsp;b<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">3</SPAN><SPAN 
+      style="COLOR: #000000">)&nbsp;两表(多表)关联update&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;被修改值由另一个表运算而来</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">update</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;customers&nbsp;a&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;使用别名</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">set</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;city_name</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN style="COLOR: #000000">(</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.city_name&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;tmp_cust_city&nbsp;b&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">exists</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;(</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;tmp_cust_city&nbsp;b<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;update&nbsp;超过2个值</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">update</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;customers&nbsp;a&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;使用别名</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">set</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;(city_name,customer_type)</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN style="COLOR: #000000">(</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.city_name,b.customer_type&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;tmp_cust_city&nbsp;b&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">exists</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;(</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;tmp_cust_city&nbsp;b<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;注意在这个语句中，<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN style="COLOR: #000000">(</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.city_name,b.customer_type&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;tmp_cust_city&nbsp;b&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;与<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;tmp_cust_city&nbsp;b<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;是两个独立的子查询，查看执行计划可知，对b表</SPAN><SPAN 
+      style="COLOR: #808080">/</SPAN><SPAN 
+      style="COLOR: #000000">索引扫描了2篇；<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;如果舍弃where条件，则默认对A表进行全表<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;更新，但由于(</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.city_name&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;tmp_cust_city&nbsp;b&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;有可能不能提供"足够多"值，因为tmp_cust_city只是一部分客户的信息，<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;所以报错（如果指定的列</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">city_name可以为NULL则另当别论）：</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">01407</SPAN><SPAN 
+      style="COLOR: #000000">,&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">00000</SPAN><SPAN 
+      style="COLOR: #000000">,&nbsp;"cannot&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">update</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;(</SPAN><SPAN 
+      style="COLOR: #808080">%</SPAN><SPAN 
+      style="COLOR: #000000">s)&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">to</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">NULL</SPAN><SPAN style="COLOR: #000000">"<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #808080">//</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">*</SPAN><SPAN style="COLOR: #000000">Cause:<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #808080">//</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">*</SPAN><SPAN 
+      style="COLOR: #000000">Action:<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;一个替代的方法可以采用：<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">update</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;customers&nbsp;a&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;使用别名</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">set</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;city_name</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">nvl((</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.city_name&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;tmp_cust_city&nbsp;b&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id),a.city_name)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;或者<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">set</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;city_name</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">nvl((</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.city_name&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;tmp_cust_city&nbsp;b&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id),</SPAN><SPAN 
+      style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">未知</SPAN><SPAN 
+      style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;当然这不符合业务逻辑了</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">4</SPAN><SPAN 
+      style="COLOR: #000000">)&nbsp;上述3)在一些情况下，因为B表的纪录只有A表的20</SPAN><SPAN 
+      style="COLOR: #808080">-</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">30</SPAN><SPAN 
+      style="COLOR: #808080">%</SPAN><SPAN style="COLOR: #000000">的纪录数，<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;考虑A表使用INDEX的情况，使用cursor也许会比关联update带来更好的性能：<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #0000ff">set</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;serveroutput&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">on</SPAN><SPAN style="COLOR: #000000"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #0000ff">declare</SPAN><SPAN style="COLOR: #000000"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">cursor</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;city_cur&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">is</SPAN><SPAN style="COLOR: #000000"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;customer_id,city_name<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;tmp_cust_city<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">order</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">by</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;customer_id;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #0000ff">begin</SPAN><SPAN style="COLOR: #000000"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">for</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;my_cur&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">in</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;city_cur&nbsp;loop<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">update</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;customers<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">set</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;city_name</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">my_cur.city_name<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">my_cur.customer_id;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR><IMG 
+      id=Codehighlighter1_3115_3142_Open_Image 
+      onclick="this.style.display='none'; Codehighlighter1_3115_3142_Open_Text.style.display='none'; Codehighlighter1_3115_3142_Closed_Image.style.display='inline'; Codehighlighter1_3115_3142_Closed_Text.style.display='inline';" 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/ExpandedBlockStart.gif" 
+      align=top><IMG id=Codehighlighter1_3115_3142_Closed_Image 
+      style="DISPLAY: none" 
+      onclick="this.style.display='none'; Codehighlighter1_3115_3142_Closed_Text.style.display='none'; Codehighlighter1_3115_3142_Open_Image.style.display='inline'; Codehighlighter1_3115_3142_Open_Text.style.display='inline';" 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/ContractedBlock.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      id=Codehighlighter1_3115_3142_Closed_Text 
+      style="BORDER-RIGHT: #808080 1px solid; BORDER-TOP: #808080 1px solid; DISPLAY: none; BORDER-LEFT: #808080 1px solid; BORDER-BOTTOM: #808080 1px solid; BACKGROUND-COLOR: #ffffff">/**/</SPAN><SPAN 
+      id=Codehighlighter1_3115_3142_Open_Text><SPAN 
+      style="COLOR: #008080">/*</SPAN><SPAN 
+      style="COLOR: #008080">*&nbsp;此处也可以单条/分批次提交，避免锁表情况&nbsp;*</SPAN><SPAN 
+      style="COLOR: #008080">*/</SPAN></SPAN><SPAN 
+      style="COLOR: #000000"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;mod(city_cur%rowcount,10000)=0&nbsp;then</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dbms_output.put_line('----');</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;commit;</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end&nbsp;if;</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">end</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;loop;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #0000ff">end</SPAN><SPAN style="COLOR: #000000">;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">5</SPAN><SPAN 
+      style="COLOR: #000000">)&nbsp;关联update的一个特例以及性能再探讨<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;在oracle的update语句语法中，除了可以update表之外，也可以是视图，所以有以下1个特例：<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">update</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;(</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;a.city_name,b.city_name&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">as</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;new_name<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;customers&nbsp;a,<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tmp_cust_city&nbsp;b<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">set</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;city_name</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">new_name<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;这样能避免对B表或其索引的2次扫描，但前提是&nbsp;A(customer_id)&nbsp;b(customer_id)必需是unique&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">index</SPAN><SPAN style="COLOR: #000000"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;或primary&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">key</SPAN><SPAN 
+      style="COLOR: #000000">。否则报错：<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">01779</SPAN><SPAN 
+      style="COLOR: #000000">,&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">00000</SPAN><SPAN 
+      style="COLOR: #000000">,&nbsp;"cannot&nbsp;modify&nbsp;a&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">column</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;which&nbsp;maps&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">to</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;a&nbsp;non&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">key</SPAN><SPAN 
+      style="COLOR: #808080">-</SPAN><SPAN 
+      style="COLOR: #000000">preserved&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">table</SPAN><SPAN style="COLOR: #000000">"<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #808080">//</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">*</SPAN><SPAN 
+      style="COLOR: #000000">Cause:&nbsp;An&nbsp;attempt&nbsp;was&nbsp;made&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">to</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">insert</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">or</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">update</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;columns&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">of</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;a&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">join</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">view</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;which<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #808080">//</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;map&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">to</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;a&nbsp;non</SPAN><SPAN 
+      style="COLOR: #808080">-</SPAN><SPAN 
+      style="COLOR: #0000ff">key</SPAN><SPAN 
+      style="COLOR: #808080">-</SPAN><SPAN 
+      style="COLOR: #000000">preserved&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">table</SPAN><SPAN style="COLOR: #000000">.<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #808080">//</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">*</SPAN><SPAN 
+      style="COLOR: #000000">Action:&nbsp;Modify&nbsp;the&nbsp;underlying&nbsp;base&nbsp;tables&nbsp;directly.<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">6</SPAN><SPAN 
+      style="COLOR: #000000">）oracle另一个常见错误<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;回到3)情况,由于某些原因，tmp_cust_city&nbsp;customer_id&nbsp;不是唯一index</SPAN><SPAN 
+      style="COLOR: #808080">/</SPAN><SPAN 
+      style="COLOR: #0000ff">primary</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">key</SPAN><SPAN style="COLOR: #000000"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">update</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;customers&nbsp;a&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;使用别名</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">set</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;city_name</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN style="COLOR: #000000">(</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.city_name&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;tmp_cust_city&nbsp;b&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">exists</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;(</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;tmp_cust_city&nbsp;b<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;当对于一个给定的a.customer_id<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;(</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.city_name&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;tmp_cust_city&nbsp;b&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;返回多余1条的情况，则会报如下错误：<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">01427</SPAN><SPAN 
+      style="COLOR: #000000">,&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">00000</SPAN><SPAN 
+      style="COLOR: #000000">,&nbsp;"</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #000000">single</SPAN><SPAN 
+      style="COLOR: #808080">-</SPAN><SPAN 
+      style="COLOR: #000000">row&nbsp;subquery&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">returns</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;more&nbsp;than&nbsp;one&nbsp;row"<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #808080">//</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">*</SPAN><SPAN style="COLOR: #000000">Cause:<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #808080">//</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #808080">*</SPAN><SPAN 
+      style="COLOR: #000000">Action:<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;一个比较简单近似于不负责任的做法是<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">update</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;customers&nbsp;a&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #008080">--</SPAN><SPAN 
+      style="COLOR: #008080">&nbsp;使用别名</SPAN><SPAN 
+      style="COLOR: #008080"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">set</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;city_name</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN style="COLOR: #000000">(</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.city_name&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;tmp_cust_city&nbsp;b&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;如何理解&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">01427</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;错误，在一个很复杂的多表连接update的语句，经常因考虑不周，出现这个错误，<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;仍已上述例子来描述，一个比较简便的方法就是将A表代入&nbsp;值表达式&nbsp;中,使用group&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">by</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;和<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">having</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;字句查看重复的纪录<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;(</SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.customer_id,b.city_name,</SPAN><SPAN 
+      style="COLOR: #ff00ff">count</SPAN><SPAN 
+      style="COLOR: #000000">(</SPAN><SPAN style="COLOR: #808080">*</SPAN><SPAN 
+      style="COLOR: #000000">)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;tmp_cust_city&nbsp;b,customers&nbsp;a&nbsp;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">where</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.customer_id</SPAN><SPAN 
+      style="COLOR: #808080">=</SPAN><SPAN 
+      style="COLOR: #000000">a.customer_id<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">group</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">by</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;b.customer_id,b.city_name<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">having</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+      style="COLOR: #ff00ff">count</SPAN><SPAN 
+      style="COLOR: #000000">(</SPAN><SPAN style="COLOR: #808080">*</SPAN><SPAN 
+      style="COLOR: #000000">)</SPAN><SPAN 
+      style="COLOR: #808080">&gt;=</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+      style="COLOR: #000000"><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>&nbsp;&nbsp;&nbsp;)<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top></SPAN></DIV><BR>2.日期处理<BR>
+      <DIV 
+      style="BORDER-RIGHT: #cccccc 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #cccccc 1px solid; PADDING-LEFT: 4px; FONT-SIZE: 13px; PADDING-BOTTOM: 4px; BORDER-LEFT: #cccccc 1px solid; WIDTH: 98%; WORD-BREAK: break-all; PADDING-TOP: 4px; BORDER-BOTTOM: #cccccc 1px solid; BACKGROUND-COLOR: #eeeeee"><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top><SPAN 
+      style="COLOR: #000000">Oracle的解惑一二to_date()与24小时制表示法及mm分钟的显示：<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>一、在使用Oracle的to_date函数来做日期转换时，很多Java程序员也许会和我一样，直觉的采用“yyyy</SPAN><SPAN 
+      style="COLOR: #808080">-</SPAN><SPAN style="COLOR: #000000">MM</SPAN><SPAN 
+      style="COLOR: #808080">-</SPAN><SPAN 
+      style="COLOR: #000000">dd&nbsp;HH:mm:ss”的格式作为格式进行转换，但是在Oracle中会引起错误：“ORA&nbsp;</SPAN><SPAN 
+      style="FONT-WEIGHT: bold; COLOR: #800000">01810</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;格式代码出现两次”。<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>如：</SPAN><SPAN style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;to_date(</SPAN><SPAN 
+      style="COLOR: #ff0000">'</SPAN><SPAN 
+      style="COLOR: #ff0000">2005-01-01&nbsp;13:14:20</SPAN><SPAN 
+      style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+      style="COLOR: #ff0000">'</SPAN><SPAN 
+      style="COLOR: #ff0000">yyyy-MM-dd&nbsp;HH24:mm:ss</SPAN><SPAN 
+      style="COLOR: #ff0000">'</SPAN><SPAN 
+      style="COLOR: #000000">)&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;dual;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>原因是SQL中不区分大小写，MM和mm被认为是相同的格式代码，所以Oracle的SQL采用了mi代替分钟。<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;to_date(</SPAN><SPAN 
+      style="COLOR: #ff0000">'</SPAN><SPAN 
+      style="COLOR: #ff0000">2005-01-01&nbsp;13:14:20</SPAN><SPAN 
+      style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+      style="COLOR: #ff0000">'</SPAN><SPAN 
+      style="COLOR: #ff0000">yyyy-MM-dd&nbsp;HH24:mi:ss</SPAN><SPAN 
+      style="COLOR: #ff0000">'</SPAN><SPAN 
+      style="COLOR: #000000">)&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;dual;<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top>二、另要以24小时的形式显示出来要用HH24<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;to_char(sysdate,</SPAN><SPAN 
+      style="COLOR: #ff0000">'</SPAN><SPAN 
+      style="COLOR: #ff0000">yyyy-MM-dd&nbsp;HH24:mi:ss</SPAN><SPAN 
+      style="COLOR: #ff0000">'</SPAN><SPAN 
+      style="COLOR: #000000">)&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;dual;</SPAN><SPAN 
+      style="COLOR: #808080">//</SPAN><SPAN style="COLOR: #000000">mi是分钟<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top></SPAN><SPAN 
+      style="COLOR: #0000ff">select</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;to_char(sysdate,</SPAN><SPAN 
+      style="COLOR: #ff0000">'</SPAN><SPAN 
+      style="COLOR: #ff0000">yyyy-MM-dd&nbsp;HH24:mm:ss</SPAN><SPAN 
+      style="COLOR: #ff0000">'</SPAN><SPAN 
+      style="COLOR: #000000">)&nbsp;</SPAN><SPAN 
+      style="COLOR: #0000ff">from</SPAN><SPAN 
+      style="COLOR: #000000">&nbsp;dual;</SPAN><SPAN 
+      style="COLOR: #808080">//</SPAN><SPAN 
+      style="COLOR: #000000">mm会显示月份<BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" align=top><BR><IMG 
+      src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/None.gif" 
+      align=top></SPAN></DIV></DIV></DIV>
+      <DIV id=AjaxHolder_UpdatePanel1>
+      <STYLE>TD {
+	FONT-SIZE: 12px
+}
+.commentTextBox {
+	FONT-SIZE: 13px; FONT-FAMILY: Verdana
+}
+A.blue:visited {
+	COLOR: blue
+}
+A.blue:active {
+	COLOR: blue
+}
+A.blue:link {
+	COLOR: blue
+}
+A.blue:hover {
+	COLOR: blue
+}
+</STYLE>
+<!--Beging Temp Save-->
+      <STYLE>.userData {
+	BEHAVIOR: url(#default#userdata)
+}
+</STYLE>
+
+      <DIV class=userData id=CommentsPersistDiv></DIV>
+      <SCRIPT type=text/javascript>
+function pageLoad()
+{
+    Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(handleInitializeRequest);
+    //Sys.WebForms.PageRequestManager.getInstance().add_endRequest(handleEndRequest);
+}
+
+function handleInitializeRequest(sender, args)
+{
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    var eid = args.get_postBackElement().id;
+    /*if (eid.indexOf("DeleteLink")>0) 
+    {
+       args.get_postBackElement().innerHTML = "<font color='red'>正在删除...</font>";         
+    }    
+    else */
+    if (eid.indexOf("btnSubmit")>0) 
+    {
+       document.getElementById("AjaxHolder_PostComment_ltSubmitMsg").innerHTML="正在提交...";
+       document.getElementById("AjaxHolder_PostComment_btnSubmit").disabled = true;       
+    }   
+    else if(eid.indexOf("refreshList")>0)
+    {
+        document.getElementById("AjaxHolder_PostComment_refreshList").innerHTML="<font color='red'>正在刷新...</font>";
+    }
+   
+}	
+
+function TempSave(ElementID)
+{
+	try
+	{
+	CommentsPersistDiv.setAttribute("CommentContent",document.getElementById(ElementID).value);
+	CommentsPersistDiv.save("CommentXMLStore");
+	}
+	catch(ex)
+	{
+	}
+	
+}
+function Restore(ElementID)
+{
+	CommentsPersistDiv.load("CommentXMLStore");
+	document.getElementById(ElementID).value=CommentsPersistDiv.getAttribute("CommentContent");
+}	
+			
+			
+</SCRIPT>
+<!--Ene TempSave-->
+      <DIV id=divRefreshComments 
+      style="FONT-SIZE: 12px; MARGIN-BOTTOM: 5px; MARGIN-RIGHT: 10px; TEXT-ALIGN: right"><A 
+      href="http://www.cnblogs.com/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_PostComment_refreshList 
+      href="javascript:__doPostBack('AjaxHolder$PostComment$refreshList','')">刷新评论列表</A>&nbsp;&nbsp;</DIV>
+      <DIV class=commentform><SPAN id=AjaxHolder_PostComment_ltSubmitMsg 
+      style="COLOR: red"></SPAN><BR><A name=Feedback></A>
+      <TABLE style="WIDTH: 600px" cellSpacing=1 cellPadding=1 border=0>
+        <TBODY>
+        <TR>
+          <TD colSpan=3></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD></TD>
+          <TD></TD></TR>
+        <TR>
+          <TD width=55>标题</TD>
+          <TD colSpan=2><INPUT class=commenttb 
+            id=AjaxHolder_PostComment_tbTitle value="re: Oracle Sql 语法收集." 
+            name=AjaxHolder$PostComment$tbTitle><SPAN 
+            id=AjaxHolder_PostComment_RequiredFieldValidator1 
+            style="VISIBILITY: hidden; COLOR: red">请输入标题</SPAN></TD></TR>
+        <TR>
+          <TD>姓名</TD>
+          <TD colSpan=2><INPUT class=commenttb 
+            id=AjaxHolder_PostComment_tbName 
+            name=AjaxHolder$PostComment$tbName><SPAN 
+            id=AjaxHolder_PostComment_RequiredFieldValidator2 
+            style="VISIBILITY: hidden; COLOR: red">请输入你的姓名</SPAN></TD></TR>
+        <TR>
+          <TD>主页</TD>
+          <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbUrl 
+            name=AjaxHolder$PostComment$tbUrl></TD>
+          <TD></TD></TR>
+        <TR id=AjaxHolder_PostComment_trEmail>
+          <TD>Email</TD>
+          <TD colSpan=2><INPUT class=commenttb 
+            id=AjaxHolder_PostComment_tbEmail 
+            name=AjaxHolder$PostComment$tbEmail>(博主才能看到)<SPAN 
+            id=AjaxHolder_PostComment_revContactMail 
+            style="VISIBILITY: hidden; COLOR: red">邮件地址无效</SPAN></TD></TR>
+        <TR>
+          <TD align=left colSpan=3>
+            <TABLE class=CommentForm id=AjaxHolder_PostComment_tbCaptchaImage 
+            cellSpacing=0 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD colSpan=3><SPAN 
+                  id=AjaxHolder_PostComment_Requiredfieldvalidator4 
+                  style="DISPLAY: none; COLOR: red">请输入验证码</SPAN> <SPAN 
+                  id=AjaxHolder_PostComment_lblImage 
+                  style="FONT-WEIGHT: bold; COLOR: red"></SPAN></TD></TR>
+              <TR>
+                <TD width=56>验证码</TD>
+                <TD colSpan=2><INPUT 
+                  id=AjaxHolder_PostComment_CodeNumberTextBox 
+                  style="WIDTH: 100px" 
+                  name=AjaxHolder$PostComment$CodeNumberTextBox>*&nbsp;&nbsp;<IMG 
+                  src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/JpegImage.jpg"><A 
+                  id=AjaxHolder_PostComment_lkbChangeCode 
+                  href="javascript:__doPostBack('AjaxHolder$PostComment$lkbChangeCode','')">看不清,换一张</A> 
+                  [<A 
+                  href="http://www.cnblogs.com/login.aspx?ReturnUrl=/paker/archive/2007/04/18/718507.html">登录</A>][<A 
+                  href="http://www.cnblogs.com/RequireRegister.aspx">注册</A>]</TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD style="TEXT-ALIGN: left" colSpan=3>
+            <DIV style="WIDTH: 600px">
+            <DIV class=divPostCommentBox>内容(请不要发表任何与政治相关的内容) <SPAN 
+            id=AjaxHolder_PostComment_RequiredFieldValidator3 
+            style="VISIBILITY: hidden; COLOR: red">请输入评论内容</SPAN><BR><TEXTAREA class=commentTextBox id=AjaxHolder_PostComment_tbComment onkeydown="ctlent(event,'AjaxHolder_PostComment_tbComment')" name=AjaxHolder$PostComment$tbComment></TEXTAREA> 
+            </DIV>
+            <DIV class=CommentBoxNav><A tabIndex=-1 
+            href="http://www.cnblogs.com/" target=_blank>网站首页</A><BR><BR><A 
+            tabIndex=-1 href="http://news.cnblogs.com/" 
+            target=_blank>新闻频道</A><BR><BR><A tabIndex=-1 
+            href="http://space.cnblogs.com/" target=_blank>社区</A><BR><BR><A 
+            tabIndex=-1 href="http://space.cnblogs.com/group.htm" 
+            target=_blank>小组</A><BR><BR><A tabIndex=-1 
+            href="http://space.cnblogs.com/q" target=_blank>博问</A><BR><BR><A 
+            tabIndex=-1 href="http://wz.cnblogs.com/" 
+            target=_blank>网摘</A><BR><BR><A tabIndex=-1 
+            href="http://job.cnblogs.com/" target=_blank>人才</A><BR><BR><A 
+            tabIndex=-1 href="http://zzk.cnblogs.com/" 
+            target=_blank>找找看</A><BR><BR></DIV></DIV></TD></TR>
+        <TR>
+          <TD colSpan=3><SPAN id=AjaxHolder_PostComment_Message 
+            style="COLOR: red"></SPAN></TD></TR>
+        <TR>
+          <TD colSpan=3><INPUT id=AjaxHolder_PostComment_chkRemember 
+            tabIndex=-1 type=checkbox CHECKED 
+            name=AjaxHolder$PostComment$chkRemember><LABEL 
+            for=AjaxHolder_PostComment_chkRemember>Remember Me?</LABEL></TD></TR>
+        <TR>
+          <TD height=23><INPUT class=commentButton id=AjaxHolder_PostComment_btnSubmit onclick="TempSave('AjaxHolder_PostComment_tbComment');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;AjaxHolder$PostComment$btnSubmit&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" type=submit value=提交 name=AjaxHolder$PostComment$btnSubmit> 
+          </TD>
+          <TD colSpan=2 height=23>&nbsp; <A id=AjaxHolder_PostComment_lnkLogin 
+            href="http://www.cnblogs.com/login.aspx?ReturnURL=http://www.cnblogs.com/paker/archive/2007/04/18/718507.html&amp;SourceURL=/paker/archive/2007/04/18/718507.html">登录</A>&nbsp;&nbsp;<A 
+            id=AjaxHolder_PostComment_linkLoginComment 
+            onclick="if(document.getElementById('AjaxHolder_PostComment_tbComment').value != '') return confirm('未提交的评论内容将会丢失, 你真的要进入高级评论吗?');" 
+            href="http://www.cnblogs.com/paker/archive/2007/04/18/718507.html?login=1#Post">使用高级评论</A>&nbsp;&nbsp;<A 
+            href="http://www.cnblogs.com/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+            href="http://www.cnblogs.com/paker/archive/2007/04/18/718507.html#Top">返回页首</A>&nbsp;&nbsp;<A 
+            id=AjaxHolder_PostComment_lbRestore 
+            onclick="Restore('AjaxHolder_PostComment_tbComment'); return false;" 
+            href="http://www.cnblogs.com/paker/archive/2007/04/18/718507.html#Post">恢复上次提交</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+          </TD></TR>
+        <TR>
+          <TD colSpan=3><LABEL 
+        class=CtrlEnter>[使用Ctrl+Enter键可以直接提交]</LABEL></TD></TR>
+        <TR>
+          <TD colSpan=3>该文被作者在 2007-04-20 17:03 编辑过</TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR>
+        <TR>
+          <TD colSpan=3><A href="http://www.cnblogs.com/search.aspx" 
+            target=_blank>Google站内搜索</A></TD></TR>
+        <TR>
+          <TD colSpan=3><A 
+            href="http://www.cnblogs.com/bookshop/archive/2008/11/27/1342446.html" 
+            target=_blank><IMG 
+            style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" 
+            src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/wtjs_200_100.jpg"></A><A 
+            href="http://booksubject.cnblogs.com/DesignPatterns/" 
+            target=_blank><IMG 
+            style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" 
+            src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/desing_patterns_300.jpg"></A></TD></TR>
+        <TR>
+          <TD colSpan=3><A href="http://a4.yeshj.com/rd/19973/" 
+            target=_blank><IMG 
+            style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" 
+            src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/YU-D-S1P-19973_15.gif"></A><BR><A 
+            href="http://www.china-pub.com/itbook/" target=_blank>China-pub 
+            计算机图书网上专卖店！6.5万品种 2-8折！</A><BR><A 
+            href="http://www.china-pub.com/static/zt_mb/zt_huodong_07_secondhandbook.asp?filename=jsj_hzold_081029" 
+            target=_blank>近千种 9-95 新二手计算图书火热销售中！</A><BR><A 
+            href="http://booksubject.cnblogs.com/DesignPatterns/" 
+            target=_blank>开发者征途系统新作：《设计模式——基于C#的工程化实现及扩展》</A> </TD></TR>
+        <TR>
+          <TD colSpan=3 height=5><BR>
+            <SCRIPT type=text/javascript><!--
+google_ad_client = "pub-4210569241504288";
+google_ad_slot = "1397853083";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</SCRIPT>
+
+            <SCRIPT src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/show_ads.js" 
+            type=text/javascript>
+</SCRIPT>
+            <BR></TD></TR>
+        <TR>
+          <TD colSpan=3><BR>
+            <DIV id=relative_posts><B>相关文章:</B><BR>
+            <SCRIPT language=javascript 
+            src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/RCS.htm" 
+            type=text/javascript charset=utf-8></SCRIPT>
+            </DIV></TD></TR>
+        <TR>
+          <TD colSpan=3>
+            <DIV id=div_a4_ads><BR><B>相关链接:</B>
+            <SCRIPT type=text/javascript>
+	        var title = document.title;
+	        document.write("<div id=\"a4_ads_output\">");
+	        document.write("<script type='text/javascript' src='http://a4.yeshj.com/adwords/EN017?num=7&title="+ encodeURIComponent(title) +"&tag="+ encodeURIComponent(GetMeta("keywords")) +"'></scri"+"pt>");
+	        document.write("</div>");
+	        </SCRIPT>
+             </DIV></TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR>
+        <TR>
+          <TD colSpan=3>
+            <DIV class=itnews><BR><B>最新IT新闻:</B><BR><A 
+            href="http://news.cnblogs.com/n/43745/" 
+            target=_blank>51.com否认彩虹软件改名</A><BR><A 
+            href="http://news.cnblogs.com/n/43744/" target=_blank>彩虹QQ正式更名51彩虹 
+            称“上QQ从51彩虹开始”</A><BR><A href="http://news.cnblogs.com/n/43742/" 
+            target=_blank>Jadu: 将 PHP 编译成 .NET</A><BR><A 
+            href="http://news.cnblogs.com/n/43741/" 
+            target=_blank>开心网遭多个山寨版复制围抢用户</A><BR><A 
+            href="http://news.cnblogs.com/n/43740/" target=_blank>微软表示Windows 
+            7将直接在CPU上跑DirectX 10</A><BR></DIV></TD></TR>
+        <TR>
+          <TD colSpan=3 height=5>&nbsp;</TD></TR>
+        <TR>
+          <TD colSpan=3 height=5></TD></TR>
+        <TR>
+          <TD colSpan=3 height=1></TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR></TBODY></TABLE></DIV>
+      <DIV id=AjaxHolder_PostComment_ValidationSummary1 
+      style="DISPLAY: none; COLOR: red"></DIV></DIV>
+      <SCRIPT language=javascript>
+
+function GetQuote(id)
+{
+    //www.cnblogs.com.ICommentService.GetCommentText(id,SetQuote);
+    BlogServer.WebService.AjaxWS.GetComment(id,SetQuote);
+}
+
+ function SetQuote(result)
+{
+    document.getElementById('AjaxHolder_PostComment_tbComment').value+= ("--引用--------------------------------------------------\n"+result+"\n--------------------------------------------------------\n");
+    document.getElementById('AjaxHolder_PostComment_tbComment').focus(); 
+}
+
+function Favorite(entryID,title,url,element)
+{
+    document.getElementById(element.id).innerHTML = "<span style='color:red'>正在收藏...</span>";
+    BlogServer.WebService.AjaxWS.AddToFavorites(entryID,title,url,OnFavoriteSuccess);
+    document.getElementById(element.id).removeAttribute("href");
+    document.getElementById(element.id).removeAttribute("onclick");
+}
+
+function OnFavoriteSuccess(result)
+{
+    if(result == "请先登录")
+    {
+        window.location.href = "../../../../../login.aspx?ReturnUrl=" + window.location.href;
+    }
+    else
+    {
+        var returnstr = result.split(",");
+        var id = "lnkFavorite"+returnstr[0];
+        document.getElementById(id).innerHTML = "<span style='color:red'>" + returnstr[1] + "</span>";
+    }
+}
+
+function DelComment(id,element)
+{
+    if(confirm("确认要删除该评论吗?"))
+    {
+        document.getElementById(element.id).innerHTML = "<span style='color:red'>正在删除...</span>";
+        BlogServer.WebService.AjaxWS.DelComment(id,del_comment_callback);
+    }
+    return false;
+}
+
+function del_comment_callback(response)
+{
+    __doPostBack('AjaxHolder$PostComment$refreshList','');
+}
+</SCRIPT>
+      </DIV></TD></TR>
+  <TR>
+    <TD class=FooterCell colSpan=2>
+      <P id=footer>Powered by: <BR><A id=Footer1_Hyperlink3 
+      style="FONT-SIZE: 12px; FONT-FAMILY: Verdana" 
+      href="http://www.cnblogs.com/" name=Hyperlink1>博客园</A> <BR>Copyright © 
+      Paker Liu </P></TD></TR></TBODY></TABLE>
+<DIV id=lefttemp style="DISPLAY: none">
+<DIV class=catListInteraction>
+<DIV id=cell><IMG hspace=5 
+src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/icon-group.jpg" align=left vspace=2> 
+<H3 class=catListTitle>与我互动</H3>
+<UL>
+  <LI><A class=sendMsg id=Singlecolumn2_ctl00_lnkSendMsg 
+  href="http://space.cnblogs.com/msg/send/Paker+Liu">给我发短消息</A> 
+</LI></UL></DIV></DIV>
+<SCRIPT type=text/javascript>
+function zzk_go()
+{
+	var blogapp = 'paker';
+	var keystr = encodeURIComponent("blog:"+blogapp+" "+document.getElementById('q').value);
+    window.location = "http://zzk.cnblogs.com/s?w="+keystr;
+}
+function zzk_go_enter(event)
+{
+	if(event.keyCode == 13)
+	{
+	    zzk_go();
+	    return false;
+	}
+}
+</SCRIPT>
+
+<DIV id=cell><IMG hspace=5 
+src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/icon-group.jpg" align=left vspace=2> 
+<H3 class=catListTitle>搜索</H3>
+<DIV class=div_my_zzk><INPUT class=input_my_zzk id=q 
+onkeydown="return zzk_go_enter(event);">&nbsp;<INPUT class=btn_my_zzk id=btnZzk onclick=zzk_go() type=button value=找找看></DIV></DIV>
+<DIV id=cell><IMG hspace=5 
+src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/icon-group.jpg" align=left vspace=2> 
+<H3>常用链接</H3>
+<UL>
+  <LI><A id=Singlecolumn2_ctl02_rptMainLinks_ctl00_lnkLinkItem 
+  href="http://www.cnblogs.com/paker/MyPosts.html">我的随笔</A> 
+  <LI><A id=Singlecolumn2_ctl02_rptMainLinks_ctl01_lnkLinkItem 
+  href="http://space.cnblogs.com/paker">我的空间</A> 
+  <LI><A id=Singlecolumn2_ctl02_rptMainLinks_ctl02_lnkLinkItem 
+  href="http://space.cnblogs.com/msg/recent">我的短信</A> 
+  <LI><A id=Singlecolumn2_ctl02_rptMainLinks_ctl03_lnkLinkItem 
+  href="http://www.cnblogs.com/paker/MyComments.html">我的评论</A> 
+  <LI><A id=itemListLink 
+  onclick="this.blur();WarpClass('itemListLink', 'itemListLin_con');return false;" 
+  href="http://www.cnblogs.com/paker/archive/2007/04/18/718507.html#">更多链接</A> 
+  </LI></UL>
+<DIV id=itemListLin_con style="DISPLAY: none">
+<UL>
+  <LI><A id=Singlecolumn2_ctl02_repeaterLinks_ctl01_lnkLinkItem 
+  href="http://www.cnblogs.com/paker/OtherPosts.html">我的参与</A> 
+  <LI><A id=Singlecolumn2_ctl02_repeaterLinks_ctl02_lnkLinkItem 
+  href="http://www.cnblogs.com/paker/RecentComments.html">最新评论</A> 
+  <LI><A id=Singlecolumn2_ctl02_repeaterLinks_ctl03_lnkLinkItem 
+  href="http://www.cnblogs.com/paker/tag/">我的标签</A> </LI></UL></DIV></DIV>
+<DIV id=cell><IMG hspace=5 
+src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/icon-group.jpg" align=left vspace=2>
+<H3>随笔分类<SPAN style="FONT-WEIGHT: normal; FONT-SIZE: 11px">(235)</SPAN></H3>
+<UL>
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl01_RssLink 
+  title="Subscribe to ado.net" 
+  href="http://www.cnblogs.com/paker/category/47417.html/rss"><IMG 
+  title="Subscribe to ado.net" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/xmlsmall.gif"></A><A 
+  id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl01_Link 
+  href="http://www.cnblogs.com/paker/category/47417.html">ado.net</A> 
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl02_RssLink 
+  title="Subscribe to asp.net(10)" 
+  href="http://www.cnblogs.com/paker/category/47408.html/rss"><IMG 
+  title="Subscribe to asp.net(10)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/xmlsmall.gif"></A><A 
+  id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl02_Link 
+  href="http://www.cnblogs.com/paker/category/47408.html">asp.net(10)</A> 
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl03_RssLink 
+  title="Subscribe to Code Snippet(18)" 
+  href="http://www.cnblogs.com/paker/category/39635.html/rss"><IMG 
+  title="Subscribe to Code Snippet(18)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/xmlsmall.gif"></A><A 
+  id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl03_Link 
+  href="http://www.cnblogs.com/paker/category/39635.html">Code Snippet(18)</A> 
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl04_RssLink 
+  title="Subscribe to DataGrid Control(4)" 
+  href="http://www.cnblogs.com/paker/category/48432.html/rss"><IMG 
+  title="Subscribe to DataGrid Control(4)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/xmlsmall.gif"></A><A 
+  id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl04_Link 
+  href="http://www.cnblogs.com/paker/category/48432.html">DataGrid 
+  Control(4)</A> 
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl05_RssLink 
+  title="Subscribe to English Zone(1)" 
+  href="http://www.cnblogs.com/paker/category/39923.html/rss"><IMG 
+  title="Subscribe to English Zone(1)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/xmlsmall.gif"></A><A 
+  id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl05_Link 
+  href="http://www.cnblogs.com/paker/category/39923.html">English Zone(1)</A> 
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl06_RssLink 
+  title="Subscribe to MSSQL2000(4)" 
+  href="http://www.cnblogs.com/paker/category/48280.html/rss"><IMG 
+  title="Subscribe to MSSQL2000(4)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/xmlsmall.gif"></A><A 
+  id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl06_Link 
+  href="http://www.cnblogs.com/paker/category/48280.html">MSSQL2000(4)</A> 
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl07_RssLink 
+  title="Subscribe to others(25)" 
+  href="http://www.cnblogs.com/paker/category/48170.html/rss"><IMG 
+  title="Subscribe to others(25)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/xmlsmall.gif"></A><A 
+  id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl07_Link 
+  href="http://www.cnblogs.com/paker/category/48170.html">others(25)</A> 
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl08_RssLink 
+  title="Subscribe to The Life(119)" 
+  href="http://www.cnblogs.com/paker/category/40224.html/rss"><IMG 
+  title="Subscribe to The Life(119)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/xmlsmall.gif"></A><A 
+  id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl08_Link 
+  href="http://www.cnblogs.com/paker/category/40224.html">The Life(119)</A> 
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl09_RssLink 
+  title="Subscribe to vs 2003(3)" 
+  href="http://www.cnblogs.com/paker/category/48502.html/rss"><IMG 
+  title="Subscribe to vs 2003(3)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/xmlsmall.gif"></A><A 
+  id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl09_Link 
+  href="http://www.cnblogs.com/paker/category/48502.html">vs 2003(3)</A> 
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl10_RssLink 
+  title="Subscribe to Win32/MFC(5)" 
+  href="http://www.cnblogs.com/paker/category/59578.html/rss"><IMG 
+  title="Subscribe to Win32/MFC(5)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/xmlsmall.gif"></A><A 
+  id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl10_Link 
+  href="http://www.cnblogs.com/paker/category/59578.html">Win32/MFC(5)</A> 
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl11_RssLink 
+  title="Subscribe to Windows Mobile(23)" 
+  href="http://www.cnblogs.com/paker/category/51096.html/rss"><IMG 
+  title="Subscribe to Windows Mobile(23)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/xmlsmall.gif"></A><A 
+  id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl11_Link 
+  href="http://www.cnblogs.com/paker/category/51096.html">Windows Mobile(23)</A> 
+
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl12_RssLink 
+  title="Subscribe to Zone 2.0 (1)" 
+  href="http://www.cnblogs.com/paker/category/48184.html/rss"><IMG 
+  title="Subscribe to Zone 2.0 (1)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/xmlsmall.gif"></A><A 
+  id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl12_Link 
+  href="http://www.cnblogs.com/paker/category/48184.html">Zone 2.0 (1)</A> 
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl13_RssLink 
+  title="Subscribe to 脚本语言JavaScript(10)" 
+  href="http://www.cnblogs.com/paker/category/47234.html/rss"><IMG 
+  title="Subscribe to 脚本语言JavaScript(10)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/xmlsmall.gif"></A><A 
+  id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl13_Link 
+  href="http://www.cnblogs.com/paker/category/47234.html">脚本语言JavaScript(10)</A> 
+
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl14_RssLink 
+  title="Subscribe to 项目开发总结(12)" 
+  href="http://www.cnblogs.com/paker/category/51097.html/rss"><IMG 
+  title="Subscribe to 项目开发总结(12)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/xmlsmall.gif"></A><A 
+  id=Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl14_Link 
+  href="http://www.cnblogs.com/paker/category/51097.html">项目开发总结(12)</A> 
+</LI></UL></DIV>
+<DIV id=cell><IMG hspace=5 
+src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/icon-group.jpg" align=left vspace=2>
+<H3>学习资源</H3>
+<UL>
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl01_LinkList_ctl01_Link 
+  href="http://www.51windows.net/myjs/?u=/myjs/JsList.asp">JS脚本列表</A> 
+</LI></UL></DIV>
+<DIV id=cell><IMG hspace=5 
+src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/icon-group.jpg" align=left vspace=2>
+<H3>友情连接中</H3>
+<UL>
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl02_LinkList_ctl01_Link 
+  href="http://alexfan.blog.hexun.com/">范占芳</A> 
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl02_LinkList_ctl02_Link 
+  href="http://www.lvjiyong.com/">垃圾猪的垃圾窝</A> 
+  <LI><A id=Singlecolumn2_Categories_CatList_ctl02_LinkList_ctl03_Link 
+  href="http://www.x-mobi.cn/">魔币空间</A> </LI></UL></DIV>
+<DIV id=cell><IMG hspace=5 
+src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/icon-group.jpg" align=left vspace=2>
+<H3>积分与排名</H3>
+<UL>
+  <LI>积分 - 75725 
+  <LI>排名 - 618 </LI></UL></DIV>
+<DIV id=cell><IMG hspace=5 
+src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/icon-group.jpg" align=left vspace=2>
+<H3>最新评论 <A id=Singlecolumn2__1b1ea13cb78b_RSSHyperlink1 
+href="http://www.cnblogs.com/paker/CommentsRSS.aspx"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/xml.gif"></A></H3>
+<DIV class=RecentComment>
+<UL>
+  <LI style="WORD-BREAK: break-all"><A 
+  id=Singlecolumn2__1b1ea13cb78b_CommentList_ctl01_Hyperlink1 
+  href="http://www.cnblogs.com/paker/archive/2008/10/20/1314851.html#1346424">1.&nbsp;re: 
+  都市“白骨精”十大必上网站</A> 
+  <LI style="WORD-BREAK: break-all">www.kqiang.com抢网，我们公司做的 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--clefoo 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=Singlecolumn2__1b1ea13cb78b_CommentList_ctl02_Hyperlink1 
+  href="http://www.cnblogs.com/paker/archive/2008/10/20/1314851.html#1346087">2.&nbsp;re: 
+  都市“白骨精”十大必上网站</A> 
+  <LI style="WORD-BREAK: break-all">2楼的正解 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--Jerry Ma 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=Singlecolumn2__1b1ea13cb78b_CommentList_ctl03_Hyperlink1 
+  href="http://www.cnblogs.com/paker/archive/2008/10/20/1314851.html#1345817">3.&nbsp;re: 
+  都市“白骨精”十大必上网站</A> 
+  <LI style="WORD-BREAK: break-all">哈哈 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--丁学 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=Singlecolumn2__1b1ea13cb78b_CommentList_ctl04_Hyperlink1 
+  href="http://www.cnblogs.com/paker/archive/2008/10/20/1314851.html#1345696">4.&nbsp;re: 
+  都市“白骨精”十大必上网站</A> 
+  <LI 
+  style="WORD-BREAK: break-all">--引用--------------------------------------------------丁学: 
+  抢网和东财从来没上过，常上的只有百度，看来落伍不少啊----------------... 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--charlie.song 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=Singlecolumn2__1b1ea13cb78b_CommentList_ctl05_Hyperlink1 
+  href="http://www.cnblogs.com/paker/archive/2008/10/20/1314851.html#1345646">5.&nbsp;re: 
+  都市“白骨精”十大必上网站</A> 
+  <LI style="WORD-BREAK: break-all">抢网和东财从来没上过，常上的只有百度，看来落伍不少啊 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--丁学 </LI></UL></DIV></DIV>
+<DIV id=cell><IMG hspace=5 
+src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/icon-group.jpg" align=left vspace=2>
+<H3>阅读排行榜</H3>
+<DIV class=RecentComment>
+<UL style="WORD-BREAK: break-all">
+  <LI><A id=Singlecolumn2__36b55bbed472_TopList_ctl01_Hyperlink1 
+  href="http://www.cnblogs.com/paker/archive/2007/04/10/706371.html">1.&nbsp;升级到ActiveSync 
+  4.5后“可能”遇到的网络连接问题，以及解决方法(3771)</A> 
+  <LI><A id=Singlecolumn2__36b55bbed472_TopList_ctl02_Hyperlink1 
+  href="http://www.cnblogs.com/paker/archive/2007/04/18/718507.html">2.&nbsp;Oracle 
+  Sql 语法收集.(3603)</A> 
+  <LI><A id=Singlecolumn2__36b55bbed472_TopList_ctl03_Hyperlink1 
+  href="http://www.cnblogs.com/paker/archive/2006/05/19/404406.html">3.&nbsp;[神奇就差那么点-骗术]吉普赛人祖传的神奇读心术(3242)</A> 
+
+  <LI><A id=Singlecolumn2__36b55bbed472_TopList_ctl04_Hyperlink1 
+  href="http://www.cnblogs.com/paker/archive/2007/04/14/713357.html">4.&nbsp;如何在Wm5的模拟器中测试电话功能(3005)</A> 
+
+  <LI><A id=Singlecolumn2__36b55bbed472_TopList_ctl05_Hyperlink1 
+  href="http://www.cnblogs.com/paker/archive/2005/11/28/286426.html">5.&nbsp;Winsock例子代码：初始化、阻塞/非阻塞、超时设置、select等(2614)</A> 
+  </LI></UL></DIV></DIV>
+<DIV id=cell><IMG hspace=5 
+src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/icon-group.jpg" align=left vspace=2>
+<H3>评论排行榜</H3>
+<DIV class=RecentComment>
+<UL style="WORD-BREAK: break-all">
+  <LI><A id=Singlecolumn2__3fe5470080ed_TopList_ctl01_Hyperlink1 
+  href="http://www.cnblogs.com/paker/archive/2006/03/11/347790.html">1.&nbsp;[debug]vs2003的调试能力好不到哪里去！！(19)</A> 
+
+  <LI><A id=Singlecolumn2__3fe5470080ed_TopList_ctl02_Hyperlink1 
+  href="http://www.cnblogs.com/paker/archive/2006/05/19/404406.html">2.&nbsp;[神奇就差那么点-骗术]吉普赛人祖传的神奇读心术(17)</A> 
+
+  <LI><A id=Singlecolumn2__3fe5470080ed_TopList_ctl03_Hyperlink1 
+  href="http://www.cnblogs.com/paker/archive/2006/05/26/410021.html">3.&nbsp;[花开了]终于能编译FileZilla(16)</A> 
+
+  <LI><A id=Singlecolumn2__3fe5470080ed_TopList_ctl04_Hyperlink1 
+  href="http://www.cnblogs.com/paker/archive/2006/07/01/440140.html">4.&nbsp;逛易初莲花温州店(11)</A> 
+
+  <LI><A id=Singlecolumn2__3fe5470080ed_TopList_ctl05_Hyperlink1 
+  href="http://www.cnblogs.com/paker/archive/2007/03/22/683561.html">5.&nbsp;安装vs 
+  2005 sp1的悲惨遭遇(8)</A> </LI></UL></DIV></DIV></DIV>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Page_ValidationSummaries =  new Array(document.getElementById("AjaxHolder_PostComment_ValidationSummary1"));
+var Page_Validators =  new Array(document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2"), document.getElementById("AjaxHolder_PostComment_revContactMail"), document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3"));
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var AjaxHolder_PostComment_RequiredFieldValidator1 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator1"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1");
+AjaxHolder_PostComment_RequiredFieldValidator1.controltovalidate = "AjaxHolder_PostComment_tbTitle";
+AjaxHolder_PostComment_RequiredFieldValidator1.errormessage = "请输入标题";
+AjaxHolder_PostComment_RequiredFieldValidator1.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator1.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator2 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator2"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2");
+AjaxHolder_PostComment_RequiredFieldValidator2.controltovalidate = "AjaxHolder_PostComment_tbName";
+AjaxHolder_PostComment_RequiredFieldValidator2.errormessage = "请输入你的姓名";
+AjaxHolder_PostComment_RequiredFieldValidator2.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator2.initialvalue = "";
+var AjaxHolder_PostComment_revContactMail = document.all ? document.all["AjaxHolder_PostComment_revContactMail"] : document.getElementById("AjaxHolder_PostComment_revContactMail");
+AjaxHolder_PostComment_revContactMail.controltovalidate = "AjaxHolder_PostComment_tbEmail";
+AjaxHolder_PostComment_revContactMail.errormessage = "邮件地址无效";
+AjaxHolder_PostComment_revContactMail.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+AjaxHolder_PostComment_revContactMail.validationexpression = "^([0-9a-zA-Z+-._]([+-._\\w]*[0-9a-zA-Z+-._])*@([0-9a-zA-Z][-\\w]*\\.)+[a-zA-Z]{2,9})$";
+var AjaxHolder_PostComment_Requiredfieldvalidator4 = document.all ? document.all["AjaxHolder_PostComment_Requiredfieldvalidator4"] : document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4");
+AjaxHolder_PostComment_Requiredfieldvalidator4.controltovalidate = "AjaxHolder_PostComment_CodeNumberTextBox";
+AjaxHolder_PostComment_Requiredfieldvalidator4.errormessage = "请输入验证码";
+AjaxHolder_PostComment_Requiredfieldvalidator4.display = "Dynamic";
+AjaxHolder_PostComment_Requiredfieldvalidator4.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_Requiredfieldvalidator4.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator3 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator3"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3");
+AjaxHolder_PostComment_RequiredFieldValidator3.controltovalidate = "AjaxHolder_PostComment_tbComment";
+AjaxHolder_PostComment_RequiredFieldValidator3.errormessage = "请输入评论内容";
+AjaxHolder_PostComment_RequiredFieldValidator3.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator3.initialvalue = "";
+var AjaxHolder_PostComment_ValidationSummary1 = document.all ? document.all["AjaxHolder_PostComment_ValidationSummary1"] : document.getElementById("AjaxHolder_PostComment_ValidationSummary1");
+AjaxHolder_PostComment_ValidationSummary1.showmessagebox = "True";
+AjaxHolder_PostComment_ValidationSummary1.showsummary = "False";
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+
+document.getElementById('AjaxHolder_PostComment_ValidationSummary1').dispose = function() {
+    Array.remove(Page_ValidationSummaries, document.getElementById('AjaxHolder_PostComment_ValidationSummary1'));
+}
+Sys.Application.initialize();
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2'));
+}
+
+document.getElementById('AjaxHolder_PostComment_revContactMail').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_revContactMail'));
+}
+
+document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3'));
+}
+//]]>
+</SCRIPT>
+</FORM>
+<SCRIPT src="Oracle Sql 语法收集_ - 坡南街的杰 - 博客园.files/ShowHidden.js" 
+type=text/javascript></SCRIPT>
+</BODY></HTML>

@@ -1,0 +1,477 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0061)http://blog.csdn.net/j2ee_fan/archive/2008/05/03/2373845.aspx -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content=j2ee_fan name=author>
+<META content=Csdn name=Copyright>
+<META content="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句" name=description>
+<META content="j2ee_fan,Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句" name=keywords><LINK 
+href="http://profile.csdn.net/j2ee_fan/picture/1.ico" rel="Shortcut Icon"><LINK 
+media=all 
+href="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/clover_1.css" 
+type=text/css rel=stylesheet><LINK title=RSS 
+href="http://blog.csdn.net/j2ee_fan/rss.aspx" type=application/rss+xml 
+rel=alternate>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY id=defaultuser>
+<DIV id=csdnblog_allwrap>
+<FORM language=javascript id=Form1 name=Form1 
+onsubmit="javascript:return WebForm_OnSubmit();" action=2373845.aspx 
+method=post><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE>
+<SCRIPT type=text/javascript>
+<!--
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Anthem_FormID = "Form1";
+//]]>
+</SCRIPT>
+
+<SCRIPT 
+src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="D:\Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files\WebResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+// -->
+</SCRIPT>
+ 
+<DIV id=csdnblog_midwrap>
+<DIV id=csdnblog_header>
+<H1><A id=Header1_HeaderTitle 
+href="http://blog.csdn.net/j2ee_fan/">Fantasy</A></H1>
+<H2>选择自己心喜欢的，喜欢自己选择的</H2>
+<UL id=personalnav>
+  <LI><A href="http://passport.csdn.net/UserLogin.aspx">登录</A></LI>
+  <LI><A href="http://passport.csdn.net/CSDNUserRegister.aspx">注册</A></LI></UL>
+<UL id=blogsearchsty>
+  <LI><INPUT class=bolgsearch id=inputSearch 
+onkeydown="return keyb(event)"></LI>
+  <LI class=selectsty><SELECT id=Search_ddlSearchScope 
+  name=Search:ddlSearchScope><OPTION value=all selected>全站</OPTION><OPTION 
+    value=j2ee_fan>当前博客</OPTION></SELECT></LI>
+  <LI><INPUT class=bolggobtn onclick=checkNull() type=button value=搜索></LI></UL>
+<UL id=menu>
+  <LI><A href="http://hi.csdn.net/j2ee_fan">空间</A></LI>
+  <LI><A class=on href="http://blog.csdn.net/j2ee_fan">博客</A></LI>
+  <LI><A 
+  href="http://hi.csdn.net/j2ee_fan/profile/contactlist/1.html">好友</A></LI>
+  <LI><A href="http://blog.csdn.net/j2ee_fan/Gallery.aspx">相册</A></LI>
+  <LI><A href="http://bbs.csdn.net/" target=_blank>论坛</A></LI>
+  <LI><A class=last 
+  href="http://hi.csdn.net/j2ee_fan/profile/notebook/1.html">留言</A></LI></UL></DIV>
+<DIV id=csdnblog_sidebar>
+<DIV class=gutter>
+<DIV class=aboutauthor>
+<DL>
+  <DT>用户操作
+  <DD class=middle><A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://webim.csdn.net/Messages/j2ee_fan.ashx" 
+  target=_blank>[即时聊天]</A> <A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://hi.csdn.net/Admin/WriteMessage.aspx?Receiver=j2ee_fan" 
+  target=_blank>[发私信]</A> <A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://webim.csdn.net/AddFriends/j2ee_fan.ashx" 
+  target=_blank>[加为好友]</A>
+  <DT>Alan Tong<SPAN>ID：j2ee_fan</SPAN>
+  <DD class=middle><IMG alt="" 
+  src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/1_j2ee_fan.jpg">
+  <DD class=middle><A href="http://profile.csdn.net/8/E4/edit.html"></A>
+  <DD>共<EM>6915</EM>次访问，排名<EM>15093(1)</EM>，好友<EM>7</EM>人，关注者<EM>12</EM>人。<BR>专注于web应用开发的学习，精通struts+hibernate+spring框架
+  <DD>
+  <DT>j2ee_fan的文章
+  <DD>原创 37 篇
+  <DD>翻译 0 篇
+  <DD>转载 2 篇
+  <DD>评论 0 篇 
+  <DT>j2ee_fan的公告
+  <DD>只为成功找方法，不为失败找理由 
+  <DT>最近评论 
+  <DT>文章分类
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A href="http://blog.csdn.net/j2ee_fan/category/379493.aspx">Ajax</A><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379493.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379502.aspx">Eclipse</A><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379502.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379491.aspx">Hibernate</A><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379491.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/j2ee_fan/category/379500.aspx">IT趣事</A><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379500.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/j2ee_fan/category/379496.aspx">Java</A><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379496.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379501.aspx">Javascript</A><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379501.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/j2ee_fan/category/379499.aspx">MySql</A><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379499.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379494.aspx">Oracle</A><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379494.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379487.aspx">Spring</A><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379487.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/j2ee_fan/category/379498.aspx">SQL 
+    Server</A><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379498.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/j2ee_fan/category/379492.aspx">Struts 
+    X</A><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379492.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379495.aspx">Weblogic</A><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379495.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/j2ee_fan/category/379504.aspx">生活杂谈</A><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379504.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/j2ee_fan/category/379497.aspx">数据结构</A><A 
+    href="http://blog.csdn.net/j2ee_fan/category/379497.aspx/rss">(RSS)</A></LI></UL></DIV>
+  <DT>收藏
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL></UL></DIV>
+  <DT>相册
+  <DD><A href="http://blog.csdn.net/j2ee_fan/Gallery/379515.aspx">技术性图解</A>
+  <DT>Ajax
+  <DT>dorado
+  <DT>Hibernate
+  <DT>IT趣事
+  <DT>Java
+  <DT>Javascript
+  <DT>MySql
+  <DT>oracle
+  <DT>Spring
+  <DT>SQL Server
+  <DT>Struts X
+  <DD><A href="http://www.blogjava.net/max/" target=_self>max的对struts2介绍的博客</A>
+  <DT>UML
+  <DT>weblogic
+  <DT>常去的blog
+  <DD><A href="http://www.blogjava.net/beansoft/" target=_self>blogjava老大的博客</A>
+  <DD><A href="http://www.ibm.com/developerworks/cn/java/wa-spring1/" 
+  target=_self>IBM专家文章博客</A>
+  <DD><A href="http://www.javaeye.com/" target=_self>一个比较屌的java博客</A>
+  <DT>数据结构
+  <DT>存档
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A 
+    href="http://blog.csdn.net/j2ee_fan/archive/2008/05.aspx">2008年05月(5)</A>
+    <LI><A 
+    href="http://blog.csdn.net/j2ee_fan/archive/2008/04.aspx">2008年04月(11)</A>
+    <LI><A 
+    href="http://blog.csdn.net/j2ee_fan/archive/2008/03.aspx">2008年03月(15)</A>
+    <LI><A 
+    href="http://blog.csdn.net/j2ee_fan/archive/2007/11.aspx">2007年11月(5)</A>
+    <LI><A 
+    href="http://blog.csdn.net/j2ee_fan/archive/2007/10.aspx">2007年10月(3)</A></LI></UL></DIV><SPAN 
+  id=RecentVisitors></SPAN><SPAN id=SubscriptionList>
+  <DT>订阅我的博客
+  <DD><A href="http://blog.csdn.net/j2ee_fan/Rss.aspx"><IMG alt=XML聚合 
+  src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/xml.gif" 
+  border=0></A>&nbsp;&nbsp;<A href="http://feeds.feedsky.com/csdn.net/j2ee_fan" 
+  target=_blank><IMG alt=FeedSky 
+  src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/feedsky.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.xianguo.com/subscribe.php?url=http://blog.csdn.net/j2ee_fan/Rss.aspx" 
+  target=_blank><IMG alt=订阅到鲜果 
+  src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/rss_xianguo.jpg" 
+  border=0></A>
+  <DD><A 
+  href="http://fusion.google.com/add?feedurl=http://blog.csdn.net/j2ee_fan/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Google 
+  src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/rss_google.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.zhuaxia.com/add_channel.php?url=http://blog.csdn.net/j2ee_fan/Rss.aspx" 
+  target=_blank><IMG alt=订阅到抓虾 
+  src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/rss_zhuaxia.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.bloglines.com/sub/http://blog.csdn.net/j2ee_fan/Rss.aspx" 
+  target=_blank><IMG alt=订阅到BlogLines 
+  src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/rss_bloglines.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://add.my.yahoo.com/rss?url=http://blog.csdn.net/j2ee_fan/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Yahoo 
+  src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/rss_yahoo.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://rss.gougou.com/find_rss.jsp?url=http://blog.csdn.net/j2ee_fan/Rss.aspx" 
+  target=_blank><IMG alt=订阅到GouGou 
+  src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/rss_gougou.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.pageflakes.com/subscribe.aspx?url=http://blog.csdn.net/j2ee_fan/Rss.aspx" 
+  target=_blank><IMG alt=订阅到飞鸽 
+  src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/rss_pageflakes.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.rojo.com/add-subscription?resource=http://blog.csdn.net/j2ee_fan/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Rojo 
+  src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/rss_rojo.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.newsgator.com/ngs/subscriber/subfext.aspx?url=http://blog.csdn.net/j2ee_fan/Rss.aspx" 
+  target=_blank><IMG alt=订阅到newsgator 
+  src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/rss_newsgator.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.netvibes.com/subscribe.php?url=http://blog.csdn.net/j2ee_fan/Rss.aspx" 
+  target=_blank><IMG alt=订阅到netvibes 
+  src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/rss_netvibes.gif" 
+  border=0></A></SPAN> </DD></DL></DIV></DIV></DIV>
+<DIV id=csdnblog_content>
+<DIV class=gutter>
+<DIV class=default_contents>
+<DIV class=user_article>
+<SCRIPT 
+src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/LoadFeedbackCount.js" 
+type=text/javascript></SCRIPT>
+
+<H1><IMG height=16 alt=原创 
+src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/authorship.gif" 
+width=15 border=0>&nbsp;<A 
+href="http://blog.csdn.net/j2ee_fan/archive/2008/05/03/2373845.aspx">Oracle 
+SQL学习笔记 之 GROUP函数与GROUP BY子句</A><CITE class=fav_csdnstylebykimi><A 
+class=fav_csdnstylebykimi title=收藏到我的网摘中，并分享给我的朋友 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();">收藏</A></CITE></H1>
+<DIV class=blogstory><SPAN id=Post.ascx_ViewPost_PreviousAndNextEntriesUp>
+<H3><A 
+href="http://blog.csdn.net/j2ee_fan/archive/2008/05/03/2373891.aspx">新一篇:&nbsp;ORACLE 
+SQL中的单记录函数</A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/j2ee_fan/archive/2008/05/03/2373833.aspx">旧一篇:&nbsp;ORACLE学习笔记 
+SQL 函数</A></H3></SPAN>
+<SCRIPT>function StorePage(){d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(keyit=window.open('http://www.365key.com/storeit.aspx?t='+escape(d.title)+'&u='+escape(d.location.href)+'&c='+escape(t),'keyit','scrollbars=no,width=475,height=575,left=75,top=20,status=no,resizable=yes'));keyit.focus();}</SCRIPT>
+
+<DIV class=tit><STRONG><FONT size=3>Oracle SQL学习笔记 之 GROUP函数与GROUP 
+BY子句</FONT></STRONG></DIV>
+<DIV class=date></DIV>
+<TABLE style="TABLE-LAYOUT: fixed">
+  <TBODY>
+  <TR>
+    <TD>
+      <DIV class=cnt id=blog_text>
+      <P>1. Group函数<BR>AVG <BR>COUNT <BR>MAX<BR>MIN <BR>STDDEV 
+      <BR>SUM<BR>VARIANCE<BR>使用格式：<BR><FONT color=#ff0000>SELECT column, 
+      group_function(column)<BR>FROM&nbsp;&nbsp; table<BR>[WHERE 
+      condition]<BR>[ORDER BY column];</FONT></P>
+      <P><BR>Group 函数忽视列里面的 null 值，受影响的语句可能是：<BR>SQL&gt; SELECT AVG(comm)<BR>2 
+      FROM&nbsp;&nbsp; 
+      emp;<BR>结果为：<BR>AVG(COMM)<BR>---------<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      550</P>
+      <P>但可以使用NVL函数强迫group函数在统计时包含null值<BR>【实例】<BR>SQL&gt; SELECT 
+      AVG(NVL(comm,0))<BR>2 FROM&nbsp;&nbsp; 
+      emp;<BR>结果为：<BR>AVG(NVL(COMM,0))<BR>----------------<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      157.14286</P>
+      <P>2. 使用GROUP BY子句<BR>格式为：<BR><FONT color=#ff0000>SELECT column, 
+      group_function(column)<BR>FROM&nbsp;&nbsp; table<BR>[WHERE 
+      condition]<BR>[GROUP BY group_by_expression]<BR>[ORDER BY 
+      column];</FONT><BR>【实例】<BR>SQL&gt; SELECT&nbsp;&nbsp; deptno, 
+      AVG(sal)<BR>2 FROM&nbsp;&nbsp;&nbsp;&nbsp; emp<BR>3 GROUP BY 
+      deptno;<BR>输出为：<BR>&nbsp;&nbsp; DEPTNO AVG(SAL)<BR>--------- 
+      ---------<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 
+      2916.6667<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2175<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30 1566.6667</P>
+      <P>GROUP BY 列可以不在select的列表里面<BR>【实例】<BR>SQL&gt; SELECT&nbsp;&nbsp; 
+      AVG(sal)<BR>2 FROM&nbsp;&nbsp;&nbsp;&nbsp; emp<BR>3 GROUP BY 
+      deptno;<BR>输出为：<BR>AVG(SAL)<BR>--------- 
+      <BR>2916.6667<BR>&nbsp;&nbsp;&nbsp;&nbsp; 2175<BR>1566.6667</P>
+      <P>可以根据多个列进行分组<BR>【实例】要实现“根据每个工作求出汇总工资，并按部门分组”：<BR>SQL&gt; 
+      SELECT&nbsp;&nbsp; deptno, job, sum(sal)<BR>2 FROM&nbsp;&nbsp;&nbsp;&nbsp; 
+      emp<BR>3 GROUP BY deptno, job;<BR>原始数据为：<BR>&nbsp;&nbsp; DEPTNO 
+      JOB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      SAL<BR>--------- --------- 
+      ---------<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 
+      MANAGER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2450<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 
+      PRESIDENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      5000<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 
+      CLERK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1300<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20 
+      CLERK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      800<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20 
+      CLERK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1100<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20 
+      ANALYST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      3000<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20 
+      ANALYST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      3000<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20 
+      MANAGER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2975<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30 
+      SALESMAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1600<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30 
+      MANAGER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2850<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30 
+      SALESMAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1250<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30 
+      CLERK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      950<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30 
+      SALESMAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1500<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30 
+      SALESMAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1250<BR>输出为：<BR>DEPTNO 
+      JOB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SUM(SAL)<BR>-------- 
+      --------- ---------<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 
+      CLERK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1300<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 
+      MANAGER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2450<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 
+      PRESIDENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      5000<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20 
+      ANALYST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      6000<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20 
+      CLERK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1900<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20 
+      MANAGER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2975<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30 
+      CLERK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      950<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30 
+      MANAGER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2850<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30 
+      SALESMAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5600</P>
+      <P>3. 使用 HAVING 子句来限制分组<BR><FONT color=#ff0000>SELECT column, 
+      group_function<BR>FROM&nbsp;&nbsp; table<BR>[WHERE condition]<BR>[GROUP BY 
+      group_by_expression]<BR>[HAVING group_condition]<BR>[ORDER BY 
+      column];</FONT><BR>【实例】<BR>SQL&gt; SELECT&nbsp;&nbsp; deptno, 
+      max(sal)<BR>2 FROM&nbsp;&nbsp;&nbsp;&nbsp; emp<BR>3 GROUP BY deptno<BR>4 
+      HAVING&nbsp;&nbsp; max(sal)&gt;2900;<BR>输出为：<BR>&nbsp;&nbsp; DEPTNO 
+      MAX(SAL)<BR>--------- ---------<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      5000<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3000</P>
+      <P>【实例】<BR>SQL&gt; SELECT&nbsp;&nbsp;&nbsp; job, SUM(sal) PAYROLL<BR>2 
+      FROM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; emp<BR>3 WHERE&nbsp;&nbsp; job NOT LIKE 
+      'SALES%'<BR>4 GROUP BY job<BR>5 HAVING&nbsp;&nbsp;&nbsp; 
+      SUM(sal)&gt;5000<BR>6 ORDER BY 
+      SUM(sal);<BR>输出为：<BR>JOB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      PAYROLL<BR>--------- 
+      ---------<BR>ANALYST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      6000<BR>MANAGER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8275</P>
+      <P>4. 嵌套GROUP函数<BR>【实例】<BR>显示最大的平均工资 <BR>SQL&gt; SELECT&nbsp;&nbsp; 
+      max(avg(sal))<BR>2 FROM&nbsp;&nbsp;&nbsp;&nbsp; emp<BR>3 GROUP BY 
+      deptno;<BR>输出为：<BR>MAX(AVG(SAL))<BR></P></DIV></TD></TR></TBODY></TABLE>
+<P class="right articalinfo">发表于 @ <A title=permalink 
+href="http://blog.csdn.net/j2ee_fan/archive/2008/05/03/2373845.aspx">2008年05月03日 
+21:00:47</A>|<A title=评论 
+href="http://blog.csdn.net/j2ee_fan/archive/2008/05/03/2373845.aspx#FeedBack">评论(<SPAN 
+id=FeedbackCount_2373845>loading...</SPAN>
+<SCRIPT type=text/javascript>AddFeedbackCountStack("2373845")</SCRIPT>
+)</A>|<A title=编辑 
+href="http://writeblog.csdn.net/PostEdit.aspx?entryId=2373845">编辑</A></P><SPAN 
+id=Post.ascx_ViewPost_PreviousAndNextEntriesDown>
+<H3><A 
+href="http://blog.csdn.net/j2ee_fan/archive/2008/05/03/2373891.aspx">新一篇:&nbsp;ORACLE 
+SQL中的单记录函数</A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/j2ee_fan/archive/2008/05/03/2373833.aspx">旧一篇:&nbsp;ORACLE学习笔记 
+SQL 函数</A></H3></SPAN></DIV></DIV>
+<DIV class=commentslist><SPAN id=Anthem_Post.ascx_Comments_ltlComments__><SPAN 
+id=Post.ascx_Comments_ltlComments>
+<DIV id=commentslist>
+<H3>评论：没有评论。</H3></DIV></SPAN></SPAN></DIV>
+<DIV class=spacecommment>
+<DIV id=Anthem_Post.ascx_PostComment_CommentUpdatePanel__>
+<DIV id=Post.ascx_PostComment_CommentUpdatePanel>
+<FIELDSET><LEGEND>发表评论</LEGEND>
+<UL>
+  <LI>姓&nbsp;&nbsp;&nbsp;名：<INPUT id=Post.ascx_PostComment_tbName disabled 
+  maxLength=32 size=40 name=Post.ascx:PostComment:tbName><SPAN 
+  id=Post.ascx_PostComment_RequiredFieldValidator2 
+  style="VISIBILITY: hidden; COLOR: red" initialvalue="" 
+  evaluationfunction="RequiredFieldValidatorEvaluateIsValid" 
+  errormessage="请输入名字" 
+  controltovalidate="Post.ascx_PostComment_tbName">请输入名字</SPAN> 
+  <LI>主&nbsp;&nbsp;&nbsp;页：<INPUT id=Post.ascx_PostComment_tbUrl disabled 
+  maxLength=256 size=40 name=Post.ascx:PostComment:tbUrl> 
+  <LI>
+  <DIV id=Post.ascx_PostComment_AntiBotImageRegion>校验码： <INPUT 
+  id=Post.ascx_PostComment_tbAntiBotImage style="WIDTH: 75px" 
+  name=Post.ascx:PostComment:tbAntiBotImage> <SPAN 
+  id=Post.ascx_PostComment_valAntiBotImage style="DISPLAY: none; COLOR: red" 
+  evaluationfunction="CustomValidatorEvaluateIsValid" 
+  display="Dynamic">检验码无效!</SPAN> <SPAN 
+  id=Anthem_Post.ascx_PostComment_imgAntiBotImage__><IMG 
+  id=Post.ascx_PostComment_imgAntiBotImage alt="" 
+  src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/AntiBotImage.jpg" 
+  align=absMiddle border=0></SPAN> <SPAN 
+  id=Anthem_Post.ascx_PostComment_lbCreateAntiBotImage__><A 
+  id=Post.ascx_PostComment_lbCreateAntiBotImage 
+  onclick="javascript:Anthem_FireCallBackEvent(this,event,'Post.ascx:PostComment:lbCreateAntiBotImage','',false,'','','',true,null,null,null,true,true);return false;" 
+  href="javascript:__doPostBack('Post.ascx$PostComment$lbCreateAntiBotImage','')">看不清,换一张</A></SPAN> 
+  </DIV></LI></UL><SPAN id=Post.ascx_PostComment_RequiredFieldValidator3 
+style="VISIBILITY: hidden; COLOR: red" initialvalue="" 
+evaluationfunction="RequiredFieldValidatorEvaluateIsValid" errormessage="请输入评论" 
+controltovalidate="Post.ascx_PostComment_tbComment">请输入评论</SPAN><BR><TEXTAREA id=Post.ascx_PostComment_tbComment disabled name=Post.ascx:PostComment:tbComment rows=10 cols=50></TEXTAREA><BR><SPAN 
+id=Anthem_Post.ascx_PostComment_btnSubmit__></SPAN><BR><SPAN 
+id=Post.ascx_PostComment_Message 
+style="COLOR: red">当前用户设置只有注册用户才能发表评论。如果你没有登录，请点击<A 
+href="http://passport.csdn.net/member/UserLogin.aspx?from=http://blog.csdn.net/j2ee_fan/archive/2008/05/03/2373845.aspx">登录</A></SPAN> 
+</FIELDSET> </DIV></DIV></DIV>
+<SCRIPT type=text/javascript>
+    LoadFeedbackCount();//加载评论
+    document.write("<img src='http://counter.csdn.net/pv.aspx?id=24' border=0 width=0 height=0>");// 计数器
+    </SCRIPT>
+
+<SCRIPT 
+src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/HighLighter.js" 
+type=text/javascript></SCRIPT>
+</DIV></DIV></DIV>
+<DIV id=pubfooter>
+<DL>
+  <DT>
+  <DD>Csdn Blog version 3.1a 
+  <DD>Copyright © j2ee_fan </DD></DL></DIV></DIV>
+<SCRIPT type=text/javascript>
+<!--
+var Page_Validators =  new Array(document.getElementById("Post.ascx_PostComment_RequiredFieldValidator2"), document.getElementById("Post.ascx_PostComment_valAntiBotImage"), document.getElementById("Post.ascx_PostComment_RequiredFieldValidator3"));
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+</FORM>
+<SCRIPT 
+src="Oracle SQL学习笔记 之 GROUP函数与GROUP BY子句 - Fantasy - CSDNBlog.files/counter.js" 
+type=text/javascript></SCRIPT>
+</DIV></BODY></HTML>

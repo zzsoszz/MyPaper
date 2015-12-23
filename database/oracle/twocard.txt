@@ -1,0 +1,135 @@
+消息格式
+消息格式
+4   8       4   22                 =38
+|--------head------------------------|-----msg
+len*comncodestat            0000000000transid USER_NUMBER REQUEST_TIME ACCOUNT_TYPE AMOUNT CARD_NO
+						用户号段  请求时间	帐户类型    金额   卡号
+区域代码 根据用户号段来取
+head 包括len commandcode state 22个备用数据
+ScpPay.c
+main()
+{
+	//创建连接
+	commdeal();
+}
+commdeal()
+{
+	head = (struct scppayHEAD *) tcpbuf;//提取指令部分
+	msg = tcpbuf + 38;//提取消息部分
+	ret = recvdata();//取得socket数据,读取命令信息到tcpbuf
+	msg_deal()//消息处理
+}
+msg_deal()
+{
+	memcpy(req_cmd, head->command_code, 8);//复制命令信息
+	ret = pay_fee(req_cmd, msg, res_cmd, dest_msg);//req_cmd为命令代码，res_cmd为01020301
+}
+
+Pay_fee.c
+int pay_fee(const char *req_cmd, const char *source, char *rsp_cmd, char *dest) 
+{
+
+	req_cmd
+	switch
+		case 1010301 代表冲值
+			ret_code = snd_rcv_parm32("s1300FewMsg", para_count, para_set,output_num);//查询欠费R1300PubCard.cp的s1300FewMsg服务，para_set包含phone_no,org_code,work_no
+			add_fee(city_code, trans_id, user_number, account_pw, request_time,
+				account_type, amount, card_number, comment);
+		case 1010401 代表冲值冲正
+			del_fee(city_code, trans_id, user_number, request_time,
+				rev_trans_id);
+}			
+eqsql_utils.c
+add_fee(const char *city_no, const char *trans_id, const char *user_number, const char *account_pw, const char *request_time, const char *account_type, const double amount, const char *card_number, const char *comment)
+{
+	EXEC SQL EXEC :ret_status = prc_payphone_add :region_code, :transaction_id,:phone_no, :trade_time, :acct_type, :pay_fee, :Tcard_no, :text;//调用储存过程更新dPayRec%s表
+	EXEC SQL EXEC :ret_status = prc_unpayphone_add :region_code, :transaction_id,:phone_no, :trade_time, :rev_transaction_id;//调用储存过程更新dPayRec%s表	
+}
+
+PayPhone.c
+main()
+{
+	dPayRec%s表达unpay标志确定
+	while()
+	{
+		EXEC SQL FETCH CUR_getpayphone INTO :pay_phone[i].city_code, :pay_phone[i].trans_id, :pay_phone[i].pay_fee, :pay_phone[i].phone_no, :pay_phone[i].unpay_flag, :pay_phone[i].pay_phone_no, :pay_phone[i].card_number;
+		pay();
+		unpay();
+	}
+}
+pay()
+{
+			//para_set输入参数列表，包含手机号，缴费金额工号等信息
+	snd_rcv_parm("s1300Cfm", para_count, para_set, output_num);//s1300Cfm.cp
+	
+}
+unpay()
+{
+	ret_code = snd_rcv_parm("s1314_Apply", para_count, para_set, output_num)) <= 0)
+}
+
+R1300Cfm.cp
+//更新信用度
+dCustMsg
+dCreditMsg
+wLoginOpr%4d
+
+取帐户资料
+PublicGetConMsg
+
+取工号资料
+PublicGetLoginMsg
+
+得到充值卡对应的实际充值金额
+PublicGetActuralPayCardValue();
+{
+	sMaxCard
+	sPayCardFee
+}
+
+判断是否重复交费
+如果是外部接口缴费查询wPaySign看是否有重复的外部系统流水
+如果是前台缴费查询wPay是否有180之内的缴费
+PublicRePayFlag()
+
+/******************************
+查询交费的查询记录
+******************************/
+wPayReview
+
+计算加上滞纳金后的欠费
+owe_fee = owe_fee + delay_fee*(1-in_delay_rate) + remonth_fee*(1-in_remonth_rate);
+
+/********************************
+	获得赠送金额
+********************************/
+sPreGivingCode
+
+冲销
+Public1300CfmCon()
+
+多帐户开机
+PublicSendOffonAccNew()
+
+单帐户开机
+PublicSendOffonPhone()
+
+/***********************************
+	更新有效期
+	山西需要对新神州通更新
+***********************************/
+PublicUpdateExpireTime()
+
+/*********************************************************
+记录支票操作表、滞纳金优惠、补收月租优惠、营业员操作日志等
+*********************************************************/
+PublicRecordOprRecNew()
+
+如果是交费卡插入 
+wPayCardPay
+
+判断是否是充值卡交费，如果是，则发短信
+sx缴费卡缴费由缴费卡系统发
+其他的由缴费作
+交费查询记录
+wPayReview

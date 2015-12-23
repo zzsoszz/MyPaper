@@ -1,0 +1,478 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0052)http://www.bitscn.com/exam/oracle/200808/149290.html -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟/网管网/bitsCN.com</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content="Oracle DBA笔试及面试题汇总：基础篇-考试认证," name=description>
+<META content=" 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别   Oracle DBA笔试及面试题汇总：基础篇-考试认证" 
+name=keywords>
+<META content="Copyright 中国网管联盟 网管网 bitsCN.com" name=copyright><LINK 
+href="favicon.ico" rel="shortcut Icon"><LINK href="favicon2.ico" 
+rel=bookmark><LINK rev=stylesheet media=screen 
+href="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/bitscn.css" 
+type=text/css rel=stylesheet><LINK 
+href="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/feedback.css" 
+type=text/css rel=stylesheet><!-- Digg 参数 -->
+<SCRIPT language=javascript 
+src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/dedeajax2.js"></SCRIPT>
+
+<SCRIPT language=javascript>
+function Digg(divId,aid){
+   var taget_obj = document.getElementById(divId+''+aid);
+   var myajax = new DedeAjax(taget_obj,false,false,"","","");
+   myajax.SendGet2("/digg.php?action=digg&aid="+aid);
+   DedeXHTTP = null;
+}
+</SCRIPT>
+
+<SCRIPT 
+src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/prototype.js" 
+type=text/javascript></SCRIPT>
+
+<STYLE type=text/css>.login2 {
+	
+}
+.login2 INPUT {
+	BORDER-RIGHT: #000 1px solid; BORDER-TOP: #000 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #000 1px solid; WIDTH: 60px; BORDER-BOTTOM: #000 1px solid
+}
+.login2 SELECT {
+	FONT-SIZE: 12px
+}
+.login3 INPUT {
+	BORDER-RIGHT: #333333 1px solid; BORDER-TOP: #333333 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #333333 1px solid; WIDTH: 160px; BORDER-BOTTOM: #333333 1px solid
+}
+.login3 SELECT {
+	FONT-SIZE: 12px
+}
+.diggArea {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FLOAT: left; BACKGROUND-IMAGE: url(http://www.bitscn.com/plus/img/diggbg2.gif); PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 60px; LINE-HEIGHT: 23px; PADDING-TOP: 0px; HEIGHT: 58px
+}
+.diggNum {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; MARGIN: 8px 0px 0px; WIDTH: 58px; COLOR: #ff6633; PADDING-TOP: 0px; HEIGHT: 23px; TEXT-ALIGN: center
+}
+.diggLink {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 58px; PADDING-TOP: 0px; HEIGHT: 23px; TEXT-ALIGN: center
+}
+.diggLink A {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px
+}
+</STYLE>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY leftMargin=0 topMargin=0 rightMargin=0 marginheight="0" marginwidth="0">
+<TABLE cellSpacing=0 cellPadding=0 width=960 align=center border=0>
+  <TBODY>
+  <TR>
+    <TD class=top-member align=middle><A title=中国网管联盟 
+      href="http://www.bitscn.com/" target=_blank>网管联盟</A>&nbsp;| <A 
+      title=网管论坛,网管社区 href="http://bbs.bitscn.com/" 
+      target=_blank>网管论坛</A>&nbsp;| <A title=网管u家 href="http://u.bitscn.com/" 
+      target=_blank>网管u家</A>&nbsp;| <A title=网管博客 href="http://www.bitscn.net/" 
+      target=_blank>网管博客</A>&nbsp;| <A title=网管软件,软件 
+      href="http://dl.bitscn.com/" target=_blank>网管软件</A>&nbsp;| <A 
+      title=网管求职,网管招聘,网管人才 href="http://www.09hr.com/" 
+      target=_blank>网管求职</A>&nbsp;| <A title=网管游戏,小游戏,在线游戏,Flash游戏,webgame 
+      href="http://play.bitscn.com/" target=_blank>小游戏</A>&nbsp;| <A 
+      title=IT搜索,网管搜索,知识库搜索 href="http://so.bitscn.com/" 
+      target=_blank>网管搜索</A>&nbsp;| <A title=网管原创 
+      href="http://www.bitscn.com/wgyc/" target=_blank>网管原创</A>&nbsp;| <A 
+      title=网管聚合 href="http://blogs.bitscn.com/" target=_blank>网管聚合</A>&nbsp;| 
+      <A title=网管读摘 href="http://www.bitscn.com/read/" 
+      target=_blank>网管读摘</A>&nbsp;| <A title=网管焦点 
+      href="http://www.bitscn.com/focus/" target=_blank>网管焦点</A>&nbsp;| <A 
+      title=世界素材 href="http://sc.bitscn.com/" target=_blank>世界素材</A>&nbsp;| <A 
+      href="http://www.bitscn.com/member/article_add.php" 
+      target=_blank>会员投稿</A>&nbsp;| <A 
+      href="http://www.bitscn.com/member/index.php" 
+    target=_blank>会员中心</A>&nbsp;</TD></TR></TBODY></TABLE>
+<DIV style="PADDING-TOP: 2px"></DIV>
+<TABLE cellSpacing=0 cellPadding=0 width=960 align=center border=0>
+  <TBODY>
+  <TR>
+    <TD align=middle width=190 rowSpan=2><A href="http://www.bitscn.com/"><IMG 
+      height=60 alt=中国网管联盟 
+      src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/logo.gif" 
+      width=180 border=0></A></TD>
+    <TD align=middle width=501 rowSpan=2><IFRAME 
+      src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/a2008d1.htm" 
+      frameBorder=0 width=468 scrolling=no height=60></IFRAME></TD>
+    <TD width=269 height=70>
+      <SCRIPT language=javaScript 
+      src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/alltop.js" 
+      type=text/javascript></SCRIPT>
+    </TD></TR></TBODY></TABLE>
+<DIV style="PADDING-TOP: 2px"></DIV>
+<TABLE cellSpacing=0 cellPadding=0 width=960 align=center border=0>
+  <TBODY>
+  <TR>
+    <TD class=top-border-topbg align=middle><A title=windows 
+      href="http://www.bitscn.com/windows/" target=_blank>Windows</A>&nbsp;<A 
+      title=linux href="http://www.bitscn.com/linux/" 
+      target=_blank>Linux</A>&nbsp;<A title=CISCO 
+      href="http://www.bitscn.com/cisco/" target=_blank>Cisco</A>&nbsp;<A 
+      title=网络技术 href="http://www.bitscn.com/network/" 
+      target=_blank>网络技术</A>&nbsp;<A title=数据库技术 
+      href="http://www.bitscn.com/database/" target=_blank>数据库</A>&nbsp;<A 
+      title=黑客资讯 href="http://www.bitscn.com/hack/" 
+      target=_blank>黑客攻防</A>&nbsp;<A title=dotnet,NET 
+      href="http://www.bitscn.com/dotnet/" target=_blank>DotNet</A>&nbsp;<A 
+      title=JAVA href="http://www.bitscn.com/java/" 
+      target=_blank>Java</A>&nbsp;<A title=PHP href="http://www.bitscn.com/php/" 
+      target=_blank>PHP</A>&nbsp;<A title=认证考试,IT认证 
+      href="http://www.bitscn.com/exam/" target=_blank>认证</A>&nbsp;<A title=新闻资讯 
+      href="http://www.bitscn.com/news/" target=_blank>新闻资讯</A>&nbsp;<A 
+      title=服务器 href="http://www.bitscn.com/server/" 
+      target=_blank>服务器</A>&nbsp;<A title=存储 href="http://www.bitscn.com/stor/" 
+      target=_blank>存储资讯</A>&nbsp;<A title=网络设备 
+      href="http://www.bitscn.com/netpro/" target=_blank>网络设备</A>&nbsp;<A 
+      title=网管学堂 href="http://www.bitscn.com/school/" 
+      target=_blank>网管学堂</A>&nbsp;<A title=技术专题,专题技术 
+      href="http://www.bitscn.com/special/" target=_blank>技术专题</A>&nbsp;<A 
+      title=技术焦点,焦点图片 href="http://www.bitscn.com/focus/" 
+      target=_blank>焦点</A>&nbsp;<A title=网吧资讯,网吧技术,网吧业界,网吧动态,网吧未来 
+      href="http://www.bitscn.com/wb/" 
+target=_blank>网吧频道</A></TD></TR></TBODY></TABLE>
+<DIV style="PADDING-TOP: 7px"></DIV>
+<TABLE cellSpacing=0 cellPadding=0 width=960 align=center border=0>
+  <FORM action=http://so.bitscn.com method=get target=_blank>
+  <TBODY>
+  <TR>
+    <TD class=lh15 align=left>&nbsp;当前位置：&nbsp;&gt;&nbsp;<A 
+      href="http://www.bitscn.com/">bitsCN.com</A> &gt; <A 
+      href="http://www.bitscn.com/exam/">认证考试</A> &gt; <A 
+      href="http://www.bitscn.com/exam/oracle/">Oracle认证</A> &gt; Oracle 
+      DBA笔试及面试题汇总：基础篇-考试认证</TD>
+    <TD align=right width=269><INPUT class=input 
+      style="BACKGROUND-COLOR: #ffffff" size=25 name=q> <INPUT type=hidden 
+      value=gb2312 name=ie> <INPUT type=hidden value=www name=tr> <INPUT type=submit value=搜索文章 name=searchsubmit> 
+  &nbsp;</TD></TR></FORM></TBODY></TABLE>
+<DIV style="PADDING-TOP: 7px"></DIV>
+<DIV id=divall>
+<DIV id=divleft>
+<DIV class=artitle align=center>
+<H1>Oracle DBA笔试及面试题汇总：基础篇-考试认证</H1>
+<H2>2008-08-13&nbsp;&nbsp;作者:bitsCN整理&nbsp;&nbsp;来源:中国网管联盟&nbsp;&nbsp;<A 
+class=dlgreen2 
+href="http://www.bitscn.com/exam/oracle/200808/149290.html#feedbk">点评</A>&nbsp;<A 
+class=dlgreen2 href="http://www.bitscn.com/member/article_add.php" 
+target=_blank>投稿</A>&nbsp;<A class=dlgreen2 
+href="http://www.bitscn.com/plus/stow.php?arcID=149290">收藏</A></H2>
+<SCRIPT type=text/javascript><!--
+google_ad_client = "pub-9969174943212288";
+/* 468x15,wwwarctag创建于 08-6-27 */
+google_ad_slot = "7776775600";
+google_ad_width = 468;
+google_ad_height = 15;
+//-->
+</SCRIPT>
+
+<SCRIPT 
+src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+</DIV>
+<DIV class=hr></DIV>
+<DIV class=shoucang>
+<SCRIPT 
+src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/sc.js"></SCRIPT>
+</DIV>
+<DIV class=lharticle>
+<DIV class=ggtext>
+<SCRIPT type=text/javascript><!--
+google_ad_client = "pub-9969174943212288";
+/* 300x250, www 07-12-27 */
+google_ad_slot = "1613516496";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</SCRIPT>
+
+<SCRIPT 
+src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+</DIV>
+<STYLE>.Fjp551 {
+	DISPLAY: none
+}
+</STYLE>
+欢迎进入Oracle社区论坛，与200万技术人员互动交流 &gt;&gt;进入 
+<P>　　<STRONG>使用篇</STRONG> 
+<P class=Fjp551>网管联盟bitsCN_com</P>
+<P></P>
+<P>　　1：使用索引查询一定能提高查询的性能吗?举出实例 <SPAN class=Fjp551>中国网管论坛bbs.bitsCN.com</SPAN> 
+</P>
+<P>　　2：数据库设计的一、二、三范式、BCNF是什么? <FONT color=#ffffff>网管朋友网www_bitscn_net</FONT> 
+</P>
+<P>　　3：StoreProcedure和Function有何区别? <SPAN class=Fjp551>网管u家bitscn.net</SPAN> 
+</P>
+<P>　　4：如何跟踪某个session的SQL? <FONT color=#ffffff>网管网www_bitscn_com</FONT> </P>
+<P>　　5：如何使用CBO,CBO与RULE的区别? <FONT color=#ffffff>网管联盟bitsCN@com</FONT> </P>
+<P>　　6：描述tablespace和datafile之间的关系 <FONT color=#ffffff>中国网管联盟bitsCN.com</FONT> 
+</P>
+<P>　　7：truncate和delete有何区别?哪一种操作性能更快? <FONT color=#ffffff>网管bitscn_com</FONT> 
+</P>
+<P>　　8：什么是Snapshot?与View有何区别? <SPAN class=Fjp551>网管联盟bitsCN@com</SPAN> </P>
+<P>　　9：pctused and pctfree 表示什么含义有什么作用 
+<DIV class=Fjp551>网管bitscn_com</DIV>
+<P></P>
+<P>　　10：cursor一般用在什么地方?有何弱点? 
+<DIV class=Fjp551>网管u家bitscn.net</DIV>
+<P></P>
+<P>　　<STRONG>管理篇</STRONG> 
+<DIV class=Fjp551>网管u家u.bitsCN.com</DIV>
+<P></P>
+<P>　　1：SQL调整最关注的是什么? <FONT color=#ffffff>中国网管联盟bitsCN.com</FONT> </P>
+<P>　　2：Oracle的系统进程有哪些?作用是什么? 
+<DIV class=Fjp551>网管联盟bitsCN_com</DIV>
+<P></P>
+<P>　　3：本地管理表空间和字典管理表空间的特点，ASSM有什么特点? <FONT 
+color=#ffffff>网管u家www.bitscn.net</FONT> </P>
+<P>　　4：备份如何分类? 
+<DIV class=Fjp551>网管u家u.bitsCN.com</DIV>
+<P></P>
+<P>　　5：如果一个表被drop，在有完善的归档和备份的情况下，如何恢复 <FONT 
+color=#ffffff>网管朋友网www_bitscn_net</FONT> </P>
+<P>　　6：rman是什么，有何特点? <SPAN class=Fjp551>网管朋友网www_bitscn_net</SPAN> </P>
+<P>　　7：standby的特点 
+<DIV class=Fjp551>网管bitscn_com</DIV>
+<P></P>
+<P>　　8：对于一个要求恢复时间比较短的系统(数据库50G,每天归档5G)，你如何设计备份策略 
+<DIV class=Fjp551>网管u家www.bitscn.net</DIV>
+<P></P>
+<P>　　9：对于一个存在系统性能的系统，说出你的诊断处理思路 
+<DIV class=Fjp551>网管联盟bitsCN@com</DIV>
+<P></P>
+<P>　　10：列举几种诊断IO、CPU、性能状况的方法 
+<P class=Fjp551>中国网管联盟bitsCN.com</P>
+<P></P>
+<P>　　11：对statspack有何认识 <SPAN class=Fjp551>中国网管联盟bitsCN.com</SPAN> </P>
+<P>　　12：如果系统现在需要在一个很大的表上创建一个索引，你会考虑那些因素，如何做以尽量减小对应用的影响 
+<P class=Fjp551>网管有家bitscn.net</P>
+<P></P>
+<P>　　13：对raid10 和raid5有何认识 <FONT color=#ffffff>网管下载dl.bitscn.com</FONT> </P>
+<P>　　14：SGA主要有那些部分，主要作用是什么 <SPAN class=Fjp551>网管联盟bitsCN_com</SPAN> </P>
+<P>　　15：简单描述table / segment / extent / block之间的关系 <FONT 
+color=#ffffff>网管u家www.bitscn.net</FONT> </P>
+<P>　　16：说说你对索引的认识(索引的结构、对dml影响、对查询影响、为什么提高查询性能) <FONT 
+color=#ffffff>中国网管联盟bitsCN.com</FONT> </P></DIV>
+<DIV style="PADDING-TOP: 12px"></DIV>
+<DIV class=cupage></DIV>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD><SPAN 
+      style="PADDING-RIGHT: 0px; PADDING-LEFT: 20px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px">
+      <SCRIPT type=text/javascript><!--
+google_ad_client = "pub-9969174943212288";
+/* 468x60,www3,创建于 08-6-26 */
+google_ad_slot = "8119294260";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</SCRIPT>
+
+      <SCRIPT 
+      src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/show_ads.js" 
+      type=text/javascript>
+</SCRIPT>
+      </SPAN></TD>
+    <TD>
+      <DIV class=diggArea id=digg149290>
+      <DIV class=diggNum>3</DIV>
+      <DIV class=diggLink><A 
+      href="javascript:Digg('digg',149290);">顶一下</A></DIV></DIV></TD></TR></TBODY></TABLE>
+<DIV style="PADDING-TOP: 12px"></DIV><IFRAME id=mood_frame marginWidth=0 
+marginHeight=0 
+src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/CATXJ32W.htm" 
+frameBorder=0 width=510 scrolling=no height=200></IFRAME>
+<DIV style="PADDING-TOP: 20px"></DIV>
+<DIV class=text_tag><A href="http://www.bitscn.com/tag.php" 
+target=_blank>TAGs</A>：<A href="http://so.bitscn.com/.html" 
+target=_blank><B></B></A> &nbsp; <A href="http://so.bitscn.com/基础.html" 
+target=_blank><B>基础</B></A> &nbsp; <A href="http://so.bitscn.com/汇总.html" 
+target=_blank><B>汇总</B></A> &nbsp; <A href="http://so.bitscn.com/面试.html" 
+target=_blank><B>面试</B></A> &nbsp; <A href="http://so.bitscn.com/笔试.html" 
+target=_blank><B>笔试</B></A> &nbsp; <A href="http://so.bitscn.com/如何.html" 
+target=_blank><B>如何</B></A> &nbsp; <A href="http://so.bitscn.com/一个.html" 
+target=_blank><B>一个</B></A> &nbsp; <A href="http://so.bitscn.com/性能.html" 
+target=_blank><B>性能</B></A> &nbsp; <A href="http://so.bitscn.com/系统.html" 
+target=_blank><B>系统</B></A> &nbsp; <A href="http://so.bitscn.com/索引.html" 
+target=_blank><B>索引</B></A> &nbsp; <A href="http://so.bitscn.com/区别.html" 
+target=_blank><B>区别</B></A> &nbsp; <A href="http://so.bitscn.com/.html" 
+target=_blank><B></B></A>&nbsp; <A href="http://so.bitscn.com/.html" 
+target=_blank><B></B></A>&nbsp;</DIV>
+<DIV style="PADDING-TOP: 8px"></DIV>
+<DIV class=hr></DIV>
+<DIV style="PADDING-BOTTOM: 10px; PADDING-TOP: 10px" align=left>&nbsp;上一篇：<A 
+href="http://www.bitscn.com/exam/oracle/200804/139776.html">详细讲解Oracle数据库管理员认证方法-考试认证</A> 
+&nbsp; 下一篇：<A 
+href="http://www.bitscn.com/exam/oracle/200808/149291.html">获取Oracle 9i 和10g 
+OCP证书全攻略-考试认证</A> </DIV>
+<DIV class=hr></DIV>
+<DIV style="PADDING-TOP: 8px"></DIV><IFRAME 
+src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/CA41EZAF.htm" 
+frameBorder=0 width=630 scrolling=no height=170></IFRAME>
+<DIV style="PADDING-TOP: 8px"></DIV>
+<DIV class=box_xg>
+<DIV class=title_xg>相关文章列表</DIV>
+<UL>
+  <LI><A class=dlgreen2 title=2008年Oracle认证考试详细介绍-考试认证 
+  href="http://www.bitscn.com/exam/oracle/200809/151594.html" 
+  target=_blank>2008年Oracle认证考试详细介绍-考试认证</A></LI>
+  <LI><A class=dlgreen2 title=Oracle11g认证考试途径-考试认证 
+  href="http://www.bitscn.com/exam/oracle/200809/151593.html" 
+  target=_blank>Oracle11g认证考试途径-考试认证</A></LI>
+  <LI><A class=dlgreen2 title="获取Oracle 9i 和10g OCP证书全攻略-考试认" 
+  href="http://www.bitscn.com/exam/oracle/200808/149291.html" 
+  target=_blank>获取Oracle 9i 和10g OCP证书全攻略-考试认</A></LI>
+  <LI><A class=dlgreen2 title="Oracle DBA笔试及面试题汇总：基础篇-考试" 
+  href="http://www.bitscn.com/exam/oracle/200808/149290.html" 
+  target=_blank>Oracle DBA笔试及面试题汇总：基础篇-考试</A></LI>
+  <LI><A class=dlgreen2 title=详细讲解Oracle数据库管理员认证方法-考试 
+  href="http://www.bitscn.com/exam/oracle/200804/139776.html" 
+  target=_blank>详细讲解Oracle数据库管理员认证方法-考试</A></LI>
+  <LI><A class=dlgreen2 title=Oracle面试过程中常见的二十个问题-考试认 
+  href="http://www.bitscn.com/exam/oracle/200804/139775.html" 
+  target=_blank>Oracle面试过程中常见的二十个问题-考试认</A></LI>
+  <LI><A class=dlgreen2 title="OCP 033自制讲稿—调整共享池pdf完整版-考" 
+  href="http://www.bitscn.com/exam/oracle/200803/134231.html" target=_blank>OCP 
+  033自制讲稿—调整共享池pdf完整版-考</A></LI>
+  <LI><A class=dlgreen2 title=07年上半年数据库系统工程师考试下午试题- 
+  href="http://www.bitscn.com/exam/oracle/200803/134230.html" 
+  target=_blank>07年上半年数据库系统工程师考试下午试题-</A> </LI></UL></DIV>
+<DIV style="PADDING-TOP: 3px"></DIV>
+<DIV class=cDRed 
+style="PADDING-LEFT: 10px; FONT-SIZE: 14px; BACKGROUND: #f2f2f9; WIDTH: 620px; HEIGHT: 18px; TEXT-ALIGN: left"><A 
+name=feedbk></A>Oracle DBA笔试及面试题汇总：基础篇-考试认证 评论：</DIV>
+<SCRIPT 
+src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/action.js" 
+type=text/javascript></SCRIPT>
+
+<DIV id=comm_content><IMG alt=loading.. 
+src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/loading.gif" 
+align=absMiddle> 评论加载中… </DIV><!--评论开始-->
+<DIV style="PADDING-TOP: 15px"></DIV>
+<DIV id=form>
+<DIV id=comment><SPAN id=ajaxBackMsg><B>评论:</B>请自觉遵守互联网相关政策法规，评论不得超过250字。</SPAN> 
+</DIV><INPUT type=hidden value=149290 name=arcID> <INPUT type=hidden value=1 
+name=isconfirm> <TEXTAREA id=comment_text onkeydown=if(submitForm())commSubmit() onfocus=TexFocus(this) name=msg rows=6 wrap=physical cols=60></TEXTAREA> 
+<BR><INPUT id=username onkeydown=if(submitForm())commSubmit() type=hidden 
+maxLength=8 size=8 name=username> 验证码：<INPUT id=validate 
+onkeydown=if(submitForm())commSubmit() maxLength=4 size=6 name=validate 
+_base_target="_self"> <IMG id=code_pic style="DISPLAY: none" 
+onclick="this.src='/include/validateimg.php?'+Math.random()" height=20 
+alt=看不清楚?请点击这里刷新. width=50> <INPUT onclick=commSubmit() type=button value=提交评论 name=按钮> <A 
+href="http://www.bitscn.com/member/index_do.php?fmdo=user&amp;dopost=regnew" 
+target=_blank>注册用户</A> </DIV>
+<SCRIPT language=javascript>
+loadfeeback(149290,1);
+function AjaxPage(p){loadfeeback(149290,p)}
+</SCRIPT>
+<!--评论结束-->
+<DIV style="PADDING-TOP: 20px"></DIV></DIV>
+<DIV id=divright>
+<DIV align=center>
+<SCRIPT language=javaScript 
+src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/right.js" 
+type=text/javascript></SCRIPT>
+</DIV>
+<DIV class=gray-bar-dl>本类热门排行： </DIV>
+<DIV class=gray-border-graybg>1.<A class=dlgreen2 
+title="获取Oracle 9i 和10g OCP证书全攻略-考试" 
+href="http://www.bitscn.com/exam/oracle/200808/149291.html" 
+target=_blank>获取Oracle 9i 和10g OCP证书全攻略-考试</A><BR>2.<A class=dlgreen2 
+title="Oracle DBA笔试及面试题汇总：基础篇-考" 
+href="http://www.bitscn.com/exam/oracle/200808/149290.html" target=_blank>Oracle 
+DBA笔试及面试题汇总：基础篇-考</A><BR>3.<A class=dlgreen2 title=2008年Oracle认证考试详细介绍-考试认证 
+href="http://www.bitscn.com/exam/oracle/200809/151594.html" 
+target=_blank>2008年Oracle认证考试详细介绍-考试认证</A><BR>4.<A class=dlgreen2 
+title=Oracle11g认证考试途径-考试认证 
+href="http://www.bitscn.com/exam/oracle/200809/151593.html" 
+target=_blank>Oracle11g认证考试途径-考试认证</A><BR></DIV>
+<DIV style="PADDING-TOP: 8px"></DIV>
+<DIV align=center>
+<SCRIPT type=text/javascript><!--
+google_ad_client = "pub-9969174943212288";
+/* 250x250,www2,创建于 08-3-26 */
+google_ad_slot = "7539062588";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</SCRIPT>
+
+<SCRIPT 
+src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+</DIV>
+<DIV style="PADDING-TOP: 8px"></DIV>
+<DIV class=gray-bar-dl>最新推荐文章： </DIV>
+<DIV class=gray-border-graybg>1.<A class=dlgreen2 title=07年上半年数据库系统工程师考试下午试题 
+href="http://www.bitscn.com/exam/oracle/200709/109437.html" 
+target=_blank>07年上半年数据库系统工程师考试下午试题</A><BR>2.<A class=dlgreen2 
+title=07年上半年数据库系统工程师考试上午试题 
+href="http://www.bitscn.com/exam/oracle/200709/109436.html" 
+target=_blank>07年上半年数据库系统工程师考试上午试题</A><BR>3.<A class=dlgreen2 
+title=据说是阿里巴巴公司DBA笔试题 
+href="http://www.bitscn.com/exam/oracle/200709/109435.html" 
+target=_blank>据说是阿里巴巴公司DBA笔试题</A><BR>4.<A class=dlgreen2 
+title=Oracle11g数据库的认证体系结构 
+href="http://www.bitscn.com/exam/oracle/200709/109432.html" 
+target=_blank>Oracle11g数据库的认证体系结构</A><BR>5.<A class=dlgreen2 
+title=Oracle推出打折的11i认证Beta版考试 
+href="http://www.bitscn.com/exam/oracle/200709/109431.html" 
+target=_blank>Oracle推出打折的11i认证Beta版考试</A><BR>6.<A class=dlgreen2 
+title=如何应对ORACLE数据库的部分面试题目 
+href="http://www.bitscn.com/exam/oracle/200611/80824.html" 
+target=_blank>如何应对ORACLE数据库的部分面试题目</A><BR>7.<A class=dlgreen2 
+title=OCP认证033之自制讲稿—调整共享池 
+href="http://www.bitscn.com/exam/oracle/200611/80822.html" 
+target=_blank>OCP认证033之自制讲稿—调整共享池</A><BR>8.<A class=dlgreen2 title=某数据集团数据库初试笔试题 
+href="http://www.bitscn.com/exam/oracle/200611/80819.html" 
+target=_blank>某数据集团数据库初试笔试题</A><BR>9.<A class=dlgreen2 title=数据库考试简介之Oracle认证 
+href="http://www.bitscn.com/exam/oracle/200611/80815.html" 
+target=_blank>数据库考试简介之Oracle认证</A><BR>10.<A class=dlgreen2 
+title=今年4月三级数据库笔试试题及答案 
+href="http://www.bitscn.com/exam/oracle/200611/80814.html" 
+target=_blank>今年4月三级数据库笔试试题及答案</A><BR></DIV>
+<DIV style="PADDING-TOP: 8px"></DIV><IFRAME 
+src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/CAC1QV0D.htm" 
+frameBorder=0 width=273 scrolling=no height=315></IFRAME>
+<DIV style="PADDING-TOP: 8px"></DIV>
+<DIV class=gray-bar-dl>网管论坛交流： </DIV>
+<DIV class=gray-border-graybg>·<A class=dlgreen2 
+href="http://bbs.bitscn.com/193030" target=_blank>什么样的游戏,什么样的爱情.</A><BR>·<A 
+class=dlgreen2 href="http://bbs.bitscn.com/192401" 
+target=_blank>大家来开心一下吧---看了会很开心的东西-</A><BR>·<A class=dlgreen2 
+href="http://bbs.bitscn.com/192186" target=_blank>中国人不可不知道的知识</A><BR>·<A 
+class=dlgreen2 href="http://bbs.bitscn.com/191655" 
+target=_blank>http://bbs.bitscn.com/191655</A><BR>·<A class=dlgreen2 
+href="http://bbs.bitscn.com/191589" target=_blank>◎◎小鹏◎◎发现不明生物，居然正在交配</A><BR>·<A 
+class=dlgreen2 href="http://bbs.bitscn.com/191328" 
+target=_blank>[图文]^^^版主是什么?????</A><BR>·<A class=dlgreen2 
+href="http://bbs.bitscn.com/191281" target=_blank>泡论坛的女人是好女人</A><BR>·<A 
+class=dlgreen2 href="http://bbs.bitscn.com/190864" 
+target=_blank>做个“水性杨花”的女人</A><BR>·<A class=dlgreen2 
+href="http://bbs.bitscn.com/190662" target=_blank>献给mm俱乐部的所有mm</A><BR>·<A 
+class=dlgreen2 href="http://bbs.bitscn.com/190638" 
+target=_blank>深圳一集团企业电脑基础应用培训教程</A><BR></DIV></DIV></DIV><BR class=clear-both>
+<DIV id=contentfooter>
+<DIV id=copyright-terms><A href="http://www.bitscn.com/html/aboutus.html" 
+target=_blank>关于我们</A> - <A href="http://www.bitscn.com/html/team.html" 
+target=_blank>联系我们</A> - <A href="http://www.bitscn.com/html/history.html" 
+target=_blank>网站历史</A> - <A href="http://www.bitscn.com/plus/guestbook/" 
+target=_blank>网友留言</A> - <A href="http://www.bitscn.com/html/advertisement.html" 
+target=_blank>广告服务</A> - <A href="http://www.bitscn.com/html/law.html" 
+target=_blank>法律声明</A> - <A href="http://www.bitscn.com/plus/sitemap.html" 
+target=_blank>网站地图</A> - <A href="http://www.bitscn.com/plus/rssmap.html" 
+target=_blank>RSS订阅</A> - <A 
+href="http://www.bitscn.com/exam/oracle/200808/149290.html#top">返回顶部</A> </DIV>
+<DIV id=alilinks-terms>Copyright &copy;1999-2008 <A title=中国网管联盟/网管网 
+href="http://www.bitscn.com/">中国网管联盟/网管网</A> 版权所有. 
+网管必上的网站&nbsp;商务联系、网站内容、合作建议：13641763379&nbsp;
+<SCRIPT language=javascript 
+src="Oracle DBA笔试及面试题汇总：基础篇-考试认证 基础 汇总 面试 笔试 如何 一个 性能 系统 索引 区别 _中国网管联盟-网管网-bitsCN_com.files/allbottom.js" 
+type=text/javascript></SCRIPT>
+ </DIV></DIV>
+<SCRIPT language=javascript src=""></SCRIPT>
+</BODY></HTML>

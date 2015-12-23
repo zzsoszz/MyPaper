@@ -1,0 +1,6 @@
+insert into jiankong
+(
+nowtime,
+num
+)
+select  DATE_FORMAT(now(),'%Y%m%d %H:%i:%S'),CURTIME()*10 from dual

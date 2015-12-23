@@ -1,0 +1,40 @@
+
+drop table test2;
+drop type Love;
+create type Love as object
+(
+       name varchar(10),
+       haha varchar(50),
+       member function your(name varchar2) return varchar2,/*方法后面必须有返回值,varchar2不能为固定长度varchar2(50),类型规范不指定参数，类型体也不指定参数*/
+       member procedure my(name varchar2)
+);
+create type body Love is(这后面不能加begin)
+       member procedure my(name varchar2)
+       is
+       begin
+             dbms_output.put_line(name);
+       end;
+       member function your(name varchar2) return varchar2
+       is
+       begin
+              return name;
+       end;
+end;
+create table test2
+(
+      one Love
+)
+go
+insert into test2 values(Love('晴天','14555'));
+go
+declare 
+god Love;
+begin
+select one into god from test2 where rownum=1; 
+dbms_output.put_line(god.name);
+god.my('i am procedure');
+dbms_output.put_line(god.your('i am function'));
+end;
+
+select * from test2;
+drop table test2;

@@ -1,0 +1,1029 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0060)http://www.cnblogs.com/zping/archive/2008/08/06/1261973.html -->
+<HTML><HEAD id=Head><TITLE>SQL优化--使用分析函数 - zping.com - 博客园</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META id=metaKeywords 
+content="http://www.zping.com 或 http://zping.cnblogs.com/,SQL优化,使用分析函数" 
+name=keywords>
+<META 
+content=前段时间在http://www.itput.net/看到一篇文章，http://www.itpub.net/thread-1031306-1-4.html提到一个SQL语句：建立环境： 
+name=description>
+<META content="SQL SERVER优化,研究 数据库设计和重构" name="SQL SERVER优化 数据库设计和重构"><LINK 
+id=CommondCss href="SQL优化--使用分析函数 - zping_com - 博客园.files/common.css" 
+type=text/css rel=stylesheet><LINK id=MainCss 
+href="SQL优化--使用分析函数 - zping_com - 博客园.files/style.css" type=text/css 
+rel=stylesheet><LINK id=SecondaryCss 
+href="http://www.cnblogs.com/zping/customcss.aspx" type=text/css 
+rel=stylesheet><LINK id=CommondCss2 
+href="SQL优化--使用分析函数 - zping_com - 博客园.files/common2.css" type=text/css 
+rel=stylesheet><LINK id=RSSLink title=RSS 
+href="http://www.cnblogs.com/zping/rss" type=application/rss+xml rel=alternate>
+<SCRIPT src="SQL优化--使用分析函数 - zping_com - 博客园.files/common.js" 
+type=text/javascript></SCRIPT>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<FORM id=Form1 name=Form1 onsubmit="javascript:return WebForm_OnSubmit();" 
+action=1261973.html method=post>
+<DIV><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE> </DIV>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</SCRIPT>
+
+<SCRIPT src="SQL优化--使用分析函数 - zping_com - 博客园.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=JavaScript>
+									function ctlent(evt,id)
+											{
+												if(evt.ctrlKey && evt.keyCode == 13)
+												{	
+													try
+													{
+														TempSave(id);
+													}
+													catch(ex)
+													{
+													}
+													finally
+													{
+													    __doPostBack('AjaxHolder$PostComment$btnSubmit','')
+													}
+												}
+		
+												}</SCRIPT>
+
+<SCRIPT language=JavaScript>function SetReplyAuhor(author){document.getElementById('AjaxHolder_PostComment_tbComment').value+="@"+author+"\n";document.getElementById('AjaxHolder_PostComment_tbComment').focus();return false}</SCRIPT>
+
+<SCRIPT src="SQL优化--使用分析函数 - zping_com - 博客园.files/ScriptResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="C:\Documents and Settings\Administrator\My Documents\SQL优化--使用分析函数 - zping_com - 博客园.files\ScriptResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="C:\Documents and Settings\Administrator\My Documents\SQL优化--使用分析函数 - zping_com - 博客园.files\ScriptResource(2).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="SQL优化--使用分析函数 - zping_com - 博客园.files/js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</SCRIPT>
+
+<DIV id=top>
+<H1><A class=headermaintitle id=Header1_HeaderTitle 
+href="http://www.cnblogs.com/zping/">zping.com</A></H1>
+<P id=tagline>SQL SERVER，ORACLE数据库分析,设计,研究,优化,重构等</P></DIV>
+<DIV id=leftmenu style="DISPLAY: none">
+<H3>导航</H3>
+<UL>
+  <LI><A id=MyLinks1_HomeLink href="http://www.cnblogs.com/">博客园</A> 
+  <LI><A id=MyLinks1_MyHomeLink href="http://www.cnblogs.com/zping/">首页</A> 
+  <LI><A id=MyLinks1_NewPostLink 
+  href="http://www.cnblogs.com/zping/admin/EditPosts.aspx?opt=1">新随笔</A> 
+  <LI><A id=MyLinks1_ContactLink accessKey=9 
+  href="http://www.cnblogs.com/zping/contact.aspx?id=1">联系</A> 
+  <LI><A id=MyLinks1_Syndication 
+  href="http://www.cnblogs.com/zping/rss">订阅</A><A id=MyLinks1_XMLLink 
+  href="http://www.cnblogs.com/zping/rss"><IMG 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  alt=订阅 src="SQL优化--使用分析函数 - zping_com - 博客园.files/xml.gif"></A> 
+  <LI><A id=MyLinks1_Admin 
+  href="http://www.cnblogs.com/zping/admin/EditPosts.aspx">管理</A> </LI></UL>
+<TABLE class=Cal id=Calendar1_entryCal title=Calendar 
+style="BORDER-RIGHT: 1px solid; BORDER-TOP: 1px solid; BORDER-LEFT: 1px solid; BORDER-BOTTOM: 1px solid; BORDER-COLLAPSE: collapse" 
+cellSpacing=0 cellPadding=0 border=0>
+  <TBODY>
+  <TR>
+    <TD style="BACKGROUND-COLOR: silver" colSpan=7>
+      <TABLE class=CalTitle style="WIDTH: 100%; BORDER-COLLAPSE: collapse" 
+      cellSpacing=0 border=0>
+        <TBODY>
+        <TR>
+          <TD class=CalNextPrev style="WIDTH: 15%"><A 
+            title="Go to the previous month" style="COLOR: black" 
+            href="javascript:__doPostBack('Calendar1$entryCal','V3104')">&lt;</A></TD>
+          <TD style="WIDTH: 70%" align=middle>2008年8月</TD>
+          <TD class=CalNextPrev style="WIDTH: 15%" align=right><A 
+            title="Go to the next month" style="COLOR: black" 
+            href="javascript:__doPostBack('Calendar1$entryCal','V3166')">&gt;</A></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TH class=CalDayHeader scope=col align=middle abbr=日>日</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=一>一</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=二>二</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=三>三</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=四>四</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=五>五</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=六>六</TH></TR>
+  <TR>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>27</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>28</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>29</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>30</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>31</TD>
+    <TD style="WIDTH: 14%" align=middle>1</TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>2</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>3</TD>
+    <TD style="WIDTH: 14%" align=middle><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/04.html"><U>4</U></A></TD>
+    <TD style="WIDTH: 14%" align=middle><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/05.html"><U>5</U></A></TD>
+    <TD style="WIDTH: 14%" align=middle><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/06.html"><U>6</U></A></TD>
+    <TD style="WIDTH: 14%" align=middle>7</TD>
+    <TD style="WIDTH: 14%" align=middle>8</TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>9</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/10.html"><U>10</U></A></TD>
+    <TD style="WIDTH: 14%" align=middle><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/11.html"><U>11</U></A></TD>
+    <TD style="WIDTH: 14%" align=middle><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/12.html"><U>12</U></A></TD>
+    <TD style="WIDTH: 14%" align=middle><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/13.html"><U>13</U></A></TD>
+    <TD style="WIDTH: 14%" align=middle>14</TD>
+    <TD style="WIDTH: 14%" align=middle>15</TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>16</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/17.html"><U>17</U></A></TD>
+    <TD style="WIDTH: 14%" align=middle>18</TD>
+    <TD style="WIDTH: 14%" align=middle>19</TD>
+    <TD style="WIDTH: 14%" align=middle>20</TD>
+    <TD style="WIDTH: 14%" align=middle><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/21.html"><U>21</U></A></TD>
+    <TD style="WIDTH: 14%" align=middle><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/22.html"><U>22</U></A></TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>23</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>24</TD>
+    <TD style="WIDTH: 14%" align=middle><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/25.html"><U>25</U></A></TD>
+    <TD style="WIDTH: 14%" align=middle><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/26.html"><U>26</U></A></TD>
+    <TD style="WIDTH: 14%" align=middle>27</TD>
+    <TD style="WIDTH: 14%" align=middle>28</TD>
+    <TD style="WIDTH: 14%" align=middle><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/29.html"><U>29</U></A></TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>30</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>31</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>1</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>2</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>3</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>4</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>5</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" 
+align=middle>6</TD></TR></TBODY></TABLE>
+<H3>随笔分类<SPAN style="FONT-WEIGHT: normal; FONT-SIZE: 11px">(145)</SPAN></H3>
+<UL>
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl01_Link 
+  href="http://www.cnblogs.com/zping/category/147355.html">Hibernate(3)</A> <A 
+  id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl01_RssLink 
+  title="Subscribe to Hibernate(3)" 
+  href="http://www.cnblogs.com/zping/category/147355.html/rss">(rss)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl02_Link 
+  href="http://www.cnblogs.com/zping/category/147356.html">JAVA RCP(2)</A> <A 
+  id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl02_RssLink 
+  title="Subscribe to JAVA RCP(2)" 
+  href="http://www.cnblogs.com/zping/category/147356.html/rss">(rss)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl03_Link 
+  href="http://www.cnblogs.com/zping/category/147357.html">JBOSS</A> <A 
+  id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl03_RssLink 
+  title="Subscribe to JBOSS" 
+  href="http://www.cnblogs.com/zping/category/147357.html/rss">(rss)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl04_Link 
+  href="http://www.cnblogs.com/zping/category/148709.html">Oracle 成本优化</A> <A 
+  id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl04_RssLink 
+  title="Subscribe to Oracle 成本优化" 
+  href="http://www.cnblogs.com/zping/category/148709.html/rss">(rss)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl05_Link 
+  href="http://www.cnblogs.com/zping/category/147358.html">Oracle 读书思考(1)</A> <A 
+  id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl05_RssLink 
+  title="Subscribe to Oracle 读书思考(1)" 
+  href="http://www.cnblogs.com/zping/category/147358.html/rss">(rss)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl06_Link 
+  href="http://www.cnblogs.com/zping/category/147359.html">Oracle 学习(23)</A> <A 
+  id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl06_RssLink 
+  title="Subscribe to Oracle 学习(23)" 
+  href="http://www.cnblogs.com/zping/category/147359.html/rss">(rss)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl07_Link 
+  href="http://www.cnblogs.com/zping/category/147360.html">Oracle 研究(7)</A> <A 
+  id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl07_RssLink 
+  title="Subscribe to Oracle 研究(7)" 
+  href="http://www.cnblogs.com/zping/category/147360.html/rss">(rss)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl08_Link 
+  href="http://www.cnblogs.com/zping/category/151476.html">SQL Server 管理(12)</A> 
+  <A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl08_RssLink 
+  title="Subscribe to SQL Server 管理(12)" 
+  href="http://www.cnblogs.com/zping/category/151476.html/rss">(rss)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl09_Link 
+  href="http://www.cnblogs.com/zping/category/147361.html">SQL Server 
+  性能分析(7)</A> <A 
+  id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl09_RssLink 
+  title="Subscribe to SQL Server 性能分析(7)" 
+  href="http://www.cnblogs.com/zping/category/147361.html/rss">(rss)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl10_Link 
+  href="http://www.cnblogs.com/zping/category/147362.html">SQL Server 研究(26)</A> 
+  <A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl10_RssLink 
+  title="Subscribe to SQL Server 研究(26)" 
+  href="http://www.cnblogs.com/zping/category/147362.html/rss">(rss)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl11_Link 
+  href="http://www.cnblogs.com/zping/category/147363.html">SQL Server 优化(25)</A> 
+  <A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl11_RssLink 
+  title="Subscribe to SQL Server 优化(25)" 
+  href="http://www.cnblogs.com/zping/category/147363.html/rss">(rss)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl12_Link 
+  href="http://www.cnblogs.com/zping/category/148816.html">SQL 技巧和优化(18)</A> <A 
+  id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl12_RssLink 
+  title="Subscribe to SQL 技巧和优化(18)" 
+  href="http://www.cnblogs.com/zping/category/148816.html/rss">(rss)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl13_Link 
+  href="http://www.cnblogs.com/zping/category/147364.html">个人感想(13)</A> <A 
+  id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl13_RssLink 
+  title="Subscribe to 个人感想(13)" 
+  href="http://www.cnblogs.com/zping/category/147364.html/rss">(rss)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl14_Link 
+  href="http://www.cnblogs.com/zping/category/147365.html">数据库设计(7)</A> <A 
+  id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl14_RssLink 
+  title="Subscribe to 数据库设计(7)" 
+  href="http://www.cnblogs.com/zping/category/147365.html/rss">(rss)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl15_Link 
+  href="http://www.cnblogs.com/zping/category/147366.html">数据库重构(1)</A> <A 
+  id=ArchiveLinks1_Categories_CatList_ctl00_LinkList_ctl15_RssLink 
+  title="Subscribe to 数据库重构(1)" 
+  href="http://www.cnblogs.com/zping/category/147366.html/rss">(rss)</A> 
+</LI></UL>
+<H3>随笔档案<SPAN style="FONT-WEIGHT: normal; FONT-SIZE: 11px">(114)</SPAN></H3>
+<UL>
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl01_LinkList_ctl01_Link 
+  href="http://www.cnblogs.com/zping/archive/2008/11.html">2008年11月 (7)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl01_LinkList_ctl02_Link 
+  href="http://www.cnblogs.com/zping/archive/2008/10.html">2008年10月 (26)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl01_LinkList_ctl03_Link 
+  href="http://www.cnblogs.com/zping/archive/2008/09.html">2008年9月 (14)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl01_LinkList_ctl04_Link 
+  href="http://www.cnblogs.com/zping/archive/2008/08.html">2008年8月 (38)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl01_LinkList_ctl05_Link 
+  href="http://www.cnblogs.com/zping/archive/2008/07.html">2008年7月 (19)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl01_LinkList_ctl06_Link 
+  href="http://www.cnblogs.com/zping/archive/2008/06.html">2008年6月 (1)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl01_LinkList_ctl07_Link 
+  href="http://www.cnblogs.com/zping/archive/2008/04.html">2008年4月 (4)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl01_LinkList_ctl08_Link 
+  href="http://www.cnblogs.com/zping/archive/2005/10.html">2005年10月 (2)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl01_LinkList_ctl09_Link 
+  href="http://www.cnblogs.com/zping/archive/2005/09.html">2005年9月 (1)</A> 
+  <LI><A id=ArchiveLinks1_Categories_CatList_ctl01_LinkList_ctl10_Link 
+  href="http://www.cnblogs.com/zping/archive/2005/06.html">2005年6月 (2)</A> 
+</LI></UL>
+<H3>最新评论 <A id=RecentComments1_RSSHyperlink1 
+href="http://www.cnblogs.com/zping/CommentsRSS.aspx"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+src="SQL优化--使用分析函数 - zping_com - 博客园.files/xml.gif"></A></H3>
+<DIV class=RecentComment id=RecentComments>
+<UL>
+  <LI style="WORD-BREAK: break-all"><A 
+  id=RecentComments1_CommentList_ctl01_Hyperlink1 
+  href="http://www.cnblogs.com/zping/archive/2008/11/28/1243367.html#1385614">1.&nbsp;re: 
+  sql server性能分析--执行sql次数和逻辑次数</A> 
+  <LI style="WORD-BREAK: break-all">初学SQL Server优化，原来系统表还可以这么用，谢谢楼主 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--LN 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=RecentComments1_CommentList_ctl02_Hyperlink1 
+  href="http://www.cnblogs.com/zping/archive/2008/11/26/1247858.html#1382996">2.&nbsp;re: 
+  SQL Server 2005 分页研究和优化(3)</A> 
+  <LI style="WORD-BREAK: break-all">对啊，我就非常 郁闷 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--kkfnui 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=RecentComments1_CommentList_ctl03_Hyperlink1 
+  href="http://www.cnblogs.com/zping/archive/2008/11/25/1243367.html#1381373">3.&nbsp;re: 
+  sql server性能分析--执行sql次数和逻辑次数</A> 
+  <LI style="WORD-BREAK: break-all">如果是sqlserver 2000,怎么写？ 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--zhiyanhui 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=RecentComments1_CommentList_ctl04_Hyperlink1 
+  href="http://www.cnblogs.com/zping/archive/2008/11/19/1330984.html#1374525">4.&nbsp;re: 
+  Oracle 命名服务和监听程序</A> 
+  <LI 
+  style="WORD-BREAK: break-all">一般没有安装Oracle客户端或者是Oracle数据库软件的电脑，使用PL/SQL是无法连接Oracle数据库的。但可以使用以下方法连接远程的Oracle： 
+  PLSQL Developer中在数据... 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--手机监听器 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=RecentComments1_CommentList_ctl05_Hyperlink1 
+  href="http://www.cnblogs.com/zping/archive/2008/11/03/1261949.html#1359390">5.&nbsp;re: 
+  数据库优化---空间换时间优化</A> 
+  <LI style="WORD-BREAK: break-all">关注学习 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--张波sun </LI></UL></DIV></DIV>
+<DIV id=rightmenu>
+<H3>统计</H3>
+<UL>
+  <LI>随笔 - 114 
+  <LI>文章 - 37 
+  <LI>评论 - 206 
+  <LI>引用 - 17 </LI></UL>
+<H3>常用链接</H3>
+<UL>
+  <LI><A id=BlogCustomControl1_rptMainLinks_ctl00_lnkLinkItem 
+  href="http://www.cnblogs.com/zping/MyPosts.html">我的随笔</A> 
+  <LI><A id=BlogCustomControl1_rptMainLinks_ctl01_lnkLinkItem 
+  href="http://space.cnblogs.com/zping">我的空间</A> 
+  <LI><A id=BlogCustomControl1_rptMainLinks_ctl02_lnkLinkItem 
+  href="http://space.cnblogs.com/msg/recent">我的短信</A> 
+  <LI><A id=BlogCustomControl1_rptMainLinks_ctl03_lnkLinkItem 
+  href="http://www.cnblogs.com/zping/MyComments.html">我的评论</A> 
+  <LI><A id=itemListLink 
+  onclick="this.blur();WarpClass('itemListLink', 'itemListLin_con');return false;" 
+  href="http://www.cnblogs.com/zping/archive/2008/08/06/1261973.html#">更多链接</A> 
+  </LI></UL>
+<DIV id=itemListLin_con style="DISPLAY: none">
+<UL>
+  <LI><A id=BlogCustomControl1_repeaterLinks_ctl01_lnkLinkItem title=我发表过评论的随笔 
+  href="http://www.cnblogs.com/zping/OtherPosts.html">我的参与</A> 
+  <LI><A id=BlogCustomControl1_repeaterLinks_ctl02_lnkLinkItem 
+  href="http://www.cnblogs.com/zping/MyNews.html">我的新闻</A> 
+  <LI><A id=BlogCustomControl1_repeaterLinks_ctl03_lnkLinkItem 
+  href="http://www.cnblogs.com/zping/RecentComments.html">最新评论</A> 
+  <LI><A id=BlogCustomControl1_repeaterLinks_ctl04_lnkLinkItem 
+  href="http://www.cnblogs.com/zping/tag/">我的标签</A> </LI></UL></DIV>
+<H3>留言簿<SPAN style="FONT-WEIGHT: normal; FONT-SIZE: 11px">(3)</SPAN></H3>
+<UL>
+  <LI><A id=MyMessages1_lnkMessages 
+  href="http://www.cnblogs.com/zping/Contact.aspx?id=1">给我留言</A> <!--<li><a id="MyMessages1_lnkPublicMsgView" href="http://www.cnblogs.com/zping/default.aspx?opt=msg">查看公开留言</a></li>-->
+  <LI><A id=MyMessages1_lnkPrivateMsgView 
+  href="http://www.cnblogs.com/zping/admin/MyMessages.aspx">查看留言</A> </LI></UL>
+<H3>友情衔接</H3>
+<UL>
+  <LI><A id=CategoryDisplay1_Categories_CatList_ctl00_LinkList_ctl01_Link 
+  href="http://blog.csdn.net/zhou__zhou/">Jay随想</A> 
+  <LI><A id=CategoryDisplay1_Categories_CatList_ctl00_LinkList_ctl02_Link 
+  href="http://space.itpub.net/?uid-7607759-action-viewspace-itemid-22293">Oracle</A> 
+
+  <LI><A id=CategoryDisplay1_Categories_CatList_ctl00_LinkList_ctl03_Link 
+  href="http://space.itpub.net/12361284/">oracle_ace</A> 
+  <LI><A id=CategoryDisplay1_Categories_CatList_ctl00_LinkList_ctl04_Link 
+  href="http://xzh2000.itpub.net/">xzh2000</A> 
+  <LI style="MARGIN-TOP: 2px">阿里巴巴的数据库工程师 
+  <LI><A id=CategoryDisplay1_Categories_CatList_ctl00_LinkList_ctl05_Link 
+  href="http://lgcmeli.blog.163.com/">高成</A> 
+  <LI><A id=CategoryDisplay1_Categories_CatList_ctl00_LinkList_ctl06_Link 
+  href="http://www.oratea.cn/">孙伟光</A> 
+  <LI><A id=CategoryDisplay1_Categories_CatList_ctl00_LinkList_ctl07_Link 
+  href="http://blog.chinaunix.net/u/30637/index.html">田月超</A> </LI></UL>
+<H3>阅读排行榜</H3>
+<DIV class=RecentComment>
+<UL style="WIDTH: 100%; WORD-BREAK: break-all">
+  <LI><A id=TopViewPosts1_TopList_ctl01_Hyperlink1 
+  href="http://www.cnblogs.com/zping/archive/2005/10/10/251698.html">1.&nbsp;asp.net(8482)</A> 
+
+  <LI><A id=TopViewPosts1_TopList_ctl02_Hyperlink1 
+  href="http://www.cnblogs.com/zping/archive/2008/08/13/1266743.html">2.&nbsp;SQL 
+  大数据量的优化例子讨论(3133)</A> 
+  <LI><A id=TopViewPosts1_TopList_ctl03_Hyperlink1 
+  href="http://www.cnblogs.com/zping/archive/2008/09/15/1290990.html">3.&nbsp;SQL 
+  语句优化--IN语句优化案例(3018)</A> 
+  <LI><A id=TopViewPosts1_TopList_ctl04_Hyperlink1 
+  href="http://www.cnblogs.com/zping/archive/2008/08/05/1260959.html">4.&nbsp;SQL优化--使用 
+  EXISTS 代替 IN 和 inner join来选择正确的执行计划(2622)</A> 
+  <LI><A id=TopViewPosts1_TopList_ctl05_Hyperlink1 
+  href="http://www.cnblogs.com/zping/archive/2008/09/23/1297238.html">5.&nbsp;SQL 
+  语句优化--OR 语句优化案例 (2443)</A> </LI></UL></DIV>
+<H3>评论排行榜</H3>
+<DIV class=RecentComment>
+<UL style="WIDTH: 100%; WORD-BREAK: break-all">
+  <LI><A id=TopFeedbackPosts1_TopList_ctl01_Hyperlink1 
+  href="http://www.cnblogs.com/zping/archive/2008/08/05/1260959.html">1.&nbsp;SQL优化--使用 
+  EXISTS 代替 IN 和 inner join来选择正确的执行计划(32)</A> 
+  <LI><A id=TopFeedbackPosts1_TopList_ctl02_Hyperlink1 
+  href="http://www.cnblogs.com/zping/archive/2008/09/23/1297238.html">2.&nbsp;SQL 
+  语句优化--OR 语句优化案例 (25)</A> 
+  <LI><A id=TopFeedbackPosts1_TopList_ctl03_Hyperlink1 
+  href="http://www.cnblogs.com/zping/archive/2008/08/13/1266743.html">3.&nbsp;SQL 
+  大数据量的优化例子讨论(24)</A> 
+  <LI><A id=TopFeedbackPosts1_TopList_ctl04_Hyperlink1 
+  href="http://www.cnblogs.com/zping/archive/2008/09/15/1290990.html">4.&nbsp;SQL 
+  语句优化--IN语句优化案例(17)</A> 
+  <LI><A id=TopFeedbackPosts1_TopList_ctl05_Hyperlink1 
+  href="http://www.cnblogs.com/zping/archive/2008/09/11/1288583.html">5.&nbsp;SQL 
+  server 系统优化--通过执行计划优化索引（1）(11)</A> </LI></UL></DIV></DIV>
+<DIV id=main>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('AjaxHolder$scriptmanager1', document.getElementById('Form1'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls(['tAjaxHolder$UpdatePanel1'], [], [], 90);
+//]]>
+</SCRIPT>
+
+<DIV class=post>
+<H2><A id=AjaxHolder_ctl01_TitleUrl 
+href="http://www.cnblogs.com/zping/archive/2008/08/06/1261973.html">SQL优化--使用分析函数</A> 
+</H2>
+<P>&nbsp; 前段时间在 <A 
+href="http://www.itput.net/">http://www.itput.net/</A>&nbsp;看到 一篇文章，</P>
+<P><FONT style="BACKGROUND-COLOR: #c7edcc" 
+face=Verdana>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <A 
+href="http://www.itpub.net/thread-1031306-1-4.html">http://www.itpub.net/thread-1031306-1-4.html</A></FONT></P>
+<P>提到一个SQL语句：</P>
+<P>&nbsp;建立环境：</P>
+<DIV class=cnblogs_code><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><SPAN 
+style="COLOR: #000000">create&nbsp;table&nbsp;t_emp(id&nbsp;numeric(</SPAN><SPAN 
+style="COLOR: #800080">10</SPAN><SPAN 
+style="COLOR: #000000">)<BR>&nbsp;&nbsp;,name&nbsp;varchar(</SPAN><SPAN 
+style="COLOR: #800080">10</SPAN><SPAN 
+style="COLOR: #000000">),<BR>salary&nbsp;numeric(</SPAN><SPAN 
+style="COLOR: #800080">10</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #800080">2</SPAN><SPAN style="COLOR: #000000">));</SPAN></DIV>
+<P>&nbsp; 插入数据：</P>
+<DIV class=cnblogs_code><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><SPAN 
+style="COLOR: #000000">insert&nbsp;into&nbsp;t_emp&nbsp;values(</SPAN><SPAN 
+style="COLOR: #800080">1</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #800000">'</SPAN><SPAN style="COLOR: #800000">jack</SPAN><SPAN 
+style="COLOR: #800000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #800080">10000.50</SPAN><SPAN 
+style="COLOR: #000000">);<BR>insert&nbsp;into&nbsp;t_emp&nbsp;values(</SPAN><SPAN 
+style="COLOR: #800080">2</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #800000">'</SPAN><SPAN style="COLOR: #800000">jack2</SPAN><SPAN 
+style="COLOR: #800000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #800080">8000.50</SPAN><SPAN 
+style="COLOR: #000000">);<BR>insert&nbsp;into&nbsp;t_emp&nbsp;values(</SPAN><SPAN 
+style="COLOR: #800080">3</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #800000">'</SPAN><SPAN style="COLOR: #800000">jack3</SPAN><SPAN 
+style="COLOR: #800000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #800080">120000</SPAN><SPAN 
+style="COLOR: #000000">);<BR>insert&nbsp;into&nbsp;t_emp&nbsp;values(</SPAN><SPAN 
+style="COLOR: #800080">4</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #800000">'</SPAN><SPAN style="COLOR: #800000">jack4</SPAN><SPAN 
+style="COLOR: #800000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #800080">5000</SPAN><SPAN 
+style="COLOR: #000000">);<BR>insert&nbsp;into&nbsp;t_emp&nbsp;values(</SPAN><SPAN 
+style="COLOR: #800080">5</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #800000">'</SPAN><SPAN style="COLOR: #800000">jack5</SPAN><SPAN 
+style="COLOR: #800000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #800080">3000</SPAN><SPAN style="COLOR: #000000">);</SPAN></DIV>
+<P>&nbsp; 要求：<SPAN style="COLOR: #0000ff"><SPAN 
+style="COLOR: #0000ff">取出t_emp表中<FONT 
+style="BACKGROUND-COLOR: #c7edcc">salary列中</FONT>第2高的人和倒数第2高的人SQL语句。</SPAN></SPAN><SPAN 
+style="COLOR: #0000ff"><SPAN style="COLOR: #0000ff"><SPAN 
+style="COLOR: #003366"><SPAN 
+style="COLOR: #003366">用一条SQL语句取出来</SPAN></SPAN></SPAN></SPAN></P>
+<P><SPAN style="COLOR: #0000ff"><SPAN style="COLOR: #0000ff"><SPAN 
+style="COLOR: #003366"><SPAN style="COLOR: #003366">&nbsp; 
+</SPAN></SPAN></SPAN></SPAN></P>
+<P><SPAN style="COLOR: #0000ff"><SPAN style="COLOR: #0000ff"><SPAN 
+style="COLOR: #003366"><SPAN style="COLOR: #003366">&nbsp; 
+一般的写法如下:</SPAN></SPAN></SPAN></SPAN></P>
+<DIV class=cnblogs_code><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><SPAN 
+style="COLOR: #000000">select&nbsp;</SPAN><SPAN 
+style="COLOR: #000000">*</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;from&nbsp;(select&nbsp;emp.</SPAN><SPAN 
+style="COLOR: #000000">*</SPAN><SPAN 
+style="COLOR: #000000">,&nbsp;row_number()&nbsp;over&nbsp;(order&nbsp;by&nbsp;salary&nbsp;asc)&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">as</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;rank&nbsp;from&nbsp;t_emp&nbsp;emp)&nbsp;&nbsp;t<BR></SPAN><SPAN 
+style="COLOR: #0000ff">where</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;rank</SPAN><SPAN 
+style="COLOR: #000000">=</SPAN><SPAN style="COLOR: #800080">2</SPAN><SPAN 
+style="COLOR: #000000"><BR>union all<BR>select&nbsp;</SPAN><SPAN 
+style="COLOR: #000000">*</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;from&nbsp;(select&nbsp;emp.</SPAN><SPAN 
+style="COLOR: #000000">*</SPAN><SPAN 
+style="COLOR: #000000">,&nbsp;row_number()&nbsp;over&nbsp;(order&nbsp;by&nbsp;salary&nbsp;desc)&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">as</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;rank&nbsp;from&nbsp;t_emp&nbsp;emp)&nbsp;&nbsp;t<BR></SPAN><SPAN 
+style="COLOR: #0000ff">where</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;rank</SPAN><SPAN 
+style="COLOR: #000000">=</SPAN><SPAN style="COLOR: #800080">2</SPAN></DIV>
+<P>&nbsp;&nbsp; </P>
+<P>&nbsp; 这里使用了row_number()这个分析函数.但还不是最好的。后来想了想，这样写会有个问题就是有重复的，</P>
+<P>&nbsp;&nbsp;&nbsp; 如有多个第二的，和多个倒数第二。</P>
+<P>&nbsp;&nbsp; &nbsp;可以这样写:&nbsp; </P>
+<DIV class=cnblogs_code><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><SPAN 
+style="COLOR: #000000">select&nbsp;</SPAN><SPAN 
+style="COLOR: #000000">*</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;from&nbsp;(select&nbsp;emp.</SPAN><SPAN 
+style="COLOR: #000000">*</SPAN><SPAN style="COLOR: #000000">,&nbsp;<FONT 
+style="BACKGROUND-COLOR: #c7edcc" 
+face=Verdana>DENSE_RANK</FONT>()&nbsp;over&nbsp;(order&nbsp;by&nbsp;salary&nbsp;desc)&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">as</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;rank,<BR><FONT style="BACKGROUND-COLOR: #c7edcc" 
+face=Verdana>DENSE_RANK</FONT>()&nbsp;over&nbsp;(order&nbsp;by&nbsp;salary&nbsp;asc)&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">as</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;rank1<BR>&nbsp;from&nbsp;t_emp&nbsp;emp)&nbsp;&nbsp;t<BR></SPAN><SPAN 
+style="COLOR: #0000ff">where</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;(rank</SPAN><SPAN 
+style="COLOR: #000000">=</SPAN><SPAN style="COLOR: #800080">2</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;or&nbsp;rank1</SPAN><SPAN 
+style="COLOR: #000000">=</SPAN><SPAN style="COLOR: #800080">2)</SPAN></DIV>
+<P>&nbsp;</P>
+<H4>&nbsp; 总结：</H4>
+<H4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <SPAN 
+style="COLOR: #0000ff">row_number()，<FONT style="BACKGROUND-COLOR: #c7edcc" 
+face=Verdana>DENSE_RANK</FONT>，RANK() ，NTILE<FONT 
+style="BACKGROUND-COLOR: #c7edcc" 
+face=Verdana>分析函数的确有时方便，如分页,取指定行，和排名等</FONT></SPAN></H4>
+<P><SPAN style="COLOR: #0000ff"><FONT 
+style="BACKGROUND-COLOR: #c7edcc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+使用：</FONT></SPAN></P>
+<P><SPAN style="COLOR: #0000ff"><FONT 
+style="BACKGROUND-COLOR: #c7edcc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN 
+style="COLOR: #000000"><SPAN style="COLOR: #000000">&nbsp;&nbsp;&nbsp; 
+row_number()： 主要是分页</SPAN></SPAN></FONT></SPAN></P>
+<P><SPAN style="COLOR: #0000ff"><SPAN style="COLOR: #000000"><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<FONT 
+style="BACKGROUND-COLOR: #c7edcc">DENSE_RANK()</FONT>：排名（顺序始终是连续的）,适合刚才的取出薪水排名（有重复的）</SPAN></SPAN></SPAN></P>
+<P><SPAN style="COLOR: #0000ff"><SPAN style="COLOR: #000000"><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<FONT 
+style="BACKGROUND-COLOR: #c7edcc">RANK()：排名（列有重复，区间就是不连续的,如:1,2,2,4,4,6...)</FONT></SPAN></SPAN></SPAN></P>
+<P><SPAN style="COLOR: #0000ff"><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+NTILE（N）：分组函数，把记录强制分成N段</SPAN></SPAN></P>
+<DIV id=MySignature><A href="http://www.zping.com/"><A target=_blank><A 
+href="http://www.zping.com/">http://www.zping.com/</A>&nbsp; <SPAN 
+style="COLOR: #0000ff">热爱祖国</SPAN></A></A> </DIV>
+<DIV id=EntryTag>Tag标签: <A 
+href="http://www.cnblogs.com/zping/tag/http://www.zping.com+æ+http://zping.cnblogs.com//">http://www.cnblogs.com/zping/tag/http://www.zping.com+æ+http://zping.cnblogs.com//</A></DIV>
+<P class=postfoot>posted on 2008-08-06 14:03 <A 
+href="http://www.cnblogs.com/zping/">zping.com</A> 阅读(197) <A 
+href="http://www.cnblogs.com/zping/archive/2008/08/06/1261973.html#Post">评论(0)</A> 
+&nbsp;<A 
+href="http://www.cnblogs.com/zping/admin/EditPosts.aspx?postid=1261973">编辑</A> 
+<A href="http://www.cnblogs.com/zping/AddToFavorite.aspx?id=1261973">收藏</A> <A 
+onclick="PutInWz();return false;" 
+href="http://www.cnblogs.com/zping/archive/2008/08/06/1261973.html#">网摘</A> 
+所属分类: <A href="http://www.cnblogs.com/zping/category/148816.html">SQL 技巧和优化</A> 
+</P></DIV><IMG height=1 src="SQL优化--使用分析函数 - zping_com - 博客园.files/1261973.jpg" 
+width=1> <!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://www.cnblogs.com/zping/archive/2008/08/06/1261973.html"
+dc:identifier="http://www.cnblogs.com/zping/archive/2008/08/06/1261973.html"
+dc:title="SQL优化--使用分析函数"
+trackback:ping="http://www.cnblogs.com/zping/services/trackbacks/1261973.aspx" />
+</rdf:RDF>
+-->
+<DIV id=AjaxHolder_UpdatePanel1>
+<STYLE>TD {
+	FONT-SIZE: 12px
+}
+.commentTextBox {
+	FONT-SIZE: 13px; FONT-FAMILY: Verdana
+}
+A.blue:visited {
+	COLOR: blue
+}
+A.blue:active {
+	COLOR: blue
+}
+A.blue:link {
+	COLOR: blue
+}
+A.blue:hover {
+	COLOR: blue
+}
+</STYLE>
+<!--Beging Temp Save-->
+<STYLE>.userData {
+	BEHAVIOR: url(#default#userdata)
+}
+</STYLE>
+
+<DIV class=userData id=CommentsPersistDiv></DIV>
+<SCRIPT type=text/javascript>
+function pageLoad()
+{
+    Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(handleInitializeRequest);
+    //Sys.WebForms.PageRequestManager.getInstance().add_endRequest(handleEndRequest);
+}
+
+function handleInitializeRequest(sender, args)
+{
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    var eid = args.get_postBackElement().id;
+    /*if (eid.indexOf("DeleteLink")>0) 
+    {
+       args.get_postBackElement().innerHTML = "<font color='red'>正在删除...</font>";         
+    }    
+    else */
+    if (eid.indexOf("btnSubmit")>0) 
+    {
+       document.getElementById("AjaxHolder_PostComment_ltSubmitMsg").innerHTML="正在提交...";
+       document.getElementById("AjaxHolder_PostComment_btnSubmit").disabled = true;       
+    }   
+    else if(eid.indexOf("refreshList")>0)
+    {
+        document.getElementById("AjaxHolder_PostComment_refreshList").innerHTML="<font color='red'>正在刷新...</font>";
+    }
+   
+}	
+
+function TempSave(ElementID)
+{
+	try
+	{
+	CommentsPersistDiv.setAttribute("CommentContent",document.getElementById(ElementID).value);
+	CommentsPersistDiv.save("CommentXMLStore");
+	}
+	catch(ex)
+	{
+	}
+	
+}
+function Restore(ElementID)
+{
+	CommentsPersistDiv.load("CommentXMLStore");
+	document.getElementById(ElementID).value=CommentsPersistDiv.getAttribute("CommentContent");
+}	
+			
+			
+</SCRIPT>
+<!--Ene TempSave-->
+<DIV id=divRefreshComments 
+style="FONT-SIZE: 12px; MARGIN-BOTTOM: 5px; MARGIN-RIGHT: 10px; TEXT-ALIGN: right"><A 
+href="http://www.cnblogs.com/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+id=AjaxHolder_PostComment_refreshList 
+href="javascript:__doPostBack('AjaxHolder$PostComment$refreshList','')">刷新评论列表</A>&nbsp;&nbsp;</DIV>
+<DIV class=commentform><SPAN id=AjaxHolder_PostComment_ltSubmitMsg 
+style="COLOR: red"></SPAN><BR><A name=Feedback></A>
+<TABLE style="WIDTH: 600px" cellSpacing=1 cellPadding=1 border=0>
+  <TBODY>
+  <TR>
+    <TD colSpan=3></TD></TR>
+  <TR>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD></TR>
+  <TR>
+    <TD width=55>标题</TD>
+    <TD colSpan=2><INPUT class=commenttb id=AjaxHolder_PostComment_tbTitle 
+      value="re: SQL优化--使用分析函数" name=AjaxHolder$PostComment$tbTitle><SPAN 
+      id=AjaxHolder_PostComment_RequiredFieldValidator1 
+      style="VISIBILITY: hidden; COLOR: red">请输入标题</SPAN></TD></TR>
+  <TR>
+    <TD>姓名</TD>
+    <TD colSpan=2><INPUT class=commenttb id=AjaxHolder_PostComment_tbName 
+      name=AjaxHolder$PostComment$tbName><SPAN 
+      id=AjaxHolder_PostComment_RequiredFieldValidator2 
+      style="VISIBILITY: hidden; COLOR: red">请输入你的姓名</SPAN></TD></TR>
+  <TR>
+    <TD>主页</TD>
+    <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbUrl 
+      name=AjaxHolder$PostComment$tbUrl></TD>
+    <TD></TD></TR>
+  <TR id=AjaxHolder_PostComment_trEmail>
+    <TD>Email</TD>
+    <TD colSpan=2><INPUT class=commenttb id=AjaxHolder_PostComment_tbEmail 
+      name=AjaxHolder$PostComment$tbEmail>(博主才能看到)<SPAN 
+      id=AjaxHolder_PostComment_revContactMail 
+      style="VISIBILITY: hidden; COLOR: red">邮件地址无效</SPAN></TD></TR>
+  <TR>
+    <TD align=left colSpan=3>
+      <TABLE class=CommentForm id=AjaxHolder_PostComment_tbCaptchaImage 
+      cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD colSpan=3><SPAN 
+            id=AjaxHolder_PostComment_Requiredfieldvalidator4 
+            style="DISPLAY: none; COLOR: red">请输入验证码</SPAN> <SPAN 
+            id=AjaxHolder_PostComment_lblImage 
+            style="FONT-WEIGHT: bold; COLOR: red"></SPAN></TD></TR>
+        <TR>
+          <TD width=56>验证码</TD>
+          <TD colSpan=2><INPUT id=AjaxHolder_PostComment_CodeNumberTextBox 
+            style="WIDTH: 100px" 
+            name=AjaxHolder$PostComment$CodeNumberTextBox>*&nbsp;&nbsp;<IMG 
+            src="SQL优化--使用分析函数 - zping_com - 博客园.files/JpegImage.jpg"><A 
+            id=AjaxHolder_PostComment_lkbChangeCode 
+            href="javascript:__doPostBack('AjaxHolder$PostComment$lkbChangeCode','')">看不清,换一张</A> 
+            [<A 
+            href="http://www.cnblogs.com/login.aspx?ReturnUrl=/zping/archive/2008/08/06/1261973.html">登录</A>][<A 
+            href="http://www.cnblogs.com/RequireRegister.aspx">注册</A>]</TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD style="TEXT-ALIGN: left" colSpan=3>
+      <DIV style="WIDTH: 600px">
+      <DIV class=divPostCommentBox>内容(请不要发表任何与政治相关的内容) <SPAN 
+      id=AjaxHolder_PostComment_RequiredFieldValidator3 
+      style="VISIBILITY: hidden; COLOR: red">请输入评论内容</SPAN><BR><TEXTAREA class=commentTextBox id=AjaxHolder_PostComment_tbComment onkeydown="ctlent(event,'AjaxHolder_PostComment_tbComment')" name=AjaxHolder$PostComment$tbComment></TEXTAREA> 
+      </DIV>
+      <DIV class=CommentBoxNav><A tabIndex=-1 href="http://www.cnblogs.com/" 
+      target=_blank>网站首页</A><BR><BR><A tabIndex=-1 
+      href="http://news.cnblogs.com/" target=_blank>新闻频道</A><BR><BR><A 
+      tabIndex=-1 href="http://space.cnblogs.com/" 
+      target=_blank>社区</A><BR><BR><A tabIndex=-1 
+      href="http://space.cnblogs.com/group.htm" target=_blank>小组</A><BR><BR><A 
+      tabIndex=-1 href="http://space.cnblogs.com/q" 
+      target=_blank>博问</A><BR><BR><A tabIndex=-1 href="http://wz.cnblogs.com/" 
+      target=_blank>网摘</A><BR><BR><A tabIndex=-1 href="http://job.cnblogs.com/" 
+      target=_blank>人才</A><BR><BR><A tabIndex=-1 href="http://zzk.cnblogs.com/" 
+      target=_blank>找找看</A><BR><BR></DIV></DIV></TD></TR>
+  <TR>
+    <TD colSpan=3><SPAN id=AjaxHolder_PostComment_Message 
+      style="COLOR: red"></SPAN></TD></TR>
+  <TR>
+    <TD colSpan=3><INPUT id=AjaxHolder_PostComment_chkRemember tabIndex=-1 
+      type=checkbox CHECKED name=AjaxHolder$PostComment$chkRemember><LABEL 
+      for=AjaxHolder_PostComment_chkRemember>Remember Me?</LABEL></TD></TR>
+  <TR>
+    <TD height=23><INPUT class=commentButton id=AjaxHolder_PostComment_btnSubmit onclick="TempSave('AjaxHolder_PostComment_tbComment');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;AjaxHolder$PostComment$btnSubmit&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" type=submit value=提交 name=AjaxHolder$PostComment$btnSubmit> 
+    </TD>
+    <TD colSpan=2 height=23>&nbsp; <A id=AjaxHolder_PostComment_lnkLogin 
+      href="http://www.cnblogs.com/login.aspx?ReturnURL=http://www.cnblogs.com/zping/archive/2008/08/06/1261973.html&amp;SourceURL=/zping/archive/2008/08/06/1261973.html">登录</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_PostComment_linkLoginComment 
+      onclick="if(document.getElementById('AjaxHolder_PostComment_tbComment').value != '') return confirm('未提交的评论内容将会丢失, 你真的要进入高级评论吗?');" 
+      href="http://www.cnblogs.com/zping/archive/2008/08/06/1261973.html?login=1#Post">使用高级评论</A>&nbsp;&nbsp;<A 
+      href="http://www.cnblogs.com/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/06/1261973.html#Top">返回页首</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_PostComment_lbRestore 
+      onclick="Restore('AjaxHolder_PostComment_tbComment'); return false;" 
+      href="http://www.cnblogs.com/zping/archive/2008/08/06/1261973.html#Post">恢复上次提交</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </TD></TR>
+  <TR>
+    <TD colSpan=3><LABEL class=CtrlEnter>[使用Ctrl+Enter键可以直接提交]</LABEL></TD></TR>
+  <TR>
+    <TD colSpan=3>该文被作者在 2008-08-07 10:08 编辑过</TD></TR>
+  <TR>
+    <TD colSpan=3></TD></TR>
+  <TR>
+    <TD colSpan=3></TD></TR>
+  <TR>
+    <TD colSpan=3><A href="http://www.cnblogs.com/search.aspx" 
+      target=_blank>Google站内搜索</A></TD></TR>
+  <TR>
+    <TD colSpan=3><A 
+      href="http://www.cnblogs.com/bookshop/archive/2008/11/27/1342446.html" 
+      target=_blank><IMG 
+      style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" 
+      src="SQL优化--使用分析函数 - zping_com - 博客园.files/wtjs_200_100.jpg"></A><A 
+      href="http://booksubject.cnblogs.com/DesignPatterns/" target=_blank><IMG 
+      style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" 
+      src="SQL优化--使用分析函数 - zping_com - 博客园.files/desing_patterns_300.jpg"></A></TD></TR>
+  <TR>
+    <TD colSpan=3><A href="http://a4.yeshj.com/rd/19973/" target=_blank><IMG 
+      style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" 
+      src="SQL优化--使用分析函数 - zping_com - 博客园.files/YU-D-S1P-19973_15.gif"></A><BR><A 
+      href="http://www.china-pub.com/itbook/" target=_blank>China-pub 
+      计算机图书网上专卖店！6.5万品种 2-8折！</A><BR><A 
+      href="http://www.china-pub.com/static/zt_mb/zt_huodong_07_secondhandbook.asp?filename=jsj_hzold_081029" 
+      target=_blank>近千种 9-95 新二手计算图书火热销售中！</A><BR><A 
+      href="http://booksubject.cnblogs.com/DesignPatterns/" 
+      target=_blank>开发者征途系统新作：《设计模式——基于C#的工程化实现及扩展》</A> </TD></TR>
+  <TR>
+    <TD colSpan=3 height=5><BR>
+      <SCRIPT type=text/javascript><!--
+google_ad_client = "pub-4210569241504288";
+google_ad_slot = "1397853083";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</SCRIPT>
+
+      <SCRIPT src="SQL优化--使用分析函数 - zping_com - 博客园.files/show_ads.js" 
+      type=text/javascript>
+</SCRIPT>
+      <BR></TD></TR>
+  <TR>
+    <TD colSpan=3><BR>
+      <DIV id=relative_posts><B>相关文章:</B><BR>
+      <SCRIPT language=javascript 
+      src="SQL优化--使用分析函数 - zping_com - 博客园.files/CARAKVRL.htm" 
+      type=text/javascript charset=utf-8></SCRIPT>
+      <BR><BR><B>相关搜索:</B><BR><A 
+      href="http://zzk.cnblogs.com/s?w=http%3a%2f%2fwww.zping.com+%e6%88%96+http%3a%2f%2fzping.cnblogs.com%2f" 
+      target=_blank>http://zzk.cnblogs.com/s?w=http%3a%2f%2fwww.zping.com+%e6%88%96+http%3a%2f%2fzping.cnblogs.com%2f</A> 
+      </DIV></TD></TR>
+  <TR>
+    <TD colSpan=3>
+      <DIV id=div_a4_ads><BR><B>相关链接:</B>
+      <SCRIPT type=text/javascript>
+	        var title = document.title;
+	        document.write("<div id=\"a4_ads_output\">");
+	        document.write("<script type='text/javascript' src='http://a4.yeshj.com/adwords/EN017?num=7&title="+ encodeURIComponent(title) +"&tag="+ encodeURIComponent(GetMeta("keywords")) +"'></scri"+"pt>");
+	        document.write("</div>");
+	        </SCRIPT>
+       </DIV></TD></TR>
+  <TR>
+    <TD colSpan=3></TD></TR>
+  <TR>
+    <TD colSpan=3>
+      <DIV id=AjaxHolder_PostComment_RelativePosts1_divRelativePosts 
+      style="MARGIN-TOP: 2px"><BR><B>所属分类的其他文章:</B><BR><SPAN 
+      style="LIST-STYLE-TYPE: none"><A 
+      href="http://www.cnblogs.com/zping/archive/2008/10/05/1302208.html">SQL 
+      语句优化 --将Exists转换成 inner join 语句来选择正确的执行计划</A><BR></SPAN><SPAN 
+      style="LIST-STYLE-TYPE: none"><A 
+      href="http://www.cnblogs.com/zping/archive/2008/10/01/1302745.html">SQL 
+      语句技巧--聚合函数的灵活使用</A><BR></SPAN><SPAN style="LIST-STYLE-TYPE: none"><A 
+      href="http://www.cnblogs.com/zping/archive/2008/09/26/1299677.html">SQL 
+      语句技巧--多行变一列</A><BR></SPAN><SPAN style="LIST-STYLE-TYPE: none"><A 
+      href="http://www.cnblogs.com/zping/archive/2008/09/25/1281832.html">SQL 
+      语句技巧--排名函数的使用实例</A><BR></SPAN><SPAN style="LIST-STYLE-TYPE: none"><A 
+      href="http://www.cnblogs.com/zping/archive/2008/09/23/1297238.html">SQL 
+      语句优化--OR 语句优化案例 </A><BR></SPAN><SPAN style="LIST-STYLE-TYPE: none"><A 
+      href="http://www.cnblogs.com/zping/archive/2008/09/15/1290990.html">SQL 
+      语句优化--IN语句优化案例</A><BR></SPAN><SPAN style="LIST-STYLE-TYPE: none"><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/26/1276772.html">SQL语句技巧--复杂逻辑的SQL简单实现（2）</A><BR></SPAN><SPAN 
+      style="LIST-STYLE-TYPE: none"><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/26/1276505.html">SQL 
+      语句技巧--递归查询机构和下属机构的用户数</A><BR></SPAN><SPAN style="LIST-STYLE-TYPE: none"><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/06/1260970.html">SQL语句技巧--复杂逻辑的SQL简单实现（1）</A><BR></SPAN><SPAN 
+      style="DISPLAY: none; LIST-STYLE-TYPE: none"><A 
+      href="http://www.cnblogs.com/zping/archive/2008/08/06/1261973.html">SQL优化--使用分析函数</A><BR></SPAN></DIV>
+      <DIV class=itnews><BR><B>最新IT新闻:</B><BR><A 
+      href="http://news.cnblogs.com/n/43741/" 
+      target=_blank>开心网遭多个山寨版复制围抢用户</A><BR><A 
+      href="http://news.cnblogs.com/n/43740/" target=_blank>微软表示Windows 
+      7将直接在CPU上跑DirectX 10</A><BR><A href="http://news.cnblogs.com/n/43739/" 
+      target=_blank>2008年12月1日科技博客精选</A><BR><A 
+      href="http://news.cnblogs.com/n/43738/" 
+      target=_blank>传微软出价200亿美元重提收购雅虎搜索</A><BR><A 
+      href="http://news.cnblogs.com/n/43736/" 
+      target=_blank>著名.NET开源CMS系统DotNetNuke获首轮投资</A><BR></DIV></TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>&nbsp;</TD></TR>
+  <TR>
+    <TD colSpan=3 height=5></TD></TR>
+  <TR>
+    <TD colSpan=3 height=1></TD></TR>
+  <TR>
+    <TD colSpan=3></TD></TR>
+  <TR>
+    <TD colSpan=3></TD></TR></TBODY></TABLE></DIV>
+<DIV id=AjaxHolder_PostComment_ValidationSummary1 
+style="DISPLAY: none; COLOR: red"></DIV></DIV>
+<SCRIPT language=javascript>
+
+function GetQuote(id)
+{
+    //www.cnblogs.com.ICommentService.GetCommentText(id,SetQuote);
+    BlogServer.WebService.AjaxWS.GetComment(id,SetQuote);
+}
+
+ function SetQuote(result)
+{
+    document.getElementById('AjaxHolder_PostComment_tbComment').value+= ("--引用--------------------------------------------------\n"+result+"\n--------------------------------------------------------\n");
+    document.getElementById('AjaxHolder_PostComment_tbComment').focus(); 
+}
+
+function Favorite(entryID,title,url,element)
+{
+    document.getElementById(element.id).innerHTML = "<span style='color:red'>正在收藏...</span>";
+    BlogServer.WebService.AjaxWS.AddToFavorites(entryID,title,url,OnFavoriteSuccess);
+    document.getElementById(element.id).removeAttribute("href");
+    document.getElementById(element.id).removeAttribute("onclick");
+}
+
+function OnFavoriteSuccess(result)
+{
+    if(result == "请先登录")
+    {
+        window.location.href = "../../../../../login.aspx?ReturnUrl=" + window.location.href;
+    }
+    else
+    {
+        var returnstr = result.split(",");
+        var id = "lnkFavorite"+returnstr[0];
+        document.getElementById(id).innerHTML = "<span style='color:red'>" + returnstr[1] + "</span>";
+    }
+}
+
+function DelComment(id,element)
+{
+    if(confirm("确认要删除该评论吗?"))
+    {
+        document.getElementById(element.id).innerHTML = "<span style='color:red'>正在删除...</span>";
+        BlogServer.WebService.AjaxWS.DelComment(id,del_comment_callback);
+    }
+    return false;
+}
+
+function del_comment_callback(response)
+{
+    __doPostBack('AjaxHolder$PostComment$refreshList','');
+}
+</SCRIPT>
+</DIV>
+<P id=footer>Powered by: <BR><A id=Footer1_Hyperlink3 
+style="FONT-SIZE: 12px; FONT-FAMILY: Verdana" href="http://www.cnblogs.com/" 
+name=Hyperlink1>博客园</A> <BR>Copyright © zping.com </P>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Page_ValidationSummaries =  new Array(document.getElementById("AjaxHolder_PostComment_ValidationSummary1"));
+var Page_Validators =  new Array(document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2"), document.getElementById("AjaxHolder_PostComment_revContactMail"), document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3"));
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var AjaxHolder_PostComment_RequiredFieldValidator1 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator1"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1");
+AjaxHolder_PostComment_RequiredFieldValidator1.controltovalidate = "AjaxHolder_PostComment_tbTitle";
+AjaxHolder_PostComment_RequiredFieldValidator1.errormessage = "请输入标题";
+AjaxHolder_PostComment_RequiredFieldValidator1.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator1.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator2 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator2"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2");
+AjaxHolder_PostComment_RequiredFieldValidator2.controltovalidate = "AjaxHolder_PostComment_tbName";
+AjaxHolder_PostComment_RequiredFieldValidator2.errormessage = "请输入你的姓名";
+AjaxHolder_PostComment_RequiredFieldValidator2.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator2.initialvalue = "";
+var AjaxHolder_PostComment_revContactMail = document.all ? document.all["AjaxHolder_PostComment_revContactMail"] : document.getElementById("AjaxHolder_PostComment_revContactMail");
+AjaxHolder_PostComment_revContactMail.controltovalidate = "AjaxHolder_PostComment_tbEmail";
+AjaxHolder_PostComment_revContactMail.errormessage = "邮件地址无效";
+AjaxHolder_PostComment_revContactMail.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+AjaxHolder_PostComment_revContactMail.validationexpression = "^([0-9a-zA-Z+-._]([+-._\\w]*[0-9a-zA-Z+-._])*@([0-9a-zA-Z][-\\w]*\\.)+[a-zA-Z]{2,9})$";
+var AjaxHolder_PostComment_Requiredfieldvalidator4 = document.all ? document.all["AjaxHolder_PostComment_Requiredfieldvalidator4"] : document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4");
+AjaxHolder_PostComment_Requiredfieldvalidator4.controltovalidate = "AjaxHolder_PostComment_CodeNumberTextBox";
+AjaxHolder_PostComment_Requiredfieldvalidator4.errormessage = "请输入验证码";
+AjaxHolder_PostComment_Requiredfieldvalidator4.display = "Dynamic";
+AjaxHolder_PostComment_Requiredfieldvalidator4.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_Requiredfieldvalidator4.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator3 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator3"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3");
+AjaxHolder_PostComment_RequiredFieldValidator3.controltovalidate = "AjaxHolder_PostComment_tbComment";
+AjaxHolder_PostComment_RequiredFieldValidator3.errormessage = "请输入评论内容";
+AjaxHolder_PostComment_RequiredFieldValidator3.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator3.initialvalue = "";
+var AjaxHolder_PostComment_ValidationSummary1 = document.all ? document.all["AjaxHolder_PostComment_ValidationSummary1"] : document.getElementById("AjaxHolder_PostComment_ValidationSummary1");
+AjaxHolder_PostComment_ValidationSummary1.showmessagebox = "True";
+AjaxHolder_PostComment_ValidationSummary1.showsummary = "False";
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+
+document.getElementById('AjaxHolder_PostComment_ValidationSummary1').dispose = function() {
+    Array.remove(Page_ValidationSummaries, document.getElementById('AjaxHolder_PostComment_ValidationSummary1'));
+}
+Sys.Application.initialize();
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2'));
+}
+
+document.getElementById('AjaxHolder_PostComment_revContactMail').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_revContactMail'));
+}
+
+document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3'));
+}
+//]]>
+</SCRIPT>
+</FORM>
+<SCRIPT src="SQL优化--使用分析函数 - zping_com - 博客园.files/ShowHidden.js" 
+type=text/javascript></SCRIPT>
+<SPAN style="DISPLAY: none">
+<SCRIPT language=javascript 
+src="SQL优化--使用分析函数 - zping_com - 博客园.files/click.htm"></SCRIPT>
+</SPAN></BODY></HTML>

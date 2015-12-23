@@ -1,0 +1,1055 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0063)http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html -->
+<HTML><HEAD 
+id=Head><TITLE>数据表的设计原则 - 走在架构师的大道上 Jack.Wang's home - BlogJava</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META id=metaKeywords content=数据表的设计原则 name=keywords><LINK id=MainCss 
+href="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/style.css" 
+type=text/css rel=stylesheet><LINK id=RSSLink title=RSS 
+href="http://www.blogjava.net/Jack2007/rss.aspx" type=application/rss+xml 
+rel=alternate>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<FORM id=Form1 name=Form1 onsubmit="javascript:return WebForm_OnSubmit();" 
+action=198412.html method=post>
+<DIV><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE> </DIV>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</SCRIPT>
+
+<SCRIPT 
+src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=JavaScript>
+									function ctlent(evt,id)
+											{
+												if(evt.ctrlKey && evt.keyCode == 13)
+												{	
+													try
+													{
+														TempSave(id);
+													}
+													catch(ex)
+													{
+													}
+													finally
+													{
+													    __doPostBack('AjaxHolder$PostComment$btnSubmit','')
+													}
+												}
+		
+												}</SCRIPT>
+
+<SCRIPT language=JavaScript>function SetReplyAuhor(author){document.getElementById('AjaxHolder_PostComment_tbComment').value+="@"+author+"\n";document.getElementById('AjaxHolder_PostComment_tbComment').focus();return false}</SCRIPT>
+
+<SCRIPT 
+src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/ScriptResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="D:\数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files\ScriptResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="D:\数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files\ScriptResource(2).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</SCRIPT>
+
+<DIV id=top>
+<DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=HeaderTitles>
+      <H1 class=HeaderTitle><A class=HeaderMainTitle id=Header1_HeaderTitle 
+      href="http://www.blogjava.net/Jack2007/"><SPAN 
+      style="COLOR: black; FONT-FAMILY: 'Blackadder ITC'">走在架构师的大道上 Jack.Wang's 
+      home</SPAN></A></H1>
+      <P id=tagline>Java, C++, linux c, C#.net 技术,软件架构,领域建模,IT 项目管理 <SPAN 
+      id=dict_daily><A href="http://dict.cn/" target=_blank>Dict.CN 在线词典, 英语学习, 
+      在线翻译</A> </SPAN>
+      <SCRIPT language=JavaScript 
+      src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/daily.htm" 
+      defer>
+</SCRIPT>
+      </P></TD></TR></TBODY></TABLE></DIV>
+<DIV class=HeaderBar>
+<TABLE class=HeaderBar id=HeaderBar>
+  <TBODY>
+  <TR>
+    <TD class=HeaderBarTab noWrap><IMG id=Header1_StartButton 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/BlueTabRight.gif" 
+      align=absMiddle> <A id=Header1_MyLinks1_HomeLink 
+      href="http://www.blogjava.net/">BlogJava</A><IMG 
+      id=Header1_MyLinks1_Divider1 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/divider.gif" 
+      align=absMiddle> <A id=Header1_MyLinks1_MyHomeLink 
+      href="http://www.blogjava.net/Jack2007/">首页</A><IMG 
+      id=Header1_MyLinks1_Image1 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/divider.gif" 
+      align=absMiddle> <A id=Header1_MyLinks1_NewPostLink 
+      href="http://www.blogjava.net/Jack2007/admin/EditPosts.aspx?opt=1">新随笔</A><IMG 
+      id=Header1_MyLinks1_Image2 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/divider.gif" 
+      align=absMiddle> <A id=Header1_MyLinks1_ContactLink accessKey=9 
+      href="http://www.blogjava.net/Jack2007/contact.aspx?id=1">联系</A><IMG 
+      id=Header1_MyLinks1_Divider2 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/divider.gif" 
+      align=absMiddle> <A id=Header1_MyLinks1_Syndication 
+      href="http://www.blogjava.net/Jack2007/rss" target=_blank>聚合</A><IMG 
+      id=Header1_MyLinks1_Divider3 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/divider.gif" 
+      align=absMiddle> <!--<a id="Header1_MyLinks1_Syndication2" href="../../../../../Atom.aspx" target="_blank">Syndicate this Site (Atom)</a><img id="Header1_MyLinks1_Divider6" src="../../../../../Skins/WinXPBlue/Images/divider.gif" align="absmiddle" style="border-width:0px;" />
+<a id="Header1_MyLinks1_XMLLink" class="XMLLink" href="http://www.blogjava.net/Jack2007/rss" target="_blank"><img src="http://www.blogjava.net/images/xml.gif" style="border-width:0px;" /></a>--><A 
+      id=Header1_MyLinks1_Admin 
+      href="http://www.blogjava.net/Jack2007/admin/EditPosts.aspx">管理</A><IMG 
+      id=Header1_MyLinks1_Divider5 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/divider.gif" 
+      align=absMiddle> </TD>
+    <TD class=HeaderBarTabBack noWrap width="100%">
+      <DIV class=BlogStatsBar>
+      <TABLE class=BlogStatsBar>
+        <TBODY>
+        <TR>
+          <TD width="100%"></TD>
+          <TD class=BlogStatsBar noWrap>&nbsp; 179 Posts&nbsp;:: 3 Stories :: 
+            484 Comments :: 0 Trackbacks 
+</TD></TR></TBODY></TABLE></DIV></TD></TR></TBODY></TABLE></DIV></DIV>
+<DIV id=leftmenu style="DISPLAY: none">
+<H3>公告</H3>
+<DIV class=News>
+<P><SPAN style="COLOR: red"><SPAN style="FONT-SIZE: 10pt; COLOR: #000000"><IMG 
+style="WIDTH: 108px; HEIGHT: 157px" height=157 alt="" 
+src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/test.jpg" width=108 
+border=0><A href="http://otho.douban.com/lpic/s1669771.jpg"><IMG title=点击看大图 
+alt=重构 
+src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/s1669771.jpg"></A><BR>新浪博客：<A 
+href="http://blog.sina.com.cn/jackmaggie"><SPAN style="COLOR: red"><SPAN 
+style="FONT-SIZE: 10pt; COLOR: #0000ff">新浪 blog</SPAN></SPAN><SPAN 
+style="FONT-FAMILY: 宋体"><BR style="FONT-FAMILY: "></SPAN></A></SPAN></SPAN><SPAN 
+style="FONT-FAMILY: 宋体"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: "><SPAN 
+style="FONT-SIZE: 10pt; FONT-FAMILY: "><SPAN style="FONT-FAMILY: ">MSN: <A 
+style="FONT-FAMILY: " 
+href="http://www.365call.com.cn/chat/ChatWin.aspx?settings=mw7mNN7mmmz3ANXPwz3Am7Pb6mmI0"></A><SPAN 
+style="COLOR: #0000ff"><A style="FONT-FAMILY: " 
+href="mailto:wbjeasygo@163.com">wbjeasygo@163.com</A><A style="FONT-FAMILY: " 
+href="mailto:Wbjeasygo@163.com"><BR style="FONT-FAMILY: "></A></SPAN></A 
+style="FONT-FAMILY: ">Email:&nbsp; <A style="COLOR: #0000ff; FONT-FAMILY: " 
+href="mailto:wbjeasygo@163.com">wbjeasygo@163.com</A><BR 
+style="FONT-FAMILY: ">QQ 精英群: <SPAN 
+style="COLOR: #0000ff">47763528&nbsp;<BR></SPAN><FONT style="FONT-FAMILY: " 
+color=#002c99><FONT style="COLOR: #000000; FONT-FAMILY: " 
+color=#002c99>空间</FONT>：<A style="FONT-FAMILY: " 
+href="http://user.qzone.qq.com/11843121">QQ空间</A></FONT> </SPAN></SPAN><BR 
+style="FONT-FAMILY: "><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: ">淘宝店：<FONT 
+style="FONT-FAMILY: " size=3><A style="FONT-FAMILY: " 
+href="http://shop36280886.taobao.com/"><FONT 
+style="FONT-SIZE: 10pt; FONT-FAMILY: " size=3>新开淘宝书店</FONT></A><SPAN 
+style="FONT-SIZE: 10pt; FONT-FAMILY: 微软雅黑"><SPAN 
+style="FONT-FAMILY: Arial"><SPAN style="FONT-FAMILY: "><BR>致谢：<BR><SPAN 
+style="FONT-SIZE: 8pt; COLOR: red; FONT-FAMILY: 隶书">&nbsp;感谢雷老师几年的指导<BR><SPAN 
+style="FONT-FAMILY: 隶书"><SPAN style="FONT-FAMILY: "><SPAN 
+style="FONT-FAMILY: "><SPAN style="COLOR: red"><SPAN style="FONT-FAMILY: "><SPAN 
+style="FONT-FAMILY: ">&nbsp;感谢导师在学业上的关怀，<BR>&nbsp;感谢老婆家人的支持，<BR 
+style="FONT-FAMILY: ">&nbsp;感谢我的同学和同事，<BR 
+style="FONT-FAMILY: ">&nbsp;在我成长的路上有你</SPAN></SPAN>。</SPAN></SPAN></SPAN></SPAN></SPAN></SPAN></SPAN></SPAN></FONT></SPAN></SPAN></SPAN></P></DIV>
+<H3>留言簿<SPAN style="FONT-WEIGHT: normal; FONT-SIZE: 11px">(10)</SPAN></H3>
+<UL>
+  <LI><A id=SingleColumn1_ctl00_lnkMessages 
+  href="http://www.blogjava.net/Jack2007/Contact.aspx?id=1">给我留言</A> 
+  <LI><A id=SingleColumn1_ctl00_lnkPublicMsgView 
+  href="http://www.blogjava.net/Jack2007/default.aspx?opt=msg">查看公开留言</A> 
+  <LI><A id=SingleColumn1_ctl00_lnkPrivateMsgView 
+  href="http://www.blogjava.net/Jack2007/admin/MyMessages.aspx">查看私人留言</A> 
+</LI></UL>
+<H3>我参与的团队</H3>
+<DIV class=RecentComment>
+<UL style="WORD-BREAK: break-all">
+  <LI><A id=SingleColumn1_ctl01_TeamList_ctl01_lnkTeam 
+  href="http://architects.blogjava.net/">架构师之家(0/0)</A> 
+  <LI><A id=SingleColumn1_ctl01_TeamList_ctl02_lnkTeam 
+  href="http://webside.blogjava.net/">Java WebSide User Group(0/0)</A> 
+  <LI><A id=SingleColumn1_ctl01_TeamList_ctl03_lnkTeam 
+  href="http://shenzhen.blogjava.net/">深圳Java开发者之家(0/0)</A> </LI></UL></DIV>
+<H3>随笔分类<SPAN style="FONT-WEIGHT: normal; FONT-SIZE: 11px">(209)</SPAN></H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_RssLink 
+  title="Subscribe to 人物传记篇" 
+  href="http://www.blogjava.net/Jack2007/category/35321.html/rss"><IMG 
+  src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/xml.gif" 
+  align=center border=0></A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_Link 
+  href="http://www.blogjava.net/Jack2007/category/35321.html">人物传记篇</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_RssLink 
+  title="Subscribe to 好书推荐(2)" 
+  href="http://www.blogjava.net/Jack2007/category/34463.html/rss"><IMG 
+  src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/xml.gif" 
+  align=center border=0></A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_Link 
+  href="http://www.blogjava.net/Jack2007/category/34463.html">好书推荐(2)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_RssLink 
+  title="Subscribe to 开发技术(68)" 
+  href="http://www.blogjava.net/Jack2007/category/23333.html/rss"><IMG 
+  src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/xml.gif" 
+  align=center border=0></A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_Link 
+  href="http://www.blogjava.net/Jack2007/category/23333.html">开发技术(68)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_RssLink 
+  title="Subscribe to 数学&amp;算法(5)" 
+  href="http://www.blogjava.net/Jack2007/category/34460.html/rss"><IMG 
+  src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/xml.gif" 
+  align=center border=0></A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_Link 
+  href="http://www.blogjava.net/Jack2007/category/34460.html">数学&amp;算法(5)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_RssLink 
+  title="Subscribe to 架构师篇(48)" 
+  href="http://www.blogjava.net/Jack2007/category/29962.html/rss"><IMG 
+  src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/xml.gif" 
+  align=center border=0></A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_Link 
+  href="http://www.blogjava.net/Jack2007/category/29962.html">架构师篇(48)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_RssLink 
+  title="Subscribe to 生活百态(38)" 
+  href="http://www.blogjava.net/Jack2007/category/29538.html/rss"><IMG 
+  src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/xml.gif" 
+  align=center border=0></A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_Link 
+  href="http://www.blogjava.net/Jack2007/category/29538.html">生活百态(38)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl07_RssLink 
+  title="Subscribe to 经济管理学" 
+  href="http://www.blogjava.net/Jack2007/category/35322.html/rss"><IMG 
+  src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/xml.gif" 
+  align=center border=0></A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl07_Link 
+  href="http://www.blogjava.net/Jack2007/category/35322.html">经济管理学</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl08_RssLink 
+  title="Subscribe to 英语学习(1)" 
+  href="http://www.blogjava.net/Jack2007/category/34445.html/rss"><IMG 
+  src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/xml.gif" 
+  align=center border=0></A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl08_Link 
+  href="http://www.blogjava.net/Jack2007/category/34445.html">英语学习(1)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl09_RssLink 
+  title="Subscribe to 计算机论文(5)" 
+  href="http://www.blogjava.net/Jack2007/category/34839.html/rss"><IMG 
+  src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/xml.gif" 
+  align=center border=0></A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl09_Link 
+  href="http://www.blogjava.net/Jack2007/category/34839.html">计算机论文(5)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl10_RssLink 
+  title="Subscribe to 需求分析(2)" 
+  href="http://www.blogjava.net/Jack2007/category/34462.html/rss"><IMG 
+  src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/xml.gif" 
+  align=center border=0></A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl10_Link 
+  href="http://www.blogjava.net/Jack2007/category/34462.html">需求分析(2)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl11_RssLink 
+  title="Subscribe to 项目管理(36)" 
+  href="http://www.blogjava.net/Jack2007/category/23332.html/rss"><IMG 
+  src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/xml.gif" 
+  align=center border=0></A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl11_Link 
+  href="http://www.blogjava.net/Jack2007/category/23332.html">项目管理(36)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl12_RssLink 
+  title="Subscribe to 领域建模(4)" 
+  href="http://www.blogjava.net/Jack2007/category/34461.html/rss"><IMG 
+  src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/xml.gif" 
+  align=center border=0></A> <A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl12_Link 
+  href="http://www.blogjava.net/Jack2007/category/34461.html">领域建模(4)</A> 
+</LI></UL>
+<H3>随笔档案<SPAN style="FONT-WEIGHT: normal; FONT-SIZE: 11px">(176)</SPAN></H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2008/11.html">2008年11月 (3)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl02_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2008/10.html">2008年10月 (15)</A> 
+
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl03_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2008/09.html">2008年9月 (27)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl04_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2008/08.html">2008年8月 (11)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl05_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2008/07.html">2008年7月 (4)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl06_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2008/06.html">2008年6月 (9)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl07_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2008/05.html">2008年5月 (28)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl08_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2008/04.html">2008年4月 (20)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl09_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2008/03.html">2008年3月 (20)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl10_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2008/02.html">2008年2月 (10)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl11_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2008/01.html">2008年1月 (7)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl12_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2007/12.html">2007年12月 (3)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl13_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2007/11.html">2007年11月 (7)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl14_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2007/10.html">2007年10月 (9)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl15_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2007/07.html">2007年7月 (2)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl16_Link 
+  href="http://www.blogjava.net/Jack2007/archive/2007/06.html">2007年6月 (1)</A> 
+  </LI></UL>
+<H3>我的邻居们</H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl01_Link 
+  href="http://www.blogjava.net/beansoft/">beansoft</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl02_Link 
+  href="http://www.blogjava.net/BlueDavy/">BlueDavy</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl03_Link 
+  href="http://www.blogjava.net/security/">David.Turing's blog</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl04_Link 
+  href="http://www.open-open.com/">Java 开源网站</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl05_Link 
+  href="http://blog.zhangjianfeng.com/">Jeffrey’s Blog</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl06_Link 
+  href="http://www.jdon.com/jivejdon/forum.jsp">J道论坛</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl07_Link 
+  href="http://www.uml.net.cn/">UML软件工程组织 </A>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl08_Link 
+  href="http://blog.nona.name/">http://blog.nona.name/</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl09_Link 
+  href="http://chelsea.blogjava.net/">切尔斯基</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl10_Link 
+  href="http://aimingoo.spaces.live.com/">周爱民</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl11_Link 
+  href="http://www.blogjava.net/rocket/">和坚的 blog</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl12_Link 
+  href="http://sunweiqin.blog.51cto.com/">孙卫琴 </A>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl13_Link 
+  href="http://www.javathinker.org/">孙卫琴网站</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl14_Link 
+  href="http://blog.csdn.net/myan/">孟岩</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl15_Link 
+  href="http://zbw.javaeye.com/">庄表伟的blog</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl16_Link 
+  href="http://www.blogjava.net/calvin">江南白衣</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl17_Link 
+  href="http://blog.csdn.net/sodme/archive/2008/09/01/2863482.aspx">谢廷宝ID：sodme</A> 
+
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl18_Link 
+  href="http://blogger.org.cn/blog/blog.asp?name=hongrui">邢红瑞的blog </A>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl19_Link 
+  href="http://blog.csdn.net/david_lv">阿朱=行业趋势+开发管理+架构</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl20_Link 
+  href="http://www.blogjava.net/Unmi/">隔叶黄莺</A> </LI></UL>
+<H3>积分与排名</H3>
+<UL>
+  <LI>积分 - 200630 
+  <LI>排名 - 35 </LI></UL>
+<H3>最新评论 <A id=SingleColumn1__2ba1a11_RSSHyperlink1 
+href="http://www.blogjava.net/Jack2007/CommentsRSS.aspx"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+src="D:\数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files\xml(1).gif"></A></H3>
+<DIV class=RecentComment>
+<UL>
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl01_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/11/28/233419.html#243203">1.&nbsp;re: 
+  架构师培训笔记---需求开发的主要困难与对策</A> 
+  <LI style="WORD-BREAK: break-all">在需求开发的主要困难与对策中讲的好像更适合于分析设计员 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--leke_斌 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl02_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/11/28/234449.html#243201">2.&nbsp;re: 
+  《怎样成为优秀的软件架构师》解析 （好文转载）</A> 
+  <LI style="WORD-BREAK: break-all">阅读本文中后，明白自己在某些方面还需要更多的改进和努力。 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--leke_斌 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl03_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/11/28/240827.html#243160">3.&nbsp;re: 
+  架构相关的论文（近期主要阅读）</A> 
+  <LI style="WORD-BREAK: break-all">评论内容较长,点击标题查看 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--陈坤 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl04_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/11/26/227125.html#242859">4.&nbsp;re: 
+  Flex 视频大全『可下载』</A> 
+  <LI style="WORD-BREAK: break-all">希望 能发给我一份谢谢。 <BR>coral0212@foxmail.com 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--coral 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl05_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/11/19/240602.html#241476">5.&nbsp;re: 
+  架构中的分层技术</A> 
+  <LI style="WORD-BREAK: break-all">无论你什么环境，使用什么语言，都可以做到良好的分层。 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--网站优化 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl06_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/11/17/240602.html#240918">6.&nbsp;re: 
+  架构中的分层技术</A> 
+  <LI 
+  style="WORD-BREAK: break-all">理论说的很不错，但是有一个问题，软件在设计的时候，我们遵循的其实就是需求，如何分层，使用什么技术，都是要看具体的项目来说的，所以，理论并不一定适合实际的应用，期待For应用方面的好文章 
+
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--程序人生-天津 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl07_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/11/16/240602.html#240813">7.&nbsp;re: 
+  架构中的分层技术</A> 
+  <LI style="WORD-BREAK: break-all">评论内容较长,点击标题查看 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--Jack.Wang 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl08_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/11/15/240602.html#240651">8.&nbsp;re: 
+  架构中的分层技术</A> 
+  <LI style="WORD-BREAK: break-all">好文章，应用起来大家都顾不上这个了 <BR>
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--支持下个人主页 life126.com 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl09_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/11/15/240602.html#240632">9.&nbsp;re: 
+  架构中的分层技术</A> 
+  <LI 
+  style="WORD-BREAK: break-all">开篇就有问题，所谓某些平台支持分层，某些则不支持是不对的。<BR>无论你什么环境，使用什么语言，都可以做到良好的分层。 
+
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--fyunli 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl10_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/11/07/182098.html#239291">10.&nbsp;re: 
+  我的Fedora 7硬盘安装过程</A> 
+  <LI style="WORD-BREAK: break-all">你会不会啊？不会就不要乱发表，镜像文件你放到NTFS格式下的硬盘你还能安装成功？ 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--yuyang 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl11_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/10/29/237406.html#237498">11.&nbsp;re: 
+  常见计算机类杂志投稿方式[转载]</A> 
+  <LI style="WORD-BREAK: break-all">所谓“核心”，是不是“hardcore”啊。:) 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--非鱼 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl12_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/10/26/227125.html#236722">12.&nbsp;re: 
+  Flex 视频大全『可下载』[未登录]</A> 
+  <LI style="WORD-BREAK: break-all">谢谢分享！！ 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--李 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl13_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/10/22/234870.html#235999">13.&nbsp;re: 
+  微软面试题---求子数组最大乘积问题</A> 
+  <LI style="WORD-BREAK: break-all">评论内容较长,点击标题查看 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--stonebow 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl14_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/10/22/235152.html#235983">14.&nbsp;re: 
+  微软面试题---阶乘问题</A> 
+  <LI style="WORD-BREAK: break-all">评论内容较长,点击标题查看 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--icalm 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl15_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/10/20/234742.html#235443">15.&nbsp;re: 
+  微软面试题---求出1的个数之小解</A> 
+  <LI style="WORD-BREAK: break-all">@lvcha<BR>这样很无聊啊~~ 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--Reeze 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl16_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/10/18/234870.html#235178">16.&nbsp;re: 
+  微软面试题---求子数组最大乘积问题</A> 
+  <LI style="WORD-BREAK: break-all">这个是不是没要求最后乘法的结果，只要得到n-1分别是那些就好了吧，呵呵 
+  <BR>这样基本上不用考虑溢出的情况 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--wpf 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl17_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/10/18/234870.html#235124">17.&nbsp;re: 
+  微软面试题---求子数组最大乘积问题</A> 
+  <LI style="WORD-BREAK: break-all">其实压根就不用乘法吧。。。 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--ZelluX 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl18_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/10/17/234870.html#235089">18.&nbsp;re: 
+  微软面试题---求子数组最大乘积问题[未登录]</A> 
+  <LI style="WORD-BREAK: break-all">@wpf<BR>同意啊 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--ol_soft 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl19_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/10/17/234870.html#235079">19.&nbsp;re: 
+  微软面试题---求子数组最大乘积问题</A> 
+  <LI style="WORD-BREAK: break-all">难 等结果 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--小亮Web 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__2ba1a11_CommentList_ctl20_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/10/17/234870.html#235064">20.&nbsp;re: 
+  微软面试题---求子数组最大乘积问题</A> 
+  <LI style="WORD-BREAK: break-all">@YYX <BR>确实存在溢出问题，基本上那种算法都会涉及到多数相乘，所以用 
+  bigdecimal 表述数字是需要的！ 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--Jack.Wang </LI></UL></DIV>
+<H3>阅读排行榜</H3>
+<DIV class=RecentComment>
+<UL style="WORD-BREAK: break-all">
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl01_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/05/23/202485.html">1.&nbsp;Java虚拟机深入研究(3707)</A> 
+
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl02_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/04/10/191795.html">2.&nbsp;SSO单点登录解决方案[转载](3191)</A> 
+
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl03_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/06/01/205192.html">3.&nbsp;分布式系统之我见(2879)</A> 
+
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl04_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/09/11/228212.html">4.&nbsp;Flex+J2EE 
+  之小记(2767)</A> 
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl05_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/07/05/212793.html">5.&nbsp;研究生这一年(2683)</A> 
+
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl06_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2007/11/22/162307.html">6.&nbsp;RMI 
+  小结(2515)</A> 
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl07_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/05/21/202018.html">7.&nbsp;java内存分配研究(2502)</A> 
+
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl08_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/04/19/194230.html">8.&nbsp;C#与Java之比较(2299)</A> 
+
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl09_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/05/30/204146.html">9.&nbsp;提高网站速度的最佳实践(2264)</A> 
+
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl10_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/03/09/184861.html">10.&nbsp;Google的搜索速度为什么这么快？(2186)</A> 
+
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl11_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/04/27/196633.html">11.&nbsp;web架构设计经验分享(2139)</A> 
+
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl12_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/05/21/201799.html">12.&nbsp;Google美丽办公室背后的危机(2094)</A> 
+
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl13_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/09/15/229017.html">13.&nbsp; 
+  基于 Web 的单点登录理论研究之跨域和票据设计(2064)</A> 
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl14_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/04/11/192288.html">14.&nbsp;Java的垃圾回收之算法(2037)</A> 
+
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl15_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/06/05/206186.html">15.&nbsp;EJB3.0 
+  注释小结(2034)</A> 
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl16_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/04/23/195330.html">16.&nbsp;构建高性能J2EE应用的五种核心策略(2028)</A> 
+
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl17_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/06/30/211728.html">17.&nbsp;Oracle 
+  SQL 优化(2021)</A> 
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl18_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/05/21/202012.html">18.&nbsp;解决Windows 
+  XP中IIS禁止访问连接的用户过多(2017)</A> 
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl19_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/03/18/186980.html">19.&nbsp;Google 
+  架构之学习(1931)</A> 
+  <LI><A id=SingleColumn1__1f8fabd_TopList_ctl20_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/05/25/202693.html">20.&nbsp;Java远程通讯可选技术及原理(1920)</A> 
+  </LI></UL></DIV>
+<H3>评论排行榜</H3>
+<DIV class=RecentComment>
+<UL style="WORD-BREAK: break-all">
+  <LI><A id=SingleColumn1__5a5cc5_TopList_ctl01_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/02/23/181580.html">1.&nbsp;程序员们我们究竟在做什么？(28)</A> 
+
+  <LI><A id=SingleColumn1__5a5cc5_TopList_ctl02_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/07/05/212793.html">2.&nbsp;研究生这一年(19)</A> 
+
+  <LI><A id=SingleColumn1__5a5cc5_TopList_ctl03_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/09/05/227125.html">3.&nbsp;Flex 
+  视频大全『可下载』(18)</A> 
+  <LI><A id=SingleColumn1__5a5cc5_TopList_ctl04_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/03/21/187612.html">4.&nbsp;每日案例-----软件项目延期，怎么办？(17)</A> 
+
+  <LI><A id=SingleColumn1__5a5cc5_TopList_ctl05_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/07/16/215278.html">5.&nbsp;做人不要太浮躁(15)</A> 
+
+  <LI><A id=SingleColumn1__5a5cc5_TopList_ctl06_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/04/23/195330.html">6.&nbsp;构建高性能J2EE应用的五种核心策略(12)</A> 
+
+  <LI><A id=SingleColumn1__5a5cc5_TopList_ctl07_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/06/01/205192.html">7.&nbsp;分布式系统之我见(12)</A> 
+
+  <LI><A id=SingleColumn1__5a5cc5_TopList_ctl08_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/04/19/194230.html">8.&nbsp;C#与Java之比较(11)</A> 
+
+  <LI><A id=SingleColumn1__5a5cc5_TopList_ctl09_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2007/11/22/162307.html">9.&nbsp;RMI 
+  小结(11)</A> 
+  <LI><A id=SingleColumn1__5a5cc5_TopList_ctl10_Hyperlink1 
+  href="http://www.blogjava.net/Jack2007/archive/2008/10/16/234742.html">10.&nbsp;微软面试题---求出1的个数之小解(11)</A> 
+  </LI></UL></DIV><!--
+	<br><br>
+	<p align="center">
+	<a href="http://www.WebHost4Life.com/default.asp?refid=MarkHWagner">
+	<img src="http://www.WebHost4Life.com/images/banner3.gif" width="120"
+	height="60" border="0" alt="Join WebHost4Life.com"></a>
+	</p>
+--></DIV>
+<DIV id=main>
+<DIV class=post>
+<DIV class=postTitle><A id=viewpost1_TitleUrl 
+href="http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html">数据表的设计原则</A> 
+</DIV>
+<DIV 
+class=postText>(1)不应针对整个系统进行数据库设计，而应该根据系统架构中的组件划分，针对每个组件所处理的业务进行组件单元的数据库设计；不同组件间所对应的数据库表之间的关联应尽可能减少，如果不同组件间的表需要外键关联也尽量不要创建外键关联，而只是记录关联表的一个主键，确保组件对应的表之间的独立性，为系统或表结构的重构提供可能性。 
+<BR><BR>(2)采用领域模型驱动的方式和自顶向下的思路进行数据库设计，首先分析系统业务，根据职责定义对象。对象要符合封装的特性，确保与职责相关的数据项被定义在一个对象之内，这些数据项能够完整描述该职责，不会出现职责描述缺失。并且一个对象有且只有一项职责，如果一个对象要负责两个或两个以上的职责，应进行分拆。 
+<BR><BR>(3)根据建立的领域模型进行数据库表的映射，此时应参考数据库设计第二范式：一个表中的所有非关键字属性都依赖于整个关键字。关键字可以是一个属性，也可以是多个属性的集合，不论那种方式，都应确保关键字能够保证唯一性。在确定关键字时，应保证关键字不会参与业务且不会出现更新异常，这时，最优解决方案为采用一个自增数值型属性或一个随机字符串作为表的关键字。 
+<BR><BR>(4)由于第一点所述的领域模型驱动的方式设计数据库表结构，领域模型中的每一个对象只有一项职责，所以对象中的数据项不存在传递依赖，所以，这种思路的数据库表结构设计从一开始即满足第三范式：一个表应满足第二范式，且属性间不存在传递依赖。 
+<BR><BR>(5)同样，由于对象职责的单一性以及对象之间的关系反映的是业务逻辑之间的关系，所以在领域模型中的对象存在主对象和从对象之分，从对象是从1－N或N－N的角度进一步主对象的业务逻辑，所以从对象及对象关系映射为的表及表关联关系不存在删除和插入异常。 
+<BR><BR>(6)在映射后得出的数据库表结构中，应再根据第四范式进行进一步修改，确保不存在多值依赖。这时，应根据反向工程的思路反馈给领域模型。如果表结构中存在多值依赖，则证明领域模型中的对象具有至少两个以上的职责，应根据第一条进行设计修正。第四范式：一个表如果满足BCNF，不应存在多值依赖。 
+<BR><BR>(7)在经过分析后确认所有的表都满足二、三、四范式的情况下，表和表之间的关联尽量采用弱关联以便于对表字段和表结构的调整和重构。并且，我认为数据库中的表是用来持久化一个对象实例在特定时间及特定条件下的状态的，只是一个存储介质，所以，表和表之间也不应用强关联来表述业务（数据间的一致性），这一职责应由系统的逻辑层来保证，这种方式也确保了系统对于不正确数据（脏数据）的兼容性。当然，从整个系统的角度来说我们还是要尽最大努力确保系统不会产生脏数据，单从另一个角度来说，脏数据的产生在一定程度上也是不可避免的，我们也要保证系统对这种情况的容错性。这是一个折中的方案。 
+<BR><BR>(8)应针对所有表的主键和外键建立索引，有针对性的（针对一些大数据量和常用检索方式）建立组合属性的索引，提高检索效率。虽然建立索引会消耗部分系统资源，但比较起在检索时搜索整张表中的数据尤其时表中的数据量较大时所带来的性能影响，以及无索引时的排序操作所带来的性能影响，这种方式仍然是值得提倡的。 
+<BR><BR>(9)尽量少采用存储过程，目前已经有很多技术可以替代存储过程的功能如“对象/关系映射”等，将数据一致性的保证放在数据库中，无论对于版本控制、开发和部署、以及数据库的迁移都会带来很大的影响。但不可否认，存储过程具有性能上的优势，所以，当系统可使用的硬件不会得到提升而性能又是非常重要的质量属性时，可经过平衡考虑选用存储过程。 
+<BR><BR>(10)当处理表间的关联约束所付出的代价（常常是使用性上的代价）超过了保证不会出现修改、删除、更改异常所付出的代价，并且数据冗余也不是主要的问题时，表设计可以不符合四个范式。四个范式确保了不会出现异常，但也可能由此导致过于纯洁的设计，使得表结构难于使用，所以在设计时需要进行综合判断，但首先确保符合四个范式，然后再进行精化修正是刚刚进入数据库设计领域时可以采用的最好办法。 
+<BR><BR>(11)设计出的表要具有较好的使用性，主要体现在查询时是否需要关联多张表且还需使用复杂的SQL技巧。 
+<BR><BR>(12)设计出的表要尽可能减少数据冗余，确保数据的准确性，有效的控制冗余有助于提高数据库的性能。 <BR><BR>
+<P><SPAN style="COLOR: #999999; FONT-FAMILY: 宋体"><SPAN 
+style="FONT-SIZE: 8pt"><SPAN style="COLOR: #cc99ff; FONT-FAMILY: 宋体"><SPAN 
+style="COLOR: #999999; FONT-FAMILY: 宋体"><SPAN style="FONT-SIZE: 8pt"><SPAN 
+style="COLOR: #cc99ff; FONT-FAMILY: 宋体"><SPAN style="COLOR: #ff0000"><SPAN 
+style="FONT-FAMILY: 宋体">
+<HR style="COLOR: red">
+<BR>本博客为学习交流用，凡未注明引用的均为本人作品，转载请注明出处，如有版权问题请及时通知。由于博客时间仓促，错误之处敬请谅解，有任何意见可给我留言，愿共同学习进步。</SPAN></SPAN></SPAN></SPAN></SPAN></SPAN></SPAN></SPAN> 
+</DIV>
+<DIV class=postfoot>posted on 2008-05-05 12:56 <A 
+href="http://www.blogjava.net/Jack2007/">Jack.Wang</A> 阅读(1587) <A 
+href="http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html#Post">评论(3)</A> 
+&nbsp;<A 
+href="http://www.blogjava.net/Jack2007/admin/EditPosts.aspx?postid=198412">编辑</A> 
+&nbsp;<A 
+href="http://www.blogjava.net/Jack2007/AddToFavorite.aspx?id=198412">收藏</A> 
+所属分类: <A href="http://www.blogjava.net/Jack2007/category/29962.html">架构师篇</A> 
+</DIV></DIV><IMG height=1 
+src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/198412.jpg" width=1> 
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html"
+dc:identifier="http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html"
+dc:title="数据表的设计原则"
+trackback:ping="http://www.blogjava.net/Jack2007/services/trackbacks/198412.aspx" />
+</rdf:RDF>
+-->
+<SCRIPT type=text/javascript>
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('AjaxHolder$scriptmanager1', document.getElementById('Form1'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls(['tAjaxHolder$UpdatePanel1'], [], [], 90);
+//]]>
+</SCRIPT>
+
+<DIV id=AjaxHolder_UpdatePanel1><A name=pagedcomment></A><A name=feedback><BR>
+<DIV id=comments>
+<H3>Feedback</H3>
+<DIV class=post>
+<DIV class=postTitle><A title="permalink: re: 数据表的设计原则" 
+href="http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html#198414">#</A>&nbsp;<A 
+name=198414></A>re: 数据表的设计原则 <SPAN>2008-05-05 13:04 </SPAN><A 
+id=AjaxHolder_Comments_CommentList_ctl00_NameLink 
+href="http://www.blogjava.net/Jack2007/" target=_blank>Jack.Wang</A> </DIV>
+<DIV class=postText>(12) 有的冗余是不可避免的，或者是必须的！少的冗余虽然在结构上是比较清晰合理，但在性能上可能存在问题！ 
+就像您所说的表设计的尽量独立。&nbsp;&nbsp;<A onclick='return SetReplyAuhor("Jack.Wang")' 
+href="http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html#post">回复</A>&nbsp;&nbsp;<A 
+title=查看该作者发表过的评论 href="http://www.blogjava.net/comment?author=Jack.Wang" 
+target=_blank>更多评论</A> <BR><A 
+id=AjaxHolder_Comments_CommentList_ctl00_DeleteLink 
+href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl00$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+id=AjaxHolder_Comments_CommentList_ctl00_EditLink></A> </DIV></DIV><BR>
+<DIV class=post>
+<DIV class=postTitle><A title="permalink: re: 数据表的设计原则" 
+href="http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html#198473">#</A>&nbsp;<A 
+name=198473></A>re: 数据表的设计原则 <SPAN>2008-05-05 15:35 </SPAN><A 
+id=AjaxHolder_Comments_CommentList_ctl01_NameLink 
+href="http://www.blogjava.net/sitinspring/" target=_blank>如坐春风</A> </DIV>
+<DIV class=postText>不错.!&nbsp;&nbsp;<A onclick='return SetReplyAuhor("如坐春风")' 
+href="http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html#post">回复</A>&nbsp;&nbsp;<A 
+title=查看该作者发表过的评论 
+href="http://www.blogjava.net/comment?author=%e5%a6%82%e5%9d%90%e6%98%a5%e9%a3%8e" 
+target=_blank>更多评论</A> <BR><A 
+id=AjaxHolder_Comments_CommentList_ctl01_DeleteLink 
+href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl01$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+id=AjaxHolder_Comments_CommentList_ctl01_EditLink></A> </DIV></DIV><BR>
+<DIV class=post>
+<DIV class=postTitle><A title="permalink: re: 数据表的设计原则[未登录]" 
+href="http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html#198919">#</A>&nbsp;<A 
+name=198919></A>re: 数据表的设计原则[未登录]<A name=Post></A> <SPAN>2008-05-07 12:24 
+</SPAN><A id=AjaxHolder_Comments_CommentList_ctl02_NameLink 
+target=_blank>paul</A> </DIV>
+<DIV 
+class=postText>lz你真的按照这个设计table吗？你的table真的能满足第4范式吗？有点理论化，不知可行否？&nbsp;&nbsp;<A 
+onclick='return SetReplyAuhor("paul")' 
+href="http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html#post">回复</A>&nbsp;&nbsp;<A 
+title=查看该作者发表过的评论 href="http://www.blogjava.net/comment?author=paul" 
+target=_blank>更多评论</A> <BR><A 
+id=AjaxHolder_Comments_CommentList_ctl02_DeleteLink 
+href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl02$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+id=AjaxHolder_Comments_CommentList_ctl02_EditLink></A> </DIV></DIV><BR></DIV>
+<STYLE>TD {
+	FONT-SIZE: 12px
+}
+.commentTextBox {
+	FONT-SIZE: 13px; FONT-FAMILY: Verdana
+}
+</STYLE>
+<!--Beging Temp Save-->
+<STYLE>.userData {
+	BEHAVIOR: url(#default#userdata)
+}
+</STYLE>
+
+<DIV class=userData id=CommentsPersistDiv></DIV>
+<SCRIPT type=text/javascript>
+function pageLoad()
+{
+    Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(handleInitializeRequest);
+    //Sys.WebForms.PageRequestManager.getInstance().add_endRequest(handleEndRequest);
+}
+
+function handleInitializeRequest(sender, args)
+{
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    var eid = args.get_postBackElement().id;
+    if (eid.indexOf("DeleteLink")>0) 
+    {
+       args.get_postBackElement().innerHTML = "<font color='red'>正在删除...</font>";         
+    }    
+    else if (eid.indexOf("btnSubmit")>0) 
+    {
+       document.getElementById("AjaxHolder_PostComment_ltSubmitMsg").innerHTML="正在提交...";
+       document.getElementById("AjaxHolder_PostComment_btnSubmit").disabled = true;       
+    }   
+    else if(eid.indexOf("refreshList")>0)
+    {
+        document.getElementById("AjaxHolder_PostComment_refreshList").innerHTML="<font color='red'>正在刷新...</font>";
+    }
+   
+}	
+
+function TempSave(ElementID)
+{
+	try
+	{
+	CommentsPersistDiv.setAttribute("CommentContent",document.getElementById(ElementID).value);
+	CommentsPersistDiv.save("CommentXMLStore");
+	}
+	catch(ex)
+	{
+	}
+	
+}
+function Restore(ElementID)
+{
+	CommentsPersistDiv.load("CommentXMLStore");
+	document.getElementById(ElementID).value=CommentsPersistDiv.getAttribute("CommentContent");
+}	
+			
+			
+</SCRIPT>
+<!--Ene TempSave-->
+<DIV id=divRefreshComments 
+style="FONT-SIZE: 12px; MARGIN-BOTTOM: 5px; MARGIN-RIGHT: 10px; TEXT-ALIGN: right"><A 
+href="http://news.cnblogs.com/">IT新闻</A>&nbsp;&nbsp;<A 
+href="http://www.blogjava.net/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+id=AjaxHolder_PostComment_refreshList 
+href="javascript:__doPostBack('AjaxHolder$PostComment$refreshList','')">刷新评论列表</A>&nbsp;&nbsp;</DIV>
+<DIV class=commentform><SPAN id=AjaxHolder_PostComment_ltSubmitMsg 
+style="COLOR: red"></SPAN><BR><A name=Feedback></A>
+<TABLE cellSpacing=1 cellPadding=1 border=0>
+  <TBODY>
+  <TR>
+    <TD colSpan=3 height=5></TD></TR>
+  <TR>
+    <TD width=75></TD>
+    <TD></TD>
+    <TD></TD></TR>
+  <TR>
+    <TD width=55>标题</TD>
+    <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbTitle 
+      style="WIDTH: 320px" value="re: 数据表的设计原则" 
+      name=AjaxHolder$PostComment$tbTitle></TD>
+    <TD><SPAN id=AjaxHolder_PostComment_RequiredFieldValidator1 
+      style="VISIBILITY: hidden; COLOR: red">请输入标题</SPAN></TD></TR>
+  <TR>
+    <TD>姓名</TD>
+    <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbName 
+      style="WIDTH: 320px" name=AjaxHolder$PostComment$tbName></TD>
+    <TD><SPAN id=AjaxHolder_PostComment_RequiredFieldValidator2 
+      style="VISIBILITY: hidden; COLOR: red">请输入你的姓名</SPAN></TD></TR>
+  <TR>
+    <TD>主页</TD>
+    <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbUrl 
+      style="WIDTH: 320px" name=AjaxHolder$PostComment$tbUrl></TD>
+    <TD><FONT face=宋体></FONT></TD></TR>
+  <TR>
+    <TD align=left colSpan=3>
+      <TABLE class=CommentForm id=AjaxHolder_PostComment_tbCaptchaImage 
+      cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD colSpan=3><SPAN 
+            id=AjaxHolder_PostComment_Requiredfieldvalidator4 
+            style="DISPLAY: none; COLOR: red">请输入验证码</SPAN> <SPAN 
+            id=AjaxHolder_PostComment_lblImage 
+            style="FONT-WEIGHT: bold; COLOR: red"></SPAN></TD></TR>
+        <TR>
+          <TD width=78>验证码</TD>
+          <TD><INPUT id=AjaxHolder_PostComment_CodeNumberTextBox 
+            name=AjaxHolder$PostComment$CodeNumberTextBox>*&nbsp;&nbsp;<IMG 
+            src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/JpegImage.jpg"></TD>
+          <TD align=left></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD colSpan=3>内容(请不要发表任何与政治相关的内容) <SPAN 
+      id=AjaxHolder_PostComment_RequiredFieldValidator3 
+      style="VISIBILITY: hidden; COLOR: red">请输入评论内容</SPAN><BR><TEXTAREA class=commentTextBox id=AjaxHolder_PostComment_tbComment onkeydown="ctlent(event,'AjaxHolder_PostComment_tbComment')" style="WIDTH: 480px; HEIGHT: 220px" name=AjaxHolder$PostComment$tbComment rows=10 cols=50></TEXTAREA></TD></TR>
+  <TR>
+    <TD colSpan=3><SPAN id=AjaxHolder_PostComment_Message 
+      style="COLOR: red"></SPAN></TD>
+  <TR>
+    <TD colSpan=3><INPUT id=AjaxHolder_PostComment_chkRemember tabIndex=-1 
+      type=checkbox CHECKED name=AjaxHolder$PostComment$chkRemember><LABEL 
+      for=AjaxHolder_PostComment_chkRemember>Remember Me?</LABEL></TD></TR>
+  <TR>
+    <TD height=23><INPUT class=commentButton id=AjaxHolder_PostComment_btnSubmit onclick="TempSave('AjaxHolder_PostComment_tbComment');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;AjaxHolder$PostComment$btnSubmit&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" type=submit value=提交 name=AjaxHolder$PostComment$btnSubmit> 
+    </TD>
+    <TD colSpan=2 height=23>&nbsp; <A id=AjaxHolder_PostComment_lnkLogin 
+      href="http://www.blogjava.net/login.aspx?ReturnURL=http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html&amp;SourceURL=/Jack2007/archive/2008/05/05/198412.html">登录</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_PostComment_linkLoginComment 
+      onclick="if(document.getElementById('AjaxHolder_PostComment_tbComment').value != '') return confirm('未提交的评论内容将会丢失, 你真的要进入高级评论吗?');" 
+      href="http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html?login=1#Post">使用高级评论</A>&nbsp;&nbsp;<A 
+      href="http://www.blogjava.net/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+      href="http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html#Top">返回页首</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_PostComment_lbRestore 
+      onclick="Restore('AjaxHolder_PostComment_tbComment'); return false;" 
+      href="http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html#Post">恢复上次提交</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </TD></TR>
+  <TR>
+    <TD colSpan=3><LABEL class=CtrlEnter>[使用Ctrl+Enter键可以直接提交]</LABEL></TD></TR>
+  <TR>
+    <TD colSpan=3></TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>&nbsp;</TD></TR>
+  <TR>
+    <TD colSpan=3 height=5></TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>&nbsp;</TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>
+      <DIV id=divRelativePosts>相关文章: 
+      <UL style="MARGIN-TOP: 0px; PADDING-LEFT: 0px">
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl01_Hyperlink1 
+        href="http://www.blogjava.net/Jack2007/archive/2008/11/16/240827.html">架构相关的论文（近期主要阅读）</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl02_Hyperlink1 
+        href="http://www.blogjava.net/Jack2007/archive/2008/11/16/240804.html">架构重构-好文分享</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl03_Hyperlink1 
+        href="http://www.blogjava.net/Jack2007/archive/2008/11/14/240602.html">架构中的分层技术</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl04_Hyperlink1 
+        href="http://www.blogjava.net/Jack2007/archive/2008/10/26/236644.html">网构软件-Internetware</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl05_Hyperlink1 
+        href="http://www.blogjava.net/Jack2007/archive/2008/10/15/234449.html">《怎样成为优秀的软件架构师》解析 
+        （好文转载）</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl06_Hyperlink1 
+        href="http://www.blogjava.net/Jack2007/archive/2008/10/12/233852.html">可伸缩性最佳实践：来自eBay的经验（好文转载）</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl07_Hyperlink1 
+        href="http://www.blogjava.net/Jack2007/archive/2008/10/09/233419.html">架构师培训笔记---需求开发的主要困难与对策</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl08_Hyperlink1 
+        href="http://www.blogjava.net/Jack2007/archive/2008/10/08/233164.html">批着DDD，实则是以数据库为中心------数据库已死</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl09_Hyperlink1 
+        href="http://www.blogjava.net/Jack2007/archive/2008/10/08/233075.html">Restlet 
+        学习笔记</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl10_Hyperlink1 
+        href="http://www.blogjava.net/Jack2007/archive/2008/10/05/232491.html">如何处理好依赖关系[Reprint]</A> 
+        </LI></UL></DIV></TD></TR>
+  <TR>
+    <TD colSpan=3><BR>
+      <SCRIPT type=text/javascript><!--
+google_ad_client = "pub-4210569241504288";
+/* BlogJava_评论框下方_468x60, 创建于 08-9-12 */
+google_ad_slot = "6054757011";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</SCRIPT>
+
+      <SCRIPT 
+      src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/show_ads.js" 
+      type=text/javascript>
+</SCRIPT>
+    </TD></TR>
+  <TR>
+    <TD colSpan=3>相关链接:
+      <SCRIPT type=text/javascript>
+	function GetMeta(ametaName){
+	var METAs = document.getElementsByTagName("meta"); 
+	for (var i=0; i<METAs.length; i++) { 
+	if(METAs[i].name.toLowerCase()==ametaName){return (METAs[i].content);}
+	};
+	return "";
+	}
+	var title = document.title;
+	document.write("<div id=\"a4_ads_output\">");
+	document.write("<script type='text/javascript' src='http://a4.yeshj.com/adwords/EN017?num=5&title="+ encodeURIComponent(title) +"&tag="+ encodeURIComponent(GetMeta("keywords")) +"'></scri"+"pt>");
+	document.write("</div>");
+	</SCRIPT>
+    </TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>网站导航:
+      <DIV id=blogsite><A 
+      href="http://www.cnblogs.com/">博客园</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <A 
+      href="http://www.blogjava.net/">BlogJava</A>&nbsp;&nbsp; <A 
+      href="http://www.cnweblog.com/">博客生活</A>&nbsp;&nbsp; <A 
+      href="http://www.cnitblog.com/">IT博客网</A>&nbsp;&nbsp; <A 
+      href="http://www.cppblog.com/">C++博客</A>&nbsp;&nbsp; <A 
+      href="http://www.phpweblog.net/">PHP博客</A>&nbsp;&nbsp; <A 
+      href="http://space.cnblogs.com/">博客园社区</A> <BR><A 
+      href="http://www.manageblog.net/">管理博客</A>&nbsp;&nbsp; <A 
+      href="http://www.teachblog.net/">教师博客</A>&nbsp;&nbsp;&nbsp;&nbsp; <A 
+      href="http://www.astroblog.cn/">天文博客</A>&nbsp;&nbsp; <A 
+      href="http://www.cnautoblog.com/">汽车博客</A>&nbsp;&nbsp; <A 
+      href="http://www.zuqiublog.com/">足球博客</A>&nbsp;&nbsp; <A 
+      href="http://www.gupiaoblog.com/">股票博客</A>&nbsp;&nbsp; <A 
+      href="http://www.etronblog.com/">电子博客</A>&nbsp;&nbsp;<A 
+      href="http://www.blogjava.net/Jack2007/archive/2008/05/05/198412.html?opt=admin">管理</A> 
+      </DIV></TD></TR>
+  <TR>
+    <TD colSpan=3><BR><BR><IFRAME 
+      style="BORDER-RIGHT: #666 0px solid; BORDER-TOP: #666 0px solid; BORDER-LEFT: #666 0px solid; BORDER-BOTTOM: #666 0px solid" 
+      marginWidth=0 marginHeight=0 
+      src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/CAHSEXDZ.htm" 
+      frameBorder=0 width=468 scrolling=no height=0 
+      allowTransparency></IFRAME><BR></TD></TR></TBODY></TABLE></DIV>
+<DIV id=AjaxHolder_PostComment_ValidationSummary1 
+style="DISPLAY: none; COLOR: red"></DIV></DIV></DIV>
+<P id=footer>Powered by: <BR><A id=Footer1_Hyperlink3 
+style="FONT-SIZE: 12px; FONT-FAMILY: Verdana" href="http://www.blogjava.net/" 
+name=Hyperlink1>BlogJava</A> <BR>Copyright © Jack.Wang </P>
+<SCRIPT 
+src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/embed.js"></SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript>obj=new Object;obj.clockfile="0032-white.swf";obj.TimeZone="PST";obj.width=130;obj.height=130;obj.wmode="transparent";showClock(obj);</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Page_ValidationSummaries =  new Array(document.getElementById("AjaxHolder_PostComment_ValidationSummary1"));
+var Page_Validators =  new Array(document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2"), document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3"));
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var AjaxHolder_PostComment_RequiredFieldValidator1 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator1"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1");
+AjaxHolder_PostComment_RequiredFieldValidator1.controltovalidate = "AjaxHolder_PostComment_tbTitle";
+AjaxHolder_PostComment_RequiredFieldValidator1.errormessage = "请输入标题";
+AjaxHolder_PostComment_RequiredFieldValidator1.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator1.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator2 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator2"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2");
+AjaxHolder_PostComment_RequiredFieldValidator2.controltovalidate = "AjaxHolder_PostComment_tbName";
+AjaxHolder_PostComment_RequiredFieldValidator2.errormessage = "请输入你的姓名";
+AjaxHolder_PostComment_RequiredFieldValidator2.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator2.initialvalue = "";
+var AjaxHolder_PostComment_Requiredfieldvalidator4 = document.all ? document.all["AjaxHolder_PostComment_Requiredfieldvalidator4"] : document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4");
+AjaxHolder_PostComment_Requiredfieldvalidator4.controltovalidate = "AjaxHolder_PostComment_CodeNumberTextBox";
+AjaxHolder_PostComment_Requiredfieldvalidator4.errormessage = "请输入验证码";
+AjaxHolder_PostComment_Requiredfieldvalidator4.display = "Dynamic";
+AjaxHolder_PostComment_Requiredfieldvalidator4.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_Requiredfieldvalidator4.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator3 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator3"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3");
+AjaxHolder_PostComment_RequiredFieldValidator3.controltovalidate = "AjaxHolder_PostComment_tbComment";
+AjaxHolder_PostComment_RequiredFieldValidator3.errormessage = "请输入评论内容";
+AjaxHolder_PostComment_RequiredFieldValidator3.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator3.initialvalue = "";
+var AjaxHolder_PostComment_ValidationSummary1 = document.all ? document.all["AjaxHolder_PostComment_ValidationSummary1"] : document.getElementById("AjaxHolder_PostComment_ValidationSummary1");
+AjaxHolder_PostComment_ValidationSummary1.showmessagebox = "True";
+AjaxHolder_PostComment_ValidationSummary1.showsummary = "False";
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+
+document.getElementById('AjaxHolder_PostComment_ValidationSummary1').dispose = function() {
+    Array.remove(Page_ValidationSummaries, document.getElementById('AjaxHolder_PostComment_ValidationSummary1'));
+}
+Sys.Application.initialize();
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2'));
+}
+
+document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3'));
+}
+//]]>
+</SCRIPT>
+</FORM>
+<SCRIPT 
+src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/ShowHidden.js" 
+type=text/javascript></SCRIPT>
+<SPAN style="DISPLAY: none">
+<SCRIPT language=javascript 
+src="数据表的设计原则 - 走在架构师的大道上 Jack_Wang's home - BlogJava.files/click.htm"></SCRIPT>
+</SPAN></BODY></HTML>

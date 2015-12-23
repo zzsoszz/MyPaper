@@ -1,0 +1,1283 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0061)http://www.blogjava.net/loocky/archive/2008/10/23/160213.html -->
+<HTML><HEAD id=Head><TITLE>Oracle 语法之 OVER (PARTITION BY ..) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META id=metaKeywords content="Oracle 语法之 OVER (PARTITION BY ..) 及开窗函数 转载" 
+name=keywords><LINK id=MainCss 
+href="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files/style.css" 
+type=text/css rel=stylesheet><LINK id=RSSLink title=RSS 
+href="http://www.blogjava.net/loocky/rss.aspx" type=application/rss+xml 
+rel=alternate>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<FORM id=Form1 name=Form1 onsubmit="javascript:return WebForm_OnSubmit();" 
+action=160213.html method=post>
+<DIV><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE> </DIV>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</SCRIPT>
+
+<SCRIPT 
+src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=JavaScript>
+									function ctlent(evt,id)
+											{
+												if(evt.ctrlKey && evt.keyCode == 13)
+												{	
+													try
+													{
+														TempSave(id);
+													}
+													catch(ex)
+													{
+													}
+													finally
+													{
+													    __doPostBack('AjaxHolder$PostComment$btnSubmit','')
+													}
+												}
+		
+												}</SCRIPT>
+
+<SCRIPT language=JavaScript>function SetReplyAuhor(author){document.getElementById('AjaxHolder_PostComment_tbComment').value+="@"+author+"\n";document.getElementById('AjaxHolder_PostComment_tbComment').focus();return false}</SCRIPT>
+
+<SCRIPT 
+src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files/ScriptResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\ScriptResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\ScriptResource(2).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</SCRIPT>
+<!--done-->
+<DIV id=header><!--done-->
+<DIV class=header>
+<DIV class=headerText><A class=headermaintitle id=Header1_HeaderTitle 
+href="http://www.blogjava.net/loocky/">不知疲倦的猪</A><BR>不知疲倦的猪 </DIV></DIV></DIV>
+<DIV id=mytopmenu>
+<DIV id=mylinks><!--done--><A class=menu id=MyLinks1_HomeLink 
+href="http://www.blogjava.net/">BlogJava</A>&nbsp;&nbsp; <A class=menu 
+id=MyLinks1_MyHomeLink href="http://www.blogjava.net/loocky/">首页</A>&nbsp;&nbsp; 
+<A class=menu id=MyLinks1_ContactLink 
+href="http://www.blogjava.net/loocky/contact.aspx?id=1">联系</A>&nbsp;&nbsp; <A 
+class=menu id=MyLinks1_Syndication 
+href="http://www.blogjava.net/loocky/rss">聚合</A><A id=MyLinks1_XMLLink 
+href="http://www.blogjava.net/loocky/rss"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files/xml.gif"></A>&nbsp;&nbsp; 
+<A class=menu id=MyLinks1_Admin 
+href="http://www.blogjava.net/loocky/admin/EditPosts.aspx">管理</A> </DIV>
+<DIV id=mystats><!--done-->随笔-127&nbsp; 评论-130&nbsp; 文章-25&nbsp; trackbacks-0 
+</DIV></DIV>
+<DIV id=centercontent><!--done-->
+<DIV class=post>
+<DIV class=postTitle><A class=postTitle2 id=viewpost1_TitleUrl 
+href="http://www.blogjava.net/loocky/archive/2007/11/13/160213.html">Oracle 语法之 
+OVER (PARTITION BY ..) 及开窗函数 转载</A> </DIV>&nbsp; 
+<TABLE style="BORDER-COLLAPSE: collapse" borderColor=#a5bd6b cellSpacing=1 
+cellPadding=0 width="100%" border=1>
+  <TBODY>
+  <TR>
+    <TD align=middle>
+      <TABLE style="BORDER-COLLAPSE: collapse; WORD-WRAP: break-word" 
+      cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD align=middle>
+            <TABLE style="BORDER-COLLAPSE: collapse; WORD-WRAP: break-word" 
+            cellSpacing=0 cellPadding=0 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD>
+                  <DIV id=art style="MARGIN: 15px">
+                  <DIV>oracle的分析函数over 及开窗函数</DIV>
+                  <DIV><FONT size=2>一：分析函数<STRONG 
+                  style="COLOR: black; BACKGROUND-COLOR: #a0ffff">over</STRONG><BR><STRONG 
+                  style="COLOR: black; BACKGROUND-COLOR: #ffff66">Oracle</STRONG>从8.1.6开始提供分析函数，分析函数用于计算基于组的某种聚合值，它和聚合函数的不同之处是<BR>对于每个组返回多行，而聚合函数对于每个组只返回一行。 
+                  <BR>下面通过几个例子来说明其应用。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT> 
+
+                  <DIV><FONT 
+                  size=2>1：统计某商店的营业额。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></DIV>
+                  <DIV><FONT size=2>&nbsp;&nbsp;&nbsp;&nbsp; 
+                  date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  sale<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+                  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  20<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+                  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  15<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+                  3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  14<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+                  4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  18<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+                  5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  30<BR>&nbsp;&nbsp;&nbsp; 
+                  规则：按天统计：每天都统计前面几天的总额<BR>&nbsp;&nbsp;&nbsp; 
+                  得到的结果：<BR>&nbsp;&nbsp;&nbsp; DATE&nbsp;&nbsp; 
+                  SALE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  SUM<BR>&nbsp;&nbsp;&nbsp; ----- -------- 
+                  ------<BR>&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  --1天&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  35&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  --1天＋2天&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  49&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  --1天＋2天＋3天&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  67&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  .&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  97&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  .<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>2:统计各班成绩第一名的同学信息</FONT></DIV>
+                  <DIV><FONT size=2>&nbsp;&nbsp;&nbsp; NAME&nbsp;&nbsp; CLASS 
+                  S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  ----- ----- ---------------------- <BR>&nbsp;&nbsp;&nbsp; 
+                  fda&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  80&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  ffd&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  78&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  dss&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  95&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  cfe&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  74&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  gds&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  92&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  gf&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  99&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  ddd&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  99&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  adf&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  45&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  asdf&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  55&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  3dd&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  78&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  通过：&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  --<BR>&nbsp;&nbsp;&nbsp; select * 
+                  from&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  select name,class,s,rank()<STRONG 
+                  style="COLOR: black; BACKGROUND-COLOR: #a0ffff">over</STRONG>(partition 
+                  by class order by s desc) mm from t2<BR>&nbsp;&nbsp;&nbsp; 
+                  )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  where mm=1 <BR>&nbsp;&nbsp;&nbsp; --<BR>&nbsp;&nbsp;&nbsp; 
+                  得到结果：<BR>&nbsp;&nbsp;&nbsp; NAME&nbsp;&nbsp; CLASS 
+                  S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  MM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  ----- ----- ---------------------- ---------------------- 
+                  <BR>&nbsp;&nbsp;&nbsp; dss&nbsp;&nbsp;&nbsp; 
+                  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  95&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  gds&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  92&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  gf&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  99&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  ddd&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  99&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  注意：<BR>&nbsp;&nbsp;&nbsp; 
+                  1.在求第一名成绩的时候，不能用row_number()，因为如果同班有两个并列第一，row_number()只返回一个结果&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  2.rank()和dense_rank()的区别是：<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  --rank()是跳跃排序，有两个第二名时接下来就是第四名<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  --dense_rank()l是连续排序，有两个第二名时仍然跟着第三名<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>3.分类统计 
+                  (并显示信息)</FONT></DIV>
+                  <DIV><FONT size=2>&nbsp;&nbsp;&nbsp; A&nbsp;&nbsp; 
+                  B&nbsp;&nbsp; 
+                  C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  -- -- ---------------------- <BR>&nbsp;&nbsp;&nbsp; 
+                  m&nbsp;&nbsp; a&nbsp;&nbsp; 
+                  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  n&nbsp;&nbsp; a&nbsp;&nbsp; 
+                  3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  m&nbsp;&nbsp; a&nbsp;&nbsp; 
+                  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  n&nbsp;&nbsp; b&nbsp;&nbsp; 
+                  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  n&nbsp;&nbsp; b&nbsp;&nbsp; 
+                  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  x&nbsp;&nbsp; b&nbsp;&nbsp; 
+                  3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  x&nbsp;&nbsp; b&nbsp;&nbsp; 
+                  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  x&nbsp;&nbsp; b&nbsp;&nbsp; 
+                  4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+                  h&nbsp;&nbsp; b&nbsp;&nbsp; 3 </FONT></DIV>
+                  <DIV><FONT size=2>&nbsp;&nbsp; select a,c,sum(c)<STRONG 
+                  style="COLOR: black; BACKGROUND-COLOR: #a0ffff">over</STRONG>(partition 
+                  by a) from 
+                  t2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  得到结果：<BR>&nbsp;&nbsp; A&nbsp;&nbsp; B&nbsp;&nbsp; 
+                  C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SUM(C)<STRONG 
+                  style="COLOR: black; BACKGROUND-COLOR: #a0ffff">OVER</STRONG>(PARTITIONBYA)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  -- -- ------- ------------------------ <BR>&nbsp;&nbsp; 
+                  h&nbsp;&nbsp; b&nbsp;&nbsp; 
+                  3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  m&nbsp;&nbsp; a&nbsp;&nbsp; 
+                  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  m&nbsp;&nbsp; a&nbsp;&nbsp; 
+                  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  n&nbsp;&nbsp; a&nbsp;&nbsp; 
+                  3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  n&nbsp;&nbsp; b&nbsp;&nbsp; 
+                  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  n&nbsp;&nbsp; b&nbsp;&nbsp; 
+                  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  x&nbsp;&nbsp; b&nbsp;&nbsp; 
+                  3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  x&nbsp;&nbsp; b&nbsp;&nbsp; 
+                  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  x&nbsp;&nbsp; b&nbsp;&nbsp; 
+                  4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  如果用sum，group by 则只能得到<BR>&nbsp;&nbsp; A&nbsp;&nbsp; 
+                  SUM(C)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  -- ---------------------- <BR>&nbsp;&nbsp; h&nbsp;&nbsp; 
+                  3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  m&nbsp;&nbsp; 
+                  4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  n&nbsp;&nbsp; 
+                  6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  x&nbsp;&nbsp; 
+                  9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  无法得到B列值&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;<BR>＝＝＝＝＝</FONT></DIV>
+                  <DIV>
+                  <DIV>
+                  <P><FONT face="verdana, arial, helvetica" size=2><SPAN 
+                  class=javascript id=text2200299 style="FONT-SIZE: 12px">select 
+                  * from test<BR><BR>数据:<BR>A B C <BR>1 1 1 <BR>1 2 2 <BR>1 3 3 
+                  <BR>2 2 5 <BR>3 4 6 <BR><BR><BR>---将B栏位值相同的对应的C 
+                  栏位值加总<BR>select a,b,c, SUM(C) OVER (PARTITION BY B) 
+                  C_Sum<BR>from test<BR><BR>A B C C_SUM <BR>1 1 1 1 <BR>1 2 2 7 
+                  <BR>2 2 5 7 <BR>1 3 3 3 <BR>3 4 6 6 
+                  <BR><BR><BR><BR>---如果不需要已某个栏位的值分割,那就要用 null<BR><BR>eg: 
+                  就是将C的栏位值summary 放在每行后面<BR><BR>select a,b,c, SUM(C) OVER 
+                  (PARTITION BY null) C_Sum<BR>from test<BR><BR>A B C C_SUM 
+                  <BR>1 1 1 17 <BR>1 2 2 17 <BR>1 3 3 17 <BR>2 2 5 17 <BR>3 4 6 
+                  17</SPAN></FONT></P>
+                  <P><FONT face="verdana, arial, helvetica" 
+                  size=2></FONT>&nbsp;</P>
+                  <P><FONT face="verdana, arial, helvetica" size=2><SPAN 
+                  class=javascript style="FONT-SIZE: 12px">求个人工资占部门工资的百分比 </P>
+                  <P><FONT face="verdana, arial, helvetica" size=2><SPAN 
+                  class=javascript id=text3005546 
+                  style="FONT-SIZE: 12px">SQL&gt; select * from 
+                  salary;<BR><BR>NAME DEPT SAL<BR>---------- ---- -----<BR>a 10 
+                  2000<BR>b 10 3000<BR>c 10 5000<BR>d 20 4000<BR><BR>SQL&gt; 
+                  select name,dept,sal,sal*100/sum(sal) over(partition by dept) 
+                  percent from salary;<BR><BR>NAME DEPT SAL 
+                  PERCENT<BR>---------- ---- ----- ----------<BR>a 10 2000 
+                  20<BR>b 10 3000 30<BR>c 10 5000 50<BR>d 20 4000 
+                  100</SPAN></FONT></P></SPAN></FONT></DIV></DIV>
+                  <DIV><FONT 
+                  size=2>二：开窗函数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  开窗函数指定了分析函数工作的数据窗口大小，这个数据窗口大小可能会随着行的变化而变化，举例如下： 
+                  <BR>1：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;<STRONG 
+                  style="COLOR: black; BACKGROUND-COLOR: #a0ffff">over</STRONG>（order 
+                  by salary） 按照salary排序进行累计，order 
+                  by是个默认的开窗函数<BR>&nbsp;&nbsp;&nbsp;<STRONG 
+                  style="COLOR: black; BACKGROUND-COLOR: #a0ffff">over</STRONG>（partition 
+                  by deptno）按照部门分区<BR>2：<BR>&nbsp;&nbsp;<STRONG 
+                  style="COLOR: black; BACKGROUND-COLOR: #a0ffff">over</STRONG>（order 
+                  by salary range between 5 preceding and 5 
+                  following）<BR>&nbsp;&nbsp; 
+                  每行对应的数据窗口是之前行幅度值不超过5，之后行幅度值不超过5<BR>&nbsp;&nbsp; 
+                  例如:对于以下列<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+                  aa<BR>&nbsp;&nbsp;&nbsp;&nbsp; 1<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+                  2<BR>&nbsp;&nbsp;&nbsp;&nbsp; 2<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+                  2<BR>&nbsp;&nbsp;&nbsp;&nbsp; 3<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+                  4<BR>&nbsp;&nbsp;&nbsp;&nbsp; 5<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+                  6<BR>&nbsp;&nbsp;&nbsp;&nbsp; 7<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+                  9<BR>&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; sum(aa)<STRONG 
+                  style="COLOR: black; BACKGROUND-COLOR: #a0ffff">over</STRONG>（order 
+                  by aa range between 2 preceding and 2 
+                  following）<BR>&nbsp;&nbsp; 
+                  得出的结果是<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  AA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  SUM<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  ---------------------- 
+                  ------------------------------------------------------- 
+                  <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp; 
+                  就是说，对于aa=5的一行 ，sum为&nbsp;&nbsp; 5-1&lt;=aa&lt;=5+2 
+                  的和<BR>&nbsp;&nbsp; 对于aa=2来说 
+                  ，sum=1+2+2+2+3+4=14&nbsp;&nbsp;&nbsp;&nbsp; ；<BR>&nbsp;&nbsp; 
+                  又如 对于aa=9 ，9-1&lt;=aa&lt;=9+2 只有9一个数，所以sum=9&nbsp;&nbsp;&nbsp; 
+                  ；<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>3：其它：<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG 
+                  style="COLOR: black; BACKGROUND-COLOR: #a0ffff">over</STRONG>（order 
+                  by salary rows between 2 preceding and 4 
+                  following）<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  每行对应的数据窗口是之前2行，之后4行 
+                  <BR>4：下面三条语句等效：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG 
+                  style="COLOR: black; BACKGROUND-COLOR: #a0ffff">over</STRONG>（order 
+                  by salary rows between unbounded preceding and unbounded 
+                  following）<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  每行对应的数据窗口是从第一行到最后一行，等效：<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG 
+                  style="COLOR: black; BACKGROUND-COLOR: #a0ffff">over</STRONG>（order 
+                  by salary range between unbounded preceding and unbounded 
+                  following）<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  等效<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<STRONG 
+                  style="COLOR: black; BACKGROUND-COLOR: #a0ffff">over</STRONG>(partition 
+                  by 
+        null)</FONT></DIV></DIV></DIV></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<DIV class=postDesc>posted on 2007-11-13 13:33 <A 
+href="http://www.blogjava.net/loocky/">loocky</A> 阅读(2850) <A 
+href="http://www.blogjava.net/loocky/archive/2008/10/23/160213.html#Post">评论(1)</A> 
+&nbsp;<A 
+href="http://www.blogjava.net/loocky/admin/EditPosts.aspx?postid=160213">编辑</A> 
+&nbsp;<A 
+href="http://www.blogjava.net/loocky/AddToFavorite.aspx?id=160213">收藏</A> 所属分类: 
+<A href="http://www.blogjava.net/loocky/category/9940.html">oracle</A> 
+</DIV></DIV><IMG height=1 
+src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files/160213.jpg" 
+width=1> <!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://www.blogjava.net/loocky/archive/2007/11/13/160213.html"
+dc:identifier="http://www.blogjava.net/loocky/archive/2007/11/13/160213.html"
+dc:title="Oracle 语法之 OVER (PARTITION BY ..) 及开窗函数 转载"
+trackback:ping="http://www.blogjava.net/loocky/services/trackbacks/160213.aspx" />
+</rdf:RDF>
+-->
+<SCRIPT type=text/javascript>
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('AjaxHolder$scriptmanager1', document.getElementById('Form1'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls(['tAjaxHolder$UpdatePanel1'], [], [], 90);
+//]]>
+</SCRIPT>
+
+<DIV id=AjaxHolder_UpdatePanel1><A 
+name=pagedcomment></A><!--done--><BR><B>评论:</B> 
+<DIV class=feedbackNoItems></DIV>
+<DIV class=feedbackItem>
+<DIV class=feedbackListSubtitle><A 
+title="permalink: re: Oracle 语法之 OVER (PARTITION BY ..) 及开窗函数 转载" 
+href="http://www.blogjava.net/loocky/archive/2008/10/23/160213.html#236073">#</A>&nbsp;<A 
+name=236073></A>re: Oracle 语法之 OVER (PARTITION BY ..) 及开窗函数 转载<A name=Post></A> 
+2008-10-23 00:08 | <A id=AjaxHolder_Comments_CommentList_ctl00_NameLink 
+href="http://cai/" target=_blank>菜</A><BR>
+<DIV align=left>很感谢bo主的这篇文章。&nbsp;&nbsp;<A onclick='return SetReplyAuhor("菜")' 
+href="http://www.blogjava.net/loocky/archive/2008/10/23/160213.html#post">回复</A>&nbsp;&nbsp;<A 
+title=查看该作者发表过的评论 href="http://www.blogjava.net/comment?author=%e8%8f%9c" 
+target=_blank>更多评论</A><BR><A id=AjaxHolder_Comments_CommentList_ctl00_DeleteLink 
+href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl00$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+id=AjaxHolder_Comments_CommentList_ctl00_EditLink></A></DIV></DIV></DIV>
+<STYLE>TD {
+	FONT-SIZE: 12px
+}
+.commentTextBox {
+	FONT-SIZE: 13px; FONT-FAMILY: Verdana
+}
+</STYLE>
+<!--Beging Temp Save-->
+<STYLE>.userData {
+	BEHAVIOR: url(#default#userdata)
+}
+</STYLE>
+
+<DIV class=userData id=CommentsPersistDiv></DIV>
+<SCRIPT type=text/javascript>
+function pageLoad()
+{
+    Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(handleInitializeRequest);
+    //Sys.WebForms.PageRequestManager.getInstance().add_endRequest(handleEndRequest);
+}
+
+function handleInitializeRequest(sender, args)
+{
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    var eid = args.get_postBackElement().id;
+    if (eid.indexOf("DeleteLink")>0) 
+    {
+       args.get_postBackElement().innerHTML = "<font color='red'>正在删除...</font>";         
+    }    
+    else if (eid.indexOf("btnSubmit")>0) 
+    {
+       document.getElementById("AjaxHolder_PostComment_ltSubmitMsg").innerHTML="正在提交...";
+       document.getElementById("AjaxHolder_PostComment_btnSubmit").disabled = true;       
+    }   
+    else if(eid.indexOf("refreshList")>0)
+    {
+        document.getElementById("AjaxHolder_PostComment_refreshList").innerHTML="<font color='red'>正在刷新...</font>";
+    }
+   
+}	
+
+function TempSave(ElementID)
+{
+	try
+	{
+	CommentsPersistDiv.setAttribute("CommentContent",document.getElementById(ElementID).value);
+	CommentsPersistDiv.save("CommentXMLStore");
+	}
+	catch(ex)
+	{
+	}
+	
+}
+function Restore(ElementID)
+{
+	CommentsPersistDiv.load("CommentXMLStore");
+	document.getElementById(ElementID).value=CommentsPersistDiv.getAttribute("CommentContent");
+}	
+			
+			
+</SCRIPT>
+<!--Ene TempSave-->
+<DIV id=divRefreshComments 
+style="FONT-SIZE: 12px; MARGIN-BOTTOM: 5px; MARGIN-RIGHT: 10px; TEXT-ALIGN: right"><A 
+href="http://news.cnblogs.com/">IT新闻</A>&nbsp;&nbsp;<A 
+href="http://www.blogjava.net/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+id=AjaxHolder_PostComment_refreshList 
+href="javascript:__doPostBack('AjaxHolder$PostComment$refreshList','')">刷新评论列表</A>&nbsp;&nbsp;</DIV>
+<DIV class=commentform><SPAN id=AjaxHolder_PostComment_ltSubmitMsg 
+style="COLOR: red"></SPAN><BR><A name=Feedback></A>
+<TABLE cellSpacing=1 cellPadding=1 border=0>
+  <TBODY>
+  <TR>
+    <TD colSpan=3 height=5>
+      <SCRIPT type=text/javascript><!--
+google_ad_client = "pub-4210569241504288";
+/* BlogJava_CommentBox_UP_08-11-8 */
+google_ad_slot = "9466389251";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</SCRIPT>
+
+      <SCRIPT 
+      src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files/show_ads.js" 
+      type=text/javascript>
+</SCRIPT>
+      <BR><BR></TD></TR>
+  <TR>
+    <TD width=75></TD>
+    <TD></TD>
+    <TD></TD></TR>
+  <TR>
+    <TD width=55>标题</TD>
+    <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbTitle 
+      style="WIDTH: 320px" 
+      value="re: Oracle 语法之 OVER (PARTITION BY ..) 及开窗函数 转载" 
+      name=AjaxHolder$PostComment$tbTitle></TD>
+    <TD><SPAN id=AjaxHolder_PostComment_RequiredFieldValidator1 
+      style="VISIBILITY: hidden; COLOR: red">请输入标题</SPAN></TD></TR>
+  <TR>
+    <TD>姓名</TD>
+    <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbName 
+      style="WIDTH: 320px" name=AjaxHolder$PostComment$tbName></TD>
+    <TD><SPAN id=AjaxHolder_PostComment_RequiredFieldValidator2 
+      style="VISIBILITY: hidden; COLOR: red">请输入你的姓名</SPAN></TD></TR>
+  <TR>
+    <TD>主页</TD>
+    <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbUrl 
+      style="WIDTH: 320px" name=AjaxHolder$PostComment$tbUrl></TD>
+    <TD><FONT face=宋体></FONT></TD></TR>
+  <TR>
+    <TD align=left colSpan=3>
+      <TABLE class=CommentForm id=AjaxHolder_PostComment_tbCaptchaImage 
+      cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD colSpan=3><SPAN 
+            id=AjaxHolder_PostComment_Requiredfieldvalidator4 
+            style="DISPLAY: none; COLOR: red">请输入验证码</SPAN> <SPAN 
+            id=AjaxHolder_PostComment_lblImage 
+            style="FONT-WEIGHT: bold; COLOR: red"></SPAN></TD></TR>
+        <TR>
+          <TD width=78>验证码</TD>
+          <TD><INPUT id=AjaxHolder_PostComment_CodeNumberTextBox 
+            name=AjaxHolder$PostComment$CodeNumberTextBox>*&nbsp;&nbsp;<IMG 
+            src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files/JpegImage.jpg"></TD>
+          <TD align=left></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD colSpan=3>内容(请不要发表任何与政治相关的内容) <SPAN 
+      id=AjaxHolder_PostComment_RequiredFieldValidator3 
+      style="VISIBILITY: hidden; COLOR: red">请输入评论内容</SPAN><BR><TEXTAREA class=commentTextBox id=AjaxHolder_PostComment_tbComment onkeydown="ctlent(event,'AjaxHolder_PostComment_tbComment')" style="WIDTH: 480px; HEIGHT: 220px" name=AjaxHolder$PostComment$tbComment rows=10 cols=50></TEXTAREA></TD></TR>
+  <TR>
+    <TD colSpan=3><SPAN id=AjaxHolder_PostComment_Message 
+      style="COLOR: red"></SPAN></TD>
+  <TR>
+    <TD colSpan=3><INPUT id=AjaxHolder_PostComment_chkRemember tabIndex=-1 
+      type=checkbox CHECKED name=AjaxHolder$PostComment$chkRemember><LABEL 
+      for=AjaxHolder_PostComment_chkRemember>Remember Me?</LABEL></TD></TR>
+  <TR>
+    <TD height=23><INPUT class=commentButton id=AjaxHolder_PostComment_btnSubmit onclick="TempSave('AjaxHolder_PostComment_tbComment');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;AjaxHolder$PostComment$btnSubmit&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" type=submit value=提交 name=AjaxHolder$PostComment$btnSubmit> 
+    </TD>
+    <TD colSpan=2 height=23>&nbsp; <A id=AjaxHolder_PostComment_lnkLogin 
+      href="http://www.blogjava.net/login.aspx?ReturnURL=http://www.blogjava.net/loocky/archive/2008/10/23/160213.html&amp;SourceURL=/loocky/archive/2008/10/23/160213.html">登录</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_PostComment_linkLoginComment 
+      onclick="if(document.getElementById('AjaxHolder_PostComment_tbComment').value != '') return confirm('未提交的评论内容将会丢失, 你真的要进入高级评论吗?');" 
+      href="http://www.blogjava.net/loocky/archive/2008/10/23/160213.html?login=1#Post">使用高级评论</A>&nbsp;&nbsp;<A 
+      href="http://www.blogjava.net/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+      href="http://www.blogjava.net/loocky/archive/2008/10/23/160213.html#Top">返回页首</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_PostComment_lbRestore 
+      onclick="Restore('AjaxHolder_PostComment_tbComment'); return false;" 
+      href="http://www.blogjava.net/loocky/archive/2008/10/23/160213.html#Post">恢复上次提交</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </TD></TR>
+  <TR>
+    <TD colSpan=3><LABEL class=CtrlEnter>[使用Ctrl+Enter键可以直接提交]</LABEL></TD></TR>
+  <TR>
+    <TD colSpan=3>该文被作者在 2007-11-13 13:35 编辑过</TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>&nbsp;</TD></TR>
+  <TR>
+    <TD colSpan=3 height=5></TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>&nbsp;</TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>
+      <DIV id=divRelativePosts>相关文章: 
+      <UL style="MARGIN-TOP: 0px; PADDING-LEFT: 0px">
+        <LI style="DISPLAY: none; LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl01_Hyperlink1 
+        href="http://www.blogjava.net/loocky/archive/2007/11/13/160213.html">Oracle 
+        语法之 OVER (PARTITION BY ..) 及开窗函数 转载</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl02_Hyperlink1 
+        href="http://www.blogjava.net/loocky/archive/2006/11/30/84496.html">事务与锁的一些总结</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl03_Hyperlink1 
+        href="http://www.blogjava.net/loocky/archive/2006/11/16/81513.html">oracle 
+        事务隔离级别,用jdbc体验</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl04_Hyperlink1 
+        href="http://www.blogjava.net/loocky/archive/2006/10/23/76718.html">ubuntu下面安装oracle10g(原)</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl05_Hyperlink1 
+        href="http://www.blogjava.net/loocky/archive/2006/10/18/76003.html">lnx_920_disk1.cpio.gz要这样解压！</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl06_Hyperlink1 
+        href="http://www.blogjava.net/loocky/archive/2006/07/20/59216.html">oracle 
+        学习(6)</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl07_Hyperlink1 
+        href="http://www.blogjava.net/loocky/archive/2006/07/04/56530.html">OMS启动起来的总结!</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl08_Hyperlink1 
+        href="http://www.blogjava.net/loocky/archive/2006/06/28/55557.html">oracle 
+        oms启动不了,错误如下</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl09_Hyperlink1 
+        href="http://www.blogjava.net/loocky/archive/2006/05/16/46416.html">oracle事务的隔离</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl10_Hyperlink1 
+        href="http://www.blogjava.net/loocky/archive/2006/04/13/40783.html">A 
+        query with LOB's requires Net8, which is not detected on this PC 
+        </A></LI></UL></DIV></TD></TR>
+  <TR>
+    <TD colSpan=3></TD></TR>
+  <TR>
+    <TD colSpan=3>相关链接:
+      <SCRIPT type=text/javascript>
+	function GetMeta(ametaName){
+	var METAs = document.getElementsByTagName("meta"); 
+	for (var i=0; i<METAs.length; i++) { 
+	if(METAs[i].name.toLowerCase()==ametaName){return (METAs[i].content);}
+	};
+	return "";
+	}
+	var title = document.title;
+	document.write("<div id=\"a4_ads_output\">");
+	document.write("<script type='text/javascript' src='http://a4.yeshj.com/adwords/EN017?num=5&title="+ encodeURIComponent(title) +"&tag="+ encodeURIComponent(GetMeta("keywords")) +"'></scri"+"pt>");
+	document.write("</div>");
+	</SCRIPT>
+    </TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>网站导航:
+      <DIV id=blogsite><A 
+      href="http://www.cnblogs.com/">博客园</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <A 
+      href="http://www.blogjava.net/">BlogJava</A>&nbsp;&nbsp; <A 
+      href="http://www.cnweblog.com/">博客生活</A>&nbsp;&nbsp; <A 
+      href="http://www.cnitblog.com/">IT博客网</A>&nbsp;&nbsp; <A 
+      href="http://www.cppblog.com/">C++博客</A>&nbsp;&nbsp; <A 
+      href="http://www.phpweblog.net/">PHP博客</A>&nbsp;&nbsp; <A 
+      href="http://space.cnblogs.com/">博客园社区</A> <BR><A 
+      href="http://www.manageblog.net/">管理博客</A>&nbsp;&nbsp; <A 
+      href="http://www.teachblog.net/">教师博客</A>&nbsp;&nbsp;&nbsp;&nbsp; <A 
+      href="http://www.astroblog.cn/">天文博客</A>&nbsp;&nbsp; <A 
+      href="http://www.cnautoblog.com/">汽车博客</A>&nbsp;&nbsp; <A 
+      href="http://www.zuqiublog.com/">足球博客</A>&nbsp;&nbsp; <A 
+      href="http://www.gupiaoblog.com/">股票博客</A>&nbsp;&nbsp; <A 
+      href="http://www.etronblog.com/">电子博客</A>&nbsp;&nbsp;<A 
+      href="http://www.blogjava.net/loocky/archive/2008/10/23/160213.html?opt=admin">管理</A> 
+      </DIV></TD></TR>
+  <TR>
+    <TD colSpan=3></TD></TR></TBODY></TABLE></DIV>
+<DIV id=AjaxHolder_PostComment_ValidationSummary1 
+style="DISPLAY: none; COLOR: red"></DIV></DIV></DIV>
+<DIV id=leftcontent style="DISPLAY: none">
+<DIV id=leftcontentcontainer><!--done-->
+<DIV class=newsItem>
+<SCRIPT type=text/javascript><!--
+google_ad_client = "pub-9342391655624141";
+google_ad_width = 180;
+google_ad_height = 60;
+google_ad_format = "180x60_as_rimg";
+google_cpa_choice = "CAAQwLHUlAIaCPaJZbcNb9ZtKMD29IMB";
+google_ad_channel = "";
+//--></SCRIPT>
+
+<SCRIPT 
+src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+</DIV>
+<TABLE class=Cal id=Calendar1_entryCal title=Calendar 
+style="BORDER-RIGHT: 1px solid; BORDER-TOP: 1px solid; BORDER-LEFT: 1px solid; BORDER-BOTTOM: 1px solid; BORDER-COLLAPSE: collapse" 
+cellSpacing=0 cellPadding=0 border=0>
+  <TBODY>
+  <TR>
+    <TD style="BACKGROUND-COLOR: silver" colSpan=7>
+      <TABLE class=CalTitle style="WIDTH: 100%; BORDER-COLLAPSE: collapse" 
+      cellSpacing=0 border=0>
+        <TBODY>
+        <TR>
+          <TD class=CalNextPrev style="WIDTH: 15%"><A 
+            title="Go to the previous month" style="COLOR: black" 
+            href="javascript:__doPostBack('Calendar1$entryCal','V3166')">&lt;</A></TD>
+          <TD style="WIDTH: 70%" align=middle>2008年10月</TD>
+          <TD class=CalNextPrev style="WIDTH: 15%" align=right><A 
+            title="Go to the next month" style="COLOR: black" 
+            href="javascript:__doPostBack('Calendar1$entryCal','V3227')">&gt;</A></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TH class=CalDayHeader scope=col align=middle abbr=日>日</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=一>一</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=二>二</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=三>三</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=四>四</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=五>五</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=六>六</TH></TR>
+  <TR>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>28</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>29</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>30</TD>
+    <TD style="WIDTH: 14%" align=middle>1</TD>
+    <TD style="WIDTH: 14%" align=middle>2</TD>
+    <TD style="WIDTH: 14%" align=middle>3</TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>4</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>5</TD>
+    <TD style="WIDTH: 14%" align=middle>6</TD>
+    <TD style="WIDTH: 14%" align=middle>7</TD>
+    <TD style="WIDTH: 14%" align=middle>8</TD>
+    <TD style="WIDTH: 14%" align=middle>9</TD>
+    <TD style="WIDTH: 14%" align=middle>10</TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>11</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>12</TD>
+    <TD style="WIDTH: 14%" align=middle>13</TD>
+    <TD style="WIDTH: 14%" align=middle>14</TD>
+    <TD style="WIDTH: 14%" align=middle>15</TD>
+    <TD style="WIDTH: 14%" align=middle><A 
+      href="http://www.blogjava.net/loocky/archive/2008/10/16.html"><U>16</U></A></TD>
+    <TD style="WIDTH: 14%" align=middle>17</TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle><A 
+      href="http://www.blogjava.net/loocky/archive/2008/10/18.html"><U>18</U></A></TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>19</TD>
+    <TD style="WIDTH: 14%" align=middle>20</TD>
+    <TD style="WIDTH: 14%" align=middle>21</TD>
+    <TD style="WIDTH: 14%" align=middle>22</TD>
+    <TD style="WIDTH: 14%" align=middle>23</TD>
+    <TD style="WIDTH: 14%" align=middle>24</TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>25</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>26</TD>
+    <TD style="WIDTH: 14%" align=middle>27</TD>
+    <TD style="WIDTH: 14%" align=middle>28</TD>
+    <TD style="WIDTH: 14%" align=middle><A 
+      href="http://www.blogjava.net/loocky/archive/2008/10/29.html"><U>29</U></A></TD>
+    <TD style="WIDTH: 14%" align=middle><A 
+      href="http://www.blogjava.net/loocky/archive/2008/10/30.html"><U>30</U></A></TD>
+    <TD style="WIDTH: 14%" align=middle>31</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>1</TD></TR>
+  <TR>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>2</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>3</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>4</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>5</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>6</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>7</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" 
+align=middle>8</TD></TR></TBODY></TABLE><BR>
+<H3>常用链接</H3>
+<UL>
+  <LI><A id=SingleColumn1_ctl00_repeaterLinks_ctl01_lnkLinkItem 
+  href="http://www.blogjava.net/loocky/MyPosts.html">我的随笔</A> 
+  <LI><A id=SingleColumn1_ctl00_repeaterLinks_ctl02_lnkLinkItem 
+  href="http://www.blogjava.net/loocky/MyComments.html">我的评论</A> 
+  <LI><A id=SingleColumn1_ctl00_repeaterLinks_ctl03_lnkLinkItem 
+  href="http://www.blogjava.net/loocky/OtherPosts.html">我的参与</A> 
+  <LI><A id=SingleColumn1_ctl00_repeaterLinks_ctl04_lnkLinkItem 
+  href="http://www.blogjava.net/loocky/RecentComments.html">最新评论</A> </LI></UL>
+<H3>留言簿<SPAN style="FONT-WEIGHT: normal; FONT-SIZE: 11px">(9)</SPAN></H3>
+<UL>
+  <LI><A id=SingleColumn1_ctl01_lnkMessages 
+  href="http://www.blogjava.net/loocky/Contact.aspx?id=1">给我留言</A> 
+  <LI><A id=SingleColumn1_ctl01_lnkPublicMsgView 
+  href="http://www.blogjava.net/loocky/default.aspx?opt=msg">查看公开留言</A> 
+  <LI><A id=SingleColumn1_ctl01_lnkPrivateMsgView 
+  href="http://www.blogjava.net/loocky/admin/MyMessages.aspx">查看私人留言</A> 
+</LI></UL><!--done-->
+<H1 class=catListTitle>随笔分类<SPAN 
+style="FONT-WEIGHT: normal; FONT-SIZE: 11px">(147)</SPAN></H1>
+<UL class=catList>
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_Link 
+  href="http://www.blogjava.net/loocky/category/9875.html">java(94)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_RssLink 
+  title="Subscribe to java(94)" 
+  href="http://www.blogjava.net/loocky/category/9875.html/rss"><IMG 
+  title="Subscribe to java(94)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_Link 
+  href="http://www.blogjava.net/loocky/category/16812.html">linux(8)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_RssLink 
+  title="Subscribe to linux(8)" 
+  href="http://www.blogjava.net/loocky/category/16812.html/rss"><IMG 
+  title="Subscribe to linux(8)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_Link 
+  href="http://www.blogjava.net/loocky/category/9940.html">oracle(15)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_RssLink 
+  title="Subscribe to oracle(15)" 
+  href="http://www.blogjava.net/loocky/category/9940.html/rss"><IMG 
+  title="Subscribe to oracle(15)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_Link 
+  href="http://www.blogjava.net/loocky/category/9756.html">生活(21)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_RssLink 
+  title="Subscribe to 生活(21)" 
+  href="http://www.blogjava.net/loocky/category/9756.html/rss"><IMG 
+  title="Subscribe to 生活(21)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_Link 
+  href="http://www.blogjava.net/loocky/category/9459.html">诗词(1)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_RssLink 
+  title="Subscribe to 诗词(1)" 
+  href="http://www.blogjava.net/loocky/category/9459.html/rss"><IMG 
+  title="Subscribe to 诗词(1)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_Link 
+  href="http://www.blogjava.net/loocky/category/9634.html">读书(5)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_RssLink 
+  title="Subscribe to 读书(5)" 
+  href="http://www.blogjava.net/loocky/category/9634.html/rss"><IMG 
+  title="Subscribe to 读书(5)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl07_Link 
+  href="http://www.blogjava.net/loocky/category/18214.html">通信知识(3)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl07_RssLink 
+  title="Subscribe to 通信知识(3)" 
+  href="http://www.blogjava.net/loocky/category/18214.html/rss"><IMG 
+  title="Subscribe to 通信知识(3)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+  </LI></UL>
+<H1 class=catListTitle>文章分类<SPAN 
+style="FONT-WEIGHT: normal; FONT-SIZE: 11px">(25)</SPAN></H1>
+<UL class=catList>
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_Link 
+  href="http://www.blogjava.net/loocky/category/9575.html">ajax</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_RssLink 
+  title="Subscribe to ajax" 
+  href="http://www.blogjava.net/loocky/category/9575.html/rss"><IMG 
+  title="Subscribe to ajax" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl02_Link 
+  href="http://www.blogjava.net/loocky/category/9405.html">eclipse 
+  plugin(2)</A><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl02_RssLink 
+  title="Subscribe to eclipse plugin(2)" 
+  href="http://www.blogjava.net/loocky/category/9405.html/rss"><IMG 
+  title="Subscribe to eclipse plugin(2)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl03_Link 
+  href="http://www.blogjava.net/loocky/category/9393.html">java(4)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl03_RssLink 
+  title="Subscribe to java(4)" 
+  href="http://www.blogjava.net/loocky/category/9393.html/rss"><IMG 
+  title="Subscribe to java(4)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl04_Link 
+  href="http://www.blogjava.net/loocky/category/9398.html">javascript(1)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl04_RssLink 
+  title="Subscribe to javascript(1)" 
+  href="http://www.blogjava.net/loocky/category/9398.html/rss"><IMG 
+  title="Subscribe to javascript(1)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl05_Link 
+  href="http://www.blogjava.net/loocky/category/9395.html">jstl</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl05_RssLink 
+  title="Subscribe to jstl" 
+  href="http://www.blogjava.net/loocky/category/9395.html/rss"><IMG 
+  title="Subscribe to jstl" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl06_Link 
+  href="http://www.blogjava.net/loocky/category/9408.html">oma dm(1)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl06_RssLink 
+  title="Subscribe to oma dm(1)" 
+  href="http://www.blogjava.net/loocky/category/9408.html/rss"><IMG 
+  title="Subscribe to oma dm(1)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl07_Link 
+  href="http://www.blogjava.net/loocky/category/9394.html">oracle</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl07_RssLink 
+  title="Subscribe to oracle" 
+  href="http://www.blogjava.net/loocky/category/9394.html/rss"><IMG 
+  title="Subscribe to oracle" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl08_Link 
+  href="http://www.blogjava.net/loocky/category/9574.html">sitemesh</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl08_RssLink 
+  title="Subscribe to sitemesh" 
+  href="http://www.blogjava.net/loocky/category/9574.html/rss"><IMG 
+  title="Subscribe to sitemesh" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl09_Link 
+  href="http://www.blogjava.net/loocky/category/9410.html">struts(1)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl09_RssLink 
+  title="Subscribe to struts(1)" 
+  href="http://www.blogjava.net/loocky/category/9410.html/rss"><IMG 
+  title="Subscribe to struts(1)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl10_Link 
+  href="http://www.blogjava.net/loocky/category/9409.html">windows(1)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl10_RssLink 
+  title="Subscribe to windows(1)" 
+  href="http://www.blogjava.net/loocky/category/9409.html/rss"><IMG 
+  title="Subscribe to windows(1)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl11_Link 
+  href="http://www.blogjava.net/loocky/category/9404.html">商务人生(3)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl11_RssLink 
+  title="Subscribe to 商务人生(3)" 
+  href="http://www.blogjava.net/loocky/category/9404.html/rss"><IMG 
+  title="Subscribe to 商务人生(3)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl12_Link 
+  href="http://www.blogjava.net/loocky/category/9402.html">生活(7)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl12_RssLink 
+  title="Subscribe to 生活(7)" 
+  href="http://www.blogjava.net/loocky/category/9402.html/rss"><IMG 
+  title="Subscribe to 生活(7)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl13_Link 
+  href="http://www.blogjava.net/loocky/category/9403.html">硬件(1)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl13_RssLink 
+  title="Subscribe to 硬件(1)" 
+  href="http://www.blogjava.net/loocky/category/9403.html/rss"><IMG 
+  title="Subscribe to 硬件(1)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl14_Link 
+  href="http://www.blogjava.net/loocky/category/9399.html">设计模式 design 
+  pattern</A><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl14_RssLink 
+  title="Subscribe to 设计模式 design pattern" 
+  href="http://www.blogjava.net/loocky/category/9399.html/rss"><IMG 
+  title="Subscribe to 设计模式 design pattern" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl15_Link 
+  href="http://www.blogjava.net/loocky/category/9460.html">诗词(3)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl15_RssLink 
+  title="Subscribe to 诗词(3)" 
+  href="http://www.blogjava.net/loocky/category/9460.html/rss"><IMG 
+  title="Subscribe to 诗词(3)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl16_Link 
+  href="http://www.blogjava.net/loocky/category/9406.html">足球(1)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl16_RssLink 
+  title="Subscribe to 足球(1)" 
+  href="http://www.blogjava.net/loocky/category/9406.html/rss"><IMG 
+  title="Subscribe to 足球(1)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files\xml(1).gif"></A> 
+  </LI></UL>
+<H1 class=catListTitle>java</H1>
+<UL class=catList>
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl01_Link 
+  href="http://univerz.bokee.com/3551913.html">静态html在sitemesh中乱码的解决方法</A> 
+</LI></UL>
+<H3>最新随笔</H3>
+<DIV class=RecentComment>
+<UL style="WORD-BREAK: break-all">
+  <LI><A 
+  id=SingleColumn1_ctl02_RecentPostsList_ctl00_RecentPostsList2_ctl00_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/11/06/238960.html">1.&nbsp;如何在开发环境中使用seam的example</A> 
+
+  <LI><A 
+  id=SingleColumn1_ctl02_RecentPostsList_ctl01_RecentPostsList2_ctl00_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/11/05/238731.html">2.&nbsp;运行seam 
+  的example下面的例子.</A> 
+  <LI><A 
+  id=SingleColumn1_ctl02_RecentPostsList_ctl02_RecentPostsList2_ctl00_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/11/04/238468.html">3.&nbsp;seam 
+  分页</A> 
+  <LI><A 
+  id=SingleColumn1_ctl02_RecentPostsList_ctl03_RecentPostsList2_ctl00_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/11/03/238420.html">4.&nbsp;JSF表达式语言</A> 
+
+  <LI><A 
+  id=SingleColumn1_ctl02_RecentPostsList_ctl04_RecentPostsList2_ctl00_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/10/30/237630.html">5.&nbsp;Seam学习总结(1) 
+  seam jsf 控件</A> 
+  <LI><A 
+  id=SingleColumn1_ctl02_RecentPostsList_ctl05_RecentPostsList2_ctl00_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/10/29/237472.html">6.&nbsp;Seam 
+  in action！</A> 
+  <LI><A 
+  id=SingleColumn1_ctl02_RecentPostsList_ctl06_RecentPostsList2_ctl00_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/10/18/235184.html">7.&nbsp; 
+  代理模式、静态代理、动态代理、aop</A> 
+  <LI><A 
+  id=SingleColumn1_ctl02_RecentPostsList_ctl06_RecentPostsList2_ctl01_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/10/18/235129.html">8.&nbsp; 
+  Webservice复习</A> 
+  <LI><A 
+  id=SingleColumn1_ctl02_RecentPostsList_ctl07_RecentPostsList2_ctl00_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/10/16/234683.html">9.&nbsp;UML 
+  复习</A> 
+  <LI><A 
+  id=SingleColumn1_ctl02_RecentPostsList_ctl08_RecentPostsList2_ctl00_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/07/04/212596.html">10.&nbsp;项目乱码问题</A> 
+  </LI></UL></DIV>
+<H3>积分与排名</H3>
+<UL>
+  <LI>积分 - 83148 
+  <LI>排名 - 104 </LI></UL>
+<H3>最新评论 <A id=SingleColumn1__5dc2db_RSSHyperlink1 
+href="http://www.blogjava.net/loocky/CommentsRSS.aspx"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files/xml.gif"></A></H3>
+<DIV class=RecentComment>
+<UL>
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__5dc2db_CommentList_ctl01_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/12/01/88519.html#243797">1.&nbsp;re: 
+  商业计划书范本[未登录]</A> 
+  <LI style="WORD-BREAK: break-all">评论内容较长,点击标题查看 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--009 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__5dc2db_CommentList_ctl02_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/11/20/235184.html#241695">2.&nbsp;re: 
+  代理模式、静态代理、动态代理、aop</A> 
+  <LI style="WORD-BREAK: break-all">小伙子还挺菜嘛... 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--object 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__5dc2db_CommentList_ctl03_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/11/19/87737.html#241461">3.&nbsp;re: 
+  10分钟在windows下面搭建一个cvs server.[未登录]</A> 
+  <LI style="WORD-BREAK: break-all">cvsnt是免费的么？ 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--jack 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__5dc2db_CommentList_ctl04_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/11/17/235184.html#241060">4.&nbsp;re: 
+  代理模式、静态代理、动态代理、aop</A> 
+  <LI style="WORD-BREAK: break-all">写的很好，很通俗，我是初学者，感觉很收益~多谢了 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--grady 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__5dc2db_CommentList_ctl05_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/10/30/87737.html#237708">5.&nbsp;re: 
+  10分钟在windows下面搭建一个cvs server.</A> 
+  <LI style="WORD-BREAK: break-all">vista 下无法装cvs server? 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--fyuan </LI></UL></DIV>
+<H3>阅读排行榜</H3>
+<DIV class=RecentComment>
+<UL style="WORD-BREAK: break-all">
+  <LI><A id=SingleColumn1__1baa282_TopList_ctl01_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2006/12/18/88519.html">1.&nbsp;商业计划书范本(3515)</A> 
+
+  <LI><A id=SingleColumn1__1baa282_TopList_ctl02_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2007/02/05/97929.html">2.&nbsp;用Sync4J和SCTS搭建一个OMA 
+  DM的学习环境(3427)</A> 
+  <LI><A id=SingleColumn1__1baa282_TopList_ctl03_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2006/12/14/87737.html">3.&nbsp;10分钟在windows下面搭建一个cvs 
+  server.(3277)</A> 
+  <LI><A id=SingleColumn1__1baa282_TopList_ctl04_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2007/11/13/160213.html">4.&nbsp;Oracle 
+  语法之 OVER (PARTITION BY ..) 及开窗函数 转载(2850)</A> 
+  <LI><A id=SingleColumn1__1baa282_TopList_ctl05_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2006/11/15/81138.html">5.&nbsp;乐观锁与悲观锁(2288)</A> 
+  </LI></UL></DIV>
+<H3>评论排行榜</H3>
+<DIV class=RecentComment>
+<UL style="WORD-BREAK: break-all">
+  <LI><A id=SingleColumn1__50c2c0_TopList_ctl01_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/10/18/235184.html">1.&nbsp; 
+  代理模式、静态代理、动态代理、aop(8)</A> 
+  <LI><A id=SingleColumn1__50c2c0_TopList_ctl02_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2006/12/14/87737.html">2.&nbsp;10分钟在windows下面搭建一个cvs 
+  server.(6)</A> 
+  <LI><A id=SingleColumn1__50c2c0_TopList_ctl03_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2006/12/19/88677.html">3.&nbsp;猪撞树上的启示(6)</A> 
+
+  <LI><A id=SingleColumn1__50c2c0_TopList_ctl04_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2006/05/23/47629.html">4.&nbsp;DM1.1.2协议的翻译(前面的几章,待续)(6)</A> 
+
+  <LI><A id=SingleColumn1__50c2c0_TopList_ctl05_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2006/10/18/75795.html">5.&nbsp;多户合用一条宽带，违法！(4)</A> 
+  </LI></UL></DIV>
+<H3>60天内阅读排行</H3>
+<DIV class=RecentComment>
+<UL>
+  <LI><A id=SingleColumn1__128b224_TopList_ctl01_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/10/18/235184.html">1.&nbsp; 
+  代理模式、静态代理、动态代理、aop(1445)</A> 
+  <LI><A id=SingleColumn1__128b224_TopList_ctl02_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/10/18/235129.html">2.&nbsp; 
+  Webservice复习(1082)</A> 
+  <LI><A id=SingleColumn1__128b224_TopList_ctl03_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/11/05/238731.html">3.&nbsp;运行seam 
+  的example下面的例子.(1044)</A> 
+  <LI><A id=SingleColumn1__128b224_TopList_ctl04_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/11/06/238960.html">4.&nbsp;如何在开发环境中使用seam的example(1003)</A> 
+
+  <LI><A id=SingleColumn1__128b224_TopList_ctl05_Hyperlink1 
+  href="http://www.blogjava.net/loocky/archive/2008/11/04/238468.html">5.&nbsp;seam 
+  分页(913)</A> </LI></UL></DIV></DIV></DIV><!--done-->
+<DIV class=footer>Powered by: <A href="http://www.cnblogs.com/">博客园</A> 模板提供：<A 
+href="http://blog.hjenglish.com/">沪江博客</A> Copyright ©2008 loocky </DIV>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Page_ValidationSummaries =  new Array(document.getElementById("AjaxHolder_PostComment_ValidationSummary1"));
+var Page_Validators =  new Array(document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2"), document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3"));
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var AjaxHolder_PostComment_RequiredFieldValidator1 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator1"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1");
+AjaxHolder_PostComment_RequiredFieldValidator1.controltovalidate = "AjaxHolder_PostComment_tbTitle";
+AjaxHolder_PostComment_RequiredFieldValidator1.errormessage = "请输入标题";
+AjaxHolder_PostComment_RequiredFieldValidator1.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator1.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator2 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator2"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2");
+AjaxHolder_PostComment_RequiredFieldValidator2.controltovalidate = "AjaxHolder_PostComment_tbName";
+AjaxHolder_PostComment_RequiredFieldValidator2.errormessage = "请输入你的姓名";
+AjaxHolder_PostComment_RequiredFieldValidator2.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator2.initialvalue = "";
+var AjaxHolder_PostComment_Requiredfieldvalidator4 = document.all ? document.all["AjaxHolder_PostComment_Requiredfieldvalidator4"] : document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4");
+AjaxHolder_PostComment_Requiredfieldvalidator4.controltovalidate = "AjaxHolder_PostComment_CodeNumberTextBox";
+AjaxHolder_PostComment_Requiredfieldvalidator4.errormessage = "请输入验证码";
+AjaxHolder_PostComment_Requiredfieldvalidator4.display = "Dynamic";
+AjaxHolder_PostComment_Requiredfieldvalidator4.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_Requiredfieldvalidator4.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator3 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator3"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3");
+AjaxHolder_PostComment_RequiredFieldValidator3.controltovalidate = "AjaxHolder_PostComment_tbComment";
+AjaxHolder_PostComment_RequiredFieldValidator3.errormessage = "请输入评论内容";
+AjaxHolder_PostComment_RequiredFieldValidator3.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator3.initialvalue = "";
+var AjaxHolder_PostComment_ValidationSummary1 = document.all ? document.all["AjaxHolder_PostComment_ValidationSummary1"] : document.getElementById("AjaxHolder_PostComment_ValidationSummary1");
+AjaxHolder_PostComment_ValidationSummary1.showmessagebox = "True";
+AjaxHolder_PostComment_ValidationSummary1.showsummary = "False";
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+
+document.getElementById('AjaxHolder_PostComment_ValidationSummary1').dispose = function() {
+    Array.remove(Page_ValidationSummaries, document.getElementById('AjaxHolder_PostComment_ValidationSummary1'));
+}
+Sys.Application.initialize();
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2'));
+}
+
+document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3'));
+}
+//]]>
+</SCRIPT>
+</FORM>
+<SCRIPT 
+src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files/ShowHidden.js" 
+type=text/javascript></SCRIPT>
+<SPAN style="DISPLAY: none">
+<SCRIPT language=javascript 
+src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 转载 - 不知疲倦的猪 - BlogJava.files/click.htm"></SCRIPT>
+</SPAN></BODY></HTML>

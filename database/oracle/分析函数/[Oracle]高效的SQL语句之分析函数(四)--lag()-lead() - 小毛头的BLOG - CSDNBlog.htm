@@ -1,0 +1,1293 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0063)http://blog.csdn.net/huanghui22/archive/2007/05/03/1595169.aspx -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>[Oracle]高效的SQL语句之分析函数(四)--lag()/lead() - 小毛头的BLOG - CSDNBlog</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content=小毛头 name=author>
+<META content=Csdn name=Copyright>
+<META content=有时候报表上面需要显示该笔操作的上一步骤或者下一步骤的详细信息 name=description>
+<META content=小毛头,date,actiondate,step,stepid, name=keywords><LINK 
+href="http://profile.csdn.net/huanghui22/picture/1.ico" 
+rel="Shortcut Icon"><LINK media=all 
+href="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/Cogitation_1.css" 
+type=text/css rel=stylesheet><LINK title=RSS 
+href="http://blog.csdn.net/huanghui22/rss.aspx" type=application/rss+xml 
+rel=alternate>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY id=defaultuser>
+<DIV id=csdnblog_allwrap>
+<FORM language=javascript id=Form1 name=Form1 
+onsubmit="javascript:return WebForm_OnSubmit();" action=1595169.aspx 
+method=post><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE>
+<SCRIPT type=text/javascript>
+<!--
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Anthem_FormID = "Form1";
+//]]>
+</SCRIPT>
+
+<SCRIPT 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="C:\Documents and Settings\Administrator\My Documents\[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files\WebResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+// -->
+</SCRIPT>
+ 
+<DIV id=csdnblog_midwrap>
+<DIV id=csdnblog_header>
+<H1><A id=Header1_HeaderTitle 
+href="http://blog.csdn.net/huanghui22/">小毛头的BLOG</A></H1>
+<H2>有2个人从铁窗朝外忘去，一个人看到满地的泥泞，另一个人只看到满天的繁星</H2>
+<UL id=personalnav>
+  <LI><A href="http://passport.csdn.net/UserLogin.aspx">登录</A></LI>
+  <LI><A href="http://passport.csdn.net/CSDNUserRegister.aspx">注册</A></LI></UL>
+<UL id=blogsearchsty>
+  <LI><INPUT class=bolgsearch id=inputSearch 
+onkeydown="return keyb(event)"></LI>
+  <LI class=selectsty><SELECT id=Search_ddlSearchScope 
+  name=Search:ddlSearchScope><OPTION value=all selected>全站</OPTION><OPTION 
+    value=huanghui22>当前博客</OPTION></SELECT></LI>
+  <LI><INPUT class=bolggobtn onclick=checkNull() type=button value=搜索></LI></UL>
+<UL id=menu>
+  <LI><A href="http://hi.csdn.net/huanghui22">空间</A></LI>
+  <LI><A class=on href="http://blog.csdn.net/huanghui22">博客</A></LI>
+  <LI><A 
+  href="http://hi.csdn.net/huanghui22/profile/contactlist/1.html">好友</A></LI>
+  <LI><A href="http://blog.csdn.net/huanghui22/Gallery.aspx">相册</A></LI>
+  <LI><A href="http://bbs.csdn.net/" target=_blank>论坛</A></LI>
+  <LI><A class=last 
+  href="http://hi.csdn.net/huanghui22/profile/notebook/1.html">留言</A></LI></UL></DIV>
+<DIV id=csdnblog_sidebar>
+<DIV class=gutter>
+<DIV class=aboutauthor>
+<DL>
+  <DT>用户操作
+  <DD class=middle><A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://webim.csdn.net/Messages/huanghui22.ashx" 
+  target=_blank>[即时聊天]</A> <A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://hi.csdn.net/Admin/WriteMessage.aspx?Receiver=huanghui22" 
+  target=_blank>[发私信]</A> <A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://webim.csdn.net/AddFriends/huanghui22.ashx" 
+  target=_blank>[加为好友]</A>
+  <DT>小毛头<SPAN>ID：huanghui22</SPAN>
+  <DD class=middle><IMG alt="" 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/1_huanghui22.jpg">
+  <DD class=middle><A href="http://profile.csdn.net/8/E4/edit.html"></A>
+  <DD>共<EM>146988</EM>次访问，排名<EM>572</EM>，好友<EM>0</EM>人，关注者<EM>3</EM>人。<BR>
+  <DD>
+  <DT>huanghui22的文章
+  <DD>原创 106 篇
+  <DD>翻译 0 篇
+  <DD>转载 53 篇
+  <DD>评论 56 篇 
+  <DT>小毛头的公告
+  <DD><!--
+<DIV id=Layer1 style="Z-INDEX: 1; LEFT: 300px; WIDTH: 450px; POSITION: absolute; TOP: 125px; HEIGHT: 350px"> 
+<OBJECT codeBase=http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0 height=400 width=400 classid=clsid:D27CDB6E-AE6D-11cf-96B8-444553540000><PARAM NAME="_cx" VALUE="10583"><PARAM NAME="_cy" VALUE="10583"><PARAM NAME="FlashVars" VALUE=""><PARAM NAME="Movie" VALUE="http://www.hrtsea.com/bbs/Images/fish.swf"><PARAM">http://www.hrtsea.com/bbs/Images/fish.swf"><PARAM">http://www.hrtsea.com/bbs/Images/fish.swf"><PARAM">http://www.hrtsea.com/bbs/Images/fish.swf"><PARAM NAME="Src" VALUE="http://www.hrtsea.com/bbs/Images/fish.swf"><PARAM">http://www.hrtsea.com/bbs/Images/fish.swf"><PARAM">http://www.hrtsea.com/bbs/Images/fish.swf"><PARAM">http://www.hrtsea.com/bbs/Images/fish.swf"><PARAM NAME="WMode" VALUE="Transparent"><PARAM NAME="Play" VALUE="0"><PARAM NAME="Loop" VALUE="-1"><PARAM NAME="Quality" VALUE="High"><PARAM NAME="SAlign" VALUE=""><PARAM NAME="Menu" VALUE="0"><PARAM NAME="Base" VALUE=""><PARAM NAME="AllowScriptAccess" VALUE="always"><PARAM NAME="Scale" VALUE="ShowAll"><PARAM NAME="DeviceFont" VALUE="0"><PARAM NAME="EmbedMovie" VALUE="0"><PARAM NAME="BGColor" VALUE=""><PARAM NAME="SWRemote" VALUE=""><PARAM NAME="MovieData" VALUE=""><PARAM NAME="SeamlessTabbing" VALUE="1"> 
+<embed src="http://www.hrtsea.com/bbs/Images/fish.swf" width="400" height="400" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" menu="false" wmode="transparent"></embed></OBJECT></DIV>
+--><BR>
+  <CENTER>
+  <H2></H2></CENTER><BR>QQ:99575165<BR>MSN:<BR>huanghui24@hotmail.com<BR>来自: 上海市 
+<!-- 公告栏 --><TD 
+  style="BORDER-RIGHT: #999 1px dotted; BORDER-TOP: #999 1px dotted; BORDER-LEFT: #999 1px dotted; BORDER-BOTTOM: #999 1px dotted">
+  <SCRIPT language=javascript>
+
+document.write ("<marquee scrollamount='1' scrolldelay='30' direction= 'UP' width='158' id='helpor_net' height='100' onmouseover='helpor_net.stop()' onmouseout='helpor_net.start()' Author:redriver; For more,visit:www.helpor.net>")
+
+document.write ("<h4><p align='center' style='color:#cccccc; font-family:黑体'>一分钟的你自己</p></h4>")
+document.write ("<p align='right' style='color:#0000FF;font-size:10px;'>2008-2-13</p> ")
+document.write ("<p style='font-size:11px;'>")
+document.write ("<br>最近事情比较多,有些朋友的邮件可能要晚些才能回哦~~~<br>")
+document.write (" <br>可以直接msn召唤我<br>")
+
+document.write ("</p>")
+
+document.write ("</marquee> ")
+</SCRIPT>
+  </TD><!-- 公告栏结束 --><BR><BR>
+  <CENTER><IMG 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/counter.gif"></CENTER>
+  <HR>
+
+  <CENTER>
+  <OBJECT 
+  codeBase=http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0 
+  height=150 width=150 align=middle 
+  classid=clsid:D27CDB6E-AE6D-11cf-96B8-444553540000><PARAM NAME="movie" VALUE="http://www.hrtsea.com/bbs/Images/clock.swf"><PARAM NAME="quality" VALUE="high"><PARAM NAME="WMODE" VALUE="transparent">
+                   <embed src="http://www.hrtsea.com/bbs/Images/clock.swf" 
+  width="150" height="150" align="middle" quality="high" 
+  pluginspage="http://www.macromedia.com/go/getflashplayer" 
+  type="application/x-shockwave-flash" scale="noborder" 
+  bgcolor="#E4E8EF"></embed>  </OBJECT></CENTER>
+  <HR>
+
+  <SCRIPT language=javascript>
+function getweather(t)
+{
+ window.open("http://appnews.qq.com/cgi-bin/news_qq_search?city="+t, name="_self");
+}
+</SCRIPT>
+
+  <HR>
+
+  <SCRIPT>var s="http://www.google.com/search?hl=zh-CN&lr=lang_zh-CN&q=";</SCRIPT>
+
+  <HR>
+<!-- Blog日历表开始 -->
+  <SCRIPT language=javascript>
+var diarydays="<2004-08-05><2004-08-09><2004-08-12><2004-08-17><2004-08-19><2004-07-14><2004-07-13><2004-07-08><2004-07-05><2004-07-04><2004-07-03><2004-06-27><2004-06-26><2004-06-25>";
+</SCRIPT>
+
+  <STYLE>.calendarBigBorder {
+	BORDER-RIGHT: #999 1px dotted; BORDER-TOP: #999 1px dotted; FONT-SIZE: 9pt; BORDER-LEFT: #999 1px dotted; BORDER-BOTTOM: #999 1px dotted; FONT-FAMILY: "Arial", "Helvetica", "sans-serif", "宋体"; BACKGROUND-COLOR: #ffffff; TEXT-DECORATION: none
+}
+.calendarTd {
+	FONT-SIZE: 9pt; WIDTH: 11%; COLOR: #000000; FONT-FAMILY: "Arial", "Helvetica", "sans-serif", "宋体"; HEIGHT: 18px; BACKGROUND-COLOR: #eeeeee; TEXT-ALIGN: center
+}
+.calendarMInput {
+	BORDER-RIGHT: #666666 1px solid; BORDER-TOP: #666666 1px solid; FONT-SIZE: 9pt; BORDER-LEFT: #666666 1px solid; WIDTH: 19px; COLOR: #0099ff; BORDER-BOTTOM: #666666 1px solid; FONT-FAMILY: "Arial", "Helvetica", "sans-serif", "宋体"; HEIGHT: 15px; BACKGROUND-COLOR: #ffffff; TEXT-DECORATION: none
+}
+.calendarYInput {
+	BORDER-RIGHT: #666666 1px solid; BORDER-TOP: #666666 1px solid; FONT-SIZE: 9pt; BORDER-LEFT: #666666 1px solid; WIDTH: 34px; COLOR: #0099ff; BORDER-BOTTOM: #666666 1px solid; FONT-FAMILY: "Arial", "Helvetica", "sans-serif", "宋体"; HEIGHT: 15px; BACKGROUND-COLOR: #ffffff; TEXT-DECORATION: none
+}
+.calendarMonthTitle {
+	BORDER-TOP-WIDTH: 1px; FONT-WEIGHT: normal; BORDER-LEFT-WIDTH: 1px; FONT-SIZE: 9pt; BORDER-LEFT-COLOR: #999999; COLOR: #333333; BORDER-TOP-COLOR: #999999; BORDER-BOTTOM: #999999 1px; FONT-FAMILY: "Arial", "Helvetica", "sans-serif", "宋体"; HEIGHT: 24px; BACKGROUND-COLOR: #eeeeee; TEXT-ALIGN: center; BORDER-RIGHT-WIDTH: 1px; TEXT-DECORATION: none; BORDER-RIGHT-COLOR: #999999
+}
+.calendarNow {
+	FONT-WEIGHT: bold; FONT-SIZE: 9pt; COLOR: #000000; FONT-FAMILY: "Arial", "Helvetica", "sans-serif", "宋体"; HEIGHT: 18px; BACKGROUND-COLOR: #c0c9d3; TEXT-ALIGN: center
+}
+.calendarDaySat {
+	FONT-SIZE: 9pt; WIDTH: 12%; COLOR: #333333; FONT-FAMILY: "Arial", "Helvetica", "sans-serif", "宋体"; HEIGHT: 18px; BACKGROUND-COLOR: #eeeeee; TEXT-ALIGN: center; TEXT-DECORATION: none
+}
+.calendarDaySun {
+	FONT-SIZE: 9pt; WIDTH: 12%; COLOR: #333333; FONT-FAMILY: "Arial", "Helvetica", "sans-serif", "宋体"; HEIGHT: 18px; BACKGROUND-COLOR: #eeeeee; TEXT-ALIGN: center; TEXT-DECORATION: none
+}
+.calendarLink {
+	FONT-WEIGHT: normal; FONT-SIZE: 9pt; COLOR: #333333; FONT-FAMILY: "Arial", "Helvetica", "sans-serif", "宋体"; HEIGHT: 18px; BACKGROUND-COLOR: #e7e7f6; TEXT-ALIGN: center; TEXT-DECORATION: none
+}
+.categoryTxt {
+	FONT-SIZE: 9pt; COLOR: #333333; LINE-HEIGHT: 23px; FONT-FAMILY: "Arial", "Helvetica", "sans-serif", "宋体"; TEXT-DECORATION: none
+}
+.categoryTable {
+	BORDER-RIGHT: #000000 1px solid; BORDER-TOP: #71b99c 1px solid; BORDER-BOTTOM: #000000 1px solid; BORDER-LEFT-STYLE: none
+}
+</STYLE>
+
+  <SCRIPT language=JavaScript>
+var months = new Array("一", "二", "三","四", "五", "六", "七", "八", "九","十", "十一", "十二");
+var daysInMonth = new Array(31, 28, 31, 30, 31, 30, 31, 31,30, 31, 30, 31);
+var days = new Array("日","一", "二", "三","四", "五", "六");
+var classTemp;
+var calendarHover="calendarHover";
+var today=new getToday();
+var year=today.year;
+var month=today.month;
+var newCal;
+//得到某月天数
+function getDays(month, year) 
+{ if (1 == month)
+     return ((0 == year % 4) && (0 != (year % 100))) ||(0 == year % 400) ? 29 : 28;
+  else
+     return daysInMonth[month];
+}
+//得到当天时间信息
+function getToday() 
+{  this.now = new Date();
+   this.year = this.now.getFullYear();
+   this.month = this.now.getMonth();
+   this.day = this.now.getDate();
+} 
+//生成日历
+function Calendar() 
+{  newCal = new Date(year,month,1); //当前月的第一天
+   today = new getToday();   
+   var day = -1;   //用来判断日历中是否为当天
+   var startDay = newCal.getDay(); //当月开始时间
+   var endDay=getDays(newCal.getMonth(), newCal.getFullYear());//当月结束时间
+   var daily = 0;   //用来生成日历中的天数值
+   if ((today.year == newCal.getFullYear()) &&(today.month == newCal.getMonth()))
+      day = today.day;
+   var caltable = document.all.caltable.tBodies.calendar;  //得到日历表格的集合
+   var intDaysInMonth =getDays(newCal.getMonth(), newCal.getFullYear()); //得到当月天数
+   //生成日历
+   for (var intWeek = 0; intWeek < caltable.rows.length;intWeek++)
+     for (var intDay = 0;intDay < caltable.rows[intWeek].cells.length;intDay++)
+     {
+      var cell = caltable.rows[intWeek].cells[intDay];   //得到单元袼
+   //生成字符串用于判断当天是否有日志
+      var montemp=(newCal.getMonth()+1)<10?("0"+(newCal.getMonth()+1)):(newCal.getMonth()+1);         
+      if ((intDay == startDay) && (0 == daily)){ daily = 1;}
+      var daytemp=daily<10?("0"+daily):(daily);
+      var d="<"+newCal.getFullYear()+"-"+montemp+"-"+daytemp+">";
+   //选择样式
+      if(day==daily)
+      cell.className="calendarNow";
+      else if(diarydays.indexOf(d)!=-1)
+         cell.className="calendarLink";
+      else if(intDay==6)
+      cell.className = "calendarDaySat";
+      else if (intDay==0)
+      cell.className ="calendarDaySun";
+      else
+      cell.className="calendarTd";
+   //生成值
+      if ((daily > 0) && (daily <= intDaysInMonth))  
+      {  cell.innerText = daily;
+         daily++;
+      }
+      else
+        cell.innerText = "";
+    } 
+  document.all.year.value=year;
+  document.all.month.value=month+1;
+}
+
+function subMonth()
+{
+  if ((month-1)<0)
+  {
+     month=11;
+  year=year-1;
+  }
+  else
+  { 
+    month=month-1;
+  }
+  Calendar();
+}
+function addMonth()
+{
+  if((month+1)>11)
+  {
+    month=0;
+    year=year+1;
+  }
+  else
+  { 
+    month=month+1;
+  }
+  Calendar();
+}
+//得到响应事件
+function getDiary() 
+{
+  var mon=(newCal.getMonth()+1)<10?("0"+(newCal.getMonth()+1)):(newCal.getMonth()+1);
+  var day=event.srcElement.innerText<10?("0"+event.srcElement.innerText):(event.srcElement.innerText);
+  var d="<"+newCal.getFullYear()+"-"+mon+"-"+day+">";
+  if ("TD" == event.srcElement.tagName)
+  if (("" != event.srcElement.innerText)&&(diarydays.indexOf(d)!=-1))
+  {
+   diary.location="/foxmail/archive/"+newCal.getFullYear()+"/"+mon+"/"+day+".aspx";
+   window.location.href = diary.location;
+  }
+}
+
+function setDate() 
+{
+  if (document.all.month.value<1||document.all.month.value>12)
+  {
+    alert("月的有效范围在1-12之间!");
+ return;
+  }
+  year=Math.ceil(document.all.year.value);
+  month=Math.ceil(document.all.month.value-1);
+  Calendar();
+}
+</SCRIPT>
+
+  <TABLE class=calendarBigBorder id=caltable cellSpacing=1 cellPadding=0 
+  width=200 border=0>
+    <THEAD>
+    <TR vAlign=center align=middle>
+      <TD class=calendarMonthTitle colSpan=7><INPUT class=calendarYInput 
+        onpaste="this.value=this.value.replace(/[^0-9]/g,'')" 
+        onkeydown="if (event.keyCode==13){setDate()}" 
+        onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxLength=4 size=3 
+        name=year>年 <INPUT class=calendarMInput 
+        onpaste="this.value=this.value.replace(/[^0-9]/g,'')" 
+        onkeydown="if (event.keyCode==13){setDate()}" 
+        onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxLength=2 size=1 
+        name=month>月 [<A onclick=addMonth() href="javascript:;">下月</A>]　[<A 
+        onclick=subMonth() href="javascript:;">上月</A>]</TD></TR>
+    <TR vAlign=center align=middle>
+      <SCRIPT language=JavaScript>  
+ document.write("<TD class=calendarDaySun id=diary>" + days[0] + "</TD>"); 
+ for (var intLoop = 1; intLoop < days.length-1; 
+ intLoop++) 
+ document.write("<TD class=calendarTd id=diary>" + days[intLoop] + "</TD>"); 
+ document.write("<TD class=calendarDaySat id=diary>" + days[intLoop] + "</TD>"); 
+ </SCRIPT>
+    </TR></THEAD>
+    <TBODY onmouseup=document.selection.empty() oncontextmenu="return false" 
+    onselectstart="return false" id=calendar ondragstart="return false" 
+    onbeforecopy="return false" onclick=getDiary() 
+    oncopy=document.selection.empty() align=middle 
+    onselect="document.selection.empty()" cellpadding="0" cellspacing="0" 
+    border="1">
+    <SCRIPT language=JavaScript>
+  for (var intWeeks = 0; intWeeks < 6; intWeeks++) {
+  document.write("<TR style='cursor:hand'>");
+  for (var intDays = 0; intDays < days.length;intDays++)
+  document.write("<TD class=calendarTd onMouseover='{classTemp=this.className;this.className=calendarHover}' onMouseOut='this.className=classTemp'></TD>");
+  document.write("</TR>");
+  } 
+ </SCRIPT>
+    </TBODY></TABLE>
+  <SCRIPT language=JavaScript>
+Calendar();
+</SCRIPT>
+<!-- Blog日历表结束 -->
+  <DT>最近评论
+  <DD>lord_is_layuping：<A title=点击查看《回复:RMI学习笔记(二)-----RMI远程调用实例(一)》 
+  href="http://blog.csdn.net/huanghui22/archive/2004/08/30/89296.aspx#882290">更新。<BR>http://blog.csdn.net/QB2049_XG/archive/2008/08/28/2842429.aspx#5</A>
+  <DD>zznhgzf：<A title=点击查看《回复:小毛头的SEO实验》 
+  href="http://blog.csdn.net/huanghui22/archive/2007/07/10/1684586.aspx#865202">有点意思</A>
+  <DD>zznhgzf：<A title=点击查看《回复:小毛头的SEO实验》 
+  href="http://blog.csdn.net/huanghui22/archive/2007/07/10/1684586.aspx#865199">有点意思</A>
+  <DD>zznhgzf：<A title=点击查看《回复:网站性能优化解决方案》 
+  href="http://blog.csdn.net/huanghui22/archive/2007/07/10/1684432.aspx#865196">牛！</A>
+  <DD>zznhgzf：<A title="点击查看《回复:.Net和Java有何相似之处 》" 
+  href="http://blog.csdn.net/huanghui22/archive/2004/09/08/98322.aspx#865191">共同学习 
+  共同进步</A> 
+  <DT>文章分类
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/category/38841.aspx">J2EE学习笔记系列</A><A 
+    href="http://blog.csdn.net/huanghui22/category/38841.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/category/29676.aspx">J2ME相关文章</A><A 
+    href="http://blog.csdn.net/huanghui22/category/29676.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/category/28513.aspx">J2ME学习笔记系列</A><A 
+    href="http://blog.csdn.net/huanghui22/category/28513.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/category/239590.aspx">ORACLE技术</A><A 
+    href="http://blog.csdn.net/huanghui22/category/239590.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/category/316975.aspx">SQLSERVER2000</A><A 
+    href="http://blog.csdn.net/huanghui22/category/316975.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/category/31360.aspx">程序员人生</A><A 
+    href="http://blog.csdn.net/huanghui22/category/31360.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/category/299702.aspx">网络安全</A><A 
+    href="http://blog.csdn.net/huanghui22/category/299702.aspx/rss">(RSS)</A></LI></UL></DIV>
+  <DT>收藏
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A href="http://blog.csdn.net/huanghui22/category/245809.aspx">好文收藏</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/category/80804.aspx">侯捷先生的文章</A></LI></UL></DIV>
+  <DT>相册
+  <DT>ORACLE讨论组
+  <DD><A href="http://asktom.oracle.com/pls/ask/" target=_blank>AskTom</A>
+  <DD><A href="http://www.oracle.com.cn/" target=_blank>CNOUG</A>
+  <DD><A href="http://www.itpub.net/" target=_blank>ITPUB</A>
+  <DD><A href="http://blog.csdn.net/huanghui22/archive/2006/12/16/1445979.aspx" 
+  target=_blank>ORACLE文章索引</A>
+  <DT>存档
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/archive/2007/07.aspx">2007年07月(2)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/archive/2007/05.aspx">2007年05月(17)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/archive/2007/04.aspx">2007年04月(5)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/archive/2007/03.aspx">2007年03月(4)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/archive/2007/01.aspx">2007年01月(1)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/archive/2006/12.aspx">2006年12月(15)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/archive/2006/11.aspx">2006年11月(1)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/archive/2006/10.aspx">2006年10月(16)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/archive/2006/09.aspx">2006年09月(7)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/archive/2004/11.aspx">2004年11月(2)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/archive/2004/09.aspx">2004年09月(17)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/archive/2004/08.aspx">2004年08月(25)</A>
+    <LI><A 
+    href="http://blog.csdn.net/huanghui22/archive/2004/07.aspx">2004年07月(7)</A></LI></UL></DIV><SPAN 
+  id=RecentVisitors></SPAN>
+  <DT>软件项目交易
+  <DD><IFRAME 
+  style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 180px; PADDING-TOP: 0px; HEIGHT: 32px" 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/CsdnBlogPage.htm" 
+  frameBorder=0 scrolling=no></IFRAME><SPAN id=SubscriptionList>
+  <DT>订阅我的博客
+  <DD><A href="http://blog.csdn.net/huanghui22/Rss.aspx"><IMG alt=XML聚合 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/xml.gif" 
+  border=0></A>&nbsp;&nbsp;<A 
+  href="http://feeds.feedsky.com/csdn.net/huanghui22" target=_blank><IMG 
+  alt=FeedSky 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/feedsky.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.xianguo.com/subscribe.php?url=http://blog.csdn.net/huanghui22/Rss.aspx" 
+  target=_blank><IMG alt=订阅到鲜果 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/rss_xianguo.jpg" 
+  border=0></A>
+  <DD><A 
+  href="http://fusion.google.com/add?feedurl=http://blog.csdn.net/huanghui22/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Google 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/rss_google.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.zhuaxia.com/add_channel.php?url=http://blog.csdn.net/huanghui22/Rss.aspx" 
+  target=_blank><IMG alt=订阅到抓虾 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/rss_zhuaxia.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.bloglines.com/sub/http://blog.csdn.net/huanghui22/Rss.aspx" 
+  target=_blank><IMG alt=订阅到BlogLines 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/rss_bloglines.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://add.my.yahoo.com/rss?url=http://blog.csdn.net/huanghui22/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Yahoo 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/rss_yahoo.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://rss.gougou.com/find_rss.jsp?url=http://blog.csdn.net/huanghui22/Rss.aspx" 
+  target=_blank><IMG alt=订阅到GouGou 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/rss_gougou.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.pageflakes.com/subscribe.aspx?url=http://blog.csdn.net/huanghui22/Rss.aspx" 
+  target=_blank><IMG alt=订阅到飞鸽 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/rss_pageflakes.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.rojo.com/add-subscription?resource=http://blog.csdn.net/huanghui22/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Rojo 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/rss_rojo.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.newsgator.com/ngs/subscriber/subfext.aspx?url=http://blog.csdn.net/huanghui22/Rss.aspx" 
+  target=_blank><IMG alt=订阅到newsgator 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/rss_newsgator.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.netvibes.com/subscribe.php?url=http://blog.csdn.net/huanghui22/Rss.aspx" 
+  target=_blank><IMG alt=订阅到netvibes 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/rss_netvibes.gif" 
+  border=0></A></SPAN> </DD></DL></DIV></DIV></DIV>
+<DIV id=csdnblog_content>
+<DIV class=gutter>
+<DIV class=default_contents>
+<DIV class=user_article>
+<SCRIPT 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/LoadFeedbackCount.js" 
+type=text/javascript></SCRIPT>
+
+<H1><IMG height=16 alt=原创 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/authorship.gif" 
+width=15 border=0>&nbsp;<A 
+href="http://blog.csdn.net/huanghui22/archive/2007/05/03/1595169.aspx">[Oracle]高效的SQL语句之分析函数(四)--lag()/lead() 
+</A><CITE class=fav_csdnstylebykimi><A class=fav_csdnstylebykimi 
+title=收藏到我的网摘中，并分享给我的朋友 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();">收藏</A></CITE></H1>
+<DIV class=blogstory><SPAN id=Post.ascx_ViewPost_PreviousAndNextEntriesUp>
+<H3><A 
+href="http://blog.csdn.net/huanghui22/archive/2007/05/07/1599806.aspx">新一篇:&nbsp;Piss 
+Off</A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/huanghui22/archive/2007/05/03/1595166.aspx">旧一篇:&nbsp;[Oracle]高效的SQL语句之分析函数(三)--row_number() 
+/rank()/dense_rank()</A></H3></SPAN>
+<SCRIPT>function StorePage(){d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(keyit=window.open('http://www.365key.com/storeit.aspx?t='+escape(d.title)+'&u='+escape(d.location.href)+'&c='+escape(t),'keyit','scrollbars=no,width=475,height=575,left=75,top=20,status=no,resizable=yes'));keyit.focus();}</SCRIPT>
+
+<P>&nbsp;</P>
+<P>有时候报表上面需要显示该笔操作的上一步骤或者下一步骤的详细信息，这个时候可以按照下面的做法：</P>
+<P>先创建示例表：</P>
+<DIV 
+style="BORDER-RIGHT: windowtext 0.5pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 0.5pt solid; PADDING-LEFT: 5.4pt; BACKGROUND: #e6e6e6; PADDING-BOTTOM: 4px; BORDER-LEFT: windowtext 0.5pt solid; WIDTH: 95%; WORD-BREAK: break-all; PADDING-TOP: 4px; BORDER-BOTTOM: windowtext 0.5pt solid">
+<DIV><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top><SPAN style="COLOR: #008080">--</SPAN><SPAN 
+style="COLOR: #008080">&nbsp;Create&nbsp;table</SPAN><SPAN 
+style="COLOR: #008080"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN><SPAN style="COLOR: #0000ff">create</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">table</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;LEAD_TABLE<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>(<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>&nbsp;&nbsp;CASEID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #000000">VARCHAR2</SPAN><SPAN 
+style="COLOR: #000000">(</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">10</SPAN><SPAN 
+style="COLOR: #000000">),<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>&nbsp;&nbsp;STEPID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #000000">VARCHAR2</SPAN><SPAN 
+style="COLOR: #000000">(</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">10</SPAN><SPAN 
+style="COLOR: #000000">),<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>&nbsp;&nbsp;ACTIONDATE&nbsp;DATE<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>)<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>tablespace&nbsp;COLM_DATA<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>&nbsp;&nbsp;pctfree&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">10</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>&nbsp;&nbsp;initrans&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>&nbsp;&nbsp;maxtrans&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">255</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>&nbsp;&nbsp;storage<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>&nbsp;&nbsp;(<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>&nbsp;&nbsp;&nbsp;&nbsp;initial&nbsp;64K<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>&nbsp;&nbsp;&nbsp;&nbsp;minextents&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>&nbsp;&nbsp;&nbsp;&nbsp;maxextents&nbsp;unlimited<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>&nbsp;&nbsp;);<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN><SPAN style="COLOR: #0000ff">insert</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">into</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;LEAD_TABLE&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">values</SPAN><SPAN style="COLOR: #000000">(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Case1</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Step1</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #000000">,to_date(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">20070101</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #ff0000">yyyy-mm-dd</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">));<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN><SPAN style="COLOR: #0000ff">insert</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">into</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;LEAD_TABLE&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">values</SPAN><SPAN style="COLOR: #000000">(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Case1</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Step2</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #000000">,to_date(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">20070102</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #ff0000">yyyy-mm-dd</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">));<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN><SPAN style="COLOR: #0000ff">insert</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">into</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;LEAD_TABLE&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">values</SPAN><SPAN style="COLOR: #000000">(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Case1</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Step3</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #000000">,to_date(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">20070103</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #ff0000">yyyy-mm-dd</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">));<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN><SPAN style="COLOR: #0000ff">insert</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">into</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;LEAD_TABLE&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">values</SPAN><SPAN style="COLOR: #000000">(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Case1</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Step4</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #000000">,to_date(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">20070104</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #ff0000">yyyy-mm-dd</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">));<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN><SPAN style="COLOR: #0000ff">insert</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">into</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;LEAD_TABLE&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">values</SPAN><SPAN style="COLOR: #000000">(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Case1</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Step5</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #000000">,to_date(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">20070105</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #ff0000">yyyy-mm-dd</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">));<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN><SPAN style="COLOR: #0000ff">insert</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">into</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;LEAD_TABLE&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">values</SPAN><SPAN style="COLOR: #000000">(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Case1</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Step4</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #000000">,to_date(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">20070106</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #ff0000">yyyy-mm-dd</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">));<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN><SPAN style="COLOR: #0000ff">insert</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">into</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;LEAD_TABLE&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">values</SPAN><SPAN style="COLOR: #000000">(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Case1</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Step6</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #000000">,to_date(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">20070101</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #ff0000">yyyy-mm-dd</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">));<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN><SPAN style="COLOR: #0000ff">insert</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">into</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;LEAD_TABLE&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">values</SPAN><SPAN style="COLOR: #000000">(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Case1</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Step1</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #000000">,to_date(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">20070201</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #ff0000">yyyy-mm-dd</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">));<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN><SPAN style="COLOR: #0000ff">insert</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">into</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;LEAD_TABLE&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">values</SPAN><SPAN style="COLOR: #000000">(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Case2</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Step2</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #000000">,to_date(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">20070202</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #ff0000">yyyy-mm-dd</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">));<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN><SPAN style="COLOR: #0000ff">insert</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">into</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;LEAD_TABLE&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">values</SPAN><SPAN style="COLOR: #000000">(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Case2</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">Step3</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #000000">,to_date(</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #ff0000">20070203</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">,</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN 
+style="COLOR: #ff0000">yyyy-mm-dd</SPAN><SPAN 
+style="COLOR: #ff0000">'</SPAN><SPAN style="COLOR: #000000">));<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN><SPAN style="COLOR: #0000ff">commit</SPAN><SPAN 
+style="COLOR: #000000">;<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN></DIV></DIV>
+<P>&nbsp;</P>
+<P>每一条记录都能连接到上/下一行的内容</P>
+<DIV 
+style="BORDER-RIGHT: windowtext 0.5pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 0.5pt solid; PADDING-LEFT: 5.4pt; BACKGROUND: #e6e6e6; PADDING-BOTTOM: 4px; BORDER-LEFT: windowtext 0.5pt solid; WIDTH: 95%; WORD-BREAK: break-all; PADDING-TOP: 4px; BORDER-BOTTOM: windowtext 0.5pt solid">
+<DIV><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top><SPAN style="COLOR: #0000ff">select</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;caseid,stepid,actiondate,lead(stepid)&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">over</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;(partition&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;caseid&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">order</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;actiondate)&nbsp;nextstepid,<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>lead(actiondate)&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">over</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;(partition&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;caseid&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">order</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;actiondate)&nbsp;nextactiondate,<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>lag(stepid)&nbsp;</SPAN><SPAN style="COLOR: #0000ff">over</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;(partition&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;caseid&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">order</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;actiondate)&nbsp;prestepid,<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>lag(actiondate)&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">over</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;(partition&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;caseid&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">order</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;actiondate)&nbsp;preactiondate<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN><SPAN style="COLOR: #0000ff">from</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;lead_table</SPAN></DIV></DIV>
+<P>结果如下：</P>
+<DIV 
+style="BORDER-RIGHT: windowtext 0.5pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 0.5pt solid; PADDING-LEFT: 5.4pt; BACKGROUND: #e6e6e6; PADDING-BOTTOM: 4px; BORDER-LEFT: windowtext 0.5pt solid; WIDTH: 95%; WORD-BREAK: break-all; PADDING-TOP: 4px; BORDER-BOTTOM: windowtext 0.5pt solid">
+<DIV><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top><SPAN 
+style="COLOR: #000000">Case1&nbsp;&nbsp;&nbsp;&nbsp;Step1&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;Step2&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR><IMG 
+alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case1&nbsp;&nbsp;&nbsp;&nbsp;Step2&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;Step3&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">3</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;Step1&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case1&nbsp;&nbsp;&nbsp;&nbsp;Step3&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">3</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;Step4&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">4</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;Step2&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case1&nbsp;&nbsp;&nbsp;&nbsp;Step4&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">4</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;Step5&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">5</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;Step3&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">3</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case1&nbsp;&nbsp;&nbsp;&nbsp;Step5&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">5</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;Step4&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">6</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;Step4&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">4</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case1&nbsp;&nbsp;&nbsp;&nbsp;Step4&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">6</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;Step6&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">7</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;Step5&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">5</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case1&nbsp;&nbsp;&nbsp;&nbsp;Step6&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">7</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Step4&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">6</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case2&nbsp;&nbsp;&nbsp;&nbsp;Step1&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;Step2&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR><IMG 
+alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case2&nbsp;&nbsp;&nbsp;&nbsp;Step2&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;Step3&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">3</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;Step1&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case2&nbsp;&nbsp;&nbsp;&nbsp;Step3&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">3</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Step2&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN></DIV></DIV>
+<P>&nbsp;</P>
+<P>还可以进一步统计一下两者的相差天数</P>
+<DIV 
+style="BORDER-RIGHT: windowtext 0.5pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 0.5pt solid; PADDING-LEFT: 5.4pt; BACKGROUND: #e6e6e6; PADDING-BOTTOM: 4px; BORDER-LEFT: windowtext 0.5pt solid; WIDTH: 95%; WORD-BREAK: break-all; PADDING-TOP: 4px; BORDER-BOTTOM: windowtext 0.5pt solid">
+<DIV><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top><SPAN style="COLOR: #0000ff">select</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;caseid,stepid,actiondate,nextactiondate,nextactiondate</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="COLOR: #000000">actiondate&nbsp;datebetween&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">from</SPAN><SPAN style="COLOR: #000000">&nbsp;(<BR><IMG 
+alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN><SPAN style="COLOR: #0000ff">select</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;caseid,stepid,actiondate,lead(stepid)&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">over</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;(partition&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;caseid&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">order</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;actiondate)&nbsp;nextstepid,<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>lead(actiondate)&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">over</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;(partition&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;caseid&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">order</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;actiondate)&nbsp;nextactiondate,<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>lag(stepid)&nbsp;</SPAN><SPAN style="COLOR: #0000ff">over</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;(partition&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;caseid&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">order</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;actiondate)&nbsp;prestepid,<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>lag(actiondate)&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">over</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;(partition&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;caseid&nbsp;</SPAN><SPAN 
+style="COLOR: #0000ff">order</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;</SPAN><SPAN style="COLOR: #0000ff">by</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;actiondate)&nbsp;preactiondate<BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top></SPAN><SPAN style="COLOR: #0000ff">from</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;lead_table)&nbsp;</SPAN></DIV></DIV>
+<P>结果如下：</P>
+<DIV 
+style="BORDER-RIGHT: windowtext 0.5pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 0.5pt solid; PADDING-LEFT: 5.4pt; BACKGROUND: #e6e6e6; PADDING-BOTTOM: 4px; BORDER-LEFT: windowtext 0.5pt solid; WIDTH: 95%; WORD-BREAK: break-all; PADDING-TOP: 4px; BORDER-BOTTOM: windowtext 0.5pt solid">
+<DIV><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top><SPAN 
+style="COLOR: #000000">Case1&nbsp;&nbsp;&nbsp;&nbsp;Step1&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case1&nbsp;&nbsp;&nbsp;&nbsp;Step2&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">3</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case1&nbsp;&nbsp;&nbsp;&nbsp;Step3&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">3</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">4</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case1&nbsp;&nbsp;&nbsp;&nbsp;Step4&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">4</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">5</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case1&nbsp;&nbsp;&nbsp;&nbsp;Step5&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">5</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">6</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case1&nbsp;&nbsp;&nbsp;&nbsp;Step4&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">6</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">7</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case1&nbsp;&nbsp;&nbsp;&nbsp;Step6&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">7</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR><IMG 
+alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case2&nbsp;&nbsp;&nbsp;&nbsp;Step1&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case2&nbsp;&nbsp;&nbsp;&nbsp;Step2&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">3</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">1</SPAN><SPAN 
+style="COLOR: #000000"><BR><IMG alt="" 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/None.gif" 
+align=top>Case2&nbsp;&nbsp;&nbsp;&nbsp;Step3&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2007</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">2</SPAN><SPAN 
+style="COLOR: #808080">-</SPAN><SPAN 
+style="FONT-WEIGHT: bold; COLOR: #800000">3</SPAN><SPAN 
+style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN></DIV></DIV>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P class="right articalinfo">发表于 @ <A title=permalink 
+href="http://blog.csdn.net/huanghui22/archive/2007/05/03/1595169.aspx">2007年05月03日 
+00:43:00</A>|<A title=评论 
+href="http://blog.csdn.net/huanghui22/archive/2007/05/03/1595169.aspx#FeedBack">评论(<SPAN 
+id=FeedbackCount_1595169>loading...</SPAN>
+<SCRIPT type=text/javascript>AddFeedbackCountStack("1595169")</SCRIPT>
+)</A>|<A title=编辑 
+href="http://writeblog.csdn.net/PostEdit.aspx?entryId=1595169">编辑</A></P><SPAN 
+id=Post.ascx_ViewPost_PreviousAndNextEntriesDown>
+<H3><A 
+href="http://blog.csdn.net/huanghui22/archive/2007/05/07/1599806.aspx">新一篇:&nbsp;Piss 
+Off</A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/huanghui22/archive/2007/05/03/1595166.aspx">旧一篇:&nbsp;[Oracle]高效的SQL语句之分析函数(三)--row_number() 
+/rank()/dense_rank()</A></H3></SPAN></DIV></DIV>
+<DIV class=commentslist><SPAN id=Anthem_Post.ascx_Comments_ltlComments__><SPAN 
+id=Post.ascx_Comments_ltlComments>
+<DIV id=commentslist>
+<H3>评论：没有评论。</H3></DIV></SPAN></SPAN></DIV>
+<DIV class=spacecommment>
+<DIV id=Anthem_Post.ascx_PostComment_CommentUpdatePanel__>
+<DIV id=Post.ascx_PostComment_CommentUpdatePanel>
+<FIELDSET><LEGEND>发表评论</LEGEND>
+<UL>
+  <LI>姓&nbsp;&nbsp;&nbsp;名：<INPUT id=Post.ascx_PostComment_tbName disabled 
+  maxLength=32 size=40 name=Post.ascx:PostComment:tbName><SPAN 
+  id=Post.ascx_PostComment_RequiredFieldValidator2 
+  style="VISIBILITY: hidden; COLOR: red" initialvalue="" 
+  evaluationfunction="RequiredFieldValidatorEvaluateIsValid" 
+  errormessage="请输入名字" 
+  controltovalidate="Post.ascx_PostComment_tbName">请输入名字</SPAN> 
+  <LI>主&nbsp;&nbsp;&nbsp;页：<INPUT id=Post.ascx_PostComment_tbUrl disabled 
+  maxLength=256 size=40 name=Post.ascx:PostComment:tbUrl> 
+  <LI>
+  <DIV id=Post.ascx_PostComment_AntiBotImageRegion>校验码： <INPUT 
+  id=Post.ascx_PostComment_tbAntiBotImage style="WIDTH: 75px" 
+  name=Post.ascx:PostComment:tbAntiBotImage> <SPAN 
+  id=Post.ascx_PostComment_valAntiBotImage style="DISPLAY: none; COLOR: red" 
+  evaluationfunction="CustomValidatorEvaluateIsValid" 
+  display="Dynamic">检验码无效!</SPAN> <SPAN 
+  id=Anthem_Post.ascx_PostComment_imgAntiBotImage__><IMG 
+  id=Post.ascx_PostComment_imgAntiBotImage alt="" 
+  src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/AntiBotImage.jpg" 
+  align=absMiddle border=0></SPAN> <SPAN 
+  id=Anthem_Post.ascx_PostComment_lbCreateAntiBotImage__><A 
+  id=Post.ascx_PostComment_lbCreateAntiBotImage 
+  onclick="javascript:Anthem_FireCallBackEvent(this,event,'Post.ascx:PostComment:lbCreateAntiBotImage','',false,'','','',true,null,null,null,true,true);return false;" 
+  href="javascript:__doPostBack('Post.ascx$PostComment$lbCreateAntiBotImage','')">看不清,换一张</A></SPAN> 
+  </DIV></LI></UL><SPAN id=Post.ascx_PostComment_RequiredFieldValidator3 
+style="VISIBILITY: hidden; COLOR: red" initialvalue="" 
+evaluationfunction="RequiredFieldValidatorEvaluateIsValid" errormessage="请输入评论" 
+controltovalidate="Post.ascx_PostComment_tbComment">请输入评论</SPAN><BR><TEXTAREA id=Post.ascx_PostComment_tbComment disabled name=Post.ascx:PostComment:tbComment rows=10 cols=50></TEXTAREA><BR><SPAN 
+id=Anthem_Post.ascx_PostComment_btnSubmit__></SPAN><BR><SPAN 
+id=Post.ascx_PostComment_Message 
+style="COLOR: red">当前用户设置只有注册用户才能发表评论。如果你没有登录，请点击<A 
+href="http://passport.csdn.net/member/UserLogin.aspx?from=http://blog.csdn.net/huanghui22/archive/2007/05/03/1595169.aspx">登录</A></SPAN> 
+</FIELDSET> </DIV></DIV></DIV>
+<SCRIPT type=text/javascript>
+    LoadFeedbackCount();//加载评论
+    document.write("<img src='http://counter.csdn.net/pv.aspx?id=24' border=0 width=0 height=0>");// 计数器
+    </SCRIPT>
+
+<SCRIPT 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/HighLighter.js" 
+type=text/javascript></SCRIPT>
+</DIV></DIV></DIV>
+<DIV id=pubfooter>
+<DL>
+  <DT>
+  <DD>Csdn Blog version 3.1a 
+  <DD>Copyright © 小毛头 </DD></DL></DIV></DIV>
+<SCRIPT type=text/javascript>
+<!--
+var Page_Validators =  new Array(document.getElementById("Post.ascx_PostComment_RequiredFieldValidator2"), document.getElementById("Post.ascx_PostComment_valAntiBotImage"), document.getElementById("Post.ascx_PostComment_RequiredFieldValidator3"));
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+</FORM>
+<SCRIPT 
+src="[Oracle]高效的SQL语句之分析函数(四)--lag()-lead() - 小毛头的BLOG - CSDNBlog.files/counter.js" 
+type=text/javascript></SCRIPT>
+</DIV></BODY></HTML>

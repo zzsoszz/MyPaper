@@ -1,0 +1,2 @@
+select  dbms_lob.substr(t.sqltext,4000)  from reportdesign t
+group by dbms_lob.substr(t.sqltext,4000);

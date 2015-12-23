@@ -1,0 +1,678 @@
+BODY {
+	FONT-SIZE: 12px; FONT-FAMILY: Arial,"宋体"
+}
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+DIV {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+DL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+DT {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+DD {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+OL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+H3 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+H4 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+H5 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+H6 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+PRE {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+FORM {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+FIELDSET {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+INPUT {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+TEXTAREA {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+BLOCKQUOTE {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+TH {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+TD {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+H1 {
+	FONT-SIZE: 100%; FONT-FAMILY: Arial,"宋体"
+}
+H2 {
+	FONT-SIZE: 100%; FONT-FAMILY: Arial,"宋体"
+}
+H3 {
+	FONT-SIZE: 100%; FONT-FAMILY: Arial,"宋体"
+}
+H4 {
+	FONT-SIZE: 100%; FONT-FAMILY: Arial,"宋体"
+}
+H5 {
+	FONT-SIZE: 100%; FONT-FAMILY: Arial,"宋体"
+}
+A {
+	COLOR: #000; FONT-FAMILY: Arial,"宋体"; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #c30; FONT-FAMILY: Arial,"宋体"; TEXT-DECORATION: underline
+}
+IMG {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px
+}
+#top {
+	WIDTH: 950px
+}
+#header {
+	WIDTH: 950px
+}
+#menu {
+	WIDTH: 950px
+}
+#navi {
+	WIDTH: 950px
+}
+#m_b {
+	WIDTH: 950px
+}
+#search {
+	WIDTH: 950px
+}
+#content {
+	WIDTH: 950px
+}
+#navi {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 12px; BACKGROUND: url(/images/bg_navi.gif) #c8d5e4 repeat-x; PADDING-BOTTOM: 3px; OVERFLOW: hidden; PADDING-TOP: 6px
+}
+#navi A {
+	COLOR: navy
+}
+#navi LI.high A {
+	COLOR: #c30
+}
+#navi UL {
+	FLOAT: left; LIST-STYLE-TYPE: none
+}
+#navi UL LI {
+	PADDING-RIGHT: 1em; PADDING-LEFT: 1em; FLOAT: left; PADDING-BOTTOM: 0px; PADDING-TOP: 2px; HEIGHT: 12px
+}
+.header {
+	WIDTH: 950px
+}
+#logo {
+	MARGIN-TOP: 20px; FLOAT: left
+}
+#banner1 {
+	BORDER-RIGHT: #e9c94d 1px solid; BORDER-TOP: #e9c94d 1px solid; MARGIN-TOP: 8px; BACKGROUND: #ffffdd; FLOAT: left; MARGIN-LEFT: 12px; BORDER-LEFT: #e9c94d 1px solid; WIDTH: 338px; PADDING-TOP: 3px; BORDER-BOTTOM: #e9c94d 1px solid; HEIGHT: 55px
+}
+#banner1 A {
+	TEXT-DECORATION: none
+}
+#banner1 UL {
+	LIST-STYLE-TYPE: none
+}
+#banner1 UL LI {
+	PADDING-LEFT: 6px; FLOAT: left; WIDTH: 163px; LINE-HEIGHT: 18px
+}
+#banner {
+	FLOAT: right; MARGIN: 8px 0px 5px
+}
+#menu {
+	BACKGROUND: url(/images/bg_menu.gif) repeat-x; LINE-HEIGHT: 27px; HEIGHT: 27px
+}
+#menu UL.menu A {
+	PADDING-RIGHT: 15px; DISPLAY: block; PADDING-LEFT: 15px; BACKGROUND: url(/images/bg_menu_a_right.gif) no-repeat right 50%; PADDING-BOTTOM: 0px; COLOR: #f2f6fb; LINE-HEIGHT: 27px; PADDING-TOP: 0px; TEXT-DECORATION: none
+}
+#menu UL.menu A:hover {
+	BACKGROUND: url(/images/bg_menu_hover_right.gif) no-repeat right 50%
+}
+#menu UL.menu {
+	FLOAT: left; LIST-STYLE-TYPE: none
+}
+#menu UL.menu LI {
+	DISPLAY: inline; FLOAT: left; MARGIN-RIGHT: 1px
+}
+#menu UL.link {
+	FLOAT: right
+}
+#menu UL.link A {
+	COLOR: #f2f6fb; LINE-HEIGHT: 27px
+}
+#menu UL.link LI {
+	DISPLAY: inline; FLOAT: left; MARGIN-RIGHT: 14px
+}
+#menu LI.current {
+	FONT-WEIGHT: bold; BACKGROUND: url(/images/bg_menu_on_left.gif) no-repeat
+}
+#menu LI.current A {
+	BACKGROUND: url(/images/bg_menu_on_right.gif) no-repeat right 50%; COLOR: #000
+}
+#menu LI.current A:hover {
+	BACKGROUND: url(/images/bg_menu_on_right.gif) no-repeat right 50%; COLOR: #000
+}
+#menu LI.home {
+	MARGIN-LEFT: 5px
+}
+.clearfix:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0pt; content: "."
+}
+.clear {
+	CLEAR: both; FONT-SIZE: 0px; OVERFLOW: hidden; LINE-HEIGHT: 0; HEIGHT: 0px
+}
+.space {
+	CLEAR: both; FONT-SIZE: 0px; LINE-HEIGHT: 0; HEIGHT: 6px
+}
+.intel {
+	CLEAR: both; FONT-SIZE: 0px; LINE-HEIGHT: 0; HEIGHT: 6px
+}
+.intel {
+	HEIGHT: 12px
+}
+.right {
+	FLOAT: right
+}
+.normal {
+	FONT-WEIGHT: normal
+}
+.normal A {
+	FONT-WEIGHT: normal
+}
+.red {
+	COLOR: red
+}
+A.red {
+	COLOR: red
+}
+.red A {
+	COLOR: red
+}
+.blue {
+	COLOR: blue
+}
+A.blue {
+	COLOR: blue
+}
+.blue A {
+	COLOR: blue
+}
+.green {
+	COLOR: green
+}
+A.green {
+	COLOR: green
+}
+.green A {
+	COLOR: green
+}
+.black {
+	COLOR: black
+}
+A.black {
+	COLOR: black
+}
+.black A {
+	COLOR: black
+}
+.navy {
+	COLOR: navy
+}
+A.navy {
+	COLOR: navy
+}
+.navy A {
+	COLOR: navy
+}
+.brown {
+	COLOR: brown
+}
+A.brown {
+	COLOR: brown
+}
+.brown A {
+	COLOR: brown
+}
+.crimson {
+	COLOR: crimson
+}
+A.crimson {
+	COLOR: crimson
+}
+.crimson A {
+	COLOR: crimson
+}
+.c B {
+	CLEAR: both; DISPLAY: block; FONT-SIZE: 0px; OVERFLOW: hidden; BORDER-TOP-STYLE: solid; LINE-HEIGHT: 0; BORDER-RIGHT-STYLE: solid; BORDER-LEFT-STYLE: solid; BORDER-BOTTOM-STYLE: solid
+}
+.c B.b1 {
+	BORDER-TOP-WIDTH: 1px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; MARGIN: 0px 5px; HEIGHT: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+.c B.b2 {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 0px; MARGIN: 0px 3px; HEIGHT: 1px; BORDER-RIGHT-WIDTH: 2px
+}
+.c B.b3 {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 1px; BORDER-BOTTOM-WIDTH: 0px; MARGIN: 0px 2px; HEIGHT: 1px; BORDER-RIGHT-WIDTH: 1px
+}
+.c B.b4 {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 1px; BORDER-BOTTOM-WIDTH: 0px; MARGIN: 0px 1px; HEIGHT: 2px; BORDER-RIGHT-WIDTH: 1px
+}
+#content H3 A {
+	COLOR: #7b2e00
+}
+.title-y {
+	BACKGROUND: url(/images/type_y_left.gif) #ffd58d no-repeat
+}
+.title-y H3 {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-SIZE: 14px; BACKGROUND: url(/images/type_y_right.gif) #ffd58d no-repeat right top; PADDING-BOTTOM: 3px; MARGIN-LEFT: 2px; COLOR: #333; PADDING-TOP: 5px; FONT-FAMILY: tahoma
+}
+.title-b {
+	BACKGROUND: url(/images/type_b_left.gif) #c0d6e5 no-repeat; OVERFLOW: hidden; HEIGHT: 25px
+}
+.title-b H3 {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; BACKGROUND: url(/images/type_b_right.gif) #c0d6e5 no-repeat right top; PADDING-BOTTOM: 4px; MARGIN-LEFT: 2px; COLOR: #081b39; PADDING-TOP: 7px
+}
+.title-b UL.touch {
+	FLOAT: right; MARGIN-RIGHT: 5px; LIST-STYLE-TYPE: none
+}
+.title-b UL.touch LI {
+	PADDING-RIGHT: 6px; MARGIN-TOP: 4px; PADDING-LEFT: 6px; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN-LEFT: 5px; CURSOR: pointer; LINE-HEIGHT: 22px; PADDING-TOP: 0px; HEIGHT: 22px
+}
+.title-b UL.touch LI.on {
+	BORDER-RIGHT: #9bbdd3 1px solid; BORDER-TOP: #9bbdd3 1px solid; MARGIN-TOP: 3px; BACKGROUND: #fff; FLOAT: left; BORDER-LEFT: #9bbdd3 1px solid; CURSOR: default; COLOR: #c30; BORDER-BOTTOM: #9bbdd3 0px solid
+}
+.title-b UL.btnr {
+	FLOAT: right; LIST-STYLE-TYPE: none
+}
+.title-b UL.btnr LI {
+	PADDING-LEFT: 10px; BACKGROUND: url(/images/tabstitle_button_bg.gif) no-repeat left top; FLOAT: left; MARGIN: 3px 3px 0px 0px; LINE-HEIGHT: 24px
+}
+.title-b UL.btnr LI A {
+	PADDING-RIGHT: 8px; DISPLAY: block; BACKGROUND: url(/images/tabstitle_button_bg.gif) no-repeat right top; MARGIN-LEFT: 10px; COLOR: #7b2e00
+}
+.small-y {
+	OVERFLOW: hidden; HEIGHT: 23px
+}
+.small-y H3 {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-SIZE: 12px; PADDING-BOTTOM: 3px; COLOR: #7b2e00; PADDING-TOP: 4px
+}
+.title-y UL.btnr {
+	FLOAT: right; LIST-STYLE-TYPE: none
+}
+.title-y UL.btnr LI {
+	PADDING-LEFT: 10px; BACKGROUND: url(/images/tabstitle_button_bg.gif) no-repeat left top; FLOAT: left; MARGIN: 3px 3px 0px 0px; LINE-HEIGHT: 24px
+}
+.title-y UL.btnr LI A {
+	PADDING-RIGHT: 8px; DISPLAY: block; BACKGROUND: url(/images/tabstitle_button_bg.gif) no-repeat right top; MARGIN-LEFT: 10px; COLOR: #7b2e00
+}
+.list-y {
+	BORDER-RIGHT: #ffb64b 1px solid; BORDER-TOP: #ff8f27 1px solid; BACKGROUND: url(/images/bg_list_right.gif) #fff no-repeat right top; MARGIN-BOTTOM: 6px; BORDER-LEFT: #ffb64b 1px solid; BORDER-BOTTOM: #ffb64b 1px solid
+}
+.list-b {
+	BORDER-RIGHT: #9bbdd3 1px solid; BORDER-TOP: #9bbdd3 0px solid; BACKGROUND: #fff; MARGIN-BOTTOM: 6px; BORDER-LEFT: #9bbdd3 1px solid; BORDER-BOTTOM: #9bbdd3 1px solid
+}
+.list-y H2 {
+	FONT-SIZE: 14px; MARGIN: 8px auto 3px; COLOR: #003399; LINE-HEIGHT: 19px; FONT-FAMILY: tahoma; TEXT-ALIGN: center
+}
+.list-b H2 {
+	FONT-SIZE: 14px; MARGIN: 8px auto 3px; COLOR: #003399; LINE-HEIGHT: 19px; FONT-FAMILY: tahoma; TEXT-ALIGN: center
+}
+.list-y H2 A {
+	COLOR: #039
+}
+.list-y H2 A:hover {
+	COLOR: #f60
+}
+.list-y P {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; COLOR: #666; TEXT-INDENT: 2em; PADDING-TOP: 0px
+}
+.list-b P {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; COLOR: #666; TEXT-INDENT: 2em; PADDING-TOP: 0px
+}
+.list-y UL.list {
+	PADDING-RIGHT: 0px; MARGIN-TOP: 5px; PADDING-LEFT: 0px; PADDING-BOTTOM: 7px; PADDING-TOP: 7px; LIST-STYLE-TYPE: none
+}
+.list-b UL.list {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 6px; MARGIN: 0px; COLOR: #666; PADDING-TOP: 6px; LIST-STYLE-TYPE: none
+}
+.list-y UL.list LI {
+	PADDING-LEFT: 25px; FONT-SIZE: 14px; BACKGROUND: url(/images/li-small-dot.gif) no-repeat 10px 5px; LINE-HEIGHT: 22px; FONT-FAMILY: tahoma
+}
+.list-b UL.list LI {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 16px; BACKGROUND: url(/images/li-gray-dot.gif) no-repeat 3px 3px; PADDING-BOTTOM: 0px; OVERFLOW: hidden; LINE-HEIGHT: 20px; PADDING-TOP: 0px; WHITE-SPACE: nowrap; TEXT-OVERFLOW: ellipsis
+}
+.list-b UL.eiss {
+	OVERFLOW: hidden; WIDTH: 274px
+}
+.list-b UL.eiss LI {
+	WIDTH: 253px
+}
+.list-b UL.date LI {
+	PADDING-LEFT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.list-b UL.float {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.list-b UL.float LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%; FLOAT: left; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.list-b UL.float LI A {
+	COLOR: #04d
+}
+.list-b UL.float LI A:hover {
+	COLOR: #f60
+}
+.list-b UL.member LI {
+	PADDING-LEFT: 10px; WIDTH: 72px; MARGIN-RIGHT: 4px
+}
+.list-b UL.must LI {
+	PADDING-LEFT: 7px; WIDTH: 84px; MARGIN-RIGHT: 2px
+}
+.list-y UL.list LI SPAN {
+	PADDING-RIGHT: 6px; FONT-SIZE: 12px; FLOAT: right; COLOR: #666; FONT-FAMILY: "宋体"
+}
+.list-b UL.list LI SPAN {
+	PADDING-RIGHT: 6px; FONT-SIZE: 12px; FLOAT: right; COLOR: #666; FONT-FAMILY: "宋体"
+}
+.list-y UL.list LI SPAN A {
+	COLOR: #039
+}
+.list-b UL.list LI SPAN A {
+	COLOR: #039
+}
+.list-y UL.list LI SPAN A:hover {
+	COLOR: #c30
+}
+.list-b UL.list LI SPAN A:hover {
+	COLOR: #c30
+}
+#content {
+	MARGIN-TOP: 10px
+}
+#content .widgets {
+	FLOAT: left; WIDTH: 180px
+}
+#content .widgets DIV.member {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; BACKGROUND: url(avatar.gif) #fff no-repeat 93% 36%; PADDING-BOTTOM: 8px; LINE-HEIGHT: 20px; PADDING-TOP: 8px
+}
+#content .content {
+	FLOAT: right; WIDTH: 760px
+}
+#content .widgets UL.dig {
+	BORDER-RIGHT: #ffb64b 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #ff8f27 1px solid; PADDING-LEFT: 5px; BACKGROUND: #fffbef; MARGIN-BOTTOM: 8px; PADDING-BOTTOM: 5px; BORDER-LEFT: #ffb64b 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: #ffb64b 1px solid; LIST-STYLE-TYPE: none
+}
+#content .widgets UL.dig LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 42px; BACKGROUND: url(/images/2008a/dig-compact.gif) no-repeat left center; PADDING-BOTTOM: 0px; PADDING-TOP: 10px; BORDER-BOTTOM: #ccc 1px dotted; POSITION: relative; HEIGHT: 33px
+}
+#content .widgets UL.dig LI STRONG {
+	DISPLAY: block; FONT-SIZE: 13px; LEFT: 0px; WIDTH: 36px; FONT-FAMILY: arial; POSITION: absolute; TOP: 0px; TEXT-ALIGN: center
+}
+#content .widgets UL.dig LI STRONG A {
+	DISPLAY: block; COLOR: #93883f; LINE-HEIGHT: 43px
+}
+#content .widgets UL.dig LI A {
+	COLOR: #003399
+}
+#content .widgets UL.dig LI A:hover {
+	COLOR: #c30; TEXT-DECORATION: none
+}
+#content .main {
+	MARGIN-TOP: 0px
+}
+#content .type {
+	FLOAT: left; WIDTH: 468px
+}
+#content .comm {
+	FLOAT: right; WIDTH: 282px
+}
+#content .slide {
+	BORDER-RIGHT: #c7c7c7 1px solid; BORDER-TOP: #c7c7c7 1px solid; MARGIN-BOTTOM: 6px; BORDER-LEFT: #c7c7c7 1px solid; BORDER-BOTTOM: #c7c7c7 1px solid; TEXT-ALIGN: center
+}
+#content .idc {
+	BORDER-RIGHT: #ddd 1px solid; BORDER-TOP: #ddd 1px solid; BACKGROUND: url(/images/zz/server.jpg) no-repeat right -10px; MARGIN-BOTTOM: 7px; BORDER-LEFT: #ddd 1px solid; BORDER-BOTTOM: #ddd 1px solid; POSITION: relative; HEIGHT: 140px
+}
+#content .idc .price {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; BACKGROUND: #f1f1f1; PADDING-BOTTOM: 5px; WIDTH: 136px; BOTTOM: 0px; LINE-HEIGHT: 1.6em; PADDING-TOP: 5px; POSITION: absolute; TEXT-ALIGN: right
+}
+#content .d280 {
+	BORDER-RIGHT: #f1f1f1 1px solid; BORDER-TOP: #f1f1f1 1px solid; MARGIN-BOTTOM: 6px; OVERFLOW: hidden; BORDER-LEFT: #f1f1f1 1px solid; WIDTH: 280px; BORDER-BOTTOM: #f1f1f1 1px solid; TEXT-ALIGN: center
+}
+#content .d280 IMG {
+	WIDTH: 280px; HEIGHT: 60px
+}
+.rank-list {
+	FLOAT: right; WIDTH: 282px
+}
+.news-list {
+	FLOAT: left; MARGIN-BOTTOM: 6px; WIDTH: 656px
+}
+.news-list A {
+	COLOR: #04d
+}
+.news-list A:hover {
+	COLOR: #f60
+}
+.news-list .list-y {
+	BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.news-list .list-all {
+	BACKGROUND: #f2f2f2
+}
+.news-list .thead {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 8px; FONT-WEIGHT: bold; FONT-SIZE: 14px; BACKGROUND: #f0f0f0; PADDING-BOTTOM: 5px; PADDING-TOP: 6px; FONT-FAMILY: tahoma
+}
+.news-list .tbody {
+	BACKGROUND: #f2f2f2
+}
+.news-list .itembox {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; COLOR: #333; PADDING-TOP: 10px; BORDER-BOTTOM: #ccc 1px dotted
+}
+.news-list .box1 {
+	PADDING-RIGHT: 1em; PADDING-LEFT: 1em; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.news-list .box2 {
+	PADDING-RIGHT: 1em; MARGIN-TOP: 10px; PADDING-LEFT: 1em; PADDING-BOTTOM: 0px; COLOR: #666; TEXT-INDENT: 2em; LINE-HEIGHT: 1.6em; PADDING-TOP: 0px; FONT-FAMILY: Arial,"宋体"
+}
+.news-list .normal .itembox {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 5px; PADDING-TOP: 8px
+}
+.news-list .normal .box1 {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 8px; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.news-list .date {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; FLOAT: right; COLOR: #669999
+}
+.news-list .article {
+	BORDER-RIGHT: #abc 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #abc 1px solid; PADDING-LEFT: 0px; BACKGROUND: #f1f1f1; MARGIN-BOTTOM: 6px; PADDING-BOTTOM: 0px; BORDER-LEFT: #abc 0px solid; WIDTH: 100%; PADDING-TOP: 10px; BORDER-BOTTOM: #abc 1px solid
+}
+.news-list .article H1 {
+	PADDING-RIGHT: 0pt; PADDING-LEFT: 0pt; FONT-SIZE: 14px; PADDING-BOTTOM: 4px; WIDTH: 575px; COLOR: #c30; PADDING-TOP: 4px; FONT-FAMILY: tahoma; TEXT-ALIGN: center
+}
+.news-list .article .desc {
+	COLOR: #333; LINE-HEIGHT: 2em; BORDER-BOTTOM: #ccc 1px solid; TEXT-ALIGN: center
+}
+.news-list .article .text {
+	PADDING-RIGHT: 1em; MARGIN-TOP: 1em; PADDING-LEFT: 2em; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; OVERFLOW: hidden; COLOR: #222; LINE-HEIGHT: 23px; PADDING-TOP: 0px; FONT-FAMILY: tahoma
+}
+.news-list .article .text P {
+	MARGIN: 15px 0pt
+}
+.news-list .article .author {
+	CLEAR: both; LINE-HEIGHT: 26px; HEIGHT: 26px
+}
+.news-list .article #arctext A {
+	
+}
+.pager {
+	PADDING-RIGHT: 1em; PADDING-LEFT: 1em; BACKGROUND: #fff; PADDING-BOTTOM: 1em; PADDING-TOP: 1em; TEXT-ALIGN: right
+}
+.pager STRONG {
+	BORDER-RIGHT: #f60 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #f60 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 3px; BORDER-LEFT: #f60 1px solid; COLOR: #f60; MARGIN-RIGHT: 5px; PADDING-TOP: 3px; BORDER-BOTTOM: #f60 1px solid
+}
+.pager SPAN {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.pager A {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 5px; BACKGROUND: #f0f0f0; PADDING-BOTTOM: 3px; BORDER-LEFT: #ccc 1px solid; PADDING-TOP: 3px; BORDER-BOTTOM: #ccc 1px solid; TEXT-DECORATION: none
+}
+.pager INPUT {
+	BORDER-RIGHT: #ddd 1px solid; BORDER-TOP: #ddd 1px solid; VERTICAL-ALIGN: middle; BORDER-LEFT: #ddd 1px solid; WIDTH: 30px; LINE-HEIGHT: 20px; BORDER-BOTTOM: #ddd 1px solid; HEIGHT: 20px
+}
+.pager #button {
+	BORDER-RIGHT: #c33 1px solid; BORDER-TOP: #c33 1px solid; BORDER-LEFT: #c33 1px solid; WIDTH: 30px; COLOR: #fff; BORDER-BOTTOM: #c33 1px solid; BACKGROUND-COLOR: #f60
+}
+.pager_if {
+	TEXT-ALIGN: right
+}
+#footer {
+	CLEAR: both; BORDER-TOP: #ccc 1px solid; MARGIN-TOP: 10px; WIDTH: 950px; LINE-HEIGHT: 22px; PADDING-TOP: 1em; TEXT-ALIGN: center
+}
+#footer A {
+	COLOR: #039
+}
+#footer A:hover {
+	COLOR: #f60
+}
+#footer SPAN {
+	FONT-SIZE: 11px; FONT-FAMILY: tahoma
+}
+.art {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 6px; PADDING-BOTTOM: 6px; PADDING-TOP: 6px
+}
+.art H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; MARGIN: 10px; COLOR: #336699; PADDING-TOP: 0px; TEXT-ALIGN: center
+}
+.art DIV.info {
+	FONT-SIZE: 12px; COLOR: #666; TEXT-ALIGN: right
+}
+.art DIV.cnt {
+	FONT-SIZE: 14px; COLOR: #333; LINE-HEIGHT: 160%
+}
+.diggdiv {
+	CLEAR: both; MARGIN-TOP: 10px
+}
+.diggbox {
+	BACKGROUND: url(/images/diggbg2.gif) no-repeat; FLOAT: left; WIDTH: 60px; LINE-HEIGHT: 23px; MARGIN-RIGHT: 10px; HEIGHT: 58px
+}
+.diggnum {
+	MARGIN-TOP: 8px; FONT-WEIGHT: bold; FONT-SIZE: 12px; WIDTH: 58px; COLOR: #c00; HEIGHT: 23px; TEXT-ALIGN: center
+}
+.digglink {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN: 0px; WIDTH: 58px; TEXT-ALIGN: center
+}
+.diggdiv .prevnext {
+	MARGIN-TOP: 10px; FLOAT: right; WIDTH: 530px; LINE-HEIGHT: 23px
+}
+.cmtTh {
+	PADDING-RIGHT: 4px; MARGIN-TOP: 10px; PADDING-LEFT: 4px; FONT-SIZE: 12px; PADDING-BOTTOM: 4px; COLOR: #333; PADDING-TOP: 4px; BORDER-BOTTOM: #ff8f27 2px dotted; BACKGROUND-COLOR: #ffe9c0
+}
+.cmtTh SPAN {
+	FONT-SIZE: 14px; COLOR: #336699; FONT-FAMILY: Arial,"宋体"
+}
+.cmtCnt {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 6px; FONT-SIZE: 14px; PADDING-BOTTOM: 6px; COLOR: #ff6600; PADDING-TOP: 6px; BORDER-BOTTOM: #ccc 1px dotted
+}
+UL.list LI INPUT {
+	BORDER-RIGHT: #ff8f27 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #ff8f27 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; MARGIN: 4px; BORDER-LEFT: #ff8f27 1px solid; WIDTH: 200px; COLOR: blue; PADDING-TOP: 2px; BORDER-BOTTOM: #ff8f27 1px solid; BACKGROUND-COLOR: #fff
+}
+UL.list LI TEXTAREA {
+	BORDER-RIGHT: #ff8f27 1px solid; BORDER-TOP: #ff8f27 1px solid; BORDER-LEFT: #ff8f27 1px solid; WIDTH: 90%; BORDER-BOTTOM: #ff8f27 1px solid; HEIGHT: 120px
+}
+UL.tags {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+UL.tags LI {
+	DISPLAY: inline; FONT-SIZE: 12px; MARGIN: 0px; COLOR: #666; FONT-FAMILY: Arial
+}
+UL.tags LI A {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; FONT-SIZE: 12px; PADDING-BOTTOM: 2px; COLOR: #336699; LINE-HEIGHT: 200%; PADDING-TOP: 2px; TEXT-DECORATION: underline
+}
+UL.tags LI A:hover {
+	BACKGROUND: blue; COLOR: #fff
+}
+UL.listcmt LI {
+	MARGIN: 0px; LIST-STYLE-TYPE: none
+}
+DIV.cnt {
+	MARGIN-TOP: 10px; MARGIN-BOTTOM: 20px; TEXT-INDENT: 2em; LINE-HEIGHT: 180%; FONT-FAMILY: Arial,"宋体"
+}
+DIV.alert {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px
+}
+DIV.alert INPUT {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; FONT-WEIGHT: bold; PADDING-BOTTOM: 2px; MARGIN: 10px; COLOR: #ff6600; PADDING-TOP: 2px; BACKGROUND-COLOR: #fff
+}
+DIV.tags {
+	TEXT-ALIGN: right
+}
+DIV.box1 {
+	MARGIN-TOP: 6px; FONT-SIZE: 14px; BORDER-BOTTOM: #ccc 1px dotted
+}
+DIV.bb2 {
+	BACKGROUND-COLOR: #fff
+}
+DIV.prevnext INPUT {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; BORDER-LEFT: #ccc 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #ccc 1px solid
+}
+DIV.taglist {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-SIZE: 12px; PADDING-BOTTOM: 10px; LINE-HEIGHT: 180%; PADDING-TOP: 10px
+}
+DIV.taglist A {
+	MARGIN-LEFT: 6px; FONT-FAMILY: Arial,"宋体"
+}
+DIV.cnt TEXTAREA {
+	BORDER-RIGHT: #ff6600 2px dotted; BORDER-TOP: #ff6600 2px dotted; BORDER-LEFT: #ff6600 2px dotted; WIDTH: 98%; BORDER-BOTTOM: #ff6600 2px dotted
+}
+DIV.menu2 {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; WIDTH: 950px; LINE-HEIGHT: 160%; PADDING-TOP: 4px; BACKGROUND-COLOR: #336699
+}
+DIV.menu2 A {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; MARGIN: 2px; COLOR: #fff; PADDING-TOP: 2px; BORDER-BOTTOM: #fff 1px dotted
+}
+DIV.menu2 A:hover {
+	COLOR: #ff6600
+}
+.list-y UL.list LI A {
+	FONT-SIZE: 12px; COLOR: #333399
+}
+.list-b UL.list LI A {
+	COLOR: #336699
+}
+DIV.tags {
+	COLOR: #666
+}
+DIV.tags A {
+	COLOR: #336699
+}

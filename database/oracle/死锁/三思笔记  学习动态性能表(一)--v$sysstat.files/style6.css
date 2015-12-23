@@ -1,0 +1,132 @@
+BODY {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: #000000; FONT-FAMILY: Georgia, 'Times New Roman', serif; BACKGROUND-COLOR: #ffffff
+}
+A:link {
+	COLOR: #666666
+}
+A:visited {
+	COLOR: #404040
+}
+A:active {
+	COLOR: #bf0000; BORDER-BOTTOM: #666 1px solid
+}
+A:hover {
+	COLOR: #666666; BACKGROUND-COLOR: #cccccc
+}
+LABEL {
+	COLOR: #330000
+}
+#pagecell {
+	BACKGROUND-COLOR: #ffffff
+}
+#pageNav {
+	BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid; BACKGROUND-COLOR: #eaeaea
+}
+#leftNav {
+	BORDER-RIGHT: #cccccc 0px solid; BORDER-TOP: #cccccc 0px solid; BORDER-LEFT: #cccccc 0px solid; BORDER-BOTTOM: #cccccc 0px solid; BACKGROUND-COLOR: #eaeaea
+}
+#rightNav {
+	BORDER-RIGHT: #cccccc 0px solid; BORDER-TOP: #cccccc 0px solid; BORDER-LEFT: #cccccc 0px solid; BORDER-BOTTOM: #cccccc 0px solid; BACKGROUND-COLOR: #eaeaea
+}
+#content {
+	BORDER-TOP-WIDTH: 0px; BORDER-RIGHT: #cccccc 1px solid; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT: #cccccc 1px solid; BACKGROUND-COLOR: #ffffff
+}
+.contentTitle {
+	BORDER-RIGHT: #fea3ec 1px solid; BORDER-TOP: #fea3ec 1px solid; BORDER-LEFT: #fea3ec 1px solid; COLOR: #330000; BORDER-BOTTOM: #fea3ec 1px solid; BACKGROUND-COLOR: #fec2f2
+}
+.content A:link {
+	BORDER-BOTTOM: #404040 1px solid
+}
+.content A:visited {
+	BORDER-BOTTOM: #404040 1px dotted
+}
+.content A:hover {
+	BORDER-BOTTOM: #404040 1px solid
+}
+.content P {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-BOTTOM: 10px; LINE-HEIGHT: 150%; FONT-FAMILY: Georgia, 'Times New Roman', serif; TEXT-ALIGN: left
+}
+#siteName {
+	COLOR: white; FONT-FAMILY: verdana, arial, sans-serif; BACKGROUND-COLOR: black; TEXT-ALIGN: center
+}
+#siteName A {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; COLOR: white; FONT-FAMILY: verdana, arial, sans-serif; BORDER-RIGHT-WIDTH: 0px; TEXT-DECORATION: none
+}
+#siteName A:hover {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; COLOR: white; FONT-FAMILY: verdana, arial, sans-serif; BORDER-RIGHT-WIDTH: 0px; TEXT-DECORATION: none
+}
+P {
+	MARGIN-TOP: 6px; MARGIN-BOTTOM: 10px
+}
+A {
+	TEXT-DECORATION: none
+}
+#globalNav {
+	FONT-SIZE: medium; COLOR: white; BACKGROUND-COLOR: black
+}
+#globalLink {
+	COLOR: #ffffff; BACKGROUND-COLOR: #000000
+}
+#globalLink A {
+	COLOR: #ffffff
+}
+#globalLink A:visited {
+	COLOR: #ffffff
+}
+A.glink {
+	COLOR: #ffffff
+}
+A.glink:visited {
+	COLOR: #ffffff
+}
+A.glink:hover {
+	
+}
+#siteInfo {
+	BORDER-TOP: #fea3ec 1px solid; COLOR: #cccccc
+}
+.relatedLinks {
+	BORDER-BOTTOM: #fea3ec 0px solid
+}
+.relatedLinksTitle {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; FONT-WEIGHT: bold; FONT-SIZE: 12px; PADDING-BOTTOM: 3px; COLOR: #00002b; PADDING-TOP: 3px; BORDER-BOTTOM: #999999 1px solid; FONT-FAMILY: Georgia, 'Times New Roman', serif; LETTER-SPACING: 0.3em; TEXT-ALIGN: left
+}
+.button {
+	BORDER-RIGHT: #666666 1px solid; BORDER-TOP: #666666 1px solid; BORDER-LEFT: #666666 1px solid; BORDER-BOTTOM: #666666 1px solid
+}
+.calMonthNav {
+	FONT-WEIGHT: bold; FONT-SIZE: small; FONT-FAMILY: Georgia, 'Times New Roman', serif
+}
+.calMonthDay {
+	FONT-SIZE: small; FONT-FAMILY: Georgia, 'Times New Roman', serif; TEXT-ALIGN: center
+}
+.calMonthToday {
+	FONT-SIZE: small; COLOR: red; FONT-FAMILY: Georgia, 'Times New Roman', serif; TEXT-ALIGN: center
+}
+.storyTitle {
+	FONT-WEIGHT: normal; FONT-SIZE: 17px; COLOR: #333333; FONT-STYLE: italic; FONT-FAMILY: Georgia, Palatino, Garamond, Utopia, serif
+}
+.story {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 15px; PADDING-LEFT: 15px; BORDER-LEFT-WIDTH: 0px; FONT-SIZE: 12px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 5px; COLOR: #000000; PADDING-TOP: 15px; FONT-FAMILY: Georgia, 'Times New Roman', serif; BACKGROUND-COLOR: #ffffff; BORDER-RIGHT-WIDTH: 0px
+}
+.story A:link {
+	BORDER-BOTTOM: #404040 1px dotted
+}
+.story A:visited {
+	BORDER-BOTTOM: #606060 1px dotted
+}
+.story A:hover {
+	BORDER-BOTTOM: #404040 1px solid
+}
+.story P {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-BOTTOM: 10px; LINE-HEIGHT: 150%; FONT-FAMILY: Georgia, 'Times New Roman', serif; TEXT-ALIGN: left
+}
+.storyposted {
+	FONT-SIZE: x-small; COLOR: #666666; FONT-FAMILY: Georgia, 'Times New Roman', serif
+}
+.storytext blockquotexxx {
+	BORDER-TOP: #fea3ec 1px solid; BORDER-BOTTOM: #fea3ec 1px solid
+}
+.code {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #cccccc
+}

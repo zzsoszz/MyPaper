@@ -1,0 +1,58 @@
+drop table test2;
+drop type Love;
+create type Love as object
+(
+       name varchar(10),
+       haha varchar(50),
+       member function your return varchar2,
+       member procedure my
+);
+create type body Love is
+       member procedure my
+       is
+       begin
+             dbms_output.put_line('procedure');
+       end;
+       member function your return varchar2
+       is
+       begin                
+              return 'function';
+       end;
+end;
+create table test2
+(
+      one Love
+);
+
+insert into test2 values(Love('dd','haha'));
+
+declare 
+god Love;
+begin
+select one into god from test2 where rownum=1; 
+dbms_output.put_line(god.name);
+god.my();
+dbms_output.put_line(god.your());
+end;
+
+select * from test2;
+drop table test2;
+
+
+
+∂‘œÛ∏≥÷µ
+create type QingWa is object
+(
+       name varchar2(3000),
+       age  number
+)
+create table QingWaChi of QingWa;
+declare 
+one QingWa;
+begin
+    one:=QingWa('qing',111);/**********************/
+    insert into QingWaChi values(one);
+    one:=QingWa('haha',222);
+    insert into QingWaChi values(one);
+    dbms_output.put_line('aaa');
+end;

@@ -1,0 +1,37 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0083)http://spcode.baidu.com/spcode/spstyle/style1918.jsp?tn=bdwhx_sp&ctn=0&styleid=1918 -->
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<SCRIPT language=javascript>
+function BaiduQueryString(qs){
+var s = location.href;
+s = s.replace("?","?&").split("&");
+var re = "";
+for(i=1;i<s.length;i++)
+if(s[i].indexOf(qs+"=")==0)
+re = s[i].replace(qs+"=","");
+return re;}
+var tn=BaiduQueryString("tn");
+if(tn==""){ tn="baidu_unsp"; }
+var ctn=BaiduQueryString("ctn");
+if(ctn==""){ ctn="0"; }
+var styleid=BaiduQueryString("styleid");if(styleid==""){ styleid="1918"; }
+function BaiduReplaceStr(){
+var str=document.body.innerHTML;
+str=str.replace(/\$\{tn\}/g,tn)
+str=str.replace(/\$\{ctn\}/g,ctn);
+str=str.replace(/\$\{styleid\}/g,styleid);
+str=str.replace(/\$\%7Btn\%7D/g,tn);
+str=str.replace(/\$\%7Bctn\%7D/g,ctn);
+str=str.replace(/\$\%7Bstyleid\%7D/g,styleid);
+document.body.innerHTML=str;}
+</SCRIPT>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY><A 
+href="http://spcode.baidu.com/spcode/spClick?tn=${tn}&amp;ctn=${ctn}&amp;styleid=${styleid}&amp;tourl=http://220.194.54.11/lianmeng/qudao.php?prodid=29" 
+target=_blank><IMG src="style1918.files/728x90.gif" border=0></A>
+<SCRIPT language=javascript>
+BaiduReplaceStr();
+</SCRIPT>
+ </BODY></HTML>

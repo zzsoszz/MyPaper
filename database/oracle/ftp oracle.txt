@@ -1,0 +1,59 @@
+diff_date()
+{
+                TDAY=$1
+                yy=`date +%Y`
+                mm=`date +%m`
+                dd=`date +%d`
+
+                cni=`expr $dd - $TDAY`
+                if [ $cni -lt 1 ]
+                then
+                        mm=`expr $mm - 1`
+                        if [ $mm -lt 1 ]
+                        then
+                                mm=12
+                                yy=`expr $yy - 1`
+                        fi
+                        aaa=`cal $mm $yy`
+                        lastday=`echo $aaa|awk '{print $NF}'`
+                        zd=`expr $lastday + $cni`
+                else
+                  zd=$cni
+                fi
+                echo "0${mm}"|awk '{printf substr($0,length($0)-1,2)}'|read mm
+                echo "0${zd}"|awk '{printf substr($0,length($0)-1,2)}'|read zd
+                datestr=$yy$mm$zd
+}
+diff_date 1
+ORACLE_HOME=/oracle/app/oracle/product/9.2.0;
+export ORACLE_HOME
+echo "ORACLE_HOME:"$ORACLE_HOME
+$ORACLE_HOME/bin/sqlplus -s vbossusr/23Dk8s_34Dk@smaccess<<EOF
+set heading off;
+set echo off;
+set feedback off;
+set trims on;
+set lines 2000;
+set termout off;
+set verify off ;
+set pagesize 0;
+spool /bengine01/xyg/tousuzj${datestr}.txt;
+select trim(phone)||'*'||trim(to_char(submittime,'YYYYMMDD'))||'*'||to_char(submittime,'HH:mm:ss')||'*'||trim(city)||'*'||trim(belon
+gwhere)||'*'||trim(county)||'*'|| trim(village)||'*'||trim(othersign)||'*'||trim(problem) from tousuzj where to_char(submittime,'YYY
+YMMDD')=to_char(sysdate-1,'YYYYMMDD');
+spool off;
+EOF
+echo "aaa"$?
+echo "end spool"
+
+
+echo "ftp to 10.101.16.199"
+ftp -niv 10.101.16.199<<!
+user tousuzu tsz123
+bin
+prompt
+cd 投诉组/业务支撑中心
+put tousuzj${datestr}.txt
+bye
+!
+echo "end ftp"

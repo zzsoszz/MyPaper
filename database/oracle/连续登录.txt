@@ -1,0 +1,66 @@
+
+
+create table USERLOG
+(
+  USERID  VARCHAR2(1000),   --登录ID 
+  LOGTIME DATE  --登录时间
+);
+
+insert into userlog (USERID, LOGTIME)
+values ('1', to_date('18-10-2012', 'dd-mm-yyyy'));
+
+insert into userlog (USERID, LOGTIME)
+values ('1', to_date('19-10-2012', 'dd-mm-yyyy'));
+
+insert into userlog (USERID, LOGTIME)
+values ('1', to_date('20-10-2012', 'dd-mm-yyyy'));
+
+insert into userlog (USERID, LOGTIME)
+values ('1', to_date('21-10-2012', 'dd-mm-yyyy'));
+
+insert into userlog (USERID, LOGTIME)
+values ('1', to_date('22-10-2012', 'dd-mm-yyyy'));
+
+insert into userlog (USERID, LOGTIME)
+values ('1', to_date('23-10-2012', 'dd-mm-yyyy'));
+
+insert into userlog (USERID, LOGTIME)
+values ('1', to_date('24-10-2012', 'dd-mm-yyyy'));
+
+insert into userlog (USERID, LOGTIME)
+values ('1', to_date('25-10-2012', 'dd-mm-yyyy'));
+
+insert into userlog (USERID, LOGTIME)
+values ('1', to_date('26-10-2012', 'dd-mm-yyyy'));
+
+insert into userlog (USERID, LOGTIME)
+values ('1', to_date('27-10-2012', 'dd-mm-yyyy'));
+
+insert into userlog (USERID, LOGTIME)
+values ('1', to_date('28-10-2012', 'dd-mm-yyyy'));
+
+insert into userlog (USERID, LOGTIME)
+values ('1', to_date('29-10-2012', 'dd-mm-yyyy'));
+
+insert into userlog (USERID, LOGTIME)
+values ('2', to_date('30-10-2012', 'dd-mm-yyyy'));
+
+insert into userlog (USERID, LOGTIME)
+values ('2', to_date('31-10-2012', 'dd-mm-yyyy'));
+
+insert into userlog (USERID, LOGTIME)
+values ('2', to_date('11-10-2012', 'dd-mm-yyyy'));
+
+
+
+--连续七天登录
+select v.userid,v.logtime1,count(v.logtime2) from (
+select t.userid,t.logtime logtime1 ,t2.logtime as logtime2  from userlog t ,userlog t2
+where  t.userid=t2.userid  
+and  t.logtime<t2.logtime
+and  t2.logtime<=t.logtime+7
+) v group by v.userid,v.logtime1 
+having count(v.logtime2)=7
+
+
+

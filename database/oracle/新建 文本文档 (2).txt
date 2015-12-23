@@ -1,0 +1,21 @@
+drop type Persons;
+drop table employee;
+创建对象类型
+create type Persons is object
+(
+       name varchar(50),
+       age  int
+)
+创建行对象
+create table sys.mans of Persons;
+insert into mans values(Persons('晴天',22));
+创建表
+create table employee
+(
+       money int,
+       person ref Persons             
+)
+insert into employee select 22,ref(a) from mans a;
+
+select * from sys.mans;
+select * from sys.employee;

@@ -1,0 +1,4117 @@
+
+server_config = {
+	getserverpage: function( host ){
+						return 		"http://" +  host + "/browser/html/init" ;
+					},
+	controlerhost:"nc."+document.domain+":81",
+	getrandserver: function( host ){
+		if( Browser.browser == BrowserType.IE )
+		{
+		return parseInt( Math.random()*100000 )+"."+ host;
+		}
+		else
+			return host;
+	}
+}
+page_data= {
+	chat		: null,
+	notify		: null,
+	controler	: null
+}
+
+
+
+UniqueGenerator = {
+	nextID			: 0,
+	getUniqueID		: function(){var now = new Date();
+						return  ""+
+								now.getMinutes() +
+								now.getSeconds() +
+								now.getMilliseconds() +
+								parseInt( Math.random()*100000000 ) +
+								this.nextID++;  
+					  }
+}
+
+
+BrowserType={
+	IE			: 1,
+	Mozilla		: 2,
+	Opera		: 3,
+	Konqueror	: 4,
+	NS			: 5,
+	Other		: 6	
+}
+
+function _Browser()
+{
+	this.browser		= checkBrowser();	
+	function checkBrowser()
+	{
+		if (document.layers) 
+			return BrowserType.NS;
+		if (document.all) 
+		{
+			var agt=navigator.userAgent.toLowerCase();
+			var is_opera = (agt.indexOf("opera") != -1);
+			var is_konq = (agt.indexOf("konqueror") != -1);
+			if(is_opera) 
+			{
+				return BrowserType.Opera;
+			} 
+			else 
+			{
+				if(is_konq) 
+				{
+					return BrowserType.Konqueror;
+				} 
+				else 
+				{
+					return BrowserType.IE;
+				}
+			}
+		}
+		else if( document.getElementById )
+		{
+			return BrowserType.Mozilla;
+		}
+		return BrowserType.Other;
+	}		
+}
+var Browser = new _Browser();
+
+
+
+function connection( h )
+{
+	this.host		= h;
+	this.connect_data = null;
+	this.command	= null;
+	var con	=  iframerequest();
+	function iframerequest()
+	{
+		var t=null;
+		switch( Browser.browser )
+		{
+			case BrowserType.NS:
+				t = new Layer(100);
+				break;
+			case BrowserType.IE:
+			case BrowserType.Mozilla:
+			case BrowserType.Opera:
+			case BrowserType.Konqueror:
+				t = document.createElement('div');
+				break;				
+			default:
+				return null;
+		}
+		t.style.width	= "1px";
+		t.style.height	= "1px";
+		//t.style.visibility = "hidden";
+		t.style.overflow = "hidden";
+		document.documentElement.appendChild( t );
+		return t;
+	}	
+	this.open = function( url )
+	{
+		var magic = "<iframe id='ifr" + UniqueGenerator.getUniqueID() + "' src='" + url + "'/>";
+		con.innerHTML = magic;	
+	}
+	this.close = function()
+	{
+		document.documentElement.removeChild( con );	
+	}	
+	this.onreadycallback = null;
+}
+
+connection_pool = {
+
+	cons			: new Array(),
+	
+	newconnect		: null,
+	disconnect		: null,
+	getconnect		: function( h ){
+					   return this.cons[ h ];
+					}
+	
+}
+function handle_connect ( h , command )
+{
+	var con = connection_pool.getconnect( h );
+	if(  con )
+	{
+		con.command = command;
+		if( con.onreadycallback && typeof(con.onreadycallback) == "function" )
+		{
+			con.onreadycallback( con.host );
+		}
+	}	
+}
+connection_pool.newconnect = function( h , readycallback )
+{
+	var con = this.cons[h] ;
+	if( !con )
+	{
+		con = new connection( h );
+		con.onreadycallback = readycallback;
+		this.cons[ h ] = con;
+		con.open( server_config.getserverpage(h) );		
+	}
+	return con;
+}
+
+connection_pool.disconnect = function( h )
+{
+	var con = this.cons[h];
+	if(  con )
+	{
+		con.close();
+		this.cons[h]=null;
+	}	
+}
+
+page_data.controler = {
+
+		host:null,
+		
+		pin_state: {
+			online	:true,
+			offline	:false
+		},
+		user_state: {
+			online	:true,
+			offline	:false
+		},
+		only_controller:false
+	
+}
+
+controler_manager = {
+	
+	getnotifyhost	: null,
+	
+	checkpin		: null,
+	
+	checkuserid		: null,
+	
+	event			: null,
+	
+	notify_manager	: null	
+	
+}
+
+controler_manager.getnotifyhost = function( controler_server )
+{
+	page_data.controler.host =  controler_server;
+	var con = connection_pool.getconnect( controler_server );	
+	if( !con )
+	{
+		con = connection_pool.newconnect( server_config.getrandserver( controler_server ), controler_manager.event.onconnectready);
+		return;
+	}
+	if( con.command && typeof( con.command.gethost ) == "function" )
+	{
+		con.command.gethost();	
+	}
+}
+//event
+
+controler_manager.event = {
+
+		onconnectready	: null,
+		onhost			: null,
+		oncheckpin		: null,
+		oncheckuserid	: null,
+		event_sink		: null			
+}
+
+controler_manager.event.onconnectready = function( h )
+{
+	var con = connection_pool.getconnect(h);
+	if( con )
+	{
+		con.command.seteventsink( controler_manager.event ); 
+		controler_manager.checkpin	= con.command.checkpin;			
+		controler_manager.checkuserid  = con.command.checkuserid;		
+		if( page_data.controler.only_controller )
+		{
+			if( controler_manager.event.event_sink && controler_manager.event.event_sink.oninitialize )
+			{
+				controler_manager.event.event_sink.oninitialize( controler_manager );
+			}
+			return;
+		}
+		con.command.gethost();
+	}
+}
+
+controler_manager.event.onhost = function( h )
+{
+	if ( controler_manager.notify_manager && typeof( controler_manager.notify_manager.event.onhost ) == "function" )
+	{
+		controler_manager.notify_manager.event.onhost( server_config.getrandserver(h) );		
+	}
+}
+controler_manager.event.oncheckpin = function(  pin , result )
+{	
+	if( controler_manager.event.event_sink && 
+		typeof( controler_manager.event.event_sink.oncheckpin ) == "function" )
+	{
+		controler_manager.event.event_sink.oncheckpin(  pin , result );		
+	}
+}
+controler_manager.event.oncheckuserid = function(  pin , userid , result )
+{
+	if( controler_manager.event.event_sink && 
+		typeof( controler_manager.event.event_sink.oncheckuserid ) == "function" )
+	{
+		controler_manager.event.event_sink.oncheckuserid(  pin , userid , result );		
+	}
+}
+
+function OnControllerDestroy()
+{
+	if( controler_manager &&
+		controler_manager.notify_manager && 
+		controler_manager.notify_manager.chat_manager &&
+		controler_manager.notify_manager.chat_manager.leaveallchannel )
+	{
+		controler_manager.notify_manager.chat_manager.leaveallchannel();
+	}
+}
+
+
+page_data.notify = {
+		success 		: "success",
+		fail			: "fail",
+		pin				: "",
+		alias			: "guest_" + UniqueGenerator.getUniqueID(),
+		sessionid		: "",
+		privateid		: -1,
+		publicid		: 9999999,
+		initurl			: "",
+		sync			: true
+}
+
+notify_manager = {
+	
+	newconnect			: null,
+	
+	login				:   null,
+	sendaction			:	null,	
+	sendprivateaction	:	null,	
+	sendurlinvite		:	null,
+	sendnewchatinvite	:	null,
+	sendchatinvite		:	null,
+	getpublic			:	null,
+	
+	event			: null,
+	
+	chat_manager	: null	
+	
+}
+
+notify_manager.newconnect = function( h )
+{
+	var con = connection_pool.getconnect( h );	
+	if( !con )
+	{
+		con = connection_pool.newconnect( h , notify_manager.event.onconnectready);
+		
+	}
+}
+				
+//event
+
+notify_manager.event = {
+
+		onhost			: null,
+		onconnectready	: null,
+		onlogin			: null,
+		onaction		: null,
+		onurlinvite		: null,
+		onchatinvite	: null,
+		onnotifysend	: null,
+		onpublic		: null,
+		onend			: null,				
+		event_sink		: null			
+}
+notify_manager.event.onhost	= function( h )
+{
+	if( !connection_pool.getconnect( h ) )
+	{
+		notify_manager.newconnect( h );		
+	}
+	else
+	{
+		notify_manager.login( page_data.notify.alias );		
+	}
+}
+
+notify_manager.event.onconnectready = function( h )
+{
+	var con = connection_pool.getconnect(h);
+	if( con )
+	{
+		con.command.seteventsink( notify_manager.event );
+		notify_manager.login	= con.command.login;			
+		notify_manager.sendaction = con.command.sendaction;		
+		notify_manager.sendprivateaction = con.command.sendprivateaction;			
+		notify_manager.sendurlinvite = con.command.sendurlinvite;					
+		notify_manager.sendnewchatinvite = con.command.sendnewchatinvite;				
+		notify_manager.sendchatinvite = con.command.sendchatinvite;	
+		notify_manager.getpublic = con.command.getpublic;	
+		notify_manager.login( page_data.notify.alias );	
+	}
+}
+function resync( h )
+{
+	var con = connection_pool.getconnect(h);
+	if( con )
+	{
+		con.command.synchronize( page_data.notify.privateid );
+	}	
+}
+
+notify_manager.event.onend	= function( tm , h )
+{
+	setTimeout( "resync('"+h+"')" , 0 );
+	/*var con = connection_pool.getconnect(h);
+	if( con )
+	{
+		con.command.synchronize( page_data.notify.privateid );
+	}*/	
+}
+notify_manager.event.onlogin = function( tm ,h , result, pin, sessionid )
+{
+	var con = connection_pool.getconnect(h);
+	if( con )
+	{
+		if( page_data.notify.success )
+		{
+			var bRelogin = ( result && pin !="" && page_data.notify.pin !=""  );
+			page_data.notify.pin = pin;
+			if( notify_manager.event && notify_manager.event.event_sink && typeof( notify_manager.event.event_sink.onlogin ) == "function")
+			{
+				notify_manager.event.event_sink.onlogin( tm ,con.host , pin  , bRelogin);
+			}
+			if( bRelogin )
+			{
+				page_data.notify.privateid = -1;
+				page_data.notify.publicid  = 999999;
+			}
+			page_data.notify.sessionid = sessionid;
+			if( page_data.notify.sync )
+				con.command.synchronize( page_data.notify.privateid  );
+			return;
+		}		
+	}
+}
+notify_manager.event.onpublic = function( tm ,result ,cookie)
+{
+	if( notify_manager.event.event_sink && typeof( notify_manager.event.event_sink.onpublicend ) == "function")
+	{
+		notify_manager.event.event_sink.onpublicend( tm ,result ,cookie);
+	}		
+}
+
+notify_manager.event.onurlinvite = function( tm ,wcshost, chatid, id )
+{	
+	page_data.notify.privateid = id;
+	if( notify_manager.chat_manager )
+	{
+		notify_manager.chat_manager.event.onurlinvite( tm ,wcshost , chatid  );
+	}
+}
+notify_manager.event.onchatinvite = function( tm ,fromalias , wcshost,chatid,chatkey,init,id,pinfrom,pinto)
+{
+	page_data.notify.privateid = id;
+	if( notify_manager.chat_manager )
+	{
+		notify_manager.chat_manager.event.onchatinvite( tm ,fromalias , wcshost,chatid,chatkey,init,pinfrom,pinto);
+	}
+}
+
+
+notify_manager.event.onnotifysend = function( tm ,result )
+{
+	if( !result )
+	{
+		if( controler_manager && page_data.controler.host )
+		{
+			controler_manager.getnotifyhost( page_data.controler.host );
+		}
+	}
+	if( notify_manager.event.event_sink && typeof( notify_manager.event.event_sink.onnotifysend ) == "function")
+	{
+		notify_manager.event.event_sink.onnotifysend( tm ,result );
+	}	
+}
+
+notify_manager.event.onaction = function( tm ,from, url, notify, id , actiontype )
+{
+	page_data.notify.publicid = id;
+	if( notify_manager.event.event_sink && typeof( notify_manager.event.event_sink.onpublicaction ) == "function")
+	{
+		notify_manager.event.event_sink.onpublicaction( tm ,from, url, notify , actiontype );
+	}	
+}
+notify_manager.event.onprivateaction = function( tm ,from, url, notify, id , actiontype )
+{
+	if( parseInt(id) <= parseInt(page_data.notify.privateid) )
+		return;
+	page_data.notify.privateid = id;
+	if( notify_manager.event.event_sink && typeof( notify_manager.event.event_sink.onprivateaction ) == "function")
+	{
+		notify_manager.event.event_sink.onprivateaction( tm ,from, url, notify , id , actiontype  );
+	}	
+}
+
+if( controler_manager )
+	controler_manager.notify_manager = notify_manager;
+
+
+page_data.chat = {
+		
+		success 		: "success",
+		fail			: "fail",
+		
+		channelmode		: {
+					public	:"public",
+					private	:"private"
+		},
+		userstate		: {
+				join	:"join",
+				leave	:"leave"
+		},
+		channelstate	: {
+				uncreate	: 0,
+				created		: 1						
+		},
+		host_alias		 : {
+			alias_host_map	: new Array(),
+			setaliashost: function( host , alias ){
+				this.alias_host_map[ host ] = alias;	
+			},
+			gethostbyalias:function( alias ){
+				for( var i in this.alias_host_map )
+				{
+					if( this.alias_host_map[ i ] == host )
+						return true;
+				}
+				return false;
+			},
+			getaliasbyhost : function( host ){
+				return this.alias_host_map[ host ];
+			}
+		},
+		recvstat	: true,
+		currenturl	: String(location),
+		publiclistcount : 30,
+		cnt			: "cnt",
+		recv		: true
+}
+
+function channel( channelid , h , sink , channelmode , channekkey )
+{
+	this.channelmode = channelmode;
+	this.channelkey = channekkey;
+	this.toString = function(){ return "channel"; }
+	this.eventsink =  sink;
+	this.channelid = channelid;
+	this.gethost = function(){
+		return connect.host;
+	}
+	this.setstate = function( state ){
+		_state = state;
+		if( this.eventsink && this.eventsink.oncreatestate )
+		{
+			this.eventsink.oncreatestate ( _state , this );
+		}
+	}
+	this.getstate = function(){
+		return _state;
+	}
+	var _state = page_data.chat.channelstate.uncreate;
+	
+	var connect   = connection_pool.getconnect( h );
+	if( !connect )
+	{
+		connect = connection_pool.newconnect( h , chat_manager.event.onconnectready);
+		connect.connect_data = {
+						sessionid:"",
+						trid	 :-1,
+						initurl	 :""
+					};
+	}
+	this.checkstatus = function()
+	{
+		if( connect && connect.command )
+		{
+			this.setstate( page_data.chat.channelstate.created );
+		}
+	}
+	this.join = function( )
+	{
+		if( connect && connect.command && connect.command.join)
+			connect.command.join( this.channelid , this.channelkey , this.channelmode , connect.connect_data.sessionid );
+	}
+
+	this.leave = function( )
+	{
+		if( connect && connect.command && connect.command.leave)
+			connect.command.leave( this.channelid , connect.connect_data.sessionid );
+	}
+
+	this.send = function( body  )
+	{
+		if( connect && connect.command && connect.command.send)
+			connect.command.send( this.channelid , body , connect.connect_data.sessionid );
+	}
+	this.list = function( )
+	{
+		if( connect && connect.command && connect.command.list)
+			connect.command.list( this.channelid , page_data.chat.publiclistcount , connect.connect_data.sessionid );
+	}
+
+	this.onjoin = function( tm ,result )
+	{
+		if( result == page_data.chat.success && this.channelmode == page_data.chat.channelmode.public )
+		{
+			this.list( page_data.chat.publiclistcount );
+		}
+		if( this.eventsink.onjoin )
+		{
+			this.eventsink.onjoin( tm , result );
+		}
+	}
+	this.onchat = function( tm ,trid , pin , userid , nickname , msgbody )
+	{
+		if( parseInt( trid ) <= parseInt( connect.connect_data.trid ) )
+			return;		
+		connect.connect_data.trid = trid;
+		if( this.eventsink && typeof( this.eventsink.onchat ) == "function" )
+		{
+			this.eventsink.onchat( tm ,pin , userid, nickname , msgbody );
+		}
+	}
+	this.onstate = function( tm ,trid , pin , userid, nickname , userstate , photo )
+	{
+		if( parseInt( trid ) <= parseInt( connect.connect_data.trid ) )
+			return;		
+		connect.connect_data.trid = trid;
+			
+		if( userstate == page_data.chat.userstate.join )
+		{
+			if( this.eventsink && typeof( this.eventsink.onuserjoin ) == "function" )
+			{
+				this.eventsink.onuserjoin( tm , pin , userid , nickname , photo );
+			}
+		}
+		else if( userstate == page_data.chat.userstate.leave )
+		{
+			if( this.eventsink && typeof( this.eventsink.onuserleave ) == "function" )
+			{
+				this.eventsink.onuserleave( tm , pin , userid , nickname , photo );
+			}
+		}
+	}
+	this.onuscnt = function( tm , usercount )
+	{
+		if( this.eventsink && typeof( this.eventsink.onuscnt ) == "function" )
+		{
+			this.eventsink.onuscnt( tm , usercount );
+			//setTimeout( "chat_manager.list('"+this.channelid+"','"+this.gethost()+"')" , 60000 );
+			setTimeout( this.list.bind( this ) , 30000 );
+		}
+	}
+	this.onlist = function( tm , h , channelid  , trid , pin , userid , nickname , userstate , photo  )
+	{
+		//if( pin == page_data.notify.pin )
+		//	return;
+		if( this.eventsink && typeof( this.eventsink.onlist ) == "function" )
+		{
+			this.eventsink.onlist( tm  , trid , pin , userid , nickname , userstate , photo );
+		}
+	}
+	this.onreinvite = function( tm  , wcshost,chatid, bpublic , fromalias,chatkey ,init ,pinfrom , pinto )
+	{
+		if( this.eventsink && typeof( this.eventsink.onreinvite ) == "function" )
+		{
+			this.eventsink.onreinvite( tm  , wcshost,chatid, bpublic , fromalias,chatkey,init,pinfrom,pinto );
+		}
+	}
+}
+
+chat_manager = {
+
+	channels		: {},
+	
+	getchannel		: function( channelid , h ){
+						return this.channels[ this.getinnerchannelid(channelid,h) ];
+					 },
+	
+	newchannel		: function( channelid , h , eventsink , channelmode , channekkey ){ 
+						var id = this.getinnerchannelid(channelid,h);
+						var newchl = this.channels[id];
+						if( newchl )
+						{
+							return newchl;
+						}
+						newchl = new channel( channelid , h , eventsink , channelmode , channekkey );
+						this.channels[ id ] = newchl;
+						newchl.checkstatus();
+					  },
+	
+	removechannel	: function( channelid , h ){ 
+						this.channels[ this.getinnerchannelid(channelid,h) ] = null;
+					 },
+	
+	getinnerchannelid : function( channelid , h ){
+						return channelid;
+					 },
+	
+	event			: null,
+	
+	login		  	: null,
+	join		  	: null,		
+	leave		  	: null,		
+	recv		  	: null,		
+	send		  	: null,
+	list			: null,
+	leaveallchannel : null,
+	chatconnect		:[]
+}
+chat_manager.login = function()
+{
+	for( var i = 0 ; i < chat_manager.chatconnect.length ; i ++ )
+	{
+		var con = connection_pool.getconnect( chat_manager.chatconnect[ i ] );
+		
+		if(  con && con.command && con.command.login )
+		{
+			con.command.login( page_data.notify.alias , page_data.notify.pin , "" );			
+		}
+	}
+}	
+chat_manager.join = function( channelid , host , channelkey , channelmode )
+{
+	var ch = this.getchannel( channelid , host );
+	if( ch )
+	{
+		ch.join( channelkey , channelmode );
+	}
+}	
+chat_manager.leave = function( channelid , host )
+{
+	var ch = this.getchannel( channelid , host );
+	if( ch )
+		ch.leave();
+}	
+
+chat_manager.send = function( channelid , host , body  )
+{
+	var ch = this.getchannel( channelid , host );
+	if( ch )	
+		ch.send( body );
+}
+chat_manager.recv = function( h )
+{
+	if( !page_data.chat.recv )
+		return;
+	var con = connection_pool.getconnect( h );
+	if( con )
+	{
+		con.command.recv( con.connect_data.trid , con.connect_data.sessionid , page_data.chat.recvstat );	
+	}		
+}	
+chat_manager.list = function( channelid , host , count )
+{
+	var ch = this.getchannel( channelid , host );
+	if( ch )
+		ch.list( count );
+}
+
+chat_manager.leaveallchannel = function( )
+{
+	for( var chk in  chat_manager.channels )
+	{
+		var ch = chat_manager.channels[ chk ];
+		if( ch && 
+			ch.toString() == "channel"
+			)
+		{
+			ch.leave();
+		}
+	}			
+}
+
+
+
+
+//event
+
+chat_manager.event = {
+
+		onconnectready	: null,
+
+		onlogin		  	: null,
+		
+		onjoin			: null,
+		
+		onleave			: null,
+		
+		onchat			: null,
+		
+		onstate			: null,
+		
+		onlist			: null,
+		
+		onuscnt			: null,
+		
+		onsend			: null,
+		
+		onend			: null,
+		
+		onurlinvite		: null,
+		
+		onchatinvite	: null,
+		
+		//外部事件接收器
+		
+		event_sink		: null
+		
+}
+
+
+chat_manager.event.onconnectready = function( h )
+{
+	var con = connection_pool.getconnect( h);
+	if( con )
+	{
+			
+		con.command.seteventsink( chat_manager.event );
+		con.command.login( page_data.notify.alias , page_data.notify.pin , con.connect_data.sessionid );
+	}
+	chat_manager.chatconnect.push( h );
+}
+
+chat_manager.event.onurlinvite = function( tm ,wcshost, chatid )
+{
+	if(  chat_manager.getchannel(chatid , wcshost) && chat_manager.event.event_sink && chat_manager.event.event_sink.onreinvite )
+	{
+		chat_manager.event.event_sink.onreinvite( tm ,wcshost, chatid , true );
+		return;
+	}
+	var aliashost = page_data.chat.host_alias.getaliasbyhost( wcshost );
+	if( !aliashost )
+	{
+		aliashost = server_config.getrandserver( wcshost );
+		page_data.chat.host_alias.setaliashost( wcshost , aliashost );
+	}
+	
+	if( chat_manager.event.event_sink && typeof( chat_manager.event.event_sink.onurlinvite ) == "function")
+	{
+		chat_manager.event.event_sink.onurlinvite( tm ,aliashost, chatid );
+	}
+}
+
+chat_manager.event.onchatinvite = function( tm ,fromalias , wcshost,chatid,chatkey,init,pinfrom,pinto )
+{
+	var chl = chat_manager.getchannel(chatid , wcshost);
+	if( chl  && typeof(chl.onreinvite)=="function" )
+	{
+		chl.onreinvite( tm  , wcshost,chatid, false , fromalias,chatkey,init,pinfrom,pinto );
+		//chat_manager.event.event_sink.onreinvite( tm  , wcshost,chatid, false , fromalias,chatkey,init,pinfrom,pinto  );
+		return;
+	}
+	var aliashost = page_data.chat.host_alias.getaliasbyhost( wcshost );
+	if( !aliashost )
+	{
+		aliashost = server_config.getrandserver( wcshost );
+		page_data.chat.host_alias.setaliashost( wcshost , aliashost );
+	}
+	
+	if( chat_manager.event.event_sink && typeof( chat_manager.event.event_sink.onchatinvite ) == "function")
+	{
+		chat_manager.event.event_sink.onchatinvite( tm , aliashost,chatid, fromalias , chatkey , init ,pinfrom==page_data.notify.pin ,pinfrom,pinto );
+	}
+}
+
+chat_manager.event.onend	= function( tm , h )
+{
+	setTimeout( "chat_manager.recv('"+h+"')" , 0 );
+	//chat_manager.recv( h );
+}
+chat_manager.event.onlogin = function( tm ,h , sessionid , result )
+{
+	var con = connection_pool.getconnect(h);
+	if( con )
+	{
+		if( page_data.chat.success == result )
+		{
+			con.connect_data.sessionid = sessionid;
+			chat_manager.recv( h );
+			for( var chk in  chat_manager.channels )
+			{
+				var ch = chat_manager.channels[ chk ];
+				if( ch && 
+					ch.toString() == "channel" &&
+					ch.gethost() == h && 
+					ch.getstate() == page_data.chat.channelstate.uncreate )
+				{
+					ch.setstate( page_data.chat.channelstate.created );
+				}
+			}			
+			return;
+		}
+		con.command.login( page_data.notify.alias , page_data.notify.pin , con.connect_data.sessionid );		
+	}
+}
+
+chat_manager.event.onjoin = function ( tm ,h , channelid , result )
+{
+	var ch = chat_manager.getchannel( channelid , h );
+	if( ch  )	
+	{
+		ch.onjoin( tm ,result );
+	}
+}
+
+chat_manager.event.onleave = function( tm ,h , channelid , result )
+{
+	var ch = chat_manager.getchannel( channelid , h );
+	if( ch && ch.eventsink && ch.eventsink.onleave )	
+	{
+		if( result == page_data.chat.success )
+		{
+			chat_manager.removechannel( channelid , h );
+		}
+		if( ch.eventsink.onleave )
+		{
+			ch.eventsink.onleave( tm ,result );			
+		}
+	}
+	
+}
+
+chat_manager.event.onchat = function( tm ,h , channelid , trid , pin , userid, nickname , msgbody )
+{
+	var ch = chat_manager.getchannel( channelid , h );
+	if( ch && ch.onchat )	
+	{
+		ch.onchat( tm ,trid , pin , userid, nickname , msgbody);
+	}
+}
+
+chat_manager.event.onuscnt = function( tm , h , channelid , usercount )
+{
+	var ch = chat_manager.getchannel( channelid, h );
+	if( ch && ch.onuscnt )	
+	{
+		ch.onuscnt( tm  , usercount );
+	}
+}
+
+chat_manager.event.onlist = function( tm , h , channelid , trid , pin , userid , nickname , userstate , photo  )
+{
+	var ch = chat_manager.getchannel( channelid, h );
+	if( ch && ch.onlist )	
+	{
+		ch.onlist( tm , h , channelid , trid , pin , userid , nickname , userstate , photo  );
+	}
+}
+
+
+chat_manager.event.onstate = function( tm ,h , channelid , trid , pin , userid, nickname , userstate , photo  )
+{
+	var ch = chat_manager.getchannel( channelid, h );
+	if( ch && ch.onstate )	
+	{
+		ch.onstate( tm ,trid , pin , userid, nickname , userstate , photo);
+	}
+}
+
+chat_manager.event.onsend = function( tm ,h , channelid , result )
+{
+	var ch = chat_manager.getchannel( channelid , h );
+	if( ch && ch.eventsink && ch.eventsink.onsend )	
+	{
+		ch.eventsink.onsend( tm ,result );
+	}
+}
+
+if( notify_manager )
+	notify_manager.chat_manager = chat_manager;
+var ToolbarButton = Class.create();
+ToolbarButton.prototype = {
+	buttonstyle	: {
+		over:"mouseover",
+		out	:"mouseout",
+		down:"mousedown",
+		up	:"mouseup"
+	},
+	initialize	: function( toolbar , id , theame , parameters  ){
+		this.ToolBar = toolbar;
+		var _button = document.createElement("div");	
+		this.button = this.ToolBar.appendChild( _button );
+		this.button.id = id;
+		if( theame )
+			this.button.className = theame+"_" + this.button.id;
+		if( parameters.buttonText )
+			this.button.innerHTML	= parameters.buttonText;
+		if( parameters.ToolTip )
+			this.button.title = parameters.ToolTip;
+		this.eventMouseOver		= this.OnMouseOver.bindAsEventListener( this );
+		this.eventMouseOut		= this.OnMouseOut.bindAsEventListener( this );
+		this.eventMouseDown		= this.OnMouseDown.bindAsEventListener( this );
+		this.eventMouseUp		= this.OnMouseUp.bindAsEventListener( this );
+		Event.observe(this.button, "mouseover", this.eventMouseOver);
+		Event.observe(this.button, "mouseout", this.eventMouseOut);
+		Event.observe(this.button, "mousedown", this.eventMouseDown);
+		Event.observe(this.button, "mouseup", this.eventMouseUp);
+	},
+	setToolTip		:function( Tooltip)
+	{
+		this.button.title = Tooltip;		
+	},
+	setButtonText	:function( buttonText )
+	{
+		this.button.innerHTML = buttonText;
+	},
+	addEventListener:function( evt , listener )
+	{
+		Event.observe( this.button, evt, listener );	
+	},
+	removeEventListener:function( evt , listener )
+	{
+		Event.stopObserving( this.button , evt , listener );
+	},
+	Destroy	   :function()
+	{
+		Event.stopObserving(this.button, "mouseover", this.eventMouseOver);
+		Event.stopObserving(this.button, "mouseout", this.eventMouseOut);
+		Event.stopObserving(this.button, "mousedown", this.eventMouseDown);
+		Event.stopObserving(this.button, "mouseup", this.eventMouseUp);
+		this.ToolBar.removeChild( this.button );
+	},
+	OnMouseOver:function()
+	{
+		this.button.className = this.buttonstyle.over;
+	},
+	OnMouseOut:function()
+	{
+		this.button.className = this.buttonstyle.out;
+	},
+	OnMouseDown:function()
+	{
+		this.button.className = this.buttonstyle.down;
+	},
+	OnMouseUp:function()
+	{
+		this.button.className = this.buttonstyle.up;
+	}
+};
+var ToolBar = Class.create();
+ToolBar.prototype = {
+
+	initialize	: function( band , id , parameters  ){
+		if( parameters.theame )
+			this.theame		= parameters.theame;
+		this.buttons	= {};
+		var bar = document.createElement("div");
+		bar.id = id;
+		if( this.theame )
+		{
+			bar.className = this.theame+"_"+id;
+		}
+		else
+		{
+			bar.style.width = "100%";
+			bar.style.height = "20px";
+		}
+		this.ToolBar = band.appendChild( bar );
+	},	
+	addButton	: function( id , parameters ){
+		if( this.buttons[id] == null )
+		{
+			var button = new ToolbarButton( this.ToolBar , id  , this.theame , parameters );
+			button.addEventListener( "click" ,parameters.clickEventListener );
+			this.buttons[id] = button;
+			return button;
+		}		
+	},
+	removeButton:function( id ){
+		var _button = this.buttons[id];
+		if( _button )
+		{
+			_button.removeEventListener( "click" ,parameters.clicklistener );
+			_button.Destroy();
+			delete this.buttons[id];
+			this.buttons[id] = null;
+		}
+	}
+};
+
+
+var Cookies = Class.create();
+String.prototype.trim = function()
+{
+	return this.replace(/^\s+|\s+$/g,"");
+} 
+String.prototype.ltrim = function()
+{
+	return this.replace(/^\s+/g, "");
+} 
+String.prototype.rtrim = function()
+{
+	return this.replace(/\s+$/g, "");
+}
+function cookiepair( name , value ){
+	this.iscookievalue = true;
+	this.name  = name.trim();
+	this.value = value;
+	this.toString = function()
+	{
+		if( this.name )
+		{
+			return escape(this.name) + "=" + (this.value?escape(this.value):"");
+		}
+		else
+		{
+			return "";
+		}
+	}
+}
+Cookies.prototype = {	
+	cookies		: [], 
+	initialize	: function(){
+		var existCookie = document.cookie;
+		if( existCookie )
+		{
+			var _c_ar = existCookie.split( ";" );
+			for( var i = 0 ; i < _c_ar.length ; i ++ )
+			{
+				var k_v = _c_ar[i].split("=");
+				if( !k_v )
+					continue;
+				if( k_v[0] )
+				{
+					if( k_v[1] )
+						this.cookies[ k_v[0].trim() ] = new cookiepair( unescape( k_v[0].trim() ) , 
+																 unescape( k_v[1].trim() )
+															   ) ;
+					else
+					{
+						this.cookies[ k_v[0].trim() ] = "";
+					}										
+				}
+			}
+		}
+	},
+	getcookie	: function( name )
+	{
+		this.initialize();
+		if( this.cookies[name] )
+			return this.cookies[name].value;
+	},
+	setcookie	: function( name, value , domain , expires , path )
+	{
+		this.cookies[ name ] = new cookiepair( name , value ) ;
+		var _cookie = String(this.cookies[ name ]);
+		if( domain )
+			_cookie+=( ";domain="+domain );
+		if( expires )
+			_cookie+=( ";expires="+expires );
+		if( path )
+			_cookie+=( ";path="+path );
+		document.cookie = _cookie+";";
+	}
+}
+
+DocumentCookie = new Cookies();
+
+
+
+var slider = Class.create();
+slider.prototype = {
+	_execute:{},
+	initialize:function()
+	{
+		this._execute["horz"] = {
+									func:this.horzmove.bind(this),
+									localdata:{}
+								}
+	},
+	execute : function( type , ele , parameter )
+	{
+		var _exe = this._execute[type];
+		if( _exe && _exe.func )
+		{
+			try
+			{
+				if( _exe.localdata.running )
+				{
+					return;
+				}
+				_exe.localdata.running = true;
+				_exe.func( ele , parameter , _exe.localdata );
+			}
+			catch(e)
+			{ 
+				_exe.localdata.running = false; 
+			}
+		}
+	},
+	horzmove:function( ele , parameter , localdata )
+	{
+		localdata.ele			= ele;
+		localdata.from			= parameter.from;
+		localdata.to			= parameter.to;
+		localdata.totaloffset	= (parameter.to - parameter.from);
+		localdata.speed			= 2;
+		localdata.nextoffset	= 0;
+		this._horzmove();
+	},
+	_horzmove:function()
+	{
+		var localdata = this._execute["horz"].localdata;
+		if( !localdata )
+		{
+			localdata.running = false;
+			return;
+		}
+		var offset = localdata.totaloffset/localdata.speed;
+		if( Math.abs(offset) <= 1 )
+		{
+			if( offset < 0 )
+			{
+				offset = -1;
+			}
+			else
+			{
+				offset = 1;
+			}
+		}
+		localdata.nextoffset += offset;
+		if( Math.abs( localdata.nextoffset ) >= Math.abs( localdata.totaloffset ) )
+		{
+			localdata.ele.style.marginLeft = localdata.from+localdata.totaloffset+"px";
+			localdata.running = false;
+			return;
+		}
+		localdata.ele.style.marginLeft = localdata.from+localdata.nextoffset+"px";
+		localdata.speed*=2;		
+		setTimeout( this._horzmove.bind( this ) , 0 );
+	}
+};
+
+var TabControl	= Class.create();
+var TabItem		= Class.create();
+
+TabControl.prototype = {
+	initialize	: function( theame) {
+		this.Element = document.createElement("div");
+		this.theame = theame+"_tabcontrol";	
+		this.Element.className = this.theame;
+		
+		this.tabContainer = this.Element.appendChild( document.createElement( "div" ) );
+		this.tabContainer.style.styleFloat = "left";
+		this.tabContainer.style.overflow = "hidden";
+		this.tabContainer.id = "tabcontainer";
+		
+		this.tabClip = this.tabContainer.appendChild( document.createElement( "div" ) );
+		this.tabClip.id="tabClip";
+		
+		this.tabController = this.Element.appendChild( document.createElement( "div" ) );
+		this.tabController.id = "tabcontroller";
+		
+		this.items = [];	
+		this.curselectitem = null;
+		this.slidershow = new slider();
+	},
+	additem:function( tabitem , pos )
+	{
+		tabitem.ondock( this );
+		this.tabClip.appendChild( tabitem.Element );
+		this.items.push(tabitem);	
+		if( this.items.length == 1 )
+		{
+			this.onselectitem( tabitem );
+		}
+		else
+		{
+			tabitem.onunselect(this);
+		}
+	},
+	removeitem:function( tabitem )
+	{
+		tabitem.onundock( this );
+		var i = 0;
+		for( i = 0 ; i < this.items.length ; i ++ )
+		{
+			if( this.items[i].id == tabitem.id )
+			{
+				break;
+			}
+		}
+		if( i < this.items.length )
+		{
+			this.items.splice( i , 1 );
+		}
+		try{			
+			this.tabClip.removeChild( tabitem.Element );
+		}catch(e){}
+		if( this.items.length > 0 )
+		{		
+			if( i == this.items.length )
+			{
+				i = this.items.length-1;
+			}
+			if( i < 0 )
+			{
+				i = 0;			
+			}
+			var item = this.items[i];
+			if( item && item.onclick )
+			{
+				item.onclick();
+			}
+		}
+		return tabitem;
+	},
+	show:function(tabcontrolpanel)
+	{
+		var btnLeftID	= "a"+UniqueGenerator.getUniqueID();
+		var btnRightID =  "a"+UniqueGenerator.getUniqueID();
+		var btnGotoTabID =  "a"+UniqueGenerator.getUniqueID();	
+			
+		this.tabController.innerHTML = '<div class = "tabmove_left" id = "'+btnLeftID+'"></div>\
+		<div class = "tabmove_right" id = "'+btnRightID+'"></div>\
+		<div class = "tabmove_gototab" id = "'+btnGotoTabID+'"></div>';
+		
+		tabcontrolpanel.appendChild( this.Element );
+		this.btnLeft  = $(btnLeftID);
+		this.btnRight = $(btnRightID);
+		this.btnGotoTab = $(btnGotoTabID)
+		
+		Event.observe( this.btnLeft , "click" , this.OnLeft.bindAsEventListener( this ) );		
+		Event.observe( this.btnRight , "click" , this.OnRight.bindAsEventListener( this ) );
+		Event.observe( this.btnGotoTab , "click" , this.OnGotoTab.bindAsEventListener( this ) );		
+	},
+	onselectitem:function( tabitem )
+	{
+		if( this.curselectitem == tabitem )
+		{
+			return;
+		}
+		if( this.curselectitem )
+		{
+			this.curselectitem.onunselect(this);
+		}
+		this.curselectitem = tabitem;	
+		this.curselectitem.onselect(this);
+	},
+	OnClose:function(event)
+	{
+		if( this.curselectitem )
+		{
+			this.removeitem( this.curselectitem );
+		}
+	},
+	firstIndex:0,
+	clipoffset:0,
+	OnLeft:function(event)
+	{
+		var item = this.items[this.firstIndex];
+		if( !item )
+		{
+			return;			
+		}
+		var preitem = this.items[this.firstIndex-1];
+		if( !preitem )
+		{
+			return;			
+		}
+		var to = this.clipoffset+preitem.getwidth();
+		//this.tabClip.style.marginLeft = this.clipoffset+"px";
+		this.slidershow.execute( "horz" , this.tabClip , { from:this.clipoffset,to:to} );
+		this.clipoffset = to;
+		this.firstIndex--;
+	},
+	OnRight:function(event)
+	{
+		var item = this.items[this.firstIndex];
+		if( !item )
+		{
+			return;			
+		}
+		var nextitem = this.items[this.firstIndex+5];
+		if( !nextitem )
+		{
+			return;			
+		}
+		var to = this.clipoffset - nextitem.getwidth();
+		//this.tabClip.style.marginLeft = this.clipoffset+"px";
+		this.slidershow.execute( "horz" , this.tabClip , { from:this.clipoffset,to:to} );
+		this.clipoffset = to;
+		this.firstIndex++;
+	},
+	OnGotoTab:function(event)
+	{
+		
+	}
+	
+};
+
+TabItem.prototype = {
+
+	initialize	: function( id , content ,eventsink) {
+		this.id = id;
+		this.Element = document.createElement("div");
+		this.Element.style.overflow = "hidden";
+		this.Element.style.styleFloat = "left";
+		this.Element.id				= "tabitem";
+		
+		this.Content = this.Element.appendChild( document.createElement("div") );
+		this.Content.style.overflow = "hidden";
+		this.Content.style.paddingLeft = "4px";
+		this.Content.style.paddingTop = "2px";
+		this.Content.style.textOverflow = "ellipsis";
+		this.Content.id				= "tabitemlabel";
+		
+		this.btnClose = this.Element.appendChild( document.createElement("div") );
+		this.btnClose.id			= "tabitem_close";
+		this.btnClose.title			= "关闭"
+		
+		this.Content.innerHTML = content;		
+		this.eventsink = eventsink;
+	},
+	getwidth:function()
+	{
+		return this.Element.offsetWidth;
+	},
+	setindex:function( index )
+	{
+		this.index = index;
+	},
+	ondock:function( tabcontrol )
+	{
+		Event.observe( this.Element , "click" , this.onclick.bindAsEventListener(this));
+		this.tabcontrol = tabcontrol;
+		Event.observe( this.btnClose , "click" , tabcontrol.OnClose.bindAsEventListener(tabcontrol) );
+	},
+	onundock:function( tabcontrol )
+	{
+		if( this.eventonselectitem )
+		{
+			this.eventonselectitem = null;
+		}
+		this.tabcontrol = null;
+		this.eventsink.onundock( this );
+	},
+	setcontent:function(content)
+	{
+		this.Content.innerHTML = content;
+	},
+	onclick:function()
+	{
+		if( this.tabcontrol )
+		{
+			this.tabcontrol.onselectitem(this);
+		}
+	},
+	selected:false,
+	onselect:function(tabcontrol)
+	{
+		this.Element.className = "tabitem_select";
+		this.eventsink.onselect();
+		this.selected = true;
+		this.flashcount = 0;
+	},	
+	onunselect:function(tabcontrol)
+	{
+		this.Element.className = "tabitem_unselect";
+		this.eventsink.onunselect();
+		this.selected = false;
+	},
+	startflash:function( count )
+	{
+		if( this.isflashing )
+		{
+			return;
+		}
+		this.isflashing = true;
+		if( count )
+			this.flashcount = count;
+		this.OpacityIndex = 0,
+		setTimeout( this._flash.bind(this) , 10 );
+	},
+	isflashing:false,
+	flashcount:5,
+	Opacity:[1.0,0.8,0.6,0.4,0.2,0.4,0.6,0.8,1.0],
+	OpacityIndex:0,
+	_flash:function()
+	{
+		if( this.flashcount <= 0 )
+		{
+			this.OpacityIndex = 0;
+			this.flashcount = 5;
+			this.isflashing = false;
+			Element.setOpacity( this.Element , 1.0 );	
+			return;
+		}
+		if( this.OpacityIndex >= this.Opacity.length )
+		{
+			this.OpacityIndex = 0;
+			this.flashcount--;
+		}			
+		Element.setOpacity( this.Element , this.Opacity[ this.OpacityIndex++ ] );	
+		setTimeout( this._flash.bind(this) , 100 );
+	}	
+};
+
+var Chat_Channel	= Class.create();
+var ClientWindow	= Class.create();
+var ElementEvent	= Class.create();
+var Chat_Member		= Class.create();
+var Chat_Message	= Class.create();
+KeywordFilter = {
+	Filter		 : /(<(body|html|title|head|script|frame|iframe|table|form|style|object|embed)[^>]*>)|<[a-zA-Z0-9]+[\s]+[\w\W\s\S]*(style|font|(on[a-zA-Z]+)|(href=["|']+javascript:))=["|']+[\w\W\s\S]*["|']>|(<\/(body|title|table|form|html|frame|iframe|head|script|style|object|embed)>)/ig,
+	Filt		: function( str ){
+	
+		var text = String(str).replace(  this.Filter, 
+		"<a style='font-size:12px;text-decoration:none;' href='http://www.uuzone.com' target='blank' title='"+str+"'>&lt;UU地带&gt;</a>" );
+		if( text )
+		{
+			return text.replace( /\n/ig , "<br>");
+		}
+		return "";
+	}
+};
+Chat_Member.prototype = {
+	initialize	: function( pin , nickname , parameters) {
+		this.Element =document.createElement("div");
+		this.Element.id	= "ChatMember";
+		this.Element.title = nickname;
+		this.Element.innerHTML = KeywordFilter.Filt( nickname );
+		this.pin = pin;
+		this.nickname = nickname;
+		this.userid =parameters.userid;
+		this.parameters = parameters;
+		if( this.parameters.public )
+		{
+			this.eventOnClick = this.OnClick.bindAsEventListener( this );			
+			Event.observe( this.Element , "click" , this.eventOnClick );
+		}
+	},
+	OnClick : function(event)
+	{
+		//notify_manager.sendnewchatinvite( this.pin , "邀请" );
+		//alert("不久将推出,敬请期待");
+		UU.click(this.Element,event,this.userid,this.nickname);
+	}
+};
+Chat_Message.prototype = {
+	prepin	: null,
+	initialize	: function( pin , nickname , msgbody ,tm ,  parameters) {
+		this.Element			=	document.createElement("div");
+		this.Element.id			=	"ChatLogLine";
+		this.pin				=	pin;
+		var msgbody				=	KeywordFilter.Filt( msgbody );
+		if( Chat_Message.prepin == pin )
+		{
+			this.Element.innerHTML = "<div id='ChatLogLineName'><font color='black'></font></div><div id='ChatLogLineContent' title='" + tm + "'>" + msgbody + "</div>";
+		}
+		else
+		{
+			var who		= KeywordFilter.Filt( nickname );
+			if( this.pin != 0 )
+			{
+				this.Element.innerHTML = "<div id='ChatLogLineName'>" + tm + "&nbsp;" + who + "&nbsp;&nbsp;<font color='black'>说:</font></div><div id='ChatLogLineContent'>" + msgbody+ "</div>";
+			}
+			else
+			{
+				this.Element.innerHTML = "<div id='ChatLogLineName'>" + tm + "&nbsp;" + who + "&nbsp;&nbsp;<font color='black'>:</font></div><div id='ChatLogLineContent'>" + msgbody + "</div>";
+			}
+		}
+		Chat_Message.prepin	=	pin;
+	}
+};
+Chat_Channel.prototype = {
+	defaultWindowStyle	: { 
+							bottom:70, 
+							left:0, 
+							width:300, 
+							height:200, 
+							resizable: true,  
+							minWidth : 300,
+							minHeight:200,
+							showEffectOptions: {duration:3}
+						  },
+	initialize	: function( parameters) {
+		this.theame		= "dialog",
+		this.host		= parameters.host;
+		this.channelid	= parameters.channelid;
+		this.IsWhoInThisPageChannel = parameters.IsWhoInThisPageChannel;
+		this.public		= parameters.public;
+		this.alias		= parameters.alias;
+		this.Members	= {
+			_count  : 0,
+			_values	:{},
+			get		:function(key){
+				return this._values[key];
+			},
+			add		:function( key ,value ){
+				if( this._values[ key ] )
+					return;
+				this._values[key]= value;
+				this._count++;
+			},
+			remove	:function( key ){
+				this._values[key] = null;
+				delete this._values[key];
+				this._count--;
+			},
+			count	:function(){
+				return this._count;
+			},
+			clear	:function(){
+				this._values = {};
+				this._count = 0;
+			}
+		};
+		if( parameters.WindowStyle )
+		{
+			this.WindowStyle= parameters.WindowStyle;
+		}
+		else
+		{
+			this.WindowStyle = this.defaultWindowStyle;
+		}
+		if( parameters.theame )
+			this.theame		= parameters.theame;
+		chat_manager.newchannel(
+								 this.channelid , 
+								 this.host , 
+								 this , 
+								 this.public?page_data.chat.channelmode.
+								 public:page_data.chat.channelmode.private , 
+								 parameters.channelkey 
+							   );
+		if( this.public )
+		{	
+			this.channelkey = null;
+			this.init		= false;
+		}
+		else
+		{
+			this.channelkey = parameters.channelkey;
+			this.init		= parameters.init;
+		}
+	},	
+	getWindow:function()
+	{
+		return this.window;
+	},
+	oncreatestate:function( state , channel ){
+		if( state == page_data.chat.channelstate.created && channel )
+		{
+			this.window = new Window( UniqueGenerator.getUniqueID(), 
+									  {
+											className				:this.theame, 
+											title					:this.alias, 
+											userData				:this,
+											minWidth				:this.WindowStyle.minWidth,
+											minHeight				:this.WindowStyle.minHeight,
+											maxWidth				:this.WindowStyle.maxWidth,
+											maxHeight				:this.WindowStyle.maxHeight,
+											showEffect				:this.WindowStyle.showEffect,
+											hideEffect				:this.WindowStyle.hideEffect,
+											showEffectOptions		:this.WindowStyle.showEffectOptions,
+											hideEffectOptions		:this.WindowStyle.hideEffectOptions,
+											draggable				:this.WindowStyle.draggable,
+											resizable				:this.WindowStyle.resizable,
+											closable				:this.WindowStyle.closable,
+											minimizable				:this.WindowStyle.minimizable,
+											maximizable				:this.WindowStyle.maximizable,
+											className				:this.WindowStyle.className,
+											parent					:this.WindowStyle.parent,
+											url						:this.WindowStyle.url,
+											event_sink				:this.WindowStyle.event_sink,
+											width					:this.WindowStyle.width,
+											height					:this.WindowStyle.height,
+											left					:this.WindowStyle.left,
+											right					:this.WindowStyle.right,
+											top						:this.WindowStyle.top,
+											bottom					:this.WindowStyle.bottom,
+											opacity					:this.WindowStyle.opacity,
+											zIndex					:this.WindowStyle.zIndex,
+											bottommost				:this.WindowStyle.bottommost,
+											hidetitle				:this.WindowStyle.hidetitle,
+											hidestatus				:this.WindowStyle.hidestatus
+									  }
+									);
+			if( this.window )
+			{
+				this.ClientWindow = new ClientWindow( {NoClientWindow:this.window,ChatChannel:this,theame:this.theame} );
+				this.window.event_sink = this.ClientWindow;
+			}
+			this.Channel = channel;
+			this.Channel.join();
+		}
+	},
+	OnWindowClose		: function()
+	{
+		iIceAge.removeChannel(this.channelid);
+		this.leavechannel();
+		if( this.IsWhoInThisPageChannel && WhoInThisPageWindow )
+		{
+			WhoInThisPageWindow.clear();
+		}
+		if( this.Channel )
+		{
+			chat_manager.removechannel( this.Channel.channelid , this.Channel.gethost() );
+		}
+	},
+	leavechannel:function(){
+		if( this.Channel )
+		{
+			this.Channel.leave();
+		}
+		
+	},
+	onleave		: function( tm , result ){
+		
+	},
+	onjoin		: function( tm , result ){
+		if( (iIceAge.functionmask&MF_WHOINTHISPAGE) && this.channelid == iIceAge.Parameters[MF_WHOINTHISPAGE].url )
+		{
+			return;
+		}
+		if( this.public && this.channelid == iIceAge.CurrentPageRoomID )
+		{
+			iIceAge.OnBodyResize();		
+			this.window.toFront();
+			this.window.show();
+		}
+		else if( !this.public && iIceAge.functionmask&MF_CHAT )
+		{
+			this.ClientWindow.enableInput( this.Members.count() > 0 );
+			this.window.toFront();
+			this.window.show();
+		}
+	},
+	onchat		: function( tm ,pin , userid, nickname , msgbody ){
+		this.ClientWindow.appendChatLog( (new Chat_Message(  pin , nickname , msgbody, tm  )).Element );
+	},
+	addMember		:function(tm ,pin , userid , nickname , photo)
+	{
+		
+		member = new Chat_Member( pin , nickname , { userid:userid , photo:photo , public:this.public } );
+		this.Members.add(  pin , member );
+		this.ClientWindow.appendChatMember( member.Element );	
+		
+		if( !this.public )
+		{
+			this.ClientWindow.enableInput( true );
+		}
+	},
+	onuserjoin		: function( tm ,pin , userid , nickname , photo ){
+	
+		if( pin == page_data.notify.pin )
+		{
+		   if( this.Members.count() <= 0  )
+		   {
+				this.ClientWindow.appendChatLog( (new Chat_Message( 0 , "系统消息" , "等待对方加入聊天室...", tm  ) ).Element );
+		   }
+		   return;
+		}	
+		this.addMember( tm ,pin , userid , nickname , photo );
+		this.ClientWindow.appendChatLog( (new Chat_Message( 0 , "系统消息" , nickname+"已经加入聊天室." , tm ) ).Element );
+		this.window.setTitle( nickname );
+	},
+	onuserleave		: function( tm , pin , userid , nickname , photo ){
+		var member = this.Members.get( pin );
+		if( !member )
+		{
+			return;			
+		}
+		this.Members.remove(  pin  );
+		this.ClientWindow.removeChatMember( member.Element );
+		this.ClientWindow.appendChatLog( (new Chat_Message( 0 , "系统消息" , nickname+"已经离开聊天室.", tm  ) ).Element );
+		if( !this.public && this.Members.count() <= 0 )
+		{
+			this.ClientWindow.enableInput( false );
+		}
+	},	
+	onuscnt		: function( tm , usercount ){
+		if( this.IsWhoInThisPageChannel && (iIceAge.functionmask& MF_WHOINTHISPAGE) && WhoInThisPageWindow )
+		{
+			WhoInThisPageWindow.setAppendMemberCount( this.channelid , tm , usercount )	;
+			return;
+		}
+		this.ClientWindow.clearChatMember();
+		this.Members.clear();
+		if( this.IsWhoInThisPageChannel && (iIceAge.functionmask& MF_WHOINTHISPAGE) && WhoInThisPageWindow )
+		{
+			WhoInThisPageWindow.setAppendMemberCount( this.channelid , tm , usercount )			
+		}
+	},
+	onlist		: function( tm  , trid, pin , userid , nickname , userstate , photo ){
+		if(	this.IsWhoInThisPageChannel 
+			&& (iIceAge.functionmask& MF_WHOINTHISPAGE) 
+			&& WhoInThisPageWindow )
+		{
+			WhoInThisPageWindow.appendMember( this.channelid , tm , trid, pin , userid , nickname , userstate , photo );
+			return;
+		}
+		this.addMember( tm ,pin , userid , nickname , photo );
+	}
+};
+function ImgErrorHander( img )
+{
+	var defaultphoto = "/css/images/profile/photo_75x75_default.gif";
+	var errorfired = false;
+	this.OnError = function()
+	{
+		if( !errorfired )
+		{
+			img.src = defaultphoto;
+			errorfired = true;
+			return;
+		}
+		img.onerror = "";
+	}
+}
+
+function Person( parent , url , tm , pin , userid , nickname , userstate , photo )
+{	
+	var who = document.createElement("div");		
+	who.className = "photoArea";
+	var href = '/';
+	var html = "";
+	if( !photo )
+	{
+		photo = "/css/images/profile/photo_75x75_default.gif";
+	}
+	if( userid )
+	{
+		href = '/uu/'+userid;
+		nickname=nickname+((pin!=page_data.notify.pin)?"":"(您自己)");
+		html = '<div class="photoSize"><a  class = "imagelink"  href="'+href+'">\
+							<img onmouseover="UU.onImageHover(this,event,(this.parentElement?this.parentElement.parentElement.parentElement:this.parentNode.parentNode.parentNode).userid,(this.parentElement?this.parentElement.parentElement.parentElement:this.parentNode.parentNode.parentNode).nickname);return false;" \
+							onerror = "(new ImgErrorHander(this)).OnError()" src="'+photo+'"\
+							class="photo_24x24"\
+							align="absmiddle" \
+							/>\
+					</a></div>\
+					<a onmouseover="UU.onmouseover(this,event,(this.parentElement?this.parentElement:this.parentNode).userid,(this.parentElement?this.parentElement:this.parentNode).nickname);return false;" href="'+href+'">' +nickname+ '</a>';			
+	}
+	else
+	{
+		nickname=(pin!=page_data.notify.pin)?'游客':"游客(您自己)";
+		html = '<div class="photoSize"><a  class = "imagelink" href="javascript:void(0)">\
+							<img onerror = "(new ImgErrorHander(this)).OnError()" src="'+photo+'"\
+							class="photo_24x24"\
+							align="absmiddle" \
+							/>\
+					</a></div>\
+					<a href="javascript:void(0)">' +nickname+ '</a>';			
+	
+	}
+	
+	who.userid = userid;
+	who.nickname = nickname;
+	who.innerHTML = html;
+	who.pin = pin;
+	who.style.display = "none";
+	who.title = nickname;
+	this.Show = function()
+	{
+		if( WhoInThisPageWindow.Initialized )
+		{
+			parent.insertBefore( who , parent.childNodes[WhoInThisPageWindow.firstIndex] );
+		}
+		else
+		{
+			parent.appendChild( who );	
+		}
+		try{
+			if( Effect && Effect.Appear )
+			{
+				Effect.Appear( who );
+			}
+		}catch(e)
+		{
+			who.style.display = "";
+		}
+	}
+	this.Remove	 = function()
+	{
+		try{		
+			parent.removeChild( who );
+		}
+		catch(e){}
+	}
+	this.Hide = function()
+	{
+		who.style.display = "none";
+	}
+	this.Destroy = function()
+	{
+		try{
+			if( Effect && Effect.Fade )
+			{
+				Effect.Fade( who );				
+			}
+		}catch(e){}
+		setTimeout( this.Remove.bind( this ) , 1000 );
+	}
+	this.alive = false;
+	this.toString = function()
+	{
+		return "Person";
+	}
+}
+WhoInThisPageWindow = {
+	whos		: {},
+	count		: 0,
+	appendindex  : 0,
+	initialize	: function( parent , parameters  ){		
+		this.theame = parameters.theame;
+		this.parent = parent?parent:document.documentElement;
+		var LeftMoveID				= "ele_" + UniqueGenerator.getUniqueID();
+		var RightMoveID				= "ele_" + UniqueGenerator.getUniqueID();
+		var CountElementID			= "ele_" + UniqueGenerator.getUniqueID();
+		var ListElementID			= "ele_" + UniqueGenerator.getUniqueID();
+		this.parent.innerHTML = '\
+		<div class="'+this.theame+'_whointhispage">\
+			<div id="'+LeftMoveID+'" class="meetuuLeft"><a href="javascript:void(0)"><img src="/css/images/meetuu/aleft.gif"/></a>\
+			</div>\
+			<div id="'+RightMoveID+'" class="meetuuRright"><a href="javascript:void(0)"><img src="/css/images/meetuu/aright.gif"/></a>\
+			</div>\
+			<div class="meetuuBox">\
+				<div class="counter" id="'+CountElementID+'"></div>\
+				<div id="'+ListElementID+'"></div>\
+			</div>\
+		</div>';
+		this.btnLeft	= $(LeftMoveID);
+		this.btnRight	= $(RightMoveID);
+		if( parameters.ConterElement )
+		{
+			this.eleCounter = parameters.ConterElement;
+		}
+		else
+		{
+			this.eleCounter = $(CountElementID);
+		}
+		this.eleList	= $(ListElementID);
+		if( Browser.browser == BrowserType.IE )
+		{
+			this.eleList.className = "list_ie";
+		}
+		else
+		{
+			this.eleList.className = "list_ff";
+		}
+		Event.observe( this.btnLeft , "click" , this.OnLeftBtnClick.bindAsEventListener( this ) );
+		Event.observe( this.btnRight , "click" , this.OnRightBtnClick.bindAsEventListener( this ) );
+		this.slidershow = new slider();
+		this.Initialized = false;
+		this.firstIndex=0;
+		this.clipoffset=0;
+	},	
+	GetLastInViewNodeIndex:function()
+	{
+		var item = this.eleList.childNodes[this.firstIndex];
+		if( !item )
+		{
+			return;			
+		}
+		var width = item.offsetWidth;
+		var viewWidth = 0;
+		if( this.eleList.parentNode )
+		{
+			viewWidth = this.eleList.parentNode.offsetWidth;			
+		}
+		else
+		{
+			viewWidth = this.eleList.parentElement.offsetWidth;
+		}
+		return this.firstIndex + Math.floor( viewWidth/width ) + ( viewWidth%width?0:1); 
+	},
+	OnLeftBtnClick:function(event)
+	{
+		if( !this.Initialized )
+			return;
+		if( this.firstIndex == 0 )
+		{
+			var lastItem =  this.eleList.childNodes[this.eleList.childNodes.length-1];
+			var width = lastItem.offsetWidth;
+			this.eleList.removeChild( lastItem );
+			this.eleList.insertBefore( lastItem , this.eleList.childNodes[ 0 ] );
+			this.clipoffset = -width;
+			this.eleList.style.marginLeft = this.clipoffset+"px";
+			this.firstIndex = 1;
+			
+		}
+		var item = this.eleList.childNodes[this.firstIndex];
+		if( !item )
+		{
+			return;			
+		}
+		var preitem = this.eleList.childNodes[this.firstIndex-1];
+		if( !preitem )
+		{
+			return;			
+		}
+		var to = this.clipoffset+preitem.offsetWidth;
+		this.slidershow.execute( "horz" , this.eleList , { from:this.clipoffset,to:to} );
+		this.clipoffset = to;
+		this.firstIndex--;
+	},
+	OnRightBtnClick:function(event)
+	{
+		if( !this.Initialized )
+			return;
+		var item = this.eleList.childNodes[this.firstIndex];
+		if( !item )
+		{
+			return;			
+		}
+		var index = this.GetLastInViewNodeIndex();
+		var nnextitem = this.eleList.childNodes[ index+2];
+		if( !nnextitem )
+		{
+			nnextitem = this.eleList.childNodes[0];
+			var width = nnextitem.offsetWidth;
+			this.eleList.removeChild( nnextitem );
+			this.firstIndex--;
+			this.clipoffset+=width;
+			this.eleList.appendChild( nnextitem );
+			this.eleList.style.marginLeft = this.clipoffset +"px";
+		}
+		var nextitem = this.eleList.childNodes[index+1];
+		if( !nextitem )
+		{
+			return;
+		}
+		var to = this.clipoffset - nextitem.offsetWidth;
+		this.slidershow.execute( "horz" , this.eleList , { from:this.clipoffset,to:to} );
+		this.clipoffset = to;
+		this.firstIndex++;
+	},
+	clear:function()
+	{
+		this.whos = {};
+		this.count = 0;
+		this.appendindex = 0;
+		if( this.eleList ) 
+			this.eleList.innerHTML = "";
+		if( this.eleCounter )
+			this.eleCounter.innerHTML = "";
+	},
+	appendMember:function( url , tm , trid , pin , userid , nickname , userstate , photo )
+	{
+		if( iIceAge.Parameters[ MF_WHOINTHISPAGE ] && url == iIceAge.Parameters[ MF_WHOINTHISPAGE ].url)
+		{
+			var who = this.whos[pin];
+			if( !who )
+			{
+				who = new Person( this.eleList , url , tm , pin , userid , nickname , userstate , photo );
+				this.whos[pin] = who;
+				setTimeout( who.Show.bind(who) ,   (this.appendindex++)*200 );
+			}
+			who.alive = true;
+		}
+		if( trid == "0" )
+		{
+			setTimeout( "WhoInThisPageWindow.Initialized = true;" , (this.appendindex+1)*200 );
+			for( var i in this.whos )
+			{
+				var who = this.whos[i];
+				if( who )
+				{
+					if( !who.alive && who.Destroy )
+					{
+						who.Destroy();
+						this.whos[i]=null;
+						delete this.whos[i];					
+					}
+				}
+			}
+		}		
+	},
+	setAppendMemberCount:function( url , tm , usercount )
+	{
+		var index = 0;
+		for( var i in this.whos )
+		{
+			try
+			{
+				var who = this.whos[i];
+				if( who )
+				{
+					if( !who.alive && who.Destroy )
+					{
+						who.Destroy();
+						this.whos[i]=null;
+						delete this.whos[i];					
+					}
+					else
+					{
+						who.alive = false;
+					}
+				}
+			}
+			catch(e)
+			{
+			}
+		}
+		if( iIceAge.Parameters[ MF_WHOINTHISPAGE ] && url == iIceAge.Parameters[ MF_WHOINTHISPAGE ].url )
+		{
+			this.eleCounter.innerHTML = "共有<b><font color='red'>"+usercount+"</font></b></red>人同时在线,其中有下面这些人正在或者刚浏览过这个页面.";
+		}
+		this.count = parseInt(usercount);	
+		this.appendindex = 0;
+	}
+};
+
+ElementEvent.prototype = {
+	initialize: function( parameters) {
+		this.parameters = parameters;
+	},
+	OnChatMemberClick:function(){
+		if( this.parameters.pin )
+		{
+			iIceAge.startchat( { newsession:true,
+								 public:false,
+								 target:this.parameters.pin,
+								 content:"长夜漫漫,无心睡眠,施主出来聊聊如何?"
+								} );
+		}
+	}
+};
+ClientWindow.prototype = {
+	initialize: function( parameters) 
+	{
+		this.ControlConfig = {
+								members_width		: 0,
+								memberstool_height	: 22, 
+								input_height		: 60,
+								toolbar_height		: 20
+							 };
+		this.NoClientWindow = parameters.NoClientWindow;
+		this.ChatChannel	= parameters.ChatChannel;
+		this.theame		= parameters.theame;
+		if( this.NoClientWindow )
+		{
+			var WindowID			= "ele_" + UniqueGenerator.getUniqueID();
+			var ChatLogsID			= "ele_" + UniqueGenerator.getUniqueID();
+			var ChatMemberId		= "ele_" + UniqueGenerator.getUniqueID();
+			var ChatInputId			= "ele_" + UniqueGenerator.getUniqueID();
+			var ChatToolbarId		= "ele_" + UniqueGenerator.getUniqueID();
+			this.ChatMembers		= { 
+					Control:null,
+					Members:[]
+				  };
+			this.NoClientWindow.getContent().innerHTML = "\
+				<div class='"+this.theame+"_main' id='"+WindowID+"'>\
+					<div id='"+this.theame+"_content'>\
+						<div id='" + ChatLogsID + "' class='"+this.theame+"_logs'>\
+						</div>\
+						<div  id='" + ChatMemberId + "' class='"+this.theame+"_members'>\
+						</div>\
+					</div>\
+					<div id='"+ChatToolbarId+"' class='"+this.theame+"_toolbar'>\
+					</div>\
+					<div id='ChatWin_Input' class='"+this.theame+"_input'>\
+						<textarea id = '" + ChatInputId + "' class='"+this.theame+"_inputbox'></textarea>\
+					</div>\
+				</div>";
+			this.Window					= $(WindowID);
+			this.ChatLogs				= $(ChatLogsID);		
+			this.ChatMembers.Control	= $(ChatMemberId);
+			this.ChatToolbar			= $(ChatToolbarId);	
+			this.ToolBar				= new ToolBar( this.ChatToolbar , "memberstool" , {theame:this.theame} );
+			this.ChatInput				= $(ChatInputId);	
+			this.ChatInput.ChatWindow	= this.NoClientWindow;
+			var eventOnClickClient = this.NoClientWindow.toFront.bindAsEventListener( this.NoClientWindow );
+			Event.observe( this.ChatLogs , "click" , eventOnClickClient ) ;
+			Event.observe( this.ChatMembers.Control , "click" , eventOnClickClient ) ;
+			Event.observe( this.ChatToolbar , "click" , eventOnClickClient );
+			Event.observe( this.ChatInput , "click" , eventOnClickClient ) ;
+			
+			this.eventOnClickMembersDrawer = this.OnClickMembersDrawer.bindAsEventListener( this );
+			this.btnDrawer = this.ToolBar.addButton( "membersdrawer" , 
+									{ 
+										buttonText			:"&lt;&lt;",
+										ToolTip				:"关闭好友列表",
+										clickEventListener	:this.eventOnClickMembersDrawer
+									} 
+								  );
+			this.OnClickMembersInvite	= function(event)
+										  {
+											 if( confirm( "你是否要清除当前的聊天记录?" ) == true )
+											 {
+												 Chat_Message.prepin = "";
+											 	 this.ChatLogs.innerHTML = "";
+											 }
+										  };
+			this.eventOnClickMembersInvite = this.OnClickMembersInvite.bindAsEventListener( this );
+	
+			this.btnInvite = this.ToolBar.addButton( "membersinvite" , 
+									{ 
+										buttonText			:"清屏",
+										ToolTip				:"清除当前的聊天记录.",
+										clickEventListener	:this.eventOnClickMembersInvite
+									} 
+								  );
+			this.repeat = 0;
+			this.OnInputKeyDown	= function(event){
+				if( !event ) event = window.event;
+				if( event && !event.shiftKey && event.keyCode == 13 )
+				{
+					if( this.preSendMsg == this.ChatInput.value )
+					{
+						this.repeat ++;
+						if( this.repeat >= 5 )
+						{
+							this.appendChatLog( (new Chat_Message(  0 , "系统消息", "实在想发送，那你就发送吧！", ""  )).Element );		
+							this.ChatChannel.Channel.send( this.ChatInput.value );
+							this.preSendMsg = this.ChatInput.value;							
+							this.repeat = 0;					
+						}
+						else
+						{
+							this.appendChatLog( (new Chat_Message(  0 , "系统消息", "重复发言有害健康.", ""  )).Element );
+						}
+						this.ChatInput.value = "";
+					}
+					else if( this.ChatChannel.Channel && this.ChatInput.value != "" )
+					{
+						this.ChatChannel.Channel.send( this.ChatInput.value );
+						this.preSendMsg = this.ChatInput.value;
+						this.ChatInput.value = "";
+						this.repeat = 0;
+					}
+					if( event.returnValue )
+					{
+						event.returnValue = false;
+					}
+					if ( event.preventDefault ) 
+						event.preventDefault();
+					return false;	
+				}							
+			};
+			
+			this.OnClientResize = function(){
+				this.RecalClientElementLayout();
+			};
+			this.RecalClientElementLayout = function()
+			{
+				var client = this.NoClientWindow.getContent();
+				if( !client )
+				{
+					return;										
+				}
+				var clientW = parseFloat( client.style.width );
+				var clientH = parseFloat( client.style.height );
+				this.ChatMembers.Control.style.width = (this.ControlConfig.members_width)+"px";
+				this.ChatLogs.style.width = (clientW - this.ControlConfig.members_width -2)+"px";
+				var ChatContentHeight = clientH - this.ControlConfig.input_height - this.ControlConfig.toolbar_height;
+				this.ChatLogs.style.height = (ChatContentHeight<0?0:ChatContentHeight)+"px";
+				var memberheight = ChatContentHeight-this.ControlConfig.memberstool_height
+				this.ChatMembers.Control.style.height = (memberheight<0?0:memberheight)+"px";
+
+			};
+			
+			
+			this.eventClientResize = this.OnClientResize.bindAsEventListener( this );
+			this.eventInputKeyDown = this.OnInputKeyDown.bindAsEventListener( this );
+			Event.observe( this.ChatInput , "keydown" , this.eventInputKeyDown );
+			Event.observe( this.NoClientWindow.getContent() , "resize" , this.eventClientResize );
+			
+		}
+	},
+	
+	OnClickMembersDrawer	: function(event)
+	{
+		if( this.ControlConfig.members_width == 0 )
+		{
+		this.ControlConfig.members_width = 120;
+		this.btnDrawer.setButtonText( "&gt;&gt;" );
+		this.btnDrawer.setToolTip( "关闭好友列表" );
+		}
+		else
+		{
+		this.ControlConfig.members_width = 0;
+		this.btnDrawer.setButtonText( "&lt;&lt;" );
+		this.btnDrawer.setToolTip( "弹出好友列表" );
+		}
+		this.RecalClientElementLayout();
+	},
+	enableInput			: function( bEnable )
+	{
+		this.ChatInput.disabled = !bEnable;
+		this.ChatInput.style.backgroundColor = bEnable?"":"gray";
+	},
+	appendChatMember	: function( Element )
+	{
+		this.ChatMembers.Control.appendChild( Element );
+	},
+	removeChatMember	: function( Element )
+	{
+		try{
+		this.ChatMembers.Control.removeChild( Element );
+		}
+		catch(e){}
+	},
+	clearChatMember		: function()
+	{
+		this.ChatMembers.Control.innerHTML = "";
+	},
+	appendChatLog		: function( Element )
+	{
+		this.ChatLogs.appendChild( Element );
+		Element.scrollIntoView(false);
+	}
+};
+var AliasDialog = Class.create();
+AliasDialog.prototype = {
+	AliasControl: null,
+	parameters	: null,
+	initialize	: function( parameters  ){
+		this.parameters = parameters;
+		var aliasid = "ele_" + UniqueGenerator.getUniqueID();
+		var barcntrid = "ele_" + UniqueGenerator.getUniqueID();
+		Dialog.openDialog( "<div class = '" + iIceAge.theame + "_alias_dialog'>\
+								<div class='" + iIceAge.theame + "_label'>匿名用户需要昵称:</div>\
+								<div class='" + iIceAge.theame + "_alias'>\
+									<input name = 'useralias' autocomplete='on' type='text' id = '" + aliasid + "' value='"+page_data.notify.alias+"'/>\
+									</input>\
+								</div>\
+								<div id='"+barcntrid+"' class='"+iIceAge.theame+"_aliasButtonCntr'></div>\
+							</div>"
+							, 
+							{ cancel	:this.OnClose,
+								ok		:this.OnClose,
+								windowParameters : { className:iIceAge.theame,minimizable:false,maximizable:false,width:280,height:180 }
+							} 
+						  );	
+		this.AliasControl = $(aliasid);	
+		this.BarCntr = $(barcntrid);
+		
+		this.ToolBar				= new ToolBar( this.BarCntr , "aliasToolBar" , {theame:iIceAge.theame} );
+		this.eventOK = this.OnOk.bindAsEventListener( this ) ;
+		this.ToolBar.addButton( "aliasbuttons_ok" , 
+									{ 
+										buttonText			:"写好了",
+										clickEventListener	:this.eventOK
+									} 
+								  );
+		this.eventCancel = this.OnCancel.bindAsEventListener( this );
+		this.ToolBar.addButton( "aliasbuttons_cancel" , 
+								{ 
+									buttonText			:"取消",
+									clickEventListener	:this.eventCancel
+								} 
+								);		
+		
+		this.eventInputKeyup = this.OnInputKeyUp.bindAsEventListener( this );
+		Event.observe( this.AliasControl , "keyup" , this.eventInputKeyup );
+	},
+	OnClose		: function( win )
+	{
+		
+	},
+	OnInputKeyUp:function( event )
+	{
+		if( event.keyCode == 13 )
+		{
+			this.OnOk();
+		}
+	},
+	OnOk		: function()
+	{
+		Dialog.okCallback();
+		if( this.AliasControl )
+		{
+			this.parameters.alias = this.AliasControl.value;
+			iIceAge.initialize( this.parameters );
+		}
+	},
+	OnCancel	: function(event){
+		Dialog.cancelCallback();
+	}
+};
+function ActionDispatcher()
+{
+	var Client = {};
+	this.DispatchAction	= function( tm ,from, url, notify , actiontype )
+	{
+		var listener = Client[actiontype];
+		if( listener && typeof(listener.OnAction) == "function" )
+		{
+			listener.OnAction( tm ,from, url, notify );
+		}
+	};
+	this.EndAction		= function( tm ,result , cookie )
+	{
+		var listener = Client[cookie];
+		if( listener && typeof(listener.OnEndAction) == "function" )
+		{
+			listener.OnEndAction( tm ,result );
+		}
+	};
+	this.RegisterActionListener=function( id , listener )
+	{
+		Client[id]=listener;				
+	}
+};
+var PublicActionDispatcher = new ActionDispatcher();
+function ActionWindowBase( parent , theame  , actiontype , actioncount )
+{
+	this.Element = null;
+	this.parent  = null;
+	this.initialize	= function( parent , theame )
+	{		
+		this.parent = parent?parent:document.documentElement;
+		this.Element = this.parent.appendChild( document.createElement("div") );
+		this.Element.className = theame + "_actionwindow";
+	};
+	this.initialize( parent , theame );
+	this.Register = function( dispatcher , id , This )
+	{
+		dispatcher.RegisterActionListener( id , This );		
+	};
+	this.RequestAction = function( notify )
+	{
+		if( notify )
+		{
+			notify.getpublic( actiontype , actioncount );			
+		}
+	};
+	this.IsLoadend = true;
+	this.Actions=[];
+	this.OnEndAction = function(tm ,result)
+	{
+		if( result )
+		{
+			this.IsLoadend = true; 
+		}	
+	};
+};
+function Action( parent , actionwin , notify  , className )
+{	
+	var action = document.createElement("div");		
+	action.className = className;
+	action.style.display = "none";
+	this.content = notify;
+	this.removeFromParent= function()
+	{
+		try{
+			parent.removeChild( action );
+		}
+		catch(e){}
+		action.style.display = "none";
+		if( actionwin && actionwin.OnActionRemoved )
+			actionwin.OnActionRemoved( this );
+	}
+	this.AddToParent = function()
+	{
+		try{
+			parent.appendChild( action );
+		}
+		catch(e){}
+		if( actionwin && actionwin.OnActionAdded )
+			actionwin.OnActionAdded( this );
+	}
+	this.HideEffect = function()
+	{	
+		if( Effect && Effect.Fade )
+		{
+			Effect.Fade(action);
+		}
+	}
+	this.ShowEffect=function()
+	{
+		if( Effect && Effect.Appear )
+		{
+			action.innerHTML = this.content;
+			Effect.Appear( action );
+		}	
+	}
+}
+function BlogActionWindow( parent , theame , actiontype , actioncount )
+{
+	this.base = ActionWindowBase;
+	this.Blog = [];
+	this.displayCount = actioncount;
+	this.WriteIndex = 0;
+	this.ReadIndex = 0;
+	this.ShowActions = [];
+	this.cachedcount = actioncount*5;
+	this.ReceivedCount = 0;
+	this.base( parent , theame ,actiontype , this.cachedcount );	
+	this.Inval = -1;
+	this.titleElement = document.createElement("div");
+	this.titleElement.className = this.Element.className+"_title";
+	var IDTime	= "ele_" + UniqueGenerator.getUniqueID();
+	this.titleElement.innerHTML = "<span id = \""+IDTime+"\" class = \""+this.Element.className+"_title\"></span>";
+	this.titleElement = this.Element.appendChild(this.titleElement);
+	this.TimeElement = $(IDTime);
+	this.OnMouseOver = function(event)
+	{
+		this.stop = true;
+	};
+	this.OnMouseOut  = function(event)
+	{
+		this.stop = false;
+	};
+	Event.observe( this.Element , "mouseover" , this.OnMouseOver.bindAsEventListener(this));
+	Event.observe( this.Element , "mouseout" , this.OnMouseOut.bindAsEventListener(this));
+	this.OnAction = function( tm , from, url, notify , actiontype )
+	{
+		if( this.Blog[ this.WriteIndex ] )
+		{
+			this.Blog[ this.WriteIndex ] = null;
+		}
+		this.Blog[this.WriteIndex++] = { tm:tm,
+										 from:from,
+										 url:url,
+										 notify:notify,
+										 actiontype:actiontype
+									   };
+		
+		if( this.ShowActions.length < this.displayCount && this.Inval == -1 )
+		{	
+			this.ShowActionProc( true );
+		}
+		else if( this.Inval == -1 )
+		{
+			this.Inval = setInterval( this.ShowActionProc.bind( this ) , 5000 );
+		}
+	};
+	this.OnEndAction = function(tm ,result)
+	{
+		this.TimeElement.innerHTML = "&nbsp;&nbsp;&nbsp;更新时间:"+tm.split(" ")[1];
+	};
+	this.OnActionRemoved=function(action)
+	{
+		action.AddToParent();
+	}
+	this.OnActionAdded = function(action)
+	{
+		action.ShowEffect();
+		this.ShowActions.push( action );
+	}
+	this.ShowActionProc = function( bInit )
+	{//
+		if( this.stop && bInit != true)
+		{
+			return;				
+		}
+		var n = this.Blog[this.ReadIndex++];
+		if( !n )
+		{
+			this.ReadIndex=0;
+			n = this.Blog[this.ReadIndex++];
+			if( !n )
+			{
+				return;
+			}
+		}
+		if( bInit == true )
+		{
+			var action = new Action( this.Element , this , n.notify , this.Element.className + "_hotaction" );
+			action.AddToParent();
+			return;
+		}
+		var action = this.ShowActions[0];	
+		if( action )
+		{
+			action.HideEffect();
+			setTimeout( action.removeFromParent.bind(action) , 1000 );
+			action.content =  n.notify;
+			this.ShowActions.splice( 0 , 1 );
+		}	
+	}
+	this.Register( PublicActionDispatcher , actiontype , this );
+};
+
+
+function HotTagAction( parent , tm , from, url, notify , actiontype , className )
+{	
+	var action = document.createElement("div");		
+	action.className = className;//parent.className + "_hotaction";
+	action.from = from;
+	action.url  = url;
+	action.innerHTML = notify;
+	action.style.display = "none";
+	parent.appendChild( action );	
+	this.data = notify;
+	
+	this.Show = function()
+	{
+		//parent.appendChild( action );	
+		try{
+			if( Effect && Effect.Appear )
+			{
+				Effect.Appear( action );
+			}
+		}catch(e)
+		{
+			action.style.display = "";
+		}
+	}
+	this.Hide = function()
+	{
+		try{
+			if( Effect && Effect.Fade )
+			{
+				Effect.Fade( action );
+			}
+		}catch(e)
+		{
+			action.style.display = "none";
+		}
+	}
+	/*
+	{  tm:tm,
+		from:from,
+		url:url,
+		notify:notify,
+		actiontype:actiontype
+	}
+	*/
+	var PrepareReplaceData = null;
+	this.PrepareReplace = function( data )
+	{
+		PrepareReplaceData = data;
+	}
+	this.Replace = function()
+	{
+		if( PrepareReplaceData && PrepareReplaceData != this.data )
+		{
+			this.data = PrepareReplaceData;
+			action.style.display = "none";
+			action.innerHTML = this.data;
+			this.Show();						
+
+		}
+	}
+	this.Destroy = function()
+	{
+		try{
+			parent.removeChild( action );
+		}
+		catch(e){}
+	}
+	this.OnMouseOver = function( event )
+	{
+		//playSound('message');	
+	}
+	this.OnMouseOut  = function( event )
+	{	
+		//playSound('message');
+	}
+	//Event.observe( action , "mouseover" , this.OnMouseOver.bindAsEventListener( this ) );
+	//Event.observe( action , "mouseout" , this.OnMouseOut.bindAsEventListener( this ) );
+}
+function HotTagActionWidnow( parent , theame , actiontype ,actioncount )
+{
+	this.base = ActionWindowBase;
+	this.base( parent , theame  , actiontype , actioncount );	
+	this.ReceivedTags  = [];
+	this.NewTags	   = [];
+	this.OnEndAction = function(tm ,result)
+	{
+		var count = this.NewTags.length;
+		if( this.NewTags.length < this.ReceivedTags.length )
+		{
+			for( var i = this.NewTags.length ; i < this.ReceivedTags.length ; i ++ )
+			{
+				this.ReceivedTags[i].Destroy();
+			}
+			this.ReceivedTags.splice( this.NewTags.length , this.ReceivedTags.length - this.NewTags.length );
+		}
+		else if( this.NewTags.length > this.ReceivedTags.length )
+		{
+			for( var i = this.ReceivedTags.length ; i < this.NewTags.length ; i ++ )
+			{
+				this.ReceivedTags.push(null);
+			}
+		}
+		var count = this.ReceivedTags.length;
+		if( count <= 1 )
+			count = 2;
+		var timeInterval = 25000.0/count;			
+		for( var i = 0 ; i < this.ReceivedTags.length; i ++)
+		{
+			var newtag = this.NewTags[i];
+			var oldtag = this.ReceivedTags[i];
+			if( !oldtag )
+			{
+				oldtag = new HotTagAction( parent , newtag.tm , newtag.from , newtag.url , newtag.notify , newtag.actiontype,  this.Element.className + "_hottag" );
+				this.ReceivedTags[i] = oldtag;
+				setTimeout( oldtag.Show.bind( oldtag ) , i*100 );	
+			}
+			else 
+			{
+				if( oldtag.data != newtag.notify )
+				{
+					oldtag.PrepareReplace( newtag.notify );
+					setTimeout( oldtag.Replace.bind( oldtag ) , i*100 );	
+				}
+			}
+		}
+		this.NewTags = [];
+	};
+	this.OnAction = function( tm , from, url, notify , actiontype )
+	{
+		this.NewTags.push( {  tm:tm,
+							  from:from,
+							  url:url,
+							  notify:notify,
+							  actiontype:actiontype
+							}
+						 );
+	}
+	this.Register( PublicActionDispatcher , actiontype , this );
+}
+function PrivateAction( window , parent , id,tm,from,url,notify,actiontype )
+{
+	var action = parent.appendChild( document.createElement("div") );
+	action.innerHTML = notify;
+	action.className = window.theame + "_privateaction";	
+	this.processed = false;
+	this.Process = function()
+	{
+		action.style.backgroundColor = "#eeeeee";
+		this.processed = true;		
+	}
+	this.OnClick	= function( event )
+	{
+		parent.style.display  = "none";
+		PrivateActionWindow.ProcessAction( id );
+		this.Process();
+		PrivateActionWindow._FlashCount = 1;
+		PrivateActionWindow.HideFlash();
+	}	
+	Event.observe( action , "click" , this.OnClick.bindAsEventListener( this ) );
+}
+PrivateActionWindow = {
+	IsActionWindow	:true,
+	Actions			:{},
+	ActionContent	:document.createElement("div"),
+	initialize	: function( parent , parameters  ){		
+	
+		this.theame = parameters.theame;
+		this.parent = parent?parent:document.documentElement;
+		this.ElementNotify = this.parent.appendChild( document.createElement("span") );
+		this.ElementNotify.className = this.theame + "_privateActionContent";
+		this.Element = this.parent.appendChild( document.createElement("span") );
+		this.Element.className = this.theame + "_privateactionwindow_nocontent";
+		this.Element.privateaction = true;	
+
+		this.eventOnWindowClick = this.OnWindowClick.bindAsEventListener( this );
+		Event.observe( this.Element , "click" , this.eventOnWindowClick );
+		var ActionListElement = document.createElement("div") ;
+		ActionListElement.className = this.theame + "_privateactionlistwindow";
+		ActionListElement.style.display	= "none";
+		ActionListElement.style.position = "absolute";
+		ActionListElement.privateaction = true;
+		this.ActionListElement =  this.parent.appendChild( ActionListElement );
+		//alert("dsaf");
+	},
+	_ProcessedAction		:{},
+	_PrecessedActionArray	:[],
+	
+	_eventHideFlashAction	:	null,
+	_IsFlash				:	false,
+	_FlashCount				:	0,
+	HideFlash				: function()
+	{
+		this._FlashCount--;
+		if( this._FlashCount <= 0 )
+		{
+			this.Element.className = this.theame + "_privateactionwindow_arrow";
+			this._FlashCount = 0;
+			this._IsFlash = false;
+		}
+	},
+	Flash			: function()
+	{
+		this._FlashCount++;
+		this.Element.className = this.theame + "_privateactionwindow";
+		setTimeout( this.HideFlash.bind(this) , 30000 );
+		this._IsFlash = true;
+	},
+	ProcessAction:function( id )
+	{
+		if( page_data.notify.pin )
+		{
+			var cookie = DocumentCookie.getcookie( page_data.notify.pin );
+			if( cookie )
+			{
+				if( cookie.indexOf( "," ) != -1 )//????id
+				{
+					if( ( cookie.indexOf( id + "," ) == -1 ) &&
+							( cookie.indexOf( "," + id + "," ) == -1 ) &&
+							( cookie.indexOf( "," + id ) == -1 ) 
+						)
+						{
+							DocumentCookie.setcookie( page_data.notify.pin , cookie+","+id , document.domain , new Date(2050,11,30) , "/");						
+							return;
+						}
+				} 		
+				else if( cookie.indexOf( id ) ==-1 )
+				{
+					DocumentCookie.setcookie( page_data.notify.pin , cookie+","+id , document.domain , new Date(2050,11,02) , "/");						
+					return;
+				}
+			}
+			DocumentCookie.setcookie( page_data.notify.pin , id , document.domain , new Date(2050,11,30) , "/" );		
+		}	
+	},
+	IsProcessedAction:function(id)
+	{
+		var cookie = DocumentCookie.getcookie( page_data.notify.pin );
+		if( cookie && 
+			( 
+				( cookie == id ) ||
+				( cookie.indexOf( id + "," ) == 0 ) ||
+				( cookie.indexOf( "," + id + "," ) != -1 ) ||
+				( cookie.indexOf( "," + id ) != -1 ) 
+			) 
+		  )
+		{
+			return true;			
+		}
+		return false;
+	},
+	WalkProcessAction:function()
+	{
+		var cookie = DocumentCookie.getcookie( page_data.notify.pin );
+		if( cookie )
+		{
+			var ids = cookie.split(",");
+			for( var i = 0  ;i < ids.length ; i++ )
+			{
+				var action = this.Actions[ ids[i] ] ;
+				if( action )
+				{
+					action.Process(); 
+				}
+			}
+			var allproecessed = true;
+			for( var ac in this.Actions )
+			{
+				var action = this.Actions[ ac ];
+				if( action && !action.processed )
+				{
+					allproecessed = false;
+					break;
+				}
+			}
+			if( allproecessed )
+			{
+				this.Element.className = this.theame + "_privateactionwindow_arrow";
+				this.IsStartWalk = false;
+				return;
+			}						
+		}
+		setTimeout( this.WalkProcessAction.bind(this) , 10000 );
+	},
+	window		: null,
+	appendAction:function( tm , from, url, notify , id , actiontype )
+	{
+		
+		var action = new PrivateAction( this , this.ActionListElement , id , tm , from, url, notify , actiontype);
+		if( this.IsProcessedAction( id ) )
+		{
+			action.Process();
+			if( !this._IsFlash )
+			{
+				this.Element.className = this.theame + "_privateactionwindow_arrow";
+			}
+		}
+		else
+		{
+			this.Flash();
+			setTimeout( this.PlayMessageSound.bind( this ) , 0 );					
+		}
+		this.Actions[ id + "" ] =  action ;		
+		this.ElementNotify.innerHTML = notify;
+		if( !this.IsStartWalk )
+		{
+			this.IsStartWalk = true;
+			this.WalkProcessAction();
+		}
+	},
+	PlayMessageSound:function()
+	{
+		if( playSound )
+		{
+			playSound("message");
+		}			
+	},
+	OnClickAction:function(event)
+	{
+		this.ActionListElement.style.display  = "none";
+	},
+	
+	OnOutWindowMouseUp:function( event )
+	{
+		if( !event) event = window.event;
+		var srcElement = event.srcElement?event.srcElement:event.target;
+		if( srcElement && srcElement.privateaction )
+			return;
+		this.ActionListElement.style.display  = "none";
+		Event.stopObserving(document.body , "mouseup" , this.eventOnOutWindowMouseUp );
+	}, 
+	OnWindowClick:function( event )
+	{
+		this.ActionListElement.style.posLeft = event.x;
+		this.ActionListElement.style.posTop = event.y;
+		this.ActionListElement.style.display  = "block";
+		this.eventOnOutWindowMouseUp = this.OnOutWindowMouseUp.bindAsEventListener( this );
+		Event.observe( document.body , "mouseup" , this.eventOnOutWindowMouseUp );
+	}
+};
+
+function Relogin()
+{
+	if( notify_manager && notify_manager.login )
+		notify_manager.login( page_data.notify.alias );
+}
+function ReloginAsync()
+{
+	setTimeout( Relogin , 0 );
+}
+if( Login && Login.add )
+{
+	//Login.add( ReloginAsync );	
+}
+function PhotoAction( parent , actionwin , notify  , className )
+{	
+	var action = document.createElement("div");		
+	action.className = className;
+	this.content = notify;
+	this.removeFromParent= function()
+	{
+		try{
+			parent.removeChild( action );
+		}
+		catch(e){}
+		if( actionwin && actionwin.OnActionRemoved )
+			actionwin.OnActionRemoved( this );
+	}
+	this.AddToParent = function()
+	{
+		try{
+			parent.appendChild( action );
+		}
+		catch(e){}
+		if( actionwin && actionwin.OnActionAdded )
+			actionwin.OnActionAdded( this );
+	}
+	this.HideEffect = function()
+	{	
+	
+	}
+	this.ShowEffect=function()
+	{
+		action.innerHTML = this.content;
+	}
+}
+function PhotoActionWindow( parent , theame , actiontype , actioncount )
+{
+	this.base = ActionWindowBase;
+	this.Notify = [];
+	this.displayCount = actioncount;
+	this.WriteIndex = 0;
+	this.ReadIndex = 0;
+	this.ShowActions = [];
+	this.base( parent , theame ,actiontype , actioncount*2 );	
+	this.Inval = -1;
+	this.ClipLayer = this.Element.appendChild( document.createElement("div") );
+	this.ClipLayer.style.width = "200%";
+	this.ClipLayer.style.height = "100%";
+	this.OnMouseOver = function(event)
+	{
+		this.stop = true;
+	};
+	this.OnMouseOut  = function(event)
+	{
+		this.stop = false;
+	};
+	Event.observe( this.Element , "mouseover" , this.OnMouseOver.bindAsEventListener(this));
+	Event.observe( this.Element , "mouseout" , this.OnMouseOut.bindAsEventListener(this));
+	this.OnAction = function( tm , from, url, notify , actiontype )
+	{
+		alert(tm+':'+from+':'+url+':'+notify+':'+actiontype);
+		this.Notify.push(
+							{ tm:tm,
+							from:from,
+							url:url,
+							notify:notify,
+							actiontype:actiontype
+							}
+						);/*[this.WriteIndex++] = { tm:tm,
+										 from:from,
+										 url:url,
+										 notify:notify,
+										 actiontype:actiontype
+									   };*/
+		
+		if( this.Inval == -1 && this.ShowActions.length <= this.displayCount )
+		{
+			this.InitAction();
+		}
+		else if( this.Inval == -1 )
+		{
+			this.Inval = setTimeout( this.RefreshActionProc.bind( this ) , 3000 );
+		}
+	};
+	this.OnEndAction = function(tm ,result)
+	{
+	};
+	this.OnActionRemoved=function(action)
+	{
+		var n = this.GetNextNotify();
+		if( n )
+		{
+			action.content = n.url;
+		}
+		action.AddToParent();
+	}
+	this.OnActionAdded = function(action)
+	{
+		action.ShowEffect();
+		this.ShowActions.push( action );
+	}
+	this.GetNextNotify = function()
+	{
+		var n = this.Notify[0];
+		if( n )
+		{
+			this.Notify.splice( 0 , 1 );
+		}
+		return n;
+	}
+	this.InitAction = function()
+	{
+		var n = this.GetNextNotify();
+		if( !n )
+		{
+			return;
+		}
+		var action = new PhotoAction( 
+			this.ClipLayer , 
+			this , 
+			n.url , 
+			this.Element.className + "_hotaction" 
+		);
+		action.AddToParent();
+	}
+	this.WillOffSet = 0;
+	this.MovieOffset = [ 16 , 16 ,8 , 4 , 4 , 4 , 4 , 2 , 2 , 1 , 1 , 1 , 1 ];
+	this.MovieOffsetIndex = 0;
+	this.RefreshActionProc = function()
+	{
+		if( this.stop )
+		{
+			var next = Math.random()*6000;
+			setTimeout( this.RefreshActionProc.bind( this ) , next );
+			return;
+		}
+		this.WillOffSet+=this.MovieOffset[this.MovieOffsetIndex++];
+		this.ClipLayer.style.marginLeft = "-"+this.WillOffSet+"px";
+		if( this.MovieOffsetIndex >= this.MovieOffset.length )
+		{
+			var action = this.ShowActions[0];
+			if( action )
+			{
+				this.ShowActions.splice( 0 , 1 );
+				action.removeFromParent();
+			}
+			this.WillOffSet = 0;
+			this.MovieOffsetIndex = 0;
+			this.ClipLayer.style.marginLeft = "-"+this.WillOffSet+"px";
+			var next = Math.random()*6000;
+			if( next < 100 )
+			{
+				next = 100;
+			}
+			setTimeout( this.RefreshActionProc.bind( this ) , next );
+		}
+		else
+		{
+			setTimeout( this.RefreshActionProc.bind( this ) , 10 );
+		}
+	}
+	this.Register( PublicActionDispatcher , actiontype , this );
+};
+var InviteItem = Class.create();
+var PopWindow = Class.create();
+
+InviteItem.prototype = {
+	initialize: function( win , list , inviteinfo , popwin ) 
+	{
+		this.List = list;
+		this.Win = win;
+		this.InviteInfo = inviteinfo;
+		this.item = document.createElement("div");
+		this.item.id = "im_inviteitem";
+		this.item.style.borderBottom = "dotted 1px #efefef";
+		this.item.style.height = "40px";
+		this.popwin = popwin;
+		var IDOK		=  "btn"+UniqueGenerator.getUniqueID();
+		var IDCancel	=  "btn"+UniqueGenerator.getUniqueID();		
+		
+		this.item.innerHTML = "<div style=\"padding-top:8px;float:left;width:260px;height:100%;\"><a href=\"#\">"+this.InviteInfo.alias+"</a>想和你聊天，你接受吗?</div>\
+								<input value=\"接受\" type=\"button\" id=\""+IDOK+"\"></input><input value=\"不接受\" type=\"button\" id=\""+IDCancel+"\"></input>";
+		list.appendChild(this.item);						
+		Event.observe( $(IDOK) , "click" , this.OnOK.bindAsEventListener(this) );
+		Event.observe( $(IDCancel) , "click" , this.OnCancel.bindAsEventListener(this) );
+		Event.observe( this.item , "mouseover" , this.OnMouseOver.bindAsEventListener(this) );
+		Event.observe( this.item , "mouseout" , this.OnMouseOut.bindAsEventListener(this) );
+	},
+	OnOK :function(event)
+	{
+		this.OnCancel();	
+		chat_proxy.startchat( this.InviteInfo );
+	},
+	DeleteSelf : function()
+	{
+		try{
+			this.List.removeChild( this.item );
+			if( this.List.childNodes.length <= 0 )
+			{
+				this.Win.Disapear();				
+			}
+		}catch(e){}
+		if( this.popwin )
+		{
+			this.popwin.hide( true );
+		}
+	},
+	OnCancel:function(event)
+	{
+		if( Effect && Effect.Fade )
+		{
+			Effect.Fade( this.item );
+			setTimeout( this.DeleteSelf.bind( this ) , 1000 );
+		}
+		else
+		{
+			this.DeleteSelf();
+		}		
+	},
+	OnMouseOver:function()
+	{
+		this.item.style.backgroundColor = "#efefef";
+	},
+	OnMouseOut:function()
+	{
+		this.item.style.backgroundColor = "white";
+	}
+};
+var InviteNotifyWin = Class.create();
+InviteNotifyWin.prototype = {
+	WinSettings:{
+		minwidth	:	"36",
+		minheight	:	"36",
+		maxwidth	:	"400",
+		maxheight	:	"400"
+	},
+	showmin	  :true,
+	getwidth	:function()
+	{
+		return this.showmin?this.WinSettings.minwidth:this.WinSettings.maxwidth;
+	},
+	getheight	:function()
+	{
+		return this.showmin?this.WinSettings.minheight:this.WinSettings.maxheight;
+	},
+	initialize: function( id , parameters ) 
+	{
+		this.Container = document.createElement("div");	
+		this.Container.className = "notifywin_main";
+		//delete
+		this.Container.style.position = "absolute";
+		this.Container.style.backgroundColor = "white";
+		this.Container.style.zIndex	= "19999";
+		this.Container.style.overflow	= "hidden";
+		this.Container.style.styleFloat	= "right";
+		this.Container.style.border	= "solid 1px black";
+		this.Container.style.width = this.getwidth()+"px";
+		this.Container.style.height = this.getheight()+"px";
+		this.Container.style.display= "none";
+		//delete end
+		var InnerContainerID =  "div"+UniqueGenerator.getUniqueID();
+		var InviteListID =  "div"+UniqueGenerator.getUniqueID();
+		var IDClose		=  "btn"+UniqueGenerator.getUniqueID();	
+		this.Container.innerHTML = "<div id=\""+IDClose+"\" style=\"margin-top:8px;margin-left:8px;cursor:default;float:left;border:solid 1px black;width:12px;height:12px;font-size:10px;padding:2px;\">X</div>\
+									<div id=\""+InnerContainerID+"\" style=\"float:right;width:36px;height:36px;border:solid 1px black;\"></div>\
+									<div id=\""+InviteListID+"\" style=\"padding-left:5px;float:right;width:100%;height:364px;border:solid 1px black;overflow-y:auto;overflow-x:hidden;\"></div>";			
+		this.Container = document.body.appendChild(this.Container);
+		this.InnerContainer = $(InnerContainerID);
+		this.InviteList		= $(InviteListID);
+		this.Close			= $(IDClose);
+		Event.observe( window , "scroll" , this.RecalcPosition.bindAsEventListener( this ) );
+		Event.observe( window , "resize" , this.RecalcPosition.bindAsEventListener( this ) );
+		Event.observe( this.InnerContainer , "mouseover" , this.OnMouseOver.bindAsEventListener( this ) );
+		//Event.observe( this.Container , "mouseout" , this.OnMouseOut.bindAsEventListener( this ) );
+		this.RecalcPosition();		
+	},
+	Disapear:function()
+	{
+		if( Effect && Effect.Fade )
+		{
+			this.RecalcPosition();
+			Effect.Fade( this.Container );
+		}
+		else
+		{
+			this.showmin = true;
+			this.Container.style.display = "none";
+		}		
+	},
+	Appear:function()
+	{
+		if( Effect && Effect.Appear )
+		{
+			Effect.Appear( this.Container );
+		}
+		else
+		{
+			this.Container.style.display = "";
+		}
+	},
+	AddInviteInfo:function( invite )
+	{
+		var IDOK		=  "btn"+UniqueGenerator.getUniqueID();
+		var IDCancel	=  "btn"+UniqueGenerator.getUniqueID();		
+		var IDClose		=  "btn"+UniqueGenerator.getUniqueID();		
+		var IDName		=  "btn"+UniqueGenerator.getUniqueID();		
+		var Content = "<div style=\"padding-left:12px;padding-top:8px;float:left;height:119px;width:200px;\">\
+							<div style=\"float:left;height:80px;overflow-x:hidden;overflow-y:auto;\">\
+								<span>"+invite.time+":</span>\
+								<a id =\""+IDName+"\" href=\"javascript:return false;\">"+invite.alias+"</a>\
+								<span>想和你聊天，你接受吗?</span>\
+							</div>\
+							<div style=\"margin-top:40px;\">\
+								<input value=\"接受\" type=\"button\" id=\""+IDOK+"\"></input>\
+								<input value=\"不接受\" type=\"button\" id=\""+IDCancel+"\"></input>\
+							</div>\
+					   </div>\
+					   <div id=\""+IDClose+"\" style=\"margin-top:8px;margin-right:8px;cursor:default;float:right;border:solid 1px black;width:14px;height:12px;font-size:10px;padding:2px;\">X</div>";					   
+		var pw = new PopWindow( Content );
+		var ii = new InviteItem( this , this.InviteList , invite , pw );
+		Event.observe( $(IDOK) , "click" , ii.OnOK.bindAsEventListener(ii) );
+		Event.observe( $(IDCancel) , "click" , ii.OnCancel.bindAsEventListener(ii) );
+		Event.observe( $(IDClose) , "click" , ii.OnCancel.bindAsEventListener(ii) );
+		//this.Appear();
+		
+		pw.show();
+		window.focus();
+	},
+	RecalcPosition:function(event)
+	{
+		var windowScroll = WindowUtilities.getWindowScroll();    
+		var pageSize = WindowUtilities.getPageSize();    
+		this.Container.style.top = windowScroll.top + "px";
+		this.Container.style.left = windowScroll.left + windowScroll.width - this.getwidth() -22 + "px";	
+		this.Container.style.width = this.getwidth()+"px";	
+		this.Container.style.height = this.getheight()+"px";	
+	},
+	OnMouseOver:function(event)
+	{
+		this.showmin = false;
+		this.RecalcPosition();
+		this.Close.style.display  = "";
+	},
+	OnMouseOut:function(event)
+	{
+		var srcElement = event.srcElement?event.srcElement:event.target
+		if( srcElement != this.Container )
+		{
+			return;
+		}
+		this.showmin = true;		
+		this.RecalcPosition();		
+	}
+};
+
+PopWindow.prototype = {
+	width:240,
+	height:120,
+	initialize: function( content ) 
+	{
+		this.Window = document.createElement("div");
+		this.Window.style.border	= "solid 2px #00ee88";
+		this.Window.style.position	= "absolute";		
+		this.Window.style.width		= this.width+"px";
+		this.Window.style.height	= this.height+"px";
+		this.Window.style.display	= "none";
+		this.Window.style.zIndex	= "19999";
+		this.Window.style.backgroundColor = "white";
+		this.Window.style.overflow  = "hidden";
+		var windowScroll			= WindowUtilities.getWindowScroll();    
+		var pageSize				= WindowUtilities.getPageSize();    
+		this.Window.style.top	= windowScroll.top + windowScroll.height - this.height - 30 + "px";
+		this.Window.style.left	= windowScroll.left + windowScroll.width - this.width - 22 + "px";	
+		if( content )
+		{
+			this.setContent( content );
+			this.append();
+		}
+	},
+	setContent:function( html )
+	{
+		this.Window.innerHTML = html;		
+	},
+	show:function()
+	{
+		if( Effect && Effect.Appear )
+		{
+			Effect.Appear( this.Window );
+		}
+	},
+	hide:function( bdestroy )
+	{
+		if( Effect && Effect.Fade )
+		{
+			Effect.Fade( this.Window );
+		}
+		if( bdestroy == true )
+		{
+			setTimeout( this.destroy.bind(this) , 1000 );
+		}
+	},
+	append:function()
+	{
+		document.body.appendChild( this.Window );
+	},
+	destroy:function()
+	{
+		try{
+		document.body.removeChild( this.Window );
+		}catch(e){}
+	}
+};
+
+
+var MF_PUBLIC		= 0x00000001;
+var MF_CURPAGECHAT	= 0x00000002;
+var MF_WHOINTHISPAGE= 0x00000004;
+var MF_NOTIFY		= 0x00000008;
+var MF_CHAT			= 0x00000010;
+var MF_SHOW_NOTIFY	= 0x00000020;
+var MF_ONLY_NC		= 0x00000040;
+
+
+notify_manager.event.event_sink = {
+	onnotifysend	: function( tm ,result ){
+				
+	},
+	onpublicend			: function( tm ,result , cookie )
+	{
+		if( PublicActionDispatcher )
+		{
+			PublicActionDispatcher.EndAction( tm ,result , cookie  );
+		}
+	},
+	onpublicaction		: function( tm ,from, url, notify , actiontype ){
+		if( PublicActionDispatcher )
+		{
+			PublicActionDispatcher.DispatchAction( tm ,from, url, notify , actiontype );
+		}
+	},
+	onprivateaction		: function( tm ,from, url, notify , id, actiontype ){
+		if( iIceAge.functionmask&MF_SHOW_NOTIFY )
+		{
+			if( PrivateActionWindow )
+			{
+				PrivateActionWindow.appendAction( tm ,from, url, notify , id, actiontype );
+			}
+		}
+	},
+	onlogin			: function( tm , host , pin , bRelogin ){
+		if( bRelogin )
+		{
+			iIceAge.removeAllChatChannel();
+			chat_manager.login();
+		}
+		if( iIceAge.functionmask&MF_CURPAGECHAT )
+		{		
+			Dialog.closeInfo();
+			iIceAge.startchat( {newsession:true,public:true,target:iIceAge.CurrentPageRoomID} );
+			//now not modify it,so bother!!!
+		}
+		if( (iIceAge.functionmask&MF_WHOINTHISPAGE) && iIceAge.Parameters[MF_WHOINTHISPAGE] )
+		{
+			iIceAge.startchat( {newsession:true,public:true,target:iIceAge.Parameters[MF_WHOINTHISPAGE].url }  );
+		}
+		if( !bRelogin && typeof(OnInitialize ) == "function" )
+		{
+			OnInitialize( notify_manager );
+		}
+		if(iIceAge.functionmask&MF_CURPAGECHAT)
+			DocumentCookie.setcookie( "wcalias" , page_data.notify.alias );
+	}
+};
+
+chat_manager.event.event_sink = {
+	onurlinvite		: function( tm ,aliashost, chatid )
+					  {
+							iIceAge.onurlinvite( tm , aliashost , chatid );
+					  },
+	onchatinvite	: function( tm , aliashost,chatid, fromalias , chatkey , init , bself , pinfrom , pinto )
+					  {
+							iIceAge.onchatinvite( tm , aliashost,chatid, fromalias , chatkey , init , bself, pinfrom , pinto );
+					  },
+	onreinvite		: function( tm  , wcshost,chatid, bpublic , fromalias,chatkey,init, pinfrom , pinto)
+	{
+		iIceAge.onreinvite( tm  , wcshost,chatid, bpublic , fromalias,chatkey,init, pinfrom , pinto);
+	}
+};
+
+
+
+iIceAge = {
+	theame				: "dialog",
+	CurrentPageRoomID	: String(location),
+	
+	functionmask		: 0,
+	Parameters			: {},
+	OnBodyResize		: function()
+	{
+		var offsetTop = $("chatWindowStartPosition")?($("chatWindowStartPosition").offsetTop):30;
+		offsetTop = parseInt( offsetTop );
+		var height = (window.innerHeight?window.innerHeight:document.body.clientHeight)-offsetTop-4;
+		if( window.innerWidth )
+		{
+			this.setCurrentPageRoomSize( window.innerWidth-24, height );						
+		}
+		else
+		{
+			this.setCurrentPageRoomSize( document.body.clientWidth-4,height );						
+		}
+	},
+	OnUnload:function()
+	{
+		if( window.scrollbars )
+		{
+			window.scrollbars.visible=true;
+		}
+	},
+	setCurrentPageRoomSize : function( width , height )
+	{
+		if( this.pageChatChannel && this.pageChatChannel.getWindow() )
+		{
+			this.pageChatChannel.getWindow().setSize( width , height );
+		}
+	},
+	setCurrentPageRoomPos : function( top , left )
+	{
+		if( this.pageChatChannel && this.pageChatChannel.getWindow() )
+		{
+			this.pageChatChannel.getWindow().setLocation( top , left );
+		}
+	},
+	initialize	: function( parameters  ){
+		try{
+			this.InviteWin = new InviteNotifyWin(UniqueGenerator.getUniqueID());
+		}
+		catch(e){}
+		if( window.scrollbars )
+		{
+			window.scrollbars.visible=true;
+		}
+		if(  parameters.mask_function&MF_ONLY_NC )
+		{
+			page_data.controler.only_controller = true;
+		}
+		else
+		{
+			if( parameters.theame )
+			{
+				this.theame = parameters.theame;
+			}		
+			var alias = DocumentCookie.getcookie("wcalias");
+			if( !alias && !parameters.alias && !DocumentCookie.getcookie("uuac") && (parameters.mask_function&MF_CURPAGECHAT) )
+			{
+				new AliasDialog( parameters );
+				return;
+			}		
+			if( parameters.alias )
+				page_data.notify.alias = parameters.alias;
+			else if( alias )
+			{
+				page_data.notify.alias = alias;
+			}
+			if( parameters.mask_function&MF_CURPAGECHAT )
+			{
+				parameters.mask_function|=(MF_CHAT|MF_NOTIFY);
+				parameters.CurrentPageParameter.hidetitle=true;
+				parameters.CurrentPageParameter.hidestatus=true;
+				parameters.CurrentPageParameter.bottommost = true;
+				document.body.style.width = "100%";
+				document.body.style.height = "100%";
+				Event.observe( window , "resize" , this.OnBodyResize.bindAsEventListener(this) );
+				this.Parameters[MF_CURPAGECHAT]=parameters.CurrentPageParameter;
+			}
+			if( parameters.mask_function&MF_WHOINTHISPAGE)
+			{
+				this.Parameters[MF_WHOINTHISPAGE]=parameters.WhoInThisPageParameters;
+				WhoInThisPageWindow.initialize( parameters.WhoInThisPageParameters.dispElement , parameters.WhoInThisPageParameters);
+			}
+			if( parameters.mask_function&(MF_WHOINTHISPAGE|MF_CHAT) )
+			{
+				parameters.mask_function|=MF_NOTIFY;
+			}
+			if( parameters.mask_function&MF_SHOW_NOTIFY )
+			{
+				parameters.mask_function|=MF_NOTIFY;
+				this.Parameters[MF_SHOW_NOTIFY]=parameters.ShowNotifyParameters;
+				PrivateActionWindow.initialize( parameters.ShowNotifyParameters.dispElement  , {theame:this.theame} );
+			}
+			page_data.notify.sync = parameters.mask_function&MF_NOTIFY;
+			page_data.chat.recv	  = parameters.mask_function&MF_CHAT;
+			
+		}	
+		this.functionmask = parameters.mask_function;
+		if( server_config.controlerhost )
+		{
+			controler_manager.getnotifyhost( server_config.controlerhost );
+			if( parameters.mask_function&MF_CURPAGECHAT )
+				Dialog.info("<br>正在加载系统，请稍侯...<a href='javascript:Dialog.closeInfo();'>隐藏</a>",
+						{windowParameters: {width:250, height:100,closable:true}, showProgress: true});
+			return true;		
+		}
+		return false;
+	},
+	
+	//chat 
+	startchat	: function( parameters ){
+		if( parameters.newsession )
+		{
+			if( parameters.public )
+			{
+				notify_manager.sendurlinvite( parameters.target );
+			}
+			else
+			{
+				notify_manager.sendnewchatinvite( parameters.target , parameters.content );
+			}
+		}
+		
+	},	
+	getChannel			:function( id )
+	{
+		return this.existsChannel[id];
+	},
+	removeAllChatChannel	: function()
+	{
+		for( var i in this.existsChannel )
+		{
+			var ch = this.existsChannel[ i ];
+			if( ch && ch.getWindow )
+			{
+				var win = ch.getWindow();
+				if( win && win.id )
+				{
+					Windows.close( win.id );
+				}
+			}
+		}
+	},
+	existsChannel		:{},
+	newChannel	: function( parameters ){
+		if( this.existsChannel[ parameters.channelid ] )
+			return this.existsChannel[ parameters.channelid ];
+		else
+			this.existsChannel[ parameters.channelid ] = new Chat_Channel( parameters );
+		return this.existsChannel[ parameters.channelid ];
+	},
+	removeChannel:function( channelid ){
+		this.existsChannel[channelid ]=null;
+		delete this.existsChannel[channelid ];
+	},
+	recvedinvite:[],
+	onurlinvite	: function( tm , aliashost , chatid ){
+		if( this.functionmask&MF_WHOINTHISPAGE && (chatid == this.Parameters[MF_WHOINTHISPAGE].url) )
+		{
+			this.newChannel( 
+							{   host		:aliashost,
+								channelid	:chatid,
+								public		:true,
+								alias		:chatid,
+								theame		:this.theame,
+								IsWhoInThisPageChannel:true
+							} 
+						  );	
+			return;		
+		}
+		if( chatid != iIceAge.CurrentPageRoomID )
+			return;
+		this.pageChatChannel = this.newChannel( 
+													{   host		:aliashost,
+														channelid	:chatid,
+														public		:true,
+														alias		:null,
+														theame		:this.theame,
+														WindowStyle	:this.Parameters[MF_CURPAGECHAT],
+														IsWhoInThisPageChannel:false														
+													} 
+											  );
+	},
+	onchatinvite: function( tm , aliashost,chatid, fromalias , chatkey , init ,bself , pinfrom , pinto ){
+
+		if( ChatWindowExist() )
+		{
+			return;
+		}
+		chat_proxy.startchat(
+								{ 
+								  mypin		:page_data.notify.pin,	
+								  pin		:pinto,								
+								  isinvite  :1,
+								  time		:tm , 
+								  host		: aliashost , 
+								  channelid	:chatid ,
+								  alias		:bself?"等待...":fromalias,
+								  channelkey:chatkey,
+								  init		:init,
+								  IsWhoInThisPageChannel:false,
+								  self		:bself					
+								}
+				);
+		if( !bself )
+			playSound("message");
+		return;
+		if( bself )
+		{
+			if( chat_proxy )
+			{
+				chat_proxy.startchat(
+								{ 
+								  mypin		:page_data.notify.pin,	
+								  pin		:pinto,								
+								  isinvite  :1,
+								  time		:tm , 
+								  host		: aliashost , 
+								  channelid	:chatid ,
+								  alias		:"等待...",
+								  channelkey:chatkey,
+								  init		:init,
+								  IsWhoInThisPageChannel:false					
+								}
+				);
+			}
+			return;
+		}
+		this.recvedinvite.push( { 
+								  mypin		:page_data.notify.pin,	
+								  pin		:pinfrom,							
+								  isinvite  :1,
+								  time		:tm , 
+								  host		: aliashost , 
+								  channelid	:chatid ,
+								  alias		:fromalias,
+								  channelkey:chatkey,
+								  init		:init
+								} 
+							  );
+		//if( !this.DialogWin )
+		//{
+		this.processinvite();
+		//}
+	},
+	onreinvite : function( tm  , wcshost,chatid, bpublic , fromalias,chatkey,init,pin){
+		var ch = this.existsChannel[ chatid ];
+		if(  ch && ch.window )
+		{
+			ch.window.toFront();			
+		}
+	},
+	processinvite:function()
+	{	
+		if( this.recvedinvite.length <= 0 )
+			return;
+		
+		var invite = this.recvedinvite[0];
+		while( !invite )
+		{
+			this.recvedinvite.splice( 0 , 1 );
+			invite = this.recvedinvite[0];
+			if( this.recvedinvite.length <= 0 )
+			{
+				return;
+			}
+		}
+		this.recvedinvite.splice( 0 , 1 );
+		if( !invite.isinvite )
+			return;
+		var ch = this.existsChannel[ invite.channelid ];
+		if(  ch && ch.window )
+		{
+			ch.window.toFront();			
+		}
+		if( this.InviteWin )
+			this.InviteWin.AddInviteInfo( invite ); 
+		if( playSound )
+		{
+			playSound("message");
+		}        
+	},
+	onClose	: function( evt , window )
+	{
+		if( window && window.userData )
+		{
+			if( typeof(window.userData.OnWindowClose)=="function" )
+			{
+				 window.userData.OnWindowClose();
+			}
+		}
+	}
+};
+
+Windows.addObserver( iIceAge );
+
+
+var Chat={
+	public_chat:function(url,param){	
+		if(typeof(param.minHeight)=="undefined")	{
+			param.minHeight=11;
+		}
+		if(typeof(param.minWidth)=="undefined"){
+			param.minWidth=400;
+		}
+		if(typeof(param.top)=="undefined"){
+			param.top=60;
+		}
+		if(typeof(param.left)=="undefined"){
+			param.left=10;
+		}
+		if(typeof(param.width)=="undefined"){
+			param.width=document.body.clientWidth-10;
+		}
+		if(typeof(param.height)=="undefined"){
+			param.height=500;
+		}
+		//edit by ww
+		iIceAge.initialize(  );
+	},
+	params: {},
+	onload:function(){
+		if ( Browser.browser == BrowserType.IE && document.readyState != "complete" ) 
+		{
+			 //setTimeout( Chat.onload.bind(Chat) , 50 );
+			 return;
+		}
+		iceage_oninitialize=null;
+		Chat.isOnload=true;
+		//iIceAge.initialize(Chat.params);	
+	},
+	add:function(o){
+		Chat.params.controller_host=o.controller_host;
+		Chat.params.theame=o.theame;
+		if(o.mask_function)Chat.params.mask_function|=o.mask_function;
+		if(o.WhoInThisPageParameters) Chat.params.WhoInThisPageParameters=o.WhoInThisPageParameters;
+		if(o.ShowNotifyParameters) Chat.params.ShowNotifyParameters=o.ShowNotifyParameters;
+		if(o.CurrentPageParameter){
+			var c=o.CurrentPageParameter;
+			var t=Chat.params.CurrentPageParameter;
+			if(t==null) t={};
+			t.CurrentPageRoomID=c.CurrentPageRoomID;
+			t.top=c.top|0;
+			t.left=c.left|0;
+			t.width=c.width|0;
+			t.height=c.height|0;			
+			t.minHeight=c.minHeight|0;
+			t.minWidth=c.minWidth|0;
+			t.draggable=c.draggable? c.draggable:false;
+			t.resizable=c.resizable? c.resizable:false;
+			t.minimizable=c.minimizable? c.minimizable:false;
+			t.maximizable=c.maximizable? c.maximizable:false;
+			t.closable=c.closable? c.closable:false;
+			Chat.params.CurrentPageParameter=t;
+		}
+	}	
+};
+
+var Notisfy={
+	func:[],
+	add:function(f){
+		if(notify_mgr){
+			f();
+		}else{
+			Notisfy.func.push( f );
+		}
+	}		
+};
+var notify_mgr=null;
+Chat.add({theame:"dialog",mask_function:MF_PUBLIC});
+function OnInitialize(notify){
+	notify_mgr = notify;
+	$A(Notisfy.func).each(function(f){
+		f();
+	});
+	Online.checkUserID();
+}
+var Online={
+	willcheckeduser:[],
+	add:function(userids){
+		if( controler_manager && controler_manager.checkuserid){
+			Online.checkUserID({userids:userids});
+		}else{
+			var users=userids.split(",");
+			users.each(function(item){
+				if(item!=null&&!Online.willcheckeduser.member(item)){
+					Online.willcheckeduser[Online.willcheckeduser.length]=item;				
+				}
+			});
+			if(controler_manager && controler_manager.checkuserid){Online.checkUserID()};
+		}
+	},
+	checkPin:function(pin,result){
+		alert( pin + ":" + result );
+	},
+	checkUserID:function(options){
+		var userids="";		
+		controler_manager.event.event_sink={};
+		if( controler_manager && controler_manager.checkuserid){
+			if(options){
+				controler_manager.event.event_sink.oncheckuserid=options.onCheck?options.onCheck:Online.onCheckUserID;
+				userids=options.userids;
+			}else{
+				controler_manager.event.event_sink.oncheckuserid=Online.onCheckUserID;
+             	userids = Online.willcheckeduser.join(","); 
+			} 
+            if(userids&&userids.length > 0 ){
+                controler_manager.checkuserid( userids );
+            }
+        }else if(options){
+            Online.add(options.userids);
+        }
+	},
+	onCheckPin:function(pin,result){
+		alert( pin + ":" + result );
+	},
+	onCheckUserID:function( pin , userid , result ){
+		$$("span.online_"+userid).each(function(item){	
+			item.innerHTML=(result == "true" ? 
+                    "<img src='/css/images/profile/status_online.gif' alt='在线' title='在线' align='absmiddle' border='0'>" 
+                    : "<img src='/css/images/profile/status_offline.gif' alt='离线' title='离线' align='absmiddle' border='0'>");
+		});
+	}
+};
+
+        
+
+/*
+{
+host		:aliashost,
+channelid	:chatid,
+public		:true,
+alias		:chatid,
+theame		:this.theame,
+IsWhoInThisPageChannel:true
+} 
+paramter
+*/
+function SerialIMWindowParameter( mypin , pin , host , channelid , channelkey , alias , popup )
+{
+	var d = ( "mypin|"		+ encodeURIComponent(mypin)			+ ",") +
+			( "pin|"		+ encodeURIComponent(pin)			+ ",") +
+			( "host|"		+ encodeURIComponent(host)			+ ",") +
+			( "channelid|"	+ encodeURIComponent(channelid)		+ ",") +
+			( "channelkey|"	+ encodeURIComponent(channelkey)	+ ",") +
+			( "alias|"		+ encodeURIComponent(alias)			+ ",") +
+			( "popup|"		+ encodeURIComponent(popup) );
+	return encodeURIComponent( d );
+}
+var oPopBody = null;
+var chat_proxy = {
+
+	startchat:function( parameter )
+	{
+		if( ChatWindowExist() )
+		{
+			return;
+		}
+		ChatWindowPulse();
+		if( Browser.browser == BrowserType.IE )
+		{
+			chat_proxy._startchat( parameter );
+		}
+		else		
+		{
+			chat_proxy.parameter = parameter;
+			setTimeout( chat_proxy._startchat_timeout.bind(chat_proxy) , 0 );
+		}
+	},	
+	_startchat:function( parameter )
+	{
+		parameter.host = parseInt(Math.random()*1000)+"."+parameter.host;
+		var data = SerialIMWindowParameter( parameter.mypin , parameter.pin , parameter.host,parameter.channelid,parameter.channelkey , parameter.alias , "1" );
+		var url = "/html/im/?"+data;
+		var win = window.open( 
+					url,
+					GetCurUserPinWindowName() ,
+					"height=405,width=630,location=no,menubar=no,resizable=no,scrollbars=no,status=no,titlebar=no,toolbar=no",
+					false
+				);
+		if( !win )
+		{
+			var title = "";
+			if( parameter.self )
+			{
+				title = "你发出聊天邀请";
+			}
+			else
+			{
+				title = '<a href="#" onclick="return false;" style="font-size:12px;">'+parameter.alias+"</a>想和你聊天";
+			}
+			var parameters = {windowParameters:{className:"alert",ok:null,cancel:null,minWidth:400,minHeight:200}};			
+			parameters.windowParameters = parameters.windowParameters || {};
+			url = "/html/im/?"+SerialIMWindowParameter( parameter.mypin , parameter.pin , parameter.host,parameter.channelid,parameter.channelkey , parameter.alias , "0" );
+			Dialog.openDialog( '<div style="padding-left:20px;padding-right:20px;padding-top:5px;font-size:12px;margin-top:10px;line-height:30px;">\
+			<div style="font-size:14px;">'+title+'但是您还需要<br><a href="'+url+'" onclick = "Dialog.closeInfo()" target="_blank">打开这个链接来完成本次聊天</a></div>\
+			<div>\
+			<b>小贴士</b>:出现这个信息是因为你的浏览器阻止了本站的弹出窗口,如果希望更快捷的使用本站的聊天功能，请允许本站的弹出窗口.\
+			</div>\
+			<div>\
+			感谢体验UU地带的聊天功能.<br>\
+			<input type="button" value="关闭提示" onclick="Dialog.closeInfo()" style="float:right;margin-right:10px;"></input>\
+			</div>'
+			,parameters);
+			return;
+		}
+	},	
+	_startchat_timeout:function()
+	{
+		this._startchat( chat_proxy.parameter );
+	}
+}
+
+function GetCurUserPinWindowName()
+{
+	return "_UUZoneIMWindow_"+page_data.notify.pin;
+}
+function ChatWindowExist()
+{
+	var cookie = DocumentCookie.getcookie(GetCurUserPinWindowName());
+	if( cookie )
+	{
+		var winalivetime = new Date(cookie);
+		var now = new Date();	
+		var timeoffset = now - winalivetime;
+		if( timeoffset <= 10000 )
+		{
+			return true;		
+		}
+	}	
+	return false;
+}
+function IsChatWindow()
+{
+	try
+	{
+		if( _IsChatWin )
+		{
+			return true;
+		}
+		return false;
+	}
+	catch(e)
+	{
+		return false;
+	}	
+}
+function ChatWindowPulse()
+{
+	var now = new Date();
+	var empiretime = new Date();
+	//empiretime.setTime( now + 10000 );
+	DocumentCookie.setcookie( GetCurUserPinWindowName() , now ,document.domain , "" , "/" );
+}
+function EmptyChatWinCookie()
+{
+	var empty = new Date(1950,1,1);
+	DocumentCookie.setcookie( GetCurUserPinWindowName() , empty ,document.domain , empty , "/" );
+}
+//alert(IsChatWindow());
+if( IsChatWindow() )
+{
+	ChatWindowPulse();
+	setInterval(ChatWindowPulse,5000);
+}
+
+function ScrollAction( parent , actionwin , notify  , className )
+{	
+	var action = document.createElement("div");		
+	action.className = className;
+	this.content = notify;
+	this.removeFromParent= function()
+	{
+		try{
+			parent.removeChild( action );
+		}
+		catch(e){}
+		if( actionwin && actionwin.OnActionRemoved )
+			actionwin.OnActionRemoved( this );
+	}
+	this.AddToParent = function()
+	{
+		try{
+			parent.appendChild( action );
+		}
+		catch(e){}
+		if( actionwin && actionwin.OnActionAdded )
+			actionwin.OnActionAdded( this );
+	}
+	this.HideEffect = function()
+	{	
+	
+	}
+	this.ShowEffect=function()
+	{
+		action.innerHTML = this.content;
+	}
+	this.getWidth = function()
+	{
+		return action.offsetWidth;
+	}
+}
+function ScrollActionWindow( parent , theame , actiontype , actioncount )
+{
+	this.base = ActionWindowBase;
+	this.Notify = [];
+	this.displayCount = actioncount;
+	this.WriteIndex = 0;
+	this.ReadIndex = 0;
+	this.ShowActions = [];
+	this.base( parent , theame ,actiontype , actioncount*2 );	
+	this.Inval = -1;
+	this.ClipLayer = this.Element.appendChild( document.createElement("div") );
+	this.ClipLayer.style.width = "200%";
+	this.Element.style.height = "40px";
+	this.Element.style.overflow = "hidden";
+	this.ReLoad = false;
+	this.OnMouseOver = function(event)
+	{
+		this.stop = true;
+	};
+	this.OnMouseOut  = function(event)
+	{
+		this.stop = false;
+	};
+	Event.observe( this.Element , "mouseover" , this.OnMouseOver.bindAsEventListener(this));
+	Event.observe( this.Element , "mouseout" , this.OnMouseOut.bindAsEventListener(this));
+	this.OnAction = function( tm , from, url, notify , actiontype )
+	{
+		this.Notify.push(
+			{ tm:tm,
+			  from:from,
+			  url:url,
+			  notify:notify,
+			 actiontype:actiontype
+		   }		
+		);
+		if( this.Inval == -1 && this.ShowActions.length <= this.displayCount )
+		{
+			this.InitAction();
+		}
+		else if( this.Inval == -1 )
+		{
+			this.Inval = setTimeout( this.RefreshActionProc.bind( this ) , 3000 );
+			this.TotalOffSet = this.ShowActions[0].getWidth();
+			this.WillOffSet  = 0;
+		}
+	};
+	this.OnEndAction = function(tm ,result)
+	{
+	};
+	this.OnActionRemoved=function(action)
+	{
+		var n = this.GetNextNotify();
+		if( n )
+			action.content = n.notify;
+		action.AddToParent();
+	}
+	this.OnActionAdded = function(action)
+	{
+		action.ShowEffect();
+		this.ShowActions.push( action );
+	}
+	this.GetNextNotify = function()
+	{
+		var n = this.Notify[0];
+		if( n )
+		{
+			this.Notify.splice( 0 , 1 );
+		}
+		return n;
+	}
+	this.InitAction = function()
+	{
+		var n = this.GetNextNotify();
+		if( !n )
+		{
+			return;
+		}
+		var action = new ScrollAction( 
+			this.ClipLayer , 
+			this , 
+			n.notify , 
+			this.Element.className + "_hottag" 
+		);
+		action.AddToParent();
+	}
+	this.RefreshActionProc = function()
+	{
+		if( this.stop )
+		{
+			var next = Math.random()*6000;
+			setTimeout( this.RefreshActionProc.bind( this ) , next );
+			return;
+		}
+		this.TotalOffSet/=2;
+		if( this.TotalOffSet <= 1 )
+		{
+			this.TotalOffSet = 1;
+		}
+		this.WillOffSet+=this.TotalOffSet;
+		this.ClipLayer.style.marginLeft = "-"+this.WillOffSet+"px";
+		if( this.TotalOffSet == 1 )
+		{
+			var action = this.ShowActions[0];
+			if( action )
+			{
+				this.ShowActions.splice( 0 , 1 );
+				action.removeFromParent();
+			}
+			this.WillOffSet  = 0;
+			this.ClipLayer.style.marginLeft = "-"+this.WillOffSet+"px";
+			var next = Math.random()*6000;
+			if( next < 100 )
+			{
+				next = 100;
+			}
+			setTimeout( this.RefreshActionProc.bind( this ) , next );
+			this.TotalOffSet = this.ShowActions[0].getWidth();
+		}
+		else
+		{
+			setTimeout( this.RefreshActionProc.bind( this ) , 50 );
+		}
+	}
+	this.Register( PublicActionDispatcher , actiontype , this );
+};

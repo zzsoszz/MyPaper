@@ -1,0 +1,175 @@
+完成本课后，可以做下列事情：
+描述多表插入的特性
+使用下列类型的多表插入：无条件插入，回环插入，条件的ALL INSERT，条件的First insert
+创建和使用外部表
+在创建主键约束时命名所产生的索引 
+多表插入
+INSERT...SELECT语句可以在一条DML语句中向多个表插入多行，可以用于数据仓库系统，以从多个数据源提取数据到目的表中。并且可以显著的提高性能。
+ETL，代表数据仓库中常用的抽取（extraction)，传输（transformation)，加载（loading)。
+使用新的多表插入，可以并行的直接加载，取得较高的性能。
+多表插入：
+只能在table上执行，在view和materialized views上
+不能在一个romote table上执行多表插入
+当执行一个多表插入的时候，不能使用表的集合表达式
+列最多能有999个
+1.无条件插入:
+2.有条件插入:
+一个有条件多表插入可以存在127个when条件
+else子句，如果所有when都没有返回true，执行else子句，如果也没有else，就什么都不做
+2.1有条件的ALL INSERT:
+对所有when条件返回true的内容进行处理
+2.2有条件的FIRST INSERT:
+对第一个返回true的when条件进行处理
+4.循环插入:
+举例：
+
+无条件插入：ALL
+INSERT ALL
+INTO sal_history VALUES(EMPID,HIREDATE,SAL)
+INTO mgr_history VALUES(EMPID,MGR,SAL)
+SELECT employee_id EMPID,hire_date HIREDATE,
+salary SAL, manager_id MGR
+FROM employees
+WHERE employee_id > 200;
+
+条件插入：ALL
+INSERT ALL
+WHEN SAL > 10000 THEN
+INTO sal_history VALUES(EMPID,HIREDATE,SAL)
+WHEN MGR > 200 THEN
+INTO mgr_history VALUES(EMPID,MGR,SAL)
+SELECT employee_id EMPID,hire_date HIREDATE,
+salary SAL, manager_id MGR
+FROM employees
+WHERE employee_id > 200;
+
+条件插入：FIRST
+INSERT FIRST
+WHEN SAL > 25000 THEN
+INTO special_sal VALUES(DEPTID, SAL)
+WHEN HIREDATE like ('%00%') THEN
+INTO hiredate_history_00 VALUES(DEPTID,HIREDATE)
+WHEN HIREDATE like ('%99%') THEN
+INTO hiredate_history_99 VALUES(DEPTID, HIREDATE)
+ELSE
+INTO hiredate_history VALUES(DEPTID, HIREDATE)
+SELECT department_id DEPTID, SUM(salary) SAL,
+MAX(hire_date) HIREDATE
+FROM employees
+GROUP BY department_id;
+
+旋转插入：
+INSERT ALL
+INTO sales_info VALUES (employee_id,week_id,sales_MON)
+INTO sales_info VALUES (employee_id,week_id,sales_TUE)
+INTO sales_info VALUES (employee_id,week_id,sales_WED)
+INTO sales_info VALUES (employee_id,week_id,sales_THUR)
+INTO sales_info VALUES (employee_id,week_id, sales_FRI)
+SELECT EMPLOYEE_ID, week_id, sales_MON, sales_TUE,
+sales_WED, sales_THUR,sales_FRI
+FROM sales_source_data;
+
+外部表：
+1.外部表是一些只读表，只能被查询
+2.数据以扁平文件的方式存放在数据库之外，metadata存放在数据库内。
+3.使用外部表特性，可以把外部数据作为一个虚拟表使用。可以直接对外部表进行查询和连接的操作，不需要加载到数据库。
+4.外部表也不可以创建索引。
+使用CREATE TABLE ... ORGANIZATION EXTERNAL来创建外部表的metadata，这些外部表可以被认为是一个视图。
+Oracle 服务器提供了两种主要的访问驱动以使用外部表：
+1.一种是ORACLE_LOADER，采用Oracle Loader技术来读取外部表里面的数据。
+2.另一种是import/export访问驱动，也称为ORACLE_INTERNAL，可以导入导出与平台无关的格式。
+
+外部表子句包含访问驱动的类型（缺省是ORACLE_LOADER）、external_data_properties, and the REJECT LIMIT.
+external_data_properties包含：
+– DEFAULT DIRECTORY
+– ACCESS PARAMETERS
+– LOCATION
+REJECT LIMIT指定发生多少个转换错误时，Oracle返回错误放弃查询数据。
+DEFAULT DIRECTORY指定外部表的位置，可以指定多个位置，增加并行性和负载均衡。
+后面两个参数都是访问驱动程序使用的，Oracle服务器并不解释它们。
+
+创建外部表：
+首先创建目录对象，以对应外部表在系统上面的存放位置
+CREATE [OR REPLACE] DIRECTORY AS 'path_name';
+然后再创建外部表，如：
+create table empx(empno number,empname varchar2(20),birthdate date)
+//organization external子句包含：type,external_data_properties,reject limit,parallel
+organization external
+(
+    //type:访问驱动类型，默认为oralce_loader,还有oracle_internal
+    type ORacle_loader
+    //external_data_properties之directory:缺省的访问路径,最大为30个字符，不能指定schema name
+    default directory tempdir
+    //external_data_properties之parameters:访问参数
+    access parameters
+    (
+        //记录边界说明
+        records delimited by newline
+        //错误文件说明
+        badfile 'error'
+        //日志文件说明
+        logfile 'log'
+        //字段说明
+        fields terminated by ',' (empno char,empname char,birthdate char date_format date mask "dd-mon-yyyy")
+    )
+    //external_data_properties之location:文件名称说明   
+    location ('emp1.txt')             
+)
+//分析文件的并行执行服务数
+parallel 5
+//转换错误超过多少后报错并忽略查询说明,默认为0
+reject limit 200   
+
+在创建主键时指定索引的名称：[using index (create index idx_name on table(column))]
+CREATE TABLE NEW_EMP
+(employee_id NUMBER(6) constraint emp_id_pr PRIMARY KEY USING INDEX (CREATE INDEX emp_id_idx ON NEW_EMP(employee_id)),
+first_name VARCHAR2(20),
+last_name VARCHAR2(25));
+
+
+条件insert
+INSERT ALL INTO xuanzhuan1 VALUES ('aaaa','dddd','ddd')
+SELECT * FROM dual;
+
+
+
+create table tdate(
+
+　　id varchar2(10),
+
+　　name varchar2(20),
+
+　　birthday date default sysdate
+
+　　);
+
+　insert into tdate values(1,'zhangsan',to_date('1980-05-10','YYYY-MM-DD'));
+
+　　insert into tdate values(1,'zhangsan',to_date('1980-05-10','YYYY-MM-DD'));
+
+　　insert into tdate values(2,'lisi',to_date('1980-05-10','YYYY-MM-DD'));
+
+　　insert into tdate values(3,'wangwu',default);
+
+　　insert into tdate(id,name) values(4,'zhangsan');
+
+
+
+create table tdate1 as select * from tdate where 1=0;
+
+　　create table tdate2 as select * from tdate where 1=0;
+
+　insert all
+
+　　when birthday > '01-1月-08'then into tdate1
+
+　　when birthday < '01-1月-08'then into tdate2
+
+　　when name = 'zhangsan' then into tdate1
+
+　　when name = 'lisi' then into tdate2
+
+select * from tdate;
+
+
+

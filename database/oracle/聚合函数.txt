@@ -1,0 +1,116 @@
+-- 定义类型 聚合函数的实质就是一个对象    
+create or replace type strcat_type as object (    
+    cat_string varchar2(4000),    
+    --对象初始化    
+    static function ODCIAggregateInitialize(cs_ctx In Out strcat_type)    
+        return number,    
+        --聚合函数的迭代方法(这是最重要的方法)    
+    member function ODCIAggregateIterate(self In Out strcat_type,value in varchar2)    
+        return number,    
+        --当查询语句并行运行时,才会使用该方法,可将多个并行运行的查询结果聚合    
+    member function ODCIAggregateMerge(self In Out strcat_type,ctx2 In Out strcat_type)    
+        return number,    
+        --终止聚集函数的处理,返回聚集函数处理的结果    
+    member function ODCIAggregateTerminate(self In Out strcat_type,returnValue Out varchar2,flags in number)    
+        return number    
+)    
+/    
+  
+/* 创建主体类型 */    
+create or replace type body strcat_type is  
+  static function ODCIAggregateInitialize(cs_ctx IN OUT strcat_type) return number    
+  is  
+  begin  
+      cs_ctx := strcat_type( null );    
+      return ODCIConst.Success;    
+  end;    
+  member function ODCIAggregateIterate(self IN OUT strcat_type,    
+                                      value IN varchar2 )    
+  return number    
+  is  
+  begin  
+        /*字符串已','分割 */    
+      self.cat_string := self.cat_string || ','|| value;    
+      return ODCIConst.Success;    
+  end;    
+  member function ODCIAggregateTerminate(self IN Out strcat_type,    
+                                        returnValue OUT varchar2,    
+                                        flags IN number)    
+  return number    
+  is  
+  begin  
+        /*去除空(is null)*/    
+      returnValue := ltrim(rtrim(self.cat_string,','),',');    
+      return ODCIConst.Success;    
+  end;    
+  member function ODCIAggregateMerge(self IN OUT strcat_type,    
+                                    ctx2 IN Out strcat_type)    
+  return number    
+  is  
+  begin  
+      self.cat_string := self.cat_string || ',' || ctx2.cat_string;    
+      return ODCIConst.Success;    
+  end;    
+end;    
+/    
+  
+/*创建函数 func_strcat*/    
+CREATE OR REPLACE FUNCTION func_strcat(input varchar2 )    
+RETURN varchar2 -- 返回值    
+PARALLEL_ENABLE AGGREGATE USING strcat_type; --使平行累加    
+/
+
+
+
+
+
+
+create table VOCATION
+(
+  PHONENUM      VARCHAR2(50),
+  VOCATION      VARCHAR2(50),
+  POSITION      VARCHAR2(50),
+  ANNUAL_INCOME VARCHAR2(50),
+  UNIT          VARCHAR2(50),
+  ADDRESS       VARCHAR2(50),
+  POSTCODE      VARCHAR2(50)
+)
+
+-- Create table
+create table CATEGORY
+(
+  CATEGORY_ID    VARCHAR2(50),
+  CATEGORY_NAME  VARCHAR2(50),
+  CATEGORY_VALUE VARCHAR2(50),
+  PARENT_ID      VARCHAR2(50)
+)
+
+
+
+insert into vocation (PHONENUM, VOCATION, POSITION, ANNUAL_INCOME, UNIT, ADDRESS, POSTCODE, ROWID)
+values ('13730666345', '1', '1', '3000', '电信', '高新区', '313100', 'AAANF3AAKAAApAdAAA');
+
+insert into vocation (PHONENUM, VOCATION, POSITION, ANNUAL_INCOME, UNIT, ADDRESS, POSTCODE, ROWID)
+values ('13730666346', '2', '1', '3000', '电信2', '高新区2', '313100', 'AAANF3AAKAAApAdAAB');
+
+
+
+insert into category (CATEGORY_ID, CATEGORY_NAME, CATEGORY_VALUE, PARENT_ID, ROWID)
+values ('1', '职业', '', '', 'AAANF0AAKAAAo6dAAA');
+
+insert into category (CATEGORY_ID, CATEGORY_NAME, CATEGORY_VALUE, PARENT_ID, ROWID)
+values ('2', 'IT24', '1', '1', 'AAANF0AAKAAAo6dAAB');
+
+insert into category (CATEGORY_ID, CATEGORY_NAME, CATEGORY_VALUE, PARENT_ID, ROWID)
+values ('3', '体育4', '2', '1', 'AAANF0AAKAAAo6dAAC');
+
+insert into category (CATEGORY_ID, CATEGORY_NAME, CATEGORY_VALUE, PARENT_ID, ROWID)
+values ('4', '体育4', '3', '1', 'AAANF0AAKAAAo6dAAD');
+
+
+
+
+SELECT t.category_name,strcat(t.category_value)||','||strcat(t.category_id) AS ENAMES
+FROM category t
+ GROUP BY t.category_name
+

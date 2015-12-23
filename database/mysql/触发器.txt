@@ -1,0 +1,34 @@
+DROP TRIGGER IF EXISTS t_afterinsert_on_tab1;
+CREATE TRIGGER t_afterinsert_on_tab1 
+AFTER INSERT ON tab1
+FOR EACH ROW
+BEGIN
+     insert into tab2(tab2_id) values(new.tab1_id);
+END;
+
+
+INSERT INTO tab1(tab1_id) values('0001'); 
+
+SELECT * FROM tab1;  
+
+SELECT * FROM tab2; 
+
+
+
+DROP TRIGGER IF EXISTS t_afterdelete_on_tab1;
+CREATE TRIGGER t_afterdelete_on_tab1
+AFTER DELETE ON tab1
+FOR EACH ROW
+BEGIN
+      delete from tab2 where tab2_id=old.tab1_id;
+END;
+
+
+DELETE FROM tab1 WHERE tab1_id='0001'; 
+
+
+
+SELECT * FROM tab1;  
+
+SELECT * FROM tab2; 
+

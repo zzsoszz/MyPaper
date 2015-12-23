@@ -1,0 +1,14 @@
+var data=new Array();data[0]=new Array();data[0][0]='SAP技术概述(二)';data[0][1]='http://kb.cnblogs.com/page/43048/';data[1]=new Array();data[1][0]='SAP技术概述(一)';data[1][1]='http://kb.cnblogs.com/page/43045/';data[2]=new Array();data[2][0]='使用Visual Studio2005入门.Net2.0系列视频教程';data[2][1]='http://www.cnblogs.com/thcjp/archive/2006/08/29/489491.html';data[3]=new Array();data[3][0]='Microsoft .NET Pet Shop 4 架构与技术分析';data[3][1]='http://www.cnblogs.com/ltp/archive/2006/04/17/377564.html';data[4]=new Array();data[4][0]='Oracle字符串函数';data[4][1]='http://space.cnblogs.com/question/3164/';data[5]=new Array();data[5][0]='Oracle数据库参数命名';data[5][1]='http://space.cnblogs.com/question/3147/';data[6]=new Array();data[6][0]='Oracle连接问题';data[6][1]='http://space.cnblogs.com/group/topic/4166/';data[7]=new Array();data[7][0]='ODP.NET 访问Oracle数据库技术';data[7][1]='http://space.cnblogs.com/group/topic/796/';
+if(data.length > 0)
+{
+    for(var i = 0; i < data.length; i++)
+    {
+        if (i > 0)
+            document.write("<br>");
+        document.write("<a href='");
+        document.write(data[i][1]);
+        document.write("' target='_blank'>");
+        document.write(data[i][0]);
+        document.write("</a>");
+    }
+}

@@ -1,0 +1,753 @@
+#yn-channel-nav {
+	MARGIN-TOP: 10px
+}
+#yn-channel-nav .yn-main {
+	BORDER-RIGHT: #c4c4c4 1px solid; BORDER-TOP: #c4c4c4 1px solid; BACKGROUND: url(http://cn.yimg.com/i/community2008/img/main_nav_bg.gif) repeat-x 0px 0px; MARGIN: 0px 4px; BORDER-LEFT: #c4c4c4 1px solid; BORDER-BOTTOM: #c4c4c4 0px solid; POSITION: relative; HEIGHT: 27px
+}
+#yn-channel-nav .yn-main B {
+	DISPLAY: block; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/community2008/img/main_nav_rd.gif); WIDTH: 5px; BACKGROUND-REPEAT: no-repeat; POSITION: relative; HEIGHT: 28px
+}
+#yn-channel-nav .yn-main B.r1 {
+	BACKGROUND-POSITION: -6px 0px; FLOAT: left; MARGIN: -1px 0px 0px -1px
+}
+#yn-channel-nav .yn-main B.r2 {
+	BACKGROUND-POSITION: 0px 0px; FLOAT: right; MARGIN: -1px -1px 0px 0px
+}
+#yn-channel-nav .yn-main UL LI {
+	BORDER-RIGHT: #858585 1px solid; FLOAT: left; MARGIN: 0.4em 0px 0px; HEIGHT: 17px; TEXT-ALIGN: center
+}
+#yn-channel-nav .yn-main UL LI A {
+	PADDING-RIGHT: 25px; DISPLAY: inline-block; PADDING-LEFT: 25px; FONT-WEIGHT: 800; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; COLOR: #000; PADDING-TOP: 0px; TEXT-DECORATION: none
+}
+#yn-channel-nav .yn-main UL LI A:hover {
+	TEXT-DECORATION: underline
+}
+#yn-channel-nav .yn-main UL LI.end {
+	BORDER-RIGHT-STYLE: none
+}
+#yn-channel-nav .yn-main UL LI.current {
+	BORDER-TOP-WIDTH: 0px; BACKGROUND-POSITION: 100% -30px; BORDER-LEFT-WIDTH: 0px; LEFT: -1px; BORDER-BOTTOM-WIDTH: 0px; MARGIN: 0px 0px -3px -1px; BOTTOM: -3px; BACKGROUND-REPEAT: no-repeat; POSITION: relative; TOP: -1px; HEIGHT: 30px; BORDER-RIGHT-WIDTH: 0px
+}
+#yn-channel-nav .yn-main UL LI.current A {
+	BACKGROUND-POSITION: 0px 0px; COLOR: #fff; LINE-HEIGHT: 30px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 30px
+}
+#yn-channel-nav .yn-main UL LI.current A.home {
+	BACKGROUND-POSITION: -5px 0px
+}
+#yn-channel-nav .yn-sub-nav {
+	BORDER-RIGHT: 0px solid; BACKGROUND-POSITION: 0px 0px; BORDER-TOP: 1px solid; BORDER-LEFT: 0px solid; BORDER-BOTTOM: 1px solid; BACKGROUND-REPEAT: repeat-x; HEIGHT: 29px
+}
+#yn-channel-nav .yn-sub-nav UL {
+	PADDING-RIGHT: 1.5em; PADDING-LEFT: 1.5em; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; HEIGHT: 29px
+}
+#yn-channel-nav .yn-sub-nav UL LI {
+	FLOAT: left; MARGIN: 0.4em 0px 0px
+}
+#yn-channel-nav .yn-sub-nav UL LI A {
+	PADDING-RIGHT: 1em; DISPLAY: inline-block; PADDING-LEFT: 1em; FONT-WEIGHT: 800; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; COLOR: #fff; LINE-HEIGHT: 18px; PADDING-TOP: 2px; HEIGHT: 18px; TEXT-DECORATION: none
+}
+#yn-channel-nav .yn-sub-nav UL LI A:hover {
+	TEXT-DECORATION: underline
+}
+#yn-channel-nav .yn-sub-nav UL LI.current {
+	BACKGROUND-POSITION: 100% -20px; BACKGROUND-REPEAT: no-repeat
+}
+#yn-channel-nav .yn-sub-nav UL LI.current A {
+	BACKGROUND-POSITION: 0px 0px; COLOR: #000; BACKGROUND-REPEAT: no-repeat
+}
+#yn-channel-nav .yn-main UL LI.current {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/hp/img/ks_nav_cur.gif)
+}
+#yn-channel-nav .yn-main UL LI.current A {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/hp/img/ks_nav_cur.gif)
+}
+#yn-channel-nav .yn-sub-nav {
+	BORDER-LEFT-COLOR: #53a82a; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/hp/img/ks_nav_subbg.gif); BORDER-BOTTOM-COLOR: #53a82a; BORDER-TOP-COLOR: #53a82a; BORDER-RIGHT-COLOR: #53a82a
+}
+#yn-channel-nav .yn-sub-nav UL LI.current {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/hp/img/ks_nav_subcur.gif)
+}
+#yn-channel-nav .yn-sub-nav UL LI.current A {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/hp/img/ks_nav_subcur.gif)
+}
+#ynv {
+	WIDTH: 100%; TEXT-ALIGN: center
+}
+.hide {
+	DISPLAY: none
+}
+#head-wrapper {
+	FONT-SIZE: 12px; BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/bg_nav.gif) #fff repeat-x left top; FONT-FAMILY: Arial, "??"; TEXT-ALIGN: left
+}
+.hw-t1 {
+	MARGIN: 0px auto; WIDTH: 950px
+}
+.hw-t2 {
+	MARGIN: 0px auto; WIDTH: 770px
+}
+#head-wrapper A {
+	COLOR: #184099; TEXT-DECORATION: none
+}
+#head-wrapper A:hover {
+	TEXT-DECORATION: underline
+}
+#head-wrapper UL {
+	MARGIN: 0px; LIST-STYLE-TYPE: none
+}
+#head-wrapper .clear {
+	CLEAR: both; PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 0px; FONT-SIZE: 0px; VISIBILITY: hidden; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; HEIGHT: 0px; content: "."
+}
+#head-nav-hd {
+	Z-INDEX: 99999999; ZOOM: 1; POSITION: relative; HEIGHT: 61px
+}
+#head-nav-hd:unknown {
+	CLEAR: both; PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 0px; FONT-SIZE: 0px; VISIBILITY: hidden; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; HEIGHT: 0px; content: "."
+}
+#ylogo-cont {
+	MARGIN-TOP: 9px; BACKGROUND: none transparent scroll repeat 0% 0%; FLOAT: left; MARGIN-LEFT: 5px; WIDTH: auto! important; HEIGHT: auto! important
+}
+#ynav-login {
+	MARGIN-TOP: 11px; FLOAT: left; MARGIN-LEFT: 10px; COLOR: #818181
+}
+#ynav-login .login-box {
+	LINE-HEIGHT: 23px; ZOOM: 1; HEIGHT: 23px
+}
+#ynav-login .login-box:unknown {
+	CLEAR: both; PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 0px; FONT-SIZE: 0px; VISIBILITY: hidden; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; HEIGHT: 0px; content: "."
+}
+#ynav-login SPAN.txtWel {
+	FLOAT: left
+}
+#ynav-login A.user-name {
+	FLOAT: left
+}
+#ynav-login #mc_link_text {
+	PADDING-RIGHT: 5px; DISPLAY: block; PADDING-LEFT: 5px; FLOAT: left; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; HEIGHT: 22px
+}
+#ynav-login A.onmc {
+	BORDER-RIGHT: #c2c2c2 1px; BORDER-TOP: #c2c2c2 1px solid; BACKGROUND: #fff; BORDER-LEFT: #c2c2c2 1px solid; BORDER-BOTTOM: #c2c2c2 1px
+}
+#ynav-login DIV#mc_link {
+	Z-INDEX: 2147483647; FLOAT: left; WIDTH: 22px; POSITION: relative; HEIGHT: 22px
+}
+#ynav-login .onmca {
+	BORDER-RIGHT: #c2c2c2 1px solid; BORDER-TOP: #c2c2c2 1px solid; BORDER-LEFT: #c2c2c2 1px; BORDER-BOTTOM: #c2c2c2 1px
+}
+#ynav-login DIV#mc_link A.openmc {
+	DISPLAY: block; BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/mc_link.gif) no-repeat center 50%; OVERFLOW: hidden; WIDTH: 19px; TEXT-INDENT: -9999px; HEIGHT: 23px
+}
+#ynav-login DIV#mc_link #moremc {
+	BORDER-RIGHT: #c2c2c2 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #c2c2c2 1px; PADDING-LEFT: 2px; Z-INDEX: 2147483647; RIGHT: -1px; BACKGROUND: #fff; PADDING-BOTTOM: 2px; MARGIN: 0px; BORDER-LEFT: #c2c2c2 1px solid; WIDTH: 76px; PADDING-TOP: 2px; BORDER-BOTTOM: #c2c2c2 1px solid; LIST-STYLE-TYPE: none; POSITION: absolute; TOP: 21px
+}
+#ynav-login DIV#mc_link #moremc LI {
+	LINE-HEIGHT: 1.5em
+}
+#ynav-login DIV#mc_link #moremc LI A {
+	PADDING-RIGHT: 3px; DISPLAY: inline-block; PADDING-LEFT: 3px; PADDING-BOTTOM: 0px; WIDTH: 70px; PADDING-TOP: 0px; TEXT-DECORATION: none
+}
+#ynav-login DIV#mc_link #moremc LI A:hover {
+	BACKGROUND: #174197; COLOR: #fff
+}
+#ynav-login SPAN.txtCom {
+	FLOAT: left
+}
+.txtLogout#ynav-logina {
+	FLOAT: left
+}
+#ynav-login .user-todo {
+	LINE-HEIGHT: 18px
+}
+#ynav-search {
+	TEXT-ALIGN: right
+}
+#ynv2 .hw-t1 {
+	MARGIN-TOP: 1em! important; BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.hw-t1 #ynav-search {
+	RIGHT: 0px; BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/bg_nav_search.gif) no-repeat left top; WIDTH: 395px; POSITION: absolute; TOP: 0px; HEIGHT: 30px
+}
+.hw-t1 #ynav-search .txtSearch {
+	WIDTH: 300px
+}
+.hw-t2 #ynav-search {
+	RIGHT: 0px; BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/bg_nav_search.gif) no-repeat left top; WIDTH: 297px; POSITION: absolute; TOP: 0px; HEIGHT: 30px
+}
+.hw-t2 #ynav-search .txtSearch {
+	WIDTH: 202px
+}
+#ynav-search .txtSearch {
+	BORDER-RIGHT: #999 1px; BORDER-TOP: #999 1px solid; Z-INDEX: 999999; RIGHT: -3px; BACKGROUND: #fff; BORDER-LEFT: #999 1px solid; LINE-HEIGHT: 20px; PADDING-TOP: 0px; BORDER-BOTTOM: #999 1px solid; POSITION: relative; TOP: 1px; HEIGHT: 20px
+}
+#ynav-search .btSearch {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; Z-INDEX: 2; BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/bt_search.gif) no-repeat center top; BORDER-BOTTOM-WIDTH: 0px; WIDTH: 59px; CURSOR: hand; MARGIN-RIGHT: 5px; POSITION: relative; TOP: 1px; HEIGHT: 22px; BORDER-RIGHT-WIDTH: 0px
+}
+#ynav-tips {
+	RIGHT: 0px; POSITION: absolute; TOP: 10px
+}
+#ynav-tips A {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/bg_nav_m.gif) no-repeat right center; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#ynav-tips A.last {
+	BACKGROUND: none transparent scroll repeat 0% 0%
+}
+#head-nav-bd {
+	PADDING-LEFT: 10px; Z-INDEX: 2; BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/bg_nav_bd.gif) repeat-x left bottom; MARGIN: 0px; LINE-HEIGHT: 24px; ZOOM: 1; HEIGHT: 24px
+}
+#head-nav-bd A {
+	LINE-HEIGHT: 24px! important
+}
+#head-nav-bd:unknown {
+	CLEAR: both; PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 0px; FONT-SIZE: 0px; VISIBILITY: hidden; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; HEIGHT: 0px; content: "."
+}
+#head-nav-bd LI {
+	BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/bg_nav_m.gif) no-repeat right center; FLOAT: left; WHITE-SPACE: nowrap
+}
+#head-nav-bd LI.last {
+	BACKGROUND: none transparent scroll repeat 0% 0%
+}
+#head-nav-bd LI A {
+	PADDING-RIGHT: 14px; DISPLAY: inline-block; PADDING-LEFT: 14px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#head-nav-bd LI A:hover {
+	
+}
+#head-nav-bd LI.newhot {
+	FONT-WEIGHT: bold; Z-INDEX: 2; POSITION: relative
+}
+#head-nav-bd LI.newhot B.newimgtag {
+	DISPLAY: block; Z-INDEX: 2; RIGHT: 5px; BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/imgnewtag.gif) no-repeat center 50%; WIDTH: 23px; POSITION: absolute; TOP: -8px; HEIGHT: 12px
+}
+#head-nav-bd LI.offc {
+	BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/channelgb.gif) no-repeat left top
+}
+#head-nav-bd LI.onc {
+	BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/channelgb2.gif) no-repeat left top
+}
+#ynav_channelwrapper {
+	FONT-WEIGHT: bold; Z-INDEX: 999; WIDTH: 94px; MARGIN-RIGHT: 20px; POSITION: relative
+}
+#ynav_channelwrapper A#cbt {
+	BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/arrow_r.gif) no-repeat 12px center; WIDTH: 70px; TEXT-ALIGN: right
+}
+#ynav_channelwrapper A#cbtc {
+	DISPLAY: none; BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/arrow_d.gif) no-repeat 12px center; WIDTH: 70px; TEXT-ALIGN: right
+}
+#ynav_channels {
+	BORDER-RIGHT: #b2b2b3 1px solid; BORDER-TOP: #b2b2b3 1px; Z-INDEX: 999; BACKGROUND: #f0f2f4; LEFT: 0px; BORDER-LEFT: #b2b2b3 1px; WIDTH: 510px; BORDER-BOTTOM: #b2b2b3 1px solid; POSITION: absolute; TOP: 23px
+}
+#ynav_channels .c_hd {
+	LINE-HEIGHT: 21px; ZOOM: 1; HEIGHT: 21px; TEXT-ALIGN: right
+}
+#ynav_channels .c_hd:unknown {
+	CLEAR: both; PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 0px; FONT-SIZE: 0px; VISIBILITY: hidden; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; HEIGHT: 0px; content: "."
+}
+#ynav_channels .c_hd A#close_channel {
+	DISPLAY: block; PADDING-LEFT: 16px; BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/closech.gif) no-repeat left center; FLOAT: right; WIDTH: 20px
+}
+#ynav_channels .c_bd_row {
+	PADDING-RIGHT: 10px; BACKGROUND-POSITION: 10px 18px; PADDING-LEFT: 48px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px; BACKGROUND-REPEAT: no-repeat; ZOOM: 1; LIST-STYLE-TYPE: none
+}
+#ynav_channels .c_bd_row:unknown {
+	CLEAR: both; PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 0px; FONT-SIZE: 0px; VISIBILITY: hidden; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; HEIGHT: 0px; content: "."
+}
+#ynv_c_space {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/newnav/v1/icon_space.gif)
+}
+#ynv_c_club {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/newnav/v1/icon_group.gif)
+}
+#ynv_c_bbs {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/newnav/v1/icon_bbs.gif)
+}
+#ynv_c_konw {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/newnav/v1/icon_know.gif)
+}
+#ynv_c_life {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/newnav/v1/icon_life.gif)
+}
+#ynv_c_info {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/newnav/v1/icon_info.gif)
+}
+#ynav_channels .rowsig {
+	BACKGROUND-COLOR: #f8f9fa
+}
+#ynav_channels .rowtow {
+	BACKGROUND-COLOR: #f0f2f4
+}
+#ynav_channels .c_bd UL {
+	MARGIN: 0px
+}
+#ynav_channels .c_bd_row LI {
+	FONT-WEIGHT: normal; BACKGROUND: none transparent scroll repeat 0% 0%; FLOAT: left; OVERFLOW: visible; LINE-HEIGHT: 1.8em; WHITE-SPACE: nowrap
+}
+#ynav_channels .c_bd_row LI A {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN-RIGHT: 15px; PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+#ynav_channels .c_bd_row LI.newhot {
+	FONT-WEIGHT: bold
+}
+#ynav_channels .c_bd_row LI EM {
+	MARGIN-LEFT: 3px; COLOR: #818181; FONT-STYLE: normal
+}
+#head-nav-bd LI.current {
+	Z-INDEX: 2; BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/bg_nav_tr.gif) no-repeat right top; LEFT: -1px; POSITION: relative; HEIGHT: 24px
+}
+#head-nav-bd LI.current A {
+	PADDING-RIGHT: 12px; DISPLAY: inline-block; PADDING-LEFT: 12px; FONT-WEIGHT: bold; BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/bg_nav_tl.gif) no-repeat left top; PADDING-BOTTOM: 0px; COLOR: #545454; LINE-HEIGHT: 24px; PADDING-TOP: 0px; HEIGHT: 24px; TEXT-ALIGN: center
+}
+#mails {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 5px; FLOAT: left; HEIGHT: 15px
+}
+#mails A {
+	PADDING-LEFT: 20px
+}
+#mails A.hm {
+	BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/ynvmail.gif) no-repeat left center
+}
+#mails A.nm {
+	BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/ynvmailn.gif) no-repeat left center
+}
+#msgstate {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 5px; PADDING-LEFT: 5px; FLOAT: left; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; HEIGHT: 15px
+}
+#msgstate A {
+	PADDING-LEFT: 16px; BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/smiley_online.gif) no-repeat left center
+}
+#pms {
+	PADDING-LEFT: 5px; FLOAT: left; HEIGHT: 15px
+}
+#pms A {
+	PADDING-LEFT: 16px
+}
+#pms A.hp {
+	BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/ynvpm.gif) no-repeat left center
+}
+#pms A.np {
+	BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/ynvpmn.gif) no-repeat left center
+}
+#webmsg {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 5px; PADDING-LEFT: 5px; FLOAT: left; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; ZOOM: 1; HEIGHT: 15px
+}
+#msgfr {
+	PADDING-LEFT: 15px; FLOAT: left
+}
+#msgmsg {
+	PADDING-LEFT: 15px; FLOAT: left; MARGIN: 0px 3px
+}
+#webmsg .hfr {
+	BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/ynvmsg.gif) no-repeat left center
+}
+#webmsg .nfr {
+	BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/smiley_na.gif) no-repeat left center
+}
+#webmsg .hmsg {
+	BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/msg.gif) no-repeat left center
+}
+#webmsg .nmsg {
+	BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/msg_na.gif) no-repeat left center
+}
+#msswarp {
+	Z-INDEX: 999999; BACKGROUND: #fff; FLOAT: left; MARGIN-LEFT: 5px; WIDTH: 40px; LINE-HEIGHT: 14px; POSITION: relative; HEIGHT: 14px
+}
+#msswarp A#openstate {
+	PADDING-RIGHT: 2px; DISPLAY: inline-block; PADDING-LEFT: 2px; BACKGROUND: url(http://cn.yimg.com/i/newnav/v1/msgarr.gif) no-repeat 30px center; PADDING-BOTTOM: 0px; WIDTH: 36px; PADDING-TOP: 0px; TEXT-DECORATION: none
+}
+#msgstatec {
+	BORDER-RIGHT: #c2c2c2 1px solid; BORDER-TOP: #c2c2c2 1px; BACKGROUND: #fff; LEFT: -1px; BORDER-LEFT: #c2c2c2 1px solid; BORDER-BOTTOM: #c2c2c2 1px solid; LIST-STYLE-TYPE: none; POSITION: absolute; TOP: 14px
+}
+#msgstatec LI {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 6px; PADDING-BOTTOM: 2px; LINE-HEIGHT: 1.5em; PADDING-TOP: 2px; WHITE-SPACE: nowrap
+}
+#msgstatec LI A {
+	PADDING-RIGHT: 2px; DISPLAY: inline-block; PADDING-LEFT: 2px; PADDING-BOTTOM: 1px; PADDING-TOP: 1px; TEXT-DECORATION: none
+}
+#msgstatec LI A:hover {
+	BACKGROUND: #174197; COLOR: #fff
+}
+.onmsg {
+	BORDER-RIGHT: #c2c2c2 1px solid; BORDER-TOP: #c2c2c2 1px solid; BORDER-LEFT: #c2c2c2 1px solid; BORDER-BOTTOM: #c2c2c2 1px
+}
+#ks-login #login-box {
+	MARGIN-TOP: 0px; PADDING-TOP: 15px
+}
+.login-info DT {
+	FONT-SIZE: 14px
+}
+#selpersis {
+	FONT-SIZE: 14px
+}
+#login .bd {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0pt; PADDING-TOP: 0pt
+}
+#login .login-info {
+	PADDING-RIGHT: 25px; PADDING-LEFT: 25px; PADDING-BOTTOM: 8px; PADDING-TOP: 15px
+}
+.login-status02 TD A {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 0pt; PADDING-BOTTOM: 0pt; PADDING-TOP: 0pt
+}
+.login-status02 .login-edit A {
+	BORDER-RIGHT: #6e6e6e 1px solid; PADDING-RIGHT: 8px; BORDER-TOP: #6e6e6e 1px solid; DISPLAY: block; PADDING-LEFT: 8px; FONT-WEIGHT: 800; BACKGROUND: url(http://cn.yimg.com/i/nks/hp/img/login_btn_bg.gif) repeat-x 0pt 50%; PADDING-BOTTOM: 0px; BORDER-LEFT: #6e6e6e 1px solid; COLOR: #fff; LINE-HEIGHT: 26px; PADDING-TOP: 0px; BORDER-BOTTOM: #6e6e6e 1px solid; HEIGHT: 26px; TEXT-ALIGN: center; TEXT-DECORATION: none
+}
+.login-status02 .login-edit A.manage-blog {
+	FLOAT: left; MARGIN-LEFT: 17px
+}
+.login-status02 .login-edit A.view-myspace {
+	FLOAT: right; MARGIN-RIGHT: 17px
+}
+.login-status02 .return-center {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px; TEXT-ALIGN: center
+}
+#ks-login .login-status02 .return-center A {
+	TEXT-DECORATION: none
+}
+.login-status02 .yn-picture {
+	FLOAT: left; MARGIN: 20px 17px
+}
+.login-status02 .yn-picture IMG {
+	WIDTH: 48px
+}
+.login-status02 .more-table {
+	FLOAT: left; MARGIN: 20px 5px 0px 0px; WIDTH: 160px
+}
+.login-status02 .more-table TD {
+	COLOR: #666; PADDING-TOP: 5px
+}
+.login-status02 .more-table H4 {
+	FONT-SIZE: 14px; COLOR: #000
+}
+#ks-login .login-status02 .more-table H4 A {
+	TEXT-DECORATION: none
+}
+.login-status01 .tip {
+	BORDER-RIGHT: #ffc30e 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #ffc30e 1px solid; PADDING-LEFT: 5px; FONT-SIZE: 12px; PADDING-BOTTOM: 5px; BORDER-LEFT: #ffc30e 1px solid; WIDTH: 13em; COLOR: #9c7600; PADDING-TOP: 5px; BORDER-BOTTOM: #ffc30e 1px solid; FONT-FAMILY: arial,sans-serif; POSITION: absolute; BACKGROUND-COLOR: #fffbb8; TEXT-ALIGN: left
+}
+.login-status01 .tip {
+	BORDER-RIGHT: #ffc30e 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #ffc30e 1px solid; PADDING-LEFT: 5px; FONT-SIZE: 12px; PADDING-BOTTOM: 5px; BORDER-LEFT: #ffc30e 1px solid; WIDTH: 13em; COLOR: #9c7600; PADDING-TOP: 5px; BORDER-BOTTOM: #ffc30e 1px solid; FONT-FAMILY: arial,sans-serif; POSITION: absolute; BACKGROUND-COLOR: #fffbb8; TEXT-ALIGN: left
+}
+.login-status01 .help_persistent {
+	DISPLAY: inline; BACKGROUND: url(http://cn.yimg.com/i/mail/080203/question_active2.gif) no-repeat 0px 0px; MARGIN: 3px 0px 0px 3px; VERTICAL-ALIGN: top; OVERFLOW: hidden; WIDTH: 17px; ZOOM: 1; HEIGHT: 17px
+}
+.login-status01 .help_con {
+	DISPLAY: none
+}
+#ylogonfrm DL:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: '.'
+}
+#bd DIV.ylogonpanel:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: '.'
+}
+#ylogonfrm DL {
+	WIDTH: 100%; TEXT-ALIGN: right
+}
+#ylogonfrm DT {
+	FLOAT: left
+}
+#ylogonfrm DD {
+	FLOAT: left
+}
+.ylnkreg {
+	FLOAT: right
+}
+.ylogon {
+	BORDER-RIGHT: #656565 1px solid; BORDER-TOP: #656565 1px solid; MARGIN-TOP: 1em; FONT: 12px arial,"??"; BORDER-LEFT: #656565 1px solid; WIDTH: 245px; COLOR: #666; BORDER-BOTTOM: #656565 1px solid; POSITION: relative; HEIGHT: 320px; BACKGROUND-COLOR: #f9f9f9; TEXT-ALIGN: left
+}
+.ylogonpanel {
+	PADDING-BOTTOM: 1em; MARGIN: 0px auto; WIDTH: 210px
+}
+#ylogonfrm DT {
+	MARGIN: 0px 0px 0.4em
+}
+#ylogonfrm DD {
+	MARGIN: 0px 0px 0.4em
+}
+.yusrna {
+	BORDER-RIGHT: #959595 1px solid; PADDING-RIGHT: 0.15em; BORDER-TOP: #959595 1px solid; PADDING-LEFT: 0.15em; PADDING-BOTTOM: 0.15em; MARGIN-LEFT: 3px; BORDER-LEFT: #959595 1px solid; WIDTH: 120px; PADDING-TOP: 0.15em; BORDER-BOTTOM: #959595 1px solid
+}
+.yusrpa {
+	BORDER-RIGHT: #959595 1px solid; PADDING-RIGHT: 0.15em; BORDER-TOP: #959595 1px solid; PADDING-LEFT: 0.15em; PADDING-BOTTOM: 0.15em; MARGIN-LEFT: 3px; BORDER-LEFT: #959595 1px solid; WIDTH: 120px; PADDING-TOP: 0.15em; BORDER-BOTTOM: #959595 1px solid
+}
+#ylogonfrm DT {
+	CLEAR: left; WIDTH: 28%
+}
+#ylogonfrm DD {
+	PADDING-LEFT: 0%; WIDTH: 72%; TEXT-ALIGN: left
+}
+.yregbtn {
+	BORDER-RIGHT: #6e6e6e 1px solid; BORDER-TOP: #6e6e6e 1px solid; FONT-WEIGHT: 800; BACKGROUND: url(http://cn.yimg.com/i/community2008/img/login_btn_bg.gif) repeat-x 0px 0px; BORDER-LEFT: #6e6e6e 1px solid; COLOR: #000; LINE-HEIGHT: 1.22; BORDER-BOTTOM: #6e6e6e 1px solid; HEIGHT: 26px; TEXT-ALIGN: center
+}
+.yregrel {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0.4em; PADDING-TOP: 0.4em
+}
+.yregrel A {
+	FLOAT: left; MARGIN-RIGHT: 1.4em
+}
+#hdsch {
+	MARGIN: 0px auto; WIDTH: 950px
+}
+#hdsch A {
+	TEXT-DECORATION: none
+}
+.ynav {
+	CLEAR: both; BORDER-RIGHT: #5fcd46 1px solid; BORDER-TOP: #5fcd46 1px solid; Z-INDEX: 10; BORDER-LEFT: #5fcd46 1px solid; BORDER-BOTTOM: #5fcd46 0px solid; POSITION: relative; HEIGHT: 20px; BACKGROUND-COLOR: #fff; TEXT-ALIGN: left
+}
+#mtabs {
+	PADDING-RIGHT: 0pt; PADDING-LEFT: 0pt; LEFT: 180px; PADDING-BOTTOM: 0pt; MARGIN: 0pt; PADDING-TOP: 0pt; POSITION: absolute
+}
+#mtabs LI {
+	FLOAT: left; LINE-HEIGHT: 24px; MARGIN-RIGHT: 5px; LIST-STYLE-TYPE: none; HEIGHT: 24px
+}
+#mtabs .cur {
+	FONT-WEIGHT: bold; BACKGROUND: url(http://cn.yimg.com/i/nks/hp/img/ynav_tr3.gif) right top; LINE-HEIGHT: 26px; POSITION: relative; TOP: -4px; HEIGHT: 26px
+}
+#mtabs .cur SPAN {
+	PADDING-RIGHT: 1.5em; DISPLAY: block; PADDING-LEFT: 1.5em; BACKGROUND: url(http://cn.yimg.com/i/nks/hp/img/ynav_tl3.gif) no-repeat left top; PADDING-BOTTOM: 0px; COLOR: #000000; PADDING-TOP: 0px
+}
+#mtabs A {
+	PADDING-RIGHT: 1.5em; DISPLAY: block; PADDING-LEFT: 1.5em; PADDING-BOTTOM: 0pt; LINE-HEIGHT: 24px; PADDING-TOP: 0pt; TEXT-DECORATION: none
+}
+#mtabs A:link {
+	COLOR: #0044dd
+}
+#mtabs A:visited {
+	COLOR: #0044dd
+}
+#mtabs .pp {
+	RIGHT: 0pt; WIDTH: 1px; POSITION: relative; TOP: -20px; HEIGHT: 12px; BACKGROUND-COLOR: #0061c5
+}
+#hdsch .yhdt {
+	CLEAR: both; BACKGROUND: url(http://cn.yimg.com/i/nks/hp/img/srhbtbg3.gif) repeat-x; POSITION: relative; HEIGHT: 48px; TEXT-ALIGN: left
+}
+#hdsch .yhdb {
+	CLEAR: both; BACKGROUND: url(http://cn.yimg.com/i/nks/hp/img/srhbbg3_b.gif) repeat-x 50% bottom; POSITION: relative; HEIGHT: 26px
+}
+#hdsch .yhdtl {
+	OVERFLOW: hidden; WIDTH: 2px; POSITION: absolute; TOP: 0pt; HEIGHT: 33px
+}
+#hdsch .yhdtr {
+	OVERFLOW: hidden; WIDTH: 2px; POSITION: absolute; TOP: 0pt; HEIGHT: 33px
+}
+#hdsch .yhdtl {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/hp/img/srhbt3.gif) no-repeat 0px 0px; LEFT: -1px
+}
+#hdsch .yhdtr {
+	RIGHT: -1px; BACKGROUND: url(http://cn.yimg.com/i/nks/hp/img/srhbt3.gif) no-repeat -2px 0px
+}
+#hdsch .yhdt {
+	BORDER-RIGHT: #31b122 1px solid; BORDER-LEFT: #31b122 1px solid
+}
+#hdsch .yhdb {
+	BORDER-RIGHT: #31b122 1px solid; BORDER-LEFT: #31b122 1px solid
+}
+#hdsch .yhdbl {
+	OVERFLOW: hidden; WIDTH: 4px; BOTTOM: 0px; POSITION: absolute; HEIGHT: 8px
+}
+#hdsch .yhdbr {
+	OVERFLOW: hidden; WIDTH: 4px; BOTTOM: 0px; POSITION: absolute; HEIGHT: 8px
+}
+#hdsch .yhdbl {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/hp/img/srhbb3_b.gif) no-repeat 0px 0px; LEFT: -1px
+}
+#hdsch .yhdbr {
+	RIGHT: -1px; BACKGROUND: url(http://cn.yimg.com/i/nks/hp/img/srhbb3_b.gif) no-repeat -4px 0px
+}
+.yhdt_1 {
+	DISPLAY: inline; FLOAT: left; MARGIN: 10px 0px 0px 155px
+}
+.yhdt_2 {
+	FLOAT: left; MARGIN: 13px 0px 0px 3px
+}
+.yhdt_3 {
+	FLOAT: left; MARGIN: 13px 0px 0px 15px; LINE-HEIGHT: 25px
+}
+#hdsch .yshhot {
+	MARGIN-LEFT: 180px; PADDING-TOP: 3px
+}
+#hdsch {
+	CLEAR: both; MARGIN-TOP: 10px
+}
+#hdsch .inp {
+	BORDER-RIGHT: #acb4b7 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #9aa1a9 1px solid; PADDING-LEFT: 5px; FONT-SIZE: 14px; BACKGROUND: url(http://cn.yimg.com/i/nks/071009/inpbg2.gif) #fff fixed no-repeat 0px 0px; PADDING-BOTTOM: 5px; BORDER-LEFT: #9aa1a9 1px solid; WIDTH: 500px; PADDING-TOP: 5px; BORDER-BOTTOM: #acb4b7 1px solid
+}
+#hdsch .srhbtn {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; FONT-WEIGHT: bold; FONT-SIZE: 14px; BACKGROUND: url(http://cn.yimg.com/i/nks/071009/srhbtn.gif) no-repeat 0% 50%; BORDER-LEFT: 0px; WIDTH: 90px; CURSOR: pointer; BORDER-BOTTOM: 0px; HEIGHT: 26px
+}
+.ycn-prod-nav {
+	FONT: 14px/1.4 arial,simsun,helvetica,clean,san-serif; WIDTH: 100%
+}
+.ycn-prod-nav A:link {
+	COLOR: #039; TEXT-DECORATION: none
+}
+.ycn-prod-nav A:visited {
+	COLOR: #039; TEXT-DECORATION: none
+}
+.ycn-prod-nav A:hover {
+	TEXT-DECORATION: underline
+}
+.ycn-prod-nav A:active {
+	TEXT-DECORATION: underline
+}
+.ycn-prod-nav A:hover {
+	TEXT-DECORATION: underline
+}
+.ycn-prod-nav A:active {
+	TEXT-DECORATION: underline
+}
+.ycn-prod-nav FORM {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none; BORDER-RIGHT-WIDTH: 0px
+}
+.ycn-prod-nav UL {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none; BORDER-RIGHT-WIDTH: 0px
+}
+.ycn-prod-nav .hd {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none; BORDER-RIGHT-WIDTH: 0px
+}
+.ycn-prod-nav .bd {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none; BORDER-RIGHT-WIDTH: 0px
+}
+.ycn-prod-nav LI {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none; BORDER-RIGHT-WIDTH: 0px
+}
+.ycn-prod-nav .hd {
+	WIDTH: 100%
+}
+.ycn-prod-nav .bd {
+	PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 0px; BACKGROUND: #00709e; PADDING-BOTTOM: 2px; PADDING-TOP: 2px; POSITION: relative
+}
+.ycn-prod-nav .hd:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+.ycn-prod-nav .bd:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+.ycn-main-navbar:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+.ycn-second-navbar:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+.ycn-addlink:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+.ycn-prod-nav:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+.ycn-main-navbar {
+	FLOAT: left
+}
+.ycn-main-navbar UL LI {
+	BORDER-RIGHT: #9da6bd 1px solid; BORDER-TOP: #9da6bd 1px solid; DISPLAY: inline; BACKGROUND: #ededed; FLOAT: left; MARGIN: 0px 6px 0px 0px; OVERFLOW: hidden; BORDER-LEFT: #9da6bd 1px solid; LINE-HEIGHT: 2; BORDER-BOTTOM: #9da6bd 0px solid; HEIGHT: 1.86em
+}
+.ycn-main-navbar UL LI A {
+	PADDING-RIGHT: 1em; DISPLAY: block; PADDING-LEFT: 1em; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.ycn-main-navbar UL LI.selected {
+	BORDER-LEFT-COLOR: #00709e; BACKGROUND: #00709e; BORDER-BOTTOM-COLOR: #00709e; BORDER-TOP-COLOR: #00709e; BORDER-RIGHT-COLOR: #00709e
+}
+.ycn-main-navbar UL LI.selected A:link {
+	FONT-WEIGHT: 800; COLOR: #fff
+}
+.ycn-main-navbar UL LI.selected A:visited {
+	FONT-WEIGHT: 800; COLOR: #fff
+}
+.ycn-addlink {
+	FONT-SIZE: 12px; RIGHT: 5px; POSITION: absolute; TOP: -2.4em
+}
+.ycn-addlink UL LI {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 2px; DISPLAY: inline; PADDING-LEFT: 2px; BORDER-LEFT-WIDTH: 0px; FLOAT: left; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0.8em 0px 0px; COLOR: #666; LINE-HEIGHT: 1.2; PADDING-TOP: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+.ycn-addlink UL LI A {
+	DISPLAY: block; LINE-HEIGHT: 1.4
+}
+.ycn-second-navbar {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 4px; WIDTH: 100%; PADDING-TOP: 6px
+}
+.ycn-second-navbar UL LI {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 1em; PADDING-LEFT: 1em; FLOAT: left; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1.12; PADDING-TOP: 0px
+}
+.ycn-second-navbar UL LI.last {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+.ycn-second-navbar UL LI.selected {
+	FONT-WEIGHT: 800
+}
+.ycn-second-navbar UL LI.selected A:link {
+	FONT-WEIGHT: 800; COLOR: #ff0
+}
+.ycn-second-navbar UL LI.selected A:visited {
+	FONT-WEIGHT: 800; COLOR: #ff0
+}
+.ycn-second-navbar UL LI A:link {
+	COLOR: #fff
+}
+.ycn-second-navbar UL LI A:visited {
+	COLOR: #fff
+}
+.ycn-prod-nav-theme5 .bd {
+	BACKGROUND: url(http://cn.yimg.com/i/comm/nav/navbg_5.png) #299500 repeat-x 0px 100%
+}
+.ycn-prod-nav-theme5 .ycn-main-navbar UL LI.selected {
+	BORDER-LEFT-COLOR: #299500; BACKGROUND: #299500; BORDER-BOTTOM-COLOR: #299500; BORDER-TOP-COLOR: #299500; BORDER-RIGHT-COLOR: #299500
+}
+#ks-top-nav UL LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+#ks-top-nav {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+#ks-top-nav {
+	BACKGROUND: url(http://cn.yimg.com/i/ks/srh/ks_srh_bg.png) repeat-x 0px 27px; HEIGHT: 62px
+}
+#ks-top-nav-menu UL {
+	FLOAT: left; WIDTH: 760px
+}
+#ks-top-nav-menu .ks-top-users-status {
+	FLOAT: right; WIDTH: 186px; PADDING-TOP: 6px
+}
+#ks-top-nav-menu .ks-top-users-status IMG.ks-top-potrait {
+	PADDING-RIGHT: 10px; FLOAT: left
+}
+#ks-top-nav-menu .ks-top-users-status P {
+	LINE-HEIGHT: 1.85
+}
+#ks-top-nav-menu .ks-top-users-status P SPAN.ks-top-money {
+	PADDING-LEFT: 14px; BACKGROUND: url(http://cn.yimg.com/i/nks/coin.gif) no-repeat 0px 50%
+}
+#ks-top-nav UL LI {
+	BORDER-RIGHT: #d2d2d2 1px solid; MARGIN-TOP: 10px; DISPLAY: inline; BACKGROUND: none transparent scroll repeat 0% 0%; FLOAT: left; WIDTH: 33%; POSITION: relative; HEIGHT: 40px; TEXT-ALIGN: center
+}
+#ks-top-nav UL LI A {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url(http://cn.yimg.com/i/ks/srh/ks_srh_bg.png) no-repeat 0px 0px; LEFT: 8%; PADDING-BOTTOM: 0px; OVERFLOW: hidden; WIDTH: 224px; LINE-HEIGHT: 10em; PADDING-TOP: 0px; POSITION: absolute; TOP: 2px; HEIGHT: 35px
+}
+#ks-top-nav UL LI#ks-top-nav-discover {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+#ks-top-nav UL LI#ks-top-nav-ask A {
+	BACKGROUND-POSITION: 0px -35px
+}
+#ks-top-nav UL LI#ks-top-nav-answer A {
+	BACKGROUND-POSITION: 0px -70px
+}
+#ks-top-nav UL LI#ks-top-nav-discover A {
+	BACKGROUND-POSITION: 0px -105px
+}
+#ks-top-srh {
+	BACKGROUND: #d1e9c9; HEIGHT: 36px; TEXT-ALIGN: center
+}
+#ks-top-srh FORM {
+	DISPLAY: block; PADDING-TOP: 3px
+}
+#ks-top-srh FORM  {
+	VERTICAL-ALIGN: middle
+}
+#ks-top-srh .inp {
+	BORDER-RIGHT: #acb4b7 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #9aa1a9 1px solid; PADDING-LEFT: 5px; FONT-SIZE: 14px; BACKGROUND: url(http://cn.yimg.com/i/nks/071009/inpbg2.gif) #fff no-repeat 0px 0px; PADDING-BOTTOM: 5px; BORDER-LEFT: #9aa1a9 1px solid; WIDTH: 500px; PADDING-TOP: 5px; BORDER-BOTTOM: #acb4b7 1px solid
+}
+#ks-top-srh .srhbn {
+	FONT-WEIGHT: 800; FONT-SIZE: 14px; LINE-HEIGHT: 1.4; MARGIN-RIGHT: 1em; HEIGHT: 1.8em
+}
+.fixfloat {
+	ZOOM: 1
+}
+.fixfloat:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}

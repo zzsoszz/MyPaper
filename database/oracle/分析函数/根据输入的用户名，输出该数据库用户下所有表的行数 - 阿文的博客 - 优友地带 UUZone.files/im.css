@@ -1,0 +1,30 @@
+BODY {
+	MARGIN: 2px
+}
+.im_default {
+	BORDER-RIGHT: #efefef 1px solid; BORDER-TOP: #efefef 1px solid; OVERFLOW: hidden; BORDER-LEFT: #efefef 1px solid; WIDTH: 620px; BORDER-BOTTOM: #efefef 1px solid; HEIGHT: 400px
+}
+.im_default #im_left {
+	FLOAT: left; WIDTH: 516px; HEIGHT: 100%
+}
+.im_default #im_right {
+	FLOAT: left; WIDTH: 100px; HEIGHT: 100%
+}
+.im_default #im_display {
+	OVERFLOW-Y: auto; OVERFLOW-X: hidden; WIDTH: 100%; HEIGHT: 318px
+}
+.im_default #im_tool {
+	BORDER-RIGHT: #efefef 1px solid; BORDER-TOP: #efefef 1px solid; FLOAT: left; BORDER-LEFT: #efefef 1px solid; WIDTH: 80px; BORDER-BOTTOM: #efefef 1px solid; HEIGHT: 80px
+}
+.im_default #im_input {
+	FLOAT: left; OVERFLOW: hidden; WIDTH: 350px; HEIGHT: 80px
+}
+.im_default #im_textarea {
+	BORDER-RIGHT: #efefef 1px solid; BORDER-TOP: #efefef 1px solid; OVERFLOW-Y: auto; OVERFLOW-X: hidden; BORDER-LEFT: #efefef 1px solid; WIDTH: 100%; BORDER-BOTTOM: #efefef 1px solid; HEIGHT: 100%
+}
+.im_default #im_send {
+	BORDER-RIGHT: #efefef 1px solid; BORDER-TOP: #efefef 1px solid; FLOAT: left; BORDER-LEFT: #efefef 1px solid; WIDTH: 80px; BORDER-BOTTOM: #efefef 1px solid; HEIGHT: 80px
+}
+.im_default #im_member {
+	BORDER-RIGHT: #efefef 1px solid; BORDER-TOP: #efefef 1px solid; OVERFLOW-Y: auto; OVERFLOW-X: hidden; BORDER-LEFT: #efefef 1px solid; WIDTH: 100%; BORDER-BOTTOM: #efefef 1px solid; HEIGHT: 100%
+}

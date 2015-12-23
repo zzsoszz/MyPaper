@@ -1,0 +1,39 @@
+--创建 plan table
+
+SQL> @?rdbms\admin\utlxplan
+
+SQL> create public synonym plan_table for plan_table;
+
+同义词已创建。
+
+SQL> grant all on plan_table to public ;
+
+授权成功。
+
+--创建plustrace 角色
+
+SQL> @?sqlplus\admin\plustrce
+
+--plustrace授予public
+
+SQL> grant plustrace to public ;
+
+关于Autotrace几个常用选项的说明:
+
+SET AUTOTRACE OFF ---------------- 不生成AUTOTRACE 报告，这是缺省模式
+
+SET AUTOTRACE ON EXPLAIN ------ AUTOTRACE只显示优化器执行路径报告
+
+SET AUTOTRACE ON STATISTICS -- 只显示执行统计信息
+
+SET AUTOTRACE ON ----------------- 包含执行计划和统计信息 SET AUTOTRACE TRACEONLY ------ 同set autotrace on，但是不显示查询输出
+
+plustrace角色只是具有以下权限:
+grant select on v_$sesstat to plustrace;
+grant select on v_$statname to plustrace;
+grant select on v_$mystat to plustrace;
+grant plustrace to dba with admin option;
+
+
+
+本文来自CSDN博客，转载请标明出处：http://blog.csdn.net/guyu1985/archive/2010/06/19/5680452.aspx

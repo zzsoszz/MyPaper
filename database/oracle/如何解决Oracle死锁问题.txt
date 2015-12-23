@@ -1,0 +1,38 @@
+　1.查哪个过程被锁
+
+　　查V$DB_OBJECT_CACHE视图:
+
+　　SELECT * FROM V$DB_OBJECT_CACHE WHERE OWNER='过程的所属用户' AND LOCKS!='0';
+
+　　2. 查是哪一个SID,通过SID可知道是哪个SESSION.
+
+　　查V$ACCESS视图:
+
+　　SELECT * FROM V$ACCESS WHERE OWNER='过程的所属用户' AND NAME='刚才查到的过程名';
+
+　　3. 查出SID和SERIAL#
+
+　　查V$SESSION视图:
+
+　　SELECT SID,SERIAL#,PADDR FROM V$SESSION WHERE SID='刚才查到的SID'
+
+　　查V$PROCESS视图:
+
+　　SELECT SPID FROM V$PROCESS WHERE ADDR='刚才查到的PADDR';
+
+　　4. 杀进程
+
+　　(1).先杀Oracle进程:
+
+　　ALTER SYSTEM KILL SESSION '查出的SID,查出的SERIAL#';
+
+　　(2).能过CMD控制台，再杀操作系统进程:
+
+　　ORAKILL 数据库实现 刚才查出的SPID
+
+　　一定要记住，要把之前查出的Oracle死锁记下来，然后，一一对其Kill，如果Kill不干净的话，还是解决不了问题
+
+　　上述的相关内容就是对Oracle死锁解决办法的描述，希望会给你带来一些帮助在此方面。
+
+
+原文出自【比特网】，转载请保留原文链接：http://soft.chinabyte.com/database/30/11296530.shtml

@@ -1,0 +1,185 @@
+@import url( uuzonebar.css );
+@import url( lightbox.css );
+@import url( shadowit.css );
+@import url( pagination.css );
+@import url( uutabmenu.css );
+BODY {
+	BORDER-TOP: #eee 0px solid
+}
+IMG {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none
+}
+.trackback {
+	
+}
+.comments {
+	MARGIN-BOTTOM: 15px; OVERFLOW: auto
+}
+.background-text {
+	FONT-SIZE: 60px; RIGHT: 20px; FILTER: alpha(opacity=30); COLOR: #a4a4a4; FONT-FAMILY: Times; POSITION: absolute; TOP: 30px; TEXT-ALIGN: right; moz-opacity: 0.3; opacity: .30
+}
+ HTML .background-text {
+	RIGHT: 50px; LINE-HEIGHT: 100px; TOP: 0px; HEIGHT: 100px
+}
+.commentContent {
+	COLOR: #555; POSITION: relative; TEXT-ALIGN: left
+}
+.comments {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 15px; FLOAT: left; MARGIN-BOTTOM: 15px; PADDING-BOTTOM: 15px; OVERFLOW: hidden; PADDING-TOP: 15px; POSITION: relative
+}
+.comments .who {
+	FLOAT: left; WIDTH: 85px
+}
+.comments .said {
+	FLOAT: left; WIDTH: 75%
+}
+.comments .said H4 {
+	FONT-SIZE: 14px; MARGIN: 0px
+}
+.comments P {
+	MARGIN: 8px 0px
+}
+.comments .posted {
+	FONT-SIZE: 10px; COLOR: #999
+}
+.user-profile {
+	MARGIN-BOTTOM: 10px; OVERFLOW: hidden; LINE-HEIGHT: 150%; TEXT-ALIGN: center
+}
+#comments {
+	FONT-SIZE: 12px
+}
+.content P.posted {
+	CLEAR: both; LINE-HEIGHT: 150%
+}
+.content P.posted A {
+	LINE-HEIGHT: 150%
+}
+#calendar TABLE {
+	FONT-SIZE: 10px
+}
+#calendar CAPTION {
+	FONT-SIZE: 12px
+}
+.today {
+	FONT-WEIGHT: bold
+}
+.rs-link {
+	FONT-WEIGHT: bold; FONT-SIZE: 8px; FONT-FAMILY: Verdana, sans-serif, Arial
+}
+#banner H1 {
+	LINE-HEIGHT: 150%
+}
+#banner A.edit:link {
+	FONT-SIZE: 12px
+}
+#banner A.edit:hover {
+	FONT-SIZE: 12px
+}
+#banner A.edit:visited {
+	FONT-SIZE: 12px
+}
+#banner A.edit:active {
+	FONT-SIZE: 12px
+}
+.content .user-photo {
+	MARGIN: 8px
+}
+.content {
+	TEXT-ALIGN: left
+}
+.photo-middle {
+	FLOAT: left; MARGIN: 4px; WIDTH: 136px; HEIGHT: 136px; TEXT-ALIGN: center
+}
+.photo-index {
+	FILTER: progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=60,finishOpacity=50); FLOAT: left; MARGIN: 3px; CURSOR: pointer; TEXT-ALIGN: center
+}
+.photo-index-over {
+	FLOAT: left; MARGIN: 3px; CURSOR: pointer; TEXT-ALIGN: center
+}
+.photo-index-on {
+	FLOAT: left; MARGIN: 3px; CURSOR: pointer; TEXT-ALIGN: center
+}
+.content FONT {
+	LINE-HEIGHT: 150%
+}
+#userProfileInformationPeopleRank {
+	CLEAR: both; LINE-HEIGHT: 12px; HEIGHT: 16px
+}
+#userProfileInformationProfileRank {
+	CLEAR: both; LINE-HEIGHT: 12px; HEIGHT: 16px
+}
+#userProfileInformationLevel {
+	CLEAR: both; LINE-HEIGHT: 12px; HEIGHT: 16px
+}
+#userProfileInformationExperience {
+	CLEAR: both; LINE-HEIGHT: 12px; HEIGHT: 16px
+}
+#userProfileInformationBonus {
+	CLEAR: both; LINE-HEIGHT: 12px; HEIGHT: 16px
+}
+#userProfileInformationWebOnlineStatus {
+	CLEAR: both; LINE-HEIGHT: 12px; HEIGHT: 16px
+}
+#userProfileInformationUUTongOnlineStatus {
+	CLEAR: both; LINE-HEIGHT: 12px; HEIGHT: 16px
+}
+.sidebar H2 {
+	CLEAR: both
+}
+#newBlogReplyList LI {
+	CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 6px 5px; LINE-HEIGHT: normal; PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+#newUUBlogTopicList LI {
+	CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 6px 5px; LINE-HEIGHT: normal; PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+#newGuestBookList LI {
+	CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 6px 5px; LINE-HEIGHT: normal; PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+#newBlogReplyList LI .left {
+	CLEAR: left; FLOAT: left; WIDTH: 20%
+}
+#newUUBlogTopicList LI .left {
+	CLEAR: left; FLOAT: left; WIDTH: 20%
+}
+#newGuestBookList LI .left {
+	CLEAR: left; FLOAT: left; WIDTH: 20%
+}
+#newBlogReplyList LI .right {
+	CLEAR: right; FLOAT: right; OVERFLOW: hidden; WIDTH: 79%
+}
+#newUUBlogTopicList LI .right {
+	CLEAR: right; FLOAT: right; OVERFLOW: hidden; WIDTH: 79%
+}
+#newGuestBookList LI .right {
+	CLEAR: right; FLOAT: right; OVERFLOW: hidden; WIDTH: 79%
+}
+#newBlogReplyList LI IMG {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; WIDTH: 24px; BORDER-BOTTOM: 0px; HEIGHT: 24px
+}
+#newUUBlogTopicList LI IMG {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; WIDTH: 24px; BORDER-BOTTOM: 0px; HEIGHT: 24px
+}
+#newGuestBookList LI IMG {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; WIDTH: 24px; BORDER-BOTTOM: 0px; HEIGHT: 24px
+}
+#right {
+	OVERFLOW: hidden
+}
+.pre_next {
+	FONT-SIZE: 12px; PADDING-BOTTOM: 5px; MARGIN-LEFT: 10px; WIDTH: 95%; FONT-FAMILY: verdana
+}
+#bottom {
+	CLEAR: both
+}
+.favtosite {
+	FLOAT: left; MARGIN: 5px 0px; WIDTH: 100%
+}
+#faul {
+	DISPLAY: block; MARGIN: 0px 0px 5px; TEXT-ALIGN: center
+}
+#faul LI {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 8px; BACKGROUND: none transparent scroll repeat 0% 0%; FLOAT: left; LIST-STYLE-TYPE: none
+}
+#faul LI A {
+	TEXT-DECORATION: none
+}

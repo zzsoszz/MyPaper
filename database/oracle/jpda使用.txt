@@ -1,0 +1,9 @@
+服务端执行
+java -agentlib:jdwp=transport=dt_socket,server=y,address=8090
+客户端执行
+jdb -connect com.sun.jdi.SocketAttach:hostname=192.168.0.186,port=8090
+
+服务端执行
+java -agentlib:jdwp=transport=dt_socket,server=y,address=8090
+客户端执行
+jdb -connect com.sun.jdi.SocketAttach:hostname=127.0.0.1,port=8090

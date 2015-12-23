@@ -1,0 +1,56 @@
+insert into user 
+(userid,userName)
+select 
+123456,
+'qingtian'
+from dual 
+where not EXISTS
+(
+   select 1 from user t2 where t2.userid='123456'
+)
+
+
+
+
+
+
+
+
+MERGE INTO T T1
+USING (SELECT '1001' AS a,2 AS b FROM dual) T2
+ON ( T1.a=T2.a)
+WHEN MATCHED THEN
+  UPDATE SET T1.b = T2.b
+WHEN NOT MATCHED THEN 
+  INSERT (a,b) VALUES(T2.a,T2.b);
+
+
+
+
+
+
+-- Create table
+create table HTL_SRCH_RM_NUM_INFO_T
+(
+  CITY_CODE   VARCHAR2(32) not null,
+  COMPANY_ID  VARCHAR2(16) not null,
+  ROOM_ID     NUMBER(10) not null,
+  NUM_DATE    DATE not null,
+  ROOM_STATUS NUMBER(1) default 1
+)
+
+
+
+insert into htl_srch_rm_num_info_t (CITY_CODE, COMPANY_ID, ROOM_ID, NUM_DATE, ROOM_STATUS)
+values ('2102', '419', 2009, to_date('20-08-2012', 'dd-mm-yyyy'), -1);
+
+
+
+MERGE INTO HTL_SRCH_RM_NUM_INFO_T  t1
+USING (SELECT '2102' AS CITY_CODE,'419' AS COMPANY_ID,'2009' AS ROOM_ID,to_date('2012-08-20','yyyy-mm-dd') as NUM_DATE  FROM dual) t2
+ON ( t1.City_Code=t2.CITY_CODE and t1.company_id=t2.company_id and t1.room_id=t2.room_id and t1.num_date=t2.num_date)
+WHEN MATCHED THEN
+  UPDATE SET  t1.room_status=3
+WHEN NOT MATCHED THEN 
+  INSERT (CITY_CODE,COMPANY_ID,ROOM_ID,NUM_DATE,room_status) VALUES(t2.CITY_CODE,t2.COMPANY_ID,t2.ROOM_ID,t2.NUM_DATE,3);
+

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<config>
+
+	<summary>
+		Main page - search filter form
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>transactions.function.voice.SearchVoice</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<datasource>jdbc/runtocrm</datasource>
+		<recordset id="query.sql" source="sql" scope="session" />
+	</transaction>
+
+
+	<on-exit return-code="0" forward-to="/action/function/voicenew/vcnumber"/>
+</config>

@@ -1,0 +1,91 @@
+oracle的正则表达式(regular expression)简单介绍 
+目前，正则表达式已经在很多软件中得到广泛的应用，包括*nix（Linux, Unix等），HP等操作系统，PHP，C#，Java等开发环境。 
+Oracle 10g正则表达式提高了SQL灵活性。有效的解决了数据有效性，重复词的辨认, 无关的空白检测，或者分解多个正则组成的字符串等问题。 
+Oracle 10g支持正则表达式的四个新函数分别是：REGEXP_LIKE、REGEXP_INSTR、REGEXP_SUBSTR、和REGEXP_REPLACE。 
+它们使用POSIX 正则表达式代替了老的百分号（%）和通配符（_）字符。 
+特殊字符： 
+'^' 匹配输入字符串的开始位置，在方括号表达式中使用，此时它表示不接受该字符集合。 
+'$' 匹配输入字符串的结尾位置。如果设置了 RegExp 对象的 Multiline 属性，则 $ 也匹配 '\n' 或'\r'。 
+'.' 匹配除换行符 \n之外的任何单字符。 
+'?' 匹配前面的子表达式零次或一次。 
+'*' 匹配前面的子表达式零次或多次。 
+'+' 匹配前面的子表达式一次或多次。 
+'( )' 标记一个子表达式的开始和结束位置。 
+'[]' 标记一个中括号表达式。 
+'{m,n}' 一个精确地出现次数范围，m=<出现次数<=n，'{m}'表示出现m次，'{m,}'表示至少出现m次。 
+'|' 指明两项之间的一个选择。例子'^([a-z]+|[0-9]+)$'表示所有小写字母或数字组合成的字符串。 
+\num 匹配 num，其中 num 是一个正整数。对所获取的匹配的引用。 
+正则表达式的一个很有用的特点是可以保存子表达式以后使用，被称为Backreferencing. 允许复杂的替换能力 
+如调整一个模式到新的位置或者指示被代替的字符或者单词的位置. 被匹配的子表达式存储在临时缓冲区 
+
+中，缓冲区从左到右编号, 通过\数字符号访问。 下面的例子列出了把名字 aa bb cc 变成cc, bb, aa. 
+Select REGEXP_REPLACE('aa bb cc','(.*) (.*) (.*)', '\3, \2, \1') FROM dual； 
+REGEXP_REPLACE('ELLENHILDISMIT 
+cc, bb, aa 
+'\' 转义符。 
+字符簇： 
+[[:alpha:]] 任何字母。 
+[[:digit:]] 任何数字。 
+[[:alnum:]] 任何字母和数字。 
+[[:space:]] 任何白字符。 
+[[:upper:]] 任何大写字母。 
+[[:lower:]] 任何小写字母。 
+[[unct:]] 任何标点符号。 
+[[:xdigit:]] 任何16进制的数字，相当于[0-9a-fA-F]。 
+各种操作符的运算优先级 
+\ 转义符 
+(), (?, (?=), [] 圆括号和方括号 
+*, +, ?, {n}, {n,}, {n,m} 限定符 
+^, $, \anymetacharacter 位置和顺序 
+| “或”操作 
+--测试数据 
+create table test(mc varchar2(60)); 
+insert into test values('112233445566778899'); 
+insert into test values('22113344 5566778899'); 
+insert into test values('33112244 5566778899'); 
+insert into test values('44112233 5566 778899'); 
+insert into test values('5511 2233 4466778899'); 
+insert into test values('661122334455778899'); 
+insert into test values('771122334455668899'); 
+insert into test values('881122334455667799'); 
+insert into test values('991122334455667788'); 
+insert into test values('aabbccddee'); 
+insert into test values('bbaaaccddee'); 
+insert into test values('ccabbddee'); 
+insert into test values('ddaabbccee'); 
+insert into test values('eeaabbccdd'); 
+insert into test values('ab123'); 
+insert into test values('123xy'); 
+insert into test values('007ab'); 
+insert into test values('abcxy'); 
+insert into test values('The final test is is is how to find duplicate words.'); 
+commit; 
+一、REGEXP_LIKE 
+select * from test where regexp_like(mc,'^a{1,3}'); 
+select * from test where regexp_like(mc,'a{1,3}'); 
+select * from test where regexp_like(mc,'^a.*e$'); 
+select * from test where regexp_like(mc,'^[[:lower:]]|[[:digit:]]'); 
+select * from test where regexp_like(mc,'^[[:lower:]]'); 
+Select mc FROM test Where REGEXP_LIKE(mc,'[^[:digit:]]'); 
+Select mc FROM test Where REGEXP_LIKE(mc,'^[^[:digit:]]'); 
+二、REGEXP_INSTR 
+Select REGEXP_INSTR(mc,'[[:digit:]]$') from test; 
+Select REGEXP_INSTR(mc,'[[:digit:]]+$') from test; 
+Select REGEXP_INSTR('The price is $400.','\$[[:digit:]]+') FROM DUAL; 
+Select REGEXP_INSTR('onetwothree','[^[[:lower:]]]') FROM DUAL; 
+Select REGEXP_INSTR(',,,,,','[^,]*') FROM DUAL; 
+Select REGEXP_INSTR(',,,,,','[^,]') FROM DUAL; 
+三、REGEXP_SUBSTR 
+SELECT REGEXP_SUBSTR(mc,'[a-z]+') FROM test; 
+SELECT REGEXP_SUBSTR(mc,'[0-9]+') FROM test; 
+SELECT REGEXP_SUBSTR('aababcde','^a.*b') FROM DUAL; 
+四、REGEXP_REPLACE 
+Select REGEXP_REPLACE('Joe Smith','( ){2,}', ',') AS RX_REPLACE FROM dual; 
+Select REGEXP_REPLACE('aa bb cc','(.*) (.*) (.*)', '\3, \2, \1') FROM dual 
+
+四个函数是:regexp_like.regexp_instr.regexp_substr.与 regexp_replace.它们在用法上与oracle sql 函数like.instr.substr 与replace 用法,但是它们使用posix 正则表达式代替了老的百分号（%）与通配符（_）字符. 【推荐阅读:My SQL数据库引擎快速指导】 
+
+regexp_like 与like 操作符相似.如果第一个参数匹配正则表达式它就解析为true.例如where regexp_like(ename,^j[ao],i) 将在ename 以ja 或jo 开始的情况下返回一行数据.i 参数指定正则表达式是大小写敏感的.另外还可以在check 约束与函数索引中指定regexp_like.例如: 【扩展信息:MYSQL基本数据库术语】 
+^ 表示字符串的开始 $ 表示字符串的结束 . 表示任何字符 字符的范围,比如说[a-z],表示任何ascii 小写字母,与字符类"[[:lower:]]"" 等价 ? 允许一个后继字符匹配零次或一次 + 允许一个后继字符匹配一次或多次 * 表示零次或多次 
+
+可以使用"{m,n}" 指定一个精确地出现范围,其意思是“出现从m 次到n 次”;"{m}" 表示“正好m次”;而"{m,}" 表示“至少m次”.还可以使用圆括号组合字符的集合,使用"|"（竖线）表示可替换.例如,字符串^([a-z]+|[0-9]+)$将匹配所有由小写字母或数字组合成的字符串.

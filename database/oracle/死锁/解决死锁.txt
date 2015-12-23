@@ -1,0 +1,34 @@
+ 查询并解除oracle的死锁  大 | 中 | 小  [ 2006/02/10 15:43 | by xeric ] 
+公司的DBA不在，发现处理数据库问题真的是一件头痛的事情，
+数据库死锁了，于是问到了下面的查询和解决的办法：
+首先当然是查询数据库死锁，语句如下：
+
+
+select t2.username||'   '||t2.sid||'   '||t2.serial#||'   '||t2.logon_time||'   '||t3.sql_text
+      from v$locked_object t1,v$session t2,v$sqltext t3
+      where t1.session_id=t2.sid 
+      and t2.sql_address=t3.address
+      order by t2.logon_time;
+
+
+查询出来的接过就是有死锁的session了，
+下面就是杀掉。。。。。。。
+拿到上面查询出来的SID和SERIAL#，填入到下面的语句中
+
+
+alter system kill session 'sid,serial#';
+
+
+在试试查询一下，一般情况可以解决数据库存在的死锁了，
+如果还不行，好像就只能用plsql来做了....... 
+Tags： 数据库 , oracle
+开发[DEV] | 评论(3) | 引用(0) | 阅读(11392) 
+引用功能被关闭了。
+谢谢 2007/11/28 15:47 
+不错，解决了我的问题 
+游客 2006/08/27 17:11 
+select t2.username||'   '||t2.sid||'   '||t2.serial#||'   '||t2.logon_time||'   '||t3.sql_text
+     from v$locked_object t1,v$session t2,v$sqltext t3
+     where t1.session_id=t2.sid 
+     and t2.sql_address=t3.address
+     order by t2.logon_time; 

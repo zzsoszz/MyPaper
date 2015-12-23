@@ -1,0 +1,46 @@
+http://hi.baidu.com/lichangzai/blog/item/f4f769d8ae1a703132fa1c42.html
+
+用DBMS_LOCK包测试ORACLE LOCK2008-03-12 12:41
+测试LOCK的方法主要是通过DBMS_LOCK包来进行。
+首先，用SESSION A和B生成共享锁。
+SESSION A运行
+SQL> declare
+wwm number(10);
+begin
+wwm:=dbms_lock.REQUEST(100,lockmode=>dbms_lock.ss_mode);
+end;
+/
+
+Select * from v$lock;
+
+ADDR             KADDR                   SID TYPE        ID1        ID2     LMODE    REQUEST      CTIME      BLOCK
+---------------- ---------------- ---------- ---- ---------- -------------------- ---------- ---------- ----------
+0700000043C35B40 0700000043C35B60         69 UL          100          0         2          0         18          0
+
+看到A SESSION申请了SS_MODE的LOCK，在V$LOCK里显示为2的LMODE，关于这些的具体含义见最后 的解释。
+
+B 运行SQL> declarewwm number(10);beginwwm:=dbms_lock.REQUEST(100,lockmode=>dbms_lock.ss_mode);end;ADDR             KADDR                   SID TYPE        ID1        ID2     LMODE    REQUEST      CTIME      BLOCK---------------- ---------------- ---------- ---- ---------- -------------------- ---------- ---------- ----------0700000043C35BC8 0700000043C35BE8         44 UL          100          0         2          0          6          00700000043C35B40 0700000043C35B60         69 UL          100          0         2          0         51          0看到现在生成两条ID1相同，都是100的纪录，LMODE都是2，是shared lock。BLOCK都是0，对其他SESSION没有影响SESSION C运行SQL> declarewwm number(10);beginwwm:= dbms_lock.request (100,lockmode => dbms_lock.x_mode); end;ADDR             KADDR                   SID TYPE        ID1        ID2     LMODE    REQUEST      CTIME      BLOCK---------------- ---------------- ---------- ---- ---------- -------------------- ---------- ---------- ----------0700000043C35D60 0700000043C35D80         31 UL          100          0         0          6          3          00700000043C35BC8 0700000043C35BE8         44 UL          100          0         2          0         72          10700000043C35B40 0700000043C35B60         69 UL          100          0         2          0        117          1看到是6的锁。可以看到C 请求（REQUEST）一个6的LOCK（exclusive mode），但是没有得到,A,B此时BLOCK 变成了1，表明A，B对C产生了影响。下面证实下。REQUEST表示请求的lock mode，BLOCK列本SESSION是否对其他SESSION有影响。以下SQL显示了谁LOCK了谁select (select username   from v$session   where sid = a.sid) blocker     , a.sid    ,'is block'     , (select username     from v$session   where sid = b.sid) blockee     , b.sidfrom v$lock a     , v$lock bwhere a.block = 1   and b.request > 0   and a.id1 = b.id1   and a.id2 = b.id2BLOCKER                                                             SID      'ISBLOCK'        BLOCKEE         SID---------------- ----------------------------------------------------------------------SYS                                                                  69            is block         SYS                 31SYS                                                                  44           is block         SYS                 31可以看到就是A 69和B44   阻塞了C 31。因为C是6的LOCK，A，B是2的LOCK，A和B不会相互影响，但是会影响C。释放：declare2 wwm number(10);3 begin4 wwm:= dbms_lock.release(31);5* end;（必须在本SESSION内运行，不能RELEASE其他SESSION的LOCK）锁类型及解释：
+1 NL Null 
+2 SS Sub Shared 
+3 SX Sub eXclusive 
+4 S Shared 
+5 SSX Shared Sub eXclusive 
+6 X eXclusive 
+
+锁类型之间相互的影响：
+ NL SS SX S SSX X 
+NL  SUCC SUCC SUCC SUCC SUCC SUCC 
+SS  SUCC SUCC SUCC SUCC SUCC fail 
+SX  SUCC SUCC SUCC fail fail fail 
+S  SUCC SUCC fail SUCC fail fail 
+SSX SUCC SUCC fail fail fail fail 
+X  SUCC fail fail fail fail fail 
+
+另注：每一个OBJECT上的LOCK（不是ROW）都会产生一个ENQUEUE。SELECT sid,type,COUNT(*) FROM V$ENQUEUE_LOCK GROUP BY sid, type         2 MR           20
+         3 RT            1
+         4 XR            1
+         5 TS            1select sid,type,count(*) from v$lock group by sid,type         2 MR           20
+         3 RT            1
+         4 XR            1
+         5 TS            12是DBW0进程。 
+用DBMS_LOCK包测试ORACLE LOCK

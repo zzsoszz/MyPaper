@@ -1,0 +1,933 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0064)http://blog.csdn.net/youlianying/archive/2009/05/26/4217292.aspx -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<SCRIPT type=text/javascript>
+        try { document.domain = "csdn.net"; } catch (ex) { }
+    </SCRIPT>
+
+<SCRIPT src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/jquery.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/jquery.highlighter.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/highlighter.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/common.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/AreaCounter.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/feedback.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/relatedarticle.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/google_service.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+    GS_googleAddAdSenseService("ca-pub-1076724771190722");
+    GS_googleEnableAllServices();
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+    GA_googleAddSlot("ca-pub-1076724771190722", "blog_postpage_72890");
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+    GA_googleFetchAds();
+</SCRIPT>
+<LINK media=all 
+href="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/Cogitation_1.css" 
+type=text/css rel=stylesheet><LINK media=all 
+href="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/csdn_favbykimi.css" 
+type=text/css rel=stylesheet><LINK 
+href="http://profile.csdn.net/youlianying/picture/1.ico" 
+rel="Shortcut Icon"><LINK title=RSS 
+href="http://feeds.feedsky.com/csdn.net/youlianying" type=application/rss+xml 
+rel=alternate>
+<META content="MSHTML 6.00.2900.3698" name=GENERATOR></HEAD>
+<BODY id=defaultuser>
+<DIV id=csdnblog_allwrap>
+<DIV id=csdnblog_midwrap>
+<SCRIPT src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/pub_topnav.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="E:\MyPaper\数据库\hsqldb\HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files\AreaCounter(1).js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+    // 页面加载完毕，脚本开始执行
+    $(document).ready(function() {
+        ChangeUserState();
+        $("#notice").find("a").click(HideNoticeInfo);
+    });
+    
+    var userName = getCookie("activeUserName");
+    var isGuest = !userName || userName == "Guest";
+    var delay = 20 * 60 * 1000;
+    var timer = 0;
+
+    function ChangeUserState() {        
+        clearInterval(timer);
+        if (isGuest) {
+            HideNoticeInfo();
+        }
+        else {
+            RefreshNoticeInfo();
+            timer = setInterval( RefreshNoticeInfo, delay);
+        }
+    }
+    
+    var apiUrl = "/!handler/NoticeHandler.ashx?jsoncallback=?";
+    function RefreshNoticeInfo() {
+        $.getJSON(apiUrl + "&_t=" + Math.random(), function(result) {
+            if (result.noticeNum) {
+                newNoticeCount = result.noticeNum;
+                if (newNoticeCount <= 0) {
+                    $("#notice").hide();
+                }
+                else {
+                    $("#noticeCount").text(newNoticeCount);
+                    $("#notice").show();
+                }
+            }
+        });
+    }
+    
+    function HideNoticeInfo() {
+        $("#notice").hide();
+    }
+</SCRIPT>
+
+<DIV id=csdnblog_header>
+<H1><A href="http://blog.csdn.net/youlianying">youlianying的专栏</A></H1>
+<H2></H2>
+<UL id=personalnav>
+  <LI id=notice style="DISPLAY: none"><SPAN class=newnotice><A class=red 
+  onclick=LogClickCount(this,216); href="http://hi.csdn.net/space-notice.html" 
+  target=_blank><SPAN id=noticeCount></SPAN>条新通知</A></SPAN> </LI>
+  <LI style="DISPLAY: none"><A id=a_login 
+  href="http://passport.csdn.net/UserLogin.aspx">登录</A> </LI>
+  <LI style="DISPLAY: none"><A id=a_register 
+  href="http://passport.csdn.net/CSDNUserRegister.aspx" target=_blank>注册</A> 
+  </LI>
+  <LI style="DISPLAY: none"><A id=a_welcome href="http://hi.csdn.net/" 
+  target=_blank>欢迎</A> </LI>
+  <LI style="DISPLAY: none"><A id=a_exit 
+  href="http://writeblog.csdn.net/Signout.aspx">退出</A> </LI>
+  <LI style="DISPLAY: none"><A id=a_myblog href="http://blog.csdn.net/">我的博客</A> 
+  </LI>
+  <LI style="DISPLAY: none"><A id=a_configure 
+  href="http://writeblog.csdn.net/configure.aspx" target=_blank>配置</A> </LI>
+  <LI style="DISPLAY: none"><A id=a_postedit 
+  href="http://writeblog.csdn.net/PostEdit.aspx" target=_blank>写文章</A> </LI>
+  <LI style="DISPLAY: none"><A id=a_postlist 
+  href="http://writeblog.csdn.net/PostList.aspx" target=_blank>文章管理</A> </LI>
+  <LI><A id=a_bloghome href="http://blog.csdn.net/" target=_blank>博客首页</A> 
+</LI></UL>
+<UL id=blogsearchsty>
+  <LI><INPUT class=bolgsearch id=inputSearch> </LI>
+  <LI class=selectsty><SELECT id=Search_ddlSearchScope 
+  name=Search:ddlSearchScope> <OPTION value=all selected>全站</OPTION> <OPTION 
+    value=youlianying>当前博客</OPTION></SELECT> </LI>
+  <LI><INPUT class=bolggobtn id=buttonSearch type=button value=搜索> </LI></UL>
+<UL id=menu>
+  <LI><A href="http://hi.csdn.net/youlianying" target=_blank>空间</A> </LI>
+  <LI><A class=on href="http://blog.csdn.net/youlianying">博客</A> </LI>
+  <LI><A href="http://hi.csdn.net/!s/friend/list/youlianying" 
+  target=_blank>好友</A> </LI>
+  <LI><A href="http://hi.csdn.net/!s/album/list/youlianying" 
+  target=_blank>相册</A> </LI>
+  <LI><A class=last href="http://hi.csdn.net/!s/wall/to/youlianying" 
+  target=_blank>留言</A> </LI></UL></DIV>
+<SCRIPT type=text/javascript>
+    var CurrentUserName = 'youlianying';
+</SCRIPT>
+
+<DIV id=csdnblog_sidebar>
+<DIV class=gutter>
+<DIV class=aboutauthor>
+<DL>
+  <DT>用户操作 
+  <DD class=middle><A href="http://hi.csdn.net/!s/wall/to/youlianying" 
+  target=_blank>[留言]</A>&nbsp; <A 
+  href="http://hi.csdn.net/!s/msg/to/youlianying" target=_blank>[发消息]</A>&nbsp; 
+  <A href="http://hi.csdn.net/!s/friend/add/youlianying" 
+  target=_blank>[加为好友]</A>&nbsp; <SPAN id=userInfo></SPAN><SPAN 
+  id=SubscriptionList>
+  <DT>订阅我的博客 
+  <DD><A href="http://feeds.feedsky.com/csdn.net/youlianying"><IMG alt=XML聚合 
+  src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/gif.gif" border=0> 
+  </A>&nbsp;&nbsp; <A href="http://feeds.feedsky.com/csdn.net/youlianying" 
+  target=_blank><IMG alt=FeedSky 
+  src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/feedsky.gif" border=0> </A>
+  <DD><A 
+  href="http://www.xianguo.com/subscribe.php?url=http://feeds.feedsky.com/csdn.net/youlianying" 
+  target=_blank><IMG alt=订阅到鲜果 
+  src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss_xianguo.jpg" border=0> 
+  </A>
+  <DD><A 
+  href="http://fusion.google.com/add?feedurl=http://feeds.feedsky.com/csdn.net/youlianying" 
+  target=_blank><IMG alt=订阅到Google 
+  src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss_google.gif" border=0> 
+  </A>
+  <DD><A 
+  href="http://www.zhuaxia.com/add_channel.php?url=http://feeds.feedsky.com/csdn.net/youlianying" 
+  target=_blank><IMG alt=订阅到抓虾 
+  src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss_zhuaxia.gif" border=0> 
+  </A></SPAN>
+  <DT><SPAN class=floatright style="DISPLAY: none"><A class=a_edit 
+  href="http://writeblog.csdn.net/configure.aspx" 
+  target=_blank>[编辑]</A></SPAN>youlianying的公告 
+  <DD>我的淘宝网店主营韩版女装 品牌鞋 美容护肤 http://mgogo.taobao.com 
+  <DT><SPAN class=floatright style="DISPLAY: none"><A class=a_edit 
+  href="http://writeblog.csdn.net/EditCategories.aspx?catID=1" 
+  target=_blank>[编辑]</A></SPAN>文章分类 
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A href="http://blog.csdn.net/youlianying/category/574461.aspx/rss"><IMG 
+    alt=(RSS) src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss.gif"></A><A 
+    href="http://blog.csdn.net/youlianying/category/574461.aspx">C#</A>
+    <LI><A href="http://blog.csdn.net/youlianying/category/539776.aspx/rss"><IMG 
+    alt=(RSS) src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss.gif"></A><A 
+    href="http://blog.csdn.net/youlianying/category/539776.aspx">ejb3.0</A>
+    <LI><A href="http://blog.csdn.net/youlianying/category/537845.aspx/rss"><IMG 
+    alt=(RSS) src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss.gif"></A><A 
+    href="http://blog.csdn.net/youlianying/category/537845.aspx">everyday</A>
+    <LI><A href="http://blog.csdn.net/youlianying/category/607555.aspx/rss"><IMG 
+    alt=(RSS) src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss.gif"></A><A 
+    href="http://blog.csdn.net/youlianying/category/607555.aspx">extjs</A>
+    <LI><A href="http://blog.csdn.net/youlianying/category/711231.aspx/rss"><IMG 
+    alt=(RSS) src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss.gif"></A><A 
+    href="http://blog.csdn.net/youlianying/category/711231.aspx">finance</A>
+    <LI><A href="http://blog.csdn.net/youlianying/category/681038.aspx/rss"><IMG 
+    alt=(RSS) src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss.gif"></A><A 
+    href="http://blog.csdn.net/youlianying/category/681038.aspx">Hibernate</A>
+    <LI><A href="http://blog.csdn.net/youlianying/category/679145.aspx/rss"><IMG 
+    alt=(RSS) src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss.gif"></A><A 
+    href="http://blog.csdn.net/youlianying/category/679145.aspx">java</A>
+    <LI><A href="http://blog.csdn.net/youlianying/category/533937.aspx/rss"><IMG 
+    alt=(RSS) src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss.gif"></A><A 
+    href="http://blog.csdn.net/youlianying/category/533937.aspx">jsp</A>
+    <LI><A href="http://blog.csdn.net/youlianying/category/539772.aspx/rss"><IMG 
+    alt=(RSS) src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss.gif"></A><A 
+    href="http://blog.csdn.net/youlianying/category/539772.aspx">msql</A>
+    <LI><A href="http://blog.csdn.net/youlianying/category/539774.aspx/rss"><IMG 
+    alt=(RSS) src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss.gif"></A><A 
+    href="http://blog.csdn.net/youlianying/category/539774.aspx">oracle</A>
+    <LI><A href="http://blog.csdn.net/youlianying/category/533938.aspx/rss"><IMG 
+    alt=(RSS) src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss.gif"></A><A 
+    href="http://blog.csdn.net/youlianying/category/533938.aspx">server</A>
+    <LI><A href="http://blog.csdn.net/youlianying/category/681039.aspx/rss"><IMG 
+    alt=(RSS) src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss.gif"></A><A 
+    href="http://blog.csdn.net/youlianying/category/681039.aspx">Spring</A>
+    <LI><A href="http://blog.csdn.net/youlianying/category/539775.aspx/rss"><IMG 
+    alt=(RSS) src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss.gif"></A><A 
+    href="http://blog.csdn.net/youlianying/category/539775.aspx">sqlserver</A>
+    <LI><A href="http://blog.csdn.net/youlianying/category/682069.aspx/rss"><IMG 
+    alt=(RSS) src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss.gif"></A><A 
+    href="http://blog.csdn.net/youlianying/category/682069.aspx">weblogic</A>
+    <LI><A href="http://blog.csdn.net/youlianying/category/708681.aspx/rss"><IMG 
+    alt=(RSS) src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rss.gif"></A><A 
+    href="http://blog.csdn.net/youlianying/category/708681.aspx">wevservice</A></LI></UL></DIV>
+  <DT><SPAN class=floatright style="DISPLAY: none"><A class=a_edit 
+  href="http://writeblog.csdn.net/EditLinks.aspx" 
+  target=_blank>[编辑]</A></SPAN>好友link
+  <DD><A href="http://www.aliued.cn/" target=_blank>阿里中文站ui</A>
+  <DD><A href="http://blog.csdn.net/fzd999" target=_blank>pmblog</A>
+  <DD><A href="http://blog.csdn.net/forfuture1978" target=_blank>外企那些事</A>
+  <DD><A href="http://www.binotes.cn/" target=_blank>支付宝数据仓库</A>
+  <DD><A href="http://rdc.taobao.com/blog/qa/" target=_blank>淘宝QA</A>
+  <DD><A href="http://ued.taobao.com/tansuan/" target=_blank>淘宝UED</A>
+  <DD><A href="http://rdc.taobao.com/blog/cs/" target=_blank>淘宝核心系统</A>
+  <DD><A href="http://www.alidba.net/" target=_blank>阿里DBA团队</A> 
+  <DT>存档 
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2010/12.aspx">2010年12月(4)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2010/11.aspx">2010年11月(1)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2010/09.aspx">2010年09月(1)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2010/08.aspx">2010年08月(1)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2010/07.aspx">2010年07月(5)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2010/06.aspx">2010年06月(1)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2010/05.aspx">2010年05月(4)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2010/04.aspx">2010年04月(11)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2010/03.aspx">2010年03月(4)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2010/02.aspx">2010年02月(1)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2009/12.aspx">2009年12月(3)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2009/11.aspx">2009年11月(1)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2009/10.aspx">2009年10月(2)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2009/09.aspx">2009年09月(5)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2009/08.aspx">2009年08月(8)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2009/06.aspx">2009年06月(1)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2009/05.aspx">2009年05月(10)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2009/04.aspx">2009年04月(11)</A>
+    <LI><A 
+    href="http://blog.csdn.net/youlianying/archive/2009/03.aspx">2009年03月(1)</A></LI></UL></DIV></DD></DL></DIV></DIV></DIV>
+<STYLE type=text/css>.chal {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; FONT-FAMILY: Verdana,Helvetica,Arial,sans-serif
+}
+.chal .conts SPAN.adv {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FLOAT: right; PADDING-BOTTOM: 1px; WIDTH: 300px; LINE-HEIGHT: 18px; PADDING-TOP: 5px; HEIGHT: auto; TEXT-ALIGN: right
+}
+.chal .conts SPAN.adv IMG {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; WIDTH: 300px; PADDING-TOP: 3px; HEIGHT: 60px
+}
+.chal .conts {
+	CLEAR: both; BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; OVERFLOW: hidden; BORDER-LEFT: #ccc 1px solid; WIDTH: auto; PADDING-TOP: 0px; BORDER-BOTTOM: #ccc 1px solid; TEXT-ALIGN: left
+}
+.chal .conts #ann #annbody {
+	CLEAR: both; PADDING-RIGHT: 0px; BORDER-TOP: #aacbee 1px dashed; PADDING-LEFT: 0px; MARGIN-BOTTOM: 5px; PADDING-BOTTOM: 0px; OVERFLOW: hidden; WIDTH: auto; PADDING-TOP: 0px; HEIGHT: 18px; TEXT-ALIGN: left
+}
+.chal .conts #ann #annbodylis {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 10px; WIDTH: auto; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+.chal .conts #ann #annbodylis LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 100%; COLOR: #004797; LINE-HEIGHT: 150%; PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+.chal .conts #ann #annbodylis LI A {
+	COLOR: #f00
+}
+.chal .conts #ann #annbodylis LI.cen {
+	TEXT-ALIGN: center
+}
+.chal .conts #ann #annbodylis LI.rig {
+	TEXT-ALIGN: right
+}
+.default_contents H4.notice {
+	BACKGROUND: url(http://c.csdn.net/bbs/f/i/l/pic04.gif) #ffffdd no-repeat 4px 10px
+}
+.commentnew DL DD.recruit {
+	BORDER-RIGHT: #c1ae9e 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #c1ae9e 1px solid; DISPLAY: inline; PADDING-LEFT: 1px; FLOAT: left; PADDING-BOTTOM: 1px; MARGIN-LEFT: 15px; BORDER-LEFT: #c1ae9e 1px solid; WIDTH: 200px; PADDING-TOP: 1px; BORDER-BOTTOM: #c1ae9e 1px solid; TEXT-ALIGN: left
+}
+.commentnew DL DD.recruit H5 {
+	PADDING-LEFT: 10px; FONT-SIZE: 12px; BACKGROUND: #e0dbd3; COLOR: #47381c; LINE-HEIGHT: 24px; HEIGHT: 24px
+}
+.commentnew DL DD.recruit UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FLOAT: none; PADDING-BOTTOM: 0px; MARGIN: 10px 5px; OVERFLOW: hidden; WIDTH: auto; PADDING-TOP: 0px; HEIGHT: 252px
+}
+.commentnew DL DD.recruit UL LI {
+	PADDING-LEFT: 12px; BACKGROUND: url(http://c.csdn.net/www/images/blog/dot_2.gif) no-repeat left 7px; MARGIN-BOTTOM: 6px; MARGIN-LEFT: 5px; OVERFLOW: hidden; LIST-STYLE-TYPE: none; HEIGHT: 36px
+}
+.commentnew DL DD UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FLOAT: left; PADDING-BOTTOM: 10px; MARGIN: 0px; WIDTH: 474px; PADDING-TOP: 0px
+}
+.commentnew DL DD UL LI.left {
+	PADDING-RIGHT: 0px; DISPLAY: inline; PADDING-LEFT: 0px; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 0px 12px; WIDTH: 70px; LINE-HEIGHT: 18px; PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+UNKNOWN {
+	LINE-HEIGHT: 20px
+}
+ HTML .commentnew DL DD UL LI.left {
+	LINE-HEIGHT: 20px
+}
+.commentnew DL DD UL LI.lefttop {
+	PADDING-RIGHT: 0px; DISPLAY: inline; PADDING-LEFT: 0px; FLOAT: left; PADDING-BOTTOM: 5px; MARGIN: 0px 0px 0px 12px; WIDTH: 70px; PADDING-TOP: 5px
+}
+.commentnew DL DD UL LI.right {
+	PADDING-RIGHT: 12px; DISPLAY: inline; PADDING-LEFT: 0px; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 380px; LINE-HEIGHT: 18px; PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+.commentnew DL DD UL LI.right IMG.brow {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; FLOAT: left; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.commentnew DL DD UL LI.right .textarea {
+	BORDER-RIGHT: #c3c3c3 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #c3c3c3 1px solid; PADDING-LEFT: 3px; FLOAT: left; PADDING-BOTTOM: 3px; MARGIN: 0px; VERTICAL-ALIGN: top; BORDER-LEFT: #c3c3c3 1px solid; WIDTH: 378px; PADDING-TOP: 3px; BORDER-BOTTOM: #c3c3c3 1px solid; HEIGHT: 150px
+}
+.commentnew DL DD UL LI.right .input {
+	BORDER-RIGHT: #c3c3c3 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #c3c3c3 1px solid; PADDING-LEFT: 2px; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px; VERTICAL-ALIGN: middle; BORDER-LEFT: #c3c3c3 1px solid; WIDTH: 120px; LINE-HEIGHT: 18px; PADDING-TOP: 0px; BORDER-BOTTOM: #c3c3c3 1px solid; HEIGHT: 18px
+}
+.commentnew DL DD UL LI.right SPAN.left {
+	FLOAT: left; WIDTH: auto; TEXT-ALIGN: left
+}
+.commentnew DL DD UL LI.right SPAN.right {
+	FLOAT: right; WIDTH: 100px; TEXT-ALIGN: right
+}
+.commentnew DL DD UL LI.right SPAN A {
+	COLOR: #f00
+}
+.commentnew DL DD UL LI.right SPAN A.red:link {
+	COLOR: #f00
+}
+A.red:visited {
+	COLOR: #f00
+}
+A.red:hover {
+	COLOR: #f00
+}
+A.red:active {
+	COLOR: #f00
+}
+.commentnew DL DD UL LI.right EM {
+	COLOR: #466bbb
+}
+.commentnew DL DD UL LI.right A IMG.btn {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 3px; WIDTH: 68px; PADDING-TOP: 0px; HEIGHT: 21px
+}
+.commentnew DL DD UL LI.right .checkbox {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; VERTICAL-ALIGN: middle; PADDING-TOP: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+</STYLE>
+
+<DIV id=csdnblog_content>
+<DIV class=gutter>
+<DIV class="chal default_contents" id=chal style="DISPLAY: none">
+<H4 class="conts notice" style="HEIGHT: 20px"><SPAN 
+style="FONT-WEIGHT: bold; FLOAT: left; MARGIN: 2px 0px 0px">公告：</SPAN> 
+<DIV id=ann style="FLOAT: left; WIDTH: 500px">
+<DIV id=annbody style="BORDER-TOP: 0px">
+<UL id=annbodylis>
+  <SCRIPT src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/rsscache.aspx" 
+  type=text/javascript></SCRIPT>
+</UL></DIV></DIV><SPAN><A href="http://forum.csdn.net/SList/blogSupport" 
+target=_blank>[意见反馈]</A><A href="http://blog.csdn.net/blogdevteam" 
+target=_blank>[官方博客]</A></SPAN> </H4></DIV>
+<DIV class=default_contents>
+<DIV class=user_article>
+<SCRIPT src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/feedbackcount.js" 
+type=text/javascript></SCRIPT>
+
+<H1 class=title_txt><IMG height=15 alt=原创 
+src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/authorship.gif" width=15 
+border=0>&nbsp; HSQLDB的几种运行模式 <CITE class=fav_csdnstylebykimi><A 
+class=fav_csdnstylebykimi title=收藏到我的网摘中，并分享给我的朋友 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();">收藏</A> 
+</CITE></H1>
+<DIV class=blogstory>
+<SCRIPT type=text/javascript>
+						document.body.oncopy = function () {
+							if (window.clipboardData) {
+								setTimeout(function () {
+									var text = clipboardData.getData("text");
+									if (text && text.length > 300) {
+										text = text + "\r\n\n本文来自CSDN博客，转载请标明出处：" + location.href;
+										clipboardData.setData("text", text);
+									}
+								}, 100);
+							}
+						}
+					</SCRIPT>
+
+<SCRIPT type=text/javascript>						function StorePage() { d = document; t = d.selection ? (d.selection.type != 'None' ? d.selection.createRange().text : '') : (d.getSelection ? d.getSelection() : ''); void (keyit = window.open('http://www.365key.com/storeit.aspx?t=' + escape(d.title) + '&u=' + escape(d.location.href) + '&c=' + escape(t), 'keyit', 'scrollbars=no,width=475,height=575,left=75,top=20,status=no,resizable=yes')); keyit.focus(); }</SCRIPT>
+
+<H3 class=type_original title=原创><SPAN style="FONT-SIZE: small"><SPAN 
+style="FONT-SIZE: x-small">&nbsp;&nbsp;&nbsp; 
+这些天在学习jasperReport用到了hsql,顺便也对于有一些小的了解。先看看别人怎么说他的几种运行模式，括号内是我的注明。<BR>&nbsp;&nbsp;&nbsp; 
+<BR></SPAN></SPAN><SPAN style="FONT-SIZE: small"><SPAN 
+style="FONT-SIZE: x-small"><STRONG>&nbsp;&nbsp; 留内存模式</STRONG> 
+<BR>所有数据库表和索引都放在内存中，而且永远不会保存到磁盘上。在您发出为什么有人想要使用在应用程序终止时就会丢失的数据库这样的疑问之前，请先考虑为您可以使用标准 
+SQL 语句进行查询、排序、分组和更新的数据库数据拥有一块本地高速缓存。</SPAN></SPAN> </H3>
+<DIV class=blog_content>
+<P><SPAN style="FONT-SIZE: small"><SPAN 
+style="FONT-SIZE: x-small"><STRONG>单机模式</STRONG> <BR>应用程序使用 JDBC 创建一个数据库连接，并且 
+HSQLDB 引擎运行在该应用程序中，这时允许直接访问数据库文件。不能存在并发用户（应用程序独占地访问数据库文件），但因此也没有额外的线程和 TCP 
+连接开销。单机模式是许多嵌入式应用程序的首选模式。（一般而言，我们自己写点小程序就用这个模式就行了，在HSQLDB_HOME/demo中有一个 
+vrunManagerSwing.bat可以启动一个图形管理界面，上面可以选择用哪一种模式的。这个时候的连接字符窜类似 
+conn=DriverManager.getConnection("jdbc:hsqldb:file:D:\\Program 
+Files\\hsqldb\\data\\mem", "sa", 
+"");也就是file:后面接上一个实际的数据库文件的名字就可以了。不过我试过，这个file:要不要好像都行）<BR></SPAN></SPAN></P>
+<P><SPAN style="FONT-SIZE: small"><SPAN 
+style="FONT-SIZE: x-small"><STRONG>服务器模式</STRONG> 
+<BR>这是类似于其他关系数据库的标准客户机/服务器数据库配置，允许出现使用 TCP 套接字的并发连接。大部分开发人员喜欢这种模式，因为它允许任何 JDBC 
+客户机在主应用程序仍在运行的情况下连接并查询/更新表。（这个时候连接字符串类似jdbc:hsqldb:hsql://hsqldbsrv，其中 
+hsqldbsrv是机器名称，如果是本机用localhost就可以了，如果是别的机器，而且该机器运行多个服务，可能还要指定端口如：jdbc:hsqldb:hsql://hsqldbsrv:9002）</SPAN></SPAN> 
+</P>
+<P><SPAN style="FONT-SIZE: small"><SPAN 
+style="FONT-SIZE: x-small"><STRONG>Web服务器模式</STRONG> <BR>HSQLDB 可以用作 Web 
+服务器，可以通过 HTTP 接受 SQL 查询；也能作为任何标准 Web 容器中的 servlet 来运行，可以穿过防火墙或者安装在 Web 
+宿主服务上，而不用涉及到提供者支持小组（和昂贵的数据库宿主选项）。由于 HTTP 是无状态的，所以本模式中不存在事务。 
+（这个时候连接字符串就是jdbc:hsqldb:http://websrv，相应改变类似服务器模式）</SPAN></SPAN> </P>
+<P><A href="http://writeblog.csdn.net/java/doc/20071023101430906.html" 
+target=blank><STRONG>HSQLDB</STRONG></A> 
+是一个轻量级的纯Java开发的开放源代码的关系数据库系统。因为<STRONG>HSQLDB</STRONG>的轻量（占用空间小），使用简单，支持内存运行方式等特点，<STRONG>HSQLDB</STRONG>被广泛用于开发环境和某些中小型系统中。<BR><BR><STRONG>HSQLDB</STRONG>的运行需要Java环境的支持。有关Java环境的安装设置请参考：<BR><STRONG></STRONG></P>
+<P><STRONG>HSQLDB</STRONG>的四种运行模式：</P>
+<P><BR>
+<TABLE class=defTbl id=defTbl border=0>
+  <TBODY>
+  <TR class=altEventRow>
+    <TH>运行模式 </TH>
+    <TH>说明 </TH>
+    <TH>启动命令 </TH>
+    <TH>JDBC例</TH></TR>
+  <TR class=eventRow>
+    <TD><STRONG>内存（Memory-Only）模式 </STRONG></TD>
+    <TD>所有数据都在内存里操作。应用程序退出后则数据被销毁。</TD>
+    <TD>启动方式1：通过程序中首次调用Connection c = 
+      DriverManager.getConnection("jdbc:hsqldb:mem:myDbName", "sa", 
+      "");时<BR>启动方式2：你也可以在server.properties中指定相同的URL来运行一个Memory-Only（仅处于内存中）服务器实例。</TD>
+    <TD>jdbc:hsqldb:mem:myDbName</TD></TR>
+  <TR class=altEventRow>
+    <TD><STRONG>进程（In-Process）模式</STRONG> </TD>
+    <TD>从应用程序启动数据库。因为所有数据被写入到文件中，所以即使应用程序退出后，数据也不会被销毁。</TD>
+    <TD>跟Memory-Only模式一样，In-Process不需要另外启动，通过DriverManager.getConnection(jdbcUriName, 
+      "sa", "");方式既可启动</TD>
+    <TD>jdbc:hsqldb:file:/C:/mydb/myDbName<BR>jdbc:hsqldb:file:/opt/db/myDbName<BR>jdbc:hsqldb:file:myDbName</TD></TR>
+  <TR class=eventRow>
+    <TD><STRONG>服务器模式</STRONG> </TD>
+    <TD>该模式下<STRONG>HSQLDB</STRONG>跟其他数据库服务器一样，以服务器的形式被启动。</TD>
+    <TD>通过java -cp ../lib/hsqldb.jar org.hsqldb.Server -database.0 mydb 
+      -dbname.0 myDbName之类的命令启动<STRONG>HSQLDB</STRONG>守护进程。</TD>
+    <TD>jdbc:hsqldb:hsql://localhost:9001/myDbName</TD></TR>
+  <TR class=altEventRow>
+    <TD><STRONG>Web服务器模式</STRONG> </TD>
+    <TD>该模式<STRONG>HSQLDB</STRONG>以WEB服务器的形式启动，并通过HTTP协议接受客户端命令。从1.7.2开始，WEB服务器模式的<STRONG>HSQLDB</STRONG>开始支持事务。</TD>
+    <TD>java -cp ../lib/hsqldb.jar org.hsqldb.WebServer -database.0 mydb 
+      -dbname.0 myDbName</TD>
+    <TD>- </TD></TR></TBODY></TABLE></P>
+<DIV class=tf_edit_html_title id=tf_edit_html_title>HSQLDB的下载与安装：</DIV>
+<P><STRONG>HSQLDB</STRONG>的最新版本可以通过<A href="http://hsqldb.sourceforge.net/" 
+target=blank>http://hsqldb.sourceforge.net/</A>下载。</P>
+<P>下文以Windows环境为例，介绍怎么样安装<STRONG>HSQLDB</STRONG>。Linux环境除了目录与命令不一样之外，其余基本一样。<BR>下载完成之后，把下载的ZIP文件解压缩至任意目录例如c:\hsqldb便完成安装。<BR></P>
+<DIV class=tf_edit_html_title id=tf_edit_html_title>HSQLDB服务器模式的启动方法</DIV>
+<P>因为In-Process模式以及Memory-Only模式可以无需另外启动<STRONG>HSQLDB</STRONG>，下面介绍服务器模式的启动方法。<BR>假设我们需要创建/启动一个名为mydb的数据库。<BR>为了操作方便等，我们在c:\hsqldb目录下创建mydb目录。<BR>1，创建runMydb.bat文件，文件内容为：</P>
+<DIV class=codeHighLighter>
+<DIV class=dp-highlighter>
+<OL class=dp-j>
+  <LI 
+  class=alt><SPAN><SPAN>java&nbsp;-cp&nbsp;..\lib\hsqldb.jar&nbsp;org.hsqldb.Server&nbsp;-database&nbsp;mydb&nbsp;</SPAN></SPAN> 
+  </LI></OL></DIV>
+<P class=alt><SPAN></SPAN>或</P>
+<P class=alt>&nbsp;</P></DIV>
+<DIV class=codeHighLighter>
+<P class=alt><SPAN><SPAN>&nbsp;&nbsp;&nbsp; 
+java&nbsp;-cp&nbsp;../lib/hsqldb.jar&nbsp;org.hsqldb.Server&nbsp;-database.</SPAN><SPAN 
+class=number><SPAN 
+style="COLOR: #c00000">0</SPAN></SPAN><SPAN>&nbsp;mydb&nbsp;-dbname.</SPAN><SPAN 
+class=number><SPAN 
+style="COLOR: #c00000">0</SPAN></SPAN><SPAN>&nbsp;mydb&nbsp;&nbsp;</SPAN></SPAN></P>
+<P class=alt><SPAN></SPAN>2，创建manageMydb.bat文件，内容：</P></DIV>
+<DIV class=codeHighLighter>
+<DIV class=bar>
+<DIV class=tools><A onclick="dp.sh.Toolbar.Command('About',this);return false;" 
+href="http://www.lifevv.com/database/doc/20071023184619861.html#"></A></DIV></DIV>
+<DIV class=dp-highlighter>
+<OL class=dp-j>
+  <LI 
+  class=alt><SPAN><SPAN>java&nbsp;-cp&nbsp;..\lib\hsqldb.jar&nbsp;org.hsqldb.util.DatabaseManager&nbsp;-url&nbsp;jdbc:hsqldb:hsql:</SPAN><SPAN 
+  class=comment>//localhost/mydb</SPAN><SPAN>&nbsp;&nbsp;</SPAN></SPAN> 
+  <LI 
+  class=alt><SPAN></SPAN>启动manageMydb.bat，即可启动<STRONG>HSQLDB</STRONG>的图形界面管理工具<BR>Hsqldb 
+  的主要工具类：<BR>org.hsqldb.util.DatabaseManager<BR>org.hsqldb.util.DatabaseManagerSwing<BR>org.hsqldb.util.Transfer<BR>org.hsqldb.util.QueryTool<BR>org.hsqldb.util.SqlTool 
+  <BR>使用JDBC连接HSQLDB数据库 
+  <LI 
+  class=alt>Java语言通过JDBC使用<STRONG>HSQLDB</STRONG>数据库非常简单：<BR>1，将hsqldb.jar加入到classpath<BR>2，通过Class.forName("org.hsqldb.jdbcDriver" 
+  );初始化hsqldb的jdbc驱动<BR>3，通过DriverManager.getConnection(hsqldb-url, user, 
+  password);取得<STRONG>HSQLDB</STRONG>数据库的连接<BR><BR>使用例： </LI></OL></DIV></DIV>
+<DIV class=codeHighLighter>
+<DIV class=dp-highlighter>
+<OL class=dp-j>
+  <LI class=alt><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+  class=keyword>try</SPAN><SPAN>&nbsp;{ &nbsp;&nbsp;</SPAN></SPAN> 
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Class.forName(</SPAN><SPAN 
+  class=string>"org.hsqldb.jdbcDriver"</SPAN><SPAN>&nbsp;); &nbsp;&nbsp;</SPAN> 
+  <LI class=alt><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;</SPAN><SPAN 
+  class=keyword>catch</SPAN><SPAN>&nbsp;(Exception&nbsp;e)&nbsp;{ 
+  &nbsp;&nbsp;</SPAN> 
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(</SPAN><SPAN 
+  class=string>"ERROR:&nbsp;failed&nbsp;to&nbsp;load&nbsp;HSQLDB&nbsp;JDBC&nbsp;driver."</SPAN><SPAN>); 
+  &nbsp;&nbsp;</SPAN> 
+  <LI 
+  class=alt><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace(); 
+  &nbsp;&nbsp;</SPAN> 
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+  class=keyword>return</SPAN><SPAN>; &nbsp;&nbsp;</SPAN> 
+  <LI class=alt><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;} &nbsp;&nbsp;</SPAN> 
+  <LI><SPAN>&nbsp;&nbsp;</SPAN> 
+  <LI 
+  class=alt><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;Connection&nbsp;c&nbsp;=&nbsp;DriverManager.getConnection(</SPAN><SPAN 
+  class=string>"jdbc:hsqldb:hsql://localhost/mydb"</SPAN><SPAN>,&nbsp;</SPAN><SPAN 
+  class=string>"sa"</SPAN><SPAN>,&nbsp;</SPAN><SPAN 
+  class=string>""</SPAN><SPAN>);&nbsp;&nbsp;</SPAN> </LI></OL></DIV><PRE class=java style="DISPLAY: none">&nbsp;&nbsp;&nbsp;&nbsp;try {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Class.forName("org.hsqldb.jdbcDriver" );
+&nbsp;&nbsp;&nbsp;&nbsp;} catch (Exception e) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("ERROR: failed to load HSQLDB JDBC driver.");
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+
+&nbsp;&nbsp;&nbsp;&nbsp;Connection c = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/mydb", "sa", "");</PRE></DIV>
+<P><BR>其中，jdbc:hsqldb:hsql://localhost/xdb需要替换为合适的jdbc-url。<BR><BR></P>
+<DIV class=tf_edit_html_title id=tf_edit_html_title>在Hibernate里使用HSQLDB</DIV>
+<P>著名的ORM工具Hibernate也提供了对<STRONG>HSQLDB</STRONG>数据库的支持。需要在Hibernage里使用<STRONG>HSQLDB</STRONG>，只需在hibernate.cfg.xml里加入类似如下设置：</P>
+<DIV class=codeHighLighter>
+<DIV class=dp-highlighter>
+<OL class=dp-j>
+  <LI class=alt><SPAN><SPAN>&lt;hibernate-configuration&gt; 
+  &nbsp;&nbsp;</SPAN></SPAN> 
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&lt;session-factory&gt; &nbsp;&nbsp;</SPAN> 
+  <LI class=alt><SPAN>... &nbsp;&nbsp;</SPAN> 
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name=</SPAN><SPAN 
+  class=string>"connection.driver_class"</SPAN><SPAN>&gt;org.hsqldb.jdbcDriver&lt;/property&gt; 
+  &nbsp;&nbsp;</SPAN> 
+  <LI class=alt><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &nbsp;&nbsp;</SPAN> 
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name=</SPAN><SPAN 
+  class=string>"connection.url"</SPAN><SPAN>&gt;jdbc:hsqldb:hsql:</SPAN><SPAN 
+  class=comment>//localhost/mydb&lt;/property&gt; 
+  </SPAN><SPAN>&nbsp;&nbsp;</SPAN> 
+  <LI 
+  class=alt><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name=</SPAN><SPAN 
+  class=string>"connection.username"</SPAN><SPAN>&gt;sa&lt;/property&gt; 
+  &nbsp;&nbsp;</SPAN> 
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name=</SPAN><SPAN 
+  class=string>"connection.password"</SPAN><SPAN>&gt;&lt;/property&gt; 
+  &nbsp;&nbsp;</SPAN> 
+  <LI class=alt><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &nbsp;&nbsp;</SPAN> 
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property&nbsp;name=</SPAN><SPAN 
+  class=string>"dialect"</SPAN><SPAN>&gt;org.hibernate.dialect.HSQLDialect&lt;/property&gt; 
+  &nbsp;&nbsp;</SPAN> 
+  <LI class=alt><SPAN>... &nbsp;&nbsp;</SPAN> 
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/session-factory&gt; &nbsp;&nbsp;</SPAN> 
+
+  <LI class=alt><SPAN>&lt;/hibernate-configuration&gt;&nbsp;&nbsp;</SPAN> 
+</LI></OL></DIV><PRE class=java style="DISPLAY: none">&lt;hibernate-configuration&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;session-factory&gt;
+...
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property name="connection.driver_class"&gt;org.hsqldb.jdbcDriver&lt;/property&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property name="connection.url"&gt;jdbc:hsqldb:hsql://localhost/mydb&lt;/property&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property name="connection.username"&gt;sa&lt;/property&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property name="connection.password"&gt;&lt;/property&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;property name="dialect"&gt;org.hibernate.dialect.HSQLDialect&lt;/property&gt;
+...
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/session-factory&gt;
+&lt;/hibernate-configuration&gt;</PRE><BR></DIV></DIV>
+<P class="right articalinfo">发表于 @ 2009年05月26日　14:46:00&nbsp;| <A id=a_comment 
+title=评论 
+href="http://blog.csdn.net/youlianying/archive/2009/05/26/4217292.aspx#FeedBack">评论( 
+<SPAN id=FeedbackCount_4217292>loading...</SPAN>
+<SCRIPT type=text/javascript>
+								AddFeedbackCountStack("4217292")
+							</SCRIPT>
+ ) </A>| <SPAN style="DISPLAY: none"><A class=a_edit title=编辑 
+href="http://writeblog.csdn.net/PostEdit.aspx?entryId=4217292">编辑</A>|</SPAN> <A 
+href="mailto:webmaster@csdn.net?subject=Article Report!!!&amp;body=Author:youlianyingURL:http://blog.csdn.net/ArticleContent.aspx?UserName=youlianying&amp;Entryid=4217292">举报</A>| 
+<CITE class=fav_csdnstylebykimi><A class=fav_csdnstylebykimi 
+title=收藏到我的网摘中，并分享给我的朋友 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();">收藏</A> 
+</CITE></P><SPAN id=Post.ascx_ViewPost_PreviousAndNextEntriesDown>
+<H3 class=pagego><A 
+href="http://blog.csdn.net/youlianying/archive/2009/05/25/4214472.aspx">旧一篇:WebBrowser.ExecWB相关</A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/youlianying/archive/2009/06/04/4241841.aspx">新一篇:Automation服务器不能创建对象</A></H3></SPAN>
+<DIV style="TEXT-ALIGN: left"><!-- ca-pub-1076724771190722/blog_postpage_72890 -->
+<SCRIPT type=text/javascript>
+							GA_googleFillSlot("blog_postpage_72890");
+						</SCRIPT>
+</DIV>
+<DIV class=mutualitys>
+<DL>
+  <DT><SPAN><A onclick=LogClickCount(this,215) href="http://blog.csdn.net/" 
+  target=_blank>查看最新精华文章 请访问博客首页</A></SPAN>相关文章 </DT></DL></DIV></DIV></DIV><A 
+name=FeedBack></A>
+<SCRIPT type=text/javascript>
+				var CurrentEntryId = '4217292';
+				var CurArticleTitle = 'HSQLDB的几种运行模式';
+				var AllowComment = 'True';
+				var AllowAnonymousComment = /^true$/i.test('False');
+			</SCRIPT>
+
+<DIV class=commentslist id=commentslist></DIV>
+<SCRIPT src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/CsdnDialog.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+				function ChangeIdentifyingCode() {
+					var url = $('#imgValidationCode').attr('src');
+					if (!(/&d=[\d\.]+$/).test(url)) url += "&d=1";
+					url = url.replace(/&d=[\d\.]+$/, "&d=" + Math.random());
+					$('#imgValidationCode').attr('src', url);
+				}
+
+				function OpenLoginDialog() {
+					element = document.getElementById("loginBtn");
+					var position = absolutePoint(element);
+
+					var dialogTop = position.y - 400;
+					var dialogLeft = position.x - 220;
+					var dialogWidth = 435;
+					var dialogHeight = 420;
+
+					showWindow({ url: 'http://passport.csdn.net/UserLogin.aspx?show=replyLogin&from=http%3a%2f%2fblog.csdn.net%2f!tools%2fLoginSussess.aspx'
+						, title: '登录'
+						, top: dialogTop
+						, left: dialogLeft
+						, width: dialogWidth
+						, height: dialogHeight
+					});
+				}
+
+				function closeDialog(needRefresh) {
+					closeWindow();
+					if (needRefresh) {
+						var url = location.href;
+						if ((/\?/g).test(url))
+							url = url.replace(/\?.*$/g, ("?" + Math.random()).replace(/\./g, ""));
+						else url += ("?" + Math.random()).replace(/\./g, "");
+						location.href = url;
+					}
+					$("#SubmitFeedback").unbind("click");
+					$("#SubmitFeedback").bind("click", PostContent);
+				}
+
+				function absolutePoint(element) {
+					var result = { x: element.offsetLeft, y: element.offsetTop };
+					element = element.offsetParent;
+					while (element) {
+						result.x += element.offsetLeft;
+						result.y += element.offsetTop;
+						element = element.offsetParent;
+					}
+					return result;
+				}
+
+				function startmarquee(lh, speed, delay, index) {
+					var t;
+					var p = false;
+					var o = document.getElementById("marqueebox" + index);
+					o.innerHTML += o.innerHTML;
+					o.onmouseover = function () { p = true }
+					o.onmouseout = function () { p = false }
+					o.scrollTop = 0;
+					function start() {
+						t = setInterval(scrolling, speed);
+						if (!p) o.scrollTop += 2;
+					}
+					function scrolling() {
+						if (o.scrollTop % lh != 0) {
+							o.scrollTop += 2;
+							if (o.scrollTop >= o.scrollHeight / 2) o.scrollTop = 0;
+						} else {
+							clearInterval(t);
+							setTimeout(start, delay);
+						}
+					}
+					setTimeout(start, delay);
+				}
+
+				function addEventHandler(target, type, func) {
+					if (target.addEventListener)
+						target.addEventListener(type, func, false);
+					else if (target.attachEvent)
+						target.attachEvent("on" + type, func);
+					else target["on" + type] = func;
+				}
+
+				addEventHandler(window, "load", function () {
+					startmarquee(42, 50, 3000, 0);
+				});
+			</SCRIPT>
+
+<DIV class=commentnew>
+<DL>
+  <DT>
+  <UL>
+    <LI class=left>发表评论
+    <SCRIPT 
+    src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/RandomColumnContentJS.htm" 
+    type=text/javascript></SCRIPT>
+     </LI></UL></DT>
+  <DD>
+  <UL>
+    <LI class=lefttop>表 情： </LI>
+    <LI class=right><A onclick="return false;" 
+    href="http://blog.csdn.net/youlianying/archive/2009/05/26/4217292.aspx#"><IMG 
+    class=brow title=顶 alt=顶 
+    src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/e01.gif"></A> <A 
+    onclick="return false;" 
+    href="http://blog.csdn.net/youlianying/archive/2009/05/26/4217292.aspx#"><IMG 
+    class=brow title=砸 alt=砸 
+    src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/e02.gif"></A> <A 
+    onclick="return false;" 
+    href="http://blog.csdn.net/youlianying/archive/2009/05/26/4217292.aspx#"><IMG 
+    class=brow title=棒 alt=棒 
+    src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/e03.gif"></A> <A 
+    onclick="return false;" 
+    href="http://blog.csdn.net/youlianying/archive/2009/05/26/4217292.aspx#"><IMG 
+    class=brow title=大笑 alt=大笑 
+    src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/e04.gif"></A> <A 
+    onclick="return false;" 
+    href="http://blog.csdn.net/youlianying/archive/2009/05/26/4217292.aspx#"><IMG 
+    class=brow title=愤怒 alt=愤怒 
+    src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/e05.gif"></A> <A 
+    onclick="return false;" 
+    href="http://blog.csdn.net/youlianying/archive/2009/05/26/4217292.aspx#"><IMG 
+    class=brow title=大哭 alt=大哭 
+    src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/e06.gif"></A> <A 
+    onclick="return false;" 
+    href="http://blog.csdn.net/youlianying/archive/2009/05/26/4217292.aspx#"><IMG 
+    class=brow title=疑问 alt=疑问 
+    src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/e07.gif"></A> <A 
+    onclick="return false;" 
+    href="http://blog.csdn.net/youlianying/archive/2009/05/26/4217292.aspx#"><IMG 
+    class=brow title=汗 alt=汗 
+    src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/e08.gif"></A> <A 
+    onclick="return false;" 
+    href="http://blog.csdn.net/youlianying/archive/2009/05/26/4217292.aspx#"><IMG 
+    class=brow title=呕吐 alt=呕吐 
+    src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/e09.gif"></A> <A 
+    onclick="return false;" 
+    href="http://blog.csdn.net/youlianying/archive/2009/05/26/4217292.aspx#"><IMG 
+    class=brow title=送花 alt=送花 
+    src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/e10.gif"></A> </LI></UL>
+  <UL>
+    <LI class=left>评论内容： </LI>
+    <LI class=right><TEXTAREA class=textarea id=content onkeydown="if(event.ctrlKey &amp;&amp; event.keyCode==13){return $('#SubmitFeedback').click();}"></TEXTAREA> 
+    </LI></UL>
+  <DIV>
+  <UL>
+    <LI class=left>用 户 名： </LI>
+    <LI class=right><SPAN class=right id=loginTips style="DISPLAY: none"><A 
+    class=red id=loginBtn onclick="OpenLoginDialog(this);return false;" 
+    href="javascript:void(0);">登录</A> <A class=red 
+    href="http://passport.csdn.net/CSDNUserRegister.aspx" target=_blank>注册</A> 
+    </SPAN><SPAN class=right style="DISPLAY: none"><INPUT class=checkbox 
+    id=anonymous type=checkbox>匿名评论 </SPAN><SPAN class=left 
+    id=commentUser></SPAN></LI></UL></DIV>
+  <UL style="DISPLAY: none">
+    <LI class=left>验 证 码： </LI>
+    <LI class=right><INPUT class=input id=code> <A 
+    href="javascript:ChangeIdentifyingCode()"><IMG id=imgValidationCode 
+    style="VERTICAL-ALIGN: middle" alt=验证码 
+    src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/AntiBotImage.jpg"></A> <A 
+    href="javascript:ChangeIdentifyingCode()">重新获得验证码</A> </LI></UL>
+  <UL>
+    <LI class=left> </LI>
+    <LI class=right><INPUT class=submitbtn id=SubmitFeedback type=button value=发表评论> 
+    </LI></UL></DD>
+  <DD class=recruit id=recommended>
+  <H5>热门招聘职位</H5>
+  <UL id=marqueebox0>
+    <SCRIPT 
+    src="E:\MyPaper\数据库\hsqldb\HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files\rsscache(1).aspx" 
+    type=text/javascript></SCRIPT>
+  </UL></DD></DL></DIV>
+<SCRIPT type=text/javascript>
+	function addEventHandler(target, type, func) {
+		if (target.addEventListener)
+			target.addEventListener(type, func, false);
+		else if (target.attachEvent)
+			target.attachEvent("on" + type, func);
+		else target["on" + type] = func;
+	}
+	addEventHandler(window, "load", function () {
+		({
+			anndelay: 5000,
+			annst: 0,
+			annstop: 0,
+			annrowcount: 0,
+			anncount: 0,
+			annrows: [],
+			annstatus: 0,
+			announcementScroll: function () {
+				var self = this;
+				var annlis = self.annbody.getElementsByTagName("li");
+				if (self.annstop) {
+					self.annst = setTimeout(function () { self.announcementScroll(); }, self.anndelay);
+					return;
+				}
+				if (!self.annst) {
+					var lasttop = -1;
+					for (var i = 0; i < annlis.length; i++) {
+
+						if (lasttop != annlis[i].offsetTop) {
+							if (lasttop == -1) {
+								lasttop = 0;
+							}
+							self.annrows[self.annrowcount] = annlis[i].offsetTop - lasttop;
+							self.annrowcount++;
+						}
+						lasttop = annlis[i].offsetTop;
+					}
+
+					if (self.annrows.length == 1) {
+						self.ann.onmouseover = self.ann.onmouseout = null;
+					} else {
+						self.annrows[self.annrowcount] = self.annrows[1];
+						self.annbodylis.innerHTML += self.annbodylis.innerHTML;
+						self.annst = setTimeout(function () { self.announcementScroll(); }, self.anndelay);
+					}
+					self.annrowcount = 1;
+					return;
+				}
+
+				if (self.annrowcount >= self.annrows.length) {
+					self.annbody.scrollTop = 0;
+					self.annrowcount = 1;
+					self.annst = setTimeout(function () { self.announcementScroll(); }, self.anndelay);
+				} else {
+					self.anncount = 0;
+					self.announcementScrollnext(self.annrows[self.annrowcount]);
+				}
+			},
+			announcementScrollnext: function (time) {
+				var self = this;
+				self.annbody.scrollTop++;
+				self.anncount++;
+				if (self.anncount != time) {
+					self.annst = setTimeout(function () {
+						self.announcementScrollnext(time);
+					}, 10);
+				} else {
+					self.annrowcount++;
+					self.annst = setTimeout(function () { self.announcementScroll(); }, self.anndelay);
+				}
+			},
+			play: function () {
+				var self = this;
+				self.annbody = document.getElementById('annbody');
+				if (!self.annbody) return;
+				self.ann = document.getElementById('ann');
+				self.annbodylis = document.getElementById('annbodylis');
+				self.chal = document.getElementById('chal');
+				if (!self.annbodylis.getElementsByTagName("li").length) return;
+				self.chal.style.display = "";
+				self.ann.onmouseover = function () { this.annstop = 1; };
+				self.ann.onmouseout = function () { this.annstop = 0; };
+				self.announcementScroll();
+			}
+		}).play();
+	});
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+	LoadFeedbackCount();
+	document.write("<img src='http://counter.csdn.net/pv.aspx?id=24' border=0 width=0 height=0>");
+</SCRIPT>
+</DIV></DIV></DIV>
+<SCRIPT src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/publib_footer.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/counter.js" 
+type=text/javascript></SCRIPT>
+</DIV></DIV><IMG height=0 
+src="HSQLDB的几种运行模式 - youlianying的专栏 - CSDN博客.files/count.htm" width=0> 
+</BODY></HTML>

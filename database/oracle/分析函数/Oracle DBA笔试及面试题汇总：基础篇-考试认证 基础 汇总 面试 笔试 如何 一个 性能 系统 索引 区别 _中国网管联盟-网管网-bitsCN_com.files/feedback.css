@@ -1,0 +1,42 @@
+IMG {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+.cRed {
+	COLOR: red
+}
+A.cRed:link {
+	COLOR: red
+}
+A.cRed:visited {
+	COLOR: red
+}
+.cDRed {
+	COLOR: #ff6633
+}
+A.cDRed:link {
+	COLOR: #ff6633
+}
+A.cDRed:visited {
+	COLOR: #ff6633
+}
+#comm_content OL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 10px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+#comm_content LI {
+	WORD-BREAK: break-all; LINE-HEIGHT: 20px
+}
+#comm_content #msg {
+	BORDER-RIGHT: #666666 1px solid; BORDER-TOP: #666666 1px solid; BORDER-LEFT: #666666 1px solid; WORD-BREAK: break-all; BORDER-BOTTOM: #666666 1px solid
+}
+#comm_content .nb {
+	BORDER-RIGHT: #666666 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #666666 1px solid; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; BORDER-LEFT: #666666 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: #666666 1px solid; HEIGHT: 16px
+}
+#form {
+	PADDING-LEFT: 30px; FONT-SIZE: 14px; MARGIN-BOTTOM: 2px; LINE-HEIGHT: 20px; MARGIN-RIGHT: 10px
+}
+P.poster {
+	PADDING-LEFT: 5px; BACKGROUND: #f2f2f9; MARGIN: 10px 0px; WIDTH: 610px; COLOR: #666; TEXT-ALIGN: left
+}
+P.post {
+	PADDING-LEFT: 30px; FONT-SIZE: 12px; MARGIN: 0px; WIDTH: 590px; COLOR: #000; TEXT-ALIGN: left; WORD-WRAP: break-word
+}

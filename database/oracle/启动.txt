@@ -1,0 +1,9 @@
+su - oracle
+sqlplus "/as sysdba"
+startup 
+
+
+ 
+lsnrctl start
+
+shutdown immediate

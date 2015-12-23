@@ -1,0 +1,95 @@
+Fy_Recover_Data 更新 （2014-02-20）--- 支持ASM表空间上的表恢复
+
+[English]
+
+作者： fuyuncat
+来源： www.HelloDBA.com
+日期： 2014-02-19 22:07:41
+分享到   新浪微博 腾讯微博 人人网 i贴吧 开心网 豆瓣 淘宝 推特 Facebook GMail Blogger  Orkut  Google Bookmarks
+Fy_Recover_Data 现在可以恢复创建在ASM表空间上的表被TRUNCATED的数据 
+
+此次更新包括以下修改内容：
+
+  -- 19/02/2014, Fuyuncat:                                                ---
+
+  --   1. 用户指定临时目录用于创建恢复过程中用的表空间和数据文件
+
+  --   2. 可以处理表空间包含多个创建在不同物理位置的数据文件的情况．
+
+  --   3. 可以恢复ASM表空间上的表
+
+一个新的接口：
+
+SQL代码
+/************************************************************************  
+** recover truncated table  
+**  
+** tgtowner: Owner of Target Table to be recovered;  
+** tgttable: Name of Target Table to be recovered;  
+** datapath: Absolute path of Data Files;  
+** fbks: block number to be filled in recovery table;  
+************************************************************************/  
+procedure recover_truncated_table( tow varchar2 default 'DEMO',   
+                                   ttb varchar2 default 'T_CHAIN',  
+                                   fbks number default 1,   
+                                   tmppath varchar2 default '/tmp/');  
+删除了不必要的接口
+
+SQL代码
+HelloDBA.COM> create tablespace asm_data datafile '+DATA1' autoextend on maxsize 1g;  
+  
+Tablespace created.  
+  
+HelloDBA.COM> create table demo.t_asmtable tablespace asm_data as select * from dba_objects where 1=2;  
+  
+Table created.  
+  
+HelloDBA.COM> alter tablespace asm_data add datafile '/u01/app/oracle/oradata/dbat1/asm_data_fs.dat' size 100M;  
+  
+Tablespace altered.  
+  
+HelloDBA.COM> insert into demo.t_asmtable select * from dba_objects;  
+  
+91155 rows created.  
+  
+HelloDBA.COM> select count(*) from demo.t_asmtable;  
+  
+HelloDBA.COM>  
+  COUNT(*)  
+----------  
+     91155  
+  
+HelloDBA.COM> truncate table demo.t_asmtable;  
+  
+Table truncated.  
+  
+HelloDBA.COM> exec fy_recover_data.recover_truncated_table('DEMO','T_ASMTABLE',1,'/tmp');  
+10:46:55: Directory Name: FY_DATA_DIR2  
+10:46:56: Recover Table: DEMO.T_ASMTABLE$  
+10:46:56: Restore Table: DEMO.T_ASMTABLE$$  
+10:47:08: Copy file of Recover Tablespace: FY_REC_DATA_COPY.DAT  
+10:47:08: begin to recover table DEMO.T_ASMTABLE  
+10:47:09: Directory Name: TMP_HF_DIR  
+10:47:10: Recovering data in datafile /u01/app/oracle/oradata/dbat1/asm_data_fs.dat  
+10:47:10: Directory Name: TMP_DATA_FILE_DIR4  
+10:47:19: 630 truncated data blocks found.  
+10:47:19: 43830 records recovered in backup table DEMO.T_ASMTABLE$$  
+10:47:19: Recovering data in datafile +DATA1/dbat1/datafile/asm_data.360.839931591  
+10:47:19: Directory Name: TMP_DATA_FILE_DIR4  
+10:47:30: 686 truncated data blocks found.  
+10:47:30: 47325 records recovered in backup table DEMO.T_ASMTABLE$$  
+10:47:30: Total: 1316 truncated data blocks found.  
+10:47:30: Total: 91155 records recovered in backup table DEMO.T_ASMTABLE$$  
+10:47:30: Recovery completed.  
+10:47:30: Data has been recovered to DEMO.T_ASMTABLE$$  
+  
+PL/SQL procedure successfully completed.  
+  
+HelloDBA.COM> select count(*) from DEMO.T_ASMTABLE$$;  
+  
+  COUNT(*)  
+----------  
+     91155  
+点击此处：下载源代码。
+
+ 

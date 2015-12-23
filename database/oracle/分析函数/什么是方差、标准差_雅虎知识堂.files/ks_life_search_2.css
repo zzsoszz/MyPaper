@@ -1,0 +1,309 @@
+P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; FONT-STYLE: normal; LIST-STYLE-TYPE: none
+}
+UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; FONT-STYLE: normal; LIST-STYLE-TYPE: none
+}
+LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; FONT-STYLE: normal; LIST-STYLE-TYPE: none
+}
+EM {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; FONT-STYLE: normal; LIST-STYLE-TYPE: none
+}
+FORM {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; FONT-STYLE: normal; LIST-STYLE-TYPE: none
+}
+.yn-left {
+	FLOAT: left
+}
+.yn-right {
+	FLOAT: right
+}
+.yn-fix-float:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+.yn-fix-float {
+	ZOOM: 1
+}
+.yn-inline-block {
+	DISPLAY: inline; VERTICAL-ALIGN: middle; ZOOM: 1
+}
+.yn-inline-block-icon {
+	DISPLAY: inline; FONT-SIZE: 0px; VERTICAL-ALIGN: middle; OVERFLOW: hidden; LINE-HEIGHT: 9999em; ZOOM: 1
+}
+.yn-width-px-974 {
+	BORDER-RIGHT: #dcdcdc 1px solid; BORDER-TOP: #dcdcdc 1px solid; FONT-SIZE: 12px; BACKGROUND: url(http://cn.yimg.com/search/kl/img/yahoo_search_bg.gif) no-repeat right -395px; BORDER-LEFT: #dcdcdc 1px solid; WIDTH: 972px; BORDER-BOTTOM: #dcdcdc 1px solid; HEIGHT: 118px
+}
+.yn-width-px-974 A {
+	TEXT-DECORATION: none
+}
+.yn-width-px-974 .yn-block-title {
+	BORDER-RIGHT: #dcdcdc 1px solid; PADDING-RIGHT: 0px; PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 14px; BACKGROUND: #f6f8f8; PADDING-BOTTOM: 20px; WIDTH: 20px; LINE-HEIGHT: 19px; PADDING-TOP: 20px; HEIGHT: 78px
+}
+.yn-width-px-974 .yn-block-title A {
+	TEXT-DECORATION: none
+}
+.yn-width-px-974 .block-pic {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; PADDING-TOP: 10px
+}
+.yn-width-px-974 .block-pic P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 3px; TEXT-ALIGN: center
+}
+.yn-width-px-974 .yk-offer {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 10px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 10px 0px 0px; WIDTH: 220px; PADDING-TOP: 0px
+}
+.yn-width-px-974 .yk-rent {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; WIDTH: 185px; PADDING-TOP: 10px
+}
+.yn-width-px-974 .yk-offer SPAN {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 4px; FONT-WEIGHT: bold; FONT-SIZE: 14px; BACKGROUND: url(http://cn.yimg.com/search/kl/img/yahoo_search_bg.gif) no-repeat left -200px; PADDING-BOTTOM: 0px; COLOR: #fff; PADDING-TOP: 2px; HEIGHT: 18px
+}
+.yn-width-px-974 .yk-rent SPAN {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 4px; FONT-WEIGHT: bold; FONT-SIZE: 14px; BACKGROUND: url(http://cn.yimg.com/search/kl/img/yahoo_search_bg.gif) no-repeat left -200px; PADDING-BOTTOM: 0px; COLOR: #fff; PADDING-TOP: 2px; HEIGHT: 18px
+}
+.yn-width-px-974 .yk-rent SPAN {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/yahoo_search_bg.gif) no-repeat left -150px
+}
+.yn-width-px-974 .yk-rent P A {
+	MARGIN: 0px 0px 0px 10px; LINE-HEIGHT: 20px
+}
+.yn-width-px-974 .yk-offer P A {
+	MARGIN: 0px 0px 0px 10px; LINE-HEIGHT: 20px
+}
+.yn-width-px-974 .yk-rent P A.first {
+	MARGIN: 0px
+}
+.yn-width-px-974 .yk-offer P A.first {
+	MARGIN: 0px
+}
+.yn-width-px-974 .yk-local-search {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; WIDTH: 360px; PADDING-TOP: 15px
+}
+.yn-width-px-974 #yk-local-search-tab {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 8px; PADDING-TOP: 0px
+}
+.yn-width-px-974 .yk-local-search UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 5px; PADDING-TOP: 0px
+}
+.yn-width-px-974 .yk-local-search LI {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-SIZE: 14px; FLOAT: left; PADDING-BOTTOM: 0px; BORDER-LEFT: #ccc 1px solid; PADDING-TOP: 0px
+}
+.yn-width-px-974 .yk-local-search LI A {
+	TEXT-DECORATION: none
+}
+.yn-width-px-974 .yk-local-search LI.selected {
+	FONT-WEIGHT: bold
+}
+.yn-width-px-974 .yk-local-search LI.selected A {
+	COLOR: #000
+}
+.yn-width-px-974 .yk-local-search LI.first {
+	BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+.yn-width-px-974 .yk-local-search BUTTON {
+	BORDER-RIGHT: #cb8100 1px solid; PADDING-RIGHT: 1em; BORDER-TOP: #cb8100 1px solid; PADDING-LEFT: 1em; BACKGROUND: url(http://cn.yimg.com/search/kl/img/yn_btn_yellow.png) no-repeat 50% 50%; PADDING-BOTTOM: 0.2em; MARGIN: 1px 0px 0px 0.3em; FONT: bold 14px/1em "宋体"; VERTICAL-ALIGN: top; OVERFLOW: visible; BORDER-LEFT: #cb8100 1px solid; WIDTH: auto; PADDING-TOP: 0.2em; BORDER-BOTTOM: #cb8100 1px solid
+}
+.yn-width-px-974 .yk-local-search INPUT {
+	BORDER-RIGHT: #5ca3c7 2px solid; PADDING-RIGHT: 2px; BORDER-TOP: #5ca3c7 2px solid; PADDING-LEFT: 2px; FONT-SIZE: 14px; PADDING-BOTTOM: 2px; VERTICAL-ALIGN: top; BORDER-LEFT: #5ca3c7 2px solid; WIDTH: 250px; COLOR: #999; LINE-HEIGHT: 1em; PADDING-TOP: 4px; BORDER-BOTTOM: #5ca3c7 2px solid
+}
+.yn-width-px-974 .hot-searchkey {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; BACKGROUND: #f6f8f8; PADDING-BOTTOM: 5px; PADDING-TOP: 5px
+}
+.yn-width-px-974 .hot-searchkey A {
+	MARGIN: 0px 10px 0px 0px
+}
+.yn-width-px-300 {
+	BORDER-RIGHT: #dcdcdc 1px solid; BORDER-TOP: #dcdcdc 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #dcdcdc 1px solid; WIDTH: 298px; BORDER-BOTTOM: #dcdcdc 1px solid
+}
+.yn-width-px-300 A {
+	TEXT-DECORATION: none
+}
+.yn-width-px-300 #yk-channel-tab UL {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/yahoo_search_bg.gif) no-repeat 140px -50px
+}
+.yn-width-px-300 #yk-channel-tab LI {
+	BORDER-RIGHT: #dcdcdc 1px solid; PADDING-RIGHT: 14px; PADDING-LEFT: 14px; BACKGROUND: url(http://cn.yimg.com/search/kl/img/yahoo_search_bg.gif) repeat-x left -250px; FLOAT: left; PADDING-BOTTOM: 0px; PADDING-TOP: 6px; HEIGHT: 18px
+}
+.yn-width-px-300 #yk-channel-tab LI.selected {
+	BORDER-RIGHT: #dcdcdc 1px solid; FONT-WEIGHT: bold; BACKGROUND: #fff; BORDER-TOP-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+.yn-width-px-300 #yk-channel-tab {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 5px; PADDING-TOP: 5px
+}
+.yn-width-px-300 .yk-category {
+	LINE-HEIGHT: 17px
+}
+.yn-width-px-300 .yk-category A {
+	MARGIN: 0px 5px 0px 0px
+}
+.yn-width-px-300 .block-pic {
+	MARGIN-RIGHT: 10px
+}
+.yn-width-px-300 .yk-local-search {
+	PADDING-RIGHT: 0px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; MARGIN: 0px 0px 0px 10px; WIDTH: 280px; PADDING-TOP: 8px
+}
+.yn-width-px-300 #yk-local-search-tab {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 8px; PADDING-TOP: 0px
+}
+.yn-width-px-300 .yk-local-search UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 5px; PADDING-TOP: 0px
+}
+.yn-width-px-300 .yk-local-search LI {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-SIZE: 14px; FLOAT: left; PADDING-BOTTOM: 0px; BORDER-LEFT: #ccc 1px solid; PADDING-TOP: 0px
+}
+.yn-width-px-300 .yk-local-search LI A {
+	TEXT-DECORATION: none
+}
+.yn-width-px-300 .yk-local-search LI.selected {
+	FONT-WEIGHT: bold
+}
+.yn-width-px-300 .yk-local-search LI.selected A {
+	COLOR: #000
+}
+.yn-width-px-300 .yk-local-search LI.first {
+	BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+.yn-width-px-300 .yk-local-search BUTTON {
+	BORDER-RIGHT: #cb8100 1px solid; PADDING-RIGHT: 1em; BORDER-TOP: #cb8100 1px solid; PADDING-LEFT: 1em; BACKGROUND: url(http://cn.yimg.com/search/kl/img/yn_btn_yellow.png) no-repeat 50% 50%; PADDING-BOTTOM: 0.2em; MARGIN: 1px 0px 0px 0.3em; FONT: bold 14px/1em "宋体"; VERTICAL-ALIGN: top; OVERFLOW: visible; BORDER-LEFT: #cb8100 1px solid; WIDTH: auto; PADDING-TOP: 0.2em; BORDER-BOTTOM: #cb8100 1px solid
+}
+.yn-width-px-300 .yk-local-search INPUT {
+	BORDER-RIGHT: #5ca3c7 2px solid; PADDING-RIGHT: 2px; BORDER-TOP: #5ca3c7 2px solid; PADDING-LEFT: 2px; FONT-SIZE: 14px; PADDING-BOTTOM: 2px; VERTICAL-ALIGN: top; BORDER-LEFT: #5ca3c7 2px solid; WIDTH: 170px; COLOR: #999; LINE-HEIGHT: 1em; PADDING-TOP: 4px; BORDER-BOTTOM: #5ca3c7 2px solid
+}
+.yn-width-px-240 {
+	BORDER-RIGHT: #dcdcdc 1px solid; BORDER-TOP: #dcdcdc 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #dcdcdc 1px solid; WIDTH: 238px; BORDER-BOTTOM: #dcdcdc 1px solid
+}
+.yn-color-a {
+	BORDER-RIGHT: #bae3df 1px solid; BORDER-TOP: #bae3df 1px solid; BORDER-LEFT: #bae3df 1px solid; BORDER-BOTTOM: #bae3df 1px solid
+}
+.yn-color-b {
+	BORDER-RIGHT: #9dc9f9 1px solid; BORDER-TOP: #9dc9f9 1px solid; BORDER-LEFT: #9dc9f9 1px solid; BORDER-BOTTOM: #9dc9f9 1px solid
+}
+.yn-width-px-240 A {
+	TEXT-DECORATION: none
+}
+.yn-width-px-240 #yk-channel-tab-2 UL {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/yahoo_search_bg.gif) no-repeat 125px 0px
+}
+.yn-width-px-240 #yk-channel-tab-2 LI {
+	BORDER-RIGHT: #bae3df 1px solid; PADDING-RIGHT: 8px; PADDING-LEFT: 8px; BACKGROUND: url(http://cn.yimg.com/search/kl/img/yahoo_search_bg.gif) repeat-x left -299px; FLOAT: left; PADDING-BOTTOM: 0px; PADDING-TOP: 6px; HEIGHT: 18px
+}
+.yn-width-px-240 #yk-channel-tab-2 LI.selected {
+	BORDER-RIGHT: #bae3df 1px solid; FONT-WEIGHT: bold; BACKGROUND: #fff; BORDER-TOP-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+#yui-content {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 5px; PADDING-TOP: 5px
+}
+.yn-width-px-240 #yk-channel-tab-3 UL {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/yahoo_search_bg.gif) no-repeat 125px -100px
+}
+.yn-width-px-240 #yk-channel-tab-3 LI {
+	BORDER-RIGHT: #9dc9f9 1px solid; PADDING-RIGHT: 8px; PADDING-LEFT: 8px; BACKGROUND: url(http://cn.yimg.com/search/kl/img/yahoo_search_bg.gif) repeat-x left -350px; FLOAT: left; PADDING-BOTTOM: 0px; PADDING-TOP: 6px; HEIGHT: 18px
+}
+.yn-width-px-240 #yk-channel-tab-3 LI.selected {
+	BORDER-RIGHT: #9dc9f9 1px solid; FONT-WEIGHT: bold; BACKGROUND: #fff; BORDER-TOP-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+.yn-width-px-240 #yk-channel-tab-3 {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 5px; PADDING-TOP: 5px
+}
+.yn-width-px-240 .yk-category {
+	LINE-HEIGHT: 17px
+}
+.yn-width-px-240 .yk-category A {
+	MARGIN: 0px 5px 0px 0px
+}
+.yn-width-px-240 .block-pic {
+	MARGIN-RIGHT: 10px
+}
+.yn-width-px-240 .yk-local-search {
+	PADDING-RIGHT: 0px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; MARGIN: 0px 0px 0px 10px; WIDTH: 220px; PADDING-TOP: 8px
+}
+.yn-width-px-240 #yk-local-search-tab {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 8px; PADDING-TOP: 0px
+}
+.yn-width-px-240 .yk-local-search UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 5px; PADDING-TOP: 0px
+}
+.yn-width-px-240 .yk-local-search LI {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-SIZE: 14px; FLOAT: left; PADDING-BOTTOM: 0px; BORDER-LEFT: #ccc 1px solid; PADDING-TOP: 0px
+}
+.yn-width-px-240 .yk-local-search LI A {
+	TEXT-DECORATION: none
+}
+.yn-width-px-240 .yk-local-search LI.selected {
+	FONT-WEIGHT: bold
+}
+.yn-width-px-240 .yk-local-search LI.selected A {
+	COLOR: #000
+}
+.yn-width-px-240 .yk-local-search LI.first {
+	BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+.yn-width-px-240 .yk-local-search BUTTON {
+	BORDER-RIGHT: #cb8100 1px solid; PADDING-RIGHT: 0.4em; BORDER-TOP: #cb8100 1px solid; PADDING-LEFT: 0.4em; BACKGROUND: url(http://cn.yimg.com/search/kl/img/yn_btn_yellow.png) no-repeat 50% 50%; PADDING-BOTTOM: 0.2em; MARGIN: 1px 0px 0px 0.3em; FONT: bold 14px/1em "宋体"; VERTICAL-ALIGN: top; OVERFLOW: visible; BORDER-LEFT: #cb8100 1px solid; WIDTH: auto; PADDING-TOP: 0.2em; BORDER-BOTTOM: #cb8100 1px solid
+}
+.yn-width-px-240 .yk-local-search INPUT {
+	BORDER-RIGHT: #0044dd 2px solid; PADDING-RIGHT: 2px; BORDER-TOP: #0044dd 2px solid; PADDING-LEFT: 2px; FONT-SIZE: 14px; PADDING-BOTTOM: 2px; VERTICAL-ALIGN: top; BORDER-LEFT: #0044dd 2px solid; WIDTH: 128px; COLOR: #999; LINE-HEIGHT: 1em; PADDING-TOP: 4px; BORDER-BOTTOM: #0044dd 2px solid
+}
+.yn-width-px-200 {
+	BORDER-RIGHT: #dcdcdc 1px solid; BORDER-TOP: #dcdcdc 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #dcdcdc 1px solid; WIDTH: 198px; BORDER-BOTTOM: #dcdcdc 1px solid
+}
+.yn-width-px-200 .yn-block-title {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; BACKGROUND: url(http://cn.yimg.com/search/kl/img/yahoo_search_bg.gif) no-repeat -100px -150px; PADDING-BOTTOM: 5px; WIDTH: 63px; PADDING-TOP: 5px; HEIGHT: 14px
+}
+.yn-width-px-200 A {
+	TEXT-DECORATION: none
+}
+.yn-width-px-200 #yk-channel-tab-4 UL {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/yahoo_search_bg.gif) no-repeat 140px -50px
+}
+.yn-width-px-200 #yk-channel-tab-4 LI {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 8px; BACKGROUND: url(http://cn.yimg.com/search/kl/img/yahoo_search_bg.gif) repeat-x left -250px; FLOAT: left; PADDING-BOTTOM: 0px; BORDER-LEFT: #dcdcdc 1px solid; PADDING-TOP: 6px; HEIGHT: 18px
+}
+.yn-width-px-200 #yk-channel-tab-4 LI.selected {
+	FONT-WEIGHT: bold; BACKGROUND: #fff; BORDER-LEFT: #dcdcdc 1px solid; BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+.yn-width-px-200 #yk-channel-tab-4 {
+	CLEAR: both; PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 5px; PADDING-TOP: 5px
+}
+.yn-width-px-200 .yk-category {
+	LINE-HEIGHT: 17px
+}
+.yn-width-px-200 .yk-category A {
+	MARGIN: 0px 5px 0px 0px
+}
+.yn-width-px-200 .block-pic {
+	MARGIN-RIGHT: 10px
+}
+.yn-width-px-200 .yk-local-search {
+	PADDING-RIGHT: 0px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; MARGIN: 0px 0px 0px 10px; WIDTH: 180px; PADDING-TOP: 8px
+}
+.yn-width-px-200 #yk-local-search-tab {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 8px; PADDING-TOP: 0px
+}
+.yn-width-px-200 .yk-local-search UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 5px; PADDING-TOP: 0px
+}
+.yn-width-px-200 .yk-local-search LI {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-SIZE: 14px; FLOAT: left; PADDING-BOTTOM: 0px; BORDER-LEFT: #ccc 1px solid; PADDING-TOP: 0px
+}
+.yn-width-px-200 .yk-local-search LI A {
+	TEXT-DECORATION: none
+}
+.yn-width-px-200 .yk-local-search LI.selected {
+	FONT-WEIGHT: bold
+}
+.yn-width-px-200 .yk-local-search LI.selected A {
+	COLOR: #000
+}
+.yn-width-px-200 .yk-local-search LI.first {
+	PADDING-LEFT: 0px; BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+.yn-width-px-200 .yk-local-search LI.last {
+	PADDING-RIGHT: 0px
+}
+.yn-width-px-200 .yk-local-search BUTTON {
+	BORDER-RIGHT: #cb8100 1px solid; PADDING-RIGHT: 0.1em; BORDER-TOP: #cb8100 1px solid; PADDING-LEFT: 0.1em; BACKGROUND: url(http://cn.yimg.com/search/kl/img/yn_btn_yellow.png) no-repeat 50% 50%; PADDING-BOTTOM: 0.2em; MARGIN: 1px 0px 0px 0.3em; FONT: bold 14px/1em "宋体"; VERTICAL-ALIGN: top; OVERFLOW: visible; BORDER-LEFT: #cb8100 1px solid; WIDTH: auto; PADDING-TOP: 0.2em; BORDER-BOTTOM: #cb8100 1px solid
+}
+.yn-width-px-200 .yk-local-search INPUT {
+	BORDER-RIGHT: #5ca3c7 2px solid; PADDING-RIGHT: 2px; BORDER-TOP: #5ca3c7 2px solid; PADDING-LEFT: 2px; FONT-SIZE: 14px; PADDING-BOTTOM: 2px; VERTICAL-ALIGN: top; BORDER-LEFT: #5ca3c7 2px solid; WIDTH: 127px; COLOR: #999; LINE-HEIGHT: 1em; PADDING-TOP: 4px; BORDER-BOTTOM: #5ca3c7 2px solid
+}

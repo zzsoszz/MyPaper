@@ -1,0 +1,14 @@
+var data=new Array();data[0]=new Array();data[0][0]='Oracle 分析函数的使用';data[0][1]='http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.html';data[1]=new Array();data[1][0]='oracle 日期函数介绍';data[1][1]='http://www.cnblogs.com/tuantuan/articles/428268.html';
+if(data.length > 0)
+{
+    for(var i = 0; i < data.length; i++)
+    {
+        if (i > 0)
+            document.write("<br>");
+        document.write("<a href='");
+        document.write(data[i][1]);
+        document.write("' target='_blank'>");
+        document.write(data[i][0]);
+        document.write("</a>");
+    }
+}

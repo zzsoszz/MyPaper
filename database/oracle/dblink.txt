@@ -1,0 +1,10 @@
+http://blog.csdn.net/davidhsing/article/details/6408770
+
+
+
+create public database link dblink1  
+　　connect to hotel identified by HOTEL  
+　　using '(DESCRIPTION =(ADDRESS_LIST =(ADDRESS =(PROTOCOL = TCP)(HOST = 118.122.121.4)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = orcl)))';  
+
+
+select count(*) FROM bx_order_hotel_t@dblink1;  

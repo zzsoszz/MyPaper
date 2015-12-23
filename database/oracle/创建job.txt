@@ -1,0 +1,8 @@
+begin
+  sys.dbms_job.submit(job => :job,
+                      what => 'test_work_age;',
+                      next_date => to_date('01-10-2010 01:00:00', 'dd-mm-yyyy hh24:mi:ss'),
+                      interval => 'TRUNC(LAST_DAY(SYSDATE))+1+1/24');
+  commit;
+end;
+/

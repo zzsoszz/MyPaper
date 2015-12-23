@@ -1,0 +1,246 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0039)http://www.mcuol.com/Tech/114/18989.htm -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线 | www.mcuol.com</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="解析：轻松接触SQL Server和嵌入式SQL - 数据库" name=Description>
+<META content="解析：轻松接触SQL Server和嵌入式SQL - 数据库" name=Keywords><LINK 
+href="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/news_view.css" 
+type=text/css rel=stylesheet><LINK media=print 
+href="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/news_print.css" 
+type=text/css rel=stylesheet>
+<SCRIPT language=javascript 
+src="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/main.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=javascript 
+src="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/dialog.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=javascript 
+src="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/common.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=javascript 
+src="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/top.js" 
+type=text/javascript></SCRIPT>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY onload=Init()>
+<SCRIPT language=javascript 
+src="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/header.js" 
+type=text/javascript></SCRIPT>
+
+<DIV id=main>
+<DIV class=m_bg><!--内容区块-->
+<DIV class=c_box><!--内容顶部广告591*90-->
+<DIV class=c_ad><IFRAME border=0 marginWidth=0 marginHeight=0 
+src="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/Html_Left_1.htm" 
+frameBorder=no width=591 scrolling=no height=90></IFRAME></DIV>
+<DIV class=station>您的位置： <A href="http://www.mcuol.com/">嵌入式在线</A> &gt; <A 
+href="http://www.mcuol.com/tech/">技术中心</A> &gt; <A 
+href="http://www.mcuol.com/Tech/List114_1.htm">数据库</A> &gt; 解析：轻松接触SQL 
+Server和嵌入式SQL</DIV><!--正文-->
+<DIV class=c_bgcolor>
+<SCRIPT language=javascript 
+src="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/ArticleCounter.htm" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+            function Favorites(){
+                var code = chkLogin();
+                if(code==0){
+                    alert('您还没有登录，请先登录后再使用网络收藏夹');
+                    openWindow('http://www.mcuol.com/aspx/login.aspx','280','180','会员登录','登录');
+                }
+                else{
+                    var title = escape('解析：轻松接触SQL Server和嵌入式SQL');
+                    var url='http://blog.mcuol.com/Favorites.aspx?title='+title+'&url=http://www.mcuol.com/News/114/18989.htm'
+                    openWindow(url,'400','200','加入收藏', true);
+                }
+            }
+            </SCRIPT>
+
+<H1>解析：轻松接触SQL Server和嵌入式SQL</H1>
+<DIV class=text>2007-10-17 &nbsp;&nbsp;&nbsp;&nbsp; 嵌入式在线 
+&nbsp;&nbsp;&nbsp;&nbsp; <A onclick=Favorites(); href="javascript:;">收藏</A> | <A 
+href="javascript:doPrint();">打印</A></DIV>
+<DIV id=contant>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 嵌入式 SQL (ESQL) 是用于 SQL 数据库访问的 SQL-92 
+标准应用程序接口 (API)。ESQL 的编译需要分两步进行： </P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.预编译器将嵌入式 SQL 
+语句翻译成编写该应用程序所使用的编程语言中的命令。生成的语句专供提供预编译器的数据库使用，因此，虽然原始源程序与 ESQL 
+同类，但生成的语句和最后的可执行文件专门用于某个数据库供应商。 </P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.然后，用应用程序编程语言的编译器编译由预编译器生成的源程序。 </P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 与 OLE DB 这类 COM API 或 ODBC 
+这类调用级接口相比，嵌入式SQL 的语法更简单，因此更易于学习和编程。但嵌入式 SQL 不如 OLE DB 或 ODBC 灵活，在用 OLE DB 或 ODBC 
+精心编写的应用程序中，只需切换驱动程序或提供程序，即可从一个 DBMS 切换到另一个。在编译应用程序（例如开发按需查询工具时）时不识别 SQL 
+语句的环境中，更适合使用 OLE DB 和 ODBC。 </P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Microsoft® SQL Server™ 2000 提供用于 C 
+应用程序的嵌入式SQL 预编译器。这个 SQL Server 预编译器将嵌入式SQL语句翻译成对适当 DB-Library API 
+函数的调用。Microsoft 实现的 ESQL 与 DB-Library 应用程序有相同的限制。 </P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SQL Server 旨在支持用与 Microsoft SQL Server 
+兼容的第三方嵌入式SQL 预编译器编译的COBOL 嵌入式 SQL 应用程序。&nbsp;&nbsp;<BR></P></DIV>
+<H5>本文来源：赛迪网&nbsp;&nbsp;&nbsp;&nbsp;作者：yashi</H5>
+<DIV class=mutuality>
+<H5>关于<A style="CURSOR: hand" onclick="searchKey('数据库');" target=_blank>数据库</A> 
+<A style="CURSOR: hand" onclick="searchKey('编译器');" target=_blank>编译器</A> 
+的资讯</H5>
+<UL>
+  <LI><A href="http://www.mcuol.com/News/114/29125.htm" 
+  target=_blank>Linux下MySQL数据库开发技术</A> 
+  <LI><A href="http://www.mcuol.com/News/114/28014.htm" 
+  target=_blank>嵌入式数据库的应用</A> 
+  <LI><A href="http://www.mcuol.com/News/114/27181.htm" 
+  target=_blank>Oracle数据库和JSP连接要注意的一些问题</A> 
+  <LI><A href="http://www.mcuol.com/News/114/26456.htm" 
+  target=_blank>不同于其它大部分的SQL数据库引擎SQLite</A> 
+  <LI><A href="http://www.mcuol.com/News/114/21479.htm" target=_blank>详细讲解SQL 
+  Server 2008 的几项新特性</A> </LI></UL></DIV>
+<DIV class=mutuality>
+<H5>热点资讯(一周点击率)</H5>
+<UL>
+  <SCRIPT type=text/javascript>document.write('<script type="text/javascript" src="http://www.mcuol.com/aspx/ShowTopArticles.aspx?tempId=0&count=6&length=45&atype=1"><\/script>');</SCRIPT>
+</UL></DIV>
+<DIV class=clearit></DIV>
+<DIV class=mutuality>
+<H5>最受工程师关注文章</H5>
+<UL>
+  <LI><A href="http://www.mcuol.com/Tech/165/29169.htm" 
+  target=_blank>基于OR1200的嵌入式SoPC硬件平台设计</A> 
+  <LI><A href="http://www.mcuol.com/Tech/107/29167.htm" 
+  target=_blank>基于ARM9的32位高端嵌入式微处理器和嵌…</A> 
+  <LI><A href="http://www.mcuol.com/Tech/227/29166.htm" 
+  target=_blank>基于SX52的嵌入式模拟系统的研究与实现</A> 
+  <LI><A href="http://www.mcuol.com/Tech/109/29137.htm" 
+  target=_blank>基于单片机的水下机器人定位系统</A> 
+  <LI><A href="http://www.mcuol.com/Tech/227/29135.htm" 
+  target=_blank>微型嵌入式Web服务器的设计与实现</A> </LI></UL></DIV>
+<DIV class=mutuality>
+<H5>热评博文</H5>
+<UL>
+  <SCRIPT type=text/javascript>document.write('<script type="text/javascript" src="http://blog.mcuol.com/tools/ShowTopBlogArticles.aspx?tempid=0&count=6&order=1&length=45"><\/script>');</SCRIPT>
+</UL></DIV></DIV><!--正文 end--
+		
+		<!--评论区块-->
+<DIV class=entryheader>评一评<SPAN>已有 <STRONG class=red>0</STRONG> 
+位网友对此文发表了看法。&nbsp;&nbsp;<A 
+href="http://www.mcuol.com/Tech/114/18989.htm#review">我也来评一下</A></SPAN></DIV>
+<DIV class=entrybody>
+<DIV class=entrydate>以下网友留言只代表其个人观点，不代表嵌入式在线网的观点或立场。</DIV>
+<UL></UL><A name=review></A>
+<DIV class=line></DIV>
+<FORM name=PForm action=http://www.mcuol.com/aspx/comment.aspx?channel=Tech 
+method=post>
+<P><SPAN id=data style="DISPLAY: none"></SPAN><SPAN id=NNLogin 
+style="DISPLAY: none"></SPAN><SPAN id=YYLogin style="DISPLAY: none"></SPAN></P>
+<P><TEXTAREA class=textarea id=content onblur="if (this.value=='')this.value='我也来评一评！'" onclick="if (this.value=='我也来评一评！')this.value=''" name=content rows=8 value="我也来评一评！"></TEXTAREA></P>
+<P>验证码： <INPUT 
+onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" 
+id=code onkeyup="value=value.replace(/[\W]/g,'') " maxLength=4 size=10 
+name=code> <IMG id=getcode 
+src="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/VerifyCode.gif" 
+align=absMiddle>&nbsp;<A href="javascript:getimgcode()">看不清？换一张</A></P>
+<P><INPUT class=button onclick=checkComment(); type=button value=发表评论></P>
+<P>&nbsp;</P></FORM></DIV></DIV>
+<DIV class=m_middle_bg></DIV><!--广告、内容推介区块-->
+<DIV class=narrow>
+<DIV class=n_ad1>
+<SCRIPT 
+src="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/Html_Right_1.js" 
+type=text/javascript></SCRIPT>
+</DIV>
+<DIV class=commend>
+<H5>热点专题</H5><A href="http://www.mcuol.com/Tech/114/18989.htm#"><IMG 
+style="WIDTH: 94px; HEIGHT: 72px" alt="" 
+src="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/55736294-BAF0-4334-BECD-3C92A695BF4B.jpg"></A> 
+<A href="http://www.mcuol.com/Microsoft/WindowsEmbeddedStandard/">Windows 
+Embedded Standard 2009开发初体验专题</A> 
+<DIV class=clearit></DIV>
+<UL>
+  <LI><A href="http://www.mcuol.com/Other/Logic-Analyzer/">逻辑分析仪专题：让工程师人手一机 </A>
+  <LI><A href="http://www.mcuol.com/Other/MID/">移动互联网终端MID：口袋里的移动互联网</A> 
+  <LI><A href="http://www.mcuol.com/Other/2008FPGA/">FPGA技术专题：FPGA正从配角变成主角</A> 
+  <LI><A 
+  href="http://www.mcuol.com/icef/icef2008/index.htm">ICEF2008嵌入式技术主题论坛</A> 
+</LI></UL></DIV>
+<DIV class=commend>
+<H5>快乐大本营</H5>
+<UL>
+  <P style="COLOR: #555">无线时代来临，移动产业生态系统将发生一些根本变化。今日头条推荐“芯片是嵌入式4G技术的关键 
+  产业生态系统将发生变化”。</P>
+  <P style="COLOR: #555">想了解嵌入式开发工具的市场情况吗？先来体验下我们的在线调查吧！<A 
+  href="http://www.mcuol.com/vote/vote20080818/">填写调查问卷</A>。 </P></UL></DIV>
+<DIV class=n_ad2>
+<SCRIPT 
+src="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/Html_Right_2.js" 
+type=text/javascript></SCRIPT>
+</DIV>
+<DIV class=commend>
+<H5>工程师之星</H5><A href="http://job.mcuol.com/"><IMG height=83 alt="" 
+src="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/7D3B70D5-260E-4E66-B96E-E8BCC73D7024.jpg" 
+width=70></A> <SPAN><A 
+href="http://job.mcuol.com/ResumeView.aspx?uId=95884">朱礼昆</A><BR>电子信息工程专业,擅长硬件编程</SPAN> 
+
+<DIV class=clearit></DIV>
+<UL>
+  <LI><A 
+  href="http://job.mcuol.com/ResumeView.aspx?uId=95678">胡菲菲</A>&nbsp;&nbsp;技术专长：嵌入式系统linux 
+
+  <LI><A 
+  href="http://job.mcuol.com/ResumeView.aspx?uId=95657">柳如峰</A>&nbsp;&nbsp;技术专长：模电，电源 
+  </LI></UL></DIV>
+<DIV class=commend>
+<H5>热门招聘</H5>
+<UL>
+  <SCRIPT type=text/javascript>document.write('<script type="text/javascript" src="http://job.mcuol.com/tools/ShowCompanyJob.aspx?tempId=2&count=5"><\/script>');</SCRIPT>
+</UL></DIV>
+<DIV class=n_ad3>
+<SCRIPT 
+src="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/Html_Right_3.js" 
+type=text/javascript></SCRIPT>
+</DIV>
+<DIV class=commend>
+<H5>论坛热贴</H5>
+<UL>
+  <SCRIPT type=text/javascript>document.write('<script type="text/javascript" src="http://bbs.mcuol.com/Tools/ShowTopics.aspx?tempId=0&atype=1&count=5&length=18"><\/script>');</SCRIPT>
+</UL></DIV>
+<DIV class=commend>
+<H5>热点下载</H5>
+<UL>
+  <LI><A class=mecl title=手机设计基本原理 
+  href="http://www.mcuol.com/download/127/1218.htm" target=_blank>手机设计基本原理</A> 
+  <LI><A class=mecl title="Linux ARM移植教程" 
+  href="http://www.mcuol.com/download/127/1351.htm" target=_blank>Linux 
+  ARM移植教程</A> 
+  <LI><A class=mecl title=触摸屏知识一本通 
+  href="http://www.mcuol.com/download/128/1391.htm" target=_blank>触摸屏知识一本通</A> 
+  <LI><A class=mecl title=ADS1.2中文教程 
+  href="http://www.mcuol.com/download/125/1362.htm" target=_blank>ADS1.2中文教程</A> 
+
+  <LI><A class=mecl title=Zigbee技术入门　一 
+  href="http://www.mcuol.com/download/127/1352.htm" 
+  target=_blank>Zigbee技术入门　一</A> </LI></UL></DIV>
+<DIV class=commend style="BORDER-BOTTOM-WIDTH: 0px">
+<H5>热点解决方案</H5>
+<UL>
+  <LI><A class=mecl title=便携式远程心电监护仪设计 
+  href="http://mcuol.com/Solution/197/28578.htm" target=_blank>便携式远程心电监护仪设计</A> 
+  <LI><A class=mecl title=基于混合最优算法的高精度数控直流电源设计 
+  href="http://mcuol.com/Solution/202/28424.htm" 
+  target=_blank>基于混合最优算法的高精度数控直流电源设计</A> 
+  <LI><A class=mecl title=高精度超声波测距系统的设计与实现 
+  href="http://mcuol.com/Solution/198/28299.htm" 
+  target=_blank>高精度超声波测距系统的设计与实现</A> 
+  <LI><A class=mecl title=基于GSM的无线智能监控设计 
+  href="http://mcuol.com/Solution/196/28358.htm" 
+  target=_blank>基于GSM的无线智能监控设计</A> 
+  <LI><A class=mecl title=智能轮椅导航系统研究现状与发展趋势 
+  href="http://mcuol.com/Solution/197/28349.htm" 
+  target=_blank>智能轮椅导航系统研究现状与发展趋势</A> </LI></UL></DIV></DIV>
+<DIV class=bottom_xian></DIV></DIV></DIV><!--copyright-->
+<DIV class=line20></DIV>
+<DIV class=footer>
+<SCRIPT language=javascript 
+src="解析：轻松接触SQL Server和嵌入式SQL - 数据库 - 技术中心 - 嵌入式在线  www_mcuol_com.files/footer.js" 
+type=text/javascript></SCRIPT>
+</DIV></BODY></HTML>

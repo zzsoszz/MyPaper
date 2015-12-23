@@ -1,0 +1,90 @@
+BODY {
+	COLOR: #333333; BACKGROUND-COLOR: #0d5933
+}
+A:link {
+	COLOR: #007b00
+}
+A:visited {
+	COLOR: #007b00
+}
+LABEL {
+	COLOR: #334d55
+}
+#pagecell {
+	BACKGROUND-COLOR: #ffffff
+}
+#pageNav {
+	BORDER-RIGHT: #b1feb1 1px solid; BORDER-TOP: #b1feb1 1px solid; BORDER-LEFT: #b1feb1 1px solid; BORDER-BOTTOM: #b1feb1 1px solid; BACKGROUND-COLOR: #e8ffe9
+}
+#leftNav {
+	BORDER-RIGHT: #b1feb1 1px solid; BORDER-TOP: #b1feb1 1px solid; BORDER-LEFT: #b1feb1 1px solid; BORDER-BOTTOM: #b1feb1 1px solid; BACKGROUND-COLOR: #e8ffe9
+}
+#rightNav {
+	BORDER-RIGHT: #b1feb1 1px solid; BORDER-TOP: #b1feb1 1px solid; BORDER-LEFT: #b1feb1 1px solid; BORDER-BOTTOM: #b1feb1 1px solid; BACKGROUND-COLOR: #e8ffe9
+}
+#content {
+	BACKGROUND-COLOR: #ffffff
+}
+.contentTitle {
+	BORDER-RIGHT: #b1feb1 1px solid; BORDER-TOP: #b1feb1 1px solid; BORDER-LEFT: #b1feb1 1px solid; COLOR: black; BORDER-BOTTOM: #b1feb1 1px solid; BACKGROUND-COLOR: #d7ffdd
+}
+#siteName {
+	BACKGROUND-IMAGE: url(img3/top.jpg); COLOR: #ccccdd; BACKGROUND-COLOR: #b997ff
+}
+#siteName A {
+	COLOR: #ccccdd
+}
+#globalNav {
+	BORDER-RIGHT: #b1feb1 1px outset; BORDER-TOP: #b1feb1 1px outset; BACKGROUND-IMAGE: url(img3/glbnav_background.gif); BORDER-LEFT: #b1feb1 1px outset; COLOR: #cccccc; BORDER-BOTTOM: #b1feb1 1px outset; BACKGROUND-COLOR: #e4d7ff
+}
+A.glink {
+	BORDER-RIGHT: #b1feb1 1px solid; COLOR: #000000
+}
+A.glink:visited {
+	BORDER-RIGHT: #b1feb1 1px solid; COLOR: #000000
+}
+A.glink:hover {
+	BACKGROUND-IMAGE: url(img3/glblnav_selected.gif)
+}
+#siteInfo {
+	BORDER-TOP: #b1feb1 1px solid; COLOR: #cccccc
+}
+.relatedLinks {
+	BORDER-BOTTOM: #b1feb1 1px solid
+}
+.relatedLinksTitle {
+	BORDER-TOP: #ffffff 1px solid; COLOR: #007b00; BORDER-BOTTOM: #b1feb1 1px solid; BACKGROUND-COLOR: #d7ffdd
+}
+.button {
+	BORDER-RIGHT: #b1feb1 1px solid; BORDER-TOP: #b1feb1 1px solid; BACKGROUND-IMAGE: url(img3/bg_nav.jpg); BORDER-LEFT: #b1feb1 1px solid; COLOR: #007b00; BORDER-BOTTOM: #b1feb1 1px solid
+}
+.calMonthToday {
+	COLOR: red
+}
+.story {
+	BORDER-RIGHT: #b1feb1 1px solid; BORDER-TOP: #b1feb1 1px solid; BORDER-LEFT: #b1feb1 1px solid; BORDER-BOTTOM: #b1feb1 1px solid; BACKGROUND-COLOR: #e8ffe9
+}
+.storyTitle {
+	COLOR: #007b00; BORDER-BOTTOM: #b1feb1 1px solid; BACKGROUND-COLOR: #d7ffdd
+}
+.storyposted {
+	
+}
+.storytext blockquotexxx {
+	BORDER-TOP: #b1feb1 1px solid; BORDER-BOTTOM: #b1feb1 1px solid
+}
+.code {
+	BORDER-RIGHT: #b1feb1 1px solid; BORDER-TOP: #b1feb1 1px solid; BORDER-LEFT: #b1feb1 1px solid; BORDER-BOTTOM: #b1feb1 1px solid; BACKGROUND-COLOR: #c8ffc8
+}
+.ad {
+	BACKGROUND-COLOR: #e8ffe9
+}
+.ad TABLE {
+	BACKGROUND-COLOR: #e8ffe9
+}
+.ad TABLE TR {
+	BACKGROUND-COLOR: #e8ffe9
+}
+.ad TABLE TR TD {
+	BACKGROUND-COLOR: #e8ffe9
+}

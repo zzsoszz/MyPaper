@@ -1,0 +1,231 @@
+SELECT LEVEL
+  FROM dual
+CONNECT BY level < 3
+
+
+
+
+
+SQL 中 CONNECT BY 的使用 （LEVEL） 
+
+ 
+
+1.问：如果显示某两周之见的全部的周数?效果
+  between '201001' and '201010' 当传入201001周到201010周时，显示  201001,201002,201003....201010周
+1.答：SELECT substr('201001', 1, 4) || lpad(LEVEL, 2, '0')
+  FROM dual
+CONNECT BY LEVEL <= '201010' - '201001' + 1;
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+2.connect by prior实现递归查询
+
+    创建示例表： 
+
+　　CREATE TABLE TBL_TEST
+
+　　(
+
+　　ID    NUMBER,
+
+　　NAME VARCHAR2(100 BYTE),
+
+　　PID   NUMBER   DEFAULT 0
+
+　　);
+
+　　插入测试数据：
+
+　　INSERT INTO TBL_TEST(ID,NAME,PID) VALUES('1','10','0');
+
+　　INSERT INTO TBL_TEST(ID,NAME,PID) VALUES('2','11','1');
+
+　　INSERT INTO TBL_TEST(ID,NAME,PID) VALUES('3','20','0');
+
+　　INSERT INTO TBL_TEST(ID,NAME,PID) VALUES('4','12','1');
+
+　　INSERT INTO TBL_TEST(ID,NAME,PID) VALUES('5','121','2');
+
+　　从Root往树末梢递归
+
+　　select * from TBL_TEST
+
+　　start with id=1
+
+　　connect by prior id = pid
+
+　　从末梢往树ROOT递归
+
+　　select * from TBL_TEST
+
+　　start with id=5
+
+　　connect by prior pid = id
+
+3. NOCIRCLE
+
+    这就是不使用CONNECT BY NOCYCLE的情况，查询会报错，指出树形查询中出现循环，在10g中可以使用CONNECT BY NOCYCLE的方式来避免错误的产生：
+
+　　SQL> SELECT *
+
+　　2 FROM T_TREE
+
+　　3 START WITH ID = 0
+
+　　4 CONNECT BY NOCYCLE PRIOR ID = FATHER_ID;
+
+　　ID FATHER_ID NAME
+
+　　---------- ---------- ------------------------------
+
+　　0 0 ROOT
+
+　　1 0 A
+
+　　2 1 BC
+
+　　5 2 HIJ
+
+　　3 1 DE
+
+　　4 1 FG
+
+　　6 4 KLM
+
+　　7 6 NOPQ
+
+　　已选择8行。
+
+上一页  [1] [2] [3] [4] 下一页 
+
+　　使用CONNECT BY NOCYCLE，Oracle自动避免循环的产生，将不产生循环的数据查询出来，下面看看CONNECT_BY_ISCYCLE的功能：
+
+　　SQL> SELECT ID,
+
+　　2 FATHER_ID,
+
+　　3 NAME,
+
+　　4 CONNECT_BY_ISCYCLE CYCLED
+
+　　5 FROM T_TREE
+
+　　6 START WITH ID = 0
+
+　　7 CONNECT BY NOCYCLE PRIOR ID = FATHER_ID;
+
+　　ID FATHER_ID NAME CYCLED
+
+　　---------- ---------- ------------------------------ ----------
+
+　　0 0 ROOT 1
+
+　　1 0 A 0
+
+　　2 1 BC 0
+
+　　5 2 HIJ 0
+
+　　3 1 DE 0
+
+　　4 1 FG 0
+
+　　6 4 KLM 0
+
+　　7 6 NOPQ 1
+
+　　已选择8行。
+
+　　可以看到，CONNECT_BY_ISCYCLE伪列指出循环在树形查询中发生的位置。
+
+
+
+
+
+
+
+
+From the row generator ways, here a calendar/date generator:
+Code: [Select all] [Show/ hide]SQL> def date_start = '13/11/2010'
+SQL> def date_end   = '22/11/2010'
+SQL> with 
+  2    data as (
+  3      select to_date('&date_start', 'DD/MM/YYYY') date1,
+  4             to_date('&date_end',   'DD/MM/YYYY') date2
+  5      from dual
+  6    )
+  7  select to_char(date1+level-1, 'DD/MM/YYYY') the_date
+  8  from data
+  9  connect by level <= date2-date1+1
+ 10  /
+THE_DATE
+----------
+13/11/2010
+14/11/2010
+15/11/2010
+16/11/2010
+17/11/2010
+18/11/2010
+19/11/2010
+20/11/2010
+21/11/2010
+22/11/2010
+
+To get all dates of the current year:
+Code: [Select all] [Show/ hide]select trunc(sysdate,'YEAR') + level - 1 the_date
+from dual
+connect by level <= trunc(add_months(sysdate,12),'YEAR') - trunc(sysdate,'YEAR')
+/
+
+To get all dates of the current month:
+Code: [Select all] [Show/ hide]select trunc(sysdate,'MONTH') + level - 1 the_date
+from dual
+connect by level <= last_day(sysdate) - trunc(sysdate,'MONTH') + 1
+/
+
+To get all dates of the current ISO week (starts a Monday and ends a Sunday):
+Code: [Select all] [Show/ hide]select trunc(sysdate,'IW') + level - 1 the_date
+from dual
+connect by level <= 7
+/
+
+To get the previous 6 months from the current date:
+Code: [Select all] [Show/ hide]select trunc(add_months(sysdate, -1*level), 'month') month 
+from dual 
+connect by level <= 6
+/
+
+
+
+
+
+
+;
+select val
+from (select 1 rn from dual)
+model
+ dimension by (rn)
+ measures (1 val)
+ rules 
+ iterate (&N)
+  ( val[iteration_number] = iteration_number+1 )
+order by val
+
+
+;
+
+select integer_value
+  from dual
+ where 1 = 2 model dimension by(0 as key) measures(0 as integer_value)
+ rules
+ upsert(integer_value [ for key from 1 to 500 increment 1 ] = cv(key));
+
+

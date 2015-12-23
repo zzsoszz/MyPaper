@@ -1,0 +1,208 @@
+官方安装文档
+http://docs.oracle.com/cd/E11882_01/install.112/e24326/toc.htm#CEGEGDBA
+
+网友安装文档
+http://www.cnblogs.com/mophee/archive/2013/06/01/3107137.html
+http://www.cnblogs.com/lightnear/archive/2012/10/07/2714247.html
+
+rpm下载地址
+http://rpm.pbone.net/
+
+Oracle 安装报错 [INS-06101] IP address of localhost could not be determined 解决方法 
+http://blog.csdn.net/zengmuansha/article/details/30512901
+
+
+
+
+
+
+
+root 账户执行---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+-------------------------------------------------ftp 工具  start
+
+yum install vsftp 
+vi /etc/vsftpd/ftpusers   #注销root
+vi /etc/vsftpd/user_list  #注销root
+service vsftpd restart
+现在可以使用root账户登录ftp
+
+-------------------------------------------------ftp 工具  end
+
+
+
+
+-------------------------------------------------rpm 安装  start
+yum -y install binutils compat-libcap1 compat-libstdc++.i686 compat-libstdc++.x86_64 elfutils-libelf elfutils-libelf-devel gcc gcc-c++ glibc.i686 glibc.x86_64 glibc-devel.i686 glibc-devel.x86_64 ksh libgcc.i686 libgcc.x86_64 libstdc++.i686 libstdc++.x86_64 libstdc++-devel.i686 libstdc++-devel.x86_64 libaio.i686 libaio.x86_64 libaio-devel.i686 libaio-devel.x86_64 libXext libXtst libX11 libXau libxcb libXi make sysstat unixODBC-devel.i686 unixODBC-devel.x86_64 unixODBC.i686 unixODBC.x86_64 compat-libstdc++-33.i686 compat-libstdc++-33.x86_64
+
+
+rpm -e ksh-20120801-21.el6_6.3.x86_64
+wget http://mirror.centos.org/centos/5/os/i386/CentOS/pdksh-5.2.14-37.el5_8.1.i386.rpm
+wget http://mirror.centos.org/centos/5/os/x86_64/CentOS/pdksh-5.2.14-37.el5_8.1.x86_64.rpm
+rpm -ivh pdksh-5.2.14-37.el5_8.1.x86_64.rpm 
+
+rpm -qa | grep pdksh  #查询是否已经安装
+yum  search 包名      #yum查找看是否有包，如果有就通过yum安装，如果没有只有到网站上下载安装
+
+
+yum  install compat-libstdc++-33.x86_64
+yum  install libgcc
+yum  install libstdc
+yum  install libgcc.x86_64
+
+-------------------------------------------------rpm 安装  end
+
+
+
+
+
+
+-------------------------------------------------内核参数修改 start
+vi /etc/sysctl.conf 
+
+	# 注释掉
+	#net.bridge.bridge-nf-call-ip6tables = 0 
+	#net.bridge.bridge-nf-call-iptables = 0 
+	#net.bridge.bridge-nf-call-arptables = 0 
+	
+	# 在文件末尾添加
+	net.ipv4.ip_local_port_range = 9000 65500 
+	fs.file-max = 6815744 
+	kernel.shmall = 10523004 
+	kernel.shmmax = 6465333657 
+	kernel.shmmni = 4096 
+	kernel.sem = 250 32000 100 128 
+	net.core.rmem_default=262144 
+	net.core.wmem_default=262144 
+	net.core.rmem_max=4194304 
+	net.core.wmem_max=1048576 
+	fs.aio-max-nr = 1048576
+
+
+
+sysctl -p
+
+
+
+vi  /etc/security/limits.conf
+	oracle soft nproc 2047
+	oracle hard nproc 16384
+	oracle soft nofile 1024
+	oracle hard nofile 65536
+	oracle soft stack 10240
+
+
+vi /etc/pam.d/login
+
+-------------------------------------------------内核参数修改 end
+
+
+
+
+
+
+-------------------------------------------------更改主机名
+hostname bxoracle
+
+vi /etc/hosts
+127.0.0.1   localhost
+127.0.0.1   bxoracle
+
+vi /etc/sysconfig/network
+NETWORKING=yes
+HOSTNAME=bxoracle
+-------------------------------------------------更改主机名
+
+
+
+
+
+-------------------------------------------------创建组和用户   start
+/usr/sbin/groupadd oinstall
+/usr/sbin/groupadd dba
+/usr/sbin/usermod -g oinstall -G dba oracle
+passwd oracle
+grep dba /etc/group
+-------------------------------------------------创建组和用户   end
+
+
+
+
+
+-------------------------------------------------创建安装目录  start
+mkdir -p /u01/app/oracle
+chown oracle:oinstall /u01/app/oracle
+-------------------------------------------------创建安装目录  end
+
+
+
+------------------------------------------------防火墙配置 start
+可以先关闭防火墙
+setup 
+------------------------------------------------防火墙配置 start
+
+
+
+切换到oracle账户
+su  oracle
+
+
+
+
+oracle 账户执行---------------------------------------------------------------------------------------------------------------------------------------------------------------
+cd /ftp/setup
+unzip  linux.x64_11gR2_database_1of2.zip
+unzip  linux.x64_11gR2_database_2of2.zip
+chown -R 700  database
+chown -R oracle:oinstall database
+
+
+---------------------------------oracle 初始参数配置  start
+vi /home/oracle/.bash_profile
+
+ORACLE_BASE=/u01/app/oracle
+ORACLE_HOME=$ORACLE_BASE/11g
+ORACLE_SID=orcl
+LD_LIBRARY_PATH=$ORACLE_HOME/lib
+PATH=$PATH:$ORACLE_HOME/bin:$HOME/bin
+export ORACLE_BASE ORACLE_HOME ORACLE_SID LD_LIBRARY_PATH PATH
+
+source /home/oracle/.bash_profile
+---------------------------------oracle 初始参数配置  end
+
+
+
+
+
+运行安装文件出现乱码解决
+export LC_ALL=en_US.UTF-8
+
+-------------------------------------------------------------------安装前准备
+
+
+执行安装程序
+LANG=en_US ./runInstaller
+启动监听
+lsnrctl start
+登录创建用户
+sqlplus
+
+
+
+
+安装完成后网页登录检验是否安装成功
+
+https://localhost:1158/em/
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,610 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0064)http://www.cnblogs.com/highriver/archive/2011/08/02/2125043.html -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><HTML 
+xmlns="http://www.w3.org/1999/xhtml"><HEAD><META content="IE=9.0000" 
+http-equiv="X-UA-Compatible">
+
+<META content="text/html; charset=utf-8" http-equiv="Content-Type">
+<TITLE>Oracle中merge into的使用 - highriver - 博客园</TITLE><LINK rel="stylesheet" 
+type="text/css" href="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/common.css">
+<LINK id="MainCss" rel="stylesheet" type="text/css" href="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/style.css">
+<LINK rel="stylesheet" type="text/css" href="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/common2.css">
+<LINK rel="stylesheet" type="text/css" href="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/shStyle.css">
+<LINK title="RSS" rel="alternate" type="application/rss+xml" href="http://www.cnblogs.com/highriver/rss">
+<LINK title="RSD" rel="EditURI" type="application/rsd+xml" href="http://www.cnblogs.com/highriver/rsd.xml">
+<LINK rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.cnblogs.com/highriver/wlwmanifest.xml">
+<SCRIPT type="text/javascript" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/jquery.js"></SCRIPT>
+
+<SCRIPT type="text/javascript">
+var currentBlogApp = 'highriver';
+</SCRIPT>
+
+<SCRIPT type="text/javascript" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/common.js"></SCRIPT>
+
+<SCRIPT type="text/javascript" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/json2.js"></SCRIPT>
+
+<SCRIPT type="text/javascript" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/syntaxHighlighter.js"></SCRIPT>
+
+<META name="GENERATOR" content="MSHTML 9.00.8112.16457"></HEAD>
+<BODY><A name="top"></A><!--done-->
+<DIV id="home">
+<DIV id="header">
+<DIV id="blogTitle"><A id="lnkBlogLogo" 
+href="http://www.cnblogs.com/highriver/"><IMG id="blogLogo" alt="返回主页" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/logo.gif"></A><!--done-->
+<H1><A id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/highriver/">技术生活杂烩-迟到的博客</A></H1>
+<H2></H2></DIV><!--end: blogTitle 博客的标题和副标题 -->
+<DIV id="navigator">
+<UL id="navList">
+  <LI><A id="MyLinks1_HomeLink" class="menu" 
+  href="http://www.cnblogs.com/">博客园</A></LI>
+  <LI><A id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/highriver/">首页</A></LI>
+  <LI><A class="menu" href="http://q.cnblogs.com/">博问</A></LI>
+  <LI><A class="menu" href="http://home.cnblogs.com/ing/">闪存</A></LI>
+  <LI><A id="MyLinks1_NewPostLink" class="menu" href="http://www.cnblogs.com/highriver/admin/EditPosts.aspx?opt=1" 
+  rel="nofollow">新随笔</A></LI>
+  <LI><A id="MyLinks1_ContactLink" class="menu" href="http://space.cnblogs.com/msg/send/highriver" 
+  rel="nofollow">联系</A></LI>
+  <LI><A id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/highriver/rss">订阅</A><!--<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/highriver/rss"><img src="/Skins/Custom/images/rss.gif" alt="订阅" /></a>--></LI>
+  <LI><A id="MyLinks1_Admin" class="menu" href="http://www.cnblogs.com/highriver/admin/EditPosts.aspx" 
+  rel="nofollow">管理</A></LI></UL>
+<DIV class="blogStats"><!--done-->随笔- 162&nbsp;文章- 30&nbsp;评论- 17&nbsp;			
+		</DIV><!--end: blogStats --></DIV><!--end: navigator 博客导航栏 --></DIV><!--end: header 头部 -->
+<DIV id="main">
+<DIV id="mainContent">
+<DIV class="forFlow"><!--done-->
+<DIV id="topics">
+<DIV class="post">
+<H1 class="postTitle"><A id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/highriver/archive/2011/08/02/2125043.html">Oracle中merge 
+into的使用</A></H1>
+<DIV class="clear"></DIV>
+<DIV class="postBody">
+<DIV id="cnblogs_post_body">
+<P>http://blog.csdn.net/yuzhic/article/details/1896878</P>
+<P>http://blog.csdn.net/macle2010/article/details/5980965</P>
+<P></P>
+<P>该命令使用一条语句从一个或者多个数据源中完成对表的更新和插入数据. ORACLE 9i 中，使用此命令必须同时指定UPDATE 和INSERT 
+关键词,ORACLE 10g 做了如下改动。</P>
+<P>1，insert 和update是可选的 2，UPDATE 和INSERT 后面可以跟WHERE 子句 3,在ON条件中可以使用常量来insert 
+所有的行到目标表中，不需要连接到源表和目标表 4,UPDATE 子句后面可以跟delete 来去除一些不需要的行。</P>
+<P>举例：</P>
+<OL>
+  <LI><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">create</SPAN></STRONG></SPAN><SPAN>&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">table</SPAN></STRONG></SPAN><SPAN>&nbsp;PRODUCTS 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;( &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;PRODUCT_ID&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">INTEGER</SPAN></STRONG></SPAN><SPAN>, 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;PRODUCT_NAME&nbsp;VARCHAR2(60), 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;CATEGORY&nbsp;VARCHAR2(60) 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;); &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">insert</SPAN></STRONG></SPAN><SPAN>&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">into</SPAN></STRONG></SPAN><SPAN>&nbsp;PRODUCTS&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">values</SPAN></STRONG></SPAN><SPAN>&nbsp;(1501,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'VIVITAR&nbsp;35MM'</SPAN></SPAN><SPAN>,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'ELECTRNCS'</SPAN></SPAN><SPAN>); 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">insert</SPAN></STRONG></SPAN><SPAN>&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">into</SPAN></STRONG></SPAN><SPAN>&nbsp;PRODUCTS&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">values</SPAN></STRONG></SPAN><SPAN>&nbsp;(1502,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'OLYMPUS&nbsp;IS50'</SPAN></SPAN><SPAN>,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'ELECTRNCS'</SPAN></SPAN><SPAN>); 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">insert</SPAN></STRONG></SPAN><SPAN>&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">into</SPAN></STRONG></SPAN><SPAN>&nbsp;PRODUCTS&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">values</SPAN></STRONG></SPAN><SPAN>&nbsp;(1600,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'PLAY&nbsp;GYM'</SPAN></SPAN><SPAN>,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'TOYS'</SPAN></SPAN><SPAN>); 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">insert</SPAN></STRONG></SPAN><SPAN>&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">into</SPAN></STRONG></SPAN><SPAN>&nbsp;PRODUCTS&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">values</SPAN></STRONG></SPAN><SPAN>&nbsp;(1601,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'LAMAZE'</SPAN></SPAN><SPAN>,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'TOYS'</SPAN></SPAN><SPAN>); 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">insert</SPAN></STRONG></SPAN><SPAN>&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">into</SPAN></STRONG></SPAN><SPAN>&nbsp;PRODUCTS&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">values</SPAN></STRONG></SPAN><SPAN>&nbsp;(1666,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'HARRY&nbsp;POTTER'</SPAN></SPAN><SPAN>,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'DVD'</SPAN></SPAN><SPAN>); 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">commit</SPAN></STRONG></SPAN><SPAN>; 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">create</SPAN></STRONG></SPAN><SPAN>&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">table</SPAN></STRONG></SPAN><SPAN>&nbsp;NEWPRODUCTS 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;( &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;PRODUCT_ID&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">INTEGER</SPAN></STRONG></SPAN><SPAN>, 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;PRODUCT_NAME&nbsp;VARCHAR2(60), 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;CATEGORY&nbsp;VARCHAR2(60) 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;); &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">insert</SPAN></STRONG></SPAN><SPAN>&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">into</SPAN></STRONG></SPAN><SPAN>&nbsp;NEWPRODUCTS&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">values</SPAN></STRONG></SPAN><SPAN>&nbsp;(1502,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'OLYMPUS&nbsp;CAMERA'</SPAN></SPAN><SPAN>,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'ELECTRNCS'</SPAN></SPAN><SPAN>); 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">insert</SPAN></STRONG></SPAN><SPAN>&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">into</SPAN></STRONG></SPAN><SPAN>&nbsp;NEWPRODUCTS&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">values</SPAN></STRONG></SPAN><SPAN>&nbsp;(1601,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'LAMAZE'</SPAN></SPAN><SPAN>,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'TOYS'</SPAN></SPAN><SPAN>); 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">insert</SPAN></STRONG></SPAN><SPAN>&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">into</SPAN></STRONG></SPAN><SPAN>&nbsp;NEWPRODUCTS&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">values</SPAN></STRONG></SPAN><SPAN>&nbsp;(1666,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'HARRY&nbsp;POTTER'</SPAN></SPAN><SPAN>,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'TOYS'</SPAN></SPAN><SPAN>); 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">insert</SPAN></STRONG></SPAN><SPAN>&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">into</SPAN></STRONG></SPAN><SPAN>&nbsp;NEWPRODUCTS&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">values</SPAN></STRONG></SPAN><SPAN>&nbsp;(1700,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'WAIT&nbsp;INTERFACE'</SPAN></SPAN><SPAN>,&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'BOOKS'</SPAN></SPAN><SPAN>); 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">commit</SPAN></STRONG></SPAN><SPAN>;&nbsp;&nbsp;&nbsp;</SPAN></LI>
+  <LI></LI>
+  <LI><SPAN>1，可省略的update 或者insert </SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp; MERGE&nbsp;<SPAN class="keyword"><STRONG><SPAN style="color: rgb(127, 0, 85);">INTO</SPAN></STRONG></SPAN><SPAN>&nbsp;products&nbsp;p 
+  &nbsp;&nbsp;</SPAN></SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;USING&nbsp;newproducts&nbsp;np 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">ON</SPAN></STRONG></SPAN><SPAN>&nbsp;(p.product_id&nbsp;=&nbsp;np.product_id) 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">WHEN</SPAN></STRONG></SPAN><SPAN>&nbsp;MATCHED&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">THEN</SPAN></STRONG></SPAN><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">UPDATE</SPAN></STRONG></SPAN><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">SET</SPAN></STRONG></SPAN><SPAN>&nbsp;p.product_name&nbsp;=&nbsp;np.product_name, 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;p.category&nbsp;=&nbsp;np.category; 
+  </SPAN></LI></OL>
+<P><SPAN>&nbsp; 使用表newproducts中的product_name 和category字段来更新表products 
+中相同product_id的product_name 和category.</SPAN></P>
+<P><SPAN>2，当条件不满足的时候把newproducts表中的数据INSERT 到表products中。</SPAN></P>
+<OL>
+  <LI><SPAN>MERGE&nbsp;<SPAN class="keyword"><STRONG><SPAN style="color: rgb(127, 0, 85);">INTO</SPAN></STRONG></SPAN><SPAN>&nbsp;products&nbsp;p 
+  &nbsp;&nbsp;</SPAN></SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;newproducts&nbsp;np 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">ON</SPAN></STRONG></SPAN><SPAN>&nbsp;(p.product_id&nbsp;=&nbsp;np.product_id) 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">WHEN</SPAN></STRONG></SPAN><SPAN>&nbsp;</SPAN><SPAN 
+  class="op"><SPAN 
+  style="color: rgb(128, 128, 128);">NOT</SPAN></SPAN><SPAN>&nbsp;MATCHED&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">THEN</SPAN></STRONG></SPAN><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">INSERT</SPAN></STRONG></SPAN><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">VALUES</SPAN></STRONG></SPAN><SPAN>&nbsp;(np.product_id,&nbsp;np.product_name, 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;np.category);&nbsp;&nbsp;&nbsp;</SPAN></LI>
+</OL>
+<P><SPAN>3，带条件的insert 和update</SPAN></P>
+<OL>
+  <LI><SPAN>MERGE&nbsp;<SPAN class="keyword"><STRONG><SPAN style="color: rgb(127, 0, 85);">INTO</SPAN></STRONG></SPAN><SPAN>&nbsp;products&nbsp;p 
+  &nbsp;&nbsp;</SPAN></SPAN></LI>
+  <LI><SPAN>&nbsp;USING&nbsp;newproducts&nbsp;np &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN style="color: rgb(127, 0, 85);">ON</SPAN></STRONG></SPAN><SPAN>&nbsp;(p.product_id&nbsp;=&nbsp;np.product_id) 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN style="color: rgb(127, 0, 85);">WHEN</SPAN></STRONG></SPAN><SPAN>&nbsp;MATCHED&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">THEN</SPAN></STRONG></SPAN><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN style="color: rgb(127, 0, 85);">UPDATE</SPAN></STRONG></SPAN><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN style="color: rgb(127, 0, 85);">SET</SPAN></STRONG></SPAN><SPAN>&nbsp;p.product_name&nbsp;=&nbsp;np.product_name 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN style="color: rgb(127, 0, 85);">WHERE</SPAN></STRONG></SPAN><SPAN>&nbsp;p.category&nbsp;=&nbsp;np.category;</SPAN></LI>
+</OL>
+<P><SPAN><SPAN>&nbsp;insert 和update　都带有where 字句</SPAN></SPAN></P>
+<P><SPAN></SPAN></P>
+<DIV><SPAN><SPAN></SPAN></SPAN>&nbsp;</DIV>
+<OL>
+  <LI><SPAN>MERGE&nbsp;<SPAN class="keyword"><STRONG><SPAN style="color: rgb(127, 0, 85);">INTO</SPAN></STRONG></SPAN><SPAN>&nbsp;products&nbsp;p&nbsp;&nbsp;&nbsp;</SPAN></SPAN></LI>
+  <LI><SPAN></SPAN><SPAN>&nbsp;USING&nbsp;newproducts&nbsp;np 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">ON</SPAN></STRONG></SPAN><SPAN>&nbsp;(p.product_id&nbsp;=&nbsp;np.product_id) 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">WHEN</SPAN></STRONG></SPAN><SPAN>&nbsp;MATCHED&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">THEN</SPAN></STRONG></SPAN><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">UPDATE</SPAN></STRONG></SPAN><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">SET</SPAN></STRONG></SPAN><SPAN>&nbsp;p.product_name&nbsp;=&nbsp;np.product_name, 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p.category&nbsp;=&nbsp;np.category 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">WHERE</SPAN></STRONG></SPAN><SPAN>&nbsp;p.category&nbsp;=&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'DVD'</SPAN></SPAN><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">WHEN</SPAN></STRONG></SPAN><SPAN>&nbsp;</SPAN><SPAN 
+  class="op"><SPAN 
+  style="color: rgb(128, 128, 128);">NOT</SPAN></SPAN><SPAN>&nbsp;MATCHED&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">THEN</SPAN></STRONG></SPAN><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">INSERT</SPAN></STRONG></SPAN><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">VALUES</SPAN></STRONG></SPAN><SPAN>&nbsp;(np.product_id,&nbsp;np.product_name,&nbsp;np.category) 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">WHERE</SPAN></STRONG></SPAN><SPAN>&nbsp;np.category&nbsp;!=&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'BOOKS'</SPAN></SPAN>&nbsp;&nbsp;</LI></OL>
+<P>4,无条件的insert</P>
+<OL>
+  <LI>MERGE&nbsp;<SPAN class="keyword"><STRONG><SPAN style="color: rgb(127, 0, 85);">INTO</SPAN></STRONG></SPAN><SPAN>&nbsp;products&nbsp;p 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;USING&nbsp;newproducts&nbsp;np &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN style="color: rgb(127, 0, 85);">ON</SPAN></STRONG></SPAN><SPAN>&nbsp;(1=0) 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN style="color: rgb(127, 0, 85);">WHEN</SPAN></STRONG></SPAN><SPAN>&nbsp;</SPAN><SPAN 
+  class="op"><SPAN 
+  style="color: rgb(128, 128, 128);">NOT</SPAN></SPAN><SPAN>&nbsp;MATCHED&nbsp;</SPAN><SPAN 
+  class="keyword"><STRONG><SPAN 
+  style="color: rgb(127, 0, 85);">THEN</SPAN></STRONG></SPAN><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN style="color: rgb(127, 0, 85);">INSERT</SPAN></STRONG></SPAN><SPAN>&nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN style="color: rgb(127, 0, 85);">VALUES</SPAN></STRONG></SPAN><SPAN>&nbsp;(np.product_id,&nbsp;np.product_name,&nbsp;np.category) 
+  &nbsp;&nbsp;</SPAN></LI>
+  <LI><SPAN>&nbsp;&nbsp;&nbsp;</SPAN><SPAN class="keyword"><STRONG><SPAN style="color: rgb(127, 0, 85);">WHERE</SPAN></STRONG></SPAN><SPAN>&nbsp;np.category&nbsp;=&nbsp;</SPAN><SPAN 
+  class="string"><SPAN 
+  style="color: rgb(0, 0, 255);">'BOOKS'</SPAN></SPAN><SPAN>&nbsp; 
+  <BR></SPAN></LI></OL>
+<P></P>
+<P><SPAN>5，delete 子句 </SPAN></P>
+<P><SPAN>１&nbsp; merge into products p<BR>&nbsp; 2&nbsp; using newproducts 
+np<BR>&nbsp; 3&nbsp; on(p.product_id = np.product_id)<BR>&nbsp; 4&nbsp; when 
+matched then<BR>&nbsp; 5&nbsp; update<BR>&nbsp; 6&nbsp; set p.product_name = 
+np.product_name<BR>&nbsp; 7&nbsp; delete where category = 
+'macle1_cate';</SPAN></P>
+<P><SPAN>select *</SPAN></P>
+<P><SPAN>from products;</SPAN></P>
+<P><SPAN>&nbsp;PRODUCT_ID 
+PRODUCT_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+CATEGORY<BR>--------------------------------------- -------------------- 
+--------------------<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+1502 
+macle22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+macle2_cate<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+1503 
+macle3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;macle2_cate<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+1504 
+macle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp; 
+macle1_cate<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+1505 
+macle5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;macle5_cate</SPAN></P>
+<P><SPAN>1504 中的macle1_cate 满足delete where，但是不满足 on 
+中的条件，所以没有被删除。！！！！！！重点</SPAN></P>
+<P></P>
+<P>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－</P>
+<P><STRONG>动机：</STRONG></P>
+<P>想在Oracle中用一条SQL语句直接进行Insert/Update的操作。</P>
+<P><STRONG>说明：</STRONG></P>
+<P>在进行SQL语句编写时，我们经常会遇到大量的同时进行Insert/Update的语句&nbsp;，也就是说当存在记录时，就更新(Update)，不存在数据时，就插入(Insert)。</P>
+<P><STRONG>实战：</STRONG></P>
+<P>接下来我们有一个任务，有一个表T，有两个字段a,b，我们想在表T中做Insert/Update,如果存在，则更新T中b的值，如果不存在，则插入一条记录。在Microsoft的SQL语法中，很简单的一句判断就可以了，SQL 
+Server中的语法如下：</P>
+<P>if exists(select 1 from T where T.a='1001' ) update T set T.b=2 Where 
+T.a='1001' else insert into T(a,b) values('1001',2);</P>
+<P>以上语句表明当T表中如果存在a='1001'&nbsp;的记录的话，就把b的值设为2，否则就Insert一条a='100'，b=2的记录到T中。</P>
+<P>但是接下来在Oracle中就遇到麻烦了，记得在Oracle 9i之后就有一条Merge into 的语句可以同时进行Insert 
+和Update的吗，Merge的语法如下：</P>
+<DIV style="background-position: 0% 50%; padding: 4px 5.4pt; border: 0.5pt solid windowtext; width: 95%; background-image: none; background-attachment: scroll; background-repeat: repeat; background-color: rgb(230, 230, 230); -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+<DIV><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"><SPAN 
+style="color: rgb(0, 0, 0);">MERGE&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">INTO</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;table_name&nbsp;alias1&nbsp;<BR><IMG alt="" 
+align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif">USING&nbsp;(</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">table</SPAN><SPAN style="color: rgb(128, 128, 128);">|</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">view</SPAN><SPAN style="color: rgb(128, 128, 128);">|</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">sub_query)&nbsp;alias2<BR><IMG alt="" align="top" 
+src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"></SPAN><SPAN 
+style="color: rgb(0, 0, 255);">ON</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;(</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">join</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;condition)&nbsp;<BR><IMG alt="" align="top" 
+src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"></SPAN><SPAN 
+style="color: rgb(0, 0, 255);">WHEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;MATCHED&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">THEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;<BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">UPDATE</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;table_name&nbsp;<BR><IMG alt="" align="top" 
+src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">SET</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;col1&nbsp;</SPAN><SPAN style="color: rgb(128, 128, 128);">=</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;col_val1,&nbsp;<BR><IMG alt="" align="top" 
+src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="color: rgb(128, 128, 128);">=</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;col2_val&nbsp;<BR><IMG alt="" align="top" 
+src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"></SPAN><SPAN 
+style="color: rgb(0, 0, 255);">WHEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;</SPAN><SPAN style="color: rgb(128, 128, 128);">NOT</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;MATCHED&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">THEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;<BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">INSERT</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;(column_list)&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">VALUES</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;(column_values);&nbsp;</SPAN></DIV></DIV>
+<P>上面的语法大家应该都容易懂吧，那我们按照以上的逻辑再写一次。</P>
+<DIV style="background-position: 0% 50%; padding: 4px 5.4pt; border: 0.5pt solid windowtext; width: 95%; background-image: none; background-attachment: scroll; background-repeat: repeat; background-color: rgb(230, 230, 230); -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+<DIV><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"><SPAN 
+style="color: rgb(0, 0, 0);">MERGE&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">INTO</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;T&nbsp;T1<BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif">USING&nbsp;(</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">SELECT</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;a,b&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">FROM</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;T&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">WHERE</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;t.a</SPAN><SPAN style="color: rgb(128, 128, 128);">=</SPAN><SPAN 
+style="color: rgb(255, 0, 0);">'</SPAN><SPAN 
+style="color: rgb(255, 0, 0);">1001</SPAN><SPAN 
+style="color: rgb(255, 0, 0);">'</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">)&nbsp;T2<BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"></SPAN><SPAN 
+style="color: rgb(0, 0, 255);">ON</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;(&nbsp;T1.a</SPAN><SPAN style="color: rgb(128, 128, 128);">=</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">T2.a)<BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"></SPAN><SPAN 
+style="color: rgb(0, 0, 255);">WHEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;MATCHED&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">THEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);"><BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif">&nbsp;&nbsp;</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">UPDATE</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">SET</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;T1.b&nbsp;</SPAN><SPAN style="color: rgb(128, 128, 128);">=</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;</SPAN><SPAN style="color: rgb(128, 0, 0); font-weight: bold;">2</SPAN><SPAN 
+style="color: rgb(0, 0, 0);"><BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"></SPAN><SPAN 
+style="color: rgb(0, 0, 255);">WHEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;</SPAN><SPAN style="color: rgb(128, 128, 128);">NOT</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;MATCHED&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">THEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;<BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif">&nbsp;&nbsp;</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">INSERT</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;(a,b)&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">VALUES</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">(</SPAN><SPAN 
+style="color: rgb(255, 0, 0);">'</SPAN><SPAN 
+style="color: rgb(255, 0, 0);">1001</SPAN><SPAN 
+style="color: rgb(255, 0, 0);">'</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">,</SPAN><SPAN style="color: rgb(128, 0, 0); font-weight: bold;">2</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">);</SPAN></DIV></DIV>
+<P>以上的语句貌似很对是吧<IMG alt="" src="">，实际上，该语句只能进行更新，而无法进行Insert，错误在哪里呢？</P>
+<P>其实在Oracle中Merge语句原先是用来进行整表的更新用的，也就是ETL工具比较常用的语法，重点是在Using上。</P>
+<P>用中文来解释Merge语法，就是：</P>
+<P>在alias2中Select出来的数据，<STRONG><SPAN style="color: rgb(255, 0, 0);" color="#ff0000">每一条</SPAN></STRONG>都跟alias1进行 
+ON (join condition)的比较，如果匹配，就进行更新的操作(Update),如果不匹配，就进行插入操作(Insert)。</P>
+<P>因此，严格意义上讲，<STRONG><SPAN style="color: rgb(255, 0, 0);" 
+color="#ff0000">”在一个同时存在Insert和Update语法的Merge语句中，总共Insert/Update的记录数，就是Using语句中alias2的记录数。”</SPAN></STRONG></P>
+<P>以上这句话也就很好的解释了在上面写的语句为何只能进行Update，而不能进行Insert了，因为都Select不到数据，如何能进行Insert呢:)</P>
+<P>接下来要改成正确的语句就容易多了，如下：</P>
+<DIV style="background-position: 0% 50%; padding: 4px 5.4pt; border: 0.5pt solid windowtext; width: 95%; background-image: none; background-attachment: scroll; background-repeat: repeat; background-color: rgb(230, 230, 230); -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+<DIV><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"><SPAN 
+style="color: rgb(0, 0, 0);">MERGE&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">INTO</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;T&nbsp;T1<BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif">USING&nbsp;<STRONG>(</STRONG></SPAN><STRONG><SPAN 
+style="color: rgb(0, 0, 255);">SELECT</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;</SPAN><SPAN 
+style="color: rgb(255, 0, 0);">'</SPAN><SPAN 
+style="color: rgb(255, 0, 0);">1001</SPAN><SPAN 
+style="color: rgb(255, 0, 0);">'</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">AS</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;a,</SPAN><SPAN style="color: rgb(128, 0, 0); font-weight: bold;">2</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">AS</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;b&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">FROM</SPAN></STRONG><SPAN 
+style="color: rgb(0, 0, 0);"><STRONG>&nbsp;dual)</STRONG>&nbsp;T2<BR><IMG alt="" 
+align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"></SPAN><SPAN 
+style="color: rgb(0, 0, 255);">ON</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;(&nbsp;T1.a</SPAN><SPAN style="color: rgb(128, 128, 128);">=</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">T2.a)<BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"></SPAN><SPAN 
+style="color: rgb(0, 0, 255);">WHEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;MATCHED&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">THEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);"><BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif">&nbsp;&nbsp;</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">UPDATE</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">SET</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;T1.b&nbsp;</SPAN><SPAN style="color: rgb(128, 128, 128);">=</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;T2.b<BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"></SPAN><SPAN 
+style="color: rgb(0, 0, 255);">WHEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;</SPAN><SPAN style="color: rgb(128, 128, 128);">NOT</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;MATCHED&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">THEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;<BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif">&nbsp;&nbsp;</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">INSERT</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;(a,b)&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">VALUES</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">(T2.a,T2.b);</SPAN></DIV></DIV>
+<P>查询结果，OK!</P>
+<P><STRONG><SPAN style="color: rgb(255, 0, 0);" 
+color="#ff0000">注意：</SPAN></STRONG></P>
+<P>如果不懂Merge语句的原理，Merge语句是一条比较危险的语句，特别是在您只想更新一条记录的时候，因为不经意间，你可能就把整表的数据都Update了一遍.....汗!!!</P>
+<P>我曾经犯过的一个错误如下所示，大家看出来是什么问题了吗？</P>
+<DIV style="background-position: 0% 50%; padding: 4px 5.4pt; border: 0.5pt solid windowtext; width: 95%; background-image: none; background-attachment: scroll; background-repeat: repeat; background-color: rgb(230, 230, 230); -moz-background-size: auto auto; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+<DIV><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"><SPAN 
+style="color: rgb(0, 0, 0);">MERGE&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">INTO</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;T&nbsp;T1<BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif">USING&nbsp;(</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">SELECT</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;</SPAN><SPAN 
+style="color: rgb(255, 0, 255);">Count</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">(</SPAN><SPAN 
+style="color: rgb(128, 128, 128);">*</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">)&nbsp;cnt&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">FROM</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;T&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">WHERE</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;T.a</SPAN><SPAN style="color: rgb(128, 128, 128);">=</SPAN><SPAN 
+style="color: rgb(255, 0, 0);">'</SPAN><SPAN 
+style="color: rgb(255, 0, 0);">1001</SPAN><SPAN 
+style="color: rgb(255, 0, 0);">'</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">)&nbsp;T2<BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"></SPAN><SPAN 
+style="color: rgb(0, 0, 255);">ON</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;(T2.cnt</SPAN><SPAN style="color: rgb(128, 128, 128);">&gt;</SPAN><SPAN 
+style="color: rgb(128, 0, 0); font-weight: bold;">0</SPAN><SPAN style="color: rgb(0, 0, 0);">)<BR><IMG 
+alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"></SPAN><SPAN 
+style="color: rgb(0, 0, 255);">WHEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;MATCHED&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">THEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);"><BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif">&nbsp;&nbsp;</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">UPDATE</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">SET</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;T1.b&nbsp;</SPAN><SPAN style="color: rgb(128, 128, 128);">=</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;T2.b<BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif"></SPAN><SPAN 
+style="color: rgb(0, 0, 255);">WHEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;</SPAN><SPAN style="color: rgb(128, 128, 128);">NOT</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;MATCHED&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">THEN</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;<BR><IMG alt="" align="top" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/None.gif">&nbsp;&nbsp;</SPAN><SPAN 
+style="color: rgb(0, 0, 255);">INSERT</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">&nbsp;(a,b)&nbsp;</SPAN><SPAN style="color: rgb(0, 0, 255);">VALUES</SPAN><SPAN 
+style="color: rgb(0, 0, 0);">(T2.a,T2.b);</SPAN></DIV>
+<DIV><SPAN style="color: rgb(0, 0, 0);"></SPAN></DIV></DIV></DIV>
+<DIV id="MySignature"></DIV>
+<SCRIPT type="text/javascript">
+var isLogined = false;
+var cb_blogId = 70588;
+var cb_entryId = 2125043;
+var cb_blogApp = currentBlogApp;
+var cb_blogUserGuid = "dd060d9e-aa5d-df11-ba8f-001cf0cd104b";
+var cb_entryCreatedDate = '2011/8/2 14:53:00';
+var enableGoogleAd = true;
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+</SCRIPT>
+
+<DIV class="clear"></DIV>
+<DIV id="blog_post_info_block">
+<DIV id="blog_post_info"></DIV>
+<DIV class="clear"></DIV>
+<DIV id="post_next_prev"></DIV></DIV>
+<SCRIPT type="text/javascript">
+    //SyntaxHighlighter.config.strings.expandSource = '<span><img src="http://static.cnblogs.com/images/expand-code.gif" alt="" class="expand-code-icon"/>View Code</span>';
+    $(function () {             
+        fixPostBodyFormat();
+        loadAdUnderPost();
+        loadBlogSignature();
+        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);        
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);        
+    });
+</SCRIPT>
+</DIV>
+<DIV class="postDesc">posted @ <SPAN id="post-date">2011-08-02 14:53</SPAN> <A 
+href="http://www.cnblogs.com/highriver/">highriver</A> 阅读(15883) 评论(<SPAN id="post-comment-count">2</SPAN>) 
+ <A href="http://www.cnblogs.com/highriver/admin/EditPosts.aspx?postid=2125043" 
+rel="nofollow">编辑</A> <A onclick="AddToWz(2125043);return false;" href="http://www.cnblogs.com/highriver/archive/2011/08/02/2125043.html#">收藏</A></DIV></DIV><IMG 
+alt="" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/2125043.jpg" 
+width="1" height="1"></DIV><!--end: topics 文章、评论容器-->
+<DIV id="blog-comments-placeholder"></DIV>
+<SCRIPT type="text/javascript">var commentManager = new blogCommentManager();commentManager.loadComments();</SCRIPT>
+
+<DIV id="comment_form" class="commentform">
+<DIV id="divCommentShow"></DIV>
+<DIV id="comment_nav"><SPAN id="span_refresh_tips"></SPAN><A id="lnk_RefreshComments" 
+onclick="return RefreshCommentList();" href="javascript:void(0);">刷新评论</A><A 
+onclick="return RefreshPage();" href="http://www.cnblogs.com/highriver/archive/2011/08/02/2125043.html#">刷新页面</A><A 
+href="http://www.cnblogs.com/highriver/archive/2011/08/02/2125043.html#top">返回顶部</A></DIV>
+<DIV id="comment_form_container"></DIV>
+<SCRIPT type="text/javascript">if (typeof commentManager === 'undefined') {
+        commentManager = new blogCommentManager();
+    }
+    commentManager.loadCommentForm();   
+</SCRIPT>
+
+<DIV id="ad_text_under_commentbox" class="ad_text_commentbox"></DIV>
+<DIV id="site_nav_under"><A title="程序员的网上家园" href="http://www.cnblogs.com/" 
+target="_blank">博客园首页</A><A title="程序员问答社区" href="http://q.cnblogs.com/" target="_blank">博问</A><A 
+title="IT新闻" href="http://news.cnblogs.com/" target="_blank">新闻</A><A href="http://home.cnblogs.com/ing/" 
+target="_blank">闪存</A><A href="http://job.cnblogs.com/" 
+target="_blank">程序员招聘</A><A href="http://kb.cnblogs.com/" 
+target="_blank">知识库</A></DIV>
+<DIV id="ad_under_post_holder"></DIV>
+<DIV id="HistoryToday" class="c_ad_block"></DIV>
+</DIV></DIV><!--end: forFlow --></DIV><!--end: mainContent 主体内容容器-->
+<DIV id="sideBar">
+<DIV id="sideBarMain"><!--done-->
+<DIV class="newsItem">
+<H3 class="catListTitle">公告</H3>
+<DIV id="blog-news"></DIV></DIV>
+<DIV style="displya: none;" id="blog-calendar"></DIV>
+<DIV id="leftcontentcontainer">
+<DIV id="blog-sidecolumn"></DIV></DIV></DIV><!--end: sideBarMain --></DIV><!--end: sideBar 侧边栏容器 -->
+<DIV class="clear"></DIV></DIV><!--end: main -->
+<DIV class="clear"></DIV>
+<DIV id="footer"><!--done-->Copyright ©2013 highriver	</DIV><!--end: footer -->
+</DIV><!--end: home 自定义的最大容器 -->
+<SCRIPT type="text/javascript" src="Oracle中merge%20into的使用%20-%20highriver%20-%20博客园_files/google-analytics.js"></SCRIPT>
+</BODY></HTML>

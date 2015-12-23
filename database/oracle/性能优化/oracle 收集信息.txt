@@ -1,0 +1,275 @@
+ORACLE 收集统计信息
+上一篇 / 下一篇  2010-06-26 00:37:09 / 个人分类：oracle学习 
+
+查看( 198 ) / 评论( 1 ) / 评分( 0 / 0 ) 
+今天网上看到一篇关于收集统计信息的文章，还不错，特转载下来。
+1.     理解什么是统计信息
+优化器统计信息就是一个更加详细描述数据库和数据库对象的集合，这些统计信息被用于查询优化器，让其为每条SQL语句选择最佳的执行计划。优化器统计信息包括:
+·         表的统计信息
+o   行数
+o   Block数
+o   行平均长度
+·         列的统计信息
+o   列中不同值的数量
+o   列中null的数量
+o   数据分布(柱状图/直方图)
+·         索引的统计信息
+o   叶子块的数量
+o   索引的高度
+o   聚簇因子(clustering factor)
+·         系统的统计信息
+o   I/O性能和利用
+o   CPU性能和利用
+优化器统计信息存储在下列数据字典中
+·         DBA_TABLES
+·         DBA_OBJECT_TABLES
+·         DBA_TAB_STATISTICS
+·         DBA_TAB_COL_STATISTICS
+·         DBA_TAB_HISTOGRAMS
+·         DBA_INDEXES
+·         DBA_IND_STATISTICS
+·         DBA_CLUSTERS
+·         DBA_TAB_PARTITIONS
+·         DBA_TAB_SUBPARTITIONS
+·         DBA_IND_PARTITIONS
+·         DBA_IND_SUBPARTITIONS
+·         DBA_PART_COL_STATISTICS
+·         DBA_PART_HISTOGRAMS
+·         DBA_SUBPART_COL_STATISTICS
+·         DBA_SUBPART_HISTOGRAMS
+·         INDEX_STATS              存储ANALYZE ..VALIDATE STRUCTURE统计信息
+·         AUX_STATS$               存储CPU统计信息
+·         X$KCFIO                  存储I/O统计信息
+因为数据库中的对象会经常的变化，所以统计信息必须有规律的更新以便更加准确的描述这些数据库对象。统计信息默认是由ORACLE自动维护的，不过我们也可以用DBMS_STATS包手动收集统计信息。DBMS_STATS包同样提供了过程来维护统计信息。关于DBMS_STATS包更详细的描述请参阅官方文档PL/SQL Packages and Types Reference部分。
+2. 自动收集统计信息
+Oracle10g中，在安装Oracle的时候，就默认创建了一个名为GATHER_STATS_JOB的job来自动收集优化器统计信息。这个job收集数据库中所有对象的统计信息。默认的情况下这个job是周一到周五每天晚上10点到第二天早上6点以及整个周末来收集统计信息。
+可以查看DBA_SCHEDULER_JOBS， DBA_SCHEDULER_PROGRAMS,DBA_SCHEDULER_WINDOWS，DBA_SCHEDULER_JOB_RUN_DETAILS等视图来查看JOB设置以及运行信息。
+自动收集过期的统计信息依赖于表监控特征，在Oracle10g中表监控默认是开启的，同时它也依赖STATISTICS_LEVEL参数的值，10g中默认为typical,只有将STATISTICS_LEVEL参数设置为ALL或者TYPICAL才能让ORACLE识别过期的统计信息。
+3. 关闭自动收集统计信息
+在某些情况下，我们想关闭自动收集统计信息那么我们可以利用如下方法:
+   BEGIN
+      DBMS_SCHEDULER.DISABLE('GATHER_STATS_JOB');
+   END;
+   /
+4. 何时该手动收集统计信息
+有时候自动收集统计并不合适，因为自动收集统计信息是在午夜运行的，然而由于对象是在白天被修改了，导致导致的统计信息变得陈旧，这里有2种这类对象:
+·         白天经常被delete,或者truncated之后又rebuild的表(经常变化的表)
+·         批量操作之后有10%或者以上的数据被更改的表(批量处理的表)
+·         对于经常变化的表，可以将其统计信息设置为null，当ORACLE遇到一个表没有统计信息，ORACLE会动态采样以便为查询优化器收集必要的统计信息。动态采样这个特征受到参数optimizer_dynamic_sampling的控制，它的默认值为2，同时呢optimizer_mode也能控制动态采样，可将其设置为all.
+以SCOTT用户下的DEPT表为例，将一个表的统计信息设置为null的方法如下：
+BEGIN  DBMS_STATS.DELETE_TABLE_STATS('SCOTT','DEPT');  DBMS_STATS.LOCK_TABLE_STATS('SCOTT','DEPT');END;/我们也可以在表具有典型的，代表性的时候收集统计信息，并且锁住其统计信息，因为在夜晚自动收集的统计信息未必适用于白天的负载，而典型的统计信息具有代表意义，所以这个时候采取lock其典型的统计信息更能让CBO选择更优的执行计划。
+至于上面的两种方法用哪种，这个还需要根据业务，实际情况分析之。
+·         对于批量处理的表 ，应该在批量处理完成的时候立即对其收集统计信息，可以将收集统计信息的脚本绑定到批量处理的脚本中。
+·         对于外部表，只能通过gather_table_stats过程来收集统计信息，并且外部表不支持取样，所以需要把gather_table_stats中的estimate_percent设置为null。
+·         系统的统计信息也需要手动收集，因为这些信息是不会自动收集的。
+·         对于固定对象，比如说动态性能表，需要手动的执行gather_fixed_objects_stats过程来收集。固定的对象反映了当前数据库的活动。当数据库活动处于具有代表性的时候，就应该收集这类统计信息。
+ 
+5. 锁住/解锁统计信息
+·         LOCK_SCHEMA_STATS
+·         LOCK_TABLE_STATS
+·         UNLOCK_SCHEMA_STATS
+·         UNLOCK_TABLE_STATS
+6. 手动收集统计信息
+·         如果你选择手动收集统计信息，那么你需要手动的收集所有用户的统计信息，包括系统用户。如果你数据库中的数据是有规律的变化的，那么你可以有规律的收集统计信息，以便统计信息能够准确的反映数据库中的对象的特征。
+·         可以利用DBMS_STATS包，来收集表，索引，列，以及分区表的统计信息，DBMS_STATS不能收集CLUSTER 的统计信息，不过可以收集单个表来代替收集整个CLUSTER的统计信息。
+·         当你收集表，列，索引的统计信息的时候，如果ORACLE在数据字典中发现这个对象已经收集了统计信息，那么ORACLE会更新已经存在的统计信息，旧的统计信息会被保存下来，如果你愿意还能还原旧的统计信息。
+·         你可以使用DBMS_STATS.GATHER_DICTIONARY_STATS来收集系统用户的统计信息，这个过程收集所有的系统用户的统计信息，包括SYS和SYSTEM，以及其他用户，比如CTXSYS,DRSYS。
+·         当数据库对象的统计信息被更新之后，ORACLE会使已经解析的SQL语句作废，当再次运行该SQL语句的时候，ORACLE会重新解析该SQL，优化器会自动的根据新的统计信息选择一条新的执行计划。对于分布式的数据库，不会作废。
+·         收集统计信息的过程
+o   GATHER_INDEX_STATS      --收集索引统计信息
+o   GATHER_TABLE_STATS      --收集表，列，索引统计信息
+o   GATHER_SCHEMA_STATS     --收集schema所有对象统计信息
+o   GATHER_DICTIONARY_STATS –-收集所有系统用户的统计信息
+o   GATHER_DATABASE_STATS   --收集数据库所有对象统计信息
+·         我们利用上面的过程收集统计信息的时候有几个需要关心的参数
+o   采样
+o   并行
+o   分区
+o   列统计以及直方图/柱状图
+o   过期的统计
+o   自定义统计
+?  在收集统计信息的操作过程中我们可以使用采样来评估统计信息。采样对于收集统计信息来说是一项很重要的技术。如果在收集统计信息的时候不使用采样，那么就需要对表进行全表扫描，以及排序整个表。通过采样可以降低收集必要的统计信息所花费的资源。
+控制采样的参数是ESTIMATE_PERCENT，采样的参数可以设置任意值(当然要在范围内)，不过ORACLE公司推荐设置ESTIMATE_PERCENT为DBMS_STATS.AUTO_SAMPLE_SIZE。
+AUTO_SAMPLE_SILE可以让ORACLE自己决定最好的采样值，因为不同类型(table,index,column)的统计信息有不同的需求。采样的例子：
+EXEC DBMS_STATS.GATHER_SCHEMA_STATS(‘SCOTT’,DBMS_STATS.AUTO_SAMPLE_SIZE);
+当ESTIMATE_PERCENT参数是手动指定的，如果手动指定的参数过小，不能收集到足够的信息，那么DBMS_STATS可能会自动增长ESTIMATE_PERCENT的值，这样就能确保收集到足够的统计信息。
+?  我们既可以串行的收集统计信息，也可以并行的收集统计信息。参数DEGREE控制DBMS_STATS是否使用并行特征。ORACLE公司推荐将DEGREE参数设置为DBMS_STATS.AUTO_DEGREE。这样设置过后，ORACLE就能够根据OBJECT的SIZE，以及与并行有关的init参数来决定一个恰当的并行度，收集统计信息。注意:cluster index,domain index,bitmap join index不能使用并行特征。
+?  对于分区表和分区索引，DBMS_STATS既可以单独的收集分区统计信息，也可以收集整个表/索引的统计信息。对于组合分区，DBMS_STATS也能够收集子分区，分区，以及整个表/索引的统计信息。参数GRANULARITY控制分区统计信息的收集。因为分区统计信息，全局统计信息对于大多数系统来说都是非常重要的，所以ORACLE公司推荐将其设置为AUTO来收集分区，以及全局的统计信息。
+?  当对表收集统计信息的时候，DBMS_STATS会收集列的数据分布信息。数据分布最基本的统计信息就是这个列的最大值与最小值。如果这一列是倾斜的，那么优化器仅仅根据列最大值与最小值是无法制定出准确的执行计划的。对于倾斜的数据分布，我们可以收集列的直方图/柱状图统计信息，这样可以让优化器制定出更加准确的执行计划。
+参数METHOD_OPT控制柱状图的收集。ORACLE公司推荐设置METHOD_OPT为FOR ALL COLUMNS SIZE AUTO。这样设置过后ORACLE会自动的判断哪一列需要收集柱状图，并且自动的设置柱状图的bucket。你同样可以手动的设置哪一列需要收集柱状图，以及柱状图的bucket。
+?  为了知道统计信息是否过期，ORACLE提供了表监控功能。将init参数STATISTICS_LEVEL设置为ALL或者TYPICAL(默认)，就开启了表监控的功能(10g已经不需要alter table monitor了)。表监控功能跟踪表的insert,update,delete，truncate，操作，并且记录在DBA_TAB_MODIFICATIONS视图里面。我们在查询DBA_TAB_MODIFICATIONS视图的时候有可能查询不到结果，或者查询的结果不准确，这个时候需要用DBMS_STATS.FLUSH_DATABASE_MONITORING_INFO过程将内存中的信息刷新到
+该视图中。OPTIONS参数设置为GATHER STALE或者GATHER AUTO，就会让DBMS_STATS判断表的统计信息是否过期(注意GATHER_TABLE_STATS中没有这个参数，只有GATHER_DATABASE_STATS,GATHER_SCHEMA_STATS过程中有这个参数)。判断表的统计信息是否过期的依据是是否有10%以上的数据被修改过，如果被修改过了，那么ORACLE就认为之前的统计信息过期了，ORACLE会重新收集统计信息。
+?  在我们创建了函数索引之后，我们要为列收集统计信息，这个时候我们需要设置参数METHOD_OPT为FOR ALL HIDDEN COLUMNS。
+7. 收集统计信息的策略
+通常情况下，我们会将ORACLE自动收集统计信息功能给关闭，我们会采用手动的方式给数据库收集统计信息。至于收集统计信息的策略需要根据系统来确定。下面说说几种常见的情况：
+·         如果你系统中的表的数据是增量(有规律)的增加，也就是说你几乎不做任何的批量处理操作，比如批量删除，批量加载操作。对于这样的表收集统计信息是非常简单的。你可以通过查看DBA_TAB_MODIFICATIONS视图来观察表的变化情况，观察表中数据量的变化是否超过了10%,并且记录下天数。这样你就可以每隔这样的时间间隔对其收集一次统计信息。你可以用CRONTAB,或者JOB调用GATHER_SCHEMA_STATS或者GATHER_TABLE_STATS过程来收集统计信息。
+·         对于经常批量操作的表，那么表的统计信息就必须在批量操作之后对其收集统计信息。
+·         对于分区表，通常只有一个分区被修改，这种情况下可以只收集单独分区的统计信息，不过收集整个表的统计信息还是非常有必要的。
+·         最后我会给出两个脚本，判断该表是否需要收集统计信息。
+8. 收集统计信息的一些例子
+例子1对表收集统计信息
+BEGIN
+   DBMS_STATS.GATHER_TABLE_STATS(ownname => 'SCOTT',
+                                 tabname => 'DEPT',
+                                 estimate_percent => DBMS_STATS.AUTO_SAMPLE_SIZE,
+                                 method_opt => 'for all columns size repeat',
+                                 degree => DBMS_STATS.AUTO_DEGREE,
+                                 cascade=>TRUE
+                                 );
+END;
+/
+上面的例子收集SCOTT.DEPT表的统计信息。这里面值得关注的一个参数就是method_opt。这个参数控制是否收集列的直方图信息。通常情况下，是不会收集直方图的，关于直方图不是三言两语可以说明白的。它的四个选项method_opt=>'for all columns size skewonly' 
+ORACLE会根据数据分布收集直方图
+method_opt=>'for all columns size repeat'
+只有以前收集过直方图，才会收集直方图信息，所以一般我们会设置method_opt 为repeat
+method_opt=>'for all columns size auto' 
+ORACLE会根据数据分布以及列的workload来确定是否收集直方图
+method_opt=>'for all columns size interger'
+我们自己指定一个bucket值
+例子2对某一个schma收集统计信息
+BEGIN
+   DBMS_STATS.GATHER_SCHEMA_STATS(ownname => 'SCOTT',
+                                  estimate_percent =>DBMS_STATS.AUTO_SAMPLE_SIZE,
+                                  ptions => 'gather auto',
+                                  degree  => DBMS_STATS.AUTO_DEGREE,
+                                  method_opt => 'for all columns size repeat',
+                                  cascade => TRUE
+                                 );
+END;                                
+/
+上面的例子收集SCOTT模式下所有对象的统计信息。里面值得注意的一个参数就是options。前面已经讲到过，他与表监控有关。它有四个选项
+Options =>’gather’       收集所有对象的统计信息
+Options =>’gather empty’ 只收集还没被统计的表
+Options =>’gather stale’ 只收集修改量超过10%的表
+Options =>’gather auto’  相当于empty+stale ，所以我们一般设置为AUTO。
+例子3 对一个分区表收集统计信息
+BEGIN
+   DBMS_STATS.GATHER_TABLE_STATS(ownname => 'ROBINSON',
+                                 tabname => 'P_TEST',
+                                 estimate_percent => DBMS_STATS.AUTO_SAMPLE_SIZE,
+                                 method_opt => 'for all columns size repeat',
+                                 degree => DBMS_STATS.AUTO_DEGREE,
+                                 granularity => 'ALL',
+                                 cascade=>TRUE
+                                 );
+END;
+/
+上面的例子收集ROBINSON.P_TEST表的统计信息。里面值得注意的一个参数就是granularity，他有7个选项。
+granularity => 'ALL'  收集分区，子分区，全局的统计信息
+granularity => 'AUTO' 这个是默认的设置，ORACLE会根据分区类型来决定用ALL,GLOBAL AND PARTITION ,还是其他的
+granularity => 'DEFAULT' 这个是过期了的
+granularity => 'GLOBAL' 收集全局统计信息
+granularity => 'GLOBAL AND PARTITION' 收集全局，分区统计信息，但是不收集子分区统计信息
+granularity => 'PARTITION' 收集分区统计信息
+granularity => 'SUBPARTITION' 收集子分区统计信息
+当然我们可以指定partname，自己控制对哪个分区收集统计信息
+9. 列出表需要收集统计信息的脚本
+普通表
+set serveroutput on
+declare
+   -----select OVER THE Change RATE TABLES---------------
+   cursor overchangerate is
+ select a.table_owner, a.table_name, a.inserts,a.updates,a.deletes ,b.num_rows
+                from dba_tab_modifications a, dba_tables b
+               where a.table_name = b.table_name
+                 and table_owner not in
+                     ('SYS', 'SYSTEM', 'SYSMAN', 'DMSYS', 'OLAPSYS', 'XDB',
+                      'EXFSYS', 'CTXSYS', 'WMSYS', 'DBSNMP', 'ORDSYS',
+                      'OUTLN', 'TSMSYS', 'MDSYS')
+                 and inserts > 0 and partitioned='NO' and a.inserts/decode(b.num_rows,0,1,b.num_rows)>=0.1
+                 or a.table_name = b.table_name
+                 and table_owner not in
+                     ('SYS', 'SYSTEM', 'SYSMAN', 'DMSYS', 'OLAPSYS', 'XDB',
+                      'EXFSYS', 'CTXSYS', 'WMSYS', 'DBSNMP', 'ORDSYS',
+                      'OUTLN', 'TSMSYS', 'MDSYS')
+                 and updates > 0 and partitioned='NO' and a.updates/decode(b.num_rows,0,1,b.num_rows)>=0.1 or
+                 a.table_name = b.table_name
+                 and table_owner not in
+                     ('SYS', 'SYSTEM', 'SYSMAN', 'DMSYS', 'OLAPSYS', 'XDB',
+                      'EXFSYS', 'CTXSYS', 'WMSYS', 'DBSNMP', 'ORDSYS',
+                      'OUTLN', 'TSMSYS', 'MDSYS')
+                 and deletes > 0 and partitioned='NO' and a.deletes/decode(b.num_rows,0,1,b.num_rows)>=0.1 ;
+    ----select the unanalyzed table---------------
+    cursor nullmonitor is
+      select owner, table_name
+        from dba_tables
+       where owner not in ('SYS', 'SYSTEM', 'SYSMAN', 'DMSYS', 'OLAPSYS',
+              'XDB', 'EXFSYS', 'CTXSYS', 'WMSYS', 'DBSNMP',
+              'ORDSYS', 'OUTLN', 'TSMSYS', 'MDSYS')
+         and last_analyzed is null;
+  begin
+    dbms_output.enable(1000000);
+    ----flush the monitorring information into the dba_tab_modifications
+    DBMS_STATS.FLUSH_DATABASE_MONITORING_INFO;
+    ----display the unanalyzed table--------------
+    dbms_output.put_line('- - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
+  
+    dbms_output.put_line('Unalalyzed tables:');
+    for v_null in nullmonitor loop
+      dbms_output.put_line(v_null.owner || '.' || v_null.table_name ||
+                           ' has not been analyzed, consider gathering statistics');
+    end loop;
+    ----display the  information-------------------
+    dbms_output.put_line('- - - - - - - - - - - - - - - - - - - - -  - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -' );
+    dbms_output.put_line('Over the Change_Rate 10%:');
+    for v_topinsert in overchangerate loop
+      dbms_output.put_line(v_topinsert.table_owner || '.' || v_topinsert.table_name || ' once has ' || v_topinsert.num_rows || ' rows, ' ||
+                           'till now inserted ' || v_topinsert.inserts || ' rows, updated  ' || v_topinsert.updates || ' rows, deleted ' || v_topinsert.deletes ||   
+                           ' rows. consider gathering statistics');
+    end loop;
+     dbms_output.put_line('- - - - - - - - - - - - - - - - - - -  - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
+  end;
+/
+ 
+下面的是分区表
+set serveroutput on
+declare
+   -----select OVER THE Change RATE TABLES---------------
+   cursor overchangerate is
+select a.table_owner,a.table_name,a.partition_name,sum(a.inserts) inserts,sum(a.updates) updates,sum(a.deletes) deletes,sum(b.num_rows) num_rows
+from dba_tab_modifications a,dba_tab_partitions b where a.table_owner =b.table_owner and a.table_name=b.table_name
+and a.partition_name=b.partition_name and   a.table_owner not in ('SYS', 'SYSTEM', 'SYSMAN', 'DMSYS', 'OLAPSYS', 'XDB',
+'EXFSYS', 'CTXSYS', 'WMSYS', 'DBSNMP', 'ORDSYS','OUTLN', 'TSMSYS', 'MDSYS')
+group by a.table_owner,a.table_name,a.partition_name
+having (sum(a.inserts)/decode(sum(b.num_rows),0,1,sum(b.num_rows)))>=0.1
+or
+(sum(a.updates)/decode(sum(b.num_rows),0,1,sum(b.num_rows)))>=0.1
+or
+(sum(a.deletes)/decode(sum(b.num_rows),0,1,sum(b.num_rows)))>=0.1
+order by a.table_name;
+  begin
+    dbms_output.enable(1000000);
+    ----flush the monitorring information into the dba_tab_modifications
+    DBMS_STATS.FLUSH_DATABASE_MONITORING_INFO;
+    ----display the top_n_insert information-------------------
+    dbms_output.put_line('- - - - - - - - - - - - - - - - - - - - -  - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -' );
+    dbms_output.put_line('Over the Change_Rate 10%:');
+    for v_topinsert in overchangerate loop
+      dbms_output.put_line(v_topinsert.table_owner || '.' || v_topinsert.table_name || ' partition ' || v_topinsert.partition_name  || ' once has ' || v_topinsert.num_rows || ' rows, ' ||
+                           'till now inserted ' || v_topinsert.inserts || ' rows, updated  ' || v_topinsert.updates || ' rows, deleted ' || v_topinsert.deletes ||   
+                           ' rows. consider gathering statistics');
+    end loop;
+    dbms_output.put_line('- - - - - - - - - - - - - - - - - - - - -  - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -' );
+  end;
+/
+ 
+在此特别声明一点，在oracle11.2版本中有一个相关的BUG
+Bug 9272549 - User statistics are ignored when dynamic sampling occurs 9272549.8
+该BUG会导致严重的性能问题。
+oracle官方申明，只有在12.1版本才解决这个问题，临时解决方案是手动关闭动态采样。
+ 
+顺便贴上10个level的动态采样介绍
+
+Level 0: Do not use dynamic sampling.
+
+Level 1: Sample all tables that have not been analyzed if the following criteria are met: (1) there is at least 1 unanalyzed table in the query; (2) this unanalyzed table is joined to another table or appears in a subquery or non-mergeable view; (3) this unanalyzed table has no indexes; (4) this unanalyzed table has more blocks than the number of blocks that would be used for dynamic sampling of this table. The number of blocks sampled is the default number of dynamic sampling blocks (32).
+
+Level 2: Apply dynamic sampling to all unanalyzed tables. The number of blocks sampled is two times the default number of dynamic sampling blocks.
+
+Level 3: Apply dynamic sampling to all tables that meet Level 2 criteria, plus all tables for which standard selectivity estimation used a guess for some predicate that is a potential dynamic sampling predicate. The number of blocks sampled is the default number of dynamic sampling blocks. For unanalyzed tables, the number of blocks sampled is two times the default number of dynamic sampling blocks.
+
+Level 4: Apply dynamic sampling to all tables that meet Level 3 criteria, plus all tables that have single-table predicates that reference 2 or more columns. The number of blocks sampled is the default number of dynamic sampling blocks. For unanalyzed tables, the number of blocks sampled is two times the default number of dynamic sampling blocks.
+
+Levels 5, 6, 7, 8, and 9: Apply dynamic sampling to all tables that meet the previous level criteria using 2, 4, 8, 32, or 128 times the default number of dynamic sampling blocks respectively.
+
+Level 10: Apply dynamic sampling to all tables that meet the Level 9 criteria using all blocks in the table.

@@ -1,0 +1,6 @@
+查询更新版本
+select versions_starttime, versions_endtime, versions_operation, a.field1
+  from a  versions between timestamp minvalue and maxvalue
+ order by VERSIONS_STARTTIME
+
+

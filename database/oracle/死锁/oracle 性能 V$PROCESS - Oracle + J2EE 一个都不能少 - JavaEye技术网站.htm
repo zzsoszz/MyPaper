@@ -1,0 +1,874 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0038)http://xy-z487.javaeye.com/blog/292104 -->
+<HTML dir=ltr xml:lang="zh-CN" 
+xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<META 
+content="V$PROCESS    　　本视图包含当前系统 oracle运行的所有进程信息。常被用于将 oracle或服务进程的操作系统进程 ID与数据库 session之间建立联系。在某些情况下非常有用：  1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   如果数据库瓶颈是系统资源 (如： cpu,内存 )，并且占用资源最多的用户总是停留在某几个服务进程，那么进行如下诸项：  l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    找出资源进程  l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ..." 
+name=description>
+<META content="  oracle 性能 V$PROCESS " name=keywords><LINK 
+href="/images/favicon.ico" type=image/x-icon rel="shortcut icon"><LINK 
+title=JavaEye href="/open_search.xml" type=application/opensearchdescription+xml 
+rel=search><LINK title="Oracle + J2EE 一个都不能少" href="/rss" 
+type=application/rss+xml rel=alternate><LINK media=screen 
+href="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/blog.css" 
+type=text/css rel=stylesheet><LINK media=screen 
+href="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/green.css" 
+type=text/css rel=stylesheet>
+<SCRIPT 
+src="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/application.js" 
+type=text/javascript></SCRIPT>
+<LINK media=screen 
+href="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/SyntaxHighlighter.css" 
+type=text/css rel=stylesheet>
+<SCRIPT 
+src="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/shCoreCommon.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/hotkey.js" 
+type=text/javascript></SCRIPT>
+
+<STYLE>DIV#main {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; WIDTH: 740px; PADDING-TOP: 0px; BACKGROUND-COLOR: transparent; BORDER-RIGHT-WIDTH: 0px
+}
+</STYLE>
+<LINK media=screen 
+href="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/ui.css" 
+type=text/css rel=stylesheet>
+<SCRIPT 
+src="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/compress.js" 
+type=text/javascript></SCRIPT>
+
+<META content="MSHTML 6.00.2900.3698" name=GENERATOR></HEAD>
+<BODY>
+<DIV id=header>
+<DIV id=blog_site_nav><A class=homepage href="http://www.javaeye.com/">首页</A> <A 
+href="http://www.javaeye.com/news">新闻</A> <A 
+href="http://www.javaeye.com/forums">论坛</A> <A 
+href="http://www.javaeye.com/ask">问答</A> <A 
+href="http://www.javaeye.com/blogs">博客</A> <A 
+href="http://www.javaeye.com/job">招聘</A> <A id=msna onclick="return false;" 
+href="http://xy-z487.javaeye.com/blog/292104#"><U>更多</U> <SMALL>▼</SMALL></A> 
+<DIV class=quick_menu style="DISPLAY: none"><A 
+href="http://www.javaeye.com/wiki">专栏</A> <!--<a href="http://www.javaeye.com/articles">文摘</a>//--><A 
+href="http://www.javaeye.com/groups">圈子</A> <A 
+href="http://www.javaeye.com/search">搜索</A> </DIV></DIV>
+<DIV id=user_nav><A class=welcome title=登录 
+href="http://xy-z487.javaeye.com/login">您还未登录 !</A> <A style="COLOR: red" 
+href="http://www.javaeye.com/all">我的应用</A> <A 
+href="http://xy-z487.javaeye.com/login">登录</A> <A class=nobg 
+href="http://xy-z487.javaeye.com/signup">注册</A> </DIV></DIV>
+<DIV id=page>
+<DIV class=clearfix id=branding>
+<DIV id=blog_name>
+<H1><A href="http://xy-z487.javaeye.com/">Oracle + J2EE 一个都不能少</A></H1></DIV>
+<DIV id=blog_preview></DIV>
+<DIV id=blog_domain>永久域名 <A 
+href="http://xy-z487.javaeye.com/">http://xy-z487.javaeye.com/</A></DIV></DIV>
+<DIV class=clearfix id=content>
+<DIV id=main>
+<DIV class=blog_main>
+<DIV class=blog_nav>
+<DIV class=pre_next><A class=next title="oracle 性能 网上参考文章" 
+href="http://xy-z487.javaeye.com/blog/292121">oracle 性能 网上参考文章</A> | <A 
+class=pre title="V$FILESTAT " 
+href="http://xy-z487.javaeye.com/blog/292100">V$FILESTAT </A></DIV></DIV>
+<DIV class=blog_title>
+<DIV class=date><SPAN class=year>2008</SPAN><SPAN class=sep_year>-</SPAN><SPAN 
+class=month>12</SPAN><SPAN class=sep_month>-</SPAN><SPAN 
+class=day>12</SPAN></DIV>
+<H3><A href="http://xy-z487.javaeye.com/blog/292104">oracle 性能 V$PROCESS 
+</A></H3></DIV>
+<DIV class=blog_content>
+<P style="TEXT-ALIGN: center" align=center><STRONG><SPAN 
+style="FONT-SIZE: 16pt">V$PROCESS </SPAN></STRONG></P>
+<P><SPAN>　　本视图包含当前系统</SPAN> oracle<SPAN>运行的所有进程信息。常被用于将</SPAN> 
+oracle<SPAN>或服务进程的操作系统进程</SPAN> ID<SPAN>与数据库</SPAN> 
+session<SPAN>之间建立联系。在某些情况下非常有用：</SPAN> </P>
+<P style="MARGIN-LEFT: 42pt; TEXT-INDENT: -21.25pt">1.<SPAN 
+style="FONT: 7pt Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN><SPAN>如果数据库瓶颈是系统资源</SPAN> (<SPAN>如：</SPAN> cpu,<SPAN>内存</SPAN> 
+)<SPAN>，并且占用资源最多的用户总是停留在某几个服务进程，那么进行如下诸项：</SPAN> </P>
+<P style="MARGIN-LEFT: 63pt; TEXT-INDENT: -21pt"><SPAN>l<SPAN 
+style="FONT: 7pt Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>找出资源进程</SPAN> </P>
+<P style="MARGIN-LEFT: 63pt; TEXT-INDENT: -21pt"><SPAN>l<SPAN 
+style="FONT: 7pt Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>找出它们的</SPAN> session,<SPAN>你必须将进程与会话联系起来。</SPAN> </P>
+<P style="MARGIN-LEFT: 63pt; TEXT-INDENT: -21pt"><SPAN>l<SPAN 
+style="FONT: 7pt Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>找出为什么</SPAN> session<SPAN>占用了如此多的资源</SPAN> </P>
+<P style="MARGIN-LEFT: 42pt; TEXT-INDENT: -21.25pt">2.<SPAN 
+style="FONT: 7pt Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN>SQL<SPAN>跟踪文件名是基于服务进程的操作系统进程</SPAN> ID<SPAN>。要找出</SPAN> 
+session<SPAN>的跟踪文件，你必须将</SPAN> session<SPAN>与服务进程联系起来。</SPAN> </P>
+<P style="MARGIN-LEFT: 42pt; TEXT-INDENT: -21.25pt">3.<SPAN 
+style="FONT: 7pt Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN><SPAN>某些事件，如</SPAN> rdbms ipc reply<SPAN>，鉴别</SPAN> 
+session<SPAN>进程的</SPAN> Oracle<SPAN>进程</SPAN> 
+ID<SPAN>在等什么。要发现这些进程在做什么，你必须找出它们的</SPAN> session<SPAN>。</SPAN> </P>
+<P style="MARGIN-LEFT: 42pt; TEXT-INDENT: -21.25pt">4.<SPAN 
+style="FONT: 7pt Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN><SPAN>你所看到的服务器上的后台进程</SPAN> (DBWR,LGWR,PMON<SPAN>等</SPAN> 
+)<SPAN>都是服务进程。要想知道他们在做什么，你必须找到他们的</SPAN> session<SPAN>。</SPAN> </P>
+<P><STRONG>V$PROCESS</STRONG> <STRONG><SPAN>中的常用列</SPAN> </STRONG></P>
+<P style="MARGIN-LEFT: 42pt; TEXT-INDENT: -21pt"><SPAN>l<SPAN 
+style="FONT: 7pt Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN>ADDR<SPAN>：进程对象地址</SPAN> </P>
+<P style="MARGIN-LEFT: 42pt; TEXT-INDENT: -21pt"><SPAN>l<SPAN 
+style="FONT: 7pt Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN>PID<SPAN>：</SPAN> oracle<SPAN>进程</SPAN> ID</P>
+<P style="MARGIN-LEFT: 42pt; TEXT-INDENT: -21pt"><SPAN>l<SPAN 
+style="FONT: 7pt Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN>SPID<SPAN>：操作系统进程</SPAN> ID</P>
+<P><STRONG>V$PROCESS</STRONG> <STRONG><SPAN>中的连接列</SPAN> </STRONG></P>
+<P><STRONG>Column&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+View&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Joined Column(s) </STRONG></P>
+<P>ADDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+V$SESSION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+PADDR</P>
+<P><STRONG><SPAN>示例：</SPAN> </STRONG></P>
+<P style="MARGIN-LEFT: 21.25pt; TEXT-INDENT: -21.25pt">1.<SPAN 
+style="FONT: 7pt Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN><SPAN>查找指定系统用户在</SPAN> oracle<SPAN>中的</SPAN> session<SPAN>信息及进程</SPAN> 
+id<SPAN>，假设操作系统用户为：</SPAN> junsansi</P>
+<P><SPAN style="COLOR: teal">select</SPAN> <SPAN 
+style="COLOR: navy">s.sid,s.SERIAL#, s.username,p.spid</SPAN> </P>
+<P><SPAN style="COLOR: navy"></SPAN><SPAN style="COLOR: teal">from</SPAN> <SPAN 
+style="COLOR: navy">v$session s, v$process p</SPAN> </P>
+<P><SPAN style="COLOR: navy"></SPAN><SPAN style="COLOR: teal">where</SPAN> <SPAN 
+style="COLOR: navy">s.osuser = </SPAN><SPAN 
+style="COLOR: blue">'junsansi'</SPAN> </P>
+<P><SPAN style="COLOR: teal">&nbsp;&nbsp; </SPAN><SPAN 
+style="COLOR: teal">and</SPAN> <SPAN style="COLOR: navy">s.PADDR = p.ADDR</SPAN> 
+</P>
+<P style="MARGIN-LEFT: 21.25pt; TEXT-INDENT: -21.25pt">2.<SPAN 
+style="FONT: 7pt Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN><SPAN>查看锁和等待</SPAN> </P>
+<P><SPAN style="COLOR: teal">SELECT</SPAN> <EM><SPAN style="COLOR: red">/*+ rule 
+*/</SPAN> </EM></P>
+<P><SPAN style="COLOR: navy">lpad(</SPAN> <SPAN style="COLOR: blue">' '</SPAN> 
+<SPAN style="COLOR: navy">, decode(l.xidusn, </SPAN><SPAN 
+style="COLOR: blue">0</SPAN> <SPAN style="COLOR: navy">, </SPAN><SPAN 
+style="COLOR: blue">3</SPAN> <SPAN style="COLOR: navy">, </SPAN><SPAN 
+style="COLOR: blue">0</SPAN> <SPAN style="COLOR: navy">)) || l.oracle_username 
+User_name,</SPAN> </P>
+<P><SPAN 
+style="COLOR: navy">o.owner,o.object_name,o.object_type,s.sid,s.serial#,p.spid</SPAN> 
+</P>
+<P><SPAN style="COLOR: navy"></SPAN><SPAN style="COLOR: teal">FROM</SPAN> <SPAN 
+style="COLOR: navy">v$locked_object l, dba_objects o, v$session s, v$process 
+p</SPAN> </P>
+<P><SPAN style="COLOR: navy"></SPAN><SPAN style="COLOR: teal">WHERE</SPAN> <SPAN 
+style="COLOR: navy">l.object_id = o.object_id</SPAN> </P>
+<P><SPAN style="COLOR: navy">&nbsp;&nbsp; </SPAN><SPAN 
+style="COLOR: teal">AND</SPAN> <SPAN style="COLOR: navy">l.session_id = s.sid 
+</SPAN><SPAN style="COLOR: teal">and</SPAN> <SPAN style="COLOR: navy">s.paddr = 
+p.addr</SPAN> </P>
+<P><SPAN style="COLOR: navy"></SPAN><SPAN style="COLOR: teal">ORDER</SPAN> <SPAN 
+style="COLOR: teal">BY</SPAN> <SPAN style="COLOR: navy">o.object_id, xidusn 
+</SPAN><SPAN style="COLOR: teal">DESC</SPAN> </P>
+<P style="MARGIN-LEFT: 21.25pt; TEXT-INDENT: -21.25pt">3.<SPAN 
+style="FONT: 7pt Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></P>
+<P><STRONG><SPAN>附注：</SPAN> </STRONG></P>
+<P><SPAN>　　在</SPAN> linux<SPAN>环境可以通过</SPAN> ps<SPAN>查看进程信息包括</SPAN> 
+pid,windows<SPAN>中任务管理器的</SPAN> PID<SPAN>与</SPAN> v$process<SPAN>中</SPAN> 
+pid<SPAN>不能一一对应，这块在</SPAN> oracleDocument<SPAN>中也没有找到介绍，后来</SPAN> 
+google<SPAN>了一下，有资料介绍说是由于</SPAN> windows<SPAN>是多线程服务器</SPAN> 
+,<SPAN>每个进程包含一系列线程。这点于</SPAN> unix<SPAN>等不同，</SPAN> Unix<SPAN>每个</SPAN> 
+Oralce<SPAN>进程独立存在，在</SPAN> Nt<SPAN>上所有线程由</SPAN> Oralce<SPAN>进程衍生。</SPAN> </P>
+<P><SPAN>　　要在</SPAN> windows<SPAN>中显示</SPAN> oracle<SPAN>相关进程</SPAN> 
+pid<SPAN>，我们可以通过一个简单的</SPAN> sql<SPAN>语句来实现。</SPAN> </P>
+<P><SPAN style="COLOR: teal">SELECT</SPAN> <SPAN style="COLOR: navy">s.SID, 
+p.pid, p.spid signaled, s.osuser, s.program</SPAN> </P>
+<P><SPAN style="COLOR: navy"></SPAN><SPAN style="COLOR: teal">FROM</SPAN> <SPAN 
+style="COLOR: navy">v$process p, v$session s</SPAN> </P>
+<P><SPAN style="COLOR: navy"></SPAN><SPAN style="COLOR: teal">WHERE</SPAN> <SPAN 
+style="COLOR: navy">p.addr = s.paddr;</SPAN> </P>
+<DIV>
+<TABLE style="BORDER-COLLAPSE: collapse" cellSpacing=0 cellPadding=0 border=0>
+  <TBODY>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 61.7pt; PADDING-TOP: 0cm" 
+    vAlign=top width=82>
+      <P><SPAN style="COLOR: black">SID</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 53.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=71>
+      <P><SPAN style="COLOR: black">PID</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 77.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=103>
+      <P><SPAN style="COLOR: black">SIGNALED</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 96.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=129>
+      <P><SPAN style="COLOR: black">OSUSER</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 130.85pt; PADDING-TOP: 0cm" 
+    vAlign=top width=174>
+      <P><SPAN style="COLOR: black">PROGRAM</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 61.7pt; PADDING-TOP: 0cm" 
+    vAlign=top width=82>
+      <P><SPAN style="COLOR: black">1</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 53.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=71>
+      <P><SPAN style="COLOR: black">2</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 77.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=103>
+      <P><SPAN style="COLOR: black">2452</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 96.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=129>
+      <P><SPAN style="COLOR: black">SYSTEM</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 130.85pt; PADDING-TOP: 0cm" 
+    vAlign=top width=174>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 61.7pt; PADDING-TOP: 0cm" 
+    vAlign=top width=82>
+      <P><SPAN style="COLOR: black">2</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 53.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=71>
+      <P><SPAN style="COLOR: black">3</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 77.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=103>
+      <P><SPAN style="COLOR: black">2460</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 96.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=129>
+      <P><SPAN style="COLOR: black">SYSTEM</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 130.85pt; PADDING-TOP: 0cm" 
+    vAlign=top width=174>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 61.7pt; PADDING-TOP: 0cm" 
+    vAlign=top width=82>
+      <P><SPAN style="COLOR: black">3</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 53.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=71>
+      <P><SPAN style="COLOR: black">4</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 77.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=103>
+      <P><SPAN style="COLOR: black">2472</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 96.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=129>
+      <P><SPAN style="COLOR: black">SYSTEM</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 130.85pt; PADDING-TOP: 0cm" 
+    vAlign=top width=174>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 61.7pt; PADDING-TOP: 0cm" 
+    vAlign=top width=82>
+      <P><SPAN style="COLOR: black">4</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 53.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=71>
+      <P><SPAN style="COLOR: black">5</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 77.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=103>
+      <P><SPAN style="COLOR: black">2492</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 96.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=129>
+      <P><SPAN style="COLOR: black">SYSTEM</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 130.85pt; PADDING-TOP: 0cm" 
+    vAlign=top width=174>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 61.7pt; PADDING-TOP: 0cm" 
+    vAlign=top width=82>
+      <P><SPAN style="COLOR: black">5</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 53.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=71>
+      <P><SPAN style="COLOR: black">6</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 77.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=103>
+      <P><SPAN style="COLOR: black">2496</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 96.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=129>
+      <P><SPAN style="COLOR: black">SYSTEM</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 130.85pt; PADDING-TOP: 0cm" 
+    vAlign=top width=174>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 61.7pt; PADDING-TOP: 0cm" 
+    vAlign=top width=82>
+      <P><SPAN style="COLOR: black">6</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 53.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=71>
+      <P><SPAN style="COLOR: black">7</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 77.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=103>
+      <P><SPAN style="COLOR: black">2508</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 96.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=129>
+      <P><SPAN style="COLOR: black">SYSTEM</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 130.85pt; PADDING-TOP: 0cm" 
+    vAlign=top width=174>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 61.7pt; PADDING-TOP: 0cm" 
+    vAlign=top width=82>
+      <P><SPAN style="COLOR: black">7</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 53.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=71>
+      <P><SPAN style="COLOR: black">8</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 77.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=103>
+      <P><SPAN style="COLOR: black">2520</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 96.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=129>
+      <P><SPAN style="COLOR: black">SYSTEM</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 130.85pt; PADDING-TOP: 0cm" 
+    vAlign=top width=174>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 61.7pt; PADDING-TOP: 0cm" 
+    vAlign=top width=82>
+      <P><SPAN style="COLOR: black">8</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 53.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=71>
+      <P><SPAN style="COLOR: black">9</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 77.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=103>
+      <P><SPAN style="COLOR: black">2524</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 96.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=129>
+      <P><SPAN style="COLOR: black">SYSTEM</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 130.85pt; PADDING-TOP: 0cm" 
+    vAlign=top width=174>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 61.7pt; PADDING-TOP: 0cm" 
+    vAlign=top width=82>
+      <P><SPAN style="COLOR: black">10</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 53.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=71>
+      <P><SPAN style="COLOR: black">12</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 77.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=103>
+      <P><SPAN style="COLOR: black">1316</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 96.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=129>
+      <P><SPAN style="COLOR: black">JSS"junsansi</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 130.85pt; PADDING-TOP: 0cm" 
+    vAlign=top width=174>
+      <P><SPAN style="COLOR: black">PlSqlDev.exe</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 61.7pt; PADDING-TOP: 0cm" 
+    vAlign=top width=82>
+      <P><SPAN style="COLOR: black">9</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 53.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=71>
+      <P><SPAN style="COLOR: black">13</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 77.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=103>
+      <P><SPAN style="COLOR: black">3420</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 96.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=129>
+      <P><SPAN style="COLOR: black">JSS"junsansi</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 130.85pt; PADDING-TOP: 0cm" 
+    vAlign=top width=174>
+      <P><SPAN style="COLOR: black">PlSqlDev.exe</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 61.7pt; PADDING-TOP: 0cm" 
+    vAlign=top width=82>
+      <P><SPAN style="COLOR: black">13</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 53.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=71>
+      <P><SPAN style="COLOR: black">14</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 77.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=103>
+      <P><SPAN style="COLOR: black">660</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 96.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=129>
+      <P><SPAN style="COLOR: black">JSS"junsansi</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 130.85pt; PADDING-TOP: 0cm" 
+    vAlign=top width=174>
+      <P><SPAN style="COLOR: black">PlSqlDev.exe</SPAN> 
+</P></TD></TR></TBODY></TABLE></DIV>
+<P><SPAN>还可以通过和</SPAN> v$bgprocess <SPAN>连接查询到后台进程的名字：</SPAN> </P>
+<P><SPAN style="COLOR: teal">SELECT</SPAN> <SPAN style="COLOR: navy">s.SID SID, 
+p.spid threadid, p.program processname, bg.</SPAN> <SPAN 
+style="COLOR: teal">NAME</SPAN> <SPAN style="COLOR: teal">NAME</SPAN> </P>
+<P><SPAN style="COLOR: navy"></SPAN><SPAN style="COLOR: teal">FROM</SPAN> <SPAN 
+style="COLOR: navy">v$process p, v$session s, v$bgprocess bg</SPAN> </P>
+<P><SPAN style="COLOR: navy"></SPAN><SPAN style="COLOR: teal">WHERE</SPAN> <SPAN 
+style="COLOR: navy">p.addr = s.paddr</SPAN> </P>
+<P><SPAN style="COLOR: navy">&nbsp;&nbsp; </SPAN><SPAN 
+style="COLOR: teal">AND</SPAN> <SPAN style="COLOR: navy">p.addr = 
+bg.paddr</SPAN> </P>
+<P><SPAN style="COLOR: navy">&nbsp;&nbsp; </SPAN><SPAN 
+style="COLOR: teal">AND</SPAN> <SPAN style="COLOR: navy">bg.paddr &lt;&gt; 
+</SPAN><SPAN style="COLOR: blue">'00'</SPAN> <SPAN style="COLOR: navy">;</SPAN> 
+</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<DIV class=cnt id=blog_text>
+<P>Eygle<SPAN>大师写了一段</SPAN> sql<SPAN>脚本</SPAN> getsql.sql<SPAN>，用来获取指定</SPAN> 
+pid<SPAN>正在执行的</SPAN> sql<SPAN>语句，在此也附注上来。</SPAN> </P>
+<DIV 
+style="PADDING-RIGHT: 4pt; PADDING-LEFT: 4pt; PADDING-BOTTOM: 1pt; PADDING-TOP: 1pt">
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">REM 
+getsql.sql</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">REM 
+author eygle</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">REM 
+<SPAN>在</SPAN> windows<SPAN>上</SPAN> ,<SPAN>已知进程</SPAN> 
+ID,<SPAN>得到当前正在执行的语句</SPAN> </P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">REM 
+<SPAN>在</SPAN> windows<SPAN>上</SPAN> ,<SPAN>进程</SPAN> ID<SPAN>为</SPAN> 
+16<SPAN>进制</SPAN> ,<SPAN>需要转换</SPAN> ,<SPAN>在</SPAN> UNIX<SPAN>直接为</SPAN> 
+10<SPAN>进制</SPAN> </P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">SELECT&nbsp;&nbsp; 
+/*+ ORDERED */</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+sql_text</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">&nbsp;&nbsp;&nbsp; 
+FROM v$sqltext a</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">&nbsp;&nbsp; 
+WHERE (a.hash_value, a.address) IN (</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+SELECT DECODE (sql_hash_value,</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+0, prev_hash_value,</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+sql_hash_value</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+),</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+DECODE (sql_hash_value, 0, prev_sql_addr, sql_address)</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+FROM v$session b</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+WHERE b.paddr = (SELECT addr</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+FROM v$process c</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+WHERE c.spid = TO_NUMBER ('&amp;pid', 'xxxx')))</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">ORDER 
+BY piece ASC</P>
+<P 
+style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; PADDING-LEFT: 0cm; PADDING-BOTTOM: 0cm; BORDER-LEFT: medium none; PADDING-TOP: 0cm; BORDER-BOTTOM: medium none">/</P></DIV></DIV>
+<P>&nbsp;</P>
+<TABLE style="BORDER-COLLAPSE: collapse; HEIGHT: 127px" cellSpacing=0 
+cellPadding=0 width=316 border=0>
+  <TBODY>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 51.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=68>
+      <P><SPAN style="COLOR: black">SID</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=100>
+      <P><SPAN style="COLOR: black">THREADID</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 98.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=131>
+      <P><SPAN style="COLOR: black">PROCESSNAME</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 81.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=109>
+      <P><SPAN style="COLOR: black">NAME</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 51.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=68>
+      <P><SPAN style="COLOR: black">1</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=100>
+      <P><SPAN style="COLOR: black">2452</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 98.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=131>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 81.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=109>
+      <P><SPAN style="COLOR: black">PMON</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 51.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=68>
+      <P><SPAN style="COLOR: black">2</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=100>
+      <P><SPAN style="COLOR: black">2460</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 98.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=131>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 81.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=109>
+      <P><SPAN style="COLOR: black">DBW0</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 51.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=68>
+      <P><SPAN style="COLOR: black">3</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=100>
+      <P><SPAN style="COLOR: black">2472</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 98.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=131>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 81.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=109>
+      <P><SPAN style="COLOR: black">LGWR</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 51.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=68>
+      <P><SPAN style="COLOR: black">4</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=100>
+      <P><SPAN style="COLOR: black">2492</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 98.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=131>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 81.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=109>
+      <P><SPAN style="COLOR: black">CKPT</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 51.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=68>
+      <P><SPAN style="COLOR: black">5</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=100>
+      <P><SPAN style="COLOR: black">2496</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 98.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=131>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 81.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=109>
+      <P><SPAN style="COLOR: black">SMON</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 51.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=68>
+      <P><SPAN style="COLOR: black">6</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=100>
+      <P><SPAN style="COLOR: black">2508</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 98.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=131>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 81.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=109>
+      <P><SPAN style="COLOR: black">RECO</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 51.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=68>
+      <P><SPAN style="COLOR: black">7</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=100>
+      <P><SPAN style="COLOR: black">2520</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 98.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=131>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 81.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=109>
+      <P><SPAN style="COLOR: black">CJQ0</SPAN> </P></TD></TR>
+  <TR>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 51.2pt; PADDING-TOP: 0cm" 
+    vAlign=top width=68>
+      <P><SPAN style="COLOR: black">8</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=100>
+      <P><SPAN style="COLOR: black">2524</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 98.25pt; PADDING-TOP: 0cm" 
+    vAlign=top width=131>
+      <P><SPAN style="COLOR: black">ORACLE.EXE</SPAN> </P></TD>
+    <TD 
+    style="PADDING-RIGHT: 5.4pt; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; WIDTH: 81.75pt; PADDING-TOP: 0cm" 
+    vAlign=top width=109>
+      <P><SPAN style="COLOR: black">QMN0</SPAN> </P>
+      <P>&nbsp;</P>
+      <P>&nbsp;</P>
+      <P>&nbsp;</P>
+      <P style="TEXT-ALIGN: left">&nbsp;</P></TD></TR></TBODY></TABLE></DIV>
+<SCRIPT type=text/javascript><!--
+google_ad_client = "pub-1076724771190722";
+/* JE个人博客468x60 */
+google_ad_slot = "5506163105";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</SCRIPT>
+
+<SCRIPT 
+src="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+
+<DIV class=blog_nav>
+<DIV class=pre_next><A class=next title="oracle 性能 网上参考文章" 
+href="http://xy-z487.javaeye.com/blog/292121">oracle 性能 网上参考文章</A> | <A 
+class=pre title="V$FILESTAT " 
+href="http://xy-z487.javaeye.com/blog/292100">V$FILESTAT </A></DIV></DIV>
+<DIV class=blog_bottom>
+<UL>
+  <LI>16:24 </LI>
+  <LI>浏览 (727) </LI>
+  <LI><A href="http://xy-z487.javaeye.com/blog/292104#comments">评论</A> (0) </LI>
+  <LI>分类: <A href="http://xy-z487.javaeye.com/category/47271">技术</A> </LI>
+  <LI class=last><A class=more href="http://www.javaeye.com/wiki/topic/292104" 
+  target=_blank>相关推荐</A> </LI></UL></DIV>
+<DIV class=blog_comment>
+<H5>评论</H5><A id=comments name=comments></A></DIV>
+<DIV class=blog_comment>
+<H5>发表评论</H5>
+<FORM id=comment_form onsubmit="return false;" action=/blog/292104 
+method=post><INPUT id=editor_bbcode_flag type=hidden> 
+<DIV id=editor_main><TEXTAREA class="validate-richeditor bad-words min-length-5" id=editor_body style="WIDTH: 500px; HEIGHT: 350px" name=comment[body] rows=20 cols=40></TEXTAREA></DIV>
+<SCRIPT type=text/javascript>
+  var editor = new Control.TextArea.Editor("editor_body", "bbcode", false);
+</SCRIPT>
+
+<P style="PADDING-RIGHT: 30px; TEXT-ALIGN: right">您还没有登录，请<A 
+href="http://xy-z487.javaeye.com/login">登录</A>后发表评论(快捷键 Alt+S / Ctrl+Enter) <INPUT class=submit id=quick_reply_button type=submit value=提交 name=commit></P></FORM>
+<SCRIPT type=text/javascript>
+          new HotKey("s",function() {$('quick_reply_button').click();},{altKey: true, ctrlKey: false});
+          new HotKey(new Number(13),function() {$('quick_reply_button').click();},{altKey: false, ctrlKey: true});
+
+          new Validation("comment_form", {immediate: false, onFormValidate: function(result, form){
+    
+            if(confirm('您需要登录以后才能执行这个操作，现在要登录吗？')) window.location.href = '/login';
+    
+        }});
+        </SCRIPT>
+</DIV></DIV>
+<SCRIPT type=text/javascript>
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  fix_image_size($$('div.blog_content img'), 700);
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'Post'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);}
+    });
+  }
+</SCRIPT>
+</DIV>
+<DIV id=local>
+<DIV class=local_top></DIV>
+<DIV id=blog_owner>
+<DIV id=blog_owner_logo><A href="http://xy-z487.javaeye.com/"><IMG class=logo 
+title="xy_z487的博客: Oracle + J2EE 一个都不能少" alt=xy_z487的博客 
+src="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/78ef08ca-7e0e-32a6-887b-912271449c6e.gif"></A></DIV>
+<DIV id=blog_owner_name>xy_z487</DIV></DIV>
+<DIV id=blog_actions>
+<UL>
+  <LI>浏览: 64486 次 
+  <LI>性别: <IMG title=男 alt=Icon_minigender_1 
+  src="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/icon_minigender_1.gif"> 
+
+  <LI>来自: 北京 
+  <LI><IMG 
+  src="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/offline.gif"> 
+
+  <LI><A class=profile href="http://xy-z487.javaeye.com/blog/profile">详细资料</A> 
+  <A class=guest_book href="http://xy-z487.javaeye.com/blog/guest_book">留言簿</A> 
+  </LI></UL>
+<H5>搜索本博客</H5>
+<FORM action=/blog/search method=get><INPUT class=text id=query 
+style="MARGIN-LEFT: 10px; WIDTH: 110px" name=query> <INPUT class=submit type=submit value=搜索> </FORM></DIV>
+<DIV class=clearfix id=user_visits>
+<H5>最近访客 <SPAN 
+style="PADDING-LEFT: 30px; FONT-WEIGHT: normal; FONT-SIZE: 12px"><A 
+href="http://xy-z487.javaeye.com/blog/user_visits">&gt;&gt;更多访客</A></SPAN></H5>
+<DIV class=user_visit>
+<DIV class=logo><A href="http://xiaoqingfeng2009.javaeye.com/" 
+target=_blank><IMG class=logo title="xiaoqingfeng2009的博客: " 
+alt=xiaoqingfeng2009的博客 
+src="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/user-logo-thumb.gif"></A></DIV>
+<DIV class=left><A href="http://xiaoqingfeng2009.javaeye.com/" 
+target=_blank>xiaoqingfeng2009</A></DIV></DIV>
+<DIV class=user_visit>
+<DIV class=logo><A href="http://simonyo.javaeye.com/" target=_blank><IMG 
+class=logo title="simonyo的博客: simonyo" alt=simonyo的博客 
+src="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/user-logo-thumb.gif"></A></DIV>
+<DIV class=left><A href="http://simonyo.javaeye.com/" 
+target=_blank>simonyo</A></DIV></DIV>
+<DIV class=user_visit>
+<DIV class=logo><A href="http://wang24722824.javaeye.com/" target=_blank><IMG 
+class=logo title="wang24722824的博客: wang24722824" alt=wang24722824的博客 
+src="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/user-logo-thumb.gif"></A></DIV>
+<DIV class=left><A href="http://wang24722824.javaeye.com/" 
+target=_blank>wang24722824</A></DIV></DIV>
+<DIV class=user_visit>
+<DIV class=logo><A href="http://ifushen52.javaeye.com/" target=_blank><IMG 
+class=logo title="ifushen52的博客: " alt=ifushen52的博客 
+src="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/user-logo-thumb.gif"></A></DIV>
+<DIV class=left><A href="http://ifushen52.javaeye.com/" 
+target=_blank>ifushen52</A></DIV></DIV></DIV>
+<DIV id=blog_menu>
+<H5>博客分类</H5>
+<UL>
+  <LI><A href="http://xy-z487.javaeye.com/">全部博客 (138)</A> 
+  <LI><A href="http://xy-z487.javaeye.com/category/47271">技术 (131)</A> 
+</LI></UL></DIV>
+<DIV id=blog_others>
+<H5>其他分类</H5>
+<UL>
+  <LI><A href="http://xy-z487.javaeye.com/blog/favorite">我的收藏</A> (111) 
+  <LI><A href="http://xy-z487.javaeye.com/blog/topic">我的论坛主题贴</A> (2) 
+  <LI><A href="http://xy-z487.javaeye.com/blog/post">我的所有论坛贴</A> (14) 
+  <LI><A href="http://xy-z487.javaeye.com/blog/article">我的精华良好贴</A> (0) 
+</LI></UL></DIV>
+<DIV id=recent_groups>
+<H5>最近加入圈子</H5>
+<UL></UL></DIV>
+<DIV id=month_blogs>
+<H5>存档</H5>
+<UL>
+  <LI><A href="http://xy-z487.javaeye.com/blog/monthblog/2010-09">2010-09</A> 
+  (3) 
+  <LI><A href="http://xy-z487.javaeye.com/blog/monthblog/2010-08">2010-08</A> 
+  (4) 
+  <LI><A href="http://xy-z487.javaeye.com/blog/monthblog/2010-07">2010-07</A> 
+  (1) 
+  <LI><A href="http://xy-z487.javaeye.com/blog/monthblog_more">更多存档...</A> 
+</LI></UL></DIV>
+<DIV id=comments_top>
+<H5>评论排行榜</H5>
+<UL>
+  <LI><A title="VO ， PO ， BO ， QO, DAO ,POJO" 
+  href="http://xy-z487.javaeye.com/blog/761983">VO ， PO ， BO ， QO, DAO ,POJO</A> 
+
+  <LI><A title="java 基础学习" href="http://xy-z487.javaeye.com/blog/638394">java 
+  基础学习</A> 
+  <LI><A title="java 对象的串行化 序列化" 
+  href="http://xy-z487.javaeye.com/blog/643590">java 对象的串行化 序列化</A> 
+  <LI><A title=java:/comp/env 
+  href="http://xy-z487.javaeye.com/blog/647192">java:/comp/env</A> 
+  <LI><A title=Oracle集群 
+  href="http://xy-z487.javaeye.com/blog/613405">Oracle集群</A> </LI></UL></DIV>
+<DIV id=rss>
+<UL>
+  <LI><A href="http://xy-z487.javaeye.com/rss" target=_blank><IMG alt=Rss 
+  src="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/rss.png"></A> 
+
+  <LI><A 
+  href="http://fusion.google.com/add?feedurl=http://xy-z487.javaeye.com/rss" 
+  target=_blank><IMG alt=Rss_google 
+  src="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/rss_google.gif"></A> 
+
+  <LI><A 
+  href="http://www.xianguo.com/subscribe.php?url=http://xy-z487.javaeye.com/rss" 
+  target=_blank><IMG alt=Rss_xianguo 
+  src="oracle 性能 V$PROCESS - Oracle + J2EE 一个都不能少 - JavaEye技术网站.files/rss_xianguo.jpg"></A> 
+
+  <LI><A href="http://www.google.com/search?hl=zh-CN&amp;q=RSS">[什么是RSS?]</A> 
+  </LI></UL></DIV>
+<DIV class=local_bottom></DIV></DIV></DIV>
+<DIV class=clearfix id=footer>
+<DIV id=copyright>
+<HR>
+声明：JavaEye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<BR>© 
+2003-2010 JavaEye.com. All rights reserved. 上海炯耐计算机软件有限公司 [ 沪ICP备05023328号 ] 
+</DIV></DIV></DIV>
+<SCRIPT type=text/javascript>
+  document.write("<img src='http://stat.javaeye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&logged_in=no" + "' width='0' height='0' />");
+</SCRIPT>
+</BODY></HTML>

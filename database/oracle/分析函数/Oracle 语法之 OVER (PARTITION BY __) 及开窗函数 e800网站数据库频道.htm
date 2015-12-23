@@ -1,0 +1,1937 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0066)http://database.e800.com.cn/articles/2008/610/1213079838055_1.html -->
+<HTML lang=gb2312 xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Oracle 语法之 OVER (PARTITION BY ..) 及开窗函数 e800网站数据库频道</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content="Oracle 语法之 OVER (PARTITION BY ..) 及开窗函数 e800网站数据库频道" 
+name=description>
+<META content=Oracle,开窗函数,ER,io,数据库,e800文章,IT,IT新闻,IT资讯,IT产品,IT技术 name=keywords>
+<META http-equiv=refresh content=8>
+<META content=index,follow name=robots><LINK href="favicon.ico" 
+rel="shortcut icon"><LINK href="favicon.ico" rel=Bookmark>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+//去除空格
+String.prototype.trim = function() 
+{
+	return lib.trim(this);
+};
+
+var cookie = {
+	//设置cookie
+	set: function (name, value, time, path, domain) 
+	{
+		var expires = "";
+		if (time) 
+		{
+			var date = new Date();
+			date.setTime(date.getTime() + time * 1000);
+			expires = "; expires=" + date.toGMTString();
+		}
+		if (!path) path = "/";
+		
+		if (domain)
+		{
+			document.cookie = name + "=" + value + expires + "; path=" + path + "; domain=" + domain + ";";
+		}
+		else
+		{
+			document.cookie = name + "=" + value + expires + "; path=" + path + ";";
+		}
+	},
+
+	//取得cookie值
+	get: function (name) 
+	{
+		var name = name + "=";
+		var cookies = document.cookie.split(";");
+
+		for(var i=0; i<cookies.length; i++) 
+		{
+			var c = cookies[i];
+			while (c.charAt(0) == " ") c = c.substring(1, c.length);
+			if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+		}
+		return null;
+	}
+}
+
+function _gObj(id)
+{
+	return document.getElementById(id);
+}
+
+function showTag(id)
+{
+	_gObj(id).style.display = "block";
+}
+
+function hiddenTag(id)
+{
+	_gObj(id).style.display = "none";
+}
+//]]>
+</SCRIPT>
+
+<SCRIPT 
+src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/menudiv.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+function getElement(aID)
+{
+  return (document.getElementById) ? document.getElementById(aID)
+                                   : document.all[aID];
+}
+
+//]]>
+</SCRIPT>
+
+<STYLE type=text/css>HTML {
+	
+}
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: #fff; PADDING-BOTTOM: 0px; MARGIN: 0px; COLOR: #000; PADDING-TOP: 0px; TEXT-ALIGN: center
+}
+BODY {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif, "宋体"
+}
+DIV {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif, "宋体"
+}
+TABLE {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif, "宋体"
+}
+TD {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif, "宋体"
+}
+TR {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif, "宋体"
+}
+TH {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif, "宋体"
+}
+DIV {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+FORM {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+IMG {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+UL {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+OL {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+LI {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+DL {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+DT {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+DD {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+H3 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+H4 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+H5 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+H6 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+UNKNOWN {
+	MARGIN-LEFT: auto; MARGIN-RIGHT: auto; TEXT-ALIGN: center
+}
+INPUT {
+	FONT-SIZE: 12px; VERTICAL-ALIGN: middle
+}
+SELECT {
+	FONT-SIZE: 12px; VERTICAL-ALIGN: middle
+}
+TEXTAREA {
+	FONT-SIZE: 12px; VERTICAL-ALIGN: middle
+}
+INPUT {
+	PADDING-TOP: 0px
+}
+UL {
+	LIST-STYLE-TYPE: none
+}
+.cRed {
+	COLOR: red; TEXT-DECORATION: none
+}
+A.cRed:link {
+	COLOR: red; TEXT-DECORATION: none
+}
+A.cRed:visited {
+	COLOR: red; TEXT-DECORATION: none
+}
+.cARed {
+	COLOR: #ce0004; TEXT-DECORATION: none
+}
+A.cARed:link {
+	COLOR: #ce0004; TEXT-DECORATION: none
+}
+A.cARed:visited {
+	COLOR: #ce0004; TEXT-DECORATION: none
+}
+.cBlue {
+	COLOR: #015b99; TEXT-DECORATION: none
+}
+A.cBlue:link {
+	COLOR: #015b99; TEXT-DECORATION: none
+}
+A.cBlue:visited {
+	COLOR: #015b99; TEXT-DECORATION: none
+}
+.cDRed {
+	COLOR: #bc2931
+}
+A.cDRed:link {
+	COLOR: #bc2931
+}
+A.cDRed:visited {
+	COLOR: #bc2931
+}
+.cGray {
+	COLOR: #4f544d
+}
+A.cGray:link {
+	COLOR: #4f544d
+}
+A.cGray:visited {
+	COLOR: #4f544d
+}
+.cDGray {
+	COLOR: #666
+}
+A.cDGray:link {
+	COLOR: #666
+}
+A.cDGray:visited {
+	COLOR: #666
+}
+.cEGray {
+	COLOR: #999
+}
+A.cEGray:link {
+	COLOR: #999
+}
+A.cEGray:visited {
+	COLOR: #999
+}
+.cWhite {
+	COLOR: #fff
+}
+A.cWhite:link {
+	COLOR: #fff
+}
+A.cWhite:visited {
+	COLOR: #fff
+}
+.cBlack {
+	COLOR: #000
+}
+A.cBlack:link {
+	COLOR: #000
+}
+A.cBlack:visited {
+	COLOR: #000
+}
+A.cBlack:hover {
+	COLOR: #bc2931
+}
+cYellow {
+	COLOR: #ff0
+}
+A.cYellow:link {
+	COLOR: #ff0
+}
+A.cYellow:visited {
+	COLOR: #ff0
+}
+.c026698 {
+	COLOR: #026698
+}
+.ccc050a {
+	PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 13px; COLOR: #cc050a
+}
+.fB {
+	FONT-WEIGHT: bold
+}
+.fI {
+	FONT-STYLE: italic
+}
+.f12px {
+	FONT-SIZE: 12px
+}
+.f14px {
+	FONT-SIZE: 14px
+}
+.left {
+	FLOAT: left
+}
+.right {
+	FLOAT: right
+}
+.clear {
+	CLEAR: both; FONT-SIZE: 1px; VISIBILITY: hidden; WIDTH: 1px
+}
+.hide {
+	DISPLAY: none
+}
+.unLine {
+	TEXT-DECORATION: none
+}
+.unLine A {
+	TEXT-DECORATION: none
+}
+.MGTB7 {
+	MARGIN: 7px 0px
+}
+.MGT6 {
+	MARGIN-TOP: 6px
+}
+.MGT10 {
+	MARGIN-TOP: 10px
+}
+.MGT20 {
+	MARGIN-TOP: 20px
+}
+.MGL10 {
+	MARGIN-LEFT: 10px
+}
+.MGL20 {
+	MARGIN-LEFT: 20px
+}
+.PDT10 {
+	PADDING-TOP: 8px
+}
+.noBorder {
+	BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+.ABorder {
+	BORDER-RIGHT: #000 1px solid; BORDER-TOP: #000 1px solid; BORDER-LEFT: #000 1px solid; BORDER-BOTTOM: #000 1px solid
+}
+.ad70 {
+	CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 6px; WIDTH: 900px; PADDING-TOP: 2px
+}
+.adArc {
+	CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; WIDTH: 900px; PADDING-TOP: 2px
+}
+.ad750 {
+	CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 9px; WIDTH: 900px; PADDING-TOP: 9px
+}
+.ad850 {
+	CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 9px; WIDTH: 900px; PADDING-TOP: 9px
+}
+.ad90 {
+	CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 6px; WIDTH: 900px; PADDING-TOP: 2px
+}
+#HomeNav {
+	CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; WIDTH: 900px; PADDING-TOP: 0px
+}
+#HomeNav .Logo {
+	FLOAT: left; WIDTH: 140px
+}
+#HomeNav .Menu {
+	FLOAT: left; WIDTH: 600px
+}
+#HomeNav .Menu UL {
+	LIST-STYLE-TYPE: none; TEXT-ALIGN: left
+}
+#HomeNav .Menu UL LI {
+	FLOAT: left; MARGIN: 3px 0px; WIDTH: 600px; COLOR: #999
+}
+#HomeNav UL LI A {
+	COLOR: #000; TEXT-DECORATION: none
+}
+#HomeNav .MenuOther A {
+	COLOR: #000; TEXT-DECORATION: none
+}
+#HomeNavH UL LI A {
+	COLOR: #000; TEXT-DECORATION: none
+}
+#HomeNav UL LI A:hover {
+	COLOR: red; TEXT-DECORATION: underline
+}
+#HomeNav .MenuOther A:hover {
+	COLOR: red; TEXT-DECORATION: underline
+}
+#HomeNavH UL LI A:hover {
+	COLOR: red; TEXT-DECORATION: underline
+}
+#HomeNav SPAN {
+	BACKGROUND: url(http://images.e800.com.cn/imginfo/default/logo.gif) no-repeat left top; OVERFLOW: hidden; HEIGHT: 87px
+}
+#LogoBg {
+	DISPLAY: block; OVERFLOW: hidden; WIDTH: 139px; POSITION: relative; HEIGHT: 87px
+}
+#LogoBg SPAN {
+	LEFT: 0px; WIDTH: 100%; CURSOR: hand; POSITION: absolute; TOP: 0px; HEIGHT: 100%
+}
+#HomeNav #Logo A {
+	COLOR: #000; TEXT-DECORATION: none
+}
+#HomeNav #Logo H2 {
+	MARGIN: 0px; COLOR: #000
+}
+#HomeNav .MenuOther {
+	MARGIN-TOP: 5px; PADDING-LEFT: 5px; BACKGROUND: url(http://images.e800.com.cn/home/default/hbg2.gif) no-repeat; FLOAT: left; MARGIN-LEFT: 10px; WIDTH: 139px; PADDING-TOP: 5px; HEIGHT: 54px
+}
+#HomeNav .MenuOther UL LI {
+	FLOAT: left; MARGIN: 4px 0px; WIDTH: 139px; COLOR: #999; TEXT-INDENT: 1em
+}
+#HomeNav .Menu .RowA {
+	MARGIN: 1px 0px; WIDTH: 600px
+}
+#HomeNav .Menu .RowB {
+	MARGIN: 1px 0px; WIDTH: 600px
+}
+#HomeNav .Menu .NavInfo {
+	BORDER-RIGHT: #dcdcdc 1px solid; BORDER-TOP: #dcdcdc 1px solid; BACKGROUND: url(http://images.e800.com.cn/home/default/hbg1.jpg) repeat-x; FLOAT: left; BORDER-LEFT: #dcdcdc 1px solid; WIDTH: 280px; COLOR: #026701; TEXT-INDENT: 1em; PADDING-TOP: 6px; BORDER-BOTTOM: #dcdcdc 1px solid; HEIGHT: 18px
+}
+#HomeNav .Menu .NavTech {
+	BORDER-RIGHT: #dcdcdc 1px solid; BORDER-TOP: #dcdcdc 1px solid; BACKGROUND: url(http://images.e800.com.cn/home/default/hbg1.jpg) repeat-x; FLOAT: left; MARGIN-LEFT: 6px; BORDER-LEFT: #dcdcdc 1px solid; WIDTH: 307px; COLOR: #cc3200; TEXT-INDENT: 1em; PADDING-TOP: 6px; BORDER-BOTTOM: #dcdcdc 1px solid; HEIGHT: 18px
+}
+#HomeNav .Menu .NavShop {
+	BORDER-RIGHT: #dcdcdc 1px solid; BORDER-TOP: #dcdcdc 1px solid; BACKGROUND: url(http://images.e800.com.cn/home/default/hbg1.jpg) repeat-x; FLOAT: left; BORDER-LEFT: #dcdcdc 1px solid; WIDTH: 595px; COLOR: #cc3200; TEXT-INDENT: 1em; PADDING-TOP: 6px; BORDER-BOTTOM: #dcdcdc 1px solid; HEIGHT: 18px
+}
+.c016600 {
+	COLOR: #016600
+}
+.cCB3301 {
+	COLOR: #cb3301
+}
+.c016798 {
+	COLOR: #016798
+}
+#HomeLog {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; WIDTH: 890px; PADDING-TOP: 5px
+}
+#HomeLog UL {
+	LIST-STYLE-TYPE: none; TEXT-ALIGN: left
+}
+#HomeLog UL LI {
+	FLOAT: left
+}
+#HomeLog UL .MyAll {
+	MARGIN-TOP: 3px; PADDING-LEFT: 5px; FLOAT: left; WIDTH: 430px
+}
+#HomeLog UL .MyInfo {
+	MARGIN-TOP: 3px; PADDING-LEFT: 5px; FLOAT: left; WIDTH: 280px; TEXT-ALIGN: right
+}
+#HomeLog UL .MyLogo {
+	PADDING-LEFT: 5px; FLOAT: left; WIDTH: 160px; TEXT-INDENT: 2em; PADDING-TOP: 5px; TEXT-ALIGN: right
+}
+#HomeLog UL .MyInfo INPUT {
+	BORDER-RIGHT: #7ba2c3 1px solid; BORDER-TOP: #7ba2c3 1px solid; MARGIN: 0px 3px; BORDER-LEFT: #7ba2c3 1px solid; BORDER-BOTTOM: #7ba2c3 1px solid
+}
+#HomeLog UL .MyAll IMG {
+	MARGIN: 0px 5px
+}
+#HomeLog UL LI A {
+	COLOR: #000; TEXT-DECORATION: none
+}
+#HomeLog UL LI A:hover {
+	COLOR: red
+}
+#DeveloperPlace {
+	CLEAR: both; BACKGROUND: #f4f4f4; WIDTH: 900px; PADDING-TOP: 5px; HEIGHT: 25px
+}
+#DeveloperPlace UL {
+	TEXT-INDENT: 2em; TEXT-ALIGN: left
+}
+#DeveloperPlace UL LI A {
+	COLOR: #000; TEXT-DECORATION: none
+}
+#DeveloperPlace UL LI A:hover {
+	COLOR: red; TEXT-DECORATION: underline
+}
+#DeveloperPlace .Place {
+	FLOAT: left; WIDTH: 420px
+}
+#DeveloperPlace .Place IMG {
+	MARGIN: 0px 5px
+}
+#DeveloperPlace .Sear {
+	FLOAT: left; WIDTH: 480px
+}
+#DeveloperPlace .Sear INPUT {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 5px; PADDING-TOP: 0px
+}
+#DeveloperPlace .Sear IMG {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 5px; PADDING-TOP: 0px
+}
+#nav {
+	CLEAR: both; MARGIN-TOP: 5px; OVERFLOW: hidden
+}
+#nav LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FLOAT: left; PADDING-BOTTOM: 2px; CURSOR: pointer; PADDING-TOP: 4px; LIST-STYLE-TYPE: none
+}
+#nav .active {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 5px; BACKGROUND: url(http://images.e800.com.cn/imginfo/default/developernavbg3.gif) repeat-x; PADDING-BOTTOM: 0px; MARGIN: 0px 2px; BORDER-LEFT: #ccc 1px solid; PADDING-TOP: 4px; BORDER-BOTTOM: #ccc 1px solid
+}
+#nav .normal {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 1px; MARGIN: 0px 2px; PADDING-TOP: 4px
+}
+#nav .over {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 5px; BACKGROUND: url(http://images.e800.com.cn/imginfo/default/developernavbg3.gif) repeat-x; PADDING-BOTTOM: 0px; MARGIN: 0px 2px; BORDER-LEFT: #ccc 1px solid; PADDING-TOP: 4px; BORDER-BOTTOM: #ccc 1px solid
+}
+#nav .navnomenu {
+	MARGIN-TOP: -3px; MARGIN-RIGHT: 2px
+}
+#nav .active A {
+	COLOR: #046697; TEXT-DECORATION: none
+}
+#nav .normal A {
+	COLOR: #046697; TEXT-DECORATION: none
+}
+#navAN {
+	CLEAR: both; MARGIN-TOP: 5px; OVERFLOW: hidden
+}
+#navAN LI {
+	FLOAT: left; CURSOR: pointer; LIST-STYLE-TYPE: none
+}
+#navAN .active {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; BACKGROUND: url(http://images.e800.com.cn/imginfo/default/developernavbg4.jpg) repeat-x; PADDING-BOTTOM: 0px; MARGIN: 0px 2px; PADDING-TOP: 4px; TEXT-ALIGN: center
+}
+#navAN .normal {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; BACKGROUND: url(http://images.e800.com.cn/imginfo/default/developernavbg5.jpg) repeat-x; PADDING-BOTTOM: 1px; MARGIN: 0px 2px; PADDING-TOP: 4px
+}
+#navAN .over {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 5px; BACKGROUND: url(http://images.e800.com.cn/imginfo/default/developernavbg5.jpg) repeat-x; PADDING-BOTTOM: 0px; MARGIN: 0px 2px; BORDER-LEFT: #ccc 1px solid; PADDING-TOP: 4px; BORDER-BOTTOM: #ccc 1px solid
+}
+#navAN .navnomenu {
+	MARGIN-TOP: -3px; MARGIN-RIGHT: 2px
+}
+#navAN .active A {
+	FONT-WEIGHT: bold; COLOR: #000; TEXT-DECORATION: none
+}
+#navAN .normal A {
+	FONT-WEIGHT: bold; COLOR: #fff; TEXT-DECORATION: none
+}
+#DeveloperNavList {
+	CLEAR: both; BORDER-RIGHT: #d1d1d1 1px solid; BORDER-TOP: #d1d1d1 1px solid; BORDER-LEFT: #d1d1d1 1px solid; WIDTH: 898px; BORDER-BOTTOM: #d1d1d1 1px solid; HEIGHT: 27px
+}
+#DeveloperNavList .ATitle {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 5px; PADDING-LEFT: 5px; BACKGROUND: #f0f0f0; FLOAT: left; PADDING-TOP: 5px; HEIGHT: 22px
+}
+#DeveloperNavList .AList {
+	FLOAT: left; PADDING-TOP: 5px
+}
+#DeveloperNavList .AList LI {
+	COLOR: #ccc; TEXT-INDENT: 1em; TEXT-ALIGN: left
+}
+#DeveloperNavList .AList LI A {
+	FONT-WEIGHT: bold; COLOR: #000; TEXT-DECORATION: none
+}
+#DeveloperNavList .AList LI A:hover {
+	COLOR: red; TEXT-DECORATION: underline
+}
+#DeveloperNavList .ATitle H3 {
+	FONT-WEIGHT: 800; FONT-SIZE: 18px; COLOR: #cc0001
+}
+#DeveloperNavList .AList SPAN {
+	COLOR: red
+}
+#HomeNavH {
+	CLEAR: both; WIDTH: 760px
+}
+#HomeNavH #Logo {
+	FLOAT: left; WIDTH: 137px; MARGIN-RIGHT: 3px
+}
+#HomeNavH #LogoBg SPAN {
+	BACKGROUND: url(http://images.e800.com.cn/imginfo/default/logo.gif) no-repeat left 5px; OVERFLOW: hidden; HEIGHT: 87px
+}
+#HomeNavH #LogoBg {
+	DISPLAY: block; OVERFLOW: hidden; WIDTH: 137px; POSITION: relative; HEIGHT: 87px
+}
+#HomeNavH #LogoBg SPAN {
+	LEFT: 0px; WIDTH: 100%; POSITION: absolute; TOP: 0px; HEIGHT: 100%
+}
+#HomeNavH #Logo A {
+	COLOR: #000; TEXT-DECORATION: none
+}
+#HomeNavH #Logo H2 {
+	MARGIN: 0px; COLOR: #000
+}
+#HomeNavH #Menu {
+	FLOAT: left; WIDTH: 620px; TEXT-ALIGN: left
+}
+#HomeNavH #Menu .RowA {
+	FLOAT: left; MARGIN: 2px 0px; WIDTH: 620px
+}
+#HomeNavH #Menu .RowB {
+	MARGIN-TOP: 4px; FLOAT: left; WIDTH: 620px
+}
+#HomeNavH #Menu .NavInfo {
+	BORDER-RIGHT: #dcdcdc 1px solid; BORDER-TOP: #dcdcdc 1px solid; BACKGROUND: url(http://images.e800.com.cn/home/default/hbg1a.jpg) repeat-x; FLOAT: left; BORDER-LEFT: #dcdcdc 1px solid; WIDTH: 293px; COLOR: #026701; TEXT-INDENT: 1em; PADDING-TOP: 6px; BORDER-BOTTOM: #dcdcdc 1px solid; HEIGHT: 18px
+}
+#HomeNavH #Menu .NavTech {
+	BORDER-RIGHT: #dcdcdc 1px solid; BORDER-TOP: #dcdcdc 1px solid; BACKGROUND: url(http://images.e800.com.cn/home/default/hbg2.jpg) repeat-x; FLOAT: left; MARGIN-LEFT: 6px; BORDER-LEFT: #dcdcdc 1px solid; WIDTH: 315px; COLOR: #cc3200; TEXT-INDENT: 1em; PADDING-TOP: 6px; BORDER-BOTTOM: #dcdcdc 1px solid; HEIGHT: 18px
+}
+#HomeNavH #Menu .NavShop {
+	BORDER-RIGHT: #dcdcdc 1px solid; BORDER-TOP: #dcdcdc 1px solid; BACKGROUND: url(http://images.e800.com.cn/home/default/hbg3.jpg) repeat-x; FLOAT: left; BORDER-LEFT: #dcdcdc 1px solid; WIDTH: 510px; COLOR: #cc3200; TEXT-INDENT: 1em; PADDING-TOP: 4px; BORDER-BOTTOM: #dcdcdc 1px solid; HEIGHT: 20px
+}
+#HomeNavH #Menu .NavBRs {
+	BORDER-RIGHT: #dcdcdc 1px solid; BORDER-TOP: #dcdcdc 1px solid; BACKGROUND: url(http://images.e800.com.cn/home/default/hbg1.jpg) repeat-x; FLOAT: left; MARGIN-LEFT: 6px; BORDER-LEFT: #dcdcdc 1px solid; WIDTH: 100px; COLOR: #cc3200; PADDING-TOP: 4px; BORDER-BOTTOM: #dcdcdc 1px solid; HEIGHT: 20px
+}
+#Menu .RowC {
+	BORDER-RIGHT: #dcdcdc 1px solid; BORDER-TOP: #dcdcdc 1px solid; MARGIN-TOP: 4px; FLOAT: left; BORDER-LEFT: #dcdcdc 1px solid; WIDTH: 618px; COLOR: #006796; TEXT-INDENT: 1em; PADDING-TOP: 4px; BORDER-BOTTOM: #dcdcdc 1px solid; HEIGHT: 20px
+}
+#Menu .RowC .la {
+	FLOAT: left; WIDTH: 528px
+}
+#Menu .RowC .lb {
+	PADDING-RIGHT: 5px; FLOAT: left; WIDTH: 85px; PADDING-TOP: 2px; TEXT-ALIGN: right
+}
+.RowCL {
+	BORDER-RIGHT: #dcdcdc 1px solid; BORDER-TOP: #dcdcdc 1px solid; MARGIN-TOP: 2px; FLOAT: left; BORDER-LEFT: #dcdcdc 1px solid; WIDTH: 753px; COLOR: #006796; TEXT-INDENT: 1em; PADDING-TOP: 4px; BORDER-BOTTOM: #dcdcdc 1px solid; HEIGHT: 20px; TEXT-ALIGN: left
+}
+.RowCL .la {
+	FLOAT: left; WIDTH: 660px
+}
+.RowCL .lb {
+	FLOAT: left; WIDTH: 93px
+}
+#Menu .RowC A {
+	COLOR: #006796; TEXT-DECORATION: none
+}
+.RowCL A {
+	COLOR: #006796; TEXT-DECORATION: none
+}
+#Menu .RowC A:hover {
+	COLOR: #006796; TEXT-DECORATION: underline
+}
+.RowCL A:hover {
+	COLOR: #006796; TEXT-DECORATION: underline
+}
+.ad750 DIV {
+	FLOAT: left
+}
+.ListTitBorRightL .ListTitBorRightLA IMG {
+	PADDING-TOP: 3px
+}
+.ListTitBorRightLB1 {
+	PADDING-LEFT: 15px; BACKGROUND: url(http://images.e800.com.cn/developer/default/iconn1.gif) no-repeat 3px 4px; FLOAT: left; WIDTH: 225px; TEXT-ALIGN: left
+}
+.ListTitBorRightLB2 {
+	PADDING-LEFT: 15px; BACKGROUND: url(http://images.e800.com.cn/developer/default/iconn2.gif) no-repeat 3px 4px; FLOAT: left; WIDTH: 225px; TEXT-ALIGN: left
+}
+.ListTitBorRightLB3 {
+	PADDING-LEFT: 15px; BACKGROUND: url(http://images.e800.com.cn/developer/default/iconn3.gif) no-repeat 3px 4px; FLOAT: left; WIDTH: 225px; TEXT-ALIGN: left
+}
+.ListTitBorRightLB4 {
+	PADDING-LEFT: 15px; BACKGROUND: url(http://images.e800.com.cn/developer/default/iconn4.gif) no-repeat 3px 4px; FLOAT: left; WIDTH: 225px; TEXT-ALIGN: left
+}
+.ListTitBorRightLB5 {
+	PADDING-LEFT: 15px; BACKGROUND: url(http://images.e800.com.cn/developer/default/iconn5.gif) no-repeat 3px 4px; FLOAT: left; WIDTH: 225px; TEXT-ALIGN: left
+}
+.ListTitBorRightLB6 {
+	PADDING-LEFT: 15px; BACKGROUND: url(http://images.e800.com.cn/developer/default/iconn6.gif) no-repeat 3px 4px; FLOAT: left; WIDTH: 225px; TEXT-ALIGN: left
+}
+.ListTitBorRightLB7 {
+	PADDING-LEFT: 15px; BACKGROUND: url(http://images.e800.com.cn/developer/default/iconn7.gif) no-repeat 3px 4px; FLOAT: left; WIDTH: 225px; TEXT-ALIGN: left
+}
+.ListTitBorRightLB8 {
+	PADDING-LEFT: 15px; BACKGROUND: url(http://images.e800.com.cn/developer/default/iconn8.gif) no-repeat 3px 4px; FLOAT: left; WIDTH: 225px; TEXT-ALIGN: left
+}
+.HomeNavLeft {
+	FLOAT: left; WIDTH: 140px
+}
+.HomeNavRight {
+	FLOAT: left; WIDTH: 760px
+}
+.EmNsLiRightList .BorList .LeftImg {
+	FLOAT: left; WIDTH: 60px; TEXT-ALIGN: left
+}
+.EmNsLiRightList .BorList .LeftImg IMG {
+	BORDER-RIGHT: #000 1px solid; BORDER-TOP: #000 1px solid; BORDER-LEFT: #000 1px solid; BORDER-BOTTOM: #000 1px solid
+}
+.EmNsLiRightList .BorList .RightTextA {
+	FLOAT: left; WIDTH: 160px; LINE-HEIGHT: 130%; TEXT-ALIGN: left
+}
+.EmNsLiRightList .BorList .RightTextA A {
+	FONT-WEIGHT: bold; COLOR: #036499; TEXT-DECORATION: none
+}
+.EmNsLiRightList .BorList .RightTextA A:hover {
+	COLOR: red; TEXT-DECORATION: underline
+}
+#DeveloperNavT {
+	CLEAR: both; MARGIN-TOP: 1px; BACKGROUND: url(http://images.e800.com.cn/imginfo/default/developernavbg1.gif) repeat-x; WIDTH: 900px; HEIGHT: 15px
+}
+#DeveloperNav {
+	WIDTH: 900px
+}
+#DeveloperNav #Logo {
+	MARGIN-TOP: 5px; FLOAT: left; WIDTH: 94px
+}
+#DeveloperNav #LogoBg SPAN {
+	BACKGROUND: url(http://images.e800.com.cn/imginfo/default/databaselogo.gif) no-repeat; OVERFLOW: hidden; HEIGHT: 52px
+}
+#DeveloperNav #LogoBg {
+	DISPLAY: block; OVERFLOW: hidden; WIDTH: 94px; POSITION: relative; HEIGHT: 52px
+}
+#DeveloperNav #LogoBg SPAN {
+	LEFT: 0px; WIDTH: 100%; POSITION: absolute; TOP: 0px; HEIGHT: 100%
+}
+#DeveloperNav #Logo A {
+	COLOR: #000; TEXT-DECORATION: none
+}
+#DeveloperNav #Logo H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 16px; PADDING-BOTTOM: 0px; MARGIN: 10px 0px 0px; COLOR: #000; PADDING-TOP: 0px
+}
+#DeveloperNav .Menu {
+	FLOAT: left; WIDTH: 805px
+}
+#DeveloperNav .Menu UL LI {
+	TEXT-INDENT: 1em; TEXT-ALIGN: left
+}
+#DeveloperNav .Menu .Met {
+	BACKGROUND: url(http://images.e800.com.cn/imginfo/default/developernavbg2.gif) #d5e6fa repeat-x; FLOAT: left; WIDTH: 805px; COLOR: #9c9b97; PADDING-TOP: 10px; HEIGHT: 22px
+}
+#DeveloperNav .Menu .Met LI A {
+	FONT-WEIGHT: bold; COLOR: #016797; TEXT-DECORATION: none
+}
+#DeveloperNav .Menu .Met LI A:hover {
+	FONT-WEIGHT: bold; COLOR: red; TEXT-DECORATION: underline
+}
+#DeveloperNav .Menu .Seat {
+	BORDER-RIGHT: #000 1px; BORDER-TOP: #000 1px solid; BACKGROUND: #3266cc; FLOAT: left; BORDER-LEFT: #000 1px; WIDTH: 805px; COLOR: #fff; PADDING-TOP: 4px; BORDER-BOTTOM: #000 1px solid; HEIGHT: 19px
+}
+#DeveloperNav .Menu .Seat LI A {
+	COLOR: #fff; TEXT-DECORATION: none
+}
+#DeveloperNav .Menu .Seat LI A:hover {
+	COLOR: #fff; TEXT-DECORATION: underline
+}
+.ContBg {
+	BACKGROUND: url(http://images.e800.com.cn/developer/default/bg1.jpg) repeat-x; PADDING-TOP: 6px; HEIGHT: 17px
+}
+.ContentA {
+	CLEAR: both; MARGIN-TOP: 10px; WIDTH: 900px
+}
+.ContentA H5 {
+	FONT-SIZE: 14px; COLOR: #000; TEXT-DECORATION: none
+}
+.ContentA H6 {
+	FONT-SIZE: 12px; MARGIN-BOTTOM: 4px; COLOR: #000; TEXT-DECORATION: none
+}
+.ContentA .left {
+	FLOAT: left; WIDTH: 600px; MARGIN-RIGHT: 20px
+}
+.ContentA .right {
+	FLOAT: left; WIDTH: 280px
+}
+.ContentA .left .list {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FLOAT: left; PADDING-BOTTOM: 10px; BORDER-LEFT: #999999 1px solid; WIDTH: 598px; BORDER-BOTTOM: #999999 1px solid
+}
+.ContentA .left .list .Title {
+	BACKGROUND: url(http://images.e800.com.cn/developer/default/listbg1.gif) repeat-x; FLOAT: left; WIDTH: 598px; TEXT-ALIGN: left
+}
+.ContentA .left .list .Title UL .La {
+	BACKGROUND: url(http://images.e800.com.cn/imginfo/default/developernavbg6.gif) no-repeat 10px 6px; FLOAT: left; WIDTH: 398px; TEXT-INDENT: 3em; PADDING-TOP: 10px; HEIGHT: 23px
+}
+.ContentA .left .list .Title UL .Lb {
+	PADDING-RIGHT: 10px; FLOAT: left; WIDTH: 190px; TEXT-INDENT: 5em; PADDING-TOP: 10px; HEIGHT: 23px; TEXT-ALIGN: right
+}
+.ContentA .left .list .Title UL .Lb IMG {
+	MARGIN: 0px 3px
+}
+.LHotLableList {
+	WIDTH: 575px
+}
+.LHotLableArticle {
+	WIDTH: 570px
+}
+#LHotLable {
+	BACKGROUND: #e9f2f9; FLOAT: left; MARGIN: 10px 0px 10px 5px; HEIGHT: 22px; TEXT-ALIGN: left
+}
+#LHotLable UL {
+	
+}
+#LHotLable UL LI {
+	BACKGROUND: #e9f2f9; FLOAT: left; HEIGHT: 22px
+}
+#LHotLable UL .navta {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; PADDING-TOP: 3px; HEIGHT: 19px
+}
+#LHotLable UL .navbg {
+	BACKGROUND: #d2e6ef
+}
+#LHotLable UL .navbg A {
+	FONT-WEIGHT: bold; COLOR: #006897; TEXT-DECORATION: none
+}
+.ContentA .left .list .ArList {
+	PADDING-LEFT: 30px; FLOAT: left; WIDTH: 550px; PADDING-TOP: 5px
+}
+.ContentA .left .list .ArList UL LI {
+	FLOAT: left; TEXT-ALIGN: left
+}
+.ContentA .left .list .ArList UL .ArListCom {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 15px; BACKGROUND: url(http://images.e800.com.cn/imginfo/default/article2.gif) no-repeat 5px 7px; MARGIN: 2px 0px; WIDTH: 475px
+}
+.ContentA .left .list .ArList UL .ArListDate {
+	FLOAT: left; WIDTH: 60px
+}
+.ArcTitle .date OBJECT {
+	DISPLAY: none
+}
+.ArcTitle .date IMG {
+	DISPLAY: none
+}
+.ContentA .left .list .ArList UL LI A {
+	FONT-SIZE: 14px; COLOR: #000; TEXT-DECORATION: none
+}
+.ContentA .left .list .ArList UL LI A:hover {
+	COLOR: red; TEXT-DECORATION: underline
+}
+.Leftline {
+	CLEAR: both; FONT-SIZE: 1px; BACKGROUND: url(http://images.e800.com.cn/imginfo/default/developernavbgline.gif) repeat-x left 1px; WIDTH: 100%; HEIGHT: 10px
+}
+.ListPage {
+	CLEAR: both; FONT-WEIGHT: bold; BACKGROUND: #f3fbfe; MARGIN: 5px auto; WIDTH: 540px; COLOR: #006697
+}
+.ListPage A {
+	COLOR: #016596; TEXT-DECORATION: none
+}
+.ListPage A:hover {
+	COLOR: #ff0000; TEXT-DECORATION: underline
+}
+.ContentA .left .list #Bot {
+	FLOAT: left; WIDTH: 540px
+}
+.ContentA .left .list #Bot #nav {
+	FLOAT: left
+}
+.ContentA .left .list #Bot .navR {
+	MARGIN-TOP: 7px; FLOAT: left; TEXT-INDENT: 2em
+}
+.ContentA .left .list #Bot .navR IMG {
+	MARGIN: 0px 5px
+}
+.ContentA .right .list {
+	BORDER-RIGHT: #000 1px solid; BORDER-TOP: #000 1px solid; FLOAT: left; PADDING-BOTTOM: 10px; BORDER-LEFT: #000 1px solid; WIDTH: 278px; BORDER-BOTTOM: #000 1px solid
+}
+.ContentA .right .list .EmNsLiRight {
+	BACKGROUND: url(http://images.e800.com.cn/imginfo/default/list2aa.jpg) repeat-x left top; FLOAT: left; PADDING-BOTTOM: 11px; WIDTH: 278px; PADDING-TOP: 5px
+}
+.ContentA .right .list .EmNsLiRight .Title {
+	PADDING-LEFT: 0px; FONT-WEIGHT: bold; FLOAT: left; WIDTH: 248px; COLOR: #ca0000; TEXT-INDENT: 1em
+}
+.ContentA .right .list .EmNsLiRight LI {
+	PADDING-LEFT: 30px; FLOAT: left; MARGIN: 2px 0px; WIDTH: 218px; TEXT-ALIGN: left
+}
+.ContentA .right .list .EmNsLiRight LI .imgbor {
+	BORDER-RIGHT: #000 1px solid; BORDER-TOP: #000 1px solid; MARGIN-TOP: 10px; BORDER-LEFT: #000 1px solid; BORDER-BOTTOM: #000 1px solid
+}
+.ContentA .right .list .EmArliT {
+	BORDER-TOP: #000 1px solid; MARGIN-TOP: 8px; PADDING-LEFT: 15px; FLOAT: left; WIDTH: 263px; PADDING-TOP: 10px; TEXT-ALIGN: left
+}
+.ContentA .right .list .EmArli {
+	PADDING-LEFT: 15px; FLOAT: left; WIDTH: 263px; PADDING-TOP: 6px; TEXT-ALIGN: left
+}
+.ContentA .right .list .EmArli .BRed {
+	PADDING-LEFT: 15px; BACKGROUND: url(http://images.e800.com.cn/developer/default/icon10.gif) no-repeat 2px 6px; WIDTH: 240px
+}
+.ContentA .right .list .EmArli LI {
+	PADDING-LEFT: 15px; BACKGROUND: url(http://images.e800.com.cn/developer/default/icon12.gif) no-repeat 2px 6px; MARGIN: 2px 0px; WIDTH: 240px; TEXT-ALIGN: left
+}
+.ContentA .right .list .EmArli .BRed A {
+	COLOR: #fe0106; TEXT-DECORATION: none
+}
+.ContentA .right .list .EmArli LI A {
+	COLOR: #033399; TEXT-DECORATION: none
+}
+.ContentA .right .list .EmArli .noBRed {
+	BACKGROUND: none transparent scroll repeat 0% 0%; WIDTH: 240px
+}
+.ContentA .right .list .EmArliImgT {
+	MARGIN: 0px auto; WIDTH: 260px
+}
+.ContentA .right .list .EmArliImgT LI {
+	FLOAT: left; WIDTH: 125px; TEXT-ALIGN: left
+}
+.ContentA .right .list .EmArliImgT LI IMG {
+	BORDER-RIGHT: #000 1px solid; BORDER-TOP: #000 1px solid; MARGIN: 10px 0px; BORDER-LEFT: #000 1px solid; BORDER-BOTTOM: #000 1px solid
+}
+.ContentA .right .list .EmArliImgT LI A {
+	COLOR: #006496
+}
+.ContentA .right .list .EmArli LI A {
+	COLOR: #003399
+}
+.ContentA .right .list .EmArli LI A:hover {
+	TEXT-DECORATION: underline
+}
+.ContentA A {
+	TEXT-DECORATION: none
+}
+.ContentA A:hover {
+	TEXT-DECORATION: underline
+}
+.ContentA .right .list .EmArliImgT .Titleab {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 8px; FLOAT: left; PADDING-BOTTOM: 3px; WIDTH: 230px; LINE-HEIGHT: 140%; PADDING-TOP: 3px
+}
+.ContentA .right .list .EmArliImgT .Titleab A {
+	COLOR: #015b99; TEXT-DECORATION: none
+}
+.ContentA .right .list .EmArliImgT .Titleab A:hover {
+	COLOR: #015b99; TEXT-DECORATION: underline
+}
+.ContentA .right .list .BorListANl {
+	PADDING-LEFT: 15px; FLOAT: left; MARGIN: 10px auto 5px; WIDTH: 250px
+}
+.ContentA .right .list .BorListANl .BorListANlC {
+	FLOAT: left; WIDTH: 205px; TEXT-ALIGN: left
+}
+.ContentA .right .list .BorListANl .BorListANlD {
+	PADDING-LEFT: 5px; FONT-SIZE: 11px; FLOAT: left; WIDTH: 40px; COLOR: #999; TEXT-ALIGN: left
+}
+.ContentA .right .list .BorListANl LI {
+	MARGIN-TOP: 2px; MARGIN-BOTTOM: 2px
+}
+.ContentA .right .list .BorListANl A {
+	COLOR: #000; TEXT-DECORATION: none
+}
+.ContentA .right .list .BorListANl A:hover {
+	COLOR: red; TEXT-DECORATION: underline
+}
+.AreaBor {
+	BORDER-RIGHT: #999999 1px solid; PADDING-RIGHT: 9px; BORDER-TOP: #999999 1px solid; PADDING-LEFT: 9px; FLOAT: left; PADDING-BOTTOM: 10px; MARGIN: 0px auto; BORDER-LEFT: #999999 1px solid; WIDTH: 580px; PADDING-TOP: 10px; BORDER-BOTTOM: #999999 1px solid
+}
+.ArcTitle {
+	CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FLOAT: left; PADDING-BOTTOM: 0px; WIDTH: 100%; PADDING-TOP: 10px
+}
+.ArcTitle H3 {
+	FONT-SIZE: 24px; FLOAT: left; MARGIN-BOTTOM: 5px; WIDTH: 570px; TEXT-ALIGN: left
+}
+.ArcTitle H1 {
+	FONT-SIZE: 24px; FLOAT: left; MARGIN-BOTTOM: 5px; WIDTH: 570px; TEXT-ALIGN: left
+}
+.ArcTitle .ArcDate {
+	TEXT-ALIGN: left
+}
+.AreaCon {
+	CLEAR: both; FONT-SIZE: 14px; MARGIN: 5px; OVERFLOW: hidden; WIDTH: 98%; WORD-BREAK: break-all; LINE-HEIGHT: 150%; TEXT-ALIGN: left; WORD-WRAP: break-word
+}
+.AreaCon H2 {
+	FONT-SIZE: 14px
+}
+.AreaCon P {
+	FONT-SIZE: 14px
+}
+.AreaCon {
+	FONT-SIZE: 14px
+}
+TABLE {
+	FONT-SIZE: 14px
+}
+TD {
+	FONT-SIZE: 14px
+}
+TR {
+	FONT-SIZE: 14px
+}
+.AreaCon .icon {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; MARGIN: 3px 0px 0px; BORDER-RIGHT-WIDTH: 0px
+}
+.AreaCon IMG {
+	BORDER-RIGHT: #000 1px solid; BORDER-TOP: #000 1px solid; BORDER-LEFT: #000 1px solid; BORDER-BOTTOM: #000 1px solid
+}
+.AreaCon A {
+	COLOR: black; TEXT-DECORATION: none
+}
+.AreaCon A:hover {
+	COLOR: black; TEXT-DECORATION: none
+}
+.AreaPage {
+	CLEAR: both; PADDING-RIGHT: 0px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 0px; BACKGROUND: #f5fafe; PADDING-BOTTOM: 8px; MARGIN: 10px auto 0px; WIDTH: 98%; COLOR: #003399; PADDING-TOP: 8px; BORDER-BOTTOM: #ccc 1px solid
+}
+.AreaPage A {
+	FONT-SIZE: 14px; COLOR: #003399; TEXT-DECORATION: none
+}
+AreaSuy A {
+	FONT-SIZE: 14px; COLOR: #003399; TEXT-DECORATION: none
+}
+.AreaPage A:hover {
+	COLOR: red; TEXT-DECORATION: underline
+}
+.AreaFun {
+	CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 8px; MARGIN: 0px auto; WIDTH: 100%; COLOR: #003399; PADDING-TOP: 8px; TEXT-ALIGN: right
+}
+.AreaFun A {
+	COLOR: #003399
+}
+.AreaSuy {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 0px; BACKGROUND: #f6f6f6; FLOAT: left; PADDING-BOTTOM: 8px; BORDER-LEFT: #ccc 1px solid; WIDTH: 98%; PADDING-TOP: 8px; BORDER-BOTTOM: #ccc 1px solid
+}
+.AreaSuy UL LI {
+	FLOAT: left; MARGIN: 3px 0px; WIDTH: 100%; TEXT-INDENT: 2em; TEXT-ALIGN: left
+}
+.AreaCommend {
+	CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 8px; MARGIN: 0px auto; WIDTH: 98%; PADDING-TOP: 8px
+}
+.AreaCommend .AreaCommendTit {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: #f5fafe; FLOAT: left; PADDING-BOTTOM: 5px; WIDTH: 100%; PADDING-TOP: 5px
+}
+.AreaCommend .AreaCommendTit .AreaCommendTitL {
+	FLOAT: left; WIDTH: 350px; TEXT-INDENT: 1em; TEXT-ALIGN: left
+}
+.AreaCommend .AreaCommendTit .AreaCommendTitR {
+	FLOAT: left; WIDTH: 200px
+}
+.AreaCommend .AreaCommendTit .AreaCommendTitR A {
+	COLOR: #000; TEXT-DECORATION: none
+}
+.AreaCommend .AreaCommendTit .AreaCommendTitRW {
+	FLOAT: left; WIDTH: 550px; COLOR: #bc2931; TEXT-INDENT: 1em; TEXT-ALIGN: right
+}
+.AreaCommend .AreaCommendListT {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 2px; MARGIN: 10px auto; WIDTH: 560px; PADDING-TOP: 2px
+}
+.AreaCommend .AreaCommendListT LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 2px; MARGIN: 2px 0px; LINE-HEIGHT: 150%; PADDING-TOP: 2px
+}
+.AreaCommend .AreaCommendListT .AreaCommendListTL {
+	BACKGROUND: #e4f0fc; FLOAT: left; WIDTH: 450px; TEXT-INDENT: 1em; PADDING-TOP: 5px; TEXT-ALIGN: left
+}
+.AreaCommend .AreaCommendListT .AreaCommendListTR {
+	BACKGROUND: #e4f0fc; FLOAT: left; WIDTH: 100px
+}
+.AreaCommend .AreaCommendListT .AreaCommendListTC {
+	FLOAT: left; WIDTH: 560px; WORD-BREAK: break-all; TEXT-INDENT: 2em; TEXT-ALIGN: left; WORD-WRAP: break-word
+}
+.AreaCommend .AreaCommendListT .AreaCommendTitLN {
+	BORDER-RIGHT: #e4f0fc 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #e4f0fc 1px solid; DISPLAY: inline; PADDING-LEFT: 10px; BACKGROUND: #f5fafe; FLOAT: left; PADDING-BOTTOM: 5px; BORDER-LEFT: #e4f0fc 1px solid; WIDTH: 530px; WORD-BREAK: break-all; PADDING-TOP: 5px; BORDER-BOTTOM: #e4f0fc 1px solid; TEXT-ALIGN: left; WORD-WRAP: break-word
+}
+.AreaCommend .AreaCommendListT .AreaCommendTitLN P {
+	
+}
+.AreaCommend .AreaCommendListT .cABlue {
+	COLOR: #0000fe; TEXT-DECORATION: underline
+}
+.AreaRelatio {
+	PADDING-RIGHT: 0px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; MARGIN: 10px auto; WIDTH: 98%; PADDING-TOP: 10px
+}
+.AreaRelatio .title {
+	FONT-SIZE: 14px; WIDTH: 100%; TEXT-ALIGN: left
+}
+.AreaRelatio .title A {
+	FONT-WEIGHT: bold; COLOR: #003194
+}
+.AreaRelatio .content {
+	WIDTH: 100%; TEXT-ALIGN: left
+}
+.AreaRelatio .content LI {
+	MARGIN: 3px 0px
+}
+.AreaRelatio .content .La {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 15px; BACKGROUND: url(http://images.e800.com.cn/imginfo/default/article5.gif) no-repeat 5px 5px; FLOAT: left; WIDTH: 400px
+}
+.AreaRelatio .content .Lb {
+	FLOAT: left; WIDTH: 100px
+}
+.AreaRelatio .content .La A {
+	FONT-SIZE: 14px; COLOR: #000
+}
+.AreaRelatio .content .La A:hover {
+	COLOR: red
+}
+.LoginBbs {
+	MARGIN: 5px auto; WIDTH: 96%; TEXT-ALIGN: left
+}
+.LoginBbs .LoginA {
+	FLOAT: left; WIDTH: 98%
+}
+.LoginBbs .LoginA INPUT {
+	MARGIN: 0px 3px
+}
+.LoginBbs .LoginB {
+	MARGIN-TOP: 10px; FLOAT: left; WIDTH: 367px
+}
+.LoginBbs .LoginB TEXTAREA {
+	OVERFLOW-Y: auto; BACKGROUND: url(http://images.e800.com.cn/imginfo/default/logoa30.gif) #fff no-repeat center 20px; WIDTH: 350px; HEIGHT: 105px
+}
+.LoginBbs .LoginC {
+	MARGIN-TOP: 10px; FLOAT: left; MARGIN-LEFT: 10px; WIDTH: 180px
+}
+.LoginBbs .LoginC .Ta {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 0px; BACKGROUND: #f6f6f6; PADDING-BOTTOM: 5px; BORDER-LEFT: #ccc 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: #ccc 1px solid
+}
+.LoginBbs .LoginC .Tb {
+	MARGIN-TOP: 5px
+}
+.LoginBbs .LoginC UL LI {
+	MARGIN: 3px 0px; TEXT-INDENT: 1em
+}
+.LoginBbs .LoginC UL LI IMG {
+	MARGIN: 0px 3px
+}
+.LoginBbs .LoginC .Ta A {
+	COLOR: #03349b
+}
+.LoginBbs .LoginC .Ta .a005E9E {
+	COLOR: #005e9e
+}
+.CommendBor {
+	BORDER-RIGHT: #999 1px solid; BORDER-TOP: #999 1px solid; BORDER-LEFT: #999 1px solid; BORDER-BOTTOM: #999 1px solid
+}
+.AreaCommendTitLComd {
+	FLOAT: left; WIDTH: 100%
+}
+.AreaCommendTitLComd A {
+	FONT-WEIGHT: bold; COLOR: #003197
+}
+.Commdpage {
+	PADDING-RIGHT: 10px; TEXT-ALIGN: right
+}
+.Commdpage A {
+	FONT-SIZE: 9px; COLOR: #000; TEXT-DECORATION: none
+}
+.Commdpage .a1 {
+	PADDING-RIGHT: 1px; PADDING-LEFT: 1px; BACKGROUND: #e2e2e2; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.Commdpage .a2 {
+	PADDING-RIGHT: 1px; PADDING-LEFT: 1px; BACKGROUND: #cd0100; PADDING-BOTTOM: 0px; COLOR: #fff; PADDING-TOP: 0px
+}
+.ff6600 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #ff6600
+}
+.Commdpage .la {
+	FLOAT: left; WIDTH: 30%; TEXT-INDENT: 1em; TEXT-ALIGN: left
+}
+.Commdpage .lb {
+	FLOAT: left; WIDTH: 70%; TEXT-ALIGN: right
+}
+.CommdpageBor {
+	BORDER-TOP: #000 1px solid; PADDING-TOP: 10px
+}
+.CommdHot {
+	BORDER-RIGHT: #000 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #000 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 10px; BORDER-LEFT: #000 1px solid; WIDTH: 268px; PADDING-TOP: 10px; BORDER-BOTTOM: #000 1px solid; TEXT-ALIGN: left
+}
+.CommdHot UL LI {
+	MARGIN: 5px 0px
+}
+.CommdHot UL LI A {
+	TEXT-DECORATION: none
+}
+.CommdHot UL LI A:hover {
+	TEXT-DECORATION: underline
+}
+.CommdHot UL .BRed {
+	PADDING-LEFT: 15px; BACKGROUND: url(http://images.e800.com.cn/developer/default/icon10.gif) no-repeat 5px 6px; WIDTH: 253px
+}
+.CommdHot UL .BBlue {
+	PADDING-LEFT: 15px; BACKGROUND: url(http://images.e800.com.cn/developer/default/icon11.gif) no-repeat 5px 6px; WIDTH: 253px
+}
+.CommdHot UL .BRed A {
+	COLOR: #fe0106; TEXT-DECORATION: none
+}
+.CommdHot UL .BBlue A {
+	COLOR: #033399; TEXT-DECORATION: none
+}
+.HArticleAdBor {
+	PADDING-LEFT: 7px; BACKGROUND: url(http://images.e800.com.cn/imginfo/default/bgbottom.gif) #314e70 no-repeat left bottom; FLOAT: left; WIDTH: 568px; PADDING-TOP: 10px; HEIGHT: 375px
+}
+.HArticleAdBor .PIcAd {
+	BACKGROUND: red; FLOAT: left; WIDTH: 560px; HEIGHT: 350px
+}
+.HArticleAdBor .adclose {
+	FLOAT: left; WIDTH: 560px; PADDING-TOP: 5px
+}
+.HArticleAdBor .adclose A {
+	COLOR: #fff; TEXT-DECORATION: none
+}
+.HArticleAdBor .adclose A:hover {
+	TEXT-DECORATION: underline
+}
+.HArticleAdBor .adclose IMG {
+	MARGIN: 0px 5px
+}
+#foot {
+	CLEAR: both; PADDING-RIGHT: 0px; BORDER-TOP: #666 1px solid; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; MARGIN: 10px auto; WIDTH: 900px; PADDING-TOP: 10px
+}
+#foot UL .La {
+	PADDING-LEFT: 150px; FLOAT: left; WIDTH: 40px
+}
+#foot UL .Lb {
+	MARGIN-TOP: 10px; FLOAT: left; WIDTH: 530px
+}
+#foot UL .Lb A {
+	COLOR: #1f3a87; TEXT-DECORATION: none
+}
+#HomeFoot {
+	CLEAR: both; BORDER-RIGHT: #ededed 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #ededed 1px solid; PADDING-LEFT: 10px; BACKGROUND: #fcfcfc; PADDING-BOTTOM: 10px; MARGIN: 10px auto; BORDER-LEFT: #ededed 1px solid; WIDTH: 738px; PADDING-TOP: 10px; BORDER-BOTTOM: #ededed 1px solid
+}
+#HomeFoot UL LI {
+	PADDING-LEFT: 130px; FLOAT: left; TEXT-ALIGN: left
+}
+#HomeFoot UL .menu {
+	WIDTH: 608px
+}
+#HomeFoot UL .teimg {
+	MARGIN-TOP: 10px; WIDTH: 50px
+}
+#HomeFoot UL .info {
+	MARGIN-TOP: 10px; PADDING-LEFT: 0px; WIDTH: 500px
+}
+#HomeFoot UL LI A {
+	COLOR: #000; TEXT-DECORATION: none
+}
+#HomeFoot UL LI A:hover {
+	COLOR: red; TEXT-DECORATION: underline
+}
+</STYLE>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY><!--e800导航-->
+<DIV id=HomeLog>
+<FORM id=loginForm name=loginForm onsubmit="return CheckValid(this)" 
+action=http://passport.e800.com.cn/logincheck.html method=post target=_self>
+<UL>
+  <LI class=MyAll></LI>
+  <LI class=MyInfo>
+  <DIV id=login>用户名<INPUT size=10 name=memcode>&nbsp;&nbsp;密码<INPUT 
+  type=password size=10 name=mempwd><INPUT 
+  style="BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none" 
+  type=image 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/login2.gif"></DIV>
+  <DIV id=NotLogin style="DISPLAY: none">用户名<INPUT size=10 name=memcode>密码<INPUT 
+  type=password size=10 name=mempwd><INPUT 
+  style="BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none" 
+  type=image 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/login2.gif"></DIV></LI>
+  <LI class=MyLogo>
+  <DIV><A href="http://www.e800.com.cn/">首页</A>&nbsp;|&nbsp;<A 
+  href="http://shop.e800.com.cn/">商城</A>&nbsp;|&nbsp;<A 
+  href="http://bbs.e800.com.cn/">论坛</A>&nbsp;|&nbsp;<A 
+  href="http://rss.e800.com.cn/">RSS</A></DIV></LI></UL></FORM></DIV>
+<DIV id=HomeNav>
+<DIV class=HomeNavLeft>
+<DIV class=Logo><A id=LogoBg title=e800 href="http://www.e800.com.cn/">
+<H2>e800</H2><SPAN></SPAN></A></DIV></DIV>
+<DIV class=HomeNavRight>
+<DIV class=Menu>
+<UL class=RowA>
+  <LI class=NavInfo><B>资讯：</B>&nbsp;&nbsp; <A title=IT时讯 
+  href="http://news.e800.com.cn/">IT时讯</A>&nbsp;&nbsp; <A title=CIO/CTO 
+  href="http://ciocto.e800.com.cn/">CIO/CTO</A>&nbsp;&nbsp; <A title=解决方案 
+  href="http://solution.e800.com.cn/">解决方案</A>&nbsp;&nbsp; <A title=通信 
+  href="http://telcom.e800.com.cn/">通信</A> </LI>
+  <LI class=NavTech><B>技术：</B>&nbsp;&nbsp; <A title=开发者 
+  href="http://developer.e800.com.cn/">开发者</A>&nbsp;&nbsp; <A title=Java 
+  href="http://java.e800.com.cn/">Java</A>&nbsp;&nbsp; <A title=Net 
+  href="http://dotnet.e800.com.cn/">.Net</A>&nbsp;&nbsp; <A title=数据库 
+  href="http://database.e800.com.cn/">数据库</A>&nbsp;&nbsp; <A title=移动嵌入 
+  href="http://embed.e800.com.cn/">移动嵌入</A> </LI></UL>
+<UL class=RowB>
+  <LI class=NavShop><B>产品：</B>&nbsp;&nbsp; <A title=企业软件 
+  href="http://software.e800.com.cn/">企业软件</A>&nbsp;&nbsp; <A title=Linux 
+  href="http://linux.e800.com.cn/">Linux</A>&nbsp;&nbsp; <A title=服务器 
+  href="http://server.e800.com.cn/">服务器</A>&nbsp;&nbsp; <A title=网络设备 
+  href="http://network.e800.com.cn/">网络设备</A>&nbsp;&nbsp; <A title=专业存储 
+  href="http://storage.e800.com.cn/">存储</A>&nbsp;&nbsp; <A title=信息安全 
+  href="http://security.e800.com.cn/">安全</A>&nbsp;&nbsp; <A title=商业系统 
+  href="http://business.e800.com.cn/">商业系统</A>&nbsp;&nbsp; <A title=无线网络 
+  href="http://network.e800.com.cn/wirelist.html">无线网络</A>&nbsp;&nbsp; <A 
+  title=绿色IT href="http://gv.e800.com.cn/">绿色IT</A>&nbsp;&nbsp; <A title=Cognos 
+  href="http://cognos.e800.com.cn/">Cognos</A> </LI></UL></DIV>
+<DIV class=MenuOther>
+<UL>
+  <LI>&nbsp;<A 
+  href="http://passport.e800.com.cn/mycomment.html">评论</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A 
+  href="http://passport.e800.com.cn/mycollection.html">收藏</A> </LI>
+  <LI>&nbsp;<A 
+  href="http://passport.e800.com.cn/myscores.html">积分</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</A><A 
+  href="http://passport.e800.com.cn/mysub.html">订阅</A> </LI></UL></DIV>
+<DIV class=RowCL>
+<DIV class=la><B>专题：</B>&nbsp;&nbsp; <A title=SaaS时代的到来 
+href="http://special.e800.com.cn/081127/index.html">SaaS时代</A>&nbsp; <A 
+title=危机惹的祸？细数最郁闷的企业 
+href="http://special.e800.com.cn/081124/index.html">危机下的企业</A>&nbsp; <A 
+title="JAVA语言 为编程者量身打造" 
+href="http://special.e800.com.cn/081126/index.html">JAVA语言</A>&nbsp; <A 
+title=央视曝光百度竞价排名黑幕 
+href="http://special.e800.com.cn/081120/index.html">百度竞价排名</A>&nbsp; <A 
+title="Windows 7 引领下一大操作系统" 
+href="http://special.e800.com.cn/081119/index.html">Windows 7</A>&nbsp; <A 
+title=刀片式服务器是否适合你的数据中心 
+href="http://special.e800.com.cn/081113/index.html">刀片式服务器</A>&nbsp; <A 
+title=危机下的机遇与挑战 href="http://special.e800.com.cn/081111/index.html">危机</A>&nbsp; 
+&nbsp; <A title="e800 移动嵌入" 
+href="http://embed.e800.com.cn/ccshao/ccshao.html">移动嵌入串串烧</A>&nbsp; </DIV>
+<DIV class=lb><A title="e800 更多精彩专题" 
+href="http://special.e800.com.cn/list/1_1.html">更多精彩专题</A></DIV></DIV></DIV></DIV>
+<SCRIPT>
+var isLogin = 0;
+var notLogin = 0;
+var loginTimer = 0;
+
+function checkLogin()
+{
+		if(loginTimer) clearTimeout(loginTimer);
+		loginTimer = setTimeout("checkLogin()", 1000);
+		if ((cookie.get("e800login") == null) ||
+		    (cookie.get("e800login") == "")||
+		    ((cookie.get("e800login")).length != 32)) {
+			if(!notLogin) {
+				//_gObj("login").innerHTML = _gObj("NotLogin").innerHTML;
+				notLogin = 1;
+				isLogin = 0;
+			}
+			return false;
+
+		} else if(!isLogin) {
+			isLogin = 1;
+			_gObj("login").innerHTML = cookie.get("cookie_mem")+' 你好！ <a href="#" target="_self" onclick="javascript:doLogout();">退出</a>';
+		}
+		return true;
+}
+checkLogin();
+
+function doLogout() {
+      	cookie.set("e800login", null, 0, "/", "e800.com.cn");
+	_gObj("login").innerHTML = _gObj("NotLogin").innerHTML;
+	notLogin = 1;
+	isLogin = 0;
+	return false;
+}
+
+function CheckValid(obj)
+{
+	if (obj.memcode.value == "")
+	{
+		alert ("请填写用户名！");
+		obj.memcode.focus();
+		obj.memcode.value = "";
+		return false;
+	}
+    	if (obj.mempwd.value == "")
+	{
+		alert ("请填写密码！");
+		obj.mempwd.focus();
+		obj.mempwd.value = "";
+		return false;
+	}
+	return true;
+}
+</SCRIPT>
+<!-- 数据库文章页通栏1 -->
+<DIV class=ad750><!--Adforward Begin:--><IFRAME marginWidth=0 marginHeight=0 
+src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/adshow.htm" 
+frameBorder=0 width=900 scrolling=no 
+height=120></IFRAME><!--Adforward End--></DIV><!-- 商业系统 导航 -->
+<DIV id=DeveloperNavList>
+<UL class=ATitle>
+  <LI>
+  <H3>数据库</H3></LI></UL>
+<UL class=AList>
+  <LI><A title=数据库首页 href="http://database.e800.com.cn/" 
+  target=_self>首页</A>&nbsp;&nbsp;|&nbsp;&nbsp; <A title=数据库新闻 
+  href="http://database.e800.com.cn/list/129_1_1_1.html" 
+  target=_self>数据库新闻</A>&nbsp;&nbsp;|&nbsp;&nbsp; <A title=数据库开发 
+  href="http://database.e800.com.cn/list/130_1_1_1.html" 
+  target=_self>数据库开发</A>&nbsp;&nbsp;|&nbsp;&nbsp; <A title=数据库应用 
+  href="http://database.e800.com.cn/list/131_1_1_1.html" 
+  target=_self>数据库应用</A>&nbsp;&nbsp;|&nbsp;&nbsp; <A title=Oracle 
+  href="http://database.e800.com.cn/list/132_1_1_1.html" 
+  target=_self><SPAN>Oracle</SPAN></A>&nbsp;&nbsp;|&nbsp;&nbsp; <A title=DB2 
+  href="http://database.e800.com.cn/list/133_1_1_1.html" 
+  target=_self>DB2</A>&nbsp;&nbsp;|&nbsp;&nbsp; <A title="SQL Server" 
+  href="http://database.e800.com.cn/list/134_1_1_1.html" target=_self>SQL 
+  Server</A>&nbsp;&nbsp;|&nbsp;&nbsp; <A title=Mysql 
+  href="http://database.e800.com.cn/list/135_1_1_1.html" 
+  target=_self>Mysql</A>&nbsp;&nbsp;|&nbsp;&nbsp; <A title=数据库教程 
+  href="http://database.e800.com.cn/list/136_1_1_1.html" target=_self>数据库教程</A> 
+  </LI></UL></DIV><!-- 商业系统 您的位置搜索 -->
+<SCRIPT type=text/javascript>
+String.prototype.trim = function() { return this.replace(/^\s+|\s+$/g,''); }
+
+function SearchCheck()
+{
+	if (document.searchForm.keyword.value.trim() == "") {
+		alert("搜索关键字不能为空！");
+		document.searchForm.keyword.focus();
+		return false;
+	}
+}
+</SCRIPT>
+
+<DIV id=DeveloperPlace>
+<FORM name=searchForm onsubmit="javascript:return SearchCheck();" 
+action=http://search.e800.com.cn/search method=get>
+<UL class=Place>
+  <LI><IMG alt=当前位置 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/developerplace1.gif"><A 
+  title=e800网站 href="http://www.e800.com.cn/">e800网站</A><IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/developerplace2.gif"><A 
+  title=数据库频道 href="http://database.e800.com.cn/">数据库频道</A> </LI></UL>
+<UL class=Sear>
+  <LI>文章搜索:<INPUT size=30 name=keyword> <SELECT id=loginSelect 
+    name=searchDomain> <OPTION value=0>选择频道</OPTION> <OPTION 
+    value=27>cognos</OPTION> <OPTION value=26>绿色虚拟化</OPTION> <OPTION 
+    value=25>专题文章</OPTION> <OPTION value=24>无线网络</OPTION> <OPTION 
+    value=23>商业系统</OPTION> <OPTION value=22 selected>数据库</OPTION> <OPTION 
+    value=21>.net</OPTION> <OPTION value=20>Java</OPTION> <OPTION 
+    value=19>移动与嵌入</OPTION> <OPTION value=17>解决方案</OPTION> <OPTION 
+    value=16>通信网络</OPTION> <OPTION value=15>专业存储</OPTION> <OPTION 
+    value=14>网络设备</OPTION> <OPTION value=13>服务器</OPTION> <OPTION 
+    value=12>Linux</OPTION> <OPTION value=11>开发者</OPTION> <OPTION 
+    value=10>信息安全</OPTION> <OPTION value=9>企业软件</OPTION> <OPTION 
+    value=8>CIO/CTO</OPTION> <OPTION value=7>IT时讯</OPTION></SELECT> <INPUT 
+  type=image 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/developerplace3.gif"> 
+  <A href="http://database.e800.com.cn/rss/2/22.xml"><IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/rss.gif" 
+  align=absMiddle> </A></LI></UL></FORM></DIV><!-- 商业系统 文章页  -->
+<DIV class=ContentA>
+<DIV class=left><!-- Article Content body -->
+<DIV class=AreaBor><!-- Article title -->
+<DIV class=ArcTitle>
+<H1>Oracle 语法之 OVER (PARTITION BY ..) 及开窗函数</H1>
+<DIV class=ArcDate>2008-06-10 14:37:18.0 
+&nbsp;&nbsp;&nbsp;&nbsp;推荐:0&nbsp;&nbsp;&nbsp;&nbsp;收藏:0&nbsp;&nbsp;&nbsp;&nbsp;评论:0&nbsp;&nbsp;&nbsp;&nbsp; 
+来源:<A style="TEXT-DECORATION: none" href="http://database.e800.com.cn/" 
+target=_blank><SPAN style="COLOR: #ffffff">e800数据库频道</SPAN></A></DIV></DIV><!--list title-->
+<DIV class=LHotLableArticle id=LHotLable>
+<UL>
+  <LI class=navta><IMG alt=热门标签 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/rss3.gif" 
+  align=absMiddle> </LI>
+  <LI class=navbg><IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/rss3a.gif" 
+  align=absMiddle>&nbsp;&nbsp;<A title=Oracle 
+  href="http://search.e800.com.cn/search?keyword=Oracle&amp;searchDomain=0">Oracle</A>&nbsp;&nbsp;<IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/rss3b.gif" 
+  align=absMiddle> </LI>
+  <LI class=navbg><IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/rss3a.gif" 
+  align=absMiddle>&nbsp;&nbsp;<A title=开窗函数 
+  href="http://search.e800.com.cn/search?keyword=%BF%AA%B4%B0%BA%AF%CA%FD&amp;searchDomain=0">开窗函数</A>&nbsp;&nbsp;<IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/rss3b.gif" 
+  align=absMiddle> </LI>
+  <LI class=navbg><IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/rss3a.gif" 
+  align=absMiddle>&nbsp;&nbsp;<A title=ER 
+  href="http://search.e800.com.cn/search?keyword=ER&amp;searchDomain=0">ER</A>&nbsp;&nbsp;<IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/rss3b.gif" 
+  align=absMiddle> </LI>
+  <LI class=navbg><IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/rss3a.gif" 
+  align=absMiddle>&nbsp;&nbsp;<A title=io 
+  href="http://search.e800.com.cn/search?keyword=io&amp;searchDomain=0">io</A>&nbsp;&nbsp;<IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/rss3b.gif" 
+  align=absMiddle> </LI></UL></DIV><!--Article Content -->
+<DIV class=AreaCon>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD>一：分析函数over<BR>Oracle从8.1.6开始提供分析函数，分析函数用于计算基于组的某种聚合值，它和聚合函数的不同之处是<BR>对于每个组返回多行，而聚合函数对于每个组只返回一行。 
+      <BR>下面通过几个例子来说明其应用。 <BR>1：统计某商店的营业额。 <BR>date sale<BR>1 20<BR>2 15<BR>3 
+      14<BR>4 18<BR>5 30<BR>规则：按天统计：每天都统计前面几天的总额<BR>得到的结果：<BR>DATE SALE 
+      SUM<BR>----- -------- ------<BR>1 20 20 --1天 <BR>2 15 35 --1天＋2天 <BR>3 14 
+      49 --1天＋2天＋3天 <BR>4 18 67 <BR>5 30 97 <BR><BR>2:统计各班成绩第一名的同学信息<BR>NAME 
+      CLASS S <BR>----- ----- ---------------------- <BR>fda 1 80 <BR>ffd 1 78 
+      <BR>dss 1 95 <BR>cfe 2 74 <BR>gds 2 92 <BR>gf 3 99 <BR>ddd 3 99 <BR>adf 3 
+      45 <BR>asdf 3 55 <BR>3dd 3 78 <BR><BR>通过： <BR>--<BR>select * from <BR>( 
+      <BR>select name,class,s,rank()over(partition by class order by s desc) mm 
+      from t2<BR>) <BR>where mm=1 <BR>--<BR>得到结果：<BR>NAME CLASS S MM <BR>----- 
+      ----- ---------------------- ---------------------- <BR>dss 1 95 1 <BR>gds 
+      2 92 1 <BR>gf 3 99 1 <BR>ddd 3 99 1 
+      <BR><BR>注意：<BR>1.在求第一名成绩的时候，不能用row_number()，因为如果同班有两个并列第一，row_number()只返回一个结果 
+      <BR><BR>2.rank()和dense_rank()的区别是：<BR>--rank()是跳跃排序，有两个第二名时接下来就是第四名<BR>--dense_rank()l是连续排序，有两个第二名时仍然跟着第三名<BR><BR><BR>3.分类统计 
+      (并显示信息)<BR>A B C <BR>-- -- ---------------------- <BR>m a 2 <BR>n a 3 
+      <BR>m a 2 <BR>n b 2 <BR>n b 1 <BR>x b 3 <BR>x b 2 <BR>x b 4 <BR>h b 3 
+      <BR>select a,c,sum(c)over(partition by a) from t2 <BR>得到结果：<BR>A B C 
+      SUM(C)OVER(PARTITIONBYA) <BR>-- -- ------- ------------------------ <BR>h 
+      b 3 3 <BR>m a 2 4 <BR>m a 2 4 <BR>n a 3 6 <BR>n b 2 6 <BR>n b 1 6 <BR>x b 
+      3 9 <BR>x b 2 9 <BR>x b 4 9 <BR><BR>如果用sum，group by 则只能得到<BR>A SUM(C) 
+      <BR>-- ---------------------- <BR>h 3 <BR>m 4 <BR>n 6 <BR>x 9 <BR>无法得到B列值 
+      <BR><BR>＝＝＝＝＝<BR>select * from test<BR>数据:<BR>A B C <BR>1 1 1 <BR>1 2 2 
+      <BR>1 3 3 <BR>2 2 5 <BR>3 4 6 <BR><BR>---将B栏位值相同的对应的C 栏位值加总<BR>select 
+      a,b,c, SUM(C) OVER (PARTITION BY B) C_Sum<BR>from test<BR>A B C C_SUM 
+      <BR>1 1 1 1 <BR>1 2 2 7 <BR>2 2 5 7 <BR>1 3 3 3 <BR>3 4 6 6 
+      <BR><BR>---如果不需要已某个栏位的值分割,那就要用 null<BR>eg: 就是将C的栏位值summary 
+      放在每行后面<BR>select a,b,c, SUM(C) OVER (PARTITION BY null) C_Sum<BR>from 
+      test<BR>A B C C_SUM <BR>1 1 1 17 <BR>1 2 2 17 <BR>1 3 3 17 <BR>2 2 5 17 
+      <BR>3 4 6 17<BR><BR>求个人工资占部门工资的百分比 <BR>SQL&gt; select * from salary; 
+      <BR>NAME DEPT SAL<BR>---------- ---- -----<BR>a 10 2000<BR>b 10 3000<BR>c 
+      10 5000<BR>d 20 4000<BR>SQL&gt; select name,dept,sal,sal*100/sum(sal) 
+      over(partition by dept) percent from salary; <BR>NAME DEPT SAL 
+      PERCENT<BR>---------- ---- ----- ----------<BR>a 10 2000 20<BR>b 10 3000 
+      30<BR>c 10 5000 50<BR>d 20 4000 100<BR>二：开窗函数 
+      <BR>开窗函数指定了分析函数工作的数据窗口大小，这个数据窗口大小可能会随着行的变化而变化，举例如下： <BR>1： <BR>over（order 
+      by salary） 按照salary排序进行累计，order by是个默认的开窗函数<BR>over（partition by 
+      deptno）按照部门分区<BR>2：<BR>over（order by salary range between 5 preceding and 
+      5 
+      following）<BR>每行对应的数据窗口是之前行幅度值不超过5，之后行幅度值不超过5<BR>例如:对于以下列<BR>aa<BR>1<BR>2<BR>2<BR>2<BR>3<BR>4<BR>5<BR>6<BR>7<BR>9<BR><BR>sum(aa)over（order 
+      by aa range between 2 preceding and 2 following）<BR>得出的结果是<BR>AA 
+      SUM<BR>---------------------- 
+      ------------------------------------------------------- <BR>1 10 <BR>2 14 
+      <BR>2 14 <BR>2 14 <BR>3 18 <BR>4 18 <BR>5 22 <BR>6 18 <BR>7 22 <BR>9 9 
+      <BR><BR>就是说，对于aa=5的一行 ，sum为 5-1&lt;=aa&lt;=5+2 的和<BR>对于aa=2来说 
+      ，sum=1+2+2+2+3+4=14 ；<BR>又如 对于aa=9 ，9-1&lt;=aa&lt;=9+2 只有9一个数，所以sum=9 
+      ；<BR><BR>3：其它：<BR>over（order by salary rows between 2 preceding and 4 
+      following）<BR>每行对应的数据窗口是之前2行，之后4行 <BR>4：下面三条语句等效： <BR>over（order by salary 
+      rows between unbounded preceding and unbounded 
+      following）<BR>每行对应的数据窗口是从第一行到最后一行，等效：<BR>over（order by salary range 
+      between unbounded preceding and unbounded 
+      following）<BR>等效<BR>over(partition by null) </TD></TR></TBODY></TABLE></DIV>
+<DIV class=clear></DIV><!-- Article Function -->
+<DIV class=AreaFun><SPAN class=cBlack>您可以针对本文进行：</SPAN>[<A title=评论本文 
+href="http://database.e800.com.cn/comment/734966_1_1.html">评论</A>]&nbsp;&nbsp;[<A 
+title=收藏本文 href="http://passport.e800.com.cn/addf/734966.html" 
+target=_self>收藏</A>]&nbsp;&nbsp;[<A title=推荐本文 
+href="http://passport.e800.com.cn/commend/734966.html" 
+target=_self>推荐</A>]&nbsp;&nbsp;<!--[<a href="">邮寄</a>]&nbsp;&nbsp;--> <!--[<a href="">进入论坛</a>]&nbsp;&nbsp;--></DIV><!-- Article Survey -->
+<DIV class=clear></DIV><!-- Article Commend --><A name=comment></A>
+<DIV class=AreaCommend id=noComment style="DISPLAY: none"><!-- Article Commend Title -->
+<UL class="AreaCommendTit ABorder">
+  <LI class=AreaCommendTitL><B class=f14px>文章评论</B><A 
+  onclick='javascript:showTag("haveComment");hiddenTag("noComment");' 
+  href="http://database.e800.com.cn/articles/2008/610/1213079838055_1.html#comment" 
+  target=_self><IMG class=MGL10 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/article3a.gif" 
+  align=absMiddle></A> </LI>
+  <LI class=AreaCommendTitR><B>共有<SPAN 
+  class=cRed>0</SPAN>条评论</B></B>&nbsp;&nbsp;<A title=查看更多评论 
+  href="http://database.e800.com.cn/comment/734966_1_1.html">点击查看更多评论</A> 
+</LI></UL></DIV>
+<DIV class=AreaCommend id=haveComment><!-- Article Commend Title -->
+<UL class="AreaCommendTit ABorder">
+  <LI class=AreaCommendTitL><B class=f14px>文章评论</B><A 
+  onclick='javascript:showTag("noComment");hiddenTag("haveComment");' 
+  href="http://database.e800.com.cn/articles/2008/610/1213079838055_1.html#comment" 
+  target=_self><IMG class=MGL10 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/article3.gif" 
+  align=absMiddle></A> </LI>
+  <LI class=AreaCommendTitR><B>共有<SPAN 
+  class=cRed>0</SPAN>条评论</B></B>&nbsp;&nbsp;<A title=查看更多评论 
+  href="http://database.e800.com.cn/comment/734966_1_1.html">点击查看更多评论</A> 
+</LI></UL><!-- Article Commend List Title -->
+<UL class=AreaCommendListT></UL><!-- Article Commend Bottom -->
+<UL class=AreaCommendTit>
+  <LI class=AreaCommendTitL></LI>
+  <LI class=AreaCommendTitR><B>共有<SPAN 
+  class=cRed>0</SPAN>条评论</B></B>&nbsp;&nbsp;<A title=查看更多评论 
+  href="http://database.e800.com.cn/comment/734966_1_1.html">点击查看更多评论</A> </LI>
+  <LI class=AreaCommendTitRW>网友评论仅供网友表达个人看法，并不表明e800同意其观点或证实其描述 </LI></UL></DIV>
+<DIV class=clear></DIV><!--login bbs-->
+<DIV class=LoginBbs>
+<FORM id=loginForm_comment name=loginForm_comment 
+onsubmit="return CheckValid_comment(this)" 
+action=http://passport.e800.com.cn/logincheck.html method=post target=_self>
+<DIV class=LoginA><B>我想发表评论：</B> 
+<DIV id=login_comment>用户名<INPUT size=10 name=memcode>密码<INPUT type=password 
+size=10 name=mempwd><INPUT type=submit value=登陆> <INPUT onclick="javascript:window.location.href='http://passport.e800.com.cn/reg.html';" type=button value=注册> 
+</DIV>
+<DIV id=NotLogin_comment style="DISPLAY: none">用户名<INPUT size=10 
+name=memcode>密码<INPUT type=password size=10 name=mempwd><INPUT type=submit value=登陆> <INPUT onclick="javascript:window.location.href='http://passport.e800.com.cn/reg.html';" type=button value=注册> 
+</DIV></DIV></FORM>
+<FORM id=Form_comment name=Form_comment 
+onsubmit="return CheckValid_comment2(this)" 
+action=http://passport.e800.com.cn/commentsave.html method=post target=_self>
+<DIV class=LoginB><INPUT type=hidden value=0 name=commentparent> <INPUT 
+type=hidden value=734966 name=aid> <TEXTAREA name=comment></TEXTAREA> </DIV><A 
+name=commentc></A>
+<DIV class=LoginC>
+<UL class=Ta>
+  <LI><A title=我的评论 href="http://passport.e800.com.cn/mycomment.html"><IMG 
+  alt=我的评论 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/login1.gif">我的评论</A>&nbsp;&nbsp;&nbsp;&nbsp;<A 
+  title=我的收藏 href="http://passport.e800.com.cn/mycollection.html"><IMG alt=我的收藏 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/login1.gif">我的收藏</A> 
+
+  <LI><A title=我的积分 href="http://passport.e800.com.cn/myscores.html"><IMG 
+  alt=我的积分 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/login1.gif">我的积分</A>&nbsp;&nbsp;&nbsp;&nbsp;<A 
+  title=我的订阅 href="http://passport.e800.com.cn/mysub.html"><IMG alt=我的订阅 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/login1.gif">我的订阅</A> 
+<!--li>-&nbsp;&nbsp;<a href=""><span class="cRed">积分奖励计划</span></a></li>
+		<li>-&nbsp;&nbsp;<a href="" class="a005E9E">用户定制功能展示</a></li--></LI></UL>
+<UL class=Tb>
+  <LI><INPUT type=checkbox CHECKED value=checkbox name=checkbox>匿名发表 
+  <BR>验证码：<INPUT size=5 name=checkcode> <IMG style="MARGIN-TOP: 5px" 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/random.jpg"> <INPUT type=submit value=提交> </LI></UL></DIV></DIV></FORM>
+<SCRIPT>
+var isLogin_comment = 0;
+var notLogin_comment = 0;
+var loginTimer_comment = 0;
+
+function checkLogin_comment()
+{
+		if(loginTimer_comment) clearTimeout(loginTimer_comment);
+		loginTimer_comment = setTimeout("checkLogin_comment()", 1000);
+		if ((cookie.get("e800login") == null) ||
+		    (cookie.get("e800login") == "")||
+		    ((cookie.get("e800login")).length != 32)) {
+			if(!notLogin_comment) {
+				//_gObj("login_comment").innerHTML = _gObj("NotLogin_comment").innerHTML;
+				notLogin = 1;
+				isLogin = 0;
+			}
+			return false;
+
+		} else if(!isLogin_comment) {
+			isLogin = 1;
+			_gObj("login_comment").innerHTML = cookie.get("cookie_mem")+' 你好！ <a href="#comment" target="_self" onclick="javascript:doLogout_comment();">退出</a>';
+		}
+		return true;
+}
+checkLogin_comment();
+
+function doLogout_comment() {
+      	cookie.set("e800login", null, 0, "/", "e800.com.cn");
+	_gObj("login_comment").innerHTML = _gObj("NotLogin_comment").innerHTML;
+	_gObj("login").innerHTML = _gObj("NotLogin").innerHTML;
+	notLogin = 1;
+	isLogin = 0;
+	return false;
+}
+
+function CheckValid_comment(obj)
+{
+	if (obj.memcode.value == "")
+	{
+		alert ("请填写用户名！");
+		obj.memcode.focus();
+		obj.memcode.value = "";
+		return false;
+	}
+    	if (obj.mempwd.value == "")
+	{
+		alert ("请填写密码！");
+		obj.mempwd.focus();
+		obj.mempwd.value = "";
+		return false;
+	}
+	return true;
+}
+
+function CheckValid_comment2(obj)
+{	
+		if (obj.comment.value == "")
+	{
+		alert ("评论内容为空！");
+		obj.comment.focus();
+		obj.comment.value = "";
+		return false;
+	}
+		if (obj.comment.value.length < 5)
+	{
+		alert ("您的评论少于5个字符！");
+		obj.comment.focus();
+		return false;
+	}	
+	if (obj.comment.value.length > 500)
+	{
+		alert ("评论过长！");
+		obj.comment.focus();
+		return false;
+	}
+			var checkcode=obj.checkcode.value;						
+		if(checkcode=="")
+		{
+			alert("请填写验证码!");
+			obj.checkcode.focus();
+			return false;
+		}
+
+		obj.comment.focus();
+		return true;
+	
+}
+
+function fucCheckLength(strTemp)
+{
+ var i,sum;
+ sum=0;
+ for(i=0;i<strTemp.length;i++)
+ {
+  if ((strTemp.charCodeAt(i)>=0) && (strTemp.charCodeAt(i)<=255))
+   sum=sum+1;
+  else
+   sum=sum+2;
+ }
+ return sum;
+}
+
+function recomment(commentid)
+{
+	document.all.commentparent.value = commentid;
+	window.location="#commentc"; 
+}
+</SCRIPT>
+
+<DIV class=clear></DIV><!-- Article Relation --><A name=relation></A>
+<DIV class=AreaRelatio id=norelation style="DISPLAY: none">
+<DIV class=title>关于 <A title=Oracle 
+href="http://search.e800.com.cn/search?keyword=Oracle&amp;searchDomain=0">Oracle</A>&nbsp;&nbsp; 
+<A title=开窗函数 
+href="http://search.e800.com.cn/search?keyword=%BF%AA%B4%B0%BA%AF%CA%FD&amp;searchDomain=0">开窗函数</A>&nbsp;&nbsp; 
+<A title=ER 
+href="http://search.e800.com.cn/search?keyword=ER&amp;searchDomain=0">ER</A>&nbsp;&nbsp; 
+<A title=io 
+href="http://search.e800.com.cn/search?keyword=io&amp;searchDomain=0">io</A>&nbsp;&nbsp; 
+的新闻<A onclick='javascript:showTag("haverelation");hiddenTag("norelation");' 
+href="http://database.e800.com.cn/articles/2008/610/1213079838055_1.html#relation" 
+target=_self><IMG class=MGL10 
+src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/article3a.gif" 
+align=absMiddle></A> </DIV></DIV>
+<DIV class=AreaRelatio id=haverelation>
+<DIV class=title>关于 <A title=Oracle 
+href="http://search.e800.com.cn/search?keyword=Oracle&amp;searchDomain=0">Oracle</A>&nbsp;&nbsp; 
+<A title=开窗函数 
+href="http://search.e800.com.cn/search?keyword=%BF%AA%B4%B0%BA%AF%CA%FD&amp;searchDomain=0">开窗函数</A>&nbsp;&nbsp; 
+<A title=ER 
+href="http://search.e800.com.cn/search?keyword=ER&amp;searchDomain=0">ER</A>&nbsp;&nbsp; 
+<A title=io 
+href="http://search.e800.com.cn/search?keyword=io&amp;searchDomain=0">io</A>&nbsp;&nbsp; 
+的新闻<A onclick='javascript:showTag("norelation");hiddenTag("haverelation");' 
+href="http://database.e800.com.cn/articles/2008/610/1213079838055_1.html#relation" 
+target=_self><IMG class=MGL10 
+src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/article3.gif" 
+align=absMiddle></A> </DIV>
+<DIV class="Leftline MGT10"></DIV>
+<DIV class=clear></DIV>
+<DIV class=content>
+<UL>
+  <LI class=La><A title=Oracle数据库中利用索引表提高查询速度 
+  href="http://database.e800.com.cn/articles/2008/121/1228095933202_1.html">Oracle数据库中利用索引表提高查询速度</A> 
+  </LI>
+  <LI class=Lb>2008-12-01 </LI>
+  <LI class=La><A title="Oracle 临时表空间过大问题解决" 
+  href="http://database.e800.com.cn/articles/2008/121/1228095764144_1.html">Oracle 
+  临时表空间过大问题解决</A> </LI>
+  <LI class=Lb>2008-12-01 </LI>
+  <LI class=La><A title=创建最适合的Oracle运行环境 
+  href="http://database.e800.com.cn/articles/2008/1127/1227774059146_1.html">创建最适合的Oracle运行环境</A> 
+  </LI>
+  <LI class=Lb>2008-11-27 </LI>
+  <LI class=La><A title="Navicat Oracle数据库管理工具首次公开发布" 
+  href="http://database.e800.com.cn/articles/2008/1127/1227764671770_1.html">Navicat 
+  Oracle数据库管理工具首次公开发布</A> </LI>
+  <LI class=Lb>2008-11-27 </LI>
+  <LI class=La><A title="Oracle statspack祥解" 
+  href="http://database.e800.com.cn/articles/2008/1126/1227664937375_1.html">Oracle 
+  statspack祥解</A> </LI>
+  <LI class=Lb>2008-11-26 </LI>
+  <LI class=La><A title=Oracle中暗藏的珍宝:STATSPACK 
+  href="http://database.e800.com.cn/articles/2008/1126/1227664753280_1.html">Oracle中暗藏的珍宝:STATSPACK</A> 
+  </LI>
+  <LI class=Lb>2008-11-26 </LI>
+  <LI class=La><A title=Oracle业务流程管理10g第三版本面市 
+  href="http://database.e800.com.cn/articles/2008/1125/1227576918900_1.html">Oracle业务流程管理10g第三版本面市</A> 
+  </LI>
+  <LI class=Lb>2008-11-25 </LI>
+  <LI class=La><A title=利用脚本文件来管理Oracle数据库 
+  href="http://database.e800.com.cn/articles/2008/1124/1227515690826_1.html">利用脚本文件来管理Oracle数据库</A> 
+  </LI>
+  <LI class=Lb>2008-11-24 </LI>
+  <LI class=La><A title=利用脚本文件来管理Oracle数据库 
+  href="http://developer.e800.com.cn/articles/2008/1124/1227494816422_1.html">利用脚本文件来管理Oracle数据库</A> 
+  </LI>
+  <LI class=Lb>2008-11-24 </LI>
+  <LI class=La><A title="Oracle 11g R1中资源管理器增强" 
+  href="http://database.e800.com.cn/articles/2008/1120/1227171101920_1.html">Oracle 
+  11g R1中资源管理器增强</A> </LI>
+  <LI class=Lb>2008-11-20 </LI></UL></DIV>
+<DIV class=clear></DIV></DIV></DIV></DIV>
+<DIV class=right><!--数据库文章页PIP-->
+<DIV class=""><!--Adforward Begin:--><IFRAME marginWidth=0 marginHeight=0 
+src="D:\Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files\adshow(1).htm" 
+frameBorder=0 width=280 scrolling=no 
+height=300></IFRAME><!--Adforward End--></DIV>
+<DIV class="list MGT10">
+<UL class=EmNsLiRight>
+  <LI class=Title>数据库技术焦点 </LI>
+  <LI><A 
+  href="http://database.e800.com.cn/articles/2008/121/1228096010860_1.html"><IMG 
+  class=imgbor height=150 alt=Oracle数据库文件恢复与备份思路 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/2008120111092912950.jpg" 
+  width=215></A> </LI>
+  <LI><A title=Oracle数据库文件恢复与备份思路 
+  href="http://database.e800.com.cn/articles/2008/121/1228096010860_1.html">
+  <H5>Oracle数据库文件恢复与备份思路</H5></A>任何数据库在长期使用过程中，都会存在一定的安全隐患。对于数据库管理员来说不能仅寄希望于计算机操作系统... 
+  </LI>
+  <LI><SPAN class=cBlue>相关标签: &nbsp;&nbsp;<SPAN class=c026698>[<A class=cBlue 
+  title=备份 
+  href="http://search.e800.com.cn/search?keyword=备份&amp;searchDomain=0">备份</A>]</SPAN> 
+  &nbsp;&nbsp;<SPAN class=c026698>[<A class=cBlue title=Oracle恢复 
+  href="http://search.e800.com.cn/search?keyword=Oracle恢复&amp;searchDomain=0">Oracle恢复</A>]</SPAN> 
+  </SPAN></LI></UL>
+<UL class=clear></UL>
+<UL class=EmArliT>
+  <LI><B class=cRed>资讯数据库文章</B> </LI></UL>
+<UL class=EmArli>
+  <LI class=BBlue><A title=华硕案终获国家赔偿 
+  href="http://news.e800.com.cn/articles/2008/1128/1227842302844_1.html">华硕案终获国家赔偿</A> 
+  </LI>
+  <LI class=BBlue><A title=雅虎欧洲区总经理宣布辞职 
+  href="http://news.e800.com.cn/articles/2008/1128/1227842051738_1.html">雅虎欧洲区总经理宣布辞职</A> 
+  </LI>
+  <LI class=BBlue><A title=联想戴尔在华召回笔记本电池 
+  href="http://news.e800.com.cn/articles/2008/1128/1227841890430_1.html">联想戴尔在华召回笔记本电池</A> 
+  </LI>
+  <LI class=BBlue><A title=身价急剧缩水的20大富豪 
+  href="http://news.e800.com.cn/articles/2008/1127/1227751555717_1.html">身价急剧缩水的20大富豪</A> 
+  </LI>
+  <LI class=BBlue><A title=未来互联网将成能耗大户 
+  href="http://news.e800.com.cn/articles/2008/1127/1227750520203_1.html">未来互联网将成能耗大户</A> 
+  </LI>
+  <LI class=BBlue><A title=Facebook赢反垃圾邮件诉讼 
+  href="http://news.e800.com.cn/articles/2008/1127/1227750299090_1.html">Facebook赢反垃圾邮件诉讼</A> 
+  </LI>
+  <LI class=BBlue><A title=支付宝回应“虚假网购套现” 
+  href="http://news.e800.com.cn/articles/2008/1126/1227678086202_1.html">支付宝回应“虚假网购套现”</A> 
+  </LI>
+  <LI class=BBlue><A title=51.com承认开发彩虹QQ 
+  href="http://news.e800.com.cn/articles/2008/1126/1227677919511_1.html">51.com承认开发彩虹QQ</A> 
+  </LI>
+  <LI class=BBlue><A title=火狐和Chrome难以撼动IE地位 
+  href="http://news.e800.com.cn/articles/2008/1126/1227677678887_1.html">火狐和Chrome难以撼动IE地位</A> 
+  </LI>
+  <LI class=BBlue><A title=Windows7测试版明年初发布 
+  href="http://news.e800.com.cn/articles/2008/1126/1227677440865_1.html">Windows7测试版明年初发布</A> 
+  </LI></UL>
+<UL class=clear></UL>
+<UL class=EmArliT>
+  <LI><B class=cRed>数据库专题</B> </LI></UL>
+<UL class=EmArliImgT>
+  <LI><A href="http://special.e800.com.cn/081127/index.html"><IMG class=imgbor 
+  height=90 alt=SaaS时代的到来 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/2008112810122011633.jpg" 
+  width=120></A><BR><A title=SaaS时代的到来 
+  href="http://special.e800.com.cn/081127/index.html">SaaS时代的到来</A> </LI>
+  <LI class=MGL10><A href="http://special.e800.com.cn/081124/index.html"><IMG 
+  class=imgbor height=90 alt=危机惹的祸？细数最郁闷的企业 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/2008112710245911518.jpg" 
+  width=120></A><BR><A title=危机惹的祸？细数最郁闷的企业 
+  href="http://special.e800.com.cn/081124/index.html">危机惹的祸？细数最郁闷的企业</A> 
+</LI></UL>
+<UL class=clear></UL>
+<UL class=EmArliT>
+  <LI><B class=cRed>数据库文章排行</B> </LI></UL>
+<DIV id=Info_A>
+<UL class="MGL10 PDT10" id=navAN>
+  <LI class=active id=navANq1><A urn=#default_A rel=Info_A_div>日点击</A> </LI>
+  <LI class=normal id=navANq1><A urn=/resource/include/tabs/lists/week_132.html 
+  rel=Info_A_div>周点击</A> </LI>
+  <LI class=normal id=navANq1><A urn=/resource/include/tabs/lists/month_132.html 
+  rel=Info_A_div>月点击</A> </LI>
+  <LI class=normal id=navANq1><A urn=/resource/include/tabs/lists/sum_132.html 
+  rel=Info_A_div>总点击</A> </LI>
+  <LI class=normal id=navANq1><A 
+  urn=/resource/include/tabs/lists/comment_132.html rel=Info_A_div>评论</A> 
+</LI></UL></DIV>
+<UL class=BorListANl id=Info_A_div>
+  <LI class=BorListANlC><IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/iconn1.gif"> <A 
+  title="Oracle 9i中监视索引的使用介绍" 
+  href="http://database.e800.com.cn/articles/2007/112/1168535719883306075_1.html">Oracle 
+  9i中监视索引...</A> </LI>
+  <LI class=BorListANlD>26473 </LI>
+  <LI class=BorListANlC><IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/iconn2.gif"> <A 
+  title=从MySQL中导出XLS数据库工具 
+  href="http://database.e800.com.cn/articles/2007/524/1179939860870779117_1.html">从MySQL中导出XLS数据...</A> 
+  </LI>
+  <LI class=BorListANlD>15080 </LI>
+  <LI class=BorListANlC><IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/iconn3.gif"> <A 
+  title=用Oracle数据库实现实时通信 
+  href="http://database.e800.com.cn/articles/2007/19/1168275895183877664_1.html">用Oracle数据库实现实时...</A> 
+  </LI>
+  <LI class=BorListANlD>5173 </LI>
+  <LI class=BorListANlC><IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/iconn4.gif"> <A 
+  title="Oracle 分区表(Partition)" 
+  href="http://database.e800.com.cn/articles/2008/130/1201637459631875625_1.html">Oracle 
+  分区表(Par...</A> </LI>
+  <LI class=BorListANlD>3528 </LI>
+  <LI class=BorListANlC><IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/iconn5.gif"> <A 
+  title=oracle软件下载地址（备查） 
+  href="http://database.e800.com.cn/articles/2008/56/1210018909994927188_1.html">oracle软件下载地址（备...</A> 
+  </LI>
+  <LI class=BorListANlD>3385 </LI>
+  <LI class=BorListANlC><IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/iconn6.gif"> <A 
+  title=通过分析SQL语句的执行计划优化SQL(二) 
+  href="http://database.e800.com.cn/articles/2007/99/1189282027833631265_1.html">通过分析SQL语句的执行计划...</A> 
+  </LI>
+  <LI class=BorListANlD>2934 </LI>
+  <LI class=BorListANlC><IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/iconn7.gif"> <A 
+  title=oracle网络配置(listener.ora/sqlnet.ora/tnsnames.ora) 
+  href="http://database.e800.com.cn/articles/2008/125/1201205566221270164_1.html">oracle网络配置(lis...</A> 
+  </LI>
+  <LI class=BorListANlD>2847 </LI>
+  <LI class=BorListANlC><IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/iconn8.gif"> <A 
+  title="Ora-12514 主动加载listener与被动加载listener" 
+  href="http://database.e800.com.cn/articles/2007/1023/1193083585422393240_1.html">Ora-12514 
+  主动加载...</A> </LI>
+  <LI class=BorListANlD>2597 </LI></UL>
+<UL class="EmArliT MGT6"><B>精彩推荐：</B>&nbsp;&nbsp;<BR><A 
+  href="http://www.heylady.com.cn/">i时尚</A>&nbsp;&nbsp;<A 
+  href="http://corp.it168.com/corp/106_index.shtml">LG</A>&nbsp;&nbsp;<A 
+  href="http://tech.it168.com/java/">java企业开发</A>&nbsp;&nbsp;<A 
+  href="http://www4.it168.com/jtzt/shenlan/tech/opensource/index.html">开源</A> <A 
+  href="http://product.it168.com/list/b/01010357_1.shtml">长城pc</A>&nbsp;&nbsp; 
+  <A 
+  href="http://product.it168.com/list/b/01010357_1.shtml">长城电脑</A>&nbsp;&nbsp; 
+  <A 
+  href="http://product.it168.com/list/b/01010357_1.shtml">长城电脑报价</A>&nbsp;&nbsp; 
+  <A 
+  href="http://product.it168.com/list/b/01010357_1.shtml">长城电脑代理</A>&nbsp;&nbsp; 
+  <A 
+  href="http://product.it168.com/list/b/01010371_1.shtml">浪潮台式机</A>&nbsp;&nbsp; 
+  <A 
+  href="http://product.it168.com/list/b/01010371_1.shtml">浪潮电脑</A>&nbsp;&nbsp; 
+  <A href="http://product.it168.com/list/b/01010371_1.shtml">浪潮电脑报价</A> 
+</UL></DIV></DIV></DIV><!-- e800版权信息 -->
+<SCRIPT 
+src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/urchin.js" 
+type=text/javascript>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+_uacct = "UA-612714-1";
+urchinTracker();
+</SCRIPT>
+
+<DIV class=clear><IFRAME 
+src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/SvCount.htm" 
+width=1 height=1></IFRAME></DIV>
+<DIV id=foot>
+<UL>
+  <LI class=La><IMG 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/biaoshi.gif"> 
+  </LI>
+  <LI class=Lb>Copyright&copy; 2002-2007北京亿八佰电子商务有限公司 版权所有，未经许可不得转载<BR>联系: <A 
+  href="mailto:webmaster@e800.com.cn"><IMG alt=webmaster@e800.com.cn 
+  src="Oracle 语法之 OVER (PARTITION BY __) 及开窗函数 e800网站数据库频道.files/webmail.gif" 
+  align=absMiddle></A> 电话: (8610)65530088 京ICP证040593号
+  <LI></LI></UL></DIV>
+<SCRIPT type=text/javascript>startajaxtabs("Info_A");</SCRIPT>
+</BODY></HTML>

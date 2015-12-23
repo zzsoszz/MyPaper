@@ -1,0 +1,791 @@
+imp wfm/wfm@SCTEL file=E:/工作资料/代码和数据库/wfm_server_0625.DMP full=y statistics=none
+imp zswfm/zswfm file=E:/wfm10.dmp full=y statistics=none
+imp crm/crm file=D:/develop/crm/runto_hzsz.dmp full=y statistics=none
+imp zswfm/zswfm file=D:/develop/crm/runto_hzsz.dmp  full=y statistics=none
+imp wfmmc/wfmmc file=D:/wfm1224.dmp full=y statistics=none
+imp WFM_MC/WFM_MC file=D:/wfm10-12-15.dmp full=y statistics=none
+imp WFMTEST/WFMTEST file=D:/wfm10-12-28.dmp full=y statistics=none
+ALTER DATABASE DATAFILE 'D:\develop\oracle\product\10.2.0\oradata\SJAXDATA02.DBF' RESIZE 4000M;
+
+exp wfm/wfm@SCTEL10000 file=E:/工作资料/代码和数据库/wfm2.dmp 
+
+exp wfm/wfm@SCTEL10000 file=E:/工作资料/代码和数据库/wfm2.dmp 
+
+exp zxdbm_umap/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp zxdbm_cdr/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp zxdbm_jf/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp ZXSDP_ZXINSYS/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp ZXDBM_ISMPBUF/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp ZXIN/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp ZXINALARM/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp ZXINCHARGE/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp ZXINMEASURE/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp ZXINSYS/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp ZXIN_SMAP/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp ZXJWF/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp ZXJWF/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp ZXLOGIN/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp ZXSDP_ZXIN/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp ZXSDP_ZXINCHARGE/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+exp ZXSDP_ZXINSYS/zxin_smap file=E:/工作资料/代码和数据库/wfm2.dmp 
+
+exp hotel/bhxoatdemlin file=/ftp/test/mis.dmp 
+
+
+create   tablespace   SJAXDATA02   datafile   'D:\develop\oracle\product\10.2.0\oradata\SJAXDATA02.DBF'   
+size   1000M;  
+alter database datafile  'D:\develop\oracle\product\10.2.0\oradata\SJAXDATA02.DBF'   resize 8000m; 
+
+create   tablespace   CALLCENTER01   datafile   '/u01/app/oracle/oradata/CALLCENTER01.DBF'   
+size   5000M;  
+
+CREATE USER "WFM" IDENTIFIED BY "WFM"
+ DEFAULT TABLESPACE SJAXDATA02
+ TEMPORARY TABLESPACE TEMP
+ PROFILE DEFAULT
+ QUOTA  UNLIMITED  ON USERS;
+
+GRANT "CONNECT" TO "WFM";
+GRANT "DBA" TO "WFM";
+GRANT "RESOURCE" TO "WFM";
+ALTER USER "WFM" DEFAULT ROLE "CONNECT", "DBA", "RESOURCE";
+
+
+
+
+CREATE USER "ZSWFM" IDENTIFIED BY "ZSWFM"
+ DEFAULT TABLESPACE SJAXDATA02
+ TEMPORARY TABLESPACE TEMP
+ PROFILE DEFAULT
+ QUOTA  UNLIMITED  ON USERS;
+
+GRANT "CONNECT" TO "ZSWFM";
+GRANT "DBA" TO "ZSWFM";
+GRANT "RESOURCE" TO "ZSWFM";
+ALTER USER "ZSWFM" DEFAULT ROLE "CONNECT", "DBA", "RESOURCE";
+
+
+
+
+
+
+
+
+
+CREATE USER "ZXDBM_UMAP" IDENTIFIED BY "ZXIN_SMAP"
+ DEFAULT TABLESPACE UDT_PLATFORM_TBS
+ TEMPORARY TABLESPACE TEMP
+ PROFILE DEFAULT
+ QUOTA  UNLIMITED  ON USERS;
+
+GRANT "CONNECT" TO "ZXDBM_UMAP";
+GRANT "DBA" TO "ZXDBM_UMAP";
+GRANT "RESOURCE" TO "ZXDBM_UMAP";
+ALTER USER "ZXDBM_UMAP" DEFAULT ROLE "CONNECT", "DBA", "RESOURCE";
+
+
+CREATE USER "ZXDBM_CDR" IDENTIFIED BY "ZXIN_SMAP"
+ DEFAULT TABLESPACE UDT_PLATFORM_TBS
+ TEMPORARY TABLESPACE TEMP
+ PROFILE DEFAULT
+ QUOTA  UNLIMITED  ON USERS;
+
+GRANT "CONNECT" TO "ZXDBM_CDR";
+GRANT "DBA" TO "ZXDBM_CDR";
+GRANT "RESOURCE" TO "ZXDBM_CDR";
+ALTER USER "ZXDBM_CDR" DEFAULT ROLE "CONNECT", "DBA", "RESOURCE";
+
+CREATE USER "ZXDBM_JF" IDENTIFIED BY "ZXIN_SMAP"
+ DEFAULT TABLESPACE UDT_PLATFORM_TBS
+ TEMPORARY TABLESPACE TEMP
+ PROFILE DEFAULT
+ QUOTA  UNLIMITED  ON USERS;
+
+GRANT "CONNECT" TO "ZXDBM_JF";
+GRANT "DBA" TO "ZXDBM_JF";
+GRANT "RESOURCE" TO "ZXDBM_JF";
+ALTER USER "ZXDBM_JF" DEFAULT ROLE "CONNECT", "DBA", "RESOURCE";
+
+
+CREATE USER "ZXSDP_ZXINSYS" IDENTIFIED BY "ZXIN_SMAP"
+ DEFAULT TABLESPACE UDT_PLATFORM_TBS
+ TEMPORARY TABLESPACE TEMP
+ PROFILE DEFAULT
+ QUOTA  UNLIMITED  ON USERS;
+
+GRANT "CONNECT" TO "ZXSDP_ZXINSYS";
+GRANT "DBA" TO "ZXSDP_ZXINSYS";
+GRANT "RESOURCE" TO "ZXSDP_ZXINSYS";
+ALTER USER "ZXSDP_ZXINSYS" DEFAULT ROLE "CONNECT", "DBA", "RESOURCE";
+
+
+CREATE USER "ZXDBM_ISMPBUF" IDENTIFIED BY "ZXIN_SMAP"
+ DEFAULT TABLESPACE UDT_PLATFORM_TBS
+ TEMPORARY TABLESPACE TEMP
+ PROFILE DEFAULT
+ QUOTA  UNLIMITED  ON USERS;
+
+GRANT "CONNECT" TO "ZXDBM_ISMPBUF";
+GRANT "DBA" TO "ZXDBM_ISMPBUF";
+GRANT "RESOURCE" TO "ZXDBM_ISMPBUF";
+ALTER USER "ZXDBM_ISMPBUF" DEFAULT ROLE "CONNECT", "DBA", "RESOURCE";
+
+
+CREATE USER "ZXSDP_ZXIN" IDENTIFIED BY "ZXIN_SMAP"
+ DEFAULT TABLESPACE UDT_PLATFORM_TBS
+ TEMPORARY TABLESPACE TEMP
+ PROFILE DEFAULT
+ QUOTA  UNLIMITED  ON USERS;
+
+GRANT "CONNECT" TO "ZXSDP_ZXIN";
+GRANT "DBA" TO "ZXSDP_ZXIN";
+GRANT "RESOURCE" TO "ZXSDP_ZXIN";
+ALTER USER "ZXSDP_ZXIN" DEFAULT ROLE "CONNECT", "DBA", "RESOURCE";
+
+
+
+CREATE USER "ZXSDP_ZXINCHARGE" IDENTIFIED BY "ZXIN_SMAP"
+ DEFAULT TABLESPACE UDT_PLATFORM_TBS
+ TEMPORARY TABLESPACE TEMP
+ PROFILE DEFAULT
+ QUOTA  UNLIMITED  ON USERS;
+
+GRANT "CONNECT" TO "ZXSDP_ZXINCHARGE";
+GRANT "DBA" TO "ZXSDP_ZXINCHARGE";
+GRANT "RESOURCE" TO "ZXSDP_ZXINCHARGE";
+ALTER USER "ZXSDP_ZXINCHARGE" DEFAULT ROLE "CONNECT", "DBA", "RESOURCE";
+
+
+
+IMP ZXDBM_UMAP/ZXIN_SMAP FILE=D:/ZXDBM_UMAP.DMP   FULL=Y STATISTICS=NONE
+IMP ZXDBM_CDR/ZXIN_SMAP FILE=D:/ZXDBM_CDR.DMP  FULL=Y STATISTICS=NONE
+IMP ZXDBM_JF/ZXIN_SMAP FILE=D:/ZXDBM_JF.DMP  FULL=Y STATISTICS=NONE
+IMP ZXSDP_ZXINSYS/ZXIN_SMAP FILE=D:/ZXSDP_ZXINSYS.DMP  FULL=Y STATISTICS=NONE
+IMP ZXDBM_ISMPBUF/ZXIN_SMAP FILE=D:/ZXDBM_ISMPBUF.DMP  FULL=Y STATISTICS=NONE
+IMP ZXSDP_ZXIN/ZXIN_SMAP FILE=D:/ZXSDP_ZXIN.DMP  FULL=Y STATISTICS=NONE
+IMP ZXSDP_ZXINCHARGE/ZXIN_SMAP FILE=D:/ZXSDP_ZXINCHARGE.DMP  FULL=Y STATISTICS=NONE
+
+
+
+
+
+exp hotel/hotel189 file=/u01/tmp/hotel20130507.dmp 
+
+
+
+导出
+expdp hotel_admin/hotel_admin@hotel dumpfile=full.dmp full=y logfile=full.log directory=expdp_dir job_name=my_job
+
+
+导入
+impdp \"sys/hotel3 as sysdba \"  DIRECTORY=expdp_dir DUMPFILE=full20130326.dmp schemas=HOTEL  REMAP_SCHEMA=HOTEL:HOTELDEV;
+
+grand select on sys.V_$SESSION to HOTELDEV;
+
+
+
+
+CREATE USER "HOTELZS" IDENTIFIED BY "HOTELZS";
+GRANT "CONNECT" TO "HOTELZS";
+GRANT "DBA" TO "HOTELZS";
+GRANT "RESOURCE" TO "HOTELZS";
+ALTER USER "HOTELZS" DEFAULT ROLE "CONNECT", "DBA", "RESOURCE";
+
+
+
+
+mv /ftp/full20130507.dmp /u01/oracle_dmp/
+cd /u01/oracle_dmp/ 
+chown oracle:oinstall full20130507.dmp
+su - oracle
+sqlplus /nolog
+connect /as sysdba
+shutdown immediate
+startup
+---drop user hotel cascade;
+exit
+impdp hotel_admin/hotel189@hotel directory=expdp_dir dumpfile=full20130507.dmp logfile=full20130507.log   schemas=HOTEL  REMAP_SCHEMA=HOTEL:HOTELZS;
+
+grant select on v_$session to HOTELZS;
+根据导入服务器，修改hotel的密码，比如导入到189：alter user hotel identified by hotel189;
+alter view SYS."_ALL_REPRESOLUTION" compile;
+alter view SYS."_ALL_REPCONFLICT" compile;
+alter view SYS."_ALL_REPCOLUMN_GROUP" compile;
+alter view SYS."_ALL_REPPARAMETER_COLUMN" compile;
+分别以hotel_admin（sysdba）、hotel登录plsqldeveloper重新编译无效对象。
+xix.	如果是导入到测试培训平台的数据库，一定记得导数据之前先停用业务系统，导入之后，及时修改传真配置信息，然后再启动应用系统，否则测试订单的传真将会被发出去。修改传真配置信息脚本：
+truncate table ufs_order_fax_path_t;
+insert into ufs_order_fax_path_t  (city_code,ftp_id,ftp_name, ftp_level, ip_address, port_no, ftp_path, user_name, password, if_use, remark, server_path ) select   distinct f_city_code, to_number(f_city_code), f_city_code, 1, '192.168.1.189', 21, 'faxfile/sendfax', 'faxfile',    'filefaxhotelwebfor101120904', 1, '远程传真发送目录', 'http://192.168.1.189:8094/htimage/' from om_area_t;
+commit;
+
+
+
+alter user sys identified by  qingtian
+;
+
+
+解锁用户
+alter user hotel account unlock
+
+
+
+
+select * from dba_tablespaces;
+select * from dba_data_files;
+
+
+
+
+
+
+
+--查询表空间暂用情况
+SELECT UPPER(F.TABLESPACE_NAME) "表空间名",
+　　D.TOT_GROOTTE_MB "表空间大小(M)",
+　　D.TOT_GROOTTE_MB - F.TOTAL_BYTES "已使用空间(M)",
+　　TO_CHAR(ROUND((D.TOT_GROOTTE_MB - F.TOTAL_BYTES) / D.TOT_GROOTTE_MB * 100,2),'990.99') || '%' "使用比",
+　　F.TOTAL_BYTES "空闲空间(M)",
+　　F.MAX_BYTES "最大块(M)"
+　　FROM (SELECT TABLESPACE_NAME,
+　　ROUND(SUM(BYTES) / (1024 * 1024), 2) TOTAL_BYTES,
+　　ROUND(MAX(BYTES) / (1024 * 1024), 2) MAX_BYTES
+　　FROM SYS.DBA_FREE_SPACE
+　　GROUP BY TABLESPACE_NAME) F,
+　　(SELECT DD.TABLESPACE_NAME,
+　　 ROUND(SUM(DD.BYTES) / (1024 * 1024), 2) TOT_GROOTTE_MB
+　　FROM SYS.DBA_DATA_FILES DD
+　　GROUP BY DD.TABLESPACE_NAME) D
+　　WHERE D.TABLESPACE_NAME = F.TABLESPACE_NAME
+　　ORDER BY 1;
+--查询表空间使用的文件
+select tablespace_name, file_id, file_name,
+round(bytes/(1024*1024),0) total_space
+from dba_data_files
+order by tablespace_name;
+--扩展表空间
+alter tablespace MBIS_DATA_01 add datafile '/u01/app/oracle/oradata/hotel/mbis_data_05_1.dbf' size 2000M autoextend off;
+
+
+
+
+--impdp
+create directory mydir 
+as 'd:\full20140516';
+
+
+
+oracle数据库导入导出方法
+ 
+作者：maorongr | 时间：2013年06月13日 19:22 | 分类：经验分享 | 713 次阅读 | 抢沙发 
+
+
+ 
+ 
+Oracle Database 10g以后引入了最新的数据泵(Data Dump)技术，使DBA或开发人员可以将数据库元数据(对象定义)和数据快速移动到另一个oracle数据库中。
+  
+ 数据泵导出导入(EXPDP和IMPDP)的作用
+  
+ 　1、实现逻辑备份和逻辑恢复。
+  
+ 　2、在数据库用户之间移动对象。
+  
+ 　3、在数据库之间移动对象
+  
+ 　4、实现表空间搬移。 数据泵导出导入与传统导出导入的区别：
+  
+ 在10g之前，传统的导出和导入分别使用EXP工具和IMP工具，从10g开始，不仅保留了原有的EXP和IMP工具，还提供了数据泵导出导入工具EXPDP和IMPDP.使用EXPDP和IMPDP时应该注意的事项;
+  
+ EXP和IMP是客户段工具程序，它们既可以在客户端使用，也可以在服务器段使用。
+  
+ EXPDP和IMPDP是服务端的工具程序，他们只能在ORACLE服务端使用，不能在客户端使用
+  
+ IMP只适用于EXP导出文件，不适用于EXPDP导出文件;IMPDP只适用于EXPDP导出文件，而不适用于EXP导出文件。
+  
+  
+ 今天我在导入同事给我的数据文件时，总是报IMP-00038错误，提示，无法转换为环境字符集句柄，造成这种错误的原因一般是数据库版本不匹配，但是我们使用的都是oracle11g，就排除了这种可能。最后发现原因是他是使用数据泵导出的数据文件，而我使用传统imp命令导入是不可以的，后续改为使用impdp数据泵导入成功。
+  
+ 下面是我使用数据泵导入数据文件的完整过程：
+  
+ 1、使用system用户登录数据库，创建新用户usertest（新建用户时用户名最好和数据文件导出时的用户名相同），表空间可以使用系统默认的也可以自己新建一个表空间。sql代码如下:
+  
+ 新建用户使用oracle默认表空间：
+ create user usertest identified by usertest; 
+  
+ 新建表空间：
+ create tablespace user_all 
+ datafile 'D:/dev/oracle/tablespace/user_all.dbf'
+ size 300M   
+ autoextend on   
+ next 50M   
+ maxsize unlimited 
+  
+ 新建用户(设置默认表空间)：
+ create user usertest identified by usertest default tablespace user_all;
+  
+ 2、对新建的用户赋权限，dba、connect、resource。sql代码如下：
+ 
+grant connect, resource,dba to usertest;
+  
+ 3、为数据库导入导出，新建目录文件 如dumpdir
+  
+ create directory 目录名称 as '数据库服务器上的一个目录'，如：
+ create directory dumpdir as 'd:\服务器目录名';
+ 将导入或导出的文件放在这个目录下
+  
+ 4、为此用户的导入导出目录赋读写权限
+ grant read,write on directory dumpdir to usertest;
+ 
+ 
+ 5、导出及导入
+ 以SID=orcl，导出dmp的账号为usertest，导入dmp的账号为usertest为例。
+ 
+ 
+ 若将数据从sfz中导出：
+ expdp usertest/usertest@orcl directory=dumpdir  dumpfile=导出文件名
+ 
+ 
+ 导入到usertest中：
+ impdp usertest/usertest@orcl directory=dumpdir  dumpfile=导出文件名.dmp
+  
+ 导入导出用户名最好相同，用户名不同时，还需要做个映射
+  
+ remap_schema=test:usertest 
+ 
+ 
+ 注意在使用本地数据库时，要启动以下oracle服务：
+  
+ OracleOraDb11g_home1TNSListener
+ OracleServiceORCL
+ 
+ 
+ 
+mv /ftp/full20121226.dmp /u01/oracle_dmp/
+cd /u01/oracle_dmp/ 
+chown oracle:oinstall full20121226.dmp
+su – oracle
+sqlplus /nolog
+connect /as sysdba
+shutdown immediate
+startup
+drop user hotel cascade;
+exit
+impdp hotel_admin/hotel189@hotel directory=expdp_dir dumpfile=full20121224.dmp logfile=full20121224.log
+grant select on v_$session to hotel;
+根据导入服务器，修改hotel的密码，比如导入到189：alter user hotel identified by hotel189;
+alter view SYS."_ALL_REPRESOLUTION" compile;
+alter view SYS."_ALL_REPCONFLICT" compile;
+alter view SYS."_ALL_REPCOLUMN_GROUP" compile;
+alter view SYS."_ALL_REPPARAMETER_COLUMN" compile;
+分别以hotel_admin（sysdba）、hotel登录plsqldeveloper重新编译无效对象。
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------hotel 测试环境
+
+create   tablespace   BXDATA01   datafile   '/u01/app/oradata/BXDATA01.DBF'   
+size   20000M;  
+
+alter database datafile  '/u01/app/oradata/HOTEL.DBF'   resize 20000M; 
+
+
+
+CREATE USER "HOTEL" IDENTIFIED BY "HOTEL"
+ DEFAULT TABLESPACE BXDATA01
+ TEMPORARY TABLESPACE TEMP
+ PROFILE DEFAULT
+ QUOTA  UNLIMITED  ON USERS;
+
+GRANT "CONNECT" TO "HOTEL";
+GRANT "DBA" TO "HOTEL";
+GRANT "RESOURCE" TO "HOTEL";
+ALTER USER "HOTEL" DEFAULT ROLE "CONNECT", "DBA", "RESOURCE";
+
+
+imp hotel/HOTEL file=/ftp/expdbdir/full2015050703.dmp full=y statistics=none
+
+
+
+
+
+--------------------------下面的弃用
+create or replace directory expdp_dir
+  as '/ftp/expdbdir';
+
+ 
+我用的导出命令
+expdp hotel_admin/hOtEl_AdMiN@hotel dumpfile=full20150507.dmp full=y logfile=full20150507.log directory=expdp_dir job_name=my_job
+参考导入命令
+impdp hotel_admin/hotel189@hotel directory=expdp_dir dumpfile=full20150507.dmp logfile=full20150507.log
+
+
+
+
+
+---------------------------
+http://blog.csdn.net/davidhsing/article/details/6408770
+
+create public database link dblink1  
+　　connect to hotel identified by HOTEL  
+　　using '(DESCRIPTION =(ADDRESS_LIST =(ADDRESS =(PROTOCOL = TCP)(HOST = 118.122.121.4)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = orcl)))';  
+
+
+select count(*) FROM bx_order_hotel_t@dblink1;  
+
+
+
+
+-----------------------------
+
+
+
+http://www.xifenfei.com/2025.html
+
+
+http://blog.sina.com.cn/s/blog_6ade57e10100rrld.html
+http://www.w3help.org/zh-cn/causes/
+http://blog.chinaunix.net/uid-44549-id-2401452.html
+orapwd file="/u01/app/oracle/11g/dbs/orapwcallcenter.ora" password=hotel entries=10
+GRANT dba to sys;
+GRANT dba to sys;
+
+GRANT CONNECT TO sys;
+GRANT DBA TO sys;
+GRANT RESOURCE TO sys;
+
+
+chmod 4640 orapwcallcenter
+
+
+alter user sys identified by hotel116;
+alter user wfm identified by wfm;
+select * from v$pwfile_users;
+orapwd file=$ORACLE_HOME/dbs/orapw$ORACLE_SID entries=3 password=manager force=y
+
+win：
+orapwd file=%ORACLE_HOME%\database\PWD%ORACLE_SID%.ora entries=3 password=manager force=y
+linux:注意这里没有ora后缀!!!
+orapwd file=$ORACLE_HOME/dbs/orapw$ORACLE_SID entries=3 password=manager force=y
+
+
+
+cp -rf $ORACLE_BASE/admin/$ORACLE_SID/pfile/init.ora.682015151218    $ORACLE_HOME/dbs/init$ORACLE_SID.ora
+cd /u01/app/oracle/admin/callcenter/pfile/init.ora.682015151218  /u01/app/oracle/11g/dbs/initcallcenter.ora
+
+
+
+-----------------------------
+ oracle查看字符集后修改oracle服务端和客户端字符集的步骤
+
+1.oracle server端字符集查询
+代码如下:
+select userenv ('language')  from dual;
+
+server字符集修改：
+
+将数据库启动到RESTRICTED模式下做字符集更改：
+代码如下:
+SQL>conn /as sysdba
+
+SQL>shutdown immediate;  
+
+SQL>startup mount
+
+SQL>ALTER  SYSTEM  ENABLE  RESTRICTED  SESSION;  
+
+SQL>ALTER  SYSTEM  SET  JOB_QUEUE_PROCESSES=0;  
+
+SQL>ALTER  SYSTEM  SET  AQ_TM_PROCESSES=0;
+
+SQL>alter database open;  
+
+SQL>ALTER DATABASE CHARACTER SET ZHS16GBK;
+
+ALTER DATABASE CHARACTER SET ZHS16GBK  ERROR at line 1:
+
+ORA-12712: new character set must be a superset of old character set
+
+提示我们的字符集：新字符集必须为旧字符集的超集，这时我们可以跳过超集的检查做更改：
+代码如下:
+SQL>ALTER DATABASE character set INTERNAL_USE ZHS16GBK;  
+
+SQL>select * from v$nls_parameters;  
+
+重启检查是否更改完成：
+代码如下:
+SQL>shutdown immediate;
+
+SQL>startup
+
+SQL>select * from v$nls_parameters;
+
+我们看到这个过程和之前ALTER DATABASE CHARACTER SET操作的内部过程是完全相同的，也就是说INTERNAL_USE提供的帮助就是使Oracle数据库绕过了子集与超集的校验
+
+这一方法在某些方面是有用处的，比如测试；应用于产品环境时大家应该小心，可能会有一些意外的问题。
+
+2.oracle client端字符集修改
+
+代码如下:
+$echo$NLS_LANG
+
+client字符集修改：  
+
+ 在 /home/oracle与 /root用户目录下的.bash_profile中添加或修改 export NLS_LANG="AMERICAN_AMERICA.UTF8" 语句
+
+ 关闭当前ssh窗口。
+
+注意：NLS_LANG变量一定要配置正确否则会引起sqlplus失效。
+
+3.修改数据库字符集为UTF-8
+
+1.以DBA登录
+
+2.执行转换语句：
+
+代码如下:
+SHUTDOWN IMMEDIATE;
+
+STARTUP MOUNT EXCLUSIVE;
+
+ALTER SYSTEM ENABLE RESTRICTED SESSION;
+
+ALTER SYSTEM SET JOB_QUEUE_PROCESSES=0;
+
+ALTER SYSTEM SET AQ_TM_PROCESSES=0;
+
+ALTER DATABASE OPEN;
+
+ALTER DATABASE NATIONAL CHARACTER SET UTF8;
+
+SHUTDOWN IMMEDIATE;
+
+STARTUP;
+
+注意：如果没有大对象，在使用过程中进行语言转换没有什么影响!
+
+可能会出现ORA-12717:CANNOT ALTER DATABASE NATIONAL CHARACTER SET WHEN NCLOBDATAEXISTS， 解决这个问题的方法
+
+利用INTERNAL_USE 关键字修改区域设置
+代码如下:
+ALTER DATABASE NATIONAL CHARACTER SET INTERNAL_USE UTF8;
+
+
+
+
+
+
+
+
+----------------------------------开机启动
+CentOS 6.4下让Oracle开机启动
+[日期：2014-10-26] 	来源：Linux社区  作者：Linux 	[字体：大 中 小]
+
+目标：在CentOS 6.4下让Oracle开机启动
+
+方案：首先添加 启动，关闭，重启Oracle的服务和实例的服务；然后把这个服务添加到系统服务的运行级别。
+
+设置CentOS下开机自动启动Oracle  http://www.linuxidc.com/Linux/2011-07/38827p2.htm
+
+步骤：
+
+1，新增service
+
+执行命令：
+
+# vi /etc/rc.d/init.d/oracle
+
+Oracle文件的内容为：
+
+#! /bin/bash
+# chkconfig: 234 61 61
+# description: Oracle 11g AutoRun Service
+# /etc/rc.d/init.d/oracle
+ 
+case "$1" in
+    start)
+        # starts oracle listener and instance
+        echo "Starting Oracle Database:"
+        su - oracle -lc "lsnrctl start"
+        su - oracle -lc dbstartup
+        ;;
+    stop)
+        # shutdown oracle listner and instance
+        echo "Shuting down Oracle Database:"
+        su - oracle -lc "lsnrctl stop"
+        su - oracle -lc dbshutdown
+        ;;
+    reload|restart)
+        $0 stop
+        $0 start
+        ;;
+    *)
+    echo "Usage: {start|stop|reload|restart}"
+    exit 1
+esac
+exit 0
+
+注意：脚本中添加至少两行注释行（第3步中），第一行告诉chkconfig该服务的运行级别；第二行添加关于服务的简要说明。
+
+以上脚本中涉及到的两个脚本：dbstart和dbshut
+
+2，编辑dbstartup和dbshutdown
+执行命令
+$ vi $ORACLE_HOME/bin/dbstartup
+内容为：
+#dbstartup
+#/opt/oracle/102/bin
+sqlplus / as sysdba <<EOF
+startup
+exit
+EOF
+vi$ORACLE_HOME/bin/dbshutdown
+内容为：
+#dbshutdown
+#/home/oracle/102/bin
+sqlplus / as sysdba <<EOF
+shutdown immediate
+exit
+EOF
+
+3，检查启动脚本是否正确
+
+# cd /etc/rc.d/init.d
+# ./oracle start
+# ./oracle stop
+ 
+4，把建立好的oracle服务添加到系统级别
+执行如下命令：
+# chmod 750 /etc/rc.d/init.d/oracle
+# chkconfig --level 234 oracle on
+# chkconfig --add oracle
+
+更多CentOS相关信息见CentOS 专题页面 http://www.linuxidc.com/topicnews.aspx?tid=14
+
+更多Oracle相关信息见Oracle 专题页面 http://www.linuxidc.com/topicnews.aspx?tid=12
+
+本文永久更新链接地址：http://www.linuxidc.com/Linux/2014-10/108469.htm
+
+
+
+
+---------------------------------------
+五、 Oracle卸载
+1、 停止监听服务（oracle用户登录）
+[oracle@tsp-rls-dbserver ~]$ lsnrctl stop
+2、 停止数据库
+
+3、 删除oracle安装路径（root用户登录）
+[root@tsp-rls-dbserver deps]# rm -rf /home/oracle/app
+[root@tsp-rls-dbserver deps]# rm -rf /home/oracle/oraInventory
+
+4、 删除系统路径文件（root用户登录）
+[root@tsp-rls-dbserver deps]# rm -rf /usr/local/bin/dbhome
+[root@tsp-rls-dbserver deps]# rm -rf /usr/local/bin/oraenv
+[root@tsp-rls-dbserver deps]# rm -rf /usr/local/bin/coraenv
+
+5、 删除数据库实例表（root用户登录）
+[root@tsp-rls-dbserver deps]# rm -rf /etc/oratab
+
+6、 删除数据库实例lock文件（root用户登录）
+[root@tsp-rls-dbserver deps]# rm -rf /etc/oraInst.loc
+
+7、 删除oracle用户及用户组（root用户登录）
+[root@tsp-rls-dbserver deps]# userdel -r oracle
+[root@tsp-rls-dbserver deps]# groupdel oinstall
+[root@tsp-rls-dbserver deps]# groupdel dba
+
+                                                                                                                                                                                             
+																																															 
+--------------------------------------------
+ oracle11G在linux环境下的卸载操作
+分类： OS.Linux DB.Oracle 2012-10-30 17:07 12848人阅读 评论(0) 收藏 举报
+1.使用SQL*PLUS停止数据库
+[oracle@OracleTest oracle]$ sqlplus log
+SQL> connect / as sysdba
+SQL> shutdown [immediate]
+SQL> exit
+
+
+2.停止Listener
+[oracle@OracleTest oracle]$ lsnrctl stop
+
+
+3.停止HTTP服务
+[root@OracleTest /root]# service httpd stop
+
+
+4.用su或者重新登录到root(如想重新安装可以保留oracle用户，省得输入环境变量了)
+
+
+5.将安装目录删除
+[root@OracleTest /root]# rm -rf /u01/oracle/
+[root@OracleTest /root]# rm -rf /u01/oraInventory/
+
+
+6.将/usr/bin下的文件删除
+[root@OracleTest /root]# rm /usr/local/bin/dbhome
+[root@OracleTest /root]# rm /usr/local/bin/oraenv
+[root@OracleTest /root]# rm /usr/local/bin/coraenv
+
+
+7.将/etc/oratab删除
+[root@OracleTest /root]# rm /etc/oratab
+
+
+8.将/etc/oraInst.loc删除
+[root@OracleTest /root]# rm /etc/oraInst.loc
+
+
+9.将oracle用户删除(若要重新安装,可以不删除)
+[root@OracleTest /root]# userdel –r oracle
+
+
+10.将用户组删除(若要重新安装,可以不删除)
+[root@OracleTest /root]# groupdel oinstall
+[root@OracleTest /root]# groupdel dba
+
+
+11.将启动服务删除
+[root@OracleTest /root]# chkconfig --del dbora
+到此为止重启后，你的Linux系统下的Oracle数据库已完全删除了！！！
+
+
+以上是CentOS5.4+Oracle 11g的环境。
+
+
+如果要再次安装， 最好先做一些备份工作。
+包括用户的登录脚本，数据库自动启动关闭的脚本，和Listener自动启动的脚本。
+要是有可能连创建数据库的脚本也保存下来。
+
+
+
+
+
+
+
+--------------------------------
+
+
+CREATE USER "CALLCENTER" IDENTIFIED BY "bx123456"
+ DEFAULT TABLESPACE CALLCENTER01
+ TEMPORARY TABLESPACE TEMP
+ PROFILE DEFAULT
+ QUOTA  UNLIMITED  ON USERS;
+ 
+ 
+ 
+GRANT "CONNECT" TO "CALLCENTER";
+GRANT "DBA" TO "CALLCENTER";
+GRANT "RESOURCE" TO "CALLCENTER";
+ALTER USER "CALLCENTER" DEFAULT ROLE "CONNECT", "DBA", "RESOURCE";
+
+
+
+create   tablespace   CALLCENTER01   datafile   '/u01/app/oracle/oradata/CALLCENTER01.DBF'   
+size   5000M;  

@@ -1,0 +1,21 @@
+select v3.call_date,
+
+          CASE 
+          WHEN to_char(v3.call_date, 'DD') not in ('01', '04', '05', '06', '07', '08', '09', '10', '11')
+             THEN  0 
+          WHEN v3.call_date != last_day(v3.call_date)
+             THEN  0
+          WHEN v3.call_date not in   (select tss.sub_date
+                                        from t_shift_sub tss
+                                       where tss.group_id in
+                                             (select distinct (s.group_id)
+                                                from t_shift_date s, t_shift_annual_leave_plan tsa
+                                               where s.user_login = tsa.user_login)
+                                         and to_char(trunc(tss.sub_date, 'MM'), 'MM') = to_char(trunc(add_months(sysdate, -1), 'MM'), 'MM'
+                                         
+                                      ))
+              THEN  0
+          ELSE v3.nianxiu
+          
+       END mylevel 
+  from t_shift_nianxiu  v3

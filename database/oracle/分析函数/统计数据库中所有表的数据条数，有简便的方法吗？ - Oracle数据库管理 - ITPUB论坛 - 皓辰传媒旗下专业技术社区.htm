@@ -1,0 +1,1706 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0047)http://www.itpub.net/viewthread.php?tid=1085350 -->
+<HTML><HEAD><TITLE>统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content=0u78C4yv4qii5DCeCBHKhw3c8nNHWNVY2mLBtMwObu0= name=verify-v1>
+<META content=oracle,db2,sqlserver,sybase,mysql,erp,scm,sap,java,.net 
+name=keywords>
+<META 
+content="ITPUB is a website for database,erp,developer powered by ITPUB.NET. To visit the website, go to http://www.itpub.net/ . To find out about ITPUB, go to http://www.itpub.net/" 
+name=description>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR>
+<META content=TRUE name=MSSmartTagsPreventParsing>
+<META http-equiv=MSThemeCompatible content=Yes><LINK title=ITPUB论坛 
+href="http://www.itpub.net/archiver/" rel=archives><LINK id=css 
+href="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/style_3.css" 
+type=text/css rel=stylesheet>
+<SCRIPT 
+src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/popwindowjs.htm" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/cWratingCom.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/common.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/menu.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/ajax.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>var IMGDIR = 'images/itpub';var SMDIR = 'images/smilies';</SCRIPT>
+</HEAD>
+<BODY onkeydown="if(event.keyCode==27) return false;">
+<SCRIPT language=JavaScript1.2 
+src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/ctp080113.htm" 
+type=text/javascript></SCRIPT>
+<NOSCRIPT><IMG height=1 
+src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/a.gif" 
+width=1></NOSCRIPT> 
+<CENTER>
+<DIV class=maintable><BR>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD vAlign=top align=left width=1 
+    background="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/menu_background.gif"><A 
+      href="http://www.itpub.net/index.php"><IMG alt=ITPUB??ì3 
+      src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/logo.gif" 
+      width=210 border=0></A> </TD>
+    <TD vAlign=bottom noWrap align=right 
+    background="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/menu_background.gif">
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD vAlign=bottom noWrap align=right></TD>
+        <TR>
+          <TD vAlign=bottom noWrap align=right><!-- toplinks -->
+            <TABLE cellSpacing=0 cellPadding=0>
+              <TBODY>
+              <TR>
+                <TD>
+                  <TABLE height=16 cellSpacing=2 cellPadding=2 align=right 
+                  bgColor=#d1d9e2 border=0>
+                    <TBODY>
+                    <TR>
+                      <TD class=block 
+                      onmouseover="this.className='blockover'; style.cursor='hand'" 
+                      onmouseout="this.className='block'" ;>
+                        <DIV class=menu>&nbsp; <A 
+                        href="http://www.itpub.net/">首页</A>&nbsp;&nbsp;<A 
+                        href="http://www.itpub.net/list.html">论坛</A>&nbsp;&nbsp;<A 
+                        href="http://publish.itpub.net/">门户</A>&nbsp;&nbsp;<A 
+                        href="http://space.itpub.net/">空间</A>&nbsp;&nbsp;<A 
+                        href="http://www.itpub.net/wap">手机版</A>&nbsp;&nbsp;<A 
+                        href="http://www.ixpub.net/">IXPUB</A>&nbsp; <SPAN 
+                        id=plugin onmouseover=showMenu(this.id)>插件<IMG title="" 
+                        alt="" 
+                        src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/jsmenu.gif" 
+                        border=0></SPAN> &nbsp;<A 
+                        href="http://www.itpub.net/my.php">收藏</A>&nbsp;&nbsp;<A 
+                        href="http://www.itpub.net/memcp.php">设置</A>&nbsp;&nbsp;<A 
+                        href="http://www.itpub.net/register.php">注册</A>&nbsp;&nbsp;<A 
+                        href="http://www.itpub.net/logging.php?action=login">登录</A>&nbsp;&nbsp;<A 
+                        href="http://www.itpub.net/shopcp.php">商店</A>&nbsp;&nbsp;<A 
+                        href="http://www.itpub.net/search.php">搜索</A>&nbsp;&nbsp;<A 
+                        href="http://edu.itpub.net/">培训</A>&nbsp;&nbsp;<A 
+                        href="http://wiki.itpub.net/">Wiki</A>&nbsp;&nbsp;<A 
+                        href="http://weblog.itpub.net/">Blog</A>&nbsp;&nbsp;<A 
+                        href="http://www.itpub.net/archiver">归档</A>&nbsp;&nbsp;<A 
+                        href="http://book.itpub.net/">丛书</A>&nbsp;&nbsp;<A 
+                        href="http://www.itpub.net/logging.php?action=logout&amp;formhash=2f0253e2">退出</A></DIV>
+                        <DIV></DIV></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD></TD></TR></TBODY></TABLE><!-- /toplinks --></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<TABLE cellSpacing=0 cellPadding=10 width="100%" bgColor=#ffffff border=0>
+  <TBODY>
+  <TR>
+    <TD align=middle>
+      <DIV class=maintable style="WIDTH: 100%; TEXT-ALIGN: left"><SPAN 
+      id=forumlist onmouseover=showMenu(this.id)><A 
+      href="http://www.itpub.net/list.html">ITPUB论坛</A></SPAN> &raquo; <A 
+      href="http://www.itpub.net/forum-2-1.html">Oracle数据库管理</A> &raquo; 
+      统计数据库中所有表的数据条数，有简便的方法吗？</DIV><BR>
+      <DIV></DIV>
+      <DIV class=maintable>
+      <TABLE style="CLEAR: both" cellSpacing=0 cellPadding=0 width="100%" 
+      align=center>
+        <TBODY>
+        <TR>
+          <TD vAlign=bottom>
+            <DIV style="MARGIN-BOTTOM: 4px"><A style="FONT-WEIGHT: normal" 
+            href="http://www.itpub.net/redirect.php?fid=2&amp;tid=1085350&amp;goto=nextoldset">&#8249;&#8249; 
+            上一主题</A> | <A style="FONT-WEIGHT: normal" 
+            href="http://www.itpub.net/redirect.php?fid=2&amp;tid=1085350&amp;goto=nextnewset">下一主题 
+            &#8250;&#8250;</A><BR></DIV>
+            <DIV class=p_bar><A class=p_total>&nbsp;11&nbsp;</A><A 
+            class=p_pages>&nbsp;1/2&nbsp;</A><A class=p_curpage>1</A><A 
+            class=p_num 
+            href="http://www.itpub.net/viewthread.php?tid=1085350&amp;extra=&amp;page=2">2</A><A 
+            class=p_redirect 
+            href="http://www.itpub.net/viewthread.php?tid=1085350&amp;extra=&amp;page=2">&#8250;&#8250;</A></DIV></TD>
+          <TD vAlign=bottom align=right width="40%">
+            <DIV class=right>&nbsp;<A 
+            href="http://www.itpub.net/post.php?action=reply&amp;fid=2&amp;tid=1085350&amp;extra="><IMG 
+            alt="" 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/reply.gif" 
+            border=0></A></DIV>
+            <DIV class=right id=newspecialheader 
+            onmouseover=showMenu(this.id)><A 
+            href="http://www.itpub.net/post.php?action=newthread&amp;fid=2&amp;extra="><IMG 
+            alt="" 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/newtopic.gif" 
+            border=0></A></DIV>
+            <DIV class="popupmenu_popup newspecialmenu" id=newspecialheader_menu 
+            style="DISPLAY: none">
+            <TABLE cellSpacing=0 cellPadding=4 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD class=popupmenu_option>
+                  <DIV class=newspecial><A 
+                  href="http://www.itpub.net/post.php?action=newthread&amp;fid=2&amp;extra=&amp;poll=yes">投票</A></DIV></TD></TR>
+              <TR>
+                <TD class=popupmenu_option>
+                  <DIV class=newspecial><A 
+                  href="http://www.itpub.net/post.php?action=newthread&amp;fid=2&amp;extra=&amp;trade=yes">交易</A></DIV></TD></TR>
+              <TR>
+                <TD class=popupmenu_option>
+                  <DIV class=newspecial><A 
+                  href="http://www.itpub.net/post.php?action=newthread&amp;fid=2&amp;extra=&amp;reward=yes">悬赏</A></DIV></TD></TR>
+              <TR>
+                <TD class=popupmenu_option>
+                  <DIV class=newspecial><A 
+                  href="http://www.itpub.net/post.php?action=newthread&amp;fid=2&amp;extra=&amp;activity=yes">活动</A></DIV></TD></TR></TBODY></TABLE></DIV>
+            <DIV>&nbsp;&nbsp;&nbsp;&nbsp;<A 
+            href="http://blog.itpub.net/login.php?bbid=1085350&amp;type=dz" 
+            target=_blank><IMG alt="" 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/sendblog.gif" 
+            border=0></A></DIV></TD></TR></TBODY></TABLE></DIV>
+      <SCRIPT type=text/javascript>
+function fastreply(subject) {
+if($('postform')) {
+$('postform').subject.value = subject;
+$('postform').message.focus();
+}
+}
+</SCRIPT>
+
+      <DIV class=maintable>
+      <DIV class=spaceborder style="WIDTH: 100%; BORDER-BOTTOM: medium none">
+      <TABLE cellSpacing=0 cellPadding=4 width="100%" align=center>
+        <TBODY>
+        <TR class=header>
+          <TD style="COLOR: #ffffff" colSpan=2>
+            <DIV class=right style="FONT-WEIGHT: normal"><A 
+            href="http://www.itpub.net/good_list.php?tid=1085350">评价</A> | <A 
+            href="http://www.itpub.net/viewthread.php?action=printable&amp;tid=1085350" 
+            target=_blank>打印</A> | <A 
+            href="http://www.itpub.net/misc.php?action=emailfriend&amp;tid=1085350">推荐</A> 
+            | <A id=ajax_subscription onclick="ajaxmenu(event, this.id)" 
+            href="http://www.itpub.net/my.php?item=subscriptions&amp;subadd=1085350">订阅</A> 
+            | <A id=ajax_favorite onclick="ajaxmenu(event, this.id)" 
+            href="http://www.itpub.net/my.php?item=favorites&amp;tid=1085350">收藏</A> 
+            </DIV>标题: <A 
+            href="http://www.itpub.net/forumdisplay.php?fid=2&amp;filter=type&amp;typeid=6">[原创]</A> 
+            统计数据库中所有表的数据条数，有简便的方法吗？</TD></TR></TBODY></TABLE></DIV>
+      <FORM name=delpost 
+      action=topicadmin.php?action=delpost&amp;fid=2&amp;tid=1085350&amp;page=1 
+      method=post><INPUT type=hidden value=2f0253e2 name=formhash> 
+      <DIV class=spaceborder 
+      style="BORDER-TOP: medium none; MARGIN-BOTTOM: 4px; WIDTH: 100%">
+      <TABLE class=t_row cellSpacing=0 cellPadding=4 width="100%" align=center 
+      border=1>
+        <TBODY>
+        <TR style="HEIGHT: 100%">
+          <TD class=altbg1 vAlign=top width=175><A name=pid12110576></A><IMG 
+            alt=离线 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/callingoff.gif" 
+            align=right border=0> <A 
+            href="http://www.itpub.net/viewpro.php?uid=11244507" 
+            target=_blank>凌西</A> 
+            <DIV class=smalltxt>混混<BR><BR>
+            <TABLE cellSpacing=0 cellPadding=0 width="95%" border=0>
+              <TBODY>
+              <TR>
+                <TD><IMG height=130 alt="" 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/11244507_957.jpg" 
+                  width=96 border=0></TD></TR></TBODY></TABLE><BR>精华贴数 0<BR><A 
+            href="http://space.itpub.net/11244507/">个人空间</A> 9<BR>技术积分 345 
+            (5797)<BR>社区积分 18 (8309)<BR>注册日期 2007-9-14<BR>论坛徽章:3<BR>
+            <TABLE width="100%" align=center>
+              <TBODY>
+              <TR>
+                <TD align=middle width="20%"><IMG height=24 alt=生肖徽章2007版:龙 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/sx2007-05small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=生肖徽章2007版:羊 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/sx2007-08small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 
+                  alt=2008北京奥运纪念徽章:自行车 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/y3.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR>
+              <TR>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR></TBODY></TABLE>
+            <P></P></DIV></TD>
+          <TD 
+          style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px" 
+          vAlign=top>
+            <TABLE class=t_msg cellSpacing=0 cellPadding=4 border=0>
+              <TBODY>
+              <TR>
+                <TD class=altbg1>
+                  <DIV>
+                  <DIV class="right t_number"><A class=bold title=复制帖子链接到剪贴板 
+                  onclick="setcopy('http://www.itpub.net/viewthread.php?tid=1085350&amp;page=1#pid12110576', '已经复制到剪贴板')" 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#">#1</A></DIV>
+                  <DIV class=right style="PADDING-TOP: 4px"><A 
+                  href="http://www.itpub.net/magic.php?action=user&amp;pid=12110576" 
+                  target=_blank>使用道具</A>&nbsp;&nbsp;</DIV>
+                  <DIV style="PADDING-TOP: 4px" align=right>发表于 2008-11-12 
+                  15:43&nbsp; </DIV></DIV></TD></TR>
+              <TR class=altbg1>
+                <TD class=line style="PADDING-TOP: 10px" vAlign=top 
+                height="100%">
+                  <DIV style="FLOAT: right" align=right><A title="评分 0" 
+                  href="http://www.itpub.net/misc.php?action=viewratings&amp;tid=1085350&amp;pid=12110576"></A></DIV>统计数据库中所有表的数据条数，有简便的方法吗？<BR><BR>
+                  <DIV class=t_msgfont 
+                  id=message12110576>要大概的统计一下数据库中所有用户表的记录条数，因为每个表的数据量（条数）从几万到几千万不等，除了count之外，还有什么简单的方法吗？<BR>或者有什么工具可以借用一下?<BR><BR></DIV><BR 
+                  style="CLEAR: both"><FONT 
+                  style="FONT: 9pt verdana, arial, helvetica; COLOR: #000000"></FONT></TD></TR>
+              <TR class=altbg1>
+                <TD vAlign=bottom>__________________<BR>
+                  <DIV class=t_signature 
+                  style="OVERFLOW: hidden; max-height: 40em; maxHeightIE: 365px">坚持，很难，也很必要<BR>我想要章～～</DIV></TD></TR>
+              <TR class=altbg1>
+                <TD align=right><A 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350&amp;elevator=11244507">只看该作者</A> 
+                  &nbsp;&nbsp; <A onclick=scroll(0,0) 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#"><IMG 
+                  alt=顶部 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/top.gif" 
+                  border=0></A> </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+      <DIV class=spaceborder style="MARGIN-BOTTOM: 4px; WIDTH: 100%">
+      <TABLE class=t_row cellSpacing=0 cellPadding=4 width="100%" align=center 
+      border=1>
+        <TBODY>
+        <TR style="HEIGHT: 100%">
+          <TD class=altbg2 vAlign=top width=175><A name=pid12110616></A><IMG 
+            alt=离线 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/callingoff.gif" 
+            align=right border=0> <A 
+            href="http://www.itpub.net/viewpro.php?uid=15689685" 
+            target=_blank>OneGoodDream</A> <BR><SPAN class=smalltxt>新人</SPAN> 
+            <DIV class=smalltxt><BR>
+            <TABLE cellSpacing=0 cellPadding=0 width="95%" border=0>
+              <TBODY>
+              <TR>
+                <TD><IMG height=130 alt="" 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/15689685_f82.gif" 
+                  width=104 border=0></TD></TR></TBODY></TABLE><BR>来自 北京<BR>精华贴数 
+            0<BR><A href="http://space.itpub.net/15689685/">个人空间</A> 0<BR>技术积分 
+            2241 (725)<BR>社区积分 9 (12027)<BR>注册日期 2008-8-31<BR>论坛徽章:119<BR>
+            <TABLE width="100%" align=center>
+              <TBODY>
+              <TR>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR>
+              <TR>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR></TBODY></TABLE>
+            <P></P></DIV></TD>
+          <TD 
+          style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px" 
+          vAlign=top>
+            <TABLE class=t_msg cellSpacing=0 cellPadding=4 border=0>
+              <TBODY>
+              <TR>
+                <TD class=altbg2>
+                  <DIV>
+                  <DIV class="right t_number"><A class=bold title=复制帖子链接到剪贴板 
+                  onclick="setcopy('http://www.itpub.net/viewthread.php?tid=1085350&amp;page=1#pid12110616', '已经复制到剪贴板')" 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#">#2</A></DIV>
+                  <DIV class=right style="PADDING-TOP: 4px"><A 
+                  href="http://www.itpub.net/magic.php?action=user&amp;pid=12110616" 
+                  target=_blank>使用道具</A>&nbsp;&nbsp;</DIV>
+                  <DIV style="PADDING-TOP: 4px" align=right>发表于 2008-11-12 
+                  15:46&nbsp; </DIV></DIV></TD></TR>
+              <TR class=altbg2>
+                <TD class=line style="PADDING-TOP: 10px" vAlign=top 
+                height="100%">
+                  <DIV style="FLOAT: right" align=right><A title="评分 0" 
+                  href="http://www.itpub.net/misc.php?action=viewratings&amp;tid=1085350&amp;pid=12110616"></A></DIV>
+                  <DIV class=t_msgfont 
+                  id=message12110616>用count还不简单？<BR><BR></DIV><BR 
+                  style="CLEAR: both"><FONT 
+                  style="FONT: 9pt verdana, arial, helvetica; COLOR: #000000"></FONT></TD></TR>
+              <TR class=altbg2>
+                <TD vAlign=bottom>__________________<BR>
+                  <DIV class=t_signature 
+                  style="OVERFLOW: hidden; max-height: 40em; maxHeightIE: 365px">consistent 
+                  gets : 通过不带for update的select 读的blocks.<BR>db block gets : 
+                  通过update/delete/select for update读的blocks.<BR>db block gets + 
+                  consistent gets = LOGICAL IO</DIV></TD></TR>
+              <TR class=altbg2>
+                <TD align=right><A 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350&amp;elevator=15689685">只看该作者</A> 
+                  &nbsp;&nbsp; <A onclick=scroll(0,0) 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#"><IMG 
+                  alt=顶部 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/top.gif" 
+                  border=0></A> </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+      <DIV class=spaceborder style="MARGIN-BOTTOM: 4px; WIDTH: 100%">
+      <TABLE class=t_row cellSpacing=0 cellPadding=4 width="100%" align=center 
+      border=1>
+        <TBODY>
+        <TR style="HEIGHT: 100%">
+          <TD class=altbg1 vAlign=top width=175><A name=pid12110638></A><IMG 
+            alt=离线 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/callingoff.gif" 
+            align=right border=0> <A 
+            href="http://www.itpub.net/viewpro.php?uid=11244507" 
+            target=_blank>凌西</A> 
+            <DIV class=smalltxt>混混<BR><BR>
+            <TABLE cellSpacing=0 cellPadding=0 width="95%" border=0>
+              <TBODY>
+              <TR>
+                <TD><IMG height=130 alt="" 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/11244507_957.jpg" 
+                  width=96 border=0></TD></TR></TBODY></TABLE><BR>精华贴数 0<BR><A 
+            href="http://space.itpub.net/11244507/">个人空间</A> 9<BR>技术积分 345 
+            (5797)<BR>社区积分 18 (8309)<BR>注册日期 2007-9-14<BR>论坛徽章:3<BR>
+            <TABLE width="100%" align=center>
+              <TBODY>
+              <TR>
+                <TD align=middle width="20%"><IMG height=24 alt=生肖徽章2007版:龙 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/sx2007-05small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=生肖徽章2007版:羊 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/sx2007-08small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 
+                  alt=2008北京奥运纪念徽章:自行车 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/y3.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR>
+              <TR>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR></TBODY></TABLE>
+            <P></P></DIV></TD>
+          <TD 
+          style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px" 
+          vAlign=top>
+            <TABLE class=t_msg cellSpacing=0 cellPadding=4 border=0>
+              <TBODY>
+              <TR>
+                <TD class=altbg1>
+                  <DIV>
+                  <DIV class="right t_number"><A class=bold title=复制帖子链接到剪贴板 
+                  onclick="setcopy('http://www.itpub.net/viewthread.php?tid=1085350&amp;page=1#pid12110638', '已经复制到剪贴板')" 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#">#3</A></DIV>
+                  <DIV class=right style="PADDING-TOP: 4px"><A 
+                  href="http://www.itpub.net/magic.php?action=user&amp;pid=12110638" 
+                  target=_blank>使用道具</A>&nbsp;&nbsp;</DIV>
+                  <DIV style="PADDING-TOP: 4px" align=right>发表于 2008-11-12 
+                  15:48&nbsp; </DIV></DIV></TD></TR>
+              <TR class=altbg1>
+                <TD class=line style="PADDING-TOP: 10px" vAlign=top 
+                height="100%">
+                  <DIV style="FLOAT: right" align=right><A title="评分 0" 
+                  href="http://www.itpub.net/misc.php?action=viewratings&amp;tid=1085350&amp;pid=12110638"></A></DIV>
+                  <DIV class=t_msgfont 
+                  id=message12110638>这个速度，到下班也count不出来啊<BR><BR></DIV><BR 
+                  style="CLEAR: both"><FONT 
+                  style="FONT: 9pt verdana, arial, helvetica; COLOR: #000000"></FONT></TD></TR>
+              <TR class=altbg1>
+                <TD vAlign=bottom>__________________<BR>
+                  <DIV class=t_signature 
+                  style="OVERFLOW: hidden; max-height: 40em; maxHeightIE: 365px">坚持，很难，也很必要<BR>我想要章～～</DIV></TD></TR>
+              <TR class=altbg1>
+                <TD align=right><A 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350&amp;elevator=11244507">只看该作者</A> 
+                  &nbsp;&nbsp; <A onclick=scroll(0,0) 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#"><IMG 
+                  alt=顶部 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/top.gif" 
+                  border=0></A> </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+      <DIV class=spaceborder style="MARGIN-BOTTOM: 4px; WIDTH: 100%">
+      <TABLE class=t_row cellSpacing=0 cellPadding=4 width="100%" align=center 
+      border=1>
+        <TBODY>
+        <TR style="HEIGHT: 100%">
+          <TD class=altbg2 vAlign=top width=175><A name=pid12110816></A><IMG 
+            alt=离线 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/callingoff.gif" 
+            align=right border=0> <A 
+            href="http://www.itpub.net/viewpro.php?uid=7771985" 
+            target=_blank>yelang9809</A> <BR><SPAN class=smalltxt>中级会员</SPAN> 
+            <DIV class=smalltxt><BR><BR><BR>精华贴数 0<BR><A 
+            href="http://space.itpub.net/7771985/">个人空间</A> 0<BR>技术积分 509 
+            (3902)<BR>社区积分 49 (5100)<BR>注册日期 2006-8-24<BR>论坛徽章:2<BR>
+            <TABLE width="100%" align=center>
+              <TBODY>
+              <TR>
+                <TD align=middle width="20%"><IMG height=24 
+                  alt=2008北京奥运纪念徽章:跳水 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/y5.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=ITPUB新首页上线纪念徽章 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/home_small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR>
+              <TR>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR></TBODY></TABLE>
+            <P></P></DIV></TD>
+          <TD 
+          style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px" 
+          vAlign=top>
+            <TABLE class=t_msg cellSpacing=0 cellPadding=4 border=0>
+              <TBODY>
+              <TR>
+                <TD class=altbg2>
+                  <DIV>
+                  <DIV class="right t_number"><A class=bold title=复制帖子链接到剪贴板 
+                  onclick="setcopy('http://www.itpub.net/viewthread.php?tid=1085350&amp;page=1#pid12110816', '已经复制到剪贴板')" 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#">#4</A></DIV>
+                  <DIV class=right style="PADDING-TOP: 4px"><A 
+                  href="http://www.itpub.net/magic.php?action=user&amp;pid=12110816" 
+                  target=_blank>使用道具</A>&nbsp;&nbsp;</DIV>
+                  <DIV style="PADDING-TOP: 4px" align=right>发表于 2008-11-12 
+                  16:00&nbsp; </DIV></DIV></TD></TR>
+              <TR class=altbg2>
+                <TD class=line style="PADDING-TOP: 10px" vAlign=top 
+                height="100%">
+                  <DIV style="FLOAT: right" align=right><A title="评分 0" 
+                  href="http://www.itpub.net/misc.php?action=viewratings&amp;tid=1085350&amp;pid=12110816"></A></DIV>
+                  <DIV class=t_msgfont 
+                  id=message12110816>楼主如果是oracle9i版本，可以考虑如下两步实现：<BR>（10g直接执行第二步就可以了）<BR>统计一个用户下所有表的行数：<BR>1.exec 
+                  dbms_stats.gather_schema_stats(owner=&gt;'用户名');<BR>2.select 
+                  sum(num_rows) from user_tables;<BR><BR>统计全库所有表的行数：<BR>1.exec 
+                  dbms_stats.gather_database_stats(ESTIMATE_PERCENT=&gt;'30');<BR>2.select 
+                  sum(num_rows) from 
+                  dba_tables;<BR><BR>如果是生产环境不推荐楼主用方法。哈哈！<BR>生产环境中需谨慎考虑收集新的统计信息后对应用产生的影响。<BR><BR>[<I> 
+                  本帖最后由 yelang9809 于 2008-11-12 16:06 编辑 </I>]<BR><BR></DIV><BR 
+                  style="CLEAR: both"><FONT 
+                  style="FONT: 9pt verdana, arial, helvetica; COLOR: #000000"></FONT></TD></TR>
+              <TR class=altbg2>
+                <TD align=right><A 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350&amp;elevator=7771985">只看该作者</A> 
+                  &nbsp;&nbsp; <A onclick=scroll(0,0) 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#"><IMG 
+                  alt=顶部 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/top.gif" 
+                  border=0></A> </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+      <DIV class=spaceborder style="MARGIN-BOTTOM: 4px; WIDTH: 100%">
+      <TABLE class=t_row cellSpacing=0 cellPadding=4 width="100%" align=center 
+      border=1>
+        <TBODY>
+        <TR style="HEIGHT: 100%">
+          <TD class=altbg1 vAlign=top width=175><A name=pid12110926></A><IMG 
+            height=14 alt=在线/呼叫 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/calling.gif" 
+            align=right border=0> <A 
+            href="http://www.itpub.net/viewpro.php?uid=12056457" 
+            target=_blank>蓝衣子龙</A> <BR><SPAN class=smalltxt>勇敢的牛牛</SPAN> 
+            <DIV class=smalltxt><BR><BR><BR>来自 安徽合肥<BR>精华贴数 0<BR><A 
+            href="http://space.itpub.net/12056457/">个人空间</A> 0<BR>技术积分 1214 
+            (1500)<BR>社区积分 221 (2334)<BR>注册日期 2007-11-14<BR>论坛徽章:8<BR>
+            <TABLE width="100%" align=center>
+              <TBODY>
+              <TR>
+                <TD align=middle width="20%"><IMG height=24 alt=生肖徽章2007版:鸡 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/sx2007-10small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=生肖徽章2007版:龙 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/sx2007-05small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=生肖徽章2007版:马 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/sx2007-07small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 
+                  alt=2008北京奥运纪念徽章:足球 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/y27.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 
+                  alt=2008北京奥运纪念徽章:摔跤 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/y17.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 
+                  alt=2008北京奥运纪念徽章:羽毛球 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/y2.gif" 
+                  width=24 border=0></TD></TR>
+              <TR>
+                <TD align=middle width="20%"><IMG height=24 
+                  alt=2008北京奥运纪念徽章:击剑 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/y22.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR></TBODY></TABLE>
+            <P></P></DIV></TD>
+          <TD 
+          style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px" 
+          vAlign=top>
+            <TABLE class=t_msg cellSpacing=0 cellPadding=4 border=0>
+              <TBODY>
+              <TR>
+                <TD class=altbg1>
+                  <DIV>
+                  <DIV class="right t_number"><A class=bold title=复制帖子链接到剪贴板 
+                  onclick="setcopy('http://www.itpub.net/viewthread.php?tid=1085350&amp;page=1#pid12110926', '已经复制到剪贴板')" 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#">#5</A></DIV>
+                  <DIV class=right style="PADDING-TOP: 4px"><A 
+                  href="http://www.itpub.net/magic.php?action=user&amp;pid=12110926" 
+                  target=_blank>使用道具</A>&nbsp;&nbsp;</DIV>
+                  <DIV style="PADDING-TOP: 4px" align=right>发表于 2008-11-12 
+                  16:08&nbsp; </DIV></DIV></TD></TR>
+              <TR class=altbg1>
+                <TD class=line style="PADDING-TOP: 10px" vAlign=top 
+                height="100%">
+                  <DIV style="FLOAT: right" align=right><A title="评分 0" 
+                  href="http://www.itpub.net/misc.php?action=viewratings&amp;tid=1085350&amp;pid=12110926"></A></DIV>
+                  <DIV class=t_msgfont 
+                  id=message12110926>LS是正解.<BR><BR></DIV><BR 
+                  style="CLEAR: both"><FONT 
+                  style="FONT: 9pt verdana, arial, helvetica; COLOR: #000000"></FONT></TD></TR>
+              <TR class=altbg1>
+                <TD vAlign=bottom>__________________<BR>
+                  <DIV class=t_signature 
+                  style="OVERFLOW: hidden; max-height: 40em; maxHeightIE: 365px">不见龙卸甲</DIV></TD></TR>
+              <TR class=altbg1>
+                <TD align=right><A 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350&amp;elevator=12056457">只看该作者</A> 
+                  &nbsp;&nbsp; <A onclick=scroll(0,0) 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#"><IMG 
+                  alt=顶部 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/top.gif" 
+                  border=0></A> </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+      <DIV class=spaceborder style="MARGIN-BOTTOM: 4px; WIDTH: 100%">
+      <TABLE class=t_row cellSpacing=0 cellPadding=4 width="100%" align=center 
+      border=1>
+        <TBODY>
+        <TR style="HEIGHT: 100%">
+          <TD class=altbg2 vAlign=top width=175><A name=pid12110978></A><IMG 
+            alt=离线 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/callingoff.gif" 
+            align=right border=0> <A 
+            href="http://www.itpub.net/viewpro.php?uid=15689685" 
+            target=_blank>OneGoodDream</A> <BR><SPAN class=smalltxt>新人</SPAN> 
+            <DIV class=smalltxt><BR>
+            <TABLE cellSpacing=0 cellPadding=0 width="95%" border=0>
+              <TBODY>
+              <TR>
+                <TD><IMG height=130 alt="" 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/15689685_f82.gif" 
+                  width=104 border=0></TD></TR></TBODY></TABLE><BR>来自 北京<BR>精华贴数 
+            0<BR><A href="http://space.itpub.net/15689685/">个人空间</A> 0<BR>技术积分 
+            2241 (725)<BR>社区积分 9 (12027)<BR>注册日期 2008-8-31<BR>论坛徽章:119<BR>
+            <TABLE width="100%" align=center>
+              <TBODY>
+              <TR>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR>
+              <TR>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR></TBODY></TABLE>
+            <P></P></DIV></TD>
+          <TD 
+          style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px" 
+          vAlign=top>
+            <TABLE class=t_msg cellSpacing=0 cellPadding=4 border=0>
+              <TBODY>
+              <TR>
+                <TD class=altbg2>
+                  <DIV>
+                  <DIV class="right t_number"><A class=bold title=复制帖子链接到剪贴板 
+                  onclick="setcopy('http://www.itpub.net/viewthread.php?tid=1085350&amp;page=1#pid12110978', '已经复制到剪贴板')" 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#">#6</A></DIV>
+                  <DIV class=right style="PADDING-TOP: 4px"><A 
+                  href="http://www.itpub.net/magic.php?action=user&amp;pid=12110978" 
+                  target=_blank>使用道具</A>&nbsp;&nbsp;</DIV>
+                  <DIV style="PADDING-TOP: 4px" align=right>发表于 2008-11-12 
+                  16:11&nbsp; </DIV></DIV></TD></TR>
+              <TR class=altbg2>
+                <TD class=line style="PADDING-TOP: 10px" vAlign=top 
+                height="100%">
+                  <DIV style="FLOAT: right" align=right><A title="评分 0" 
+                  href="http://www.itpub.net/misc.php?action=viewratings&amp;tid=1085350&amp;pid=12110978"></A></DIV>
+                  <DIV class=t_msgfont id=message12110978><BR><BR>
+                  <CENTER>
+                  <DIV class=msgbody 
+                  style="FONT-WEIGHT: bold; WIDTH: 80%; TEXT-ALIGN: left">QUOTE:
+                  <HR>
+                  原帖由 <I>yelang9809</I> 于 2008-11-12 16:00 发表 <A 
+                  href="http://www.itpub.net/redirect.php?goto=findpost&amp;pid=12110816&amp;ptid=1085350" 
+                  target=_blank><IMG onmousewheel="return imgzoom(this);" 
+                  onmouseover="if(this.width>screen.width*0.7) {this.resized=true; this.width=screen.width*0.7; this.style.cursor='hand'; this.alt='Click here to open new window\nCTRL+Mouse wheel to zoom in/out';}" 
+                  onclick="if(!this.resized) {return true;} else {window.open(this.src);}" 
+                  alt="" 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/back.gif" 
+                  onload="if(this.width>screen.width*0.7) {this.resized=true; this.width=screen.width*0.7; this.alt='Click here to open new window\nCTRL+Mouse wheel to zoom in/out';}" 
+                  border=0></A><BR>楼主如果是oracle9i版本，可以考虑如下两步实现：<BR>（10g直接执行第二步就可以了）<BR>统计一个用户下所有表的行数：<BR>1.exec 
+                  dbms_stats.gather_schema_stats(owner=&gt;'用户名');<BR>2.select 
+                  sum(num_rows) from user_tables;<BR><BR>统计全库所有表的行数：<BR>1.exec 
+                  dbms_stats.gather_database_stats(ESTIMATE_PERCENT=&gt;'30');<BR>2.select 
+                  sum(num_rows) from 
+                  dba_tables;<BR><BR>如果是生产环境不推荐楼主用方法。哈哈！<BR>生产环境中需谨慎考虑收集新的统计信息后对应用产生的影响。 
+
+                  <HR>
+                  </DIV></CENTER><BR>不错，以前还没有想到这些！ 因为库不是很大。<BR><BR></DIV><BR 
+                  style="CLEAR: both"><FONT 
+                  style="FONT: 9pt verdana, arial, helvetica; COLOR: #000000"></FONT></TD></TR>
+              <TR class=altbg2>
+                <TD vAlign=bottom>__________________<BR>
+                  <DIV class=t_signature 
+                  style="OVERFLOW: hidden; max-height: 40em; maxHeightIE: 365px">consistent 
+                  gets : 通过不带for update的select 读的blocks.<BR>db block gets : 
+                  通过update/delete/select for update读的blocks.<BR>db block gets + 
+                  consistent gets = LOGICAL IO</DIV></TD></TR>
+              <TR class=altbg2>
+                <TD align=right><A 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350&amp;elevator=15689685">只看该作者</A> 
+                  &nbsp;&nbsp; <A onclick=scroll(0,0) 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#"><IMG 
+                  alt=顶部 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/top.gif" 
+                  border=0></A> </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+      <DIV class=spaceborder style="MARGIN-BOTTOM: 4px; WIDTH: 100%">
+      <TABLE class=t_row cellSpacing=0 cellPadding=4 width="100%" align=center 
+      border=1>
+        <TBODY>
+        <TR style="HEIGHT: 100%">
+          <TD class=altbg1 vAlign=top width=175><A name=pid12110993></A><IMG 
+            alt=离线 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/callingoff.gif" 
+            align=right border=0> <A 
+            href="http://www.itpub.net/viewpro.php?uid=444614" 
+            target=_blank>rockyan712</A> <BR><SPAN class=smalltxt>Rock</SPAN> 
+            <DIV class=smalltxt><BR>
+            <TABLE cellSpacing=0 cellPadding=0 width="95%" border=0>
+              <TBODY>
+              <TR>
+                <TD><IMG height=90 alt="" 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/20.gif" 
+                  width=90 border=0></TD></TR></TBODY></TABLE><BR>来自 Beijing<BR>精华贴数 
+            0<BR><A href="http://space.itpub.net/444614/">个人空间</A> 239<BR>技术积分 
+            829 (2387)<BR>社区积分 235 (2255)<BR>注册日期 2005-6-15<BR>论坛徽章:9<BR>
+            <TABLE width="100%" align=center>
+              <TBODY>
+              <TR>
+                <TD align=middle width="20%"><IMG height=24 alt=红孩儿 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal23.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=数据库板块每日发贴之星 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal_7_small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=生肖徽章2007版:兔 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/sx2007-04small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=生肖徽章2007版:猴 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/sx2007-09small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=生肖徽章2007版:兔 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/sx2007-04small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=生肖徽章2007版:狗 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/sx2007-11small.gif" 
+                  width=24 border=0></TD></TR>
+              <TR>
+                <TD align=middle width="20%"><IMG height=24 alt=行业板块每日发贴之星 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal_12_small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=每日论坛发贴之星 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal_2_small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=设计板块每日发贴之星 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal_33_small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR></TBODY></TABLE>
+            <P></P></DIV></TD>
+          <TD 
+          style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px" 
+          vAlign=top>
+            <TABLE class=t_msg cellSpacing=0 cellPadding=4 border=0>
+              <TBODY>
+              <TR>
+                <TD class=altbg1>
+                  <DIV>
+                  <DIV class="right t_number"><A class=bold title=复制帖子链接到剪贴板 
+                  onclick="setcopy('http://www.itpub.net/viewthread.php?tid=1085350&amp;page=1#pid12110993', '已经复制到剪贴板')" 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#">#7</A></DIV>
+                  <DIV class=right style="PADDING-TOP: 4px"><A 
+                  href="http://www.itpub.net/magic.php?action=user&amp;pid=12110993" 
+                  target=_blank>使用道具</A>&nbsp;&nbsp;</DIV>
+                  <DIV style="PADDING-TOP: 4px" align=right>发表于 2008-11-12 
+                  16:12&nbsp; </DIV></DIV></TD></TR>
+              <TR class=altbg1>
+                <TD class=line style="PADDING-TOP: 10px" vAlign=top 
+                height="100%">
+                  <DIV style="FLOAT: right" align=right><A title="评分 0" 
+                  href="http://www.itpub.net/misc.php?action=viewratings&amp;tid=1085350&amp;pid=12110993"></A></DIV>学习<BR><BR>
+                  <DIV class=t_msgfont id=message12110993><BR><BR></DIV><BR 
+                  style="CLEAR: both"><FONT 
+                  style="FONT: 9pt verdana, arial, helvetica; COLOR: #000000"></FONT></TD></TR>
+              <TR class=altbg1>
+                <TD align=right><A 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350&amp;elevator=444614">只看该作者</A> 
+                  &nbsp;&nbsp; <A onclick=scroll(0,0) 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#"><IMG 
+                  alt=顶部 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/top.gif" 
+                  border=0></A> </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+      <DIV class=spaceborder style="MARGIN-BOTTOM: 4px; WIDTH: 100%">
+      <TABLE class=t_row cellSpacing=0 cellPadding=4 width="100%" align=center 
+      border=1>
+        <TBODY>
+        <TR style="HEIGHT: 100%">
+          <TD class=altbg2 vAlign=top width=175><A name=pid12111051></A><IMG 
+            alt=离线 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/callingoff.gif" 
+            align=right border=0> <A 
+            href="http://www.itpub.net/viewpro.php?uid=15689685" 
+            target=_blank>OneGoodDream</A> <BR><SPAN class=smalltxt>新人</SPAN> 
+            <DIV class=smalltxt><BR>
+            <TABLE cellSpacing=0 cellPadding=0 width="95%" border=0>
+              <TBODY>
+              <TR>
+                <TD><IMG height=130 alt="" 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/15689685_f82.gif" 
+                  width=104 border=0></TD></TR></TBODY></TABLE><BR>来自 北京<BR>精华贴数 
+            0<BR><A href="http://space.itpub.net/15689685/">个人空间</A> 0<BR>技术积分 
+            2241 (725)<BR>社区积分 9 (12027)<BR>注册日期 2008-8-31<BR>论坛徽章:119<BR>
+            <TABLE width="100%" align=center>
+              <TBODY>
+              <TR>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR>
+              <TR>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR></TBODY></TABLE>
+            <P></P></DIV></TD>
+          <TD 
+          style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px" 
+          vAlign=top>
+            <TABLE class=t_msg cellSpacing=0 cellPadding=4 border=0>
+              <TBODY>
+              <TR>
+                <TD class=altbg2>
+                  <DIV>
+                  <DIV class="right t_number"><A class=bold title=复制帖子链接到剪贴板 
+                  onclick="setcopy('http://www.itpub.net/viewthread.php?tid=1085350&amp;page=1#pid12111051', '已经复制到剪贴板')" 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#">#8</A></DIV>
+                  <DIV class=right style="PADDING-TOP: 4px"><A 
+                  href="http://www.itpub.net/magic.php?action=user&amp;pid=12111051" 
+                  target=_blank>使用道具</A>&nbsp;&nbsp;</DIV>
+                  <DIV style="PADDING-TOP: 4px" align=right>发表于 2008-11-12 
+                  16:16&nbsp; </DIV></DIV></TD></TR>
+              <TR class=altbg2>
+                <TD class=line style="PADDING-TOP: 10px" vAlign=top 
+                height="100%">
+                  <DIV style="FLOAT: right" align=right><A title="评分 0" 
+                  href="http://www.itpub.net/misc.php?action=viewratings&amp;tid=1085350&amp;pid=12111051"></A></DIV>
+                  <DIV class=t_msgfont 
+                  id=message12111051>44064758<BR>不知道算不算大。<BR><BR></DIV><BR 
+                  style="CLEAR: both"><FONT 
+                  style="FONT: 9pt verdana, arial, helvetica; COLOR: #000000"></FONT></TD></TR>
+              <TR class=altbg2>
+                <TD vAlign=bottom>__________________<BR>
+                  <DIV class=t_signature 
+                  style="OVERFLOW: hidden; max-height: 40em; maxHeightIE: 365px">consistent 
+                  gets : 通过不带for update的select 读的blocks.<BR>db block gets : 
+                  通过update/delete/select for update读的blocks.<BR>db block gets + 
+                  consistent gets = LOGICAL IO</DIV></TD></TR>
+              <TR class=altbg2>
+                <TD align=right><A 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350&amp;elevator=15689685">只看该作者</A> 
+                  &nbsp;&nbsp; <A onclick=scroll(0,0) 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#"><IMG 
+                  alt=顶部 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/top.gif" 
+                  border=0></A> </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+      <DIV class=spaceborder style="MARGIN-BOTTOM: 4px; WIDTH: 100%">
+      <TABLE class=t_row cellSpacing=0 cellPadding=4 width="100%" align=center 
+      border=1>
+        <TBODY>
+        <TR style="HEIGHT: 100%">
+          <TD class=altbg1 vAlign=top width=175><A name=pid12111152></A><IMG 
+            alt=离线 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/callingoff.gif" 
+            align=right border=0> <A 
+            href="http://www.itpub.net/viewpro.php?uid=81227" 
+            target=_blank>cow977</A> <BR><SPAN class=smalltxt>高级会员</SPAN> 
+            <DIV class=smalltxt><BR><BR><BR>精华贴数 0<BR><A 
+            href="http://space.itpub.net/81227/">个人空间</A> 0<BR>技术积分 3227 
+            (471)<BR>社区积分 7 (13204)<BR>注册日期 2004-5-21<BR>论坛徽章:15<BR>
+            <TABLE width="100%" align=center>
+              <TBODY>
+              <TR>
+                <TD align=middle width="20%"><IMG height=24 alt=会员2007贡献徽章 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/2007-2small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 
+                  alt=2008北京奥运纪念徽章:体操 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/y4.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=生肖徽章2007版:猴 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/sx2007-09small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=开发板块每日发贴之星 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal_11_small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=数据库板块每日发贴之星 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal_7_small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=开发板块每日发贴之星 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal_11_small.gif" 
+                  width=24 border=0></TD></TR>
+              <TR>
+                <TD align=middle width="20%"><IMG height=24 alt=行业板块每日发贴之星 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal_12_small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=数据库板块每日发贴之星 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal_7_small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=行业板块每日发贴之星 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal_12_small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=数据库板块每日发贴之星 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal_7_small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=行业板块每日发贴之星 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal_12_small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=设计板块每日发贴之星 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal_33_small.gif" 
+                  width=24 border=0></TD></TR></TBODY></TABLE>
+            <P></P></DIV></TD>
+          <TD 
+          style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px" 
+          vAlign=top>
+            <TABLE class=t_msg cellSpacing=0 cellPadding=4 border=0>
+              <TBODY>
+              <TR>
+                <TD class=altbg1>
+                  <DIV>
+                  <DIV class="right t_number"><A class=bold title=复制帖子链接到剪贴板 
+                  onclick="setcopy('http://www.itpub.net/viewthread.php?tid=1085350&amp;page=1#pid12111152', '已经复制到剪贴板')" 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#">#9</A></DIV>
+                  <DIV class=right style="PADDING-TOP: 4px"><A 
+                  href="http://www.itpub.net/magic.php?action=user&amp;pid=12111152" 
+                  target=_blank>使用道具</A>&nbsp;&nbsp;</DIV>
+                  <DIV style="PADDING-TOP: 4px" align=right>发表于 2008-11-12 
+                  16:24&nbsp; </DIV></DIV></TD></TR>
+              <TR class=altbg1>
+                <TD class=line style="PADDING-TOP: 10px" vAlign=top 
+                height="100%">
+                  <DIV style="FLOAT: right" align=right><A title="评分 0" 
+                  href="http://www.itpub.net/misc.php?action=viewratings&amp;tid=1085350&amp;pid=12111152"></A></DIV>
+                  <DIV class=t_msgfont id=message12111152><BR><BR>
+                  <CENTER>
+                  <DIV class=msgbody 
+                  style="FONT-WEIGHT: bold; WIDTH: 80%; TEXT-ALIGN: left">QUOTE:
+                  <HR>
+                  原帖由 <I>OneGoodDream</I> 于 2008-11-12 16:16 发表 <A 
+                  href="http://www.itpub.net/redirect.php?goto=findpost&amp;pid=12111051&amp;ptid=1085350" 
+                  target=_blank><IMG onmousewheel="return imgzoom(this);" 
+                  onmouseover="if(this.width>screen.width*0.7) {this.resized=true; this.width=screen.width*0.7; this.style.cursor='hand'; this.alt='Click here to open new window\nCTRL+Mouse wheel to zoom in/out';}" 
+                  onclick="if(!this.resized) {return true;} else {window.open(this.src);}" 
+                  alt="" 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/back.gif" 
+                  onload="if(this.width>screen.width*0.7) {this.resized=true; this.width=screen.width*0.7; this.alt='Click here to open new window\nCTRL+Mouse wheel to zoom in/out';}" 
+                  border=0></A><BR>44064758<BR>不知道算不算大。 
+                  <HR>
+                  </DIV></CENTER><BR>不算大。<BR><BR></DIV><BR 
+                  style="CLEAR: both"><FONT 
+                  style="FONT: 9pt verdana, arial, helvetica; COLOR: #000000"></FONT></TD></TR>
+              <TR class=altbg1>
+                <TD align=right><A 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350&amp;elevator=81227">只看该作者</A> 
+                  &nbsp;&nbsp; <A onclick=scroll(0,0) 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#"><IMG 
+                  alt=顶部 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/top.gif" 
+                  border=0></A> </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+      <DIV class=spaceborder style="MARGIN-BOTTOM: 4px; WIDTH: 100%">
+      <TABLE class=t_row cellSpacing=0 cellPadding=4 width="100%" align=center 
+      border=1>
+        <TBODY>
+        <TR style="HEIGHT: 100%">
+          <TD class=altbg2 vAlign=top width=175><A name=pid12111213></A><IMG 
+            alt=离线 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/callingoff.gif" 
+            align=right border=0> <A 
+            href="http://www.itpub.net/viewpro.php?uid=354164" 
+            target=_blank>kdkd</A> <BR><SPAN class=smalltxt>一般会员</SPAN> 
+            <DIV class=smalltxt><BR>
+            <TABLE cellSpacing=0 cellPadding=0 width="95%" border=0>
+              <TBODY>
+              <TR>
+                <TD><IMG height=108 alt="" 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/354164_cc9.gif" 
+                  width=100 border=0></TD></TR></TBODY></TABLE><BR>精华贴数 0<BR><A 
+            href="http://space.itpub.net/354164/">个人空间</A> 0<BR>技术积分 1890 
+            (886)<BR>社区积分 28 (6674)<BR>注册日期 2005-4-29<BR>论坛徽章:8<BR>
+            <TABLE width="100%" align=center>
+              <TBODY>
+              <TR>
+                <TD align=middle width="20%"><IMG height=24 alt=授权会员 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal_14_small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 
+                  alt=2008北京奥运纪念徽章:拳击 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/y19.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=数据库板块每日发贴之星 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/medal_7_small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%"><IMG height=24 alt=生肖徽章2007版:鸡 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/sx2007-10small.gif" 
+                  width=24 border=0></TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR>
+              <TR>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD>
+                <TD align=middle width="20%">&nbsp;</TD></TR></TBODY></TABLE>
+            <P></P></DIV></TD>
+          <TD 
+          style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px" 
+          vAlign=top>
+            <TABLE class=t_msg cellSpacing=0 cellPadding=4 border=0>
+              <TBODY>
+              <TR>
+                <TD class=altbg2>
+                  <DIV>
+                  <DIV class="right t_number"><A class=bold title=复制帖子链接到剪贴板 
+                  onclick="setcopy('http://www.itpub.net/viewthread.php?tid=1085350&amp;page=1#pid12111213', '已经复制到剪贴板')" 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#">#10</A></DIV>
+                  <DIV class=right style="PADDING-TOP: 4px"><A 
+                  href="http://www.itpub.net/magic.php?action=user&amp;pid=12111213" 
+                  target=_blank>使用道具</A>&nbsp;&nbsp;</DIV>
+                  <DIV style="PADDING-TOP: 4px" align=right>发表于 2008-11-12 
+                  16:27&nbsp; </DIV></DIV></TD></TR>
+              <TR class=altbg2>
+                <TD class=line style="PADDING-TOP: 10px" vAlign=top 
+                height="100%">
+                  <DIV style="FLOAT: right" align=right><A title="评分 0" 
+                  href="http://www.itpub.net/misc.php?action=viewratings&amp;tid=1085350&amp;pid=12111213"></A></DIV>
+                  <DIV class=t_msgfont 
+                  id=message12111213>对，就是先收集统计信息，再查询行数就是了。不过建议在系统空闲时才收集统计信息。<BR><BR></DIV><BR 
+                  style="CLEAR: both"><FONT 
+                  style="FONT: 9pt verdana, arial, helvetica; COLOR: #000000"></FONT></TD></TR>
+              <TR class=altbg2>
+                <TD align=right><A 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350&amp;elevator=354164">只看该作者</A> 
+                  &nbsp;&nbsp; <A onclick=scroll(0,0) 
+                  href="http://www.itpub.net/viewthread.php?tid=1085350#"><IMG 
+                  alt=顶部 
+                  src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/top.gif" 
+                  border=0></A> 
+      </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV></FORM></DIV>
+      <DIV class=maintable style="CLEAR: both">
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" align=center>
+        <TBODY>
+        <TR>
+          <TD vAlign=top>
+            <DIV class=p_bar><A class=p_total>&nbsp;11&nbsp;</A><A 
+            class=p_pages>&nbsp;1/2&nbsp;</A><A class=p_curpage>1</A><A 
+            class=p_num 
+            href="http://www.itpub.net/viewthread.php?tid=1085350&amp;extra=&amp;page=2">2</A><A 
+            class=p_redirect 
+            href="http://www.itpub.net/viewthread.php?tid=1085350&amp;extra=&amp;page=2">&#8250;&#8250;</A></DIV></TD>
+          <TD align=right width="40%">
+            <DIV class=right>&nbsp;<A 
+            href="http://www.itpub.net/post.php?action=reply&amp;fid=2&amp;tid=1085350&amp;extra="><IMG 
+            alt="" 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/reply.gif" 
+            border=0></A></DIV>
+            <DIV class=right id=newspecialfooter 
+            onmouseover=showMenu(this.id)><A 
+            href="http://www.itpub.net/post.php?action=newthread&amp;fid=2&amp;extra="><IMG 
+            alt="" 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/newtopic.gif" 
+            border=0></A></DIV>
+            <DIV class="popupmenu_popup newspecialmenu" id=newspecialfooter_menu 
+            style="DISPLAY: none">
+            <TABLE cellSpacing=0 cellPadding=4 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD class=popupmenu_option>
+                  <DIV class=newspecial><A 
+                  href="http://www.itpub.net/post.php?action=newthread&amp;fid=2&amp;extra=&amp;poll=yes">投票</A></DIV></TD></TR>
+              <TR>
+                <TD class=popupmenu_option>
+                  <DIV class=newspecial><A 
+                  href="http://www.itpub.net/post.php?action=newthread&amp;fid=2&amp;extra=&amp;trade=yes">交易</A></DIV></TD></TR>
+              <TR>
+                <TD class=popupmenu_option>
+                  <DIV class=newspecial><A 
+                  href="http://www.itpub.net/post.php?action=newthread&amp;fid=2&amp;extra=&amp;reward=yes">悬赏</A></DIV></TD></TR>
+              <TR>
+                <TD class=popupmenu_option>
+                  <DIV class=newspecial><A 
+                  href="http://www.itpub.net/post.php?action=newthread&amp;fid=2&amp;extra=&amp;activity=yes">活动</A></DIV></TD></TR></TBODY></TABLE></DIV>
+            <DIV>&nbsp;&nbsp;&nbsp;&nbsp;<A 
+            href="http://blog.itpub.net/login.php?bbid=1085350&amp;type=dz" 
+            target=_blank><IMG alt="" 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/sendblog.gif" 
+            border=0></A></DIV></TR></TBODY></TABLE><BR></DIV>
+      <DIV class=maintable>
+      <TABLE cellSpacing=1 cellPadding=4 width="100%" bgColor=#000000 
+        border=0><TBODY>
+        <TR>
+          <TD bgColor=#d1d9e2>相关内容</TD></TR>
+        <TR>
+          <TD align=middle bgColor=#dfdfdf><IFRAME id=gad1 align=default 
+            marginWidth=0 marginHeight=0 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/thread-1085350-0-2.htm" 
+            frameBorder=0 width="100%" scrolling=no height=16></IFRAME></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#dfdfdf><IFRAME id=gad2 align=default 
+            marginWidth=0 marginHeight=0 
+            src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/recent2.htm" 
+            frameBorder=0 width="100%" scrolling=no 
+        height=16></IFRAME></TD></TR></TBODY></TABLE><BR></DIV>
+      <DIV class=popupmenu_popup id=forumlist_menu style="DISPLAY: none">
+      <TABLE cellSpacing=0 cellPadding=4 border=0>
+        <TBODY>
+        <TR>
+          <TD class=popupmenu_option><A class=nav 
+            href="http://www.itpub.net/index.php">ITPUB论坛</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option><A 
+            href="http://www.itpub.net/index.php?gid=1">≡ 数据库技术 ≡</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A class=bold 
+            href="http://www.itpub.net/forumdisplay.php?fid=2">&gt; 
+            Oracle数据库管理</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-3-1.html">&gt; Oracle开发</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-58-1.html">&gt; Oracle Developer 
+            Suite</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-4-1.html">&gt; 
+Oracle入门与认证</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-67-1.html">&gt; 
+        Oracle专题深入讨论</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-70-1.html">&gt; 
+        Oracle新技术/11g</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-72-1.html">&gt; 
+Oracle电子文档</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-69-1.html">&gt; Oracle 
+          Fusion中间件</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-143-1.html">&gt; IBM信息管理</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-40-1.html">&gt; MS SQL 
+        Server</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-98-1.html">&gt; 
+        Sybase管理与开发</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-73-1.html">&gt; 
+        MySQL及其它开源数据库</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-162-1.html">&gt; 内存数据库</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-43-1.html">&gt; 数据仓库与数据挖掘</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-148-1.html">&gt; 
+移动及嵌入式数据库</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option><A 
+            href="http://www.itpub.net/index.php?gid=71">≡ 企业信息化 ≡</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-5-1.html">&gt; ERP产品与实践</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-83-1.html">&gt; CRM产品与实践</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-89-1.html">&gt; HR产品与实践</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-116-1.html">&gt; 物流</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-65-1.html">&gt; 供应链</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-93-1.html">&gt; 供应链建模与仿真</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-106-1.html">&gt; 
+物流设备与系统工程</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-137-1.html">&gt; 企业管理咨询</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-138-1.html">&gt; 
+        管理协同与办公自动化</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-139-1.html">&gt; IT服务管理</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-169-1.html">&gt; 数据中心建设</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-56-1.html">&gt; ERP二次开发</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-46-1.html">&gt; Oracle 
+ERP</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-204-1.html">&gt; Oracle EBS 
+          R12</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-130-1.html">&gt; 
+          PeopleSoft与JDE</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-163-1.html">&gt; EBS相关文档</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-45-1.html">&gt; SAP R/3</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-105-1.html">&gt; SAP Business 
+            One开发与快速实施</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-155-1.html">&gt; 
+SAP财务及CRM</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-154-1.html">&gt; SAP后勤及HR</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-157-1.html">&gt; mySAP 
+ERP</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-156-1.html">&gt; 
+        系统开发及跨应用设置</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-113-1.html">&gt; SAP相关文档</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-166-1.html">&gt; 
+国外其它ERP产品</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-109-1.html">&gt; 国内ERP产品</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option><A 
+            href="http://www.itpub.net/index.php?gid=33">≡ 开发技术 ≡</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-128-1.html">&gt; 
+        Java入门与认证版</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-123-1.html">&gt; Java 
+          web开发及框架技术</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-32-1.html">&gt; Java企业开发</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-188-1.html">&gt; 
+            ASP.NET【已迁移到微软开发技术论坛】</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-186-1.html">&gt; 
+            .Net企业开发与应用【已迁移到微软开发技术论坛】</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-76-1.html">&gt; WEB程序开发</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-118-1.html">&gt; WEB 
+2.0技术</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-119-1.html">&gt; 动态语言</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-91-1.html">&gt; 移动与游戏开发</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option><A 
+            href="http://www.itpub.net/index.php?gid=121">≡ 系统设计与项目管理 
+≡</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-16-1.html">&gt; 系统分析与UML</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-20-1.html">&gt; 
+        系统分析与UML精华区</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-44-1.html">&gt; 项目管理</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-117-1.html">&gt; 项目过程</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-160-1.html">&gt; 软件测试</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-110-1.html">&gt; 算法讨论与研究</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option><A 
+            href="http://www.itpub.net/index.php?gid=140">≡ IBM软件技术园地 
+≡</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-39-1.html">&gt; IBM信息管理</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-144-1.html">&gt; Lotus</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-151-1.html">&gt; Tivoli</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-149-1.html">&gt; 
+Websphere</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-150-1.html">&gt; Rational</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-152-1.html">&gt; 
+          与SOA相关的IBM产品与技术</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-141-1.html">&gt; 
+        IBM软件技术精英协会</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-142-1.html">&gt; 
+        软件技术精英活动专版</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option><A 
+            href="http://www.itpub.net/index.php?gid=27">≡ 操作系统与硬件 ≡</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-94-1.html">&gt; 
+            AIX及IBM产品【已迁移到IXPUB】</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-95-1.html">&gt; 
+            HP-UX及HP产品【已迁移到IXPUB】</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-96-1.html">&gt; 
+            Solaris及SUN产品【已迁移到IXPUB】</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-28-1.html">&gt; Linux及其应用 
+            【已迁移到IXPUB】</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-29-1.html">&gt; 
+            其它UNIX系统【已迁移到IXPUB】</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-49-1.html">&gt; windows系统及微软相关产品 
+            【已迁移到IXPUB】</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-97-1.html">&gt; 存储设备与容灾技术 
+            【已迁移到IXPUB】</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-107-1.html">&gt; 服务器 
+          【已迁移到IXPUB】</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option><A 
+            href="http://www.itpub.net/index.php?gid=50">≡ 行业纵向讨论区 ≡</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-112-1.html">&gt; 
+IT业界评论与展望</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-86-1.html">&gt; 政府与教育事业</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-167-1.html">&gt; 
+        中国政府信息主管联盟</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-66-1.html">&gt; 电信行业</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-68-1.html">&gt; 金融行业</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-85-1.html">&gt; 医卫行业</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-87-1.html">&gt; 制造行业</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-159-1.html">&gt; 电力行业</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-51-1.html">&gt; 信息安全与审计</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option><A 
+            href="http://www.itpub.net/index.php?gid=7">≡ 会员交流 ≡</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-146-1.html">&gt; IT职业生涯</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-11-1.html">&gt; 招聘求职商务信息</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-41-1.html">&gt; 体育世界</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-131-1.html">&gt; 体育博彩专版</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-114-1.html">&gt; 旅游，驴友</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-165-1.html">&gt; 汽车世界</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-82-1.html">&gt; 外语角</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-115-1.html">&gt; 数码摄影</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-79-1.html">&gt; 你的故事我的歌</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-92-1.html">&gt; 音乐推荐区</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-61-1.html">&gt; 
+        电子图书与IT文档资料</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-10-1.html">&gt; 软件交流</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-22-1.html">&gt; 软件交流精华区</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option><A 
+            href="http://www.itpub.net/index.php?gid=102">≡ ITPUB产品与服务 
+        ≡</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-134-1.html">&gt; 
+        ITPUB地面活动专版</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-84-1.html">&gt; BLOG天地</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-101-1.html">&gt; WIKI世界</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-15-1.html">&gt; 授权用户区</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-9-1.html">&gt; 站务管理</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option><A 
+            href="http://www.itpub.net/index.php?gid=170">≡ 微软开发技术 ≡</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-171-1.html">&gt; 开发工具和语言</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-177-1.html">&gt; .NET Framework 
+            相关</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-181-1.html">&gt; Visual 
+            Basic/VB.net</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-179-1.html">&gt; Visual 
+C#</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-180-1.html">&gt; Visual 
+            C++/vc.net</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-183-1.html">&gt; Visual 
+          Studio</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-108-1.html">&gt; 
+        .NET软件架构与模式</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-187-1.html">&gt; 
+          .NET开发辅助工具及框架</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-172-1.html">&gt; Web开发</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-135-1.html">&gt; 
+        ASP.NET与AJAX</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-190-1.html">&gt; 
+          Web相关技术讨论(IIS等)</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-189-1.html">&gt; Silverlight 
+          技术</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-174-1.html">&gt; 
+微软企业级产品技术</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-203-1.html">&gt; SQL 
+        Server</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-202-1.html">&gt; windows 
+          server</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-195-1.html">&gt; 
+        SharePoint</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-196-1.html">&gt; Exchange 
+          Server</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-197-1.html">&gt; Biztalk</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-175-1.html">&gt; 嵌入式及移动开发</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-198-1.html">&gt; Windows Embedded 
+            嵌入式技术</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-199-1.html">&gt; Windows 
+        移动设备</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-173-1.html">&gt; Office开发</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-191-1.html">&gt; Microsoft office 
+            system</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-193-1.html">&gt; Office Business 
+            Application</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; <A 
+            href="http://www.itpub.net/forum-176-1.html">&gt; 
+微软产品用户交流区</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-200-1.html">&gt; 
+            .Net电子书籍&amp;&amp;书籍介绍</A></TD></TR>
+        <TR>
+          <TD class=popupmenu_option>&nbsp; &nbsp; &nbsp; <A 
+            href="http://www.itpub.net/forum-201-1.html">&gt; 
+        .Net人才交流</A></TD></TR></TBODY></TABLE></DIV></TD></TD></TR></TBODY></TABLE>
+<STYLE type=text/css>.style1 {
+	COLOR: #ff0000
+}
+</STYLE>
+
+<TABLE cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD align=middle bgColor=white>
+      <DIV class=maintable style="CLEAR: both; COLOR: #666">
+      <DIV style="CLEAR: both; MARGIN-BOTTOM: 5px" align=center><A 
+      href="http://cio.it168.com/SAP_Download/index.html" target=_blank><IMG 
+      height=90 
+      src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/SAP_DownLoad_Banner.jpg" 
+      width=750 border=0></A></DIV><BR></DIV></TD></TR>
+  <TR height=10>
+    <TD bgColor=white></TD></TR></TBODY></TABLE>
+<TABLE width="100%" bgColor=white>
+  <TBODY>
+  <TR>
+    <TD align=middle></TD></TR></TBODY></TABLE><!-- /content area table --></CENTER>
+<TABLE height=16 cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR height=16>
+    <TD vAlign=bottom bgColor=#d1d9e2 colSpan=3 height=16>
+      <DIV class=menu>
+      <TABLE height=16 cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD>&nbsp;<A href="http://www.itpub.net/techmatch.php">技术积分榜</A> <A 
+            href="http://www.itpub.net/forummatch.php">社区积分榜</A> <A 
+            href="http://www.itpub.net/medallist.php?action=showall">徽章</A> <A 
+            href="http://epub.itpub.net/">电子杂志</A> <A 
+            href="http://www.itpub.net/member.php?action=list">会员</A> <A 
+            href="http://www.itpub.net/stats.php?type=team">团队</A> <A 
+            href="http://www.itpub.net/stats.php">统计</A> <A 
+            href="http://email.itpub.net/">邮箱</A> <A 
+            href="http://www.itpub.net/gameparty.php">游乐场</A> <A 
+            href="http://www.itpub.net/faq.php">帮助</A> </TD>
+          <DIV></DIV>
+          <TD>
+            <DIV class=right>
+            <DIV align=right><A 
+            href="http://www.itpub.net/viewthread.php?tid=1085350#top">TOP</A></DIV></DIV></TD></TR></TBODY></TABLE></DIV></TD></TR>
+  <TR height=25>
+    <TD colSpan=3></TD></TR>
+  <TR>
+    <TD vAlign=top width=250></TD>
+    <TD></TD>
+    <TD align=middle width=400><SPAN style="FONT-SIZE: 11px">CopyRight 
+      1999-2006 itpub.net All Right Reserved.<BR>北京皓辰广域网络信息技术有限公司. 
+      版权所有<BR>E-mail:Webmaster@itpub.net<BR>京ICP证:010037号 <A 
+      href="http://www.itpub.net/contactus.php" target=_blank>联系我们</A> <A 
+      href="http://www.itpub.net/flgw.php" target=_blank>法律顾问</A> 
+      </SPAN><BR><SPAN style="PADDING-LEFT: 30px" width="80"><A 
+      href="http://www.bj.cyberpolice.cn/alarm/alarm.htm" target=_blank><IMG 
+      src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/net110.gif" 
+      border=0></A>&nbsp;<A 
+      href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202006092100005" 
+      target=_blank><IMG 
+      src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/hd315.gif" 
+      border=0></A></SPAN> </TD></TR>
+  <TR height=20>
+    <TD align=middle colSpan=3></TD></TR></TBODY></TABLE><IMG height=1 
+src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/itpub.png" 
+width=1 border=0> <IMG height=1 
+src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/itpub.gif" 
+width=1 border=0> <A name=bottom></A>
+<DIV class=headermenu_popup id=memcp_menu style="DISPLAY: none">
+<TABLE cellSpacing=0 cellPadding=4 border=0>
+  <TBODY>
+  <TR>
+    <TD class=popupmenu_option><A 
+      href="http://www.itpub.net/memcp.php">控制面板首页</A></TD></TR>
+  <TR>
+    <TD class=popupmenu_option><A 
+      href="http://www.itpub.net/memcp.php?action=profile">编辑个人资料</A></TD></TR>
+  <TR>
+    <TD class=popupmenu_option><A 
+      href="http://www.itpub.net/memcp.php?action=credits">积分交易</A></TD></TR>
+  <TR>
+    <TD class=popupmenu_option><A 
+      href="http://www.itpub.net/memcp.php?action=usergroups">公众用户组</A></TD></TR>
+  <TR>
+    <TD class=popupmenu_option><A 
+      href="http://www.itpub.net/memcp.php?action=buddylist">好友列表</A></TD></TR>
+  <TR>
+    <TD class=popupmenu_option><A href="http://space.itpub.net/?uid/0" 
+      target=_blank>升级个人空间</A></TD></TR></TBODY></TABLE></DIV>
+<DIV class=headermenu_popup id=plugin_menu style="DISPLAY: none">
+<TABLE cellSpacing=0 cellPadding=4 border=0>
+  <TBODY></TBODY></TABLE></DIV>
+<DIV class=headermenu_popup id=stats_menu style="DISPLAY: none">
+<TABLE cellSpacing=0 cellPadding=4 border=0>
+  <TBODY>
+  <TR>
+    <TD class=popupmenu_option><A 
+      href="http://www.itpub.net/stats.php">基本概况</A></TD></TR>
+  <TR>
+    <TD class=popupmenu_option><A 
+      href="http://www.itpub.net/stats.php?type=forumsrank">论坛排行</A></TD></TR>
+  <TR>
+    <TD class=popupmenu_option><A 
+      href="http://www.itpub.net/stats.php?type=threadsrank">主题排行</A></TD></TR>
+  <TR>
+    <TD class=popupmenu_option><A 
+      href="http://www.itpub.net/stats.php?type=postsrank">发帖排行</A></TD></TR>
+  <TR>
+    <TD class=popupmenu_option><A 
+      href="http://www.itpub.net/stats.php?type=creditsrank">积分排行</A></TD></TR>
+  <TR>
+    <TD class=popupmenu_option><A 
+      href="http://www.itpub.net/stats.php?type=onlinetime">在线时间</A></TD></TR>
+  <TR>
+    <TD class=popupmenu_option><A 
+      href="http://www.itpub.net/stats.php?type=team">管理团队</A></TD></TR>
+  <TR>
+    <TD class=popupmenu_option><A 
+      href="http://www.itpub.net/stats.php?type=modworks">管理统计</A></TD></TR></TBODY></TABLE></DIV>
+<CENTER></CENTER>
+<SCRIPT 
+src="统计数据库中所有表的数据条数，有简便的方法吗？ - Oracle数据库管理 - ITPUB论坛 - 皓辰传媒旗下专业技术社区.files/msn.js" 
+type=text/javascript></SCRIPT>
+</DIV></BODY></HTML>

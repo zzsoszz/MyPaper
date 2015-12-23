@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<config>
+
+    <summary>
+        Main page - view all records and addnew form
+    </summary>
+
+    <log>false</log>
+
+    <set-request-attribute id="help.msg" value="Online help for this page..." />
+    <set-request-attribute id="header.title" value="¹ØÁªÂ¼Òô"/>
+    <set-request-attribute id="header.url" value=''/>
+
+    <transaction>
+        <classname>dinamica.GenericTransaction</classname>
+        <validator>false</validator>
+        <transaction>false</transaction>
+        <jdbc-log>false</jdbc-log>
+        <datasource>jdbc/nice</datasource>
+        <recordset id="query.sql"  source="sql" scope="transaction" />
+    </transaction>
+    
+    <output>
+        <classname>dinamica.GenericOutput</classname>
+        <template>template.txt</template>
+        <set-http-headers>true</set-http-headers>
+        <content-type>text/html;charset=GBK</content-type>
+        <expiration>1</expiration>
+        <print mode="table" recordset="query.sql" tag="combo-items-voice" />
+    </output>
+    
+    <on-exit return-code="1" forward-to="/action/function/voice/noresult"/>
+</config>

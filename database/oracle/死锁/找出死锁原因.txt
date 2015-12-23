@@ -1,0 +1,174 @@
+v$session and v$process 找出死锁原因的好文章 
+林哥 2009-11-05 16:48:53 回复 转载到 四川10000项目团队中国UI设计七星&扬帆7runto
+V$SESSION
+
+
+
+在本视图中，每一个连接到数据库实例中的session都拥有一条记录。包括用户session及后台进程如DBWR，LGWR，arcchiver等等。
+
+
+
+V$SESSION中的常用列
+
+
+
+V$SESSION是基础信息视图，用于找寻用户SID或SADDR。不过，它也有一些列会动态的变化，可用于检查用户。
+例如：
+SQL_HASH_VALUE，SQL_ADDRESS：这两列用于鉴别默认被session执行的SQL语句。如果为null或0，那就说明这个session没有执行任何SQL语句。
+PREV_HASH_VALUE和PREV_ADDRESS：两列用来鉴别被session执行的上一条语句。
+（注意：当使用SQL*Plus进行选择时，确认你重定义的列宽不小于11以便看到完整的数值。）
+
+
+
+STATUS：这列用来判断session状态是：
+Achtive：正执行SQL语句(waiting for/using a resource)
+Inactive：等待操作(即等待需要执行的SQL语句)
+Killed：被标注为删除
+
+
+
+下列各列提供session的信息，可被用于当一个或多个combination未知时找到session。
+
+
+
+Session信息
+SID：SESSION标识，常用于连接其它列
+SERIAL#：如果某个SID又被其它的session使用的话则此数值自增加(当一个 SESSION结束，另一个SESSION开始并使用了同一个SID)。
+AUDSID：审查session ID唯一*，确认它通常也用于当寻找并行查询模式
+USERNAME：当前session在oracle中的用户名。
+
+
+
+Client信息
+数据库session被一个运行在数据库服务器上或从中间服务器甚至桌面通过SQL*Net连接到数据库的客户端进程启动，下列各列提供这个客户端的信息
+OSUSER：客户端操作系统用户名
+MACHINE：客户端执行的机器
+TERMINAL：客户端运行的终端
+PROCESS：客户端进程的ID
+PROGRAM：客户端执行的客户端程序
+要显示用户所连接PC的 TERMINAL、OSUSER，需在该PC的ORACLE.INI或Windows中设置关键字TERMINAL，USERNAME。
+
+
+
+Application信息
+调用DBMS_APPLICATION_INFO包以设置一些信息区分用户。这将显示下列各列。
+CLIENT_INFO：DBMS_APPLICATION_INFO中设置
+ACTION：DBMS_APPLICATION_INFO中设置
+MODULE：DBMS_APPLICATION_INFO中设置
+下列V$SESSION列同样可能会被用到：
+ROW_WAIT_OBJ#
+ROW_WAIT_FILE#
+ROW_WAIT_BLOCK#
+ROW_WAIT_ROW#
+
+
+
+V$SESSION中的连接列
+
+
+
+Column                         View                                  Joined Column(s) 
+SID                   V$SESSION_WAIT,,V$SESSTAT,,V$LOCK,V$SESSION_EVENT,V$OPEN_CURSOR    SID
+SQL_HASH_VALUE, SQL_ADDRESS       V$SQLTEXT, V$SQLAREA, V$SQL                      HASH_VALUE, ADDRESS
+PREV_HASH_VALUE, PREV_SQL_ADDRESS V$SQLTEXT, V$SQLAREA, V$SQL                      HASH_VALUE, ADDRESS
+TADDR                 V$TRANSACTION                             ADDR
+PADDR                 V$PROCESS                               ADDR
+
+
+
+示例：
+1.查找你的session信息
+SELECT SID, OSUSER, USERNAME, MACHINE, PROCESS FROM V$SESSION WHERE audsid = userenv('SESSIONID');
+
+
+
+2.当machine已知的情况下查找session
+SELECT SID, OSUSER, USERNAME, MACHINE, TERMINAL FROM V$SESSION WHERE terminal = 'pts/tl' AND machine = 'qadb27';
+
+
+
+3.查找当前被某个指定session正在运行的sql语句。假设sessionID为100
+select b.sql_text from v$session a,v$sqlarea b where a.sql_hash_value=b.hash_value and a.sid=100
+寻找被指定session执行的SQL语句是一个公共需求，如果session是瓶颈的主要原因，那根据其当前在执行的语句可以查看session在做些什么。
+
+
+
+v$process
+
+
+
+本视图包含当前系统oracle运行的所有进程信息。常被用于将oracle或服务进程的操作系统进程ID与数据库session之间建立联系。在某些情况下非常有用：
+
+
+
+1.如果数据库瓶颈是系统资源(如：cpu,内存)，并且占用资源最多的用户总是停留在某几个服务进程，那么进行如下诸项：
+1>.找出资源进程
+2>.找出它们的session,你必须将进程与会话联系起来。
+3>.找出为什么session占用了如此多的资源
+2.SQL跟踪文件名是基于服务进程的操作系统进程ID。要找出session的跟踪文件，你必须将session与服务进程联系起来。
+3.某些事件，如rdbms ipc reply，鉴别session进程的Oracle进程ID在等什么。要发现这些进程在做什么，你必须找出它们的session。
+4.你所看到的服务器上的后台进程(DBWR,LGWR,PMON等)都是服务进程。要想知道他们在做什么，你必须找到他们的session。
+
+
+
+V$PROCESS中的常用列
+ADDR：进程对象地址
+PID： oracle进程ID
+SPID：操作系统进程ID
+
+
+
+V$PROCESS中的连接列
+Column    View Joined    Column(s) 
+ADDR     V$SESSION     PADDR
+
+
+
+示例：
+1.查找指定系统用户在oracle中的session信息及进程id，假设操作系统用户为：oracle
+select s.sid,s.SERIAL#, s.username,p.spid,s.program from v$session s, v$process p where s.osuser = 'oracle' and s.PADDR = p.ADDR
+
+
+
+2.查看锁和等待
+SELECT /*+ rule */
+lpad(' ', decode(l.xidusn, 0, 3, 0)) || l.oracle_username User_name,
+o.owner,o.object_name,o.object_type,s.sid,s.serial#,p.spid
+FROM v$locked_object l, dba_objects o, v$session s, v$process p
+WHERE l.object_id = o.object_id
+AND l.session_id = s.sid and s.paddr = p.addr
+ORDER BY o.object_id, xidusn DESC
+
+
+
+附注：
+　　在linux环境可以通过ps查看进程信息包括pid,windows中任务管理器的PID与v$process中pid不能一一对应，这块在oracleDocument中也没有找到介绍，后来google了一下，有资料介绍说是由于windows是多线程服务器,每个进程包含一系列线程。这点于unix等不同，Unix每个Oralce进程独立存在，在Nt上所有线程由Oralce进程衍生。
+　　要在windows中显示oracle相关进程pid，我们可以通过一个简单的sql语句来实现。
+SELECT s.SID, p.pid, p.spid signaled, s.osuser, s.program
+FROM v$process p, v$session s
+WHERE p.addr = s.paddr;
+
+
+
+Eygle大师写了一段sql脚本getsql.sql，用来获取指定pid正在执行的sql语句，在此也附注上来。
+REM getsql.sql
+REM author eygle
+REM 在windows上,已知进程ID,得到当前正在执行的语句
+REM 在windows上,进程ID为16进制,需要转换,在UNIX直接为10进制
+SELECT /*+ ORDERED */
+sql_text
+FROM v$sqltext a
+WHERE (a.hash_value, a.address) IN (
+SELECT DECODE (sql_hash_value,
+0, prev_hash_value,
+sql_hash_value
+),
+DECODE (sql_hash_value, 0, prev_sql_addr, sql_address)
+FROM v$session b
+WHERE b.paddr = (SELECT addr
+FROM v$process c
+WHERE c.spid = TO_NUMBER ('&pid', 'xxxx')))
+ORDER BY piece ASC
+/
+
+

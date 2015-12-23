@@ -1,0 +1,296 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0038)http://eyejava.javaeye.com/blog/153686 -->
+<HTML dir=ltr xml:lang="zh-CN" 
+xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<META 
+content="开窗函数指定了分析函数工作的数据窗口大小，这个数据窗口大小可能会随着行的变化而变化，举例如下： over（order by salary） 按照salary排序进行累计，order by是个默认的开窗函数 over（partition by deptno）按照部门分区 over（order by salary range between 50 preceding and 150 following ..." 
+name=description>
+<META content="分析函数 analytic query functions  oracle中over()开窗函数的理解" 
+name=keywords><LINK href="/images/favicon.ico" type=image/x-icon 
+rel="shortcut icon"><LINK title=爱家娃 href="/rss" type=application/rss+xml 
+rel=alternate><LINK media=screen 
+href="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/blog.css" type=text/css 
+rel=stylesheet><LINK media=screen 
+href="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/black.css" type=text/css 
+rel=stylesheet>
+<SCRIPT src="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/application.js" 
+type=text/javascript></SCRIPT>
+<LINK media=screen 
+href="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/SyntaxHighlighter.css" 
+type=text/css rel=stylesheet>
+<SCRIPT src="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/shCoreCommon.js" 
+type=text/javascript></SCRIPT>
+
+<STYLE>DIV#main {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; WIDTH: 740px; PADDING-TOP: 0px; BACKGROUND-COLOR: transparent; BORDER-RIGHT-WIDTH: 0px
+}
+</STYLE>
+<LINK media=screen href="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/ui.css" 
+type=text/css rel=stylesheet>
+<SCRIPT src="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/compress.js" 
+type=text/javascript></SCRIPT>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<DIV id=header>
+<DIV id=blog_site_nav><A class=homepage href="http://www.javaeye.com/">首页</A> <A 
+href="http://www.javaeye.com/news">新闻</A> <A 
+href="http://www.javaeye.com/forums">论坛</A> <A 
+href="http://www.javaeye.com/blogs">博客</A> <A 
+href="http://job.javaeye.com/">招聘</A> <A id=msna 
+onclick="this.blur();$('more_site_nav').toggle();return false;" 
+href="http://eyejava.javaeye.com/blog/153686#"><U>更多</U> <SMALL>▼</SMALL></A> 
+<DIV id=more_site_nav style="DISPLAY: none"><A 
+href="http://www.javaeye.com/ask">问答</A> <A 
+href="http://www.javaeye.com/wiki">知识库</A> <A 
+href="http://www.javaeye.com/groups">圈子</A> <A 
+href="http://www.javaeye.com/search">搜索</A> </DIV></DIV>
+<UL id=user_nav>
+  <LI class=last><A href="http://eyejava.javaeye.com/signup">注册</A> </LI>
+  <LI><A href="http://eyejava.javaeye.com/login">登录</A> </LI>
+  <LI class=highlight><SPAN>您还没有登录 !</SPAN> </LI></UL></DIV>
+<DIV id=page onclick="$('more_site_nav').hide();">
+<DIV class=clearfix id=branding>
+<DIV id=blog_name>
+<H1><A href="http://eyejava.javaeye.com/">爱家娃</A></H1></DIV>
+<DIV id=blog_preview></DIV>
+<DIV id=blog_domain>永久域名 <A 
+href="http://eyejava.javaeye.com/">http://eyejava.javaeye.com/</A></DIV></DIV>
+<DIV class=clearfix id=content>
+<DIV id=main>
+<DIV class=blog_main>
+<DIV id=blog_nav>
+<DIV id=pre_next><A class=next 
+href="http://eyejava.javaeye.com/blog/153819">时间序列基础--随机过程</A> | <A class=pre 
+href="http://eyejava.javaeye.com/blog/153448">非线性回归分析</A> </DIV></DIV>
+<DIV class=blog_title>
+<DIV class=date><SPAN class=year>2008</SPAN><SPAN class=sep_year>-</SPAN><SPAN 
+class=month>01</SPAN><SPAN class=sep_month>-</SPAN><SPAN 
+class=day>07</SPAN></DIV>
+<H3 class="" title=""><A 
+href="http://eyejava.javaeye.com/blog/153686">oracle中over()开窗函数的理解</A></H3><STRONG>关键字: 
+分析函数 analytic query functions</STRONG> </DIV>
+<DIV class=blog_content>开窗函数指定了分析函数工作的数据窗口大小，这个数据窗口大小可能会随着行的变化而变化，举例如下： 
+<BR>over（order by salary） 按照salary排序进行累计，order by是个默认的开窗函数 <BR>over（partition by 
+deptno）按照部门分区 <BR>over（order by salary range between 50 preceding and 150 
+following） <BR>每行对应的数据窗口是之前行幅度值不超过50，之后行幅度值不超过150 <BR>over（order by salary rows 
+between 50 preceding and 150 following） <BR>每行对应的数据窗口是之前50行，之后150行 
+<BR>over（order by salary rows between unbounded preceding and unbounded 
+following） <BR>每行对应的数据窗口是从第一行到最后一行，等效： <BR>over（order by salary range between 
+unbounded preceding and unbounded following） <BR><BR>eg. <BR><BR>select * from 
+<BR>( <BR>select p.deal_no,p.step_id,p.charge_id,p.dr_acc_no, 
+<BR>sum(p.dr_origin_amt) <BR>over (partition by p.deal_no,p.step_id,p.dr_acc_no 
+order by p.charge_id) as a, <BR>dense_rank() <BR>over (partition by 
+p.deal_no,p.step_id,p.dr_acc_no order by p.charge_id) as b <BR>&nbsp; from 
+ixqdbaci p <BR>where p.entity='002' and p.charge_id not like '99%' <BR>and 
+p.deal_no like '00779010010612%' <BR>) where b=1 <BR>sum中的over()加上order 
+by后会变成递增累加，而不是分组的所有值sum，所以在这条sql中应该把a列的oder by 
+p.charge_id删除，b列的dense_rank是为了区分同一组的不同行，并且order by是不可少的。 </DIV>
+<DIV class=blog_bottom>
+<UL>
+  <LI>15:58 </LI>
+  <LI>浏览 (977) </LI>
+  <LI><A href="http://eyejava.javaeye.com/blog/153686#comments">评论</A> (0) </LI>
+  <LI>分类: <A href="http://eyejava.javaeye.com/category/5532">DB</A> </LI>
+  <LI class=last><A class=more href="http://www.javaeye.com/wiki/topic/153686" 
+  target=_blank>相关推荐</A> </LI></UL></DIV>
+<DIV class=blog_comment>
+<H5>评论</H5><A id=comments name=comments></A></DIV>
+<DIV class=blog_comment>
+<H5>发表评论</H5>
+<FORM id=comment_form onsubmit="return false;" action=/blog/153686 
+method=post><INPUT id=editor_bbcode_flag type=hidden> 
+<DIV id=editor_main><TEXTAREA class="validate-richeditor bad-words min-length-5" id=editor_body style="WIDTH: 500px; HEIGHT: 350px" name=comment[body] rows=20 cols=40></TEXTAREA></DIV>
+<SCRIPT type=text/javascript>
+  var editor = new Control.TextArea.Editor("editor_body", "bbcode", false);
+</SCRIPT>
+
+<P style="PADDING-RIGHT: 30px; TEXT-ALIGN: right">您还没有登录，请<A 
+href="http://eyejava.javaeye.com/login">登录</A>后发表评论 <INPUT class=submit id=submit_button type=submit value=提交 name=commit></P></FORM>
+<SCRIPT type=text/javascript>
+          new Validation("comment_form", {immediate: false, onFormValidate: function(result, form){
+  
+            if(confirm('您需要登录以后才能执行这个操作，现在要登录吗？')) window.location.href = '/login';
+  
+      }});
+      </SCRIPT>
+</DIV></DIV>
+<SCRIPT type=text/javascript>
+dp.SyntaxHighlighter.ClipboardSwf = '/javascripts/syntaxhighlighter/clipboard.swf';
+dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+fix_image_size($$('div.blog_content img'), 700);
+function quote_comment(link) {
+    quote_user = $(link).previous(0).innerHTML;
+    quote_body = $(link).up().next().innerHTML.stripTags();
+    editor.bbcode_editor.textarea.insertAfterSelection('[quote="'+quote_user+'"]\n' + quote_body + '\n[/quote]\n');
+}
+</SCRIPT>
+</DIV>
+<DIV id=local>
+<DIV class=local_top></DIV>
+<DIV id=blog_owner>
+<DIV id=blog_owner_logo><A href="http://eyejava.javaeye.com/"><IMG 
+title="eyejava的博客: 爱家娃" alt=用户头像 
+src="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/8a1931c3-c81e-321a-a29d-97c5740bf335.jpg"></A></DIV>
+<DIV id=blog_owner_name>eyejava</DIV></DIV>
+<DIV id=blog_actions>
+<UL>
+  <LI>浏览: 408084 次 
+  <LI>性别: <IMG title=男 alt=Icon_minigender_1 
+  src="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/icon_minigender_1.gif"> 
+  <LI>来自: 上海 
+  <LI><IMG src="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/offline.gif"> 
+  <LI><A href="http://eyejava.javaeye.com/blog/profile">详细资料</A> <A 
+  href="http://eyejava.javaeye.com/blog/guest_book">留言簿</A> </LI></UL>
+<H5>搜索本博客</H5>
+<FORM action=/blog/search method=get><INPUT class=text id=query 
+style="MARGIN-LEFT: 10px; WIDTH: 110px" name=query> <INPUT class=submit type=submit value=搜索> </FORM></DIV>
+<DIV class=clearfix id=user_visits>
+<H5>最近访客</H5>
+<DIV class=left><SPAN class=logo><A href="http://happytony.javaeye.com/" 
+target=_blank><IMG title="happytony的博客: " alt=用户头像 
+src="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/user-logo-thumb.gif"></A></SPAN> 
+<A href="http://happytony.javaeye.com/" target=_blank>happytony</A></DIV>
+<DIV class=left><SPAN class=logo><A href="http://superleo.javaeye.com/" 
+target=_blank><IMG title="kyo100900的博客: superleo" alt=用户头像 
+src="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/17ac240d-e4db-3a59-b0f9-374d3d94d2ef-thumb.jpg"></A></SPAN> 
+<A href="http://superleo.javaeye.com/" target=_blank>kyo100900</A></DIV>
+<DIV class=left><SPAN class=logo><A href="http://kakaluyi.javaeye.com/" 
+target=_blank><IMG title="kakaluyi的博客: kakalu的java之家" alt=用户头像 
+src="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/19c83dd1-49d0-314c-a3dc-937bdb5fd14c-thumb.jpg"></A></SPAN> 
+<A href="http://kakaluyi.javaeye.com/" target=_blank>kakaluyi</A></DIV>
+<DIV class=left><SPAN class=logo><A href="http://yufish123.javaeye.com/" 
+target=_blank><IMG title="yufish123的博客: " alt=用户头像 
+src="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/user-logo-thumb.gif"></A></SPAN> 
+<A href="http://yufish123.javaeye.com/" target=_blank>yufish123</A></DIV>
+<DIV class=left id=more_user_visits><A 
+href="http://eyejava.javaeye.com/blog/user_visits">&gt;&gt;更多访客</A></DIV></DIV>
+<DIV id=blog_menu>
+<H5>博客分类</H5>
+<UL>
+  <LI><A href="http://eyejava.javaeye.com/">全部博客 (256)</A> 
+  <LI><A href="http://eyejava.javaeye.com/category/5530">Programming (43)</A> 
+  <LI><A href="http://eyejava.javaeye.com/category/6162">BI (14)</A> 
+  <LI><A href="http://eyejava.javaeye.com/category/11911">项目管理 (14)</A> 
+  <LI><A href="http://eyejava.javaeye.com/category/13294">Business (9)</A> 
+  <LI><A href="http://eyejava.javaeye.com/category/5532">DB (24)</A> 
+  <LI><A href="http://eyejava.javaeye.com/category/19489">Finance&amp;Economics 
+  (20)</A> 
+  <LI><A href="http://eyejava.javaeye.com/category/6153">其他 (25)</A> 
+  <LI><A href="http://eyejava.javaeye.com/category/6154">字典、资料 (11)</A> 
+  <LI><A href="http://eyejava.javaeye.com/category/5988">中医&amp;国学 (14)</A> 
+  <LI><A href="http://eyejava.javaeye.com/category/6183">乐子 (36)</A> 
+  <LI><A href="http://eyejava.javaeye.com/category/7026">探索发现 (8)</A> 
+</LI></UL></DIV>
+<DIV id=blog_album>
+<H5>我的相册</H5>
+<DIV class=picture_thumb style="FLOAT: none">
+<DIV><SPAN class=thumb_box><A href="http://eyejava.javaeye.com/album"><IMG 
+alt=5882c820-4b57-4dfd-b8d1-046e88098b0f-thumb 
+src="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/5882c820-4b57-4dfd-b8d1-046e88098b0f-thumb.png"></A></SPAN></DIV><SPAN>Gmail<BR><A 
+href="http://eyejava.javaeye.com/album">共 8 张</A></SPAN> </DIV></DIV>
+<DIV id=guest_books>
+<H5>我的留言簿</H5>
+<UL>
+  <LI>出来看上帝<BR>-- by <A 
+  href="http://eyejava.javaeye.com/blog/guest_book#1237">kyo100900</A> 
+  <LI>&nbsp; 就是你我这一行，写代码 跟项目！当然现在我的水平还不至于说带项目。 ...<BR>-- by <A 
+  href="http://eyejava.javaeye.com/blog/guest_book#939">Jummy</A> 
+  <LI>请教问题 &nbsp; 大哥，做这一行的出路是什么？<BR>-- by <A 
+  href="http://eyejava.javaeye.com/blog/guest_book#871">Jummy</A> </LI></UL></DIV>
+<DIV id=blog_others>
+<H5>其他分类</H5>
+<UL>
+  <LI><A href="http://eyejava.javaeye.com/blog/favorite">我的收藏</A> (47) 
+  <LI><A href="http://eyejava.javaeye.com/blog/pdf">我的书籍</A> (1) 
+  <LI><A href="http://eyejava.javaeye.com/blog/forum">我的论坛帖子</A> (1090) 
+  <LI><A href="http://eyejava.javaeye.com/blog/article">我的精华良好贴</A> (3) 
+</LI></UL></DIV>
+<DIV id=recent_groups>
+<H5>最近加入圈子</H5>
+<UL>
+  <LI><A href="http://liferay.group.javaeye.com/">liferay</A> 
+  <LI><A href="http://datamining.group.javaeye.com/">数据挖掘</A> 
+  <LI><A href="http://ee.group.javaeye.com/">工程师看经济学</A> 
+  <LI><A href="http://all-basketball.group.javaeye.com/">篮球俱乐部</A> 
+</LI></UL></DIV>
+<DIV id=user_links>
+<H5>链接</H5>
+<UL>
+  <LI><A href="http://hometoyou.tianya.cn/" target=_blank>小憨虫的blog</A> 
+  <LI><A href="http://tradition.javaeye.com/" target=_blank>传统文化圈子</A> 
+  <LI><A href="http://jinjiduli.blog.hexun.com/" target=_blank>中里巴人的blog</A> 
+  <LI><A href="http://my.opera.com/youran/blog/" target=_blank>penny's blog</A> 
+  <LI><A href="http://blog.sina.com.cn/yoyolovelytiti" target=_blank>yoyo</A> 
+  </LI></UL></DIV>
+<DIV id=month_blogs>
+<H5>存档</H5>
+<UL>
+  <LI><A href="http://eyejava.javaeye.com/blog/monthblog/2008-11">2008-11</A> 
+  (8) 
+  <LI><A href="http://eyejava.javaeye.com/blog/monthblog/2008-10">2008-10</A> 
+  (5) 
+  <LI><A href="http://eyejava.javaeye.com/blog/monthblog/2008-09">2008-09</A> 
+  (1) 
+  <LI><A href="http://eyejava.javaeye.com/blog/monthblog_more">更多存档...</A> 
+</LI></UL></DIV>
+<DIV id=recent_comments>
+<H5>最新评论</H5>
+<UL>
+  <LI><A title=在帝国主义面前我们还是大刀长矛 
+  href="http://eyejava.javaeye.com/blog/283081#comments">在帝国主义面前我们还是大 
+  ...</A><BR>好几个童鞋说我不懂经济学，我真该回家好好读读书了，这几位童鞋也可以来教教我，这样 ...<BR>-- by <A 
+  href="http://eyejava.javaeye.com/" target=_blank>eyejava</A> 
+  <LI><A title=在帝国主义面前我们还是大刀长矛 
+  href="http://eyejava.javaeye.com/blog/283081#comments">在帝国主义面前我们还是大 
+  ...</A><BR>eyejava 写道国家政策也是很难制定的，不过去年疯狂的加息导致现在N多小企业 ...<BR>-- by <A 
+  href="http://tianhen.javaeye.com/" target=_blank>tianhen</A> 
+  <LI><A title=在帝国主义面前我们还是大刀长矛 
+  href="http://eyejava.javaeye.com/blog/283081#comments">在帝国主义面前我们还是大 
+  ...</A><BR>中国现在是太多人阐述现象，现象每个人都知道有谁做过或想过怎么改变？<BR>-- by <A 
+  href="http://mk926.javaeye.com/" target=_blank>mk926</A> 
+  <LI><A title=在帝国主义面前我们还是大刀长矛 
+  href="http://eyejava.javaeye.com/blog/283081#comments">在帝国主义面前我们还是大 
+  ...</A><BR>作者不懂经济~ 小日本当年就算不签订广场协议，他一样要衰退10年，同理可用中国<BR>-- by <A 
+  href="http://czx566.javaeye.com/" target=_blank>czx566</A> 
+  <LI><A title=在帝国主义面前我们还是大刀长矛 
+  href="http://eyejava.javaeye.com/blog/283081#comments">在帝国主义面前我们还是大 
+  ...</A><BR>国企领导都喜欢买外国的东西，为啥？大家心里很明白吧！！<BR>-- by <A 
+  href="http://shanghui-12.javaeye.com/" target=_blank>shanghui_12</A> 
+</LI></UL></DIV>
+<DIV id=comments_top>
+<H5>评论排行榜</H5>
+<UL>
+  <LI><A href="http://eyejava.javaeye.com/blog/272373">谷歌拼音2.0测试版</A> 
+  <LI><A href="http://eyejava.javaeye.com/blog/283081">在帝国主义面前我们还是大刀长矛</A> 
+  <LI><A href="http://eyejava.javaeye.com/blog/234138">JIRA不完全手册</A> 
+  <LI><A href="http://eyejava.javaeye.com/blog/175620">零成本大小非导致暴跌？下跌时才发现没有力 
+  ...</A> 
+  <LI><A href="http://eyejava.javaeye.com/blog/198430">考试不及格</A> </LI></UL></DIV>
+<DIV id=rss>
+<UL>
+  <LI><A href="http://eyejava.javaeye.com/rss" target=_blank><IMG alt=Rss 
+  src="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/rss.png"></A> 
+  <LI><A 
+  href="http://fusion.google.com/add?feedurl=http://eyejava.javaeye.com/rss" 
+  target=_blank><IMG alt=Rss_google 
+  src="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/rss_google.gif"></A> 
+  <LI><A 
+  href="http://www.zhuaxia.com/add_channel.php?url=http://eyejava.javaeye.com/rss" 
+  target=_blank><IMG alt=Rss_zhuaxia 
+  src="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/rss_zhuaxia.gif"></A> 
+  <LI><A 
+  href="http://www.xianguo.com/subscribe.php?url=http://eyejava.javaeye.com/rss" 
+  target=_blank><IMG alt=Rss_xianguo 
+  src="oracle中over()开窗函数的理解 - 爱家娃 - JavaEye技术网站.files/rss_xianguo.jpg"></A> 
+  <LI><A href="http://www.google.com/search?hl=zh-CN&amp;q=RSS">[什么是RSS?]</A> 
+  </LI></UL></DIV>
+<DIV class=local_bottom></DIV></DIV></DIV>
+<DIV class=clearfix id=footer>
+<DIV id=copyright>
+<HR>
+声明：JavaEye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<BR>© 
+2003-2008 JavaEye.com. All rights reserved. 上海炯耐计算机软件有限公司 [ 沪ICP备05023328号 ] 
+</DIV></DIV></DIV></BODY></HTML>

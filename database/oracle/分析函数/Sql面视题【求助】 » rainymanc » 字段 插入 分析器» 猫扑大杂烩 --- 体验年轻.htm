@@ -1,0 +1,436 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0056)http://dzh.mop.com/topic/main/readSubMain_7393218_0.html -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content=all name=robots>
+<META content="rainymanc  &raquo; 猫扑大杂烩 --- 体验年轻" name=Author>
+<META 
+content="1.返回表Yhdang中条件为字段Bml以字符串“一局”打头的所有记录，返回字段为dh,bml（字段类型均为Varchar(8)）2.请在Hdmx200605表中插入记录，字段Dh,Hssj,Thsc  &raquo; 猫扑大杂烩 --- 体验年轻" 
+name=description>
+<META content="大杂烩,猫扑,论坛,社区,bbs &raquo; 字段 插入 分析器 &raquo; 猫扑大杂烩 --- 体验年轻" name=keywords><!--
+<title>Sql面视题【求助】</title>
+--><LINK 
+href="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/nwcss.css" 
+type=text/css rel=stylesheet>
+<SCRIPT language=javascript 
+src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/openPic.js"></SCRIPT>
+
+<SCRIPT language=javaScript 
+src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/CommonForm.js"></SCRIPT>
+
+<SCRIPT language=javascript>
+	document.domain="mop.com";
+	curSSUid=""; 
+	isTaobao=0;
+	cuiRid=0;
+	
+	var subject_id=7393218;
+	var sub_exam=1;
+	var subject_master=27159870;
+	var subject_reply=1;
+	var subject_attr='求助';
+	var subject_type='五花八门';
+	var limit_mp=1;
+	var is_offer=0;
+	var is_game=0;
+	var can_post=0;
+	var subject_user='rainymanc';
+	if(subject_master == user_id ){
+
+	} else if ( sub_exam==0 && can_check==0 && can_post==0 ) {
+		alert('该帖未通过审核，不能浏览');
+		window.location='http://dzh.mop.com/static/error/index.html';
+	} else if( is_login == 0 && limit_mp > 1 ){ 
+		alert('请先登录');
+		window.location='http://dzh.mop.com/static/error/index.html';
+	} else if(user_mp < limit_mp && can_check == 0){ 
+		alert('您的mp不够');
+		window.location='http://dzh.mop.com/static/error/index.html';
+	}
+</SCRIPT>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<DIV id=top>
+<DIV id=logo><IMG 
+src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/logo.gif"></DIV>
+<DIV id=menu>
+<DIV id=tab>
+<DIV id=tab_dzh>大杂烩</DIV>
+<DIV id=logbox><INPUT type=image 
+src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/but_log.gif"> 
+<INPUT type=image 
+src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/but_view.gif"> 
+<INPUT type=image 
+src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/but_reg.gif"> 
+</DIV>
+<DIV id=sitlnk><A href="http://www.mop.com/">首页</A>&nbsp;&nbsp;&nbsp;&nbsp; <A 
+href="http://tt.mop.com/">贴贴</A>&nbsp;&nbsp;&nbsp;&nbsp; <A 
+href="http://hi.mop.com/">空间</A>&nbsp;&nbsp;&nbsp;&nbsp; <A 
+href="http://pet.mop.com/">猫游记</A>&nbsp;&nbsp;&nbsp;&nbsp; </DIV></DIV>
+<DIV id=submenu>
+<UL>
+  <LI style="BORDER-LEFT-WIDTH: 0px"><A href="http://dzh.mop.com/">大杂烩</A> 
+  <LI><A href="http://dzh2.mop.com/picArea/">贴图区</A> 
+  <LI><A href="http://dzh2.mop.com/book/indexframe.jsp">原创区</A> 
+  <LI><A href="http://dzh2.mop.com/newbie/indexframe.jsp">小白区</A> 
+  <LI><A href="http://dzh2.mop.com/">人肉搜索</A> 
+  <LI><A href="http://dzh.mop.com/jhhg/index.jsp">精华回顾</A> 
+  <LI><A href="http://dzh.mop.com/union/new_index.jsp">联盟</A> 
+  <LI style="BORDER-RIGHT-WIDTH: 0px"><A 
+  href="http://dzh.mop.com/nstock/index.jsp">猫斯达克</A> </LI></UL></DIV></DIV></DIV>
+<DIV id=main>
+<DIV id=main_left>
+<DIV id=main_ad01>
+<SCRIPT 
+src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/readsubmain-zhd.js"></SCRIPT>
+</DIV>
+<DIV id=maplnk>&nbsp;<A href="http://www.mop.com/">猫扑</A> &gt; <A 
+href="http://dzh.mop.com/static/listSubLeft_0_0.html">大杂烩</A> &gt; 正文</DIV>
+<DIV id=readbox>
+<DIV class=rd_tit><SPAN id=span_Title><A 
+href="http://dzh.mop.com/topic/readSub_7393218_0_0.html">Sql面视题【求助】</A></SPAN></DIV>
+<DIV class=rd_info>发帖人：rainymanc&nbsp;发帖时间:2006-10-25</DIV>
+<DIV 
+class=rd_main>1.返回表Yhdang中条件为字段Bml以字符串“一局”打头的所有记录，返回字段为dh,bml（字段类型均为Varchar(8)）<BR><BR>2.请在Hdmx200605表中插入记录，字段Dh,Hssj,Thsc,Zjjx的值分别为’2000’，’2001-5-1 
+20：20：30’，’00：30：30’，’0’<BR><BR>3.将Hdmx200605表中所有记录插入到Hdmx表（Hdmx表已存在且与Hdmx200605表结构完全一致）中，插入是仅考虑字段Dh,Hssj,Thsc,Zjjx,其他字段均按默认值即可<BR><BR>4.如果表Hthhf中不存在hf&gt;0的记录，就将该表删除<BR><BR>5.表Yhdang及Hdmx200605均有字段Dh(Varchar(8))及字段HfAdd(Money)要求按Dh的对应关系，更新表Yhdang，使Yhdang表中的HfAdd等于对明细表Hdmx200605按字段Dh分组求和后的字段Hfhj的值<BR><BR>6.阅读下面的存储过程，回答问题<BR>CREATE 
+Procedure GetColumn<BR>@Table_name varchar(200)<BR>as<BR>declare @field 
+varchar(30)<BR>declare @sql varchar(3000)<BR><BR><BR>declare cur cursor local 
+read_only static Ｓｃｒｏｌｌ for select[name] from syscolumns where[id]=(select[id] 
+from sysobjects where [name]=@table_name)<BR>open cur<BR>fetch first from Cur 
+into @field<BR><BR>select @Sql=”<BR>while @@FETCH_STATUS=0<BR>begin<BR>select 
+@sql=@sql+’,’+@field<BR>print @sql<BR>fetch next from Cur into 
+@field<BR>end<BR>close cur<BR>DeAllocate cur<BR>print @sql<BR>print 
+substring(@sql,2,len(@sql)-1)<BR>GO<BR><BR>1)阐述declare cur cursor local 
+read_only static Ｓｃｒｏｌｌ for select[name] from syscolumns where[id]=(select[id] 
+from sysobjects where 
+[name]=@table_name)<BR>的含义<BR><BR><BR>2）现有数据表T1，字段为Hth,Dh,Yhmc,Yhdz,如果在SQL查询分析器中执行语句执行 
+GetColumn’T1’,请写出调试消息中的内容<BR>
+<SCRIPT language=javascript>
+			 function copyToClipBoard(){
+				 var clipBoardContent="";
+				 clipBoardContent+=document.all('span_Title').innerText;
+				 clipBoardContent+="\n";
+				 clipBoardContent+="http://dzh.mop.com/topic/readSub_7393218_0_0.html";
+				 window.clipboardData.setData("Text",clipBoardContent);
+				 alert("复制成功，请粘贴到你的QQ/MSN上推荐给你的好友");
+			}
+			</SCRIPT>
+
+<DIV align=center><INPUT id=button onclick=copyToClipBoard() type=submit value=复制本帖地址，传给QQ/MSN上的好友 name=button></DIV></DIV>
+<DIV class=rd_author>---<A 
+href="http://dzh.mop.com/topic/editReply.jsp?sid=7393218">rainymanc</A> <SPAN 
+class=date>2006-10-25</SPAN></DIV>
+<DIV class=s_line></DIV>
+<TABLE style="TABLE-LAYOUT: fixed" cellSpacing=0 cellPadding=0 width="96%" 
+border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <HR style="WIDTH: 100%; COLOR: #e1f4fa; HEIGHT: 1px">
+    </TD></TR>
+  <TR>
+    <TD>[猫(1)]：</TD></TR>
+  <TR>
+    <TD class=ct1 
+    style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; WORD-BREAK: break-all; PADDING-TOP: 10px">哦，完全不懂<BR><BR></TD></TR>
+  <TR>
+    <TD>----<A class=id1 
+      href="http://dzh.mop.com/topic/editReply.jsp?sid=7393218&amp;rid=586298">NeoAnderson</A> 
+    </TD></TR></TBODY></TABLE>
+<TABLE style="TABLE-LAYOUT: fixed" cellSpacing=0 cellPadding=0 width="96%" 
+border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <HR style="WIDTH: 100%; COLOR: #e1f4fa; HEIGHT: 1px">
+    </TD></TR>
+  <TR>
+    <TD>[扑(2)]：</TD></TR>
+  <TR>
+    <TD class=ct1 
+    style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; WORD-BREAK: break-all; PADDING-TOP: 10px">1.返回表Yhdang中条件为字段Bml以字符串“一局”打头的所有记录，返回字段为dh,bml（字段类型均为Varchar(8)）<BR>select 
+      dh,bml from yhdang where bml like '一局%' 
+      <BR><BR>2.请在Hdmx200605表中插入记录，字段Dh,Hssj,Thsc,Zjjx的值分别为<BR>’2000’，’2001-5-1 
+      20：20：30’，’00：30：30’，’0’<BR>insert into hdmx200605 (Dh,Hssj,Thsc,Zjjx) 
+      vaules <BR>select ’2000’，’2001-5-1 20：20：30’，’00：30：30’，’0 from 
+      dual<BR><BR>3.将Hdmx200605表中所有记录插入到Hdmx表（Hdmx表已存在且与Hdmx200605表结构完全一致）中，<BR>插入是仅考虑字段Dh,Hssj,Thsc,Zjjx,其他字段均按默认值即可<BR>insert 
+      into Hdmx<BR>select Dh,Hssj,Thsc,Zjjx from 
+      Hdmx200605<BR><BR>4.如果表Hthhf中不存在hf&gt;0的记录，就将该表删除<BR>这个就不知道了，写存储过程？？<BR>简单点的话可以这样：<BR>select 
+      * from Hthhf where hf&lt;=0<BR>如果上述sql有记录<BR>drop table 
+      hthhf<BR><BR>5.表Yhdang及Hdmx200605均有字段Dh(Varchar(8))及字段HfAdd(Money)要求按Dh的对应关系，<BR>更新表Yhdang，使Yhdang表中的HfAdd等于对明细表Hdmx200605按字段Dh分组求和后的<BR>字段Hfhj的值<BR><BR>create 
+      table Hdmx200605_group_count as <BR>select count(*) Hfhj,Dh from 
+      Hdmx200605 group by dh;<BR><BR>更新 Yhdang a set a.HfAdd=(<BR>select b.Hfhj 
+      from Hdmx200605_group_count b where a.dh=b.dh<BR>)<BR><BR></TD></TR>
+  <TR>
+    <TD>----<A class=id1 
+      href="http://dzh.mop.com/topic/editReply.jsp?sid=7393218&amp;rid=586299">amnada000</A> 
+    </TD></TR></TBODY></TABLE>
+<TABLE style="TABLE-LAYOUT: fixed" cellSpacing=0 cellPadding=0 width="96%" 
+border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <HR style="WIDTH: 100%; COLOR: #e1f4fa; HEIGHT: 1px">
+    </TD></TR>
+  <TR>
+    <TD>[猫(3)]：</TD></TR>
+  <TR>
+    <TD class=ct1 
+    style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; WORD-BREAK: break-all; PADDING-TOP: 10px">这是什么？不懂不懂，完全不懂！<BR><BR></TD></TR>
+  <TR>
+    <TD>----<A class=id1 
+      href="http://dzh.mop.com/topic/editReply.jsp?sid=7393218&amp;rid=586300">tonezane</A> 
+    </TD></TR></TBODY></TABLE>
+<TABLE style="TABLE-LAYOUT: fixed" cellSpacing=0 cellPadding=0 width="96%" 
+border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <HR style="WIDTH: 100%; COLOR: #e1f4fa; HEIGHT: 1px">
+    </TD></TR>
+  <TR>
+    <TD>[扑(4)]：</TD></TR>
+  <TR>
+    <TD class=ct1 
+    style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; WORD-BREAK: break-all; PADDING-TOP: 10px">它有问问题吗?<BR><BR></TD></TR>
+  <TR>
+    <TD>----<A class=id1 
+      href="http://dzh.mop.com/topic/editReply.jsp?sid=7393218&amp;rid=586301">catch_up</A> 
+    </TD></TR></TBODY></TABLE>
+<TABLE style="TABLE-LAYOUT: fixed" cellSpacing=0 cellPadding=0 width="96%" 
+border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <HR style="WIDTH: 100%; COLOR: #e1f4fa; HEIGHT: 1px">
+    </TD></TR>
+  <TR>
+    <TD>[猫(5)]：</TD></TR>
+  <TR>
+    <TD class=ct1 
+    style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; WORD-BREAK: break-all; PADDING-TOP: 10px">数据库，也就是个工具，了解逻辑就够了。<BR>一般可以去查doc的。<BR>不知道考试为了什么哟，<BR>你可要知道的就是很多时候有些技巧你要查doc才能得到，总不可能厚厚一本东西全记在脑里吧？<BR>而且还有不同的数据库系统，语法或操作也不一定相同。<BR>所以了解基础就够。<BR><BR></TD></TR>
+  <TR>
+    <TD>----<A class=id1 
+      href="http://dzh.mop.com/topic/editReply.jsp?sid=7393218&amp;rid=586302"><B>匿名人士716006</B></A> 
+    </TD></TR></TBODY></TABLE>
+<TABLE style="TABLE-LAYOUT: fixed" cellSpacing=0 cellPadding=0 width="96%" 
+border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <HR style="WIDTH: 100%; COLOR: #e1f4fa; HEIGHT: 1px">
+    </TD></TR>
+  <TR>
+    <TD>[扑(6)]：</TD></TR>
+  <TR>
+    <TD class=ct1 
+    style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; WORD-BREAK: break-all; PADDING-TOP: 10px">分明是ORACLE下面的SQL语句<BR><BR></TD></TR>
+  <TR>
+    <TD>----<A class=id1 
+      href="http://dzh.mop.com/topic/editReply.jsp?sid=7393218&amp;rid=586303">alan_toshiya</A> 
+    </TD></TR></TBODY></TABLE>
+<TABLE style="TABLE-LAYOUT: fixed" cellSpacing=0 cellPadding=0 width="96%" 
+border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <HR style="WIDTH: 100%; COLOR: #e1f4fa; HEIGHT: 1px">
+    </TD></TR>
+  <TR>
+    <TD>[<B><FONT color=#ff0000>【楼主】</FONT></B>]：</TD></TR>
+  <TR>
+    <TD class=ct1 
+    style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; WORD-BREAK: break-all; PADDING-TOP: 10px">感谢2楼给出答案<BR>感谢各位猫友的帮助和告戒<BR>哪位能给出第六题的答案<BR>我有点看不明白<BR>谢谢<BR><BR></TD></TR>
+  <TR>
+    <TD>----<A class=id1 
+      href="http://dzh.mop.com/topic/editReply.jsp?sid=7393218&amp;rid=586304">rainymanc</A> 
+    </TD></TR></TBODY></TABLE>
+<TABLE style="TABLE-LAYOUT: fixed" cellSpacing=0 cellPadding=0 width="96%" 
+border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <HR style="WIDTH: 100%; COLOR: #e1f4fa; HEIGHT: 1px">
+    </TD></TR>
+  <TR>
+    <TD>[扑(8)]：</TD></TR>
+  <TR>
+    <TD class=ct1 
+    style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; WORD-BREAK: break-all; PADDING-TOP: 10px">2楼的有几个地方，小猫修改一下<BR>1。返回表Yhdang中条件为字段Bml以字符串“一局”打头的所有记录，返回字段为dh,bml（字段类型均为Varchar(8)）<BR><BR>应该为select 
+      dh,bml from Yhdang where left(blm,2) ='一局' 而不应该是like 
+      那样如果某一条记录的bml字段中间有‘一局’也会被选出来。<BR><BR>2.请在Hdmx200605表中插入记录，字段Dh,Hssj,Thsc,Zjjx的值分别为<BR>’2000’，’2001-5-1 
+      20：20：30’，’00：30：30’，’0’<BR>insert into hdmx200605 (Dh,Hssj,Thsc,Zjjx) 
+      vaules <BR>select ’2000’，’2001-5-1 20：20：30’，’00：30：30’，’0 from 
+      dual<BR><BR>直接insert into hdmx200605 (Dh,Hssj,Thsc,Zjjx) vaules 
+      (’2000’，’2001-5-1 20：20：30’，’00：30：30’，’0 ') 就可以。<BR><BR><BR>4 <BR>if 
+      exists (select top 1 * from Hthhf where hf&gt;0) drop table hthhf<BR><BR>6 
+      1\定义了一个以select[id] from sysobjects where 
+      [name]=@table_name为条件的[name]的结果集做为游标。<BR>SCROLL<BR>指定所有的提取选项（FIRST、LAST、PRIOR、NEXT、RELATIVE、ABSOLUTE）均可用。如果在 
+      SQL-92 DECLARE CURSOR 中未指定 SCROLL，则 NEXT 是唯一支持的提取选项。如果指定 SCROLL，则不能也指定 
+      FAST_FORWARD<BR>READ ONLY<BR>Prevents 更新s made through this cursor.在 更新 或 
+      删除 语句的 WHERE CURRENT OF 
+      子句中不能引用游标。该选项替代要更新的游标的默认功能。<BR>小猫对这个也没什么研究。没用到过。求更高人指点。<BR><BR></TD></TR>
+  <TR>
+    <TD>----<A class=id1 
+      href="http://dzh.mop.com/topic/editReply.jsp?sid=7393218&amp;rid=586305">我爱Nico 
+      Robin</A> </TD></TR></TBODY></TABLE>
+<TABLE style="TABLE-LAYOUT: fixed" cellSpacing=0 cellPadding=0 width="96%" 
+border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <HR style="WIDTH: 100%; COLOR: #e1f4fa; HEIGHT: 1px">
+    </TD></TR>
+  <TR>
+    <TD>[<B><FONT color=#ff0000>【楼主】</FONT></B>]：</TD></TR>
+  <TR>
+    <TD class=ct1 
+    style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; WORD-BREAK: break-all; PADDING-TOP: 10px">谢8楼的朋友<BR><BR></TD></TR>
+  <TR>
+    <TD>----<A class=id1 
+      href="http://dzh.mop.com/topic/editReply.jsp?sid=7393218&amp;rid=586306">rainymanc</A> 
+    </TD></TR></TBODY></TABLE>
+<TABLE style="TABLE-LAYOUT: fixed" cellSpacing=0 cellPadding=0 width="96%" 
+border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <HR style="WIDTH: 100%; COLOR: #e1f4fa; HEIGHT: 1px">
+    </TD></TR>
+  <TR>
+    <TD>[扑(10)]：</TD></TR>
+  <TR>
+    <TD class=ct1 
+    style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; WORD-BREAK: break-all; PADDING-TOP: 10px">6楼的第一题解释错误哦,中间有"一局"的话应该是like 
+      '%一局%';而二楼给出的like '一局%'就是指以"一局"开头的,所以2楼的没错误,<BR><BR></TD></TR>
+  <TR>
+    <TD>----<A class=id1 
+      href="http://dzh.mop.com/topic/editReply.jsp?sid=7393218&amp;rid=586307">网络ぁ幽灵</A> 
+    </TD></TR></TBODY></TABLE>
+<TABLE style="TABLE-LAYOUT: fixed" cellSpacing=0 cellPadding=0 width="96%" 
+border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <HR style="WIDTH: 100%; COLOR: #e1f4fa; HEIGHT: 1px">
+    </TD></TR>
+  <TR>
+    <TD>[<B><FONT color=#ff0000>【楼主】</FONT></B>]：</TD></TR>
+  <TR>
+    <TD class=ct1 
+    style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; WORD-BREAK: break-all; PADDING-TOP: 10px">能得到这么多朋友的帮助真是十分感谢<BR>谢10楼的朋友<BR>哪位能给出第6题的第2问呀<BR><BR></TD></TR>
+  <TR>
+    <TD>----<A class=id1 
+      href="http://dzh.mop.com/topic/editReply.jsp?sid=7393218&amp;rid=586308">rainymanc</A> 
+    </TD></TR></TBODY></TABLE>
+<TABLE style="TABLE-LAYOUT: fixed" cellSpacing=0 cellPadding=0 width="96%" 
+border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <HR style="WIDTH: 100%; COLOR: #e1f4fa; HEIGHT: 1px">
+    </TD></TR>
+  <TR>
+    <TD>[扑(12)]：</TD></TR>
+  <TR>
+    <TD class=ct1 
+    style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; WORD-BREAK: break-all; PADDING-TOP: 10px"><BR><IFRAME 
+      border=0 
+      src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/readsubmain-zhd.htm" 
+      frameBorder=0 noResize width=338 scrolling=no 
+    height=206></IFRAME><BR><BR></TD></TR>
+  <TR>
+    <TD>----<A class=id1 
+      href="http://dzh.mop.com/topic/editReply.jsp?sid=7393218&amp;rid=586309">amnada000</A> 
+    </TD></TR></TBODY></TABLE>
+<TABLE style="TABLE-LAYOUT: fixed" cellSpacing=0 cellPadding=0 width="96%" 
+border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <HR style="WIDTH: 100%; COLOR: #e1f4fa; HEIGHT: 1px">
+    </TD></TR>
+  <TR>
+    <TD>[猫(13)]：</TD></TR>
+  <TR>
+    <TD class=ct1 
+    style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; WORD-BREAK: break-all; PADDING-TOP: 10px">不好意思！没看仔细！！呵呵~~~<BR><BR></TD></TR>
+  <TR>
+    <TD>----<A class=id1 
+      href="http://dzh.mop.com/topic/editReply.jsp?sid=7393218&amp;rid=586310">我爱Nico 
+      Robin</A> </TD></TR></TBODY></TABLE>
+<DIV class=s_line></DIV>
+<DIV class=rd_lnk><A class=blue1 
+href="http://dzh.mop.com/topic/readSub_7393218_0_0.html" target=_blank>
+<SCRIPT>
+            	function bookmark()
+					{if (document.all)
+					window.external.AddFavorite('http://www.mop.com/',"猫扑 - 中国第一娱乐互动门户");
+				}
+            </SCRIPT>
+
+<SCRIPT language=JavaScript 
+src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/readSubMain_7393218_0.js"></SCRIPT>
+<A href="javascript:bookmark();">【加入收藏】</A>&nbsp;&nbsp; <A class=blue1 
+href="javascript:window.print()">【打印珍藏】</A></DIV>
+<DIV class=s_line></DIV><A href="http://dzh.mop.com/key/字段" 
+target=_blank>字段</A>&nbsp; <A href="http://dzh.mop.com/key/插入" 
+target=_blank>插入</A>&nbsp; <A href="http://dzh.mop.com/key/分析器" 
+target=_blank>分析器</A>&nbsp; 
+<DIV class=s_line></DIV>
+<DIV class=rd_rep>
+<FORM name=revert2 action=/topic/replySub.jsp method=post 
+encType=multipart/form-data><INPUT type=hidden value=7393218 name=sid> <INPUT 
+type=hidden name=txtImageFile> <INPUT type=hidden value=http:// name=imgsrc> 
+<INPUT type=hidden value=http:// name=url> <INPUT type=hidden name=unionTitle> 
+<INPUT type=hidden value=0 name=face1> <INPUT type=hidden value=0 name=face2> 
+<INPUT type=hidden value=0 name=face3> 
+<TABLE style="MARGIN-TOP: 10px; MARGIN-BOTTOM: 5px" cellSpacing=0 cellPadding=0 
+width="70%" border=0>
+  <TBODY>
+  <TR>
+    <TD style="FONT-WEIGHT: bold; FONT-SIZE: 14px" noWrap 
+      width="80%">注意：猫扑的注册用户才能发表评论。<A 
+      href="http://dzh.mop.com/RegLogin/RegLogin.jsp">注册用户登录猫扑大杂烩&gt;&gt;</A><BR>注册用户输入昵称和密码即可提交评论，<A 
+      class=red1 
+      href="http://passport.mop.com/sign/login_1.jsp?from=http://dzh.mop.com">未注册用户请先点击这里注册帐号</A>。 
+      <BR>呢称： <INPUT name=txtusername> 密码： <INPUT type=password 
+      name=txtpassword> </TD>
+    <TD noWrap align=right></TD></TR></TBODY></TABLE><TEXTAREA style="WIDTH: 70%" name=body rows=5 wrap=VIRTUAL></TEXTAREA> 
+<BR><INPUT style="MARGIN: 10px 0px 20px" type=submit value=" 提交评论 "> <BR><!--2007-09-26
+			  <iframe src='http://ebay.mop.com/mop_dzh%20auction_html_190x140x3/mop_dzh%20auction_html_190x140x3.html' marginheight=0 marginwidth=0 scrolling="no" framespacing="0" border="0" frameborder="0" noresize width=570 height=140 ></iframe><br>
+			  --></FORM></DIV></DIV></DIV>
+<DIV id=main_right>
+<DIV class=piclnk>
+<DIV><IMG 
+src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/todayhot.gif"></DIV><IFRAME 
+border=0 marginWidth=0 frameSpacing=0 marginHeight=0 
+src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/ad_show.htm" 
+frameBorder=0 noResize width=220 scrolling=no height=182></IFRAME></DIV>
+<DIV class=top>
+<DIV><IMG 
+src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/font_top.gif"></DIV>
+<DIV class=topList>
+<SCRIPT language=JavaScript 
+src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/topweek.js"></SCRIPT>
+</DIV></DIV>
+<DIV class=top>
+<DIV><IMG 
+src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/font_top1.gif"></DIV>
+<DIV class=topList>
+<SCRIPT language=JavaScript 
+src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/top48.js"></SCRIPT>
+</DIV></DIV></DIV></DIV>
+<SCRIPT language=javascript 
+src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/addClick.js"></SCRIPT>
+
+<SCRIPT src=""></SCRIPT>
+
+<SCRIPT src="Sql面视题【求助】 &raquo; rainymanc &raquo; 字段 插入 分析器&raquo; 猫扑大杂烩 --- 体验年轻.files/ovo.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</SCRIPT>
+
+<SCRIPT type=text/javascript>try{var pageTracker = _gat._getTracker("UA-3912673-3");pageTracker._initData();pageTracker._trackPageview();}catch(e){}</SCRIPT>
+</BODY></HTML>

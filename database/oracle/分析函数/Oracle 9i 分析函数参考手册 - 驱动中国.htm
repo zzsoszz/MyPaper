@@ -1,0 +1,360 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0071)http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2390.html -->
+<HTML xml:lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Oracle 9i 分析函数参考手册 - 驱动中国</TITLE>
+<META content="参考 手册 函数 分析 BY ORDER 返回 salary OVER AS 用户 " name=keywords>
+<META 
+content="Oracle从8.1.6开始提供分析函数，分析函数用于计算基于组的某种聚合值，它和聚合函数的不同之处是对于每个组返回多行，而聚合函数对于每个组只返回一行。 下面例子中使用的表来自Oracle自带的HR用户下的表，如果没有安装该用户，可以在SYS用户下运行$ORACLE_HOME/demo/" 
+name=description>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content="index, follow" name=robots><LINK 
+href="Oracle 9i 分析函数参考手册 - 驱动中国.files/news_dede.css" type=text/css 
+rel=stylesheet><LINK href="Oracle 9i 分析函数参考手册 - 驱动中国.files/news_article.css" 
+type=text/css rel=stylesheet><LINK 
+href="Oracle 9i 分析函数参考手册 - 驱动中国.files/news.css" type=text/css 
+rel=stylesheet><LINK href="Oracle 9i 分析函数参考手册 - 驱动中国.files/hq.css" type=text/css 
+rel=stylesheet><!-- Digg 参数 -->
+<SCRIPT language=javascript 
+src="Oracle 9i 分析函数参考手册 - 驱动中国.files/dedeajax2.js"></SCRIPT>
+
+<SCRIPT language=javascript>
+function Digg(divId,aid){
+   var taget_obj = document.getElementById(divId+''+aid);
+   var myajax = new DedeAjax(taget_obj,false,false,"","","");
+   myajax.SendGet2("/digg.php?action=digg&aid="+aid);
+   DedeXHTTP = null;
+}
+</SCRIPT>
+
+<STYLE>.context {
+	CLEAR: both; WIDTH: 638px
+}
+.diggArea {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FLOAT: left; BACKGROUND-IMAGE: url(/plus/img/diggbg2.gif); PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 57px; LINE-HEIGHT: 23px; PADDING-TOP: 0px; HEIGHT: 50px
+}
+.diggNum {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; MARGIN: 3px 0px 0px; WIDTH: 57px; PADDING-TOP: 0px; HEIGHT: 23px; TEXT-ALIGN: center
+}
+.diggLink {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 55px; PADDING-TOP: 0px; HEIGHT: 23px; TEXT-ALIGN: center
+}
+.diggLink A {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px
+}
+</STYLE>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY><!--头部开始-->
+<DIV id=headers>
+<DIV id=logo><A href="http://www.qudong.com/" target=_blank><IMG height=45 
+alt=驱动中国 src="Oracle 9i 分析函数参考手册 - 驱动中国.files/0.gif" width=180 
+border=0></A></DIV>
+<DIV id=top><A href="http://www.qudong.com/plus/heightsearch.php">搜索</A>|<A 
+onclick="javascript:window.external.AddFavorite('http://www.qudong.com','驱动中国');" 
+href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2390.html#">收藏</A>|<A 
+href="http://www.qudong.com/plus/sitemap.html">地图</A>|<A 
+href="http://www.qudong.com/plus/rssmap.html">订阅</A>|<A 
+href="http://www.qudong.com/news/photo/">图片</A>|<A 
+href="http://bbs.qudong.com/">论坛</A>|<A style="COLOR: red" 
+href="http://shop.qudong.com/">商城</A></DIV>
+<DIV id=nav><A class=a01 href="http://www.qudong.com/">首 页</A><SPAN 
+class=span01> <A href="http://www.qudong.com/notebook/">笔记本</A> <A 
+href="http://www.qudong.com/digital/">数码</A> <A 
+href="http://www.qudong.com/hardware/">硬件</A> <A 
+href="http://www.qudong.com/hardware/monitor">显示器</A> <A 
+href="http://www.qudong.com/internet/">互联网</A> <A 
+href="http://www.qudong.com/mobile/">手机</A> <A 
+href="http://www.qudong.com/dc/">数码相机</A> <A 
+href="http://www.qudong.com/dv/">摄像机</A> <A 
+href="http://www.qudong.com/mp3_mp4/">MP3/MP4</A> <A 
+href="http://www.qudong.com/gps/">GPS</A> <A 
+href="http://drivers.qudong.com/"><FONT color=red>驱动</FONT></A> <A 
+href="http://soft.qudong.com/">软件</A> <A 
+href="http://www.qudong.com/soft/college/">学院</A> </SPAN></DIV>
+<DIV class=clear></DIV><!--搜索条-->
+<DIV id=searchbar>
+<DIV class=search_b></DIV>
+<DIV class=d_input01>
+<FORM name=formsearch action=/plus/search.php><INPUT type=hidden value=1 
+name=kwtype> <INPUT class=input01 id=keyword value=请输入关键字 name=keyword> <INPUT 
+class=input02 type=image src="Oracle 9i 分析函数参考手册 - 驱动中国.files/5.gif" value=" "> 
+</FORM></DIV>
+<DIV class=d_input02>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD width="50%">·<A 
+      href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2340.html">ORACLE培训教程(1)-ORACLE系统概述</A> 
+    </TD>
+    <TD width="50%"></TD></TR></TBODY></TABLE></DIV>
+<DIV class=clear></DIV></DIV></DIV><!--banner-->
+<DIV class="topads cbody"><!--广告-->
+<DIV class=top_ad>
+<SCRIPT src="Oracle 9i 分析函数参考手册 - 驱动中国.files/index_02.js"></SCRIPT>
+
+<DIV class=clear></DIV></DIV><!--广告--></DIV>
+<DIV class=floatclear><!--清除浮动--></DIV><!--内容-->
+<DIV class="main cbody margintop"><!--左侧-->
+<DIV class=pleft><!--位置导航-->
+<DIV class=thisplace>
+<DIV class=placenav><SPAN>&nbsp;&nbsp;当前位置 :</SPAN>| <A 
+href="http://www.qudong.com/">首页</A>&gt;<A 
+href="http://www.qudong.com/soft/">软件</A>&gt;<A 
+href="http://www.qudong.com/soft/program/">编程学院</A>&gt;<A 
+href="http://www.qudong.com/soft/program/Oracle/">Oracle</A>&gt;<A 
+href="http://www.qudong.com/soft/program/Oracle/rumenjichu/">入门基础</A>&gt; 
+</DIV></DIV><!--资讯内容-->
+<DIV class=newsview><!--资讯标题-->
+<DIV class=title>
+<H1>Oracle 9i 分析函数参考手册</H1></DIV><!--相关信息-->
+<DIV class=info><STRONG>来源：</STRONG>互联网 <STRONG>编辑：</STRONG>rocket 
+<STRONG>时间：</STRONG>2008-03-19 <FONT color=#ffffff>
+<SCRIPT language=javascript 
+src="Oracle 9i 分析函数参考手册 - 驱动中国.files/count.htm"></SCRIPT>
+</FONT></DIV><!--正文上部广告-->
+<DIV class=ads>
+<SCRIPT src="Oracle 9i 分析函数参考手册 - 驱动中国.files/news_top.js" 
+type=text/javascript></SCRIPT>
+</DIV><!--资讯正文-->
+<DIV class=content>
+<P>Oracle从8.1.6开始提供分析函数，分析函数用于计算基于组的某种聚合值，它和聚合函数的不同之处是对于每个组返回多行，而聚合函数对于每个组只返回一行。<BR>　　<BR>　　下面例子中使用的表来自Oracle自带的HR用户下的表，如果没有安装该用户，可以在SYS用户下运行$ORACLE_HOME/demo/schema/human_resources/hr_main.sql来创建。<BR>　　<BR>　　少数几个例子需要访问SH用户下的表，如果没有安装该用户，可以在SYS用户下运行$ORACLE_HOME/demo/schema/sales_history/sh_main.sql来创建。<BR>　　<BR>　　如果未指明缺省是在HR用户下运行例子。<BR>　　<BR>　　开窗函数的的理解：<BR>　　<BR>　　开窗函数指定了分析函数工作的数据窗口大小，这个数据窗口大小可能会随着行的变化而变化，举例如下：<BR>　　<BR>　　over（order 
+by salary） 按照salary排序进行累计，order by是个默认的开窗函数<BR>　　over（partition by 
+deptno）按照部门分区<BR>　　over（order by salary range between 50 preceding and 150 
+following）<BR>　　每行对应的数据窗口是之前行幅度值不超过50，之后行幅度值不超过150<BR>　　over（order by salary 
+rows between 50 preceding and 150 following）<BR>　　每行对应的数据窗口是之前50行，之后150行 
+<BR></P>
+<P><BR>　　over（order by salary rows between unbounded preceding and unbounded 
+following）<BR>　　每行对应的数据窗口是从第一行到最后一行，等效：<BR>　　over（order by salary range between 
+unbounded preceding and unbounded following）<BR>　　<BR>　　主要参考资料：《expert 
+one-on-one》 Tom Kyte　《Oracle9i SQL 
+Reference》第6章<BR>　　<BR>　　AVG<BR>　　功能描述：用于计算一个组和数据窗口内表达式的平均值。<BR>　　<BR>　　SAMPLE：下面的例子中列c_mavg计算员工表中每个员工的平均薪水报告，该平均值由当前员工和与之具有相同经理的前一个和后一个三者的平均数得来；<BR>　　<BR>　　SELECT 
+manager_id, last_name, hire_date, salary,<BR>　　AVG(salary) OVER (PARTITION BY 
+manager_id ORDER BY hire_date<BR>　　ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING) AS 
+c_mavg<BR>　　FROM employees;<BR>　　<BR>　　MANAGER_ID LAST_NAME　　　　　　　　 HIRE_DATE　　 
+SALARY　　 C_MAVG<BR>　　---------- ------------------------- --------- ---------- 
+----------<BR>　　100 Kochhar　　　　　　　　　 21-SEP-89　　　17000　　　17000<BR>　　100 De 
+Haan　　　　　　　　　 13-JAN-93　　　17000　　　15000 <BR>　　100 
+Raphaely　　　　　　　　　07-DEC-94　　　11000 11966.6667<BR>　　100 
+Kaufling　　　　　　　　　01-MAY-95　　　 7900 10633.3333<BR>　　100 Hartstein　　　　　　　　 
+17-FEB-96　　　13000 9633.33333<BR>　　100 Weiss　　　　　　　　　　 18-JUL-96　　　 8000 
+11666.6667<BR>　　100 Russell　　　　　　　　　 01-OCT-96　　　14000 
+11833.3333<BR>　　.<BR>　　.<BR>　　.<BR>　　<BR>　　CORR<BR>　　功能描述：返回一对表达式的相关系数，它是如下的缩写：<BR>　　<BR>　　COVAR_POP(expr1,expr2)/STDDEV_POP(expr1)*STDDEV_POP(expr2))从统计上讲，相关性是变量之间关联的强度，变量之间的关联意味着在某种程度上一个变量的值可由其它的值进行预测。通过返回一个-1~1之间的一个数, 
+相关系数给出了关联的强度，0表示不相关。<BR>　　<BR>　　SAMPLE：下例返回1998年月销售收入和月单位销售的关系的累积系数（本例在SH用户下运行）<BR>　　<BR>　　SELECT 
+t.calendar_month_number,<BR>　　CORR (SUM(s.amount_sold), 
+SUM(s.quantity_sold))<BR>　　OVER (ORDER BY t.calendar_month_number) as 
+CUM_CORR<BR>　　FROM sales s, times t<BR>　　WHERE s.time_id = t.time_id AND 
+calendar_year = 1998 <BR></P>
+<P>　　GROUP BY t.calendar_month_number<BR>　　ORDER BY 
+t.calendar_month_number;<BR>　　<BR>　　CALENDAR_MONTH_NUMBER　 
+CUM_CORR<BR>　　--------------------- ----------<BR>　　1<BR>　　2　　　　　1<BR>　　3 
+.994309382<BR>　　4 .852040875<BR>　　5 .846652204<BR>　　6 .871250628<BR>　　7 
+.910029803<BR>　　8 .917556399<BR>　　9 .920154356<BR>　　10　.86720251<BR>　　11 
+.844864765<BR>　　12 
+.903542662<BR>　　<BR>　　COVAR_POP<BR>　　功能描述：返回一对表达式的总体协方差。<BR>　　SAMPLE：下例CUM_COVP返回定价和最小产品价格的累积总体协方差<BR>　　<BR>　　SELECT 
+product_id, supplier_id,<BR>　　COVAR_POP(list_price, min_price)<BR>　　OVER (ORDER 
+BY product_id, supplier_id) AS CUM_COVP,<BR>　　COVAR_SAMP(list_price, 
+min_price)<BR>　　OVER (ORDER BY product_id, supplier_id) AS CUM_COVS<BR>　　FROM 
+product_information p<BR>　　WHERE category_id = 29<BR>　　ORDER BY product_id, 
+supplier_id;<BR>　　<BR>　　PRODUCT_ID SUPPLIER_ID　 CUM_COVP　 
+CUM_COVS<BR>　　---------- ----------- ---------- 
+----------<BR>　　1774　　　103088　　　　　0 <BR></P>
+<P><BR>　　1775　　　103087　　1473.25　　 2946.5<BR>　　1794　　　103096 1702.77778 
+2554.16667<BR>　　1825　　　103093　　1926.25 2568.33333<BR>　　2004　　　103086　　 
+1591.4　　1989.25<BR>　　2005　　　103086　　 1512.5　　　 1815<BR>　　2416　　　103088 
+1475.97959 
+1721.97619<BR>　　.<BR>　　.<BR>　　<BR>　　COVAR_SAMP<BR>　　功能描述：返回一对表达式的样本协方差<BR>　　SAMPLE：下例CUM_COVS返回定价和最小产品价格的累积样本协方差<BR>　　<BR>　　SELECT 
+product_id, supplier_id,<BR>　　COVAR_POP(list_price, min_price)<BR>　　OVER (ORDER 
+BY product_id, supplier_id) AS CUM_COVP,<BR>　　COVAR_SAMP(list_price, 
+min_price)<BR>　　OVER (ORDER BY product_id, supplier_id) AS CUM_COVS<BR>　　FROM 
+product_information p<BR>　　WHERE category_id = 29<BR>　　ORDER BY product_id, 
+supplier_id;<BR>　　<BR>　　PRODUCT_ID SUPPLIER_ID　 CUM_COVP　 
+CUM_COVS<BR>　　---------- ----------- ---------- 
+----------<BR>　　1774　　　103088　　　　　0<BR>　　1775　　　103087　　1473.25　　 
+2946.5<BR>　　1794　　　103096 1702.77778 2554.16667<BR>　　1825　　　103093　　1926.25 
+2568.33333 <BR></P>
+<P>　　2004　　　103086　　 1591.4　　1989.25<BR>　　2005　　　103086　　 1512.5　　　 
+1815<BR>　　2416　　　103088 1475.97959 
+1721.97619<BR>　　.<BR>　　.<BR>　　<BR>　　COUNT<BR>　　功能描述：对一组内发生的事情进行累积计数，如果指定*或一些非空常数，count将对所有行计数，如果指定一个表达式，count返回表达式非空赋值的计数，当有相同值出现时，这些相等的值都会被纳入被计算的值；可以使用DISTINCT来记录去掉一组中完全相同的数据后出现的行数。<BR>　　<BR>　　SAMPLE：下面例子中计算每个员工在按薪水排序中当前行附近薪水在[n-50,n+150]之间的行数，n表示当前行的薪水<BR>　　<BR>　　例如，Philtanker的薪水2200，排在他之前的行中薪水大于等于2200-50的有1行，排在他之后的行中薪水小于等于2200＋150的行没有，所以count计数值cnt3为2（包括自己当前行）；cnt2值相当于小于等于当前行的SALARY值的所有行数<BR>　　<BR>　　SELECT 
+last_name, salary, COUNT(*) OVER () AS cnt1,<BR>　　COUNT(*) OVER (ORDER BY 
+salary) AS cnt2,<BR>　　COUNT(*) OVER (ORDER BY salary RANGE BETWEEN 50 
+PRECEDING<BR>　　AND 150 FOLLOWING) AS cnt3 FROM 
+employees;<BR>　　<BR>　　LAST_NAME　　　 SALARY　　　 CNT1　　　 CNT2　　　 CNT3 
+<BR>　　--------------- ---------- ---------- ---------- 
+----------<BR>　　Olson　　　　　 
+2100　　　　107　　　　　1　　　　　3<BR>　　Markle　　　　　2200　　　　107　　　　　3　　　　　2<BR>　　Philtanker　　　2200　　　　107　　　　　3　　　　　2<BR>　　Landry　　　　　2400　　　　107　　　　　5　　　　　8<BR>　　Gee　　　　　　 
+2400　　　　107　　　　　5　　　　　8<BR>　　Colmenares　　　2500　　　　107　　　　 11　　　　 
+10<BR>　　Patel　　　　　 2500　　　　107　　　　 11　　　　 
+10<BR>　　.<BR>　　.<BR>　　<BR>　　CUME_DIST<BR>　　功能描述：计算一行在组中的相对位置，CUME_DIST总是返回大于0、小于或等于1的数，该数表示该行在N行中的位置。例如，在一个3行的组中，返回的累计分布值为1/3、2/3、3/3<BR>　　SAMPLE：下例中计算每个工种的员工按薪水排序依次累积出现的分布百分比<BR>　　<BR>　　SELECT 
+job_id, last_name, salary, CUME_DIST()<BR>　　OVER (PARTITION BY job_id ORDER BY 
+salary) AS cume_dist<BR>　　FROM employees　WHERE job_id LIKE 
+'PU%';<BR>　　<BR>　　JOB_ID　　 LAST_NAME　　　　　　　　　　 SALARY　CUME_DIST<BR>　　---------- 
+------------------------- ---------- ---------- <BR></P>
+<P><BR>　　PU_CLERK　 Colmenares　　　　　　　　　　　2500　　　　 .2<BR>　　PU_CLERK　 
+Himuro　　　　　　　　　　　　　2600　　　　 .4<BR>　　PU_CLERK　 Tobias　　　　　　　　　　　　　2800　　　　 
+.6<BR>　　PU_CLERK　 Baida　　　　　　　　　　　　　 2900　　　　 .8<BR>　　PU_CLERK　 
+Khoo　　　　　　　　　　　　　　3100　　　　　1<BR>　　PU_MAN　　 Raphaely　　　　　　　　　　　 
+11000　　　　　1<BR>　　<BR>　　<BR>　　DENSE_RANK<BR>　　功能描述：根据ORDER 
+BY子句中表达式的值，从查询返回的每一行，计算它们与其它行的相对位置。组内的数据按ORDER BY子句排&nbsp; </P></DIV>
+<DIV class=cupage></DIV><!--操作-->
+<DIV class=actbar><SPAN>[<A 
+href="http://www.qudong.com/plus/stow.php?arcID=2390">收藏</A>]</SPAN> <SPAN>[<A 
+href="http://www.qudong.com/plus/recommend.php?arcID=2390">推荐</A>]</SPAN> 
+<SPAN>[<A 
+href="http://www.qudong.com/plus/feedback.php?arcID=2390">评论</A>]</SPAN> 
+<SPAN>[<A onclick=window.print(); 
+href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2390.html#">打印</A>]</SPAN> 
+<SPAN>[<A onclick=window.close(); 
+href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2390.html#">关闭</A>]</SPAN> 
+</DIV><!--上下文-->
+<DIV class=context>
+<DIV class=diggArea id=digg2390>
+<DIV class=diggNum>0</DIV>
+<DIV class=diggLink><A href="javascript:Digg('digg',2390);">顶一下</A></DIV></DIV>
+<DIV style="FLOAT: left; MARGIN-LEFT: 20px">上一篇：<A 
+href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2389.html">Oracle 
+PL/SQL Profiler应用指南</A> <BR>下一篇：<A 
+href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2394.html">Oracle学习手册：Oracle的“OFF 
+SAP”</A> </DIV></DIV><!--正文下部广告-->
+<DIV class=ads>
+<SCRIPT src="" type=text/javascript></SCRIPT>
+</DIV><!--精彩图文推荐-->
+<DIV class=tuwen>
+<DL>
+  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+    <TBODY>
+    <TR>
+      <TD width="20%">
+        <DD><A class=pimg 
+        href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2354.html"><IMG 
+        height=75 alt="Oracle 全球解答的最hot的20个问题" 
+        src="Oracle 9i 分析函数参考手册 - 驱动中国.files/_104942535.gif" width=100 
+        border=0></A> <SPAN><BR><A 
+        href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2354.html">Oracle 
+        全球解答的</A></SPAN> </DD></TD>
+      <TD width="20%"></TD>
+      <TD width="20%"></TD>
+      <TD width="20%"></TD>
+      <TD width="20%"></TD></TR></TBODY></TABLE></DL></DIV></DIV>
+<DIV class=floatclear><!--清除浮动--></DIV><!--评论-->
+<DIV class=comment><!--评论:标题-->
+<DIV class=commenttitle>
+<DIV class=title><STRONG>最新评论</STRONG>共有 0 位网友发表了评论 </DIV>
+<DIV class=gotopost><A 
+href="http://www.qudong.com/plus/feedback.php?arcID=2390">查看所有评论</A></DIV></DIV><!--评论内容-->
+<DIV class=commentbox>
+<SCRIPT src="Oracle 9i 分析函数参考手册 - 驱动中国.files/feedback_js.htm"></SCRIPT>
+</DIV><!--发表评论:标题-->
+<DIV class=posttitle><STRONG>发表评论</STRONG></DIV><!--发表评论-->
+<FORM name=feedback action=/plus/feedback.php?action=send method=post><INPUT 
+type=hidden value=2390 name=arcID> 
+<DIV class=postbox>
+<DIV class=txtbox><STRONG>评论内容：</STRONG>不能超过250字，需审核，请自觉遵守互联网相关政策法规。 <TEXTAREA name=msg rows=6 cols=60></TEXTAREA> </DIV>
+<DIV class=userbox>
+<DL>
+  <DD><STRONG>用户名：</STRONG><INPUT class=username maxLength=20 name=username> 
+  <STRONG>密码：</STRONG><INPUT class=password type=password maxLength=20 name=pwd> 
+  </DD>
+  <DD></DD>
+  <DD class=mtop><INPUT type=checkbox CHECKED value=1 name=notuser> 
+  <STRONG>匿名?</STRONG> </DD>
+  <DD><INPUT class=submit onclick='javascript:if(document.feedback.msg.value!="") document.feedback.submit(); else alert("评论内容不能为空！");' type=button value=发表评论 name=sb> 
+  </DD>
+  <DD class=mtop></DD></DL></DIV></DIV></FORM></DIV></DIV><!--右侧-->
+<DIV class=pright><!--侧边信息列表-->
+<DIV class=news_ads_yc>
+<SCRIPT language=javascript 
+src="Oracle 9i 分析函数参考手册 - 驱动中国.files/ad_js.htm"></SCRIPT>
+</DIV>
+<DIV class="rlist margintop">
+<DIV class=title>热点关注</DIV>
+<DIV class=rbox>
+<UL>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080514/12410.html">Oracle 
+  SQL 语言从入门到精通</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2388.html">Oracle 
+  RAC中Srvctl命令详细说明文档</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2389.html">Oracle 
+  PL/SQL Profiler应用指南</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080514/12394.html">oracle中日期格式支持毫秒级</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080514/12399.html">一个把中文字符串转成拼音串的函数</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2377.html">Oracle 
+  9i 数据库设计指引全集（2）</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2378.html">Oracle 
+  9i 数据库设计指引全集（3）</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2375.html">Oracle 
+  9i 数据库设计指引全集（1）</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2380.html">Oracle 
+  9i 数据库设计指引全集（4）</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080319/2385.html">Oracle数据库开发的一些经验积累（三） 
+  </A></LI></UL></DIV></DIV>
+<DIV class=news_ads_yc1>
+<SCRIPT language=javascript 
+src="D:\Oracle 9i 分析函数参考手册 - 驱动中国.files\ad_js(1).htm"></SCRIPT>
+</DIV><!--侧边信息列表-->
+<DIV class="rlist margintop">
+<DIV class=title>相关文章</DIV>
+<DIV class=rbox>
+<UL>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080514/12410.html">Oracle 
+  SQL 语言从入门到精通</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080514/12399.html">一个把中文字符串转成拼音串的函数</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080514/12394.html">oracle中日期格式支持毫秒级</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080513/12182.html">讲解Oracle数据库10g新特性中的闪回查询</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080513/12166.html">Oracle 
+  failsafe与rac两者之间的不同之处 </A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080512/12036.html">实例讲解如何删除Oracle 
+  10g的垃圾表</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080510/11824.html">Oracle初始化参数设定的一些基本限制</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080510/11787.html">如何在Oracle中释放flash_recovery_area</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080510/11784.html">循序渐进讲解Oracle数据库的完整性概念</A></LI>
+  <LI><A 
+  href="http://www.qudong.com/soft/program/Oracle/rumenjichu/20080510/11779.html">如何将Oracle数据库的普通表转换成分区表</A> 
+  </LI></UL></DIV></DIV><!--侧边ADS-->
+<DIV class=news_ads_yc1>
+<SCRIPT language=javascript 
+src="D:\Oracle 9i 分析函数参考手册 - 驱动中国.files\ad_js(2).htm"></SCRIPT>
+</DIV><!--侧边ADS-->
+<DIV class=news_ads_yc1>
+<SCRIPT language=javascript 
+src="D:\Oracle 9i 分析函数参考手册 - 驱动中国.files\ad_js(3).htm"></SCRIPT>
+</DIV><!--侧边ADS-->
+<DIV class=news_ads_yc1>
+<SCRIPT language=javascript 
+src="D:\Oracle 9i 分析函数参考手册 - 驱动中国.files\ad_js(4).htm"></SCRIPT>
+</DIV><!--侧边ADS-->
+<DIV class=news_ads_yc1>
+<SCRIPT language=javascript 
+src="D:\Oracle 9i 分析函数参考手册 - 驱动中国.files\ad_js(5).htm"></SCRIPT>
+</DIV><!--侧边ADS-->
+<DIV class=news_ads_yc1>
+<SCRIPT language=javascript 
+src="D:\Oracle 9i 分析函数参考手册 - 驱动中国.files\ad_js(6).htm"></SCRIPT>
+</DIV></DIV>
+<DIV class=floatclear><!--清除浮动--></DIV>
+<DIV class="footer cbody margintop">
+<DIV class=copyright>Copyright@ 2003-2008 driverchina.com All Rights Reserved
+<SCRIPT language=JavaScript src="Oracle 9i 分析函数参考手册 - 驱动中国.files/stat.htm" 
+charset=gb2312></SCRIPT>
+ <BR>copyright@ 2005-2008 driverchina.com, all rights reserved. 京ICP备05059156号 
+</DIV>
+<DIV class=slogo><IMG height=32 alt="" 
+src="Oracle 9i 分析函数参考手册 - 驱动中国.files/s_logo.gif" width=63> </DIV>
+<DIV class=floatclear></DIV></DIV></DIV></BODY></HTML>

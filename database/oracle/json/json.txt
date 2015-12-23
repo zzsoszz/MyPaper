@@ -1,0 +1,29 @@
+create or replace package jsonfly as
+
+function encode_string(p_string varchar2) return varchar2;
+
+end;
+
+
+
+
+create or replace package body jsonfly as
+
+
+function encode_string(p_string varchar2) return varchar2 is
+begin
+    return replace(replace(replace(replace(replace(replace(replace(replace(p_string,
+        '\', '\\'),
+        '"', '\"'),
+        '/', '\/'),
+        chr(8), '\b'),
+        chr(9), '\t'),
+        chr(10), '\n'),
+        chr(12), '\f'),
+        chr(13), '\r');
+end;
+
+
+
+
+end jsonfly;

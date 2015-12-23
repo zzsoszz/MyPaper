@@ -1,0 +1,207 @@
+恢复Oracle表空间的方法
+2011-06-22 10:21:32     我来说两句       收藏     我要投稿
+学习Oracle时，你可能会遇到oracle表空间恢复问题，这里将介绍Oracle表空间恢复问题的解决方法，在这里拿出来和大家分享一下。
+    Oracle表空间恢复方案
+    一。用户表空间
+    错误：
+    在启动数据库时出现ora-01157,ora-01110或操作系统级错误例如ora-07360, 在关闭数据库（使用shutdown normal或shutdown immediate） 时将导致错误ora -01116,ora-01110以及操作系统级错误ora-07368
+    以下有两种解决方案：
+    1.用户的表空间可以被轻易地重建 即最近导出的对象是可用的或表空间中的对象可以被轻易地重建等。在 这种情况下，最简单的方法是offline并删除该数据文件，删除表空间并 重建表空间以及所有的对象。
+    svrmgrl> startup mount
+    svrmgrl> alter database datafile filename offline drop;
+    svrmgrl> alter database open;
+    svrmgrl> drop tablespace tablespace_name including contents;
+    重建表空间及所有对象。
+    2.用户的表空间不能够被轻易地重建在大多数情况下，重建表空间是不可能及太辛苦的工作。方法是倒备份及做介质恢复。如果您的系统运行在noarchivelog模式下，则只有丢失的数据 在online redo log中方可被恢复。
+    步骤如下：
+    1）restore the lost datafile from a backup
+    2）svrmgrl> startup mount
+    3）svrmgrl> select v1.group#,member,sequence#,first_change# > from v$log v1,v$logfile v2 > where v1.group#=v2.group#;
+    4）如果数据库运行在noarchivelog模式下则： svrmgrl> select file#,change# from v$recover_file;
+    如果 change# 大于最小的first_change#则数据文件可以被恢复。 如果 change# 小于最小的first_change#则数据文件不可恢复。 恢复最近一次的全备份或采用方案一。
+    5）svrmgrl> recover datafile filename;
+    6）确认Oracle表空间恢复成功
+    7）svrmgrl> alter database open resetlogs;
+    3.只读表空间无需做介质恢复，只要将备份恢复即可。唯一的例外是：
+    表空间在最后一次备份后被改为read-write 模式
+    表空间在最后一次备份后被改为read-only 模式
+    在这种情况下，均需进行介质恢复
+    二。临时表空间
+    临时表空间并不包含真正的数据，恢复的方法是删除临时表空间并重建即可。
+    三。系统表空间
+    如果备份不可用，则只能采用重建数据库的方法
+
+四。回滚表空间
+    有两种情况：
+    1、数据库已经完全关闭（使用shutdown immediate或shutdown命令）
+    1） 确认数据库完全关闭
+    2） 修改init.ora文件，注释"rollback-segment"
+    3） svrmgrl> startup restrict mount
+    4） svrmgrl> alter database datafile filename offline drop;
+    5） svrmgrl> alter database open;
+    基于出现的结果：
+    "statement processed"
+    "ora-00604,ora-00376,ora-01110"
+    6） svrmgrl> shutdown immediate 修改init.ora文件，增加如下一行： _corrupted_rollback_segments = （，…） svrmgrl> startup restrict
+    7） svrmgrl> drop tablespace tablespace_name including contents;
+    8） 重建表空间及回滚段
+    9） svrmgrl> alter system disable restricted session;
+    10） 修改init.ora文件
+    2、数据库未完全关闭（数据库崩溃或使用shutdown abort命令关闭数据库）
+    1） Oracle表空间恢复备份
+    2） svrmgrl> startup mount
+    3） svrmgrl> select file#,name,status from v$datafile; svrmgrl> alter database datafile filename online;
+    4） svrmgrl> select v1.group#,member,sequence#,first_change# > from v$log v1,v$logfile v2 > where v1.group#=v2.group#;
+    5） svrmgrl> select file#,change# from v$recover_file;
+    6） svrmgrl> recover datafile filename;
+    7） svrmgrl> alter database open;
+    3、数据库处于打开状态
+    1） 删除回滚段和表空间
+    2） 重建表空间和回滚段
+    五。控制文件恢复
+    1.所有的控制文件均被破坏
+    将备份的控制文件拷贝至原目录下 对于raw device,则：
+    dd if=con.bak of=/dev/rdrd/drd1 seek=128
+    2.并非所有的控制文件均被破坏
+    用其他的控制文件启动数据库
+	
+	
+	
+	
+	
+	
+	----------------------------------------------------------------------
+		
+		
+		1、引言 
+
+
+	Oracle数据库的备份方法很多，无论使用那种备份方法，备份的目的都是为了在出现故障后能够以尽可能小的时间和代价恢复系统。比如使用export实用程序导出数据库对象、使用Oracle备份数据库、使用Oracle对称复制、使用Oracle并行服务器、使用Oracle冷备份、使用Oracle热备份等各种备份方法都有其优缺点、适用的场合和相应的软硬件要求。本文主要就用export实用程序导出数据库对象、Oracle冷备份、Oracle热备份这三种最基本的备份方法进行详细的探讨，分析各自的优缺点和适用的场合，并给出自动执行这些备份方案的脚本文件。 
+
+
+	2、三种备份方案的比较 
+	　 
+
+	冷备份 
+
+	冷备份是Oracle最简单的一种备份；执行冷备份前必须关闭数据库；然后使用操作系统实用工具或者第三方工具备份所有相关的数据库文件。 
+
+
+	优点:能简单快速地备份。能简单快速地恢复。执行简单。 
+	缺点:必须关闭数据库，不能进行点恢复。 
+
+	热备份 
+	热备份是当数据库正在运行时进行数据备份的过程。执行热备份的前提是：数据库运行在可归档日志模式。适用于24X7不间断运行的关键应用系统。 
+
+
+	优点:备份时数据库可以是打开的。热备份可以用来进行点恢复。初始化参数文件、归档日志在数据库正常运行时是关闭的，可用操作系统命令拷贝。 
+	缺点:执行过程复杂。由于数据库不间断运行，测试比较困难。不能用操作系统实用工具拷贝打开的文件。必须使用Oracle提供的ocopy工具来拷贝打开的文件。热备份可能造成CPU、I/O过载，应在数据库不太忙时进行。 
+
+	Export导出数据库对象 
+	冷备份和热备份都备份物理数据库文件，因而被称为物理备份。而export备份的是数据库对象，因此被称为逻辑备份。 
+
+
+	优点:能执行对象或者行恢复。备份和恢复速度更快。能够跨操作系统平台迁移数据库。数据库可一直运行。 
+	缺点:export并不是冷备份和热备份的替代工具。冷、热备份可保护介质失效。export备份可保护用户或应用错误。 
+
+	3、冷备份方案的实施 
+
+
+	3.1 冷备份数据库的步骤 
+	（1）关闭数据库； 
+	（2）备份所有相关的数据库文件：初始化参数文件、控制文件（可用select name from v$controlfile;列出所有 
+
+	控制文件）、数据文件（可用select name from v$datafile;列出所有数据文件）、Redo日志（可用select member from v$logfile;列出所有redo日志文件）、归档的Redo日志（可用select sequence#,first_time from v$loghist;列出所有归档redo日志文件的顺序号和产生时间）。 
+	　 
+
+	3.2 冷备份数据库的脚本文件coldbackup.bat 
+	　 
+
+	4、热备份方案的实施 
+
+
+	4.1 热备份数据库的前提条件：数据库运行在归档模式 
+	Oracle数据库的redo日志记录在数据库上进行的所有活动。LGWR后台进程以一种循环方式写这些日志文件，从第一个redo日志到下一个，直到该组的最后一个，然后由从第一个日志写起。 
+	在非归档模式下，当循环写到最后一个日志文件后，就重写第一个日志。因此，非归档模式下唯一的数据库恢复办法就是使用冷备份。 
+	在归档模式下，当redo日志满时，一个ARCH后台进程就读取全部redo日志，然后将其写到归档日志。因此，可以使用热备份和点恢复。在归档日志模式下，如果归档日志目的空间已满，数据库活动将暂时停止，只有释放一些空间后，数据库才能继续运行。通常，background_dump_destination将产生一个跟踪文件来显示归档方面的问题。 
+	Oracle数据库安装默认运行在非归档模式，通过以下步骤可以从非归档模式转换为归档模式： 
+	（1）编辑参数文件init.ora，设置以下参数 
+	# 设置数据库自动归档 
+	log_archive_start = true 
+	# 设置归档日志文件的目录，该目录必须事先已建立，并有大量可利用的空间 
+	log_archive_dest_1="location=%oracle_base%\ oradata\%oracle_sid%\archive" 
+	# 设置归档日志文件名的格式。%s表示顺序号，%t表示线程号。 
+	log_archive_format = "%oracle_sid%%T%S.ARC" 
+	（2）在sqlplus上运行以下命令 
+	sqlplus>;connect sys/qazwsx as sysdba 
+	sqlplus>;shutdown immediate; 
+	sqlplus>;startup mount exclusive; 
+	sqlplus>;alter database archivelog; 
+	sqlplus>;alter database open; 
+	sqlplus>;shutdown immediate; 
+	（3）执行数据库冷备份 
+	当数据库运行在归档模式下，数据库恢复过程要求使用冷备份时，归档日志是必需的。 
+	（4）正常启动数据库，并确认数据库运行在归档模式 
+	sqlplus >; startup; 
+	sqlplus >; select * from v$database; 其log_mode会显示数据库是否归档模式 
+	sqlplus >; archive log list; 也会显示数据库是否归档模式 
+	如果Oracle数据库运行在归档模式，当进行数据库维护时，可能需要暂停数据库的归档，在完成维护后，再重新启动归档模式。通过以下步骤可以从归档模式转换为非归档模式： 
+	sqlplus>;connect sys/qazwsx as sysdba 
+	sqlplus>;shutdown immediate; 
+	sqlplus>;startup mount exclusive; 
+	sqlplus>;alter database noarchivelog; 
+	sqlplus>;alter database open; 
+	sqlplus >; select * from v$database; 其log_mode会显示数据库是否归档模式 
+	sqlplus >; archive log list; 也会显示数据库是否归档模式 
+	4.2 热备份数据库的步骤 
+	（1）拷贝init.ora文件到备份目录（参数文件在数据库启动后处于关闭状态）。 
+	（2）将需要备份的某个表空间置于开始备份模式。 
+	（3）使用ocopy.exe拷贝表空间，然后将该表空间置于结束备份模式中（ocopy.exe不能用于直接拷贝联机的数据库文件）。 
+	（4）对数据库中的每个表空间执行步骤2和3（可以通过视图dba_tablespaces和v$datafile查看数据库中有哪些表空间和数据文件）。 
+	（5）通过在sqlplus上执行archive log list命令获取当前的日志顺序号，从oldest online log sequence开始到current log sequence的联机redo日志应该是热备份的一部分。 
+	（6）在sqlplus上执行alter system switch logfile;命令来强迫日志切换，以便所有的日志都被归档。 
+	（7）使用alter database backup controlfile to trace;命令获得控制文件的一个备份，可以到%oracle_base%\admin\%oracle_sid%\udump目录中寻找最新的跟踪文件，其中有重建控制文件的全部命令。 
+	（8）使用windows nt的命令从%log_archive_dest%中拷贝归档的日志文件到备份目录。 
+	4.3 热备份数据库的脚本文件hotbackup.bat 
+	　 
+
+	5、使用export作为备份策略 
+
+
+	5.1 export的命令选项说明 
+	Oracle数据库的exp工具提供tables、users、full database、tablespace四种级别的导出方式，把指定的数据库内容导出到一个或者多个oracle二进制文件中，该文件只允许用imp工具来读取，imp的命令选项可用imp help=y来查阅。 
+	您可以通过输入 EXP 命令以及各种自变量来控制“导出”的运行方式。要指定参数，您可以使用关键字： 
+	格式：EXP KEYWORD=value 或 KEYWORD=(value1,value2,...,valueN) 
+	实例：EXP SCOTT/TIGER GRANTS=Y TABLES=(EMP,DEPT,MGR) 
+	或 TABLES=(T11,T12)，如果 T1 是分区表 
+	USERID 必须是命令行中的第一个参数。 
+
+	下列关键字仅用于可传输的表空间 
+	TRANSPORT_TABLESPACE 导出可传输的表空间元数据 (N) 
+	TABLESPACES 将传输的表空间列表 
+	5.2 export备份数据库的脚本文件expbackup.bat 
+
+	6、各种备份策略的自动执行方法 
+
+
+	不管是冷备份、热备份，还是export备份；不管是unix平台，还是windows平台，都可以利用at命令来定时、自动执行上述备份策略。AT 命令安排在特定日期和时间运行命令和程序，在windows nt平台上必须首先运行调度服务（schedule），才能使用at命令。 
+	AT命令用法如下： 
+	AT [\\computername] [ [id] [/DELETE] | /DELETE [/YES]] 
+	AT [\\computername] time [/INTERACTIVE] 
+	[ /EVERY:date[,...] | /NEXT:date[,...]] "command" 
+	\\computername 指定远程计算机。 如果省略这个参数，会计划在本地计算机上运行命令。 
+	id 指定给已计划命令的识别号。 
+	/delete 删除某个已计划的命令。如果省略 id，计算机上所有已计划的命令都会被删除。 
+	/yes 不需要进一步确认时，跟删除所有作业的命令一起使用。 
+	time 指定运行命令的时间。 
+	/interactive 允许作业在运行时，与当时登录的用户桌面进行交互。 
+	/every:date[,...] 每个月或每个星期在指定的日期运行命令。如果省略日期，则默认为在每月的本日运行。 
+	/next:date[,...] 指定在下一个指定日期(如下周四)运行命令。如果省略日期，则默认为在每月的本日运行。 
+	"command" 准备运行的 Windows NT 命令或批处理程序。 
+	举例如下： 
+	(1) 每周五19:00执行冷备份 
+	at 19:00 /every:F "coldbak.cmd" 
+	(2) 每周二20:00执行热备份 
+	at 20:00 /every:T "coldbak.cmd" 
+	(3) 每周一、二、三、四、五21:00执行export备份 
+	at 20:00 /every:M,T,W,Th,F "expbak.cmd"

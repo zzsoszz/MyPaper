@@ -1,0 +1,1017 @@
+BODY {
+	MARGIN: 0px; FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; BACKGROUND: #e5e5e5; COLOR: #000; FONT-SIZE: 100%
+}
+text {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+A:link {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+A:visited {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+A:active {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+A.CatLink {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.CatDesc {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.CatLockedName {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.GenText {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.GenTextRed {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.ErrorText {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.SmallText {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.DateText {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.TopBy {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TH {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+A.thLnk:link {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+A.thLnk:active {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+A.thLnk:visited {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+A.thLnk:active {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.RowStyleA {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.RowStyleB {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.RowStyleC {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.MsgToolBar {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.PollTable {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.MsgIg {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.miniMH {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.ContentTable {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.MsgTable {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.DialogTable {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.PreviewTable {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.AnnonTable {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.AnnText {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.NoAvatar {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.Av1 {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.Av2 {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.tabA {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.AnnSubjText {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+A.PagerLink {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.LevelText {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.MsgSubText {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.MsgBodyText {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TH.SelTS {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TH.SelFS {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+LEGEND {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.tabH {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+DIV.tabT {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.MiniTable {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.quote {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.dashed {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.adminColor {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.modsColor {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.tabI {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.tabA:hover {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.brdrNormal {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.brdrSelected {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+INPUT.button {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+FORM {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+IMG {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.StClr {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.AnClr {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.msgot {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.msgud {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+DIV.ctags {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.mvTc {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.pmNav {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.ModOpt {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.MsgR1 {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.MsgR2 {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.MsgR3 {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.mnavMsg {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.mnavWarnTbl {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.mnavNoRes {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+FONT.lg {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.tt {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TABLE.tt {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TR.tab {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TABLE.tab {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+A.big:link {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+A.big:active {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+A.big:visited {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.small {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+A.small:link {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+A.small:active {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+A.small:visited {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.curtime {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+FONT.anon {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+FONT.reg {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.permYES {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.permNO {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+TD.repI {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+FONT.selmsgInd {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+FIELDSET {
+	FONT-FAMILY: Verdana,Geneva,Lucida,'Lucida Grande',Arial,Helvetica,Sans-serif; FONT-SIZE: 10pt
+}
+.header {
+	BORDER-BOTTOM: #aebdc4 1px solid; BORDER-LEFT: #aebdc4 1px solid; PADDING-BOTTOM: 5px; MARGIN: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; DISPLAY: block; BACKGROUND: #fff; CLEAR: both; BORDER-TOP: #aebdc4 1px solid; BORDER-RIGHT: #aebdc4 1px solid; PADDING-TOP: 5px; -moz-border-radius: 0.75em; -webkit-border-radius: 0.75em; border-radius: 0.75em
+}
+.content {
+	BORDER-BOTTOM: #aebdc4 1px solid; BORDER-LEFT: #aebdc4 1px solid; PADDING-BOTTOM: 5px; MARGIN: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; DISPLAY: block; BACKGROUND: #fff; CLEAR: both; BORDER-TOP: #aebdc4 1px solid; BORDER-RIGHT: #aebdc4 1px solid; PADDING-TOP: 5px; -moz-border-radius: 0.75em; -webkit-border-radius: 0.75em; border-radius: 0.75em
+}
+.footer {
+	BORDER-BOTTOM: #aebdc4 1px solid; BORDER-LEFT: #aebdc4 1px solid; PADDING-BOTTOM: 5px; MARGIN: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; DISPLAY: block; BACKGROUND: #fff; CLEAR: both; BORDER-TOP: #aebdc4 1px solid; BORDER-RIGHT: #aebdc4 1px solid; PADDING-TOP: 5px; -moz-border-radius: 0.75em; -webkit-border-radius: 0.75em; border-radius: 0.75em
+}
+A:link {
+	COLOR: #069; TEXT-DECORATION: underline
+}
+A:visited {
+	COLOR: #069; TEXT-DECORATION: underline
+}
+A:active {
+	COLOR: #069; TEXT-DECORATION: underline
+}
+A.PagerLink {
+	COLOR: #069; TEXT-DECORATION: underline
+}
+A.CatLink {
+	COLOR: #000; FONT-SIZE: 10pt; FONT-WEIGHT: bold; TEXT-DECORATION: none
+}
+.CatDesc {
+	BACKGROUND: url(images/tableHeaderbg2.png); HEIGHT: 23px; COLOR: #000
+}
+.CatLockedName {
+	FONT-SIZE: 10pt; FONT-WEIGHT: bold
+}
+.CatLockPad {
+	PADDING-LEFT: 20px
+}
+text {
+	COLOR: #000
+}
+.GenText {
+	COLOR: #000
+}
+.MsgIg {
+	COLOR: #000
+}
+TD.repI {
+	COLOR: #000
+}
+.GenTextRed {
+	COLOR: red
+}
+.ErrorText {
+	COLOR: red; FONT-WEIGHT: bold
+}
+.SmallText {
+	COLOR: #202020; FONT-SIZE: 8pt
+}
+.DateText {
+	COLOR: #202020; FONT-SIZE: 8pt
+}
+.TopBy {
+	COLOR: #202020; FONT-SIZE: 8pt
+}
+TD.permYES {
+	COLOR: #202020; FONT-SIZE: 8pt
+}
+TD.permNO {
+	COLOR: #202020; FONT-SIZE: 8pt
+}
+.SmallText A {
+	COLOR: #202020; FONT-SIZE: 8pt
+}
+TH {
+	TEXT-ALIGN: left; BACKGROUND: url(images/tableHeaderbg.png); HEIGHT: 23px; COLOR: #fff; FONT-SIZE: 10pt; VERTICAL-ALIGN: middle; FONT-WEIGHT: bold
+}
+A.thLnk:link {
+	COLOR: #eee; FONT-SIZE: 10pt; TEXT-DECORATION: underline
+}
+A.thLnk:active {
+	COLOR: #eee; FONT-SIZE: 10pt; TEXT-DECORATION: underline
+}
+A.thLnk:visited {
+	COLOR: #eee; FONT-SIZE: 10pt; TEXT-DECORATION: underline
+}
+A.thLnk:visited {
+	COLOR: #c2cdd6
+}
+.RowStyleA {
+	BACKGROUND: #eee
+}
+TD.tt {
+	BACKGROUND: #eee
+}
+.RowStyleB {
+	BACKGROUND: #dee2e6
+}
+.curtime {
+	BACKGROUND: #dee2e6
+}
+FIELDSET {
+	BACKGROUND: #dee2e6
+}
+.RowStyleC {
+	BACKGROUND: #c2cdd6
+}
+.row:hover TD {
+	opacity: 0.8
+}
+.MsgToolBar {
+	PADDING-LEFT: 3px; PADDING-RIGHT: 3px; BACKGROUND: #dee2e6
+}
+.MsgSpacer {
+	PADDING-BOTTOM: 2px; PADDING-TOP: 2px
+}
+.PollTable {
+	PADDING-BOTTOM: 0px; BORDER-RIGHT-WIDTH: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: #fff; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; CLEAR: both; BORDER-LEFT-WIDTH: 0px; PADDING-TOP: 0px
+}
+.ContentTable {
+	PADDING-BOTTOM: 0px; BORDER-RIGHT-WIDTH: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: #fff; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; CLEAR: both; BORDER-LEFT-WIDTH: 0px; PADDING-TOP: 0px
+}
+.MsgTable {
+	PADDING-BOTTOM: 0px; BORDER-RIGHT-WIDTH: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: #fff; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; CLEAR: both; BORDER-LEFT-WIDTH: 0px; PADDING-TOP: 0px
+}
+.DialogTable {
+	PADDING-BOTTOM: 0px; BORDER-RIGHT-WIDTH: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: #fff; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; CLEAR: both; BORDER-LEFT-WIDTH: 0px; PADDING-TOP: 0px
+}
+.PreviewTable {
+	PADDING-BOTTOM: 0px; BORDER-RIGHT-WIDTH: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: #fff; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; CLEAR: both; BORDER-LEFT-WIDTH: 0px; PADDING-TOP: 0px
+}
+.AnnonTable {
+	PADDING-BOTTOM: 0px; BORDER-RIGHT-WIDTH: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: #fff; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; CLEAR: both; BORDER-LEFT-WIDTH: 0px; PADDING-TOP: 0px
+}
+FONT.ptp {
+	PADDING-LEFT: 10px; FONT-SIZE: smaller
+}
+.ContentTable {
+	WIDTH: 100%
+}
+.AnnonTable {
+	WIDTH: 100%
+}
+.MsgTable {
+	WIDTH: 100%
+}
+TABLE.pad {
+	WIDTH: 100%
+}
+.MsgTable {
+	BORDER-BOTTOM: #888 1px solid; BORDER-LEFT: #888 1px solid; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; BORDER-TOP: #888 1px solid; BORDER-RIGHT: #888 1px solid
+}
+.DialogTable {
+	WIDTH: 66%
+}
+.PreviewTable {
+	WIDTH: 75%
+}
+.AnnText {
+	MARGIN-TOP: 7px; MARGIN-BOTTOM: 7px; BACKGROUND: #f5d300; COLOR: #000
+}
+.AnnSubjText {
+	FONT-WEIGHT: bold
+}
+.MsgSubText {
+	FONT-WEIGHT: bold
+}
+A.MsgSubText {
+	COLOR: black; TEXT-DECORATION: none
+}
+A.MsgSubText:visited {
+	COLOR: black; TEXT-DECORATION: none
+}
+.MsgBodyText {
+	LINE-HEIGHT: 1.4; FONT-SIZE: 10pt
+}
+.FormattingToolsBG {
+	PADDING-LEFT: 5px; BACKGROUND: none transparent scroll repeat 0% 0%; VERTICAL-ALIGN: bottom
+}
+.FormattingToolsCLR {
+	PADDING-BOTTOM: 1px; PADDING-LEFT: 1px; PADDING-RIGHT: 1px; BACKGROUND: #fff; PADDING-TOP: 1px; -moz-border-radius: 0.15em; -webkit-border-radius: 0.15em; border-radius: 0.15em
+}
+.FormattingToolsCLR:hover {
+	BORDER-RIGHT-WIDTH: 1px; BACKGROUND: #dee; BORDER-TOP-WIDTH: 1px; BORDER-BOTTOM-WIDTH: 1px; BORDER-LEFT-WIDTH: 1px
+}
+.MiniTable {
+	PADDING-BOTTOM: 0px; BORDER-RIGHT-WIDTH: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: #fff; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; PADDING-TOP: 0px
+}
+CITE {
+	PADDING-LEFT: 25px; DISPLAY: block; BACKGROUND: url(images/quote.gif) no-repeat left top; COLOR: #202020; MARGIN-LEFT: 20px; FONT-SIZE: 9pt; FONT-WEIGHT: bold
+}
+BLOCKQUOTE {
+	BORDER-LEFT: #c2cdd6 1px dashed; PADDING-BOTTOM: 5px; FONT-STYLE: italic; MARGIN: 8px 1px 0px 20px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BACKGROUND: #fafafa; COLOR: #444; OVERFLOW: hidden; PADDING-TOP: 5px
+}
+BLOCKQUOTE:first-letter {
+	FONT-VARIANT: small-caps; MARGIN: 0.2em 0.2em 0.1em 0px; FONT-FAMILY: "Monotype Corsiva", "Apple Chancery", fantasy; FONT-SIZE: 220%; FONT-WEIGHT: bold
+}
+BLOCKQUOTE BLOCKQUOTE {
+	BACKGROUND-COLOR: #f0f0f0; MARGIN: 8px 1px 0px 10px
+}
+BLOCKQUOTE BLOCKQUOTE BLOCKQUOTE {
+	BACKGROUND-COLOR: #e0e0e0
+}
+.quote {
+	BORDER-BOTTOM: #c2cdd6 1px solid; BORDER-LEFT: #c2cdd6 1px solid; BACKGROUND: #fafafa; COLOR: #444444; BORDER-TOP: #c2cdd6 1px solid; BORDER-RIGHT: #c2cdd6 1px solid
+}
+.dashed {
+	BORDER-BOTTOM: #1b7cad 1px dashed; BORDER-LEFT: #1b7cad 1px dashed; BORDER-TOP: #1b7cad 1px dashed; BORDER-RIGHT: #1b7cad 1px dashed
+}
+.adminColor {
+	COLOR: #f00; FONT-WEIGHT: bold
+}
+.modsColor {
+	COLOR: #0b0; FONT-WEIGHT: bold
+}
+.brdrNormal {
+	BORDER-BOTTOM: #000 1px solid; BORDER-LEFT: #000 0px solid; BACKGROUND-REPEAT: repeat; BACKGROUND-POSITION: 50% top; BORDER-TOP: #000 0px solid; BORDER-RIGHT: #000 0px solid
+}
+TD.tabItop {
+	BORDER-BOTTOM: #000 1px solid; BORDER-LEFT: #000 0px solid; BACKGROUND-REPEAT: repeat; BACKGROUND-POSITION: 50% top; BORDER-TOP: #000 0px solid; BORDER-RIGHT: #000 0px solid
+}
+TD.tabImid {
+	BORDER-BOTTOM: #000 1px solid; BORDER-LEFT: #000 0px solid; BACKGROUND-REPEAT: repeat; BACKGROUND-POSITION: 50% top; BORDER-TOP: #000 0px solid; BORDER-RIGHT: #000 0px solid
+}
+TD.tabIbot {
+	BORDER-BOTTOM: #000 1px solid; BORDER-LEFT: #000 0px solid; BACKGROUND-REPEAT: repeat; BACKGROUND-POSITION: 50% top; BORDER-TOP: #000 0px solid; BORDER-RIGHT: #000 0px solid
+}
+.brdrSelected {
+	BORDER-BOTTOM: #000 0px solid; BORDER-LEFT: #000 0px solid; BACKGROUND-REPEAT: repeat; BACKGROUND-POSITION: 50% top; BORDER-TOP: #000 0px solid; BORDER-RIGHT: #000 0px solid
+}
+TD.tabAmid {
+	BORDER-BOTTOM: #000 0px solid; BORDER-LEFT: #000 0px solid; BACKGROUND-REPEAT: repeat; BACKGROUND-POSITION: 50% top; BORDER-TOP: #000 0px solid; BORDER-RIGHT: #000 0px solid
+}
+TD.tabAmid {
+	BORDER-BOTTOM: #000 0px solid; BORDER-LEFT: #000 0px solid; BACKGROUND-REPEAT: repeat; BACKGROUND-POSITION: 50% top; BORDER-TOP: #000 0px solid; BORDER-RIGHT: #000 0px solid
+}
+TD.tabAbot {
+	BORDER-BOTTOM: #000 0px solid; BORDER-LEFT: #000 0px solid; BACKGROUND-REPEAT: repeat; BACKGROUND-POSITION: 50% top; BORDER-TOP: #000 0px solid; BORDER-RIGHT: #000 0px solid
+}
+FORM {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+IMG {
+	BORDER-RIGHT-WIDTH: 0px; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px
+}
+A[href^='mailto:'] {
+	PADDING-RIGHT: 17px; BACKGROUND: url(images/email.png) no-repeat right center
+}
+.StClr {
+	COLOR: green; FONT-WEIGHT: bold
+}
+.AnClr {
+	COLOR: red; FONT-WEIGHT: bold
+}
+.ModOpt {
+	TEXT-ALIGN: right; MARGIN-TOP: 2px; COLOR: #a8b1b8; FONT-SIZE: small
+}
+.ModOpt A {
+	TEXT-ALIGN: right; MARGIN-TOP: 2px; COLOR: #a8b1b8; FONT-SIZE: small
+}
+.TopBy {
+	TEXT-ALIGN: right; MARGIN-TOP: 3px; PADDING-RIGHT: 2px; MARGIN-BOTTOM: 0px
+}
+.MsgR2 {
+	BORDER-BOTTOM: #aaa 1px solid; PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; BACKGROUND: #dee2e6; PADDING-TOP: 2px
+}
+.MsgR1 {
+	BORDER-BOTTOM: #aaa 1px solid; PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; BACKGROUND: #dee2e6; PADDING-TOP: 2px
+}
+.MsgR3 {
+	BORDER-BOTTOM: #aaa 1px solid; PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; BACKGROUND: #dee2e6; PADDING-TOP: 2px
+}
+.MsgIg {
+	BORDER-BOTTOM: #aaa 1px solid; PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; BACKGROUND: #dee2e6; PADDING-TOP: 2px
+}
+.MsgIg {
+	BORDER-RIGHT-WIDTH: 0px; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px
+}
+.MsgR1 {
+	BACKGROUND: #ccd4dc
+}
+.MsgR3 {
+	PADDING-BOTTOM: 1ex; PADDING-LEFT: 1ex; PADDING-RIGHT: 1ex; BACKGROUND: #f4f4f4; PADDING-TOP: 2ex
+}
+.mnavMsg {
+	BORDER-BOTTOM: #eee 1px dashed; WIDTH: 100%
+}
+.mnavWarnTbl {
+	BORDER-BOTTOM: red 1px dashed; BORDER-LEFT: red 1px dashed; BORDER-TOP: red 1px dashed; BORDER-RIGHT: red 1px dashed
+}
+.mnavNoRes {
+	BORDER-BOTTOM: blue 1px dashed; BORDER-LEFT: blue 1px dashed; BORDER-TOP: blue 1px dashed; BORDER-RIGHT: blue 1px dashed
+}
+FONT.lg {
+	FONT-SIZE: 10pt
+}
+TD.tt {
+	BORDER-BOTTOM: #fff 1px solid; TEXT-ALIGN: left; WIDTH: 100%
+}
+TABLE.tt {
+	BORDER-BOTTOM: #000 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #000 1px solid; PADDING-BOTTOM: 1px; MARGIN: 0px; PADDING-LEFT: 1px; WIDTH: 100%; PADDING-RIGHT: 1px; BORDER-TOP: #000 1px solid; BORDER-RIGHT: #000 1px solid; PADDING-TOP: 1px
+}
+A.big:link {
+	COLOR: #069; FONT-SIZE: 11pt
+}
+A.big:active {
+	COLOR: #069; FONT-SIZE: 11pt
+}
+A.big:visited {
+	COLOR: #069; FONT-SIZE: 11pt
+}
+.small {
+	FONT-SIZE: 9pt; FONT-WEIGHT: normal
+}
+A.small:link {
+	FONT-SIZE: 9pt; FONT-WEIGHT: normal
+}
+A.small:active {
+	FONT-SIZE: 9pt; FONT-WEIGHT: normal
+}
+A.small:visited {
+	FONT-SIZE: 9pt; FONT-WEIGHT: normal
+}
+A.small:link {
+	COLOR: #069
+}
+A.small:active {
+	COLOR: #069
+}
+A.small:visited {
+	COLOR: #069
+}
+A:hover {
+	COLOR: #dc143c
+}
+A.big:hover {
+	COLOR: #dc143c
+}
+TD.msgud A:hover {
+	COLOR: #dc143c
+}
+TD.msgot A:hover {
+	COLOR: #dc143c
+}
+TD.msgud {
+	WIDTH: 33%; WHITE-SPACE: nowrap; COLOR: #202020; FONT-SIZE: 8pt; VERTICAL-ALIGN: top
+}
+TD.msgot {
+	WIDTH: 33%; WHITE-SPACE: nowrap; COLOR: #202020; FONT-SIZE: 8pt; VERTICAL-ALIGN: top
+}
+TD.msgot A {
+	WIDTH: 33%; WHITE-SPACE: nowrap; COLOR: #202020; FONT-SIZE: 8pt; VERTICAL-ALIGN: top
+}
+DIV.ctags {
+	WIDTH: 33%; WHITE-SPACE: nowrap; COLOR: #202020; FONT-SIZE: 8pt; VERTICAL-ALIGN: top
+}
+TD.msgud {
+	TEXT-ALIGN: left; PADDING-RIGHT: 10px
+}
+TD.msgot {
+	TEXT-ALIGN: right
+}
+DIV.ctags {
+	PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; WIDTH: 100%; PADDING-RIGHT: 2px; PADDING-TOP: 2px
+}
+LEGEND {
+	BORDER-BOTTOM: #aebdc4 1px solid; BORDER-LEFT: #aebdc4 1px solid; BACKGROUND-COLOR: #fff; FONT-SIZE: 11pt; BORDER-TOP: #aebdc4 1px solid; FONT-WEIGHT: bold; BORDER-RIGHT: #aebdc4 1px solid
+}
+FIELDSET {
+	BORDER-BOTTOM: #aebdc4 1px solid; BORDER-LEFT: #aebdc4 1px solid; BORDER-TOP: #aebdc4 1px solid; BORDER-RIGHT: #aebdc4 1px solid
+}
+TH.SelTS {
+	PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; COLOR: #fff; PADDING-TOP: 2px
+}
+TH.SelFS {
+	PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; COLOR: #fff; PADDING-TOP: 2px
+}
+TH.SelFS {
+	BORDER-BOTTOM: #fff 1px solid; COLOR: #fff
+}
+TD.NoAvatar {
+	TEXT-ALIGN: center; BACKGROUND: #f4f4f4
+}
+TD.Av1 {
+	TEXT-ALIGN: center; WHITE-SPACE: nowrap; BACKGROUND: #f4f4f4; VERTICAL-ALIGN: middle
+}
+TD.Av2 {
+	TEXT-ALIGN: center; WHITE-SPACE: nowrap; BACKGROUND: #f4f4f4; VERTICAL-ALIGN: middle
+}
+TD.Av2 {
+	BACKGROUND: #fefefe
+}
+TD.tabI {
+	BORDER-BOTTOM: black 1px solid; BORDER-LEFT: black 1px solid; PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; BACKGROUND: #dee7f7; BORDER-TOP: black 1px solid; BORDER-RIGHT: black 1px solid; PADDING-TOP: 2px
+}
+TD.tabA {
+	BORDER-BOTTOM: black 1px solid; BORDER-LEFT: black 1px solid; PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; BACKGROUND: #dee7f7; BORDER-TOP: black 1px solid; BORDER-RIGHT: black 1px solid; PADDING-TOP: 2px
+}
+TD.tabI:hover {
+	BORDER-BOTTOM: black 1px solid; BORDER-LEFT: black 1px solid; PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; BACKGROUND: #dee7f7; BORDER-TOP: black 1px solid; BORDER-RIGHT: black 1px solid; PADDING-TOP: 2px
+}
+TD.tabOVER {
+	BORDER-BOTTOM: black 1px solid; BORDER-LEFT: black 1px solid; PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; BACKGROUND: #dee7f7; BORDER-TOP: black 1px solid; BORDER-RIGHT: black 1px solid; PADDING-TOP: 2px
+}
+TD.tabON {
+	BORDER-BOTTOM: black 1px solid; BORDER-LEFT: black 1px solid; PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; BACKGROUND: #dee7f7; BORDER-TOP: black 1px solid; BORDER-RIGHT: black 1px solid; PADDING-TOP: 2px
+}
+TD.tabOVER {
+	BACKGROUND: #fff
+}
+TD.tabI:hover {
+	BACKGROUND: #fff
+}
+TD.tabI:active {
+	BACKGROUND: #fff
+}
+TD.tabON {
+	BACKGROUND: #5279bd
+}
+A.tabON:link {
+	COLOR: #fff; FONT-WEIGHT: bold; TEXT-DECORATION: none
+}
+A.tabON:active {
+	COLOR: #fff; FONT-WEIGHT: bold; TEXT-DECORATION: none
+}
+A.tabON:visited {
+	COLOR: #fff; FONT-WEIGHT: bold; TEXT-DECORATION: none
+}
+A.tabON:hover {
+	COLOR: #fff; FONT-WEIGHT: bold; TEXT-DECORATION: none
+}
+DIV.tabT {
+	PADDING-BOTTOM: 1px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 1px
+}
+TABLE.tab {
+	BORDER-BOTTOM: #000 1px solid
+}
+.curtime {
+	BORDER-BOTTOM: #aebdc4 1px solid; BORDER-LEFT: #aebdc4 1px solid; PADDING-BOTTOM: 1px; PADDING-LEFT: 3px; PADDING-RIGHT: 3px; VERTICAL-ALIGN: middle; BORDER-TOP: #aebdc4 1px solid; BORDER-RIGHT: #aebdc4 1px solid; PADDING-TOP: 1px
+}
+TD.pmSn {
+	BACKGROUND: #fff
+}
+TD.pmSa {
+	BACKGROUND: #fffa00
+}
+TD.pmSf {
+	BACKGROUND: red
+}
+TABLE.pmDu {
+	BORDER-BOTTOM: #c2cdd6 1px solid; BORDER-LEFT: #c2cdd6 1px solid; BACKGROUND-COLOR: #fff; WIDTH: 175px; BORDER-TOP: #c2cdd6 1px solid; BORDER-RIGHT: #c2cdd6 1px solid
+}
+TD.mvTc {
+	BACKGROUND: #e5ffe7
+}
+TD.pmNav {
+	TEXT-ALIGN: right; BACKGROUND: #fff
+}
+TD.miniMH {
+	TEXT-ALIGN: center
+}
+TR.mnavH {
+	BACKGROUND: #eee
+}
+TR.mnavM {
+	BACKGROUND: #dee2e6
+}
+TABLE.regConf {
+	BORDER-BOTTOM: #f00 1px dashed; BORDER-LEFT: #f00 1px dashed; WIDTH: 80%; BORDER-TOP: #f00 1px dashed; BORDER-RIGHT: #f00 1px dashed
+}
+FONT.anon {
+	COLOR: #0a0
+}
+FONT.reg {
+	COLOR: #0a0
+}
+TD.permYES {
+	TEXT-ALIGN: center; WHITE-SPACE: nowrap; COLOR: red
+}
+TD.permNO {
+	TEXT-ALIGN: center; WHITE-SPACE: nowrap; COLOR: red
+}
+TD.permNO {
+	COLOR: blue
+}
+FONT.regEW {
+	COLOR: #050; FONT-SIZE: xx-small; FONT-WEIGHT: bold
+}
+TD.repI {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 20px; PADDING-RIGHT: 5px; PADDING-TOP: 5px
+}
+TABLE.pad {
+	MARGIN-TOP: 2px; MARGIN-BOTTOM: 2px
+}
+FONT.selmsgInd {
+	FONT-SIZE: xx-small; FONT-WEIGHT: bold; TEXT-DECORATION: none
+}
+TD.avatarPad {
+	PADDING-RIGHT: 3px; VERTICAL-ALIGN: top
+}
+DIV.pre {
+	BORDER-BOTTOM: blue 1px dashed; BORDER-LEFT: blue 1px dashed; PADDING-BOTTOM: 5px; MARGIN: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; FONT-FAMILY: monospace; WHITE-SPACE: pre; BACKGROUND: #fafafa; FONT-SIZE: 10pt; OVERFLOW: auto; BORDER-TOP: blue 1px dashed; BORDER-RIGHT: blue 1px dashed; PADDING-TOP: 5px
+}
+PRE {
+	WHITE-SPACE: pre-wrap
+}
+.codehead {
+	BACKGROUND: #e9e9e9; COLOR: #202020; FONT-SIZE: xx-small; FONT-WEIGHT: bold
+}
+.codehead A {
+	BACKGROUND: #e9e9e9; COLOR: #202020; FONT-SIZE: xx-small; FONT-WEIGHT: bold
+}
+HTML PRE.prettyprint {
+	BORDER-BOTTOM-STYLE: none; PADDING-BOTTOM: 0px; MARGIN: 5px; BORDER-LEFT-STYLE: none; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; PADDING-TOP: 0px
+}
+A.big:active {
+	COLOR: #dc143c
+}
+A:active {
+	COLOR: #dc143c
+}
+A.CatLink:active {
+	COLOR: #dc143c
+}
+A.UserControlPanel:active {
+	COLOR: #dc143c
+}
+A.thLnk:active {
+	COLOR: #dc143c
+}
+A.small:active {
+	COLOR: #dc143c
+}
+A.PagerLink:active {
+	COLOR: #dc143c
+}
+A.MsgSubText:active {
+	COLOR: #dc143c
+}
+IMG.l {
+	MARGIN: 3px; FLOAT: left; CLEAR: right
+}
+IMG.r {
+	MARGIN: 3px; FLOAT: right; CLEAR: left
+}
+.AttachmentsList {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN-TOP: 10px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; MARGIN-LEFT: 0px; PADDING-TOP: 0px
+}
+.signature {
+	COLOR: #202020; FONT-SIZE: 8pt; BORDER-TOP: #a0a0a0 1px dotted
+}
+.header {
+	BACKGROUND: #5478a4; COLOR: #fff
+}
+.header A {
+	COLOR: #fff; TEXT-DECORATION: none
+}
+.headtitle {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; FONT-SIZE: xx-large; FONT-WEIGHT: bold; TEXT-DECORATION: none; PADDING-TOP: 10px
+}
+.headdescr {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 20px; PADDING-RIGHT: 10px; COLOR: #eee; FONT-SIZE: small; PADDING-TOP: 20px
+}
+.headsearch {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; WHITE-SPACE: nowrap; FLOAT: right; FONT-SIZE: small; FONT-WEIGHT: bold; PADDING-TOP: 0px
+}
+.ui-resizable-s {
+	BORDER-BOTTOM: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: url(images/grippie.gif) #eee no-repeat center 2px; HEIGHT: 9px; OVERFLOW: hidden; BORDER-TOP: #ddd 0px solid; BORDER-RIGHT: #ddd 1px solid
+}
+.ui-resizable-resizing TEXTAREA {
+	FILTER: alpha(opacity=50); ZOOM: 1; opacity: 0.5
+}
+.wo {
+	WIDTH: 1px
+}
+.wa {
+	WIDTH: 100%
+}
+.ac {
+	TEXT-ALIGN: center
+}
+.al {
+	TEXT-ALIGN: left
+}
+.ar {
+	TEXT-ALIGN: right
+}
+.fl {
+	FLOAT: left
+}
+.fr {
+	FLOAT: right
+}
+.vb {
+	VERTICAL-ALIGN: bottom
+}
+.vt {
+	VERTICAL-ALIGN: top
+}
+.vm {
+	VERTICAL-ALIGN: middle
+}
+.nw {
+	WHITE-SPACE: nowrap
+}
+.fb {
+	FONT-WEIGHT: bold
+}
+.dn {
+	DISPLAY: none; VISIBILITY: hidden
+}
+.clear {
+	CLEAR: both
+}
+IMG.at {
+	FLOAT: left; CLEAR: left
+}
+DIV.sr {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; FLOAT: left; PADDING-TOP: 5px
+}
+DIV.ctb {
+	TEXT-ALIGN: center; CLEAR: both
+}
+DIV.ctb TABLE {
+	TEXT-ALIGN: left; MARGIN: 0px auto
+}
+DIV.ip {
+	PADDING-BOTTOM: 2px; MARGIN: 0px; PADDING-LEFT: 2px; WIDTH: 600px; PADDING-RIGHT: 2px; HEIGHT: 400px; OVERFLOW: auto; PADDING-TOP: 2px
+}
+SPAN.vt {
+	PADDING-LEFT: 20px
+}
+TABLE.icqCP {
+	BORDER-RIGHT-WIDTH: 0px; FONT-FAMILY: arial, sans-serif; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; FONT-SIZE: smaller; BORDER-LEFT-WIDTH: 0px
+}
+DIV.pmL {
+	PADDING-TOP: 2px
+}
+TABLE.ucPW {
+	WIDTH: 175px
+}
+.st0 {
+	BACKGROUND-COLOR: #ff6
+}
+.st1 {
+	BACKGROUND-COLOR: #a0ffff
+}
+.st2 {
+	BACKGROUND-COLOR: #9f9
+}
+.st3 {
+	BACKGROUND-COLOR: #f99
+}
+.st4 {
+	BACKGROUND-COLOR: #f6f
+}
+.st5 {
+	BACKGROUND-COLOR: #800
+}
+.st6 {
+	BACKGROUND-COLOR: #0a0
+}
+.st7 {
+	BACKGROUND-COLOR: #886800
+}
+.st8 {
+	BACKGROUND-COLOR: #004699
+}
+.st9 {
+	BACKGROUND-COLOR: #909
+}
+#UserControlPanel {
+	MARGIN: 5px 0px 10px 10px; WIDTH: 100%; FLOAT: right
+}
+#UserControlPanel UL {
+	TEXT-ALIGN: right; PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FLOAT: right; PADDING-TOP: 0px
+}
+#UserControlPanel LI {
+	POSITION: relative; MARGIN: 0px 7px 0px 0px; DISPLAY: inline; WHITE-SPACE: nowrap
+}
+#UserControlPanel LI A {
+	COLOR: #069; TEXT-DECORATION: none
+}
+TABLE.calendar {
+	BORDER-LEFT: #999 1px solid
+}
+TR.calendar-row {
+	
+}
+TD.calendar-day {
+	POSITION: relative; MIN-HEIGHT: 80px; FONT-SIZE: 11px
+}
+* HTML DIV.calendar-day {
+	HEIGHT: 80px
+}
+TD.calendar-day:hover {
+	BACKGROUND: #eceff5
+}
+TD.calendar-day-np {
+	MIN-HEIGHT: 80px; BACKGROUND: #eee
+}
+* HTML DIV.calendar-day-np {
+	HEIGHT: 80px
+}
+TD.calendar-day-head {
+	BORDER-BOTTOM: #999 1px solid; TEXT-ALIGN: center; PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; WIDTH: 120px; PADDING-RIGHT: 5px; BACKGROUND: #ccc; BORDER-TOP: #999 1px solid; FONT-WEIGHT: bold; BORDER-RIGHT: #999 1px solid; PADDING-TOP: 5px
+}
+DIV.day-number {
+	Z-INDEX: 2; POSITION: absolute; TEXT-ALIGN: center; PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; WIDTH: 20px; PADDING-RIGHT: 5px; BACKGROUND: #999; COLOR: #fff; RIGHT: -25px; FONT-WEIGHT: bold; PADDING-TOP: 5px; TOP: -5px
+}
+TD.calendar-day {
+	BORDER-BOTTOM: #999 1px solid; PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; WIDTH: 120px; PADDING-RIGHT: 25px; BORDER-RIGHT: #999 1px solid; PADDING-TOP: 5px
+}
+TD.calendar-day-np {
+	BORDER-BOTTOM: #999 1px solid; PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; WIDTH: 120px; PADDING-RIGHT: 25px; BORDER-RIGHT: #999 1px solid; PADDING-TOP: 5px
+}
+INPUT.button:link {
+	POSITION: relative; BORDER-BOTTOM-COLOR: #ccc; BORDER-TOP-COLOR: #ccc; BACKGROUND: url(images/button.png) #ddd repeat-x left top; BORDER-RIGHT-COLOR: #b4b2b4; BORDER-LEFT-COLOR: #b4b2b4; CURSOR: pointer; -moz-border-radius: 6px; -webkit-border-radius: 6px; -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6); -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6)
+}
+INPUT.button:visited {
+	POSITION: relative; BORDER-BOTTOM-COLOR: #ccc; BORDER-TOP-COLOR: #ccc; BACKGROUND: url(images/button.png) #ddd repeat-x left top; BORDER-RIGHT-COLOR: #b4b2b4; BORDER-LEFT-COLOR: #b4b2b4; CURSOR: pointer; -moz-border-radius: 6px; -webkit-border-radius: 6px; -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6); -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6)
+}
+INPUT.button {
+	POSITION: relative; BORDER-BOTTOM-COLOR: #ccc; BORDER-TOP-COLOR: #ccc; BACKGROUND: url(images/button.png) #ddd repeat-x left top; BORDER-RIGHT-COLOR: #b4b2b4; BORDER-LEFT-COLOR: #b4b2b4; CURSOR: pointer; -moz-border-radius: 6px; -webkit-border-radius: 6px; -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6); -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6)
+}
+INPUT.button:hover {
+	BACKGROUND: url(images/button.png) #e2e2e2 repeat-x left -115px; COLOR: #000
+}
+INPUT.button:hover {
+	BACKGROUND: url(images/button.png) #e2e2e2 repeat-x left -115px; COLOR: #000
+}
+.button.small {
+	FONT-SIZE: 11px
+}
+.button.small:visited {
+	FONT-SIZE: 11px
+}
+A.karma {
+	TEXT-DECORATION: none
+}
+A.up {
+	COLOR: green; FONT-WEIGHT: bold
+}
+A.down {
+	COLOR: red; FONT-WEIGHT: bold
+}

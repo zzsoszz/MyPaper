@@ -1,0 +1,438 @@
+#EntryTag {
+	margin: 20px 0px; padding: 0px; border: currentColor; width: 690px; height: auto; overflow: hidden; position: relative;
+}
+.topicListFooter {
+	margin: 0px; padding: 0px 20px 20px; border: currentColor; width: 690px; height: 30px; text-align: right; overflow: hidden; position: relative;
+}
+#divRefreshComments {
+	margin: 0px 20px; padding: 0px; border: currentColor; width: 690px; height: 30px; text-align: right; overflow: hidden; position: relative;
+}
+* {
+	margin: 0px; padding: 0px;
+}
+body {
+	margin: 0px; padding: 0px; font-family: verdana,Arial,Helvetica; font-size: 12px; background-color: rgb(226, 221, 199);
+}
+fieldset {
+	border: 0px currentColor;
+}
+img {
+	border: 0px currentColor;
+}
+div {
+	background-color: rgb(255, 255, 255);
+}
+table {
+	border-collapse: collapse; border-spacing: 0px;
+}
+ul {
+	word-break: break-all;
+}
+li {
+	list-style: none;
+}
+.clear {
+	
+}
+a:link {
+	color: rgb(102, 102, 102); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none;
+}
+a:visited {
+	color: rgb(102, 102, 102); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none;
+}
+a:hover {
+	color: rgb(102, 102, 102); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: underline;
+}
+a:active {
+	color: rgb(102, 102, 102); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none;
+}
+#home {
+	background-position: top; margin: 0px; padding: 0px; border: currentColor; left: 0px; top: 0px; width: 100%; height: auto; position: absolute; z-index: 100; background-image: url("images/banner.jpg"); background-repeat: no-repeat; background-color: rgb(226, 221, 199);
+}
+#header {
+	margin: auto; padding: 0px; border: currentColor; left: auto; top: 0px; width: 950px; height: 310px; overflow: hidden; position: relative;
+}
+#blogTitle {
+	margin: 0px; padding: 0px; border: currentColor; left: 210px; top: 150px; width: 740px; height: 75px; overflow: hidden; position: relative;
+}
+#blogTitle h1 {
+	margin: 0px; padding: 0px; border: currentColor; float: left;
+}
+#blogTitle a {
+	color: rgb(0, 0, 0); line-height: normal; font-family: Î¢ÈíÑÅºÚ, »ªÎÄÏ¸ºÚ, ºÚÌå, Arial; font-size: 24px; font-weight: normal;
+}
+#blogTitle h2 {
+	margin: 0px; padding: 0px; border: currentColor; width: 740px; color: rgb(0, 0, 0); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; float: left;
+}
+#blogLogo {
+	margin: 0px; padding: 0px; border: currentColor; float: left;
+}
+#navigator {
+	margin: 0px; padding: 0px; border: currentColor; left: 140px; top: 150px; width: 810px; height: 80px; overflow: hidden; position: relative;
+}
+#navList {
+	margin: 0px; padding: 0px; border: currentColor; width: 810px; height: 50px; overflow: hidden; float: left;
+}
+#navList li {
+	float: left;
+}
+#navList a {
+	margin: 0px; padding: 0px 10px; color: rgb(51, 51, 51); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: normal; border-right-color: rgb(204, 204, 204); border-right-width: 1px; border-right-style: dashed; float: left;
+}
+.blogStats {
+	margin: 0px; padding: 0px; border: currentColor; color: rgb(102, 102, 102); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; float: right;
+}
+#footer {
+	margin: auto; padding: 30px 0px; border: currentColor; left: auto; top: 0px; width: 950px; height: auto; text-align: center; color: rgb(102, 102, 102); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: normal; text-decoration: none; position: relative;
+}
+#main {
+	margin: auto; padding: 0px; border: currentColor; left: auto; top: 0px; width: 950px; height: auto; overflow: hidden; position: relative;
+}
+#mainContent {
+	margin: 0px; padding: 0px; border: 1px solid rgb(226, 221, 199); left: 0px; top: 0px; width: 730px; height: auto; overflow: hidden; float: left; background-color: rgb(226, 231, 230);
+}
+#mainContent .forFlow {
+	margin: 24px 0px 0px; padding: 20px 0px; width: 730px; height: auto; overflow: hidden; border-top-color: rgb(214, 221, 220); border-top-width: 1px; border-top-style: solid; position: relative;
+}
+.day {
+	margin: 0px 20px; padding: 0px; border: currentColor; width: 690px; height: auto; overflow: hidden; position: relative;
+}
+.dayTitle {
+	display: none;
+}
+.postTitle {
+	margin: 0px; padding: 0px; border: currentColor; width: 690px; height: 30px; overflow: hidden; position: relative;
+}
+.postTitle a {
+	color: rgb(106, 99, 82); line-height: normal; font-family: Î¢ÈíÑÅºÚ, »ªÎÄÏ¸ºÚ, ºÚÌå, Arial; font-size: 18px; font-weight: normal;
+}
+.postCon {
+	margin: 10px 0px 0px; padding: 0px; border: currentColor; width: 690px; height: auto; color: rgb(73, 73, 73); line-height: 1.4; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: normal; text-decoration: none; position: relative;
+}
+.postCon a {
+	color: rgb(73, 73, 73); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: normal;
+}
+.postDesc {
+	margin: 0px; padding: 0px; width: 690px; height: 30px; color: rgb(102, 102, 102); line-height: 1.4; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 1px; border-bottom-style: dashed; position: relative;
+}
+.postSeparator {
+	display: none;
+}
+#sideBar {
+	margin: 0px; padding: 0px; border: 1px solid rgb(226, 221, 199); left: 0px; top: 0px; width: 205px; height: auto; overflow: hidden; float: right; background-color: rgb(226, 221, 199);
+}
+#sideBarMain {
+	margin: 0px; padding: 0px; border: currentColor; width: 205px; height: auto; overflow: hidden; position: relative;
+}
+#leftcontentcontainer {
+	margin: 0px; padding: 0px; border: currentColor; width: 205px; height: auto; overflow: hidden; position: relative;
+}
+.newsItem {
+	margin: 0px 0px 15px; padding: 10px; border: currentColor; width: 185px; height: auto; color: rgb(106, 99, 82); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; position: relative;
+}
+.newsItem a {
+	color: rgb(106, 99, 82); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal;
+}
+.newsItem .catListTitle {
+	margin: 0px; padding: 5px 0px 0px 10px; left: -10px; top: -10px; width: 195px; height: 19px; color: rgb(85, 98, 110); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; text-decoration: none; border-bottom-color: rgb(214, 221, 220); border-bottom-width: 1px; border-bottom-style: solid; position: relative; background-color: rgb(226, 231, 230);
+}
+#calendar {
+	margin: 0px 0px 15px; padding: 24px 0px 0px; border: currentColor; width: 205px; height: auto; overflow: hidden; position: relative; background-color: rgb(226, 231, 230);
+}
+#calendar .Cal {
+	margin: 0px; padding: 0px; width: 205px; height: auto; overflow: hidden; border-top-color: rgb(214, 221, 220); border-top-width: 1px; border-top-style: solid; position: relative; background-color: rgb(255, 255, 255);
+}
+.Cal {
+	color: rgb(106, 99, 82); line-height: 20px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: normal; text-decoration: none; cursor: default;
+}
+.CalTitle {
+	width: 200px; text-align: center; color: rgb(106, 99, 82); line-height: 30px; font-weight: bold;
+}
+.CalDayHeader {
+	font-weight: bold;
+}
+.CalTodayDay {
+	color: rgb(246, 0, 0);
+}
+#calendar table a:hover {
+	font-weight: bold; background-color: rgb(246, 96, 0);
+}
+#calendar .CalNextPrev a {
+	
+}
+.catListTitle {
+	margin: 0px; padding: 5px 0px 0px 10px; width: 195px; height: 19px; color: rgb(85, 98, 110); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; text-decoration: none; border-bottom-color: rgb(214, 221, 220); border-bottom-width: 1px; border-bottom-style: solid; position: relative; background-color: rgb(226, 231, 230);
+}
+.catListComment {
+	margin: 0px 0px 15px; padding: 0px; border: currentColor; width: 205px; height: auto; overflow: hidden; position: relative;
+}
+.divRecentCommentAticle {
+	margin: 10px 10px 0px; padding: 0px; border: currentColor; width: 185px; height: auto; overflow: hidden; position: relative;
+}
+.divRecentCommentAticle a {
+	color: rgb(106, 99, 82); line-height: 20px; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold;
+}
+.divRecentComment {
+	margin: 0px 10px 10px; padding: 0px; width: 185px; height: auto; color: rgb(106, 99, 82); line-height: 20px; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 1px; border-bottom-style: dashed; position: relative;
+}
+#sideBarMain ul {
+	margin: 0px; padding: 10px; border: currentColor; width: 185px; height: auto; color: rgb(106, 99, 82); line-height: 20px; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; position: relative;
+}
+#sideBarMain ul a {
+	color: rgb(106, 99, 82); line-height: 20px; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal;
+}
+#topics {
+	margin: 0px; padding: 0px; border: currentColor; width: 710px; height: auto; overflow: hidden; position: relative;
+}
+#topics .postTitle {
+	margin: 0px; padding: 0px; border: currentColor; width: 690px; height: 30px; overflow: hidden; position: relative;
+}
+#topics .postTitle a {
+	color: rgb(106, 99, 82); line-height: normal; font-family: Î¢ÈíÑÅºÚ, »ªÎÄÏ¸ºÚ, ºÚÌå, Arial; font-size: 18px; font-weight: normal;
+}
+.postBody {
+	margin: 0px; padding: 0px; border: currentColor; width: 690px; height: auto; color: rgb(73, 73, 73); line-height: 1.6; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: normal; text-decoration: none; position: relative;
+}
+.postBody a {
+	color: rgb(73, 73, 73); font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: normal; text-decoration: underline;
+}
+#topics .postDesc {
+	margin: 0px; padding: 0px; width: 690px; height: 30px; color: rgb(102, 102, 102); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 1px; border-bottom-style: dashed; position: relative;
+}
+.feedback_area_title {
+	margin: 0px 20px; padding: 0px; border: currentColor; width: 690px; height: 20px; color: rgb(85, 98, 110); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; text-decoration: none; position: relative;
+}
+.louzhu {
+	
+}
+.feedbackItem {
+	margin-top: 10px;
+}
+.feedbackManage {
+	margin: 0px 20px; padding: 0px; border: currentColor; height: 20px; overflow: hidden; float: right; position: relative;
+}
+.feedbackManage a {
+	color: rgb(106, 99, 82); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal;
+}
+.feedbackListSubtitle {
+	margin: 0px 20px; padding: 0px; border: currentColor; height: auto; color: rgb(106, 99, 82); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; position: relative;
+}
+.feedbackListSubtitle a {
+	color: rgb(106, 99, 82); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal;
+}
+.feedbackCon {
+	margin: 0px 20px; padding: 5px; border: 1px dashed rgb(204, 204, 204); width: 690px; height: auto; color: rgb(135, 135, 135); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; position: relative;
+}
+.feedbackCon a {
+	color: rgb(135, 135, 135); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal;
+}
+.entrylistTitle {
+	margin: 0px 20px; padding: 0px; border: currentColor; width: 690px; height: auto; color: rgb(85, 98, 110); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; text-decoration: none;
+}
+.PostListTitle {
+	margin: 0px 20px; padding: 0px; border: currentColor; width: 690px; height: auto; color: rgb(85, 98, 110); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; text-decoration: none;
+}
+.entrylistDescription {
+	margin: 5px 20px 20px; padding: 0px; border: currentColor; width: 690px; height: auto; color: rgb(85, 98, 110); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; position: relative;
+}
+.entrylistItem {
+	margin: 0px 20px; padding: 10px 0px; width: 690px; height: auto; overflow: hidden; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 1px; border-bottom-style: dashed; position: relative;
+}
+.entrylistPosttitle {
+	margin: 0px; padding: 0px; border: currentColor; width: 690px; height: auto; overflow: hidden; position: relative;
+}
+.entrylistPosttitle a {
+	color: rgb(106, 99, 82); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: normal;
+}
+.entrylistPostSummary {
+	margin: 0px; padding: 10px 0px; border: currentColor; width: 690px; height: auto; color: rgb(73, 73, 73); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; position: relative;
+}
+.entrylistPostSummary a {
+	color: rgb(73, 73, 73); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal;
+}
+.entrylistItemPostDesc {
+	margin: 0px; padding: 0px; border: currentColor; width: 690px; height: auto; color: rgb(102, 102, 102); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; position: relative;
+}
+.entrylist .postSeparator {
+	display: none;
+}
+.Pager {
+	margin: 5px 20px 20px; padding: 0px; border: currentColor; width: 690px; height: auto; text-align: right; overflow: hidden; position: relative;
+}
+.PostList {
+	margin: 0px 20px; padding: 10px 0px; width: 690px; height: auto; overflow: hidden; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 1px; border-bottom-style: dashed; position: relative;
+}
+.postTitl2 {
+	margin: 0px; padding: 0px; border: currentColor; width: 690px; height: auto; overflow: hidden; position: relative;
+}
+.postTitl2 a {
+	color: rgb(106, 99, 82); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: normal;
+}
+.postDesc2 {
+	margin: 0px; padding: 0px; border: currentColor; width: 690px; height: auto; color: rgb(102, 102, 102); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; position: relative;
+}
+.postText2 {
+	margin: 10px 0px 0px; padding: 0px; border: currentColor; width: 690px; height: auto; color: rgb(73, 73, 73); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; position: relative;
+}
+.postText2 a {
+	color: rgb(73, 73, 73); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal;
+}
+.pfl_feedback_area_title {
+	margin: 20px; padding: 0px; border: currentColor; width: 690px; height: auto; color: rgb(85, 98, 110); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; text-decoration: none; position: relative;
+}
+.pfl_feedbackItem {
+	margin: 0px 20px; padding: 10px 0px; width: 690px; height: auto; overflow: hidden; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 1px; border-bottom-style: dashed; position: relative;
+}
+.pfl_feedbacksubtitle {
+	margin: 0px; padding: 0px; border: currentColor; width: 690px; height: auto; overflow: hidden; position: relative;
+}
+.pfl_feedbackname {
+	margin: 0px; padding: 0px; border: currentColor; width: 690px; height: auto; color: rgb(106, 99, 82); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: normal; text-decoration: none; position: relative;
+}
+.pfl_feedbackname a {
+	color: rgb(106, 99, 82); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold;
+}
+.pfl_feedbackManage {
+	margin: 0px; padding: 0px; border: currentColor; width: 690px; height: auto; overflow: hidden; position: relative;
+}
+.pfl_feedbackCon {
+	margin: 0px; padding: 10px 0px; border: currentColor; width: 690px; height: auto; color: rgb(135, 135, 135); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; position: relative;
+}
+.pfl_feedbackAnswer {
+	margin: 0px; padding: 0px; border: currentColor; width: 690px; height: auto; color: rgb(73, 73, 73); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; position: relative;
+}
+.gallery {
+	margin: 0px 20px; padding: 0px; border: currentColor; width: 690px; height: auto; overflow: hidden; position: relative;
+}
+.thumbTitle {
+	color: rgb(85, 98, 110); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; text-decoration: none;
+}
+.thumbDescription {
+	margin: 5px 0px 20px; padding: 0px; border: currentColor; width: 690px; height: auto; color: rgb(85, 98, 110); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; position: relative;
+}
+.thumbDescription a {
+	color: rgb(85, 98, 110); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal;
+}
+.divPhoto {
+	margin: 10px; padding: 2px; border: 1px solid rgb(204, 204, 204);
+}
+#AjaxHolder_PostComment_divCommnentArea {
+	margin: 0px 20px; padding: 0px; border: currentColor; width: 690px; height: auto; color: rgb(85, 98, 110); line-height: 30px; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 14px; text-decoration: none; position: relative;
+}
+.personInfo img {
+	margin: 0px 20px 20px; padding: 2px; border: 1px solid rgb(204, 204, 204);
+}
+.userDocument {
+	color: rgb(102, 102, 102); line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none;
+}
+.userDocument b {
+	color: rgb(85, 98, 110); line-height: 50px; font-family: Î¢ÈíÑÅºÚ, »ªÎÄÏ¸ºÚ, ºÚÌå, Arial; font-size: 18px; font-weight: normal; text-decoration: none;
+}
+.pages {
+	margin: 0px 20px; padding: 0px; border: currentColor; width: 690px; height: auto; text-align: right; color: rgb(102, 102, 102); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; position: relative;
+}
+#Profile1_panelAdd {
+	margin: 0px 20px; padding: 0px; border: currentColor; width: 690px; height: auto; color: rgb(85, 98, 110); line-height: 30px; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 14px; text-decoration: none; position: relative;
+}
+.postBody {
+	
+}
+.postBody p {
+	
+}
+.postCon p {
+	
+}
+.postBody h2 {
+	
+}
+.postBody h3 {
+	
+}
+.postBody h4 {
+	
+}
+.postBody h5 {
+	
+}
+.postBody a:link {
+	
+}
+.postBody a:visited {
+	
+}
+.postBody a:active {
+	
+}
+.postCon a:link {
+	
+}
+.postCon a:visited {
+	
+}
+.postCon a:active {
+	
+}
+.postBody ul {
+	
+}
+.postCon ul {
+	
+}
+.postBody li {
+	
+}
+.postCon li {
+	
+}
+.postBody blockquote {
+	
+}
+.commentform {
+	margin: 0px 20px; padding: 0px; border: currentColor; width: 690px; height: auto; overflow: hidden; position: relative;
+}
+.commentform p {
+	color: rgb(85, 98, 110); line-height: 30px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: normal; text-decoration: none;
+}
+.commentform span {
+	color: rgb(85, 98, 110); line-height: 30px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: normal; text-decoration: none;
+}
+#comment_nav {
+	margin: 0px; padding: 0px; border: currentColor; width: 690px; height: 30px; text-align: right; overflow: hidden; position: relative;
+}
+#commentform_title {
+	color: rgb(106, 99, 82);
+}
+.commentbox_title {
+	margin-bottom: 0px;
+}
+.commentbox_title_left {
+	color: rgb(106, 99, 82);
+}
+.commentbox_title_right {
+	margin: 0px; padding: 0px; border: currentColor; width: auto; overflow: hidden; float: right;
+}
+.comment_btn {
+	width: 80px;
+}
+#relative_search {
+	margin: 10px 0px 0px; padding: 5px; border: 1px dashed rgb(204, 204, 204); color: rgb(85, 98, 110); line-height: 30px; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; text-decoration: none; position: relative; min-height: 0px; min-width: 0px;
+}
+.c_ad_block {
+	margin: 10px 0px 0px; padding: 5px; border: 1px dashed rgb(204, 204, 204); color: rgb(85, 98, 110); line-height: 30px; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; text-decoration: none; position: relative; min-height: 0px; min-width: 0px;
+}
+.galleryTitle {
+	margin: 0px; padding: 0px; border: currentColor; width: 690px; height: auto; color: rgb(85, 98, 110); line-height: normal; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; text-decoration: none; position: relative;
+}
+.comment_pager {
+	color: rgb(106, 99, 82); padding-left: 20px; font-size: 12px;
+}
+.post {
+	padding-left: 20px;
+}
+.div_my_zzk {
+	margin-left: 10px;
+}
+.mySearch {
+	padding-bottom: 5px;
+}

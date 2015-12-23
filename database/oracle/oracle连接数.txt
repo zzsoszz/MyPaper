@@ -1,0 +1,133 @@
+OERR: ORA-12519 TNS:no appropriate service handler found 
+博客分类： Java学习 
+ 
+
+以下为转载
+
+OERR: ORA-12519 TNS:no appropriate service handler found
+
+客户端连接间歇性失败，报错ORA-12519
+
+
+Cause: the listener could not find any available service handlers that are 
+       appropriate for the client connection.
+
+Action: run "lsnrctl services" to ensure that the instance(s) have registered 
+        with the listener, and are accepting connections. 检查lsnrctl service ，instance已经注册，
+状态显示ready时，可以连接。
+
+When the listener believes the current number of connections has reached maximum load, 
+it may set the state of the service handler for an instance to "blocked" and begin refusing 
+incoming client connections with either of the following errors: ora-12519 or ora-12516
+
+采用服务动态注册的方式，由PMON 通过SERVICE_UPDATE 来得到目前连接情况，但SERVICE_UPDATE 有时间间隔，
+所以，listener显示的连接数和当前实际的连接数可能不同。
+
+
+查询解决方法:
+
+查看一下数据库现有的进程数，是否已经达到参数processes的大小。
+
+1.select count(*) from v$process;                         取得数据库目前的进程数。
+2.select value from v$parameter where name = 'processes'; 取得进程数的上限。
+3.如已达到上限，修改initSID.ora中的processes的大小。
+4.重新启动数据库到nomount状态下，执行create spfile from pfile; 并startup open。
+
+
+查询数据库自启动以来最大的并发数量
+
+select * from v$license
+
+------ end -------
+
+
+本文来自CSDN博客，转载请标明出处：http://blog.csdn.net/wyzxg/archive/2008/03/06/2154274.aspx
+
+ 
+
+ORA-12519: TNS:no appropriate service handler found 的解决
+
+
+有时候连得上数据库,有时候又连不上.
+
+可能是数据库上当前的连接数目已经超过了它能够处理的最大值.
+
+SQL> select count(*) from v$process;--当前连接数
+     COUNT(*)
+     63
+SQL> select value from v$parameter where name = 'processes' --数据库允许的最大连接数
+VALUE
+500
+
+修改最大连接数:
+SQL> alter system set processes = 2000 scope = spfile;
+
+重启数据库:
+SQL> shutdown immediate;
+SQL> startup;
+
+--查看当前有哪些用户正在使用数据
+SELECT osuser, a.username,cpu_time/executions/1000000||'s', sql_fulltext,machine 
+from v$session a, v$sqlarea b
+where a.sql_address =b.address order by cpu_time/executions desc;
+
+
+--快速删除不活动进程
+set heading off
+spool on
+select p.SPID from v$session s,v$process p where s.paddr= p.addr and s.machine='woogle';
+spool off
+set serveroutput on ;
+declare
+v_sid number;
+v_serial number;
+v_sql varchar2(200) ;
+CURSOR cur_session is
+   select sid, serial# from v$session where machine='woogle';
+begin
+open cur_session ;
+fetch cur_session into v_sid , v_serial ;
+while cur_session%found
+loop
+dbms_output.put_line(v_sid||' killed!') ;
+v_sql:= 'alter system kill session '||''''||v_sid||','||v_serial||'''';
+execute immediate v_sql ;
+fetch cur_session into v_sid , v_serial ;
+end loop ;
+close cur_session ;
+end ;
+/
+
+Linux 下快速删除不活动进程
+#!/bin/bash
+
+tmpfile=/tmp/tmp.$$
+
+sqlplus ' / as sysdba' << EOF
+
+set heading off
+spool on
+spool $tmpfile
+select p.SPID from v$session s,v$process p where s.paddr= p.addr and s.STATUS='SNIPED';
+spool off
+set serveroutput on ;
+declare
+v_sid number;
+v_serial number;
+v_sql varchar2(200) ;
+CURSOR cur_session is
+   select sid, serial# from v$session where STATUS='SNIPED';
+begin
+open cur_session ;
+fetch cur_session into v_sid , v_serial ;
+while cur_session%found
+loop
+dbms_output.put_line(v_sid||' killed!') ;
+v_sql:= 'alter system kill session '||''''||v_sid||','||v_serial||'''';
+execute immediate v_sql ;
+fetch cur_session into v_sid , v_serial ;
+end loop ;
+close cur_session ;
+end ;
+/
+

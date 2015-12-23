@@ -1,0 +1,177 @@
+BODY {
+	MARGIN: 0px; BACKGROUND-COLOR: #706349; TEXT-ALIGN: center
+}
+A {
+	TEXT-DECORATION: none
+}
+A:link {
+	COLOR: #000
+}
+A:visited {
+	COLOR: #000000
+}
+A:active {
+	COLOR: #000000
+}
+A:hover {
+	COLOR: #9a80a4; TEXT-DECORATION: underline
+}
+.content A {
+	TEXT-DECORATION: underline
+}
+.content H3 A {
+	TEXT-DECORATION: none
+}
+#calendar A {
+	FONT-SIZE: 12px; TEXT-DECORATION: underline
+}
+H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+H3 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+#container {
+	BORDER-RIGHT: medium none; PADDING-RIGHT: 0px; BORDER-TOP: medium none; MARGIN-TOP: 15px; PADDING-LEFT: 0px; BACKGROUND: #fff; PADDING-BOTTOM: 0px; MARGIN-LEFT: auto; BORDER-LEFT: medium none; WIDTH: 825px; LINE-HEIGHT: 140%; MARGIN-RIGHT: auto; PADDING-TOP: 0px; BORDER-BOTTOM: medium none; TEXT-ALIGN: center
+}
+#banner {
+	MARGIN-TOP: 15px; PADDING-LEFT: 70px; BACKGROUND: url(/uuzone/css/template/0113/top-bg.jpg) no-repeat center center; COLOR: #fff; LINE-HEIGHT: 140%; PADDING-TOP: 45px; FONT-FAMILY: Verdana, Arial, sans-serif; HEIGHT: 304px; TEXT-ALIGN: left
+}
+#banner-img {
+	DISPLAY: none
+}
+#banner A:hover {
+	COLOR: #e9da89; TEXT-DECORATION: none
+}
+#banner A {
+	COLOR: #aa995a; TEXT-DECORATION: none
+}
+#banner H1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 20px; PADDING-BOTTOM: 15px; COLOR: #aa995a; HEIGHT: 30px
+}
+#banner H2 {
+	FONT-WEIGHT: normal; FONT-SIZE: 14px; COLOR: #aa995a; LINE-HEIGHT: 120%; HEIGHT: 30px
+}
+#center {
+	BACKGROUND: #fff; FLOAT: left; OVERFLOW: hidden; WIDTH: 590px
+}
+.content {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 45px; FONT-SIZE: 12px; PADDING-BOTTOM: 5px; COLOR: #000; PADDING-TOP: 10px; FONT-FAMILY: Arial, sans-serif
+}
+.content H1 {
+	PADDING-LEFT: 15px; FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND: none transparent scroll repeat 0% 0%; MARGIN-BOTTOM: 0px; COLOR: #f7fdc0; FONT-FAMILY: Arial, sans-serif; TEXT-ALIGN: left
+}
+.content H2 {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND: none transparent scroll repeat 0% 0%; MARGIN-BOTTOM: 10px; PADDING-BOTTOM: 3px; COLOR: #735c0b; PADDING-TOP: 3px; FONT-FAMILY: Georgia, 'Times New Roman', serif; TEXT-ALIGN: left
+}
+.content H3 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 15px; FONT-WEIGHT: bold; FONT-SIZE: 14px; MARGIN-BOTTOM: 10px; PADDING-BOTTOM: 0px; COLOR: #fff; LINE-HEIGHT: 180%; PADDING-TOP: 0px; FONT-FAMILY: Arial, sans-serif; BACKGROUND-COLOR: #706349; TEXT-ALIGN: left
+}
+.content H3 A {
+	COLOR: #fff
+}
+.content H3 A:hover {
+	COLOR: #faf1b3
+}
+.content H3 A:visited {
+	COLOR: #fff
+}
+.content H3 A:active {
+	COLOR: #fff
+}
+.content P {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-BOTTOM: 10px; COLOR: #000000; LINE-HEIGHT: 150%; FONT-FAMILY: Arial, sans-serif; BACKGROUND-COLOR: transparent; TEXT-ALIGN: left
+}
+.content P.posted {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; FONT-SIZE: 12px; MARGIN-BOTTOM: 25px; BORDER-LEFT: medium none; COLOR: #9a80a4; LINE-HEIGHT: normal; BORDER-BOTTOM: medium none; FONT-FAMILY: Arial, sans-serif; TEXT-ALIGN: left
+}
+.content BLOCKQUOTE {
+	LINE-HEIGHT: 150%
+}
+.content LI {
+	LINE-HEIGHT: 150%
+}
+.page-control {
+	COLOR: #000
+}
+#right {
+	BORDER-RIGHT: medium none; PADDING-RIGHT: 15px; BORDER-TOP: medium none; PADDING-LEFT: 20px; BACKGROUND: #fff; FLOAT: left; PADDING-BOTTOM: 10px; MARGIN: 0px; BORDER-LEFT: medium none; WIDTH: 200px; PADDING-TOP: 20px; BORDER-BOTTOM: medium none; TEXT-ALIGN: center
+}
+#categories A {
+	
+}
+.sidebar H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND: #edefef; PADDING-BOTTOM: 5px; WIDTH: 100%; COLOR: #706349; LINE-HEIGHT: 80%; PADDING-TOP: 10px; FONT-FAMILY: Arial, sans-serif; TEXT-ALIGN: center
+}
+.sidebar {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: normal; FONT-SIZE: 14px; BACKGROUND: none transparent scroll repeat 0% 0%; PADDING-BOTTOM: 0px; COLOR: #694420; PADDING-TOP: 0px; FONT-FAMILY: Arial, sans-serif; TEXT-ALIGN: center
+}
+.sidebar P {
+	FONT-SIZE: 12px; COLOR: #000; TEXT-ALIGN: center
+}
+.sidebar P A {
+	COLOR: #000
+}
+.sidebar P A:link {
+	COLOR: #000
+}
+.sidebar P A:visited {
+	COLOR: #000
+}
+.sidebar P A:active {
+	COLOR: #000
+}
+.sidebar P A:hover {
+	COLOR: #9a80a4
+}
+.sidebar UL {
+	PADDING-LEFT: 0px; MARGIN: 0px 0px 30px
+}
+.sidebar UL LI {
+	MARGIN-TOP: 10px; PADDING-LEFT: 20px; FONT-SIZE: 12px; BACKGROUND: none transparent scroll repeat 0% 0%; COLOR: #694420; LINE-HEIGHT: 150%; FONT-FAMILY: Arial, sans-serif; LIST-STYLE-TYPE: none; TEXT-ALIGN: center
+}
+.sidebar IMG {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px
+}
+.user-profile {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px; BACKGROUND-COLOR: transparent
+}
+.user-profile A {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: #000; LINE-HEIGHT: 22px
+}
+#calendar {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; FONT-SIZE: 10px; MARGIN-BOTTOM: 30px; PADDING-BOTTOM: 2px; COLOR: #000; LINE-HEIGHT: 140%; PADDING-TOP: 2px; FONT-FAMILY: Arial, sans-serif; BACKGROUND-COLOR: transparent; TEXT-ALIGN: center
+}
+#calendar CAPTION {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; FONT-WEIGHT: bold; FONT-SIZE: 13px; BACKGROUND: #edefef; PADDING-BOTTOM: 3px; COLOR: #706349; LINE-HEIGHT: 150%; PADDING-TOP: 3px; FONT-FAMILY: Arial, sans-serif; LETTER-SPACING: 2px; TEXT-ALIGN: center
+}
+#calendar TABLE {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; WIDTH: 90%; PADDING-TOP: 2px; BACKGROUND-COLOR: transparent
+}
+#calendar TH {
+	FONT-WEIGHT: normal; BACKGROUND-COLOR: transparent; TEXT-ALIGN: center
+}
+#calendar TD {
+	BACKGROUND-COLOR: transparent; TEXT-ALIGN: center
+}
+#powered {
+	MARGIN-TOP: 50px; PADDING-LEFT: 10px; FONT-SIZE: x-small; COLOR: #694420; LINE-HEIGHT: 150%; FONT-FAMILY: Arial, sans-serif; TEXT-ALIGN: left
+}
+#remarkFrame {
+	BACKGROUND-COLOR: transparent
+}
+.photo {
+	MARGIN-BOTTOM: 20px; TEXT-ALIGN: left
+}
+.link-note {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; FONT-SIZE: 12px; MARGIN-BOTTOM: 15px; PADDING-BOTTOM: 2px; COLOR: #ffffff; LINE-HEIGHT: 150%; PADDING-TOP: 2px; FONT-FAMILY: Arial, sans-serif; TEXT-ALIGN: left
+}
+#comment-data {
+	PADDING-RIGHT: 15px; FLOAT: left; WIDTH: 180px; MARGIN-RIGHT: 15px; TEXT-ALIGN: left
+}
+UNKNOWN {
+	WIDTH: 80%
+}

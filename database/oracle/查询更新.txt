@@ -1,0 +1,1 @@
+update (select id as B1,no B2 from my ) set B1=B2+1 

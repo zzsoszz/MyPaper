@@ -1,0 +1,198 @@
+BODY {
+	COLOR: #323432
+}
+.my_potn H3 {
+	FONT-SIZE: 12px; BACKGROUND: url(http://icon.zdnet.com.cn/builder/pic/images/news_flash_flag_green.gif) no-repeat right 50%; FLOAT: left; WIDTH: 75px; COLOR: #fff; PADDING-TOP: 6px; HEIGHT: 18px; TEXT-ALIGN: center
+}
+.zd_row H2.tody_ttt {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; FONT-SIZE: 14px; BACKGROUND: url(http://icon.zdnet.com.cn/builder/pic/images/builder_tit.gif) #7f9aaf no-repeat right top; PADDING-BOTTOM: 1px; COLOR: #fff; PADDING-TOP: 0px
+}
+.zd_row H2.tody_ttt A {
+	FONT-WEIGHT: bold; COLOR: #000
+}
+.headbar {
+	PADDING-BOTTOM: 10px; BORDER-BOTTOM: #d9d9d9 1px solid; TEXT-ALIGN: center
+}
+H1.headtit {
+	FONT-SIZE: 18px; COLOR: #323432; LINE-HEIGHT: 30px; HEIGHT: 36px
+}
+H3.headaur {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: #275e94; LINE-HEIGHT: 26px
+}
+H3.headaur CITE {
+	FONT-SIZE: 10px; COLOR: #a0a0a0; MARGIN-RIGHT: 6px
+}
+H3.headaur SPAN {
+	COLOR: #666
+}
+H2.headkeyw {
+	FONT-SIZE: 12px; COLOR: #000
+}
+H2.headkeyw A {
+	COLOR: #e98e00
+}
+.artl_con {
+	
+}
+.artl_con P {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 15px; FONT-SIZE: 14px; PADDING-BOTTOM: 8px; LINE-HEIGHT: 22px; PADDING-TOP: 10px
+}
+.pages {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FLOAT: left; PADDING-BOTTOM: 10px; MARGIN: 10px 0px 0px; WIDTH: 600px; PADDING-TOP: 10px; FONT-FAMILY: ËÎÌו; TEXT-ALIGN: center
+}
+.pages SPAN.cur_page {
+	BORDER-RIGHT: #6ac 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: #6ac 1px solid; DISPLAY: inline-block; PADDING-LEFT: 6px; FONT-WEIGHT: bold; BACKGROUND: #6ac; PADDING-BOTTOM: 3px; BORDER-LEFT: #6ac 1px solid; COLOR: #fff; PADDING-TOP: 4px; BORDER-BOTTOM: #6ac 1px solid
+}
+.pages A {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: #ccc 1px solid; DISPLAY: inline-block; PADDING-LEFT: 6px; PADDING-BOTTOM: 3px; MARGIN: 0px 4px; BORDER-LEFT: #ccc 1px solid; PADDING-TOP: 4px; BORDER-BOTTOM: #ccc 1px solid
+}
+.pages A:hover {
+	BORDER-RIGHT: #a7a7a7 1px solid; BORDER-TOP: #a7a7a7 1px solid; BACKGROUND: #f0f0f0; BORDER-LEFT: #a7a7a7 1px solid; COLOR: #c00; BORDER-BOTTOM: #a7a7a7 1px solid; TEXT-DECORATION: none
+}
+.bor_n {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+H1.theme SPAN STRONG {
+	FONT-WEIGHT: normal; COLOR: #4f69b3
+}
+H1.theme SPAN STRONG A {
+	FONT-WEIGHT: normal; COLOR: #4f69b3
+}
+FORM.comment {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 50px; PADDING-BOTTOM: 10px; PADDING-TOP: 20px
+}
+FORM.comment TEXTAREA {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; WIDTH: 500px; PADDING-TOP: 2px; HEIGHT: 100px
+}
+.yz_code {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 8px; PADDING-TOP: 8px
+}
+.yz_code INPUT {
+	WIDTH: 80px
+}
+.yz_code IMG {
+	MARGIN: 0px 12px; VERTICAL-ALIGN: middle
+}
+.yz_code A {
+	COLOR: #c00
+}
+H2.rart_tit {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; BACKGROUND: url(http://icon.zdnet.com.cn/builder/pic/images/video_heading328x27.gif) no-repeat right 50%; PADDING-BOTTOM: 0px; COLOR: #959595; PADDING-TOP: 4px; HEIGHT: 23px
+}
+H2.rart_tit A {
+	COLOR: #666
+}
+.more_rela {
+	CLEAR: both; MARGIN-RIGHT: 8px; PADDING-TOP: 6px; TEXT-ALIGN: right
+}
+.more_rela A {
+	COLOR: #40647e
+}
+.observ_box {
+	FLOAT: left
+}
+.DIVemty {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 10px 0px; PADDING-TOP: 0px
+}
+.site {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 8px 0px 25px; COLOR: #333333; PADDING-TOP: 0px
+}
+.site A {
+	COLOR: #366599
+}
+.commentsbox {
+	PADDING-BOTTOM: 5px; der: 1px solid #b7b7b7
+}
+H3.letit2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 12px; FONT-SIZE: 12px; BACKGROUND: url(http://icon.zdnet.com.cn/product/pic/b_product/pinglun_ttbg.gif) repeat-x; PADDING-BOTTOM: 0px; PADDING-TOP: 8px; HEIGHT: 19px
+}
+UL.com_tag {
+	MARGIN-TOP: 4px; PADDING-LEFT: 8px; BACKGROUND: url(http://icon.zdnet.com.cn/product/pic/b_product/pinglun_ulbg.gif) repeat-x 0px bottom; MARGIN-LEFT: 6px; MARGIN-RIGHT: 6px; LIST-STYLE-TYPE: none; HEIGHT: 25px
+}
+UL.com_tag LI {
+	DISPLAY: block; BACKGROUND: url(http://icon.zdnet.com.cn/product/pic/b_product/pinglun_off.gif) no-repeat right top; FLOAT: left; MARGIN-RIGHT: 3px; LIST-STYLE-TYPE: none; TEXT-ALIGN: center
+}
+UL.com_tag LI A {
+	DISPLAY: block; FLOAT: left; WIDTH: 78px; COLOR: #343434; PADDING-TOP: 8px; HEIGHT: 17px; TEXT-DECORATION: none
+}
+UL.com_tag LI A:hover {
+	COLOR: #1e629e; TEXT-DECORATION: none
+}
+UL.com_tag IMG {
+	FLOAT: left
+}
+UL.com_tag LI.on {
+	BACKGROUND: url(http://icon.zdnet.com.cn/product/pic/b_product/pinglun_on.gif) no-repeat right top
+}
+.coms {
+	BORDER-RIGHT: #b7b7b7 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #b7b7b7 0px solid; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; BORDER-LEFT: #b7b7b7 1px solid; WIDTH: 586px; PADDING-TOP: 0px; BORDER-BOTTOM: #b7b7b7 1px solid
+}
+TABLE.commentlist {
+	BORDER-TOP: #e7e7e7 1px solid; BORDER-LEFT: #e7e7e7 1px solid
+}
+TABLE.commentlist TR.comm_username {
+	FONT-WEIGHT: bold; COLOR: #36c; TEXT-ALIGN: center
+}
+TABLE.commentlist TD {
+	BORDER-RIGHT: #e7e7e7 1px solid; PADDING-LEFT: 6px; LINE-HEIGHT: 18px; BORDER-BOTTOM: #e7e7e7 1px solid; HEIGHT: 26px
+}
+TABLE.commentlist TD.f_col {
+	COLOR: #999
+}
+.comments_con {
+	PADDING-LEFT: 10px; PADDING-TOP: 0px
+}
+.comments_con .fo_comm {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 8px; PADDING-TOP: 8px
+}
+.comments_con .fo_comm INPUT {
+	FONT-SIZE: 12px; WIDTH: 80px
+}
+.comments_con .fo_comm IMG {
+	MARGIN-LEFT: 8px
+}
+.comments_con TEXTAREA {
+	WIDTH: 450px; HEIGHT: 120px
+}
+.comments_con .fo_wid {
+	WIDTH: 300px
+}
+.comments_con .fo_wid INPUT {
+	MARGIN: 14px 0px 0px 10px; WIDTH: 80px; COLOR: #666
+}
+.comments_con .fo_wid IMG {
+	FLOAT: right
+}
+.comments_con .fo_wid A {
+	FLOAT: right; MARGIN: 22px 0px 0px 10px
+}
+.comments_con .fo_inp {
+	MARGIN: 10px 0px; WIDTH: 550px
+}
+.comments_con .fo_inp INPUT {
+	FONT-SIZE: 12px
+}
+.comments_con TABLE {
+	BORDER-RIGHT: #ccc 0px solid; BORDER-TOP: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; BORDER-BOTTOM: #ccc 0px solid
+}
+.comments_con TABLE TD {
+	BORDER-RIGHT: #ccc 1px solid; BORDER-TOP: #ccc 0px solid; PADDING-LEFT: 4px; BORDER-LEFT: #ccc 0px solid; BORDER-BOTTOM: #ccc 1px solid
+}
+.nobotmg {
+	MARGIN-BOTTOM: 0px
+}
+.pinglun {
+	BORDER-TOP: #dfdfdf 1px solid; FLOAT: left; BORDER-LEFT: #dfdfdf 1px solid
+}
+.pinglun UL {
+	FLOAT: left; BORDER-BOTTOM: #dfdfdf 1px solid; LIST-STYLE-TYPE: none
+}
+.pinglun LI {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #ccc 0px solid; PADDING-LEFT: 5px; FLOAT: left; PADDING-BOTTOM: 5px; BORDER-LEFT: #ccc 1px solid; WIDTH: 438px; PADDING-TOP: 5px; BORDER-BOTTOM: #ccc 0px solid
+}
+.pinglun STRONG {
+	DISPLAY: block; COLOR: #3366cc; TEXT-ALIGN: center
+}
+.pinglun LI.leftwid1 {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; WIDTH: 120px; BORDER-RIGHT-WIDTH: 0px
+}

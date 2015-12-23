@@ -1,0 +1,119 @@
+一个有趣的SQL查询
+三月 6, 2012 by sleebin9 · 26 Comments 
+
+
+一个朋友有这样一个SQL查询需求：
+有一个登录表(tmp_test)，包含用户ID(uid)和登录时间(login_time)。表结构如下：
+*************************** 1. row ***************************
+Field: uid
+Type: int(10) unsigned
+Null: NO
+Key: MUL
+Default: NULL
+Extra:
+*************************** 2. row ***************************
+Field: login_time
+Type: timestamp
+Null: NO
+Key: MUL
+Default: 0000-00-00 00:00:00
+Extra:
+问如何查询出所有在某一段时间内（如：2012-1-1至2012-1-17)连续7天都有登录的用户。
+在写这个SQL时，发现一些很有意思东西，也许对大家写SQL有帮助，因此记录一下。
+
+- 基本思路 Loop Join
+  首先想到的思路是一个类似于Loop Join的方法：
+  A. 取出2012-1-1到2012-1-11的每一条记录.
+  B. 对取出的每一条记录，再去表中查询这个用户的接下来6天的记录。
+     如果总数为6条记录，则满足连续7天的条件
+
+- Range Join
+  Loop Join的思路可以通过一个Join语句来实现。姑且称之为Range Join。通常join时，使用的都是
+  等值join. 如果join列的值是唯一的，那么就是左表的一条记录对应右表的一条记录。而Range Join
+  中，左表的一行数据对应右表的一个范围内的所有记录。
+
+  SQL 语句为：
+  SELECT DISTINCT t.uid FROM tmp_test AS t JOIN tmp_test AS t1
+  ON date(t.login_time) + 1 <= date(t1.login_time) AND
+     date(t.login_time) + 7 > date(t1.login_time) AND
+     t.uid = t1.uid
+  WHERE t.login_time BETWEEN ’2012-1-1 00:00:00′ AND ’2012-1-11 23:59:59′ AND
+        t1.login_time >= ’2012-1-2′ AND t.login_time < ’2012-1-18′(可去掉）
+
+- COUNT(DISTINCT)
+  “计算连续7天”,可以通过GROUP BY分组和COUNT()来完成。因为一个用户在1天内可能会有多次登录，
+  这里需要使用(COUNT DISTINCT）. SQL 语句为：
+  GROUP BY t.login_time, t.uid
+  HAVING COUNT(DISTINCT date(t1.login_time))=6
+
+- BIT_OR
+  考虑到DISTINCT操作需要缓存数据，就想到了用bit逻辑运算（可能会效率高一些)。因为连续的七天
+  与第一天的差分别为，1,2,3,4,5,6,7.可以分别用1-7bit位来表示。根据这个特点，可以对分组中
+  的每一行进行或(|)运算.如果最后的值等于b’1111110′(6个1）.那么就是连续的7天。这个办法可以
+  避免DISTINC操作。没想到MySQL中真的有了bit操作的聚合函数。BIT_OR就是我们要用的。
+
+  SQL 语句为：
+  GROUP BY t.login_time, t.uid
+  HAVING BIT_OR(1 << datediff(t1.login_time, t.login_time)) = b’1111110′;
+
+  NOTE: 从测试结果看，没有索引时BIT_OR要比DISTINCT好一点点，不是非常明显。当DISTINCT的
+        字段上有索引时，要比BIT_OR要好一点点.
+
+- 去掉Range Join
+  虽说上面的思路实现了这个查询要求，但是由于使用了Range Join,效率并不好。在对uid建索引的情
+  况下，大约需要3.5s(总共约50000条记录). 有没有更好的方法呢？
+  受BIT_OR的启发，可以通过单表扫描，用bit位来记录每个用户2012-1-1至2012-1-17是否有登录。
+  然后根据这个值来判断是否有连续7天的情况。
+
+  我们需要一个辅助的函数来进行bit的运算：
+  DELIMITER |
+  /* 判断一个Bit序列中，是否存在若干个连续的1 */
+  /* 参数bits: bit序列*/
+  /* 参数trait: 指定的若干连续的1.如b’111111‘ */
+  CREATE FUNCTION bits_find_N1(bits BIGINT, trait BIGINT)
+  RETURNS BOOL
+  BEGIN
+    WHILE bits <> 0 DO
+      IF ((bits & trait) = trait) THEN
+        RETURN TRUE;
+      END IF;
+      SET bits = bits >> 1;
+    END WHILE;
+    RETURN FALSE;
+  END|
+  DELIMITER ;
+
+  SQL 语句为：
+  SELECT uid AS bit FROM tmp_test
+  WHERE login_time BETWEEN ’2012-1-1 00:00:00′ AND ’2012-1-17 23:59:59′
+  GROUP BY uid
+  HAVING bits_find_N1(BIT_OR(1 << datediff(login_time, ’2012-1-1′)),
+                             b’1111111′) IS TRUE;
+
+  这个语句效率还是比较好的，即使不对uid建索引，也只需约0.27s
+
+- 超高效率的语句
+  下面是另一个朋友写的SQL，虽然有点复杂，但是效率超高，只需要约0.17s是这样的
+
+  SET @wy=0;
+  SELECT DISTINCT uid
+  FROM (SELECT MAX(date)-MIN(date) less,uid
+        FROM (SELECT date-rn diff, uid, date, rn
+              FROM (SELECT @wy:=@wy+1 rn, uid,
+                           datediff(login_time,’1971-01-01′) date,login_time
+                    FROM (SELECT date(login_time) login_time, uid FROM tmp_test
+                          WHERE login_time>=’2012-01-01 00:00:00′ AND
+                                login_time <’2012-01-18 00:00:00′
+                          GROUP BY uid, date(login_time)
+                          ORDER BY uid, date(login_time)
+                         )x
+                   )x
+             )x
+         GROUP BY diff,uid
+        )x 
+  WHERE less>=6;
+
+附上测试数据，供大家验证。tmp_test
+由于用的是timestamp类型，导入后时间可能会有变化，导致结果不一样。我们测试的结果有183，185两种。
+另外：用户可以在同一秒内登录多次，即出现多条相同的记录。
+如uid=1, login_time=’2012-1-1 00:00:00′ 会出现多次

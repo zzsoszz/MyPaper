@@ -1,0 +1,206 @@
+oracle 找出最耗资源的sql (dolphin_ygj) 
+=================================
+
+一、要找出最耗资源的sql
+
+ 
+
+我们可以首先使用top等工具，找到最好资源的进程（记住进程号），例如，操作系统进程号为2796，然后根据这个进程号(v$process.spid)在v$process中找到进程地址(v$process.addr)，然后根据这个地址在v$session中找到相应的sid(v$session.sid)，然后根据这个sid找到相应的hash alue（v$session. sql_hash_value），然后根据这个hash alue在v$sqltext，$sql，v$sqlarea等视图中找到对应的sql语句（sql_text）。
+
+　　select * from v$process where spid='2796';
+
+　　select sql_hash_value,machine,username,program from v$session where PAddr='63B7A584';
+
+　　select * from v$sqltext where hashvalue='833203018';
+
+　　select * from v$sql where hashvalue='833203018';
+
+　　select * from v$sqlarea where hashvalue='833203018';
+
+　　SELECT a.username,a.machine,a.program,a.sid,a.serial#,a.status,c.piece,c.sql_text FROM v$session a,v$process b,v$sqltext c WHERE b.spid='2796' AND b.addr=a.paddr AND a.sql_address=c.address(+) ORDER BY c.piece
+
+ ============================================
+
+ select sql_text
+from v$sqltext
+where (hash_value,sql_address) in
+(
+select decode(sql_hash_value,0,prev_hash_value,sql_hash_value),
+          decode(sql_hash_value,0,prev_sql_addr,sql_address)
+from v$session
+where paddr = (select addr from v$process where spid='操作系统进程id')
+)
+
+=================================================
+
+二、oracle 被锁问题集及解决方案
+
+ 
+
+ 1.错误信息:ORA-28000: the account is locked 
+
+原因分析: The user has entered wrong password consequently for maximum number of times specified by the user's profile parameter FAILED_LOGIN_ATTEMPTS, or the DBA has locked the account
+解决办法: Wait for PASSWORD_LOCK_TIME or contact DBA
+              2.视图被锁住的问题 
+
+解决的办法：
+
+1.找出等待事件的原因
+select event,p1,p2,sid from v$session_wait where event not like 'SQL%' and event not like 'rdbms%';
+2.找出锁住的进程
+select object_id,session_id,locked_mode from v$locked_object;
+3.找出锁住的进程的操作系统进程
+select spid from v$process where addr=(select paddr from v$session where sid=144);（这个19表示被锁定的SID）
+4.
+4.在操作系统上删除进程
+orakill eoffice 2768（第一个参数据是数据库的SID  第二个参数是进程ID，这个数字就是上面取到的进程ID，这个是在Dos命令窗口下操作） 
+
+
+下面是一个操作实例
+首先先Drop 相关的锁定的对象如Drop View vw_wf_CritCondition，然后结束PL/SQL Dev 再开一次才能执行下面的操作。
+
+SQL> select event,p1,p2,sid from v$session_wait where event not like 'SQL%' and event not like 'rdbms%';
+
+EVENT                                                                    P1         P2        SID
+---------------------------------------------------------------- ---------- ---------- ----------
+null event                                                       1413697536          1         18
+null event                                                                1      95552         22
+pmon timer                                                              300          0          1
+smon timer                                                              300          0          5
+library cache lock                                                763239564  792075180         23   （这里表示有一个库被锁掉了。）
+wakeup time manager                                                       0          0          8
+
+6 rows selected
+
+SQL> select object_id,session_id,locked_mode from v$locked_object;
+
+ OBJECT_ID SESSION_ID LOCKED_MODE
+---------- ---------- -----------
+        77         22           3
+        69         22           3
+        70         22           3
+       316         22           3
+       314         22           3
+       356         22           3
+        68         22           3
+        72         22           3
+        73         22           3
+        74         22           3
+        75         22           3
+
+11 rows selected
+
+SQL> select spid from v$process where addr=(select paddr from v$session where sid=22);
+
+SPID
+------------
+3348
+
+在Dos操作，而且只能在安装数据的本机操作
+orakill eoffice 3348 
+
+ 
+
+3.查出Oracle 数据库中的锁等待
+
+首先，以 dba 身份（不一定为system）登录入数据库中，创建三个基本表:my_session，my_lock, my_sqltext，并在将会进行查询的列上建立相应的索引。语句如下： rem 从 v$session 视图中取出关心的字段，创建 my_session 表,并在查询要用到的字段上创建索引，以加快查询速度 
+
+drop table my_session;
+create table my_session
+as
+select a.username, a.sid, a.serial#,
+a.lockwait, a.machine,a.status,
+a.last_call_et,a.sql_hash_value,a.program
+from v$session a
+where 1=2 ;
+
+create unique index my_session_u1 on my_session(sid);
+create index my_session_n2 on my_session(lockwait);
+create index my_session_n3 on my_session(sql_hash_value);
+
+---- rem 从 v$lock 视图中取出字段，创建 my_lock 表，并在查询要用到的字段上创建索引，以加快查询速度 
+drop table my_lock;
+create table my_lock
+as
+select id1, kaddr, sid, request,type
+from v$lock
+where 1=2;
+
+create index my_lock_n1 on my_lock(sid);
+create index my_lock_n2 on my_lock(kaddr);
+
+---- rem 从 v$sqltext 视图中取出字段，创建 my_sqltext 表，并在查询要用到的字段上创建索引，以加快查询速度 
+drop table my_sqltext;
+create table my_sqltext
+as
+select hash_value , sql_text
+from v$sqltext
+where 1=2;
+
+create index my_sqltext_n1 on my_sqltext ( hash_value);
+
+---- 然后，创建一个 SQL 脚本文件，以便需要时可从 SQL*Plus 中直接调用。其中，首先用 truncate table 表名命令将表中的记录删除。之所以用 truncate 命令，而不是用delete 命令，是因为delete 命令执行时，将会产生重演记录，速度较慢，而且索引所占的空间并未真正释放，若反复做 insert及delete,则索引所占的空间会不断增长，查询速度也会变慢。而 truncate命令不产生重演记录，速度执行较delete快，而且索引空间被相应地释放出来。删除记录后，再将三个视图中的相关记录插入自己创建的三个表中。最后，对其进行查询，由于有索引，同时由于在插入时条件过滤后，记录数相对来说较少，因而查询速度很快，马上可以看到其结果。 
+---- 此时，若发现该阻塞其它用户进程的进程是正常操作中，则可通知该用户对其进行提交，从而达到释放锁资源的目的；若为未正常操作，即，其状态为"inactive"，且其last_call_et已为较多长时间，则可执行以下语句将该进程进行清除，系统会自动对其进行回滚，从而释放锁住的资源。 
+
+alter system kill session 'sid, serial#'; 
+---- SQL 脚本如下： 
+set echo off
+set feedback off
+prompt '删除旧记录.....'
+truncate table my_session;
+truncate table my_lock;
+truncate table my_sqltext;
+
+prompt '获取数据.....'
+insert into my_session
+select a.username, a.sid, a.serial#,
+a.lockwait, a.machine,a.status,
+a.last_call_et,a.sql_hash_value,a.program
+from v$session a
+where nvl(a.username,'NULL')< >'NULL;
+
+insert into my_lock
+select id1, kaddr, sid, request,type
+from v$lock;
+
+insert into my_sqltext
+select hash_value , sql_text
+from v$sqltext s, my_session m
+where s.hashvalue=m.sql_hash_value;
+
+column username format a10
+column machine format a15
+column last_call_et format 99999 heading "Seconds"
+column sid format 9999
+
+prompt "正在等待别人的用户"
+select a.sid, a.serial#, 
+a.machine,a.last_call_et, a.username, b.id1
+from my_session a, my_lock b
+where a.lockwait = b.kaddr;
+
+prompt "被等待的用户"
+select a.sid, a.serial#, 
+a. machine, a.last_call_et,a.username,
+b. b.type,a.status,b.id1
+from my_session a, my_lock b
+where b.id1 in
+(select distinct e.id1
+from my_session d, my_lock e
+where d.lockwait = e.kaddr)
+and a.sid = b.sid
+and b.request=0;
+
+prompt "查出其 sql "
+select a.username, a.sid, a.serial#,
+b.id1, b.type, c.sql_text
+from my_session a, my_lock b, my_sqltext c
+where b.id1 in
+(select distinct e.id1
+from my_session d, my_lock e
+where d.lockwait = e.kaddr)
+and a.sid = b.sid
+and b.request=0
+and c.hash_value =a.sql_hash_value;
+
+---- 以上思路也可用于其它大型数据库系统如 Informix, Sybase,DB2中。通过使用该脚本，可以极大地提高获取系统中当前锁等待的情况，从而及时解决数据库应用系统中的锁等待问题。而且，由于实际上已取出其 program 名及相应的 sql 语句，故可以在事后将其记录下来，交给其开发人员进行分析并从根本上得到解决

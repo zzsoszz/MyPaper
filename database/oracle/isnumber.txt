@@ -1,0 +1,35 @@
+create or replace function isnumber(p_in varchar2) return boolean as 
+  i number; 
+begin 
+  i := to_number(p_in); 
+  return true; 
+exception 
+  when others then 
+    return false; 
+    if i = 1 then 
+      null; 
+    end if; 
+end isnumber; 
+
+
+
+
+
+
+
+
+CREATE OR REPLACE FUNCTION isNumber(in_str in varchar2) RETURN NUMBER IS
+tmpVar NUMBER;
+i number;
+BEGIN
+   tmpVar := 1;
+   BEGIN
+   SELECT TO_NUMBER(IN_STR) INTO i FROM DUAL;
+   EXCEPTION
+   	   WHEN OTHERS THEN
+	   		tmpVar :=0;
+   END;
+return (tmpVar);
+END isNumber;
+ 
+ 

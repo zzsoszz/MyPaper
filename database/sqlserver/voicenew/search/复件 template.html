@@ -1,0 +1,152 @@
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="${def:context}/style/userstyle.css" />
+<title>${lbl:tit_app_title}</title>
+
+<script language="JavaScript">
+			function   PlayCall(icompoundid,iuserid)
+			{
+							alert(icompoundid);
+						  try{
+						  
+									  var   objShell   =   new   ActiveXObject("wscript.shell");   
+									  objShell.Run("file:///C:/Program%20Files/Nice%20Systems/Nice%20Playback%20Toolkit/Nice.Uniform.PlayBackToolKit.exe PlayCall  /un=nice  /pwd=nicecti /url=scwb-niceic:62070 /com="+icompoundid+":1:"+iuserid); 
+									  objShell   =   null;
+						  }
+						  catch   (e){alert('找不到文件"'+strPath+'"(或它的组件之一)。请确定路径和文件名是否正确，而且所需的库文件均可用。')   
+						    
+						  }
+		  }
+		  /*
+		  function   SaveCall(icompoundid,iuserid)
+		  {
+		  			
+		  			var dir=document.getElementById("dirpath").value;
+		  			alert(dir);
+						 try{
+									  var   objShell   =   new   ActiveXObject("wscript.shell");
+									  
+									  objShell.Run("file:///C:/Program%20Files/Nice%20Systems/Nice%20Playback%20Toolkit/Nice.Uniform.PlayBackToolKit.exe SaveCall  /un=nice  /pwd=nicecti /url=scwb-niceic:62070 /com="+icompoundid+":1:"+iuserid+" /dir="+dirpath); 
+									  objShell   =   null;
+						  }
+						 catch   (e){
+						  	  alert('找不到文件"'+strPath+'"(或它的组件之一)。请确定路径和文件名是否正确，而且所需的库文件均可用。')
+						 }
+		  }
+		  function check_all(obj,cName)
+			{
+					    var checkboxs = document.getElementsByName(cName);
+					    for(var i=0;i<checkboxs.length;i++)
+					    {
+					    		checkboxs[i].checked = obj.checked;
+					    }
+			}
+			*/
+</script>
+
+<style>
+	div,ul,li,span,input
+	{
+			margin :0px;
+			padding :0px;
+	}
+	
+	ul,li,span,input
+	{
+					height:25px;
+	}
+	span
+	{
+			display :block ;
+			float :left ;
+			height:25px;
+			width :45%;
+			text-align :center   ;
+	}
+	ul
+	{
+			display :block ;
+			width :500px;
+			float :both ;
+	}
+	li
+	{
+			float:left;
+			list-style:none;
+			padding-left:0px;
+			padding-right:0px;
+			margin-left:8px;
+			margin-right:0px;
+			margin-bottom:0px;
+			font-size:12px;
+			text-align :justify  ;
+	}
+	li.a
+	{
+			width:5%;
+	}
+	li.b
+	{
+			width:45%;
+	}
+	li.c
+	{
+			width:20%;
+	}
+</style>
+
+</head>
+
+<body
+	/*onmouseover="event_MouseOver();"*/
+	/*onmouseout="event_MouseOut();"*/>
+
+<!--COMMON HEADER-->
+${inc:/action/pub/header}
+
+
+<div id="voicediv">
+
+<ul>    
+				<li>选择保存路径</li>
+        <li><input   type="file" id="dirpath" />
+</ul>
+
+
+<combo-items-voice>
+<ul>
+				<li class="a">
+        		<input  name="c" type="checkbox" id="id" value="${fld:icompoundid})" />
+        </li>
+    
+				<li class="b">
+        		<span>录音编号</span> 
+        		<span>${fld:icompoundid}</span> 
+        </li>
+
+        <li class="c">
+        		<input type="button" onclick="PlayCall(${fld:icompoundid},${fld:iuserid})" value="播放录音" />     
+        </li>        
+        
+        <!--
+        <li class="c">
+        	  <input type="button" onclick="SaveCall(${fld:icompoundid},${fld:iuserid})" value="保存录音" />
+        </li>
+        -->
+
+</ul>
+
+</combo-items-voice>
+<!--
+<ul>    
+				<li>选择全部<input type="checkbox" name="all" onclick="check_all(this,'c')" /></li>
+
+        <li class="c">
+        	  <input type="button" onclick="SaveCall(${fld:icompoundid},${fld:iuserid})" value="保存录音" />
+        </li>
+</ul>
+-->
+<div>
+</body>
+</html>

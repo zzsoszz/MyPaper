@@ -1,0 +1,7 @@
+SELECT   server, s.username, osuser, NAME, VALUE / 1024 / 1024 MB, s.SID, s.serial#, spid
+    FROM v$session s, v$sesstat st, v$statname sn, v$process p
+   WHERE st.SID = s.SID
+     AND st.statistic# = sn.statistic#
+     AND sn.NAME LIKE 'session pga memory'
+     AND p.addr = s.paddr
+   ORDER BY VALUE DESC 

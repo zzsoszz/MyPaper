@@ -1,0 +1,665 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0048)http://www.builder.com.cn/2007/0828/474815.shtml -->
+<HTML lang=zh-CN xml:lang="zh-CN" 
+xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Oracle基本语法集锦 - 开发者在线 - www.builder.com.cn</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content=Oracle,语法 name=Keywords>
+<META content=本文给出了ORACLE的基本语法建立的源代码，供大家参考！ name=Description><LINK 
+href="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/zd_builder.css" 
+type=text/css rel=stylesheet><LINK 
+href="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/story.css" type=text/css 
+rel=stylesheet>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<DIV id=header>
+<DIV class=qu_kondivd>
+<DIV class=headu2>
+<DIV class=nav1st>
+<DIV class=zdnetlogo><A title=至顶网(ZDNet.com.cn)-中国最大的企业级IT资源门户-技术成就商务 
+href="http://www.zdnet.com.cn/">至顶网(ZDNet.com.cn)-中国最大的企业级IT资源门户-技术成就商务</A></DIV>
+<DIV class=a_nav>
+<UL>
+  <LI><A href="http://www.zdnet.com.cn/" target=_self><STRONG>首页</STRONG></A> 
+  </LI>
+  <LI><A href="http://net.zdnet.com.cn/" target=_self><STRONG>网络</STRONG></A> 
+  </LI>
+  <LI><A href="http://security.zdnet.com.cn/" 
+  target=_self><STRONG>安全</STRONG></A> </LI>
+  <LI><A href="http://stor-age.zdnet.com.cn/" 
+  target=_self><STRONG>存储</STRONG></A> </LI>
+  <LI><A href="http://server.zdnet.com.cn/" 
+  target=_self><STRONG>服务器</STRONG></A> </LI>
+  <LI><A href="http://soft.zdnet.com.cn/" target=_self><STRONG>软件</STRONG></A> 
+  </LI>
+  <LI><A href="http://product.zdnet.com.cn/" 
+  target=_self><STRONG>桌面</STRONG></A> </LI>
+  <LI><A href="http://detail.zdnet.com.cn/" 
+  target=_self><STRONG>产品库</STRONG></A> </LI>
+  <LI><A href="http://builder.zdnet.com.cn/" 
+  target=_self><STRONG>开发</STRONG></A> </LI>
+  <LI><A href="http://cio.zdnet.com.cn/" target=_self><STRONG>CIO</STRONG></A> 
+  </LI>
+  <LI><A href="http://itpapers.zdnet.com.cn/" 
+  target=_self><STRONG>白皮书</STRONG></A> </LI>
+  <LI><A href="http://ec.zdnet.com.cn/" target=_self><STRONG>管理软件</STRONG></A> 
+  </LI>
+  <LI><A href="http://news.zdnet.com.cn/" target=_self><STRONG>新闻</STRONG></A> 
+  </LI>
+  <LI><A href="http://download.zdnet.com.cn/" 
+  target=_self><STRONG>下载</STRONG></A> </LI>
+  <LI><A href="http://bbs.zdnet.com.cn/" target=_self><STRONG>社区</STRONG></A> 
+  </LI>
+  <LI><A href="http://space.zdnet.com.cn/html/expert.html" 
+  target=_self><STRONG>专家博客</STRONG></A> </LI>
+  <LI class=nobod><A href="http://video.zdnet.com.cn/" 
+  target=_self><STRONG>视频</STRONG></A> </LI></UL></DIV>
+<DIV class=website><A href="http://www.cnetnews.com.cn/" 
+target=_blank>CNETNews</A>&nbsp;<A href="http://www.esmb.com.cn/" 
+target=_blank>中小企业</A>&nbsp;<A class=red 
+href="http://www.zdnet.com.cn/industryunion/industry_union.htm" 
+target=_blank>网站联盟</A> </DIV></DIV></DIV></DIV>
+<DIV class=header_c>
+<DIV class=width>
+<DIV class=zdnet_logo><A title="开发者在线 Builder.COM.CN" 
+href="http://www.builder.com.cn/" target=_blank>开发者在线 
+http://www.builder.com.cn/</A></DIV>
+<DIV class=head_ad><A style="COLOR: #f00" 
+href="http://bbs.zdnet.com.cn/index.php?gid=49" target=_blank>开发者社区</A> <!--<a target="_blank" href="http://www.zdnet.com.cn" title="ZDNet China 置顶网是中国最大的企业级IT资源门户">ZDNet China </a>：<a target="_blank" href="http://soft.zdnet.com.cn">软件</a>&nbsp;|&nbsp;<a target="_blank" href="http://www.zdnet.com.cn/products">产品</a>&nbsp;|&nbsp;<a target="_blank" href="http://www.cnetnews.com.cn">资讯</a>&nbsp;|&nbsp;<a target="_blank" href="http://download.zdnet.com.cn/">下载</a>&nbsp;|&nbsp;<a target="_blank" href="http://www.51ec.com.cn/">咨询</a>&nbsp;|&nbsp;<a target="_blank" href="http://www.zdnet.com.cn/smb">中小型企业</a>--></DIV></DIV></DIV>
+<DIV class=build_navbox>
+<UL class=build_nav>
+  <LI class=current>
+  <H2><A href="http://www.builder.com.cn/index.shtml">首页</A></H2></LI>
+  <LI>
+  <H2><A href="http://www.builder.com.cn/code.shtml">C/S开发</A></H2></LI>
+  <LI>
+  <H2><A href="http://www.builder.com.cn/database.shtml">数据库</A></H2></LI>
+  <LI>
+  <H2><A href="http://soft.zdnet.com.cn/software_zone/mw.shtml" 
+  target=_blank>中间件</A></H2></LI>
+  <LI>
+  <H2><A href="http://www.builder.com.cn/webdevelop.shtml">Web</A></H2></LI>
+  <LI>
+  <H2><A href="http://www.builder.com.cn/epc.shtml">嵌入式</A></H2></LI>
+  <LI>
+  <H2><A href="http://www.builder.com.cn/study.shtml">项目管理</A></H2></LI>
+  <LI>
+  <H2><A href="http://www.builder.com.cn/design.shtml">网页设计</A></H2></LI>
+  <LI>
+  <H2><A href="http://bbs.zdnet.com.cn/bbsbuilder.shtml">社区</A></H2></LI></UL>
+<FORM class=build_seah id=form1 name=form1 action=/files/search.php 
+method=get><INPUT id=collection type=hidden value=developer name=collection> 
+<INPUT onfocus="this.value=''" value=请输入关键字 name=query><BUTTON title=搜索 
+type=submit>搜索</BUTTON> </FORM>
+<UL class="build_secnav ">
+  <LI><A href="http://soft.zdnet.com.cn/software_zone/2008/0723/1007111.shtml" 
+  target=_blank>《博客三人行》</A> </LI>
+  <LI><A href="http://soft.zdnet.com.cn/software_zone/2008/0912/1122596.shtml" 
+  target=_blank>《软话连篇》</A> </LI>
+  <LI><A href="http://soft.zdnet.com.cn/software_zone/2008/1013/1169189.shtml" 
+  target=_blank>《边看边读》</A> </LI>
+  <LI><A href="http://soft.zdnet.com.cn/software_zone/2008/0919/1137187.shtml" 
+  target=_blank>《至顶大课堂》</A> <!--li><a href="http://www.builder.com.cn/java.shtml" target=_blank>Java</a></li>
+			<li><a href="http://www.builder.com.cn/oracle.shtml" target=_blank>Oracle</a></li>
+			<li><a href="http://www.builder.com.cn/mysql.shtml" target=_blank>Mysql</a></li>
+			<li><a href="http://www.builder.com.cn/dotnet.shtml" target=_blank>.Net</a></li>
+			<li><a href="http://www.builder.com.cn/vb.shtml" target=_blank>VB.NET</a></li>	
+					<li><a href="http://www.builder.com.cn/unix.shtml" target=_blank>UNIX</a></li>
+			<li><a href="http://www.builder.com.cn/linux.shtml" target=_blank>Linux</a></li>
+			<li><a href="http://www.builder.com.cn/php.shtml" target=_blank>PHP</a></li>
+			<li><a href="http://www.builder.com.cn/perl.shtml" target=_blank>Perl</a></li>			
+			<li><a href="http://www.builder.com.cn/asp.shtml" target=_blank>ASP.NET</a></li>
+			<li><a href="http://www.builder.com.cn/apache.shtml" target=_blank>Apache</a></li>
+			<li><a href="http://www.builder.com.cn/ajax.shtml" target=_blank>AJAX</a></li>
+			<li><a href="http://www.builder.com.cn/files/list-0-0-50566-1-1.htm" target=_blank>Silverlight</a></li>
+			<li><a href="http://www.builder.com.cn/files/list-0-0-149318-1-1.htm" target=_blank>云计算</a></li>
+			<li><a href="http://www.builder.com.cn/files/list-0-0-71945-1-1.htm" target=_blank>SDK</a></li>
+			<li><a href="http://www.builder.com.cn/files/list-0-0-54257-1-1.htm" target=_blank>Mysql</a></li>
+			<li><a href="http://www.builder.com.cn/files/list-0-0-49141-1-1.htm" target=_blank>JAVA</a></li--></LI></UL></DIV></DIV><!--/header-->
+<DIV class="area fst_bg">
+<DIV class=width>
+<DIV class=top_ad>
+<DIV class=ad_con><IMG class=img_mag 
+src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/ad_grey.gif"><BR><!--/* OpenX Javascript Tag v2.4.7 */--><!--/*
+  * lb Builder story01.
+  */-->
+<SCRIPT type=text/javascript><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://am.zdnet.com.cn/www/delivery/ajs.php':'http://am.zdnet.com.cn/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=263&amp;block=1&amp;blockcampaign=1");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></SCRIPT>
+<NOSCRIPT><A 
+href="http://am.zdnet.com.cn/www/delivery/ck.php?n=a18b00a9&amp;cb=INSERT_RANDOM_NUMBER_HERE" 
+target=_blank><IMG alt="" 
+src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/avw.gif" 
+border=0></A></NOSCRIPT> </DIV>
+<DIV class="ad_con adri"><IMG class=img_mag 
+src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/ad_grey.gif"><BR><!--/* OpenX Javascript Tag v2.4.7 */--><!--/*
+  * lb Builder story button01.
+  */-->
+<SCRIPT type=text/javascript><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://am.zdnet.com.cn/www/delivery/ajs.php':'http://am.zdnet.com.cn/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=272&amp;block=1&amp;blockcampaign=1");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></SCRIPT>
+<NOSCRIPT><A 
+href="http://am.zdnet.com.cn/www/delivery/ck.php?n=a3855a5b&amp;cb=INSERT_RANDOM_NUMBER_HERE" 
+target=_blank><IMG alt="" 
+src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/blog_216x90.gif" 
+border=0></A></NOSCRIPT> </DIV></DIV>
+<DIV class=zd_left>
+<DIV class=site>站点导航：<A href="http://www.builder.com.cn/">开发者在线 
+Builder.com.cn</A><IMG height=8 
+src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/site_tag.gif" width=18><A 
+href="http://www.builder.com.cn/database.shtml" target=_blank>数据库</A><IMG 
+height=8 src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/site_tag.gif" 
+width=18><B><A 
+href="http://www.builder.com.cn/2007/0828/474815.shtml">Oracle基本语法集锦</A></B></DIV>
+<DIV class=zd_row>
+<DIV class=headbar>
+<H1 class=headtit>Oracle基本语法集锦</H1>
+<H3 class=headaur><A href="http://www.builder.com.cn/" target=_blank>开发者在线 
+Builder.com.cn</A> 更新时间:<CITE>2007-08-28</CITE>作者：<SPAN>佚名</SPAN> 来源:Csdn</H3>
+<H2 class=headkeyw>本文关键词： <A 
+href="http://www.builder.com.cn/files/list-0-0-64597-1-1.htm" 
+target=_blank>Oracle</A> <A 
+href="http://www.builder.com.cn/files/list-0-0-68312-1-1.htm" 
+target=_blank>语法</A> </H2></DIV>
+<DIV class=artl_con>
+<P><STRONG>1、表</STRONG></P>
+<P>
+<TABLE cellSpacing=0 borderColorDark=#ffffff cellPadding=2 width=400 
+align=center borderColorLight=black border=1>
+  <TBODY>
+  <TR>
+    <TD class=code bgColor=#e6e6e6><PRE>create table test (names varchar2(12),<BR><BR>dates date,<BR><BR>num&nbsp;&nbsp; int,<BR><BR>dou&nbsp;&nbsp; double);</PRE></TD></TR></TBODY></TABLE></P>
+<P><STRONG>2、视图</STRONG></P>
+<P>
+<TABLE cellSpacing=0 borderColorDark=#ffffff cellPadding=2 width=400 
+align=center borderColorLight=black border=1>
+  <TBODY>
+  <TR>
+    <TD class=code bgColor=#e6e6e6><PRE>create or replace view vi_test as<BR><BR>select * from test;</PRE></TD></TR></TBODY></TABLE></P>
+<P><STRONG>3、同义词</STRONG></P>
+<P>
+<TABLE cellSpacing=0 borderColorDark=#ffffff cellPadding=2 width=400 
+align=center borderColorLight=black border=1>
+  <TBODY>
+  <TR>
+    <TD class=code bgColor=#e6e6e6><PRE>create or replace synonym aa<BR><BR>for dbusrcard001.aa;</PRE></TD></TR></TBODY></TABLE></P>
+<P><STRONG>4、存储过程</STRONG></P>
+<P>
+<TABLE cellSpacing=0 borderColorDark=#ffffff cellPadding=2 width=400 
+align=center borderColorLight=black border=1>
+  <TBODY>
+  <TR>
+    <TD class=code bgColor=#e6e6e6><PRE>create or replace produce dd(v_id in employee.empoy_id%type)<BR><BR>as<BR><BR>begin<BR><BR><BR><BR>end<BR><BR>dd;</PRE></TD></TR></TBODY></TABLE></P>
+<P><STRONG>5、函数</STRONG></P>
+<P>
+<TABLE cellSpacing=0 borderColorDark=#ffffff cellPadding=2 width=400 
+align=center borderColorLight=black border=1>
+  <TBODY>
+  <TR>
+    <TD class=code bgColor=#e6e6e6><PRE>create or replace function ee(v_id in employee%rowtype) return varchar(15)<BR><BR>is<BR><BR>var_test varchar2(15);<BR><BR>begin<BR><BR>return var_test;<BR><BR>exception when others then<BR><BR><BR><BR>end</PRE></TD></TR></TBODY></TABLE></P>
+<P><STRONG>6、三种触发器的定义</STRONG></P>
+<P>
+<TABLE cellSpacing=0 borderColorDark=#ffffff cellPadding=2 width=400 
+align=center borderColorLight=black border=1>
+  <TBODY>
+  <TR>
+    <TD class=code bgColor=#e6e6e6><PRE>create or replace trigger ff<BR><BR>alter delete<BR><BR>on test<BR><BR>for each row<BR><BR>declare<BR><BR>begin<BR><BR>delete from test;<BR><BR>if sql%rowcount &lt; 0 or sql%rowcount is null then<BR><BR>rais_replaction_err(-20004,"错误")<BR><BR>end if<BR><BR>end<P>create or replace trigger gg<BR><BR>alter insert<BR><BR>on test<BR><BR>for each row<BR><BR>declare<BR><BR>begin<BR><BR>if :old.names = :new.names then<BR><BR>raise_replaction_err(-2003,"编码重复");<BR><BR>end if<BR><BR>end</P><P>create or replace trigger hh<BR><BR>for update<BR><BR>on test<BR><BR>for each row<BR><BR>declare<BR><BR>begin<BR><BR>if updating then<BR><BR>if :old.names &lt;&gt; :new.names then<BR><BR>reaise_replaction_err(-2002,"关键字不能修改")<BR><BR>end if<BR><BR>end if<BR><BR>end</P></PRE></TD></TR></TBODY></TABLE></P>
+<P><STRONG>7、定义游标</STRONG></P>
+<P>
+<TABLE cellSpacing=0 borderColorDark=#ffffff cellPadding=2 width=400 
+align=center borderColorLight=black border=1>
+  <TBODY>
+  <TR>
+    <TD class=code bgColor=#e6e6e6><PRE>declare<BR><BR>cursor aa is<BR><BR>select names,num from test;<BR><BR>begin<BR><BR>for bb in aa<BR><BR>loop<BR><BR>if bb.names = "ORACLE" then<BR><BR><BR><BR>end if<BR><BR>end loop;<BR><BR><BR><BR>end</PRE></TD></TR></TBODY></TABLE></P>
+<P><STRONG>8、速度优化，前一语句不后一语句的速度快几十倍</STRONG></P>
+<P>
+<TABLE cellSpacing=0 borderColorDark=#ffffff cellPadding=2 width=400 
+align=center borderColorLight=black border=1>
+  <TBODY>
+  <TR>
+    <TD class=code bgColor=#e6e6e6><PRE>select names,dates <BR><BR>from test,b<BR><BR>where test.names = b.names(+) and<BR><BR>b.names is null and<BR><BR>b.dates &gt; date('2003-01-01','yyyy-mm-dd')<BR><BR><BR><BR>select names,dates<BR><BR>from test <BR><BR>where names not in ( select names <BR><BR>from b<BR><BR>where dates &gt; to_date('2003-01-01','yyyy-mm-dd'))</PRE></TD></TR></TBODY></TABLE></P>
+<P><STRONG>9、查找重复记录</STRONG></P>
+<P>
+<TABLE cellSpacing=0 borderColorDark=#ffffff cellPadding=2 width=400 
+align=center borderColorLight=black border=1>
+  <TBODY>
+  <TR>
+    <TD class=code bgColor=#e6e6e6><PRE>select names,num <BR><BR>from test <BR><BR>where rowid != (select max(rowid) <BR><BR>from test b <BR><BR>where b.names = test.names and<BR><BR>b.num = test.num)</PRE></TD></TR></TBODY></TABLE></P>
+<P><STRONG>10、查找表TEST中时间最新的前10条记录</STRONG></P>
+<P>
+<TABLE cellSpacing=0 borderColorDark=#ffffff cellPadding=2 width=400 
+align=center borderColorLight=black border=1>
+  <TBODY>
+  <TR>
+    <TD class=code bgColor=#e6e6e6><PRE>select * from (select * from test order by dates desc) where rownum &lt; 11</PRE></TD></TR></TBODY></TABLE></P>
+<P><STRONG>11、序列号的产生</STRONG></P>
+<P>
+<TABLE cellSpacing=0 borderColorDark=#ffffff cellPadding=2 width=400 
+align=center borderColorLight=black border=1>
+  <TBODY>
+  <TR>
+    <TD class=code bgColor=#e6e6e6><PRE>create sequence row_id<BR><BR>minvalue 1<BR><BR>maxvalue 9999999999999999999999<BR><BR>start with 1<BR><BR>increment by 1<P>insert into test values(row_id.nextval,....)</P></PRE></TD></TR></TBODY></TABLE></P>
+<P><A href="http://database.51cto.com/art/200707/50828.htm">查看本文来源</A></P>
+<DIV class=pages></DIV></DIV>
+<DIV class=fix></DIV></DIV><!--/story-->
+<DIV class=zd_row>
+<H2 class=tody_ttt>推荐阅读与 <A 
+href="http://www.builder.com.cn/files/list-0-0-64597-1-1.htm" 
+target=_blank>Oracle</A> <A 
+href="http://www.builder.com.cn/files/list-0-0-68312-1-1.htm" 
+target=_blank>语法</A> 相关开发者在线内容</H2>
+<DIV class=observ_box>
+<DIV class=observ>
+<DIV class=observ_sub>
+<H3 class=obs_tt>Oracle 语法相关资讯</H3></DIV>
+<UL class="h_line arti_f">
+  <LI><A title="Oracle推出开发工具 支持.NET 3.5与VS2008" 
+  href="http://www.builder.com.cn/2008/0227/743465.shtml" 
+  target=_blank>Oracle推出开发工具 支持.NET 3.5与VS</A>
+  <LI><A title="Oracle推出支援.NET 3.5与Visual Studio 2008的开发工具" 
+  href="http://www.builder.com.cn/2008/0225/742282.shtml" 
+  target=_blank>Oracle推出支援.NET 3.5与Visual Stud</A>
+  <LI><A title=Oracle更新修复多个安全漏洞 
+  href="http://www.builder.com.cn/2008/0202/727926.shtml" 
+  target=_blank>Oracle更新修复多个安全漏洞</A>
+  <LI><A title=如何使用NBU热备份Oracle系统 
+  href="http://www.builder.com.cn/2008/0202/727824.shtml" 
+  target=_blank>如何使用NBU热备份Oracle系统</A>
+  <LI><A title="Secure Path公司利用Oracle融合中间件创建全球数字媒体注册系统" 
+  href="http://www.builder.com.cn/2008/0201/726236.shtml" target=_blank>Secure 
+  Path公司利用Oracle融合中间件</A>
+  <LI><A title="Oracle逼宫 IBM将并购SAP退出硬件市场" 
+  href="http://www.builder.com.cn/2008/0124/717688.shtml" target=_blank>Oracle逼宫 
+  IBM将并购SAP退出硬件市场</A>
+  <LI><A title=SaaS公司NetSuite成功上市Oracle间接获益 
+  href="http://www.builder.com.cn/2008/0117/710780.shtml" 
+  target=_blank>SaaS公司NetSuite成功上市Oracle间接获</A>
+  <LI><A title=SAP宣布联手VMware全力对抗Oracle 
+  href="http://www.builder.com.cn/2007/1226/691271.shtml" 
+  target=_blank>SAP宣布联手VMware全力对抗Oracle</A>
+  <LI><A title="甲骨文发布官方Wiki Oracle技术网成员达600万" 
+  href="http://www.builder.com.cn/2007/1114/631929.shtml" 
+  target=_blank>甲骨文发布官方Wiki Oracle技术网成员</A></LI></UL></DIV></DIV>
+<DIV class="observ_box no_bor">
+<DIV class="observ_box no_bor">
+<DIV class=observ_sub>
+<H3 class=obs_tt>Oracle 语法相关技术文章</H3></DIV>
+<UL class="h_line arti_f">
+  <LI><A title=Linux系统下重定向命令应用及其语法 
+  href="http://www.builder.com.cn/2008/0317/771003.shtml" 
+  target=_blank>Linux系统下重定向命令应用及其语法</A>
+  <LI><A title="Oracle 11g五大特性" 
+  href="http://www.builder.com.cn/2008/0202/728059.shtml" target=_blank>Oracle 
+  11g五大特性</A>
+  <LI><A title=Oracle特殊包和DBMS_Job包使用方法 
+  href="http://www.builder.com.cn/2008/0202/727997.shtml" 
+  target=_blank>Oracle特殊包和DBMS_Job包使用方法</A>
+  <LI><A title=怎样杀死Oracle死锁进程 
+  href="http://www.builder.com.cn/2008/0202/727984.shtml" 
+  target=_blank>怎样杀死Oracle死锁进程</A>
+  <LI><A title=修改Oracle数据库进程数及会话数 
+  href="http://www.builder.com.cn/2008/0202/727976.shtml" 
+  target=_blank>修改Oracle数据库进程数及会话数</A>
+  <LI><A title=Oracle并行处理技术原理 
+  href="http://www.builder.com.cn/2008/0202/727953.shtml" 
+  target=_blank>Oracle并行处理技术原理</A>
+  <LI><A title=如何优化Oracle数据库保持优良性能 
+  href="http://www.builder.com.cn/2008/0202/727802.shtml" 
+  target=_blank>如何优化Oracle数据库保持优良性能</A>
+  <LI><A title=如何导出Oracle某用户所有表 
+  href="http://www.builder.com.cn/2008/0202/727780.shtml" 
+  target=_blank>如何导出Oracle某用户所有表</A>
+  <LI><A title=在Oracle中使用自治事务保存日志表条目 
+  href="http://www.builder.com.cn/2008/0202/727183.shtml" 
+  target=_blank>在Oracle中使用自治事务保存日志表条目</A></LI></UL></DIV></DIV>
+<DIV class=fix></DIV></DIV><!--/about keyword--><!--评论回复-->
+<DIV class=commentsbox>
+<H3 class=letit2>用户评论</H3>
+<DIV id=requip-box>
+<UL class=com_tag id=requip-tabs>
+  <LI class=on id=requip-tab0 onmouseover="switchTabs(0, this.parentNode);"><A 
+  href="javascript:void(0)">评论列表</A> </LI>
+  <LI id=requip-tab1 onmouseover="switchTabs(1, this.parentNode);"><A 
+  href="javascript:void(0)">发表评论</A> </LI></UL>
+<DIV class=coms>
+<DIV class=pinglun id=requip-box-content0>
+<UL>
+  <LI class=leftwid1><STRONG>用户名</STRONG> </LI>
+  <LI><STRONG>评论内容</STRONG> </LI></UL><SPAN id=comment_list></SPAN></DIV>
+<SCRIPT 
+src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/validate.js"></SCRIPT>
+
+<SCRIPT 
+src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/mootools.js"></SCRIPT>
+
+<SCRIPT 
+src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/commentsnew.js"></SCRIPT>
+
+<DIV class=comments_con id=requip-box-content1 style="DISPLAY: none">
+<FORM id=commentForm name=form_score 
+action=/techzone/test_story_comment_submit.php method=post>
+<DIV class=fo_comm>用户名：<INPUT 
+name=name>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;邮件地址：<INPUT name=email 
+errmsg="请输入正确的电子邮件地址" validator="EmptyEmail"> </DIV>
+<DIV class=fo_comm><TEXTAREA name=comment errmsg="请输入正文" validator="NotEmptyToo"></TEXTAREA> 
+</DIV>
+<DIV class=fo_comm><INPUT name=validateCode errmsg="请输入验证码" 
+validator="NotEmptyToo"><SPAN id=validateCodeImg><IMG 
+src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/validateCode.png"></SPAN></DIV>
+<DIV class=fo_inp><INPUT id=submitButton style="WIDTH: 80px" type=submit value=发表留言 name=""> 
+<SPAN id=onStatChange></SPAN></DIV><INPUT type=hidden value=474815 
+name=document_id> <INPUT type=hidden value=1 name=cflag> 
+</FORM></DIV></DIV></DIV></DIV><!--/from-->
+<DIV class="zd_row bu_bg">
+<H2 class="tody_tt black"><SPAN>BBS讨论</SPAN></H2>
+<UL class="h_line hot it_pa">
+  <LI><A title=俺是初学AJAX,,提问!! 
+  href="http://bbs.zdnet.com.cn/thread-243252-1-1.html" 
+  target=_blank>俺是初学AJAX,,提问!!</A> 
+  <LI><A title=ajax树，节点加载问题？ 
+  href="http://bbs.zdnet.com.cn/thread-243251-1-1.html" 
+  target=_blank>ajax树，节点加载问题？</A> 
+  <LI><A title=请教! href="http://bbs.zdnet.com.cn/thread-243250-1-1.html" 
+  target=_blank>请教!</A> 
+  <LI><A title=在线等， href="http://bbs.zdnet.com.cn/thread-243249-1-1.html" 
+  target=_blank>在线等，</A> 
+  <LI><A title=ajax树，加载的子结点显示问题？？？？？？？ 
+  href="http://bbs.zdnet.com.cn/thread-243248-1-1.html" 
+  target=_blank>ajax树，加载的子结点显示问题？？</A> </LI></UL>
+<UL class="h_line hot it_pa">
+  <LI><A title="有关dojo TabContainer显示中文乱码的问题，会的直接拿分。" 
+  href="http://bbs.zdnet.com.cn/thread-243247-1-1.html" target=_blank>有关dojo 
+  TabContainer显示中文乱码</A> 
+  <LI><A title=Ajax技术深入学习 href="http://bbs.zdnet.com.cn/thread-243245-1-1.html" 
+  target=_blank>Ajax技术深入学习</A> 
+  <LI><A title=初学问题，请指教！ href="http://bbs.zdnet.com.cn/thread-243242-1-1.html" 
+  target=_blank>初学问题，请指教！</A> 
+  <LI><A title=让Ajax更加闪光-高手搞明白的问题:DWR实例展现--DWR让ajax变得如此简单 
+  href="http://bbs.zdnet.com.cn/thread-243241-1-1.html" 
+  target=_blank>让Ajax更加闪光-高手搞明白的问题:</A> 
+  <LI><A title=新手请教一个关于xmlHttp.status的问题 
+  href="http://bbs.zdnet.com.cn/thread-243240-1-1.html" 
+  target=_blank>新手请教一个关于xmlHttp.status的</A> 
+  <P class=more_at><A href="http://bbs.zdnet.com.cn/forum-49-1.html" 
+  target=_blank>更多最新文章?</A></P></LI></UL>
+<DIV class=fix></DIV></DIV>
+<DIV class="zd_row bu_bg">
+<H2 class="tody_tt black"><SPAN>热门栏目推荐</SPAN></H2>
+<UL class="rss_d h_name">
+  <LI><A href="http://www.builder.com.cn/code.shtml" target=_blank>C/S开发</A> 
+  </LI>
+  <LI><A href="http://www.builder.com.cn/database.shtml" target=_blank>数据库开发</A> 
+  </LI>
+  <LI><A href="http://www.builder.com.cn/webdevelop.shtml" 
+  target=_blank>WEB开发</A> </LI>
+  <LI><A href="http://www.builder.com.cn/epc.shtml" target=_blank>移动嵌入式</A> 
+</LI>
+  <LI><A href="http://www.builder.com.cn/study.shtml" target=_blank>项目管理</A> 
+  </LI>
+  <LI><A href="http://www.builder.com.cn/design.shtml" target=_blank>网页设计</A> 
+  </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-2-0-0-1.htm" 
+  target=_blank>新品快看</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-5-0-0-1.htm" 
+  target=_blank>技术英雄</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-6-0-0-1.htm" 
+  target=_blank>技术看板</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-8-0-0-1.htm" 
+  target=_blank>图片故事</A> </LI></UL>
+<DIV class=fix></DIV></DIV><!--/zd_row-->
+<DIV class="zd_row bu_bg">
+<H2 class="tody_tt black"><SPAN>热门软件技术推荐</SPAN></H2>
+<UL class="rss_d h_name">
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-49005-1-1.htm" 
+  target=_blank>XML</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-53991-1-1.htm" 
+  target=_blank>C/C++</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-49251-1-1.htm" 
+  target=_blank>C#</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-49141-1-1.htm" 
+  target=_blank>Java</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-50259-1-1.htm" 
+  target=_blank>Oracle</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-54257-1-1.htm" 
+  target=_blank>Mysql</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-50253-1-1.htm" 
+  target=_blank>.Net</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-49219-1-1.htm" 
+  target=_blank>VB.NET</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-53931-1-1.htm" 
+  target=_blank>CSS</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-50363-1-1.htm" 
+  target=_blank>SQL</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-50363-1-1.htm" 
+  target=_blank>database</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-50369-1-1.htm" 
+  target=_blank>UNIX</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-49085-1-1.htm" 
+  target=_blank>Linux</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-53918-1-1.htm" 
+  target=_blank>Jsp</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-49245-1-1.htm" 
+  target=_blank>PHP</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-54259-1-1.htm" 
+  target=_blank>Perl</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-53006-1-1.htm" 
+  target=_blank>JavaScript</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-54266-1-1.htm" 
+  target=_blank>ColdFusion</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-49445-1-1.htm" 
+  target=_blank>ASP/ASP.NET</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-53859-1-1.htm" 
+  target=_blank>Apache</A> </LI>
+  <LI><A href="http://www.builder.com.cn/files/list-0-0-53805-1-1.htm" 
+  target=_blank>AJAX</A> </LI></UL>
+<DIV class=fix></DIV></DIV><!--/zd_row--></DIV><!--/zd_left-->
+<DIV class=zd_right>
+<DIV class="zd_ad r_ad"><IMG class=img_mag 
+src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/ad_grey.gif"><BR><!--/* OpenX Javascript Tag v2.4.7 */--><!--/*
+  * mpu Builder story01.
+  */-->
+<SCRIPT type=text/javascript><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://am.zdnet.com.cn/www/delivery/ajs.php':'http://am.zdnet.com.cn/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=275&amp;block=1&amp;blockcampaign=1");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></SCRIPT>
+<NOSCRIPT><A 
+href="http://am.zdnet.com.cn/www/delivery/ck.php?n=a214b349&amp;cb=INSERT_RANDOM_NUMBER_HERE" 
+target=_blank><IMG alt="" 
+src="D:\Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files\avw(1).gif" 
+border=0></A></NOSCRIPT> </DIV>
+<SCRIPT>var tixa_bad_mm_flag=true;</SCRIPT>
+
+<SCRIPT>var tixa_bad_mm_pos=1;</SCRIPT>
+
+<SCRIPT>var tixa_bad_mm_style='style_1-1';</SCRIPT>
+
+<SCRIPT>var tixa_bad_mm_info=1;</SCRIPT>
+
+<SCRIPT 
+src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/bhvad.htm"></SCRIPT>
+
+<DIV class=billbod>
+<DIV class=bill_con>
+<H2 class=tody_tt><SPAN>开发者在线 <A 
+href="http://www.builder.com.cn/files/list-0-0-64597-1-1.htm" 
+target=_blank>Oracle</A> 最新报道</SPAN></H2>
+<UL class="h_line hot">
+  <LI><A href="http://www.builder.com.cn/2008/0227/743465.shtml" 
+  target=_blank>Oracle推出开发工具 支持.NET 3.5与VS2008</A>
+  <LI><A href="http://www.builder.com.cn/2008/0225/742282.shtml" 
+  target=_blank>Oracle推出支援.NET 3.5与Visual Studio 2008的开发工具</A>
+  <LI><A href="http://www.builder.com.cn/2008/0219/739400.shtml" 
+  target=_blank>ORACLE RAC网格计算技术构筑未来数据库</A>
+  <LI><A href="http://www.builder.com.cn/2008/0217/737935.shtml" 
+  target=_blank>Oracle的初学者入门心得</A>
+  <LI><A href="http://www.builder.com.cn/2008/0214/735586.shtml" 
+  target=_blank>Sun CEO称收购MySQL无碍与Oracle合作</A>
+  <LI><A href="http://www.builder.com.cn/2008/0202/728059.shtml" 
+  target=_blank>Oracle 11g五大特性</A>
+  <LI><A href="http://www.builder.com.cn/2008/0202/727997.shtml" 
+  target=_blank>Oracle特殊包和DBMS_Job包使用方法</A>
+  <LI><A href="http://www.builder.com.cn/2008/0202/727984.shtml" 
+  target=_blank>怎样杀死Oracle死锁进程</A>
+  <LI><A href="http://www.builder.com.cn/2008/0202/727976.shtml" 
+  target=_blank>修改Oracle数据库进程数及会话数</A>
+  <LI><A href="http://www.builder.com.cn/2008/0202/727953.shtml" 
+  target=_blank>Oracle并行处理技术原理</A></LI></UL></DIV></DIV>
+<DIV class=billbod>
+<DIV class=bill_con>
+<H2 class=tody_tt><SPAN>开发者在线 <A 
+href="http://www.builder.com.cn/files/list-0-0-68312-1-1.htm" 
+target=_blank>语法</A> 最新报道</SPAN></H2>
+<UL class="h_line hot">
+  <LI><A href="http://www.builder.com.cn/2008/0317/771003.shtml" 
+  target=_blank>Linux系统下重定向命令应用及其语法</A>
+  <LI><A href="http://www.builder.com.cn/2007/1117/639074.shtml" 
+  target=_blank>DB2数据库SQL语法参考手册</A>
+  <LI><A href="http://www.builder.com.cn/2007/1117/639073.shtml" 
+  target=_blank>DB2 SQL存储过程语法官方权威指南</A>
+  <LI><A href="http://www.builder.com.cn/2007/1111/624359.shtml" 
+  target=_blank>C＃程序设计入门经典之C＃的基本语法</A>
+  <LI><A href="http://www.builder.com.cn/2007/1111/624320.shtml" 
+  target=_blank>Visual C#2005快速入门之基础语法</A>
+  <LI><A href="http://www.builder.com.cn/2007/1109/619720.shtml" 
+  target=_blank>Visual Basic.Net基础概念和语法</A>
+  <LI><A href="http://www.builder.com.cn/2007/1106/612527.shtml" 
+  target=_blank>用ASP.NET语法创建Web服务器控件模板</A>
+  <LI><A href="http://www.builder.com.cn/2007/1106/612165.shtml" 
+  target=_blank>ASP.NET 2.0 Web窗体语法指导(2)</A>
+  <LI><A href="http://www.builder.com.cn/2007/1030/591054.shtml" 
+  target=_blank>C++语法之函数重载</A>
+  <LI><A href="http://www.builder.com.cn/2007/1028/585779.shtml" 
+  target=_blank>水滴石穿C语言之声明的语法</A></LI></UL></DIV></DIV><!--<div class="billbod"><div class="bill_con"><h2 class="tody_tt"><span><a href="http://soft.zdnet.com.cn" target="_blank">软件频道</a>  相关软件内容</span></h2><ul class="h_line hot"><li><a href="http://soft.zdnet.com.cn/software_zone/2007/0829/476779.shtml" target="_blank">DB2 SELECT语句高级用法</a></li><li><a href="http://soft.zdnet.com.cn/software_zone/2007/0827/473348.shtml" target="_blank">教你编写高质量、高性能的MySQL语法</a></li><li><a href="http://soft.zdnet.com.cn/software_zone/2007/0823/464738.shtml" target="_blank">IBM Informix 11要与Oracle 11g竞逐</a></li><li><a href="http://soft.zdnet.com.cn/software_zone/2007/0820/461442.shtml" target="_blank">ORACLE数据库备份技术</a></li><li><a href="http://soft.zdnet.com.cn/software_zone/2007/0820/461430.shtml" target="_blank">如何保持Oracle数据库的优良性能</a></li><li><a href="http://soft.zdnet.com.cn/software_zone/2007/0820/461428.shtml" target="_blank">在一台机器配置两个listener(Oracle)</a></li><li><a href="http://soft.zdnet.com.cn/software_zone/2007/0820/461425.shtml" target="_blank">在UNIX服务器上设置Oracle8i全文检索(2)</a></li><li><a href="http://soft.zdnet.com.cn/software_zone/2007/0820/461419.shtml" target="_blank">ORACLE学习笔记--性能优化(6)</a></li><li><a href="http://soft.zdnet.com.cn/software_zone/2007/0820/461417.shtml" target="_blank">ORACLE学习笔记--性能优化(5)</a></li><li><a href="http://soft.zdnet.com.cn/software_zone/2007/0820/461416.shtml" target="_blank">ORACLE学习笔记--性能优化(4)</a></li></ul></div></div>--><!--/billbod-->
+<DIV class=DIVemty></DIV></DIV><!--/zd_right-->
+<DIV class=fix></DIV></DIV><!--/width--></DIV><!--/area fst_bg-->
+<DIV style="MARGIN: 0px auto; WIDTH: 980px; TEXT-ALIGN: center">
+<SCRIPT type=text/javascript> 
+cpro_client='dengshoudong_cpr';
+cpro_at='text_image'; 
+cpro_161=4; 
+cpro_flush=4; 
+cpro_w=728; 
+cpro_h=90; 
+cpro_template='text_default_728_90'; 
+cpro_cbd='#FFFFFF'; 
+cpro_cbg='#FFFFFF'; 
+cpro_ctitle='#0000ff'; 
+cpro_cdesc='#444444'; 
+cpro_curl='#008000'; 
+cpro_cflush='#e10900'; 
+cpro_uap=1;
+cpro_cad=1;
+</SCRIPT>
+
+<SCRIPT language=JavaScript 
+src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/cp.js" 
+type=text/javascript></SCRIPT>
+</DIV>
+<DIV id=footer><A id=f href="http://www.zdnet.com.cn/"></A>
+<DIV id=infoblock><A class=normallink href="http://www.xcar.com.cn/" 
+target=_blank>爱卡汽车网</A> | <A class=normallink href="http://www.cheshi.com.cn/" 
+target=_blank>网上车市</A> | <A class=normallink href="http://www.cnetnews.com.cn/" 
+target=_blank>CNET科技资讯网</A> | <A class=normallink 
+href="http://www.cweek.com.cn/" target=_blank>CWEEK</A> | <A class=normallink 
+href="http://www.fengniao.com/" target=_blank>蜂鸟网</A> | <A class=normallink 
+href="http://www.gamespot.com.cn/" target=_blank>GameSpot China</A>| <A 
+class=normallink href="http://www.pcpro.com.cn/" target=_blank>个人电脑</A> | <A 
+class=normallink href="http://www.builder.com.cn/" target=_blank>开发者在线</A> | <A 
+class=normallink href="http://www.pchome.net/" target=_blank>PChome</A> | <A 
+class=normallink href="http://www.solidot.org/" target=_blank>Solidot</A> | <A 
+class=normallink href="http://www.spn.com.cn/" target=_blank>SPN</A> | <BR><A 
+class=normallink href="http://www.projectorpro.cn/" target=_blank>投影顾问网</A> | <A 
+class=normallink href="http://www.ea3w.com.cn/" target=_blank>万维家电网</A> | <A 
+class=normallink href="http://www.netfriends.com.cn/" target=_blank>网友世界</A> | 
+<A class=normallink href="http://www.xiyuit.com/" target=_blank>西域IT</A> | <A 
+class=normallink href="http://www.zdnet.com.cn/" target=_blank>ZDNet China</A> | 
+<A class=normallink href="http://www.zol.com.cn/" target=_blank>中关村在线</A> | <A 
+class=normallink href="http://www.esmb.com.cn/" target=_blank>中小企业成长网</A> | <A 
+class=normallink href="http://www.onlylady.com/">onlylady女人志</A> 
+<DIV class=services>
+<UL>
+  <LI><A href="http://www.builder.com.cn/i/zdnet/div/contact.shtml">联系我们</A> | 
+  <LI><A href="http://www.builder.com.cn/i/zdnet/div/site_nav.shtml">网站导航</A> | 
+  <LI><A href="http://www.builder.com.cn/2007/0725/437095.shtml">网站简介</A> | 
+  <LI><A 
+  href="http://www.zdnet.com.cn/i/zdnetnews/div/links/links_all.htm">友情链接</A> | 
+  <LI><A href="http://www.zdnet.com.cn/zdnet/links/links_reg.php">申请自助链接</A> 
+  </LI></UL>
+<DIV class=networkFooter><A href="http://www.cnetnetworks.com.cn/" 
+target=_blank>CNET Networks</A>
+<SCRIPT language=javascript>document.write("旗下网站: <select name=\"menu\" id=\"form_menu\" ><option selected value=\"\">选择网站</option><option value=\"http://www.bnet.com\">BNET</option><option value=\"http://www.cnet.com\">CNET.com</option><option value=\"http://www.download.com\">CNET Download.com</option><option value=\"http://www.news.com\">CNET News.com</option><option value=\"http://reviews.cnet.com\">CNET Reviews</option><option value=\"http://shopper.cnet.com\">CNET Shopper.com</option><option value=\"http://www.gamespot.com\">GameSpot</option><option value=\"http://www.mp3.com\">MP3.com</option><option value=\"http://www.mysimon.com\">mySimon</option><option value=\"http://www.release1-0.com\">Release 1.0</option><option value=\"http://www.search.com\">Search.com</option><option value=\"http://techrepublic.com.com/\">TechRepublic</option><option value=\"http://www.tv.com\">TV.com</option><option value=\"http://www.webshots.com\">Webshots</option><option value=\"http://www.zdnet.com\">ZDNet</option></select> <a onClick=\"window.location=document.getElementById('form_menu').options[document.getElementById('form_menu').selectedIndex].value;\"><img src=\"http://i.i.com.com/cnwk.1d/i/go_button.gif\" class=\"go-btn\" align=\"absmiddle\" /></a>");</SCRIPT>
+ <NOSCRIPT>
+<DIV id=cnwk-ftr2 style="CLEAR: left" align=left><A 
+href="http://www.bnet.com/">BNET</A> | <A 
+href="http://www.cnet.com/">CNET.com</A> | <A 
+href="http://www.cnetchannel.com/main/default.aspx">CNET Channel</A> | <A 
+href="http://www.gamespot.com/">GameSpot</A> | <A 
+href="http://www.cnetnetworks.com/advertise/properties/international.html">International 
+Media</A> | <A href="http://www.mp3.com/">MP3.com</A> | <A 
+href="http://www.mysimon.com/2001-1_8-0.html">mySimon</A> | <A 
+href="http://www.search.com/">Search.com</A> | <A 
+href="http://techrepublic.com.com/">TechRepublic</A> | <A 
+href="http://www.tv.com/">TV.com</A> | <A 
+href="http://www.webshots.com/">Webshots</A> | <A 
+href="http://www.zdnet.com/">ZDNet</A> </DIV></NOSCRIPT></SELECT></DIV></DIV><!-- //services -->
+<DIV class=f_copy><A href="http://ulic.baidu.com/" target=_blank><IMG 
+alt=百度大联盟认证黄金会员 
+src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/11448_gold.gif" 
+border=0></A><A 
+href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001021500016"><IMG 
+style="MARGIN-RIGHT: 8px" 
+src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/gs.gif"></A>Copyright &copy; 
+1997-2008 CNET Networks 版权所有。 ZDNet 是CNET 
+Networks公司注册服务商标。<BR>中华人民共和国电信与信息服务业务经营许可证编号：京ICP证010391号 </DIV></DIV></DIV>
+<SCRIPT language=javascript 
+src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/pv.js"></SCRIPT>
+
+<SCRIPT src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/dw.js"></SCRIPT>
+
+<SCRIPT>
+ 
+   DW.pageParams = {
+     siteid: 71
+   };
+   
+   DW.clear();
+   
+</SCRIPT>
+
+<SCRIPT src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/randm.js" 
+type=text/javascript></SCRIPT>
+<!--/footer-->
+<SCRIPT src="Oracle基本语法集锦 - 开发者在线 - www_builder_com_cn.files/mainjs.js" 
+type=text/javascript></SCRIPT>
+</BODY></HTML>

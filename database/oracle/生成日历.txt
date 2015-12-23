@@ -1,0 +1,562 @@
+Puzzle n°03 - Sharing articles ***
+http://www.orafaq.com/forum/s/Puzzle/all/AND/DESC/0/80/0/
+http://www.orafaq.com/forum/m/186198/0/?srch=Puzzle#msg_186198
+
+
+
+
+create table game (num integer);
+insert into game values (5);
+insert into game values (8);
+insert into game values (4);
+insert into game values (7);
+commit;
+
+
+with 
+  numbers as ( -- All permutations of the given numbers
+    select sys_connect_by_path(num, '#')||'#' v
+    from game 
+    where connect_by_isleaf = 1 
+    connect by nocycle prior num != num
+  ),
+  oper as ( -- Allowed operators
+    select decode(level, 1,'-', 2,'+', 3, '*', 4,'/') op
+    from dual
+    connect by level <= 4
+  ),
+  -- All possible combinations of parentheses (numbered from 1 to 5)
+  parent as ( select level par from dual connect by level <= 5 ),
+  formulas as ( -- Build all possible formulas, no assumption
+    select decode (par,
+                   -- case "((a.b).c).d"
+                   1, regexp_replace ( 
+                        regexp_replace ( 
+                          regexp_replace ( 
+                            regexp_replace ( 
+                              regexp_replace (v, '#', '((', 1, 1),
+                            '#', op1.op, 1, 1),
+                          '#', ')'||op2.op, 1, 1),
+                        '#', ')'||op3.op, 1, 1),
+                      '#', '', 1, 1),
+                   -- case "(a.(b.c)).d"
+                   2, regexp_replace ( 
+                        regexp_replace ( 
+                          regexp_replace ( 
+                            regexp_replace ( 
+                              regexp_replace (v, '#', '(', 1, 1),
+                            '#', op1.op||'(', 1, 1),
+                          '#', op2.op, 1, 1),
+                        '#', '))'||op3.op, 1, 1),
+                      '#', '', 1, 1),
+                   -- case "(a.b).(c.d)"
+                   3, regexp_replace ( 
+                        regexp_replace ( 
+                          regexp_replace ( 
+                            regexp_replace ( 
+                              regexp_replace (v, '#', '(', 1, 1),
+                            '#', op1.op, 1, 1),
+                          '#', ')'||op2.op||'(', 1, 1),
+                        '#', op3.op, 1, 1),
+                      '#', ')', 1, 1),
+                   -- case "a.((b.c).d)"
+                   4, regexp_replace ( 
+                        regexp_replace ( 
+                          regexp_replace ( 
+                            regexp_replace ( 
+                              regexp_replace(v, '#', '', 1, 1),
+                            '#', op1.op||'((', 1, 1),
+                          '#', op2.op, 1, 1),
+                        '#', ')'||op3.op, 1, 1),
+                      '#', ')', 1, 1),
+                   -- case "a.(b.(c.d))"
+                   5, regexp_replace ( 
+                        regexp_replace ( 
+                          regexp_replace ( 
+                            regexp_replace ( 
+                              regexp_replace (v, '#', '', 1, 1),
+                            '#', op1.op||'(', 1, 1),
+                          '#', op2.op||'(', 1, 1),
+                        '#', op3.op, 1, 1),
+                      '#', '))', 1, 1))
+             formula
+    from numbers, oper op1, oper op2, oper op3, parent
+  )
+select formula
+from formulas
+-- Restrict the formulas to those that results to 24
+where 24 = 
+      to_number(extractvalue(dbms_xmlgen.getXMLtype('select '||formula||' v from dual'),'//V'))
+;
+
+
+col light format a5
+ with 
+ bulbs as ( select level bulb from dual connect by level <= 100 ),
+ men as ( select level man from dual connect by level <= 100 )
+select bulb, 
+      decode(mod(count(decode(mod(bulb,man),0,1)),2), 1, 'On', 'OFF') light
+from bulbs, men
+group by bulb
+ order by bulb
+  
+  
+重新标示序列号
+CREATE TABLE ABC(DPT_NUM NUMBER,LOT_NUM NUMBER);
+Insert into ABC(DPT_NUM, LOT_NUM, SRL_NUM) Values (1, 501, 1);
+Insert into ABC(DPT_NUM, LOT_NUM, SRL_NUM) Values (1, 502, 2);
+Insert into ABC(DPT_NUM, LOT_NUM, SRL_NUM) Values (1, 509, 3);
+Insert into ABC(DPT_NUM, LOT_NUM, SRL_NUM) Values (1, 511, 4);
+Insert into ABC(DPT_NUM, LOT_NUM, SRL_NUM) Values (1, 503, 5);
+Insert into ABC(DPT_NUM, LOT_NUM, SRL_NUM) Values (1, 516, 6);
+Insert into ABC(DPT_NUM, LOT_NUM, SRL_NUM) Values (1, 522, 7);
+Insert into ABC(DPT_NUM, LOT_NUM, SRL_NUM) Values (1, 569, 8);
+Insert into ABC(DPT_NUM, LOT_NUM, SRL_NUM) Values (1, 565, 9);
+Insert into ABC(DPT_NUM, LOT_NUM, SRL_NUM) Values (2, 601, 1);
+Insert into ABC(DPT_NUM, LOT_NUM, SRL_NUM) Values (2, 602, 2);
+Insert into ABC(DPT_NUM, LOT_NUM, SRL_NUM) Values (2, 607, 3);
+Insert into ABC(DPT_NUM, LOT_NUM, SRL_NUM) Values (2, 604, 4);
+Insert into ABC(DPT_NUM, LOT_NUM, SRL_NUM) Values (2, 508, 5);
+
+select DPT_NUM, LOT_NUM,
+ mod(row_number() over (partition by DPT_NUM order by LOT_NUM)-1,4)+1 SRL_NUM
+from ABC;
+
+行分离
+WITH tmptab AS
+(
+    SELECT 'code-01' AS code, 2000 AS quantity FROM DUAL UNION ALL
+    SELECT 'code-02' AS code, 1000 AS quantity FROM DUAL UNION ALL
+    SELECT 'code-03' AS code, 900  AS quantity FROM DUAL UNION ALL
+    SELECT 'code-04' AS code, 3500 AS quantity FROM DUAL UNION ALL
+    SELECT 'code-05' AS code, 5000 AS quantity FROM DUAL UNION ALL
+    SELECT 'code-06' AS code, 4000 AS quantity FROM DUAL UNION ALL
+    SELECT 'code-07' AS code, 300  AS quantity FROM DUAL UNION ALL
+    SELECT 'code-08' AS code, 1200 AS quantity FROM DUAL
+)
+SELECT  code, 
+        quantity,
+        CASE
+            WHEN (LEVEL * 1000) - quantity <= 0 THEN
+                1000
+            ELSE
+                MOD(quantity, 1000)
+        END AS splittedResult
+FROM tmptab
+CONNECT BY  PRIOR SYS_GUID() IS NOT NULL AND
+            PRIOR code = code AND
+            LEVEL <= CASE 
+                        WHEN MOD(quantity, 1000) = 0 THEN
+                            (quantity / 1000)
+                        ELSE
+                            (quantity / 1000) + 1
+                        END
+
+						
+						
+						
+						
+金字塔
+http://www.orafaq.com/forum/m/294381/0/?srch=puzzle+n#msg_294381
+set numwidth 3
+SQL> def lv=10
+SQL> with 
+  2    lines as (
+  3      select level line,                      -- line number
+  4             &lv-level+1 last_col,            -- last column with a value
+  5             (level-1)*(&lv-level+2) nb_prev  -- number of numbers in previous lines
+  6      from dual 
+  7      connect by level <= trunc((&lv+1)/2)
+  8    )
+  9  select -- col 1
+ 10         case when 1 < line then null 
+ 11              when 1 > last_col then null
+ 12              else nb_prev+1-(line-1)
+ 13         end a,
+ 14         -- col 2
+ 15         case when 2 < line then null 
+ 16              when 2 > last_col then null
+ 17              else nb_prev+2-(line-1)
+ 18         end b,
+ 19         -- col 3
+ 20         case when 3 < line then null 
+ 21              when 3 > last_col then null
+ 22              else nb_prev+3-(line-1)
+ 23         end c,
+ 24         -- col 4
+ 25         case when 4 < line then null 
+ 26              when 4 > last_col then null
+ 27              else nb_prev+4-(line-1)
+ 28         end d,
+ 29         -- col 5
+ 30         case when 5 < line then null 
+ 31              when 5 > last_col then null
+ 32              else nb_prev+5-(line-1)
+ 33         end e,
+ 34         -- col 6
+ 35         case when 6 < line then null 
+ 36              when 6 > last_col then null
+ 37              else nb_prev+6-(line-1)
+ 38         end f,
+ 39         -- col 7
+ 40         case when 7 < line then null 
+ 41              when 7 > last_col then null
+ 42              else nb_prev+7-(line-1)
+ 43         end g,
+ 44         -- col 8
+ 45         case when 8 < line then null 
+ 46              when 8 > last_col then null
+ 47              else nb_prev+8-(line-1)
+ 48         end h,
+ 49         -- col 9
+ 50         case when 9 < line then null 
+ 51              when 9 > last_col then null
+ 52              else nb_prev+9-(line-1)
+ 53         end i,
+ 54         -- col 10
+ 55         case when 10 < line then null 
+ 56              when 10 > last_col then null
+ 57              else nb_prev+10-(line-1)
+ 58         end j
+ 59  from lines
+ 60  order by line
+ 
+ 
+ 
+ WITH ASET AS
+  2                (
+  3                     SELECT du.*,
+  4                               LEVEL L,
+  5                                nVL(LAG((x-1) - (level -1)*2) OVER (PARTITIOn BY null ORDER BY LeVEL),0) n
+  6                                FROM (
+  7                 SELECT  max(DECODE(LEVEL,1,1)) A,
+  8                                max(DECODE(LEVEL,2,2)) B,
+  9                                max(DECODE(LEVEL,3,3)) C,
+ 10                                max(DECODE(LEVEL,4,4)) D,
+ 11                                max(DECODE(LEVEL,5,5)) E,
+ 12                                max(DECODE(LEVEL,6,6)) F,
+ 13                                max(DECODE(LEVEL,7,7)) G,
+ 14                                max(DECODE(LEVEL,8,8)) H,
+ 15                                max(DECODE(LEVEL,9,9)) I,
+ 16                                max(DECODE(LEVEL,10,10)) J,
+ 17                                max(LV) x
+ 18                      FROM( SELECT &LV LV
+ 19                                                     FROM DUAL )
+ 20                      COnnECt by LEVEL <= LV) DU
+ 21                      COnnECT by LEVEL < (X/2)+1 ),
+ 22               bset as ( select a,b,c,d,e,f,g,h,i,j,x,L ,n , sum(n) over (partition by null order by  l) p
+ 23                from aset )
+ 24                 select   DECODE(SIGn(a- (L -1) ),1 , DECODE(SIGn((a+l-1)-x), 0, a+P ,-1 ,a+P) ) A ,
+ 25                          DECODE(SIGn(b- (L -1) ),1 ,DECODE(SIGn((b+l-1)-x), 0, b+P,-1, b+P) ) B ,
+ 26                          DECODE(SIGn(c- (L -1) ),1 , DECODE(SIGn((c+l-1)-x), 0,c+P,-1,c+P) ) C  ,
+ 27                          DECODE(SIGn(d- (L -1) ),1 , DECODE(SIGn((d+l-1)-x), 0,d+P,-1,d+P) ) D  ,
+ 28                          DECODE(SIGn(e- (L -1) ),1 , DECODE(SIGn((e+l-1)-x), 0,e+P,-1,e+P) ) E  ,
+ 29                          DECODE(SIGn(f- (L -1) ),1 , DECODE(SIGn((f+l-1)-x), 0,f+P,-1,F+P) ) F  ,
+ 30                          DECODE(SIGn(g- (L -1) ),1 , DECODE(SIGn((g+l-1)-x), 0,g+P,-1,g+P) ) G  ,
+ 31                          DECODE(SIGn(h- (L -1) ),1 , DECODE(SIGn((h+l-1)-x), 0,h+P,-1,h+P) ) H  ,
+ 32                          DECODE(SIGn(i- (L -1) ),1 , DECODE(SIGn((i+l-1)-x), 0,i+P,-1,i+P) ) I  ,
+ 33                          DECODE(SIGn(j- (L -1) ),1 , DECODE(SIGn((j+l-1)-x), 0,j+P,-1,j+P) ) J
+ 34              from  Bset;
+
+ 
+
+重组
+SELECT  REPLACE(SYS_COnnECT_BY_PATH (nM1, '/'),'/') RESHUFF_nAME
+  2  FROM    (SELECT X.nM1, LEn, ROWnUM R1
+  3                FROM (WITH REC AS (SELECT 'AnDREW' nM FROM DUAL)
+  4                      SELECT  SUBSTR (nM, ROWnUM, 1) nM1,
+  5                              LEnGTH (nM) LEn,
+  6                              DBMS_RAnDOM.VALUE (1, 2)
+  7                      FROM REC
+  8                      COnnECT BY LEVEL <= LEnGTH (nM)
+  9                      ORDER BY 3
+ 10                      ) X
+ 11          )
+ 12  WHERE R1 = LEn
+ 13  START WITH R1 = 1
+ 14  COnnECT BY R1 = PRIOR R1 + 1;
+ 
+阶乘
+select round(exp(sum(ln(n))))
+from (
+  select level AS n
+  from dual
+  connect by level <= &n
+)
+
+
+select LTRIM( max(sys_connect_by_path(level,'*')),'*') AS n
+from dual
+connect by level <= 5;
+
+
+
+col val format a80
+col line format 990
+with lines as (select level-1 line from dual connect by level <= 100)
+select line, rpad('*',40*(1+sin(5*line*3.14159265359/180)),'*') val
+from lines
+order by line
+
+
+SELECT   level#
+       , LPAD ('*', COUNT (*), '*')
+    FROM (SELECT     TRUNC (1 / 2 + SQRT (2 * LEVEL)) level#
+                FROM DUAL
+          CONNECT BY LEVEL <= 1000)
+GROUP BY level#
+
+
+
+
+select col, LPAD ('*', COUNT (*), '*') a
+from t
+group by col
+order by col
+
+
+SELECT TRUNC (1 / 2 + SQRT (2 * LEVEL)) col
+FROM DUAL
+CONNECT BY LEVEL <= 100
+
+
+  
+
+日历
+
+
+with t as (
+select to_date('200211','yyyymm') ym from dual)
+SELECT * FROM (
+ SELECT MIN (DECODE (TO_CHAR (YM + LEVEL - 1, 'd'), '1', LEVEL)) SUN
+      , MIN (DECODE (TO_CHAR (YM + LEVEL - 1, 'd'), '2', LEVEL)) MON
+      , MIN (DECODE (TO_CHAR (YM + LEVEL - 1, 'd'), '3', LEVEL)) TUE
+      , MIN (DECODE (TO_CHAR (YM + LEVEL - 1, 'd'), '4', LEVEL)) WED
+      , MIN (DECODE (TO_CHAR (YM + LEVEL - 1, 'd'), '5', LEVEL)) THU
+      , MIN (DECODE (TO_CHAR (YM + LEVEL - 1, 'd'), '6', LEVEL)) FRI
+      , MIN (DECODE (TO_CHAR (YM + LEVEL - 1, 'd'), '7', LEVEL)) SAT
+   FROM T
+CONNECT BY LEVEL <= LAST_DAY (YM) - YM + 1
+  GROUP BY TRUNC (YM + LEVEL, 'iw')
+  ORDER BY 7)
+
+  
+  
+
+WITH
+	Data
+AS
+	(
+	 SELECT 
+		TO_DATE('200811', 'YYYYMM') YM
+	 FROM
+		Dual
+	)
+SELECT
+	CASE WHEN D + 1 BETWEEN 1 AND LD THEN TO_CHAR(D + 1, 'FM09') ELSE '--' END SU,
+	CASE WHEN D + 2 BETWEEN 1 AND LD THEN TO_CHAR(D + 2, 'FM09') ELSE '--' END MO,
+	CASE WHEN D + 3 BETWEEN 1 AND LD THEN TO_CHAR(D + 3, 'FM09') ELSE '--' END TU,
+	CASE WHEN D + 4 BETWEEN 1 AND LD THEN TO_CHAR(D + 4, 'FM09') ELSE '--' END WE,
+	CASE WHEN D + 5 BETWEEN 1 AND LD THEN TO_CHAR(D + 5, 'FM09') ELSE '--' END TH,
+	CASE WHEN D + 6 BETWEEN 1 AND LD THEN TO_CHAR(D + 6, 'FM09') ELSE '--' END FR,
+	CASE WHEN D + 7 BETWEEN 1 AND LD THEN TO_CHAR(D + 7, 'FM09') ELSE '--' END SA
+FROM
+	(
+	 SELECT
+		EXTRACT(DAY FROM YM) - TO_CHAR(YM, 'D') + ((Level - 1) * 7)	D,
+		EXTRACT(DAY FROM LAST_DAY(YM))					LD
+	 FROM
+		Data
+	 CONNECT BY
+		Level <= CEIL((EXTRACT(DAY FROM LAST_DAY(YM)) + TO_CHAR(YM, 'D') - 1) / 7)
+	);
+
+SET PAGESIZE 0
+SET LINESIZE 132
+WITH t1 AS (
+            SELECT  TRUNC(SYSDATE,'YYYY') yyyy,
+                    0 vertical_offset,
+                    0 horizontal_offset,
+                    9 lines_per_month,
+                    TO_NUMBER(TO_CHAR(SYSDATE,'MM')) curr_mm,
+                    1 months_per_row
+              FROM  DUAL
+           ),
+     t3 AS (
+            SELECT  '*'||LPAD('['||TO_CHAR(ADD_MONTHS(yyyy,LEVEL - 1),'FMMonth') || ']',27,'-')||'--*' l,
+                    CASE
+                      WHEN LEVEL <= CEIL(curr_mm / months_per_row) * months_per_row
+                        THEN lines_per_month * (LEVEL - 1) + 1
+                        ELSE lines_per_month * (LEVEL - 1) + lines_per_month
+                    END w,
+                    LEVEL mm
+              FROM  t1
+              CONNECT BY LEVEL < 13
+           ),
+     t4 AS (
+            SELECT  l,
+                    lines_per_month * (LEVEL - 1) + 2 w,
+                    LEVEL mm
+              FROM  (
+                     SELECT  '|' || REPLACE(SYS_CONNECT_BY_PATH(LPAD(TO_CHAR(NEXT_DAY(yyyy,LEVEL),'Dy'),4),','),',') || ' |' l,
+                             lines_per_month
+                       FROM  t1
+                       WHERE LEVEL = 7
+                       CONNECT BY LEVEL < 8
+                    )
+              CONNECT BY LEVEL < 13
+           ),
+     t5 AS (
+            SELECT  LPAD(' ',(ADD_MONTHS(yyyy,LEVEL-1)-NEXT_DAY(ADD_MONTHS(yyyy,LEVEL-1)-7,1))*4)||d m,
+                    LEVEL mm,
+                    lines_per_month
+              FROM  t1,
+                    (
+                     SELECT  REPLACE(SYS_CONNECT_BY_PATH(TO_CHAR(LEVEL,'999'),','),',') || LPAD(' ',56) d
+                       FROM  DUAL
+                       WHERE LEVEL = 31
+                       CONNECT BY LEVEL < 32
+                    )
+              CONNECT BY LEVEL < 13
+           ),
+     t6 AS (
+            SELECT  '|' || SUBSTR(m,(LEVEL - 1) * 28 + 1, 28) || ' |' l,
+                    lines_per_month * (mm - 1) + 2 + LEVEL w,
+                    mm
+              FROM  t5
+              CONNECT BY PRIOR mm = mm
+                     AND PRIOR DBMS_RANDOM.VALUE IS NOT NULL
+                     AND LEVEL < lines_per_month - 2
+           ),
+     t7 AS (
+            SELECT  '*' || LPAD('-',29,'-') || '*' l,
+                    CASE
+                      WHEN LEVEL <= ROUND(curr_mm / months_per_row) * months_per_row
+                        THEN lines_per_month * (LEVEL - 1) + lines_per_month
+                        ELSE lines_per_month * (LEVEL - 1) + 1
+                    END w,
+                    LEVEL mm
+              FROM  t1
+              CONNECT BY LEVEL < 13
+           ),
+     t8 as (
+            SELECT  l,
+                    w,
+                    mm,
+                    vertical_offset,
+                    horizontal_offset,
+                    curr_mm,
+                    lines_per_month,
+                    months_per_row,
+                    MOD(w - 1,lines_per_month) oo,
+                    TRUNC((w - 1) / (months_per_row * lines_per_month)) ww,
+                    MOD(w - 1,months_per_row * lines_per_month) ss,
+                    CEIL(mm / months_per_row) rn
+              FROM  t1,
+                    (
+                      SELECT  *
+                        FROM  t3
+                     UNION ALL
+                      SELECT  *
+                      FROM  t4
+                     UNION ALL
+                      SELECT  *
+                        FROM  t6
+                     UNION ALL
+                      SELECT  *
+                        FROM  t7
+                    )
+           )
+SELECT  LPAD(' ',(rn - LEVEL) * horizontal_offset) ||
+        REPLACE(SYS_CONNECT_BY_PATH(CASE
+                                      WHEN rn = CEIL(curr_mm / months_per_row)
+                                        THEN l
+                                      WHEN rn < CEIL(curr_mm / months_per_row)
+                                        THEN CASE CONNECT_BY_ISLEAF
+                                               WHEN 1
+                                                 THEN l
+                                                 ELSE SUBSTR(l,1,horizontal_offset)
+                                             END
+                                         ELSE CASE LEVEL
+                                               WHEN 1
+                                                 THEN l
+                                                 ELSE SUBSTR(l,-horizontal_offset)
+                                             END
+                                    END,
+                                    ','
+                                   ),
+                 ',') l
+  FROM  (
+         SELECT  REPLACE(SYS_CONNECT_BY_PATH(l,','),',') l,
+                 mm,
+                 w,
+                 curr_mm,
+                 vertical_offset,
+                 horizontal_offset,
+                 months_per_row,
+                 rn,
+                 (rn - 1) * vertical_offset + MOD(ROWNUM - 1,lines_per_month) + 1 o,
+                 CASE WHEN rn > 1 THEN ROWNUM - rn * lines_per_month + vertical_offset ELSE 1 END s
+           FROM  t8
+           WHERE LEVEL = months_per_row
+           START WITH ss < lines_per_month
+           CONNECT BY ww = PRIOR ww
+                  AND oo = PRIOR oo
+                  AND ss > PRIOR ss
+        )
+  WHERE CONNECT_BY_ISLEAF = 1
+  START WITH s > 0 OR vertical_offset = 0
+  CONNECT BY vertical_offset > 0
+         AND o = PRIOR o
+         AND rn = PRIOR rn + 1
+  ORDER BY w
+  
+ 
+ 
+ ;
+ 
+ 
+ 
+ with formulas as (
+                  select 1 id, 'a+ab' frm from dual union all
+                  select 2, 'a*c+bc' from dual
+                 ),
+    variables as (
+                  select 1 id, 'a' var, 2 val from dual union all
+                  select 1, 'ab', 3 from dual union all
+                  select 2, 'a', 6 from dual union all
+                  select 2, 'bc', 7 from dual union all
+                  select 2, 'c', 9 from dual
+                 )
+select  id,
+        frm || ' = ' || expr || ' = ' || dbms_aw.eval_number(expr) result
+  from  (select  id,
+                 frm,
+                 expr,
+                 r
+           from  formulas f,
+                 variables v
+           where v.id = f.id
+           model
+           partition by(f.id id)
+           dimension by(row_number() over(partition by f.id order by 1) r)
+           measures(
+                    frm,
+                    regexp_replace(frm,'(\w+)',' \1 ') expr,
+                    ' ' || var || ' ' var,
+                    val
+                   )
+           rules(
+                 expr[any] order by r desc = regexp_replace(nvl(expr[cv() + 1],expr[cv()]),var[cv()],val[cv()])
+                )
+        )
+  where r = 1
+/
+
+        ID RESULT
+---------- ----------------------
+         1 a+ab = 2+3 = 5
+         2 a*c+bc = 6*9+7 = 61
+
+		 
+		 

@@ -1,0 +1,515 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0059)http://blog.csdn.net/lee576/archive/2008/01/24/2062786.aspx -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content=汪立 name=author>
+<META content=Csdn name=Copyright>
+<META content=显示所有用户表创建时间,数据行数 name=description>
+<META content="汪立,sql server " name=keywords><LINK 
+href="http://profile.csdn.net/lee576/picture/1.ico" rel="Shortcut Icon"><LINK 
+media=all href="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/nature_1.css" 
+type=text/css rel=stylesheet><LINK media=all 
+href="http://blog.csdn.net/lee576/customcss.aspx" type=text/css 
+rel=stylesheet><LINK title=RSS href="http://blog.csdn.net/lee576/rss.aspx" 
+type=application/rss+xml rel=alternate>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY id=defaultuser>
+<DIV id=csdnblog_allwrap>
+<FORM language=javascript id=Form1 name=Form1 
+onsubmit="javascript:return WebForm_OnSubmit();" action=2062786.aspx 
+method=post><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE>
+<SCRIPT type=text/javascript>
+<!--
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Anthem_FormID = "Form1";
+//]]>
+</SCRIPT>
+
+<SCRIPT src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="C:\Documents and Settings\Administrator\My Documents\显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files\WebResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+// -->
+</SCRIPT>
+ 
+<DIV id=csdnblog_midwrap>
+<DIV id=csdnblog_header>
+<H1><A id=Header1_HeaderTitle 
+href="http://blog.csdn.net/lee576/">lee576的专栏</A></H1>
+<H2></H2>
+<UL id=personalnav>
+  <LI><A href="http://passport.csdn.net/UserLogin.aspx">登录</A></LI>
+  <LI><A href="http://passport.csdn.net/CSDNUserRegister.aspx">注册</A></LI></UL>
+<UL id=blogsearchsty>
+  <LI><INPUT class=bolgsearch id=inputSearch 
+onkeydown="return keyb(event)"></LI>
+  <LI class=selectsty><SELECT id=Search_ddlSearchScope 
+  name=Search:ddlSearchScope><OPTION value=all selected>全站</OPTION><OPTION 
+    value=lee576>当前博客</OPTION></SELECT></LI>
+  <LI><INPUT class=bolggobtn onclick=checkNull() type=button value=搜索></LI></UL>
+<UL id=menu>
+  <LI><A href="http://hi.csdn.net/lee576">空间</A></LI>
+  <LI><A class=on href="http://blog.csdn.net/lee576">博客</A></LI>
+  <LI><A href="http://hi.csdn.net/lee576/profile/contactlist/1.html">好友</A></LI>
+  <LI><A href="http://blog.csdn.net/lee576/Gallery.aspx">相册</A></LI>
+  <LI><A href="http://bbs.csdn.net/" target=_blank>论坛</A></LI>
+  <LI><A class=last 
+  href="http://hi.csdn.net/lee576/profile/notebook/1.html">留言</A></LI></UL></DIV>
+<DIV id=csdnblog_sidebar>
+<DIV class=gutter>
+<DIV class=aboutauthor>
+<DL>
+  <DT>用户操作
+  <DD class=middle><A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://webim.csdn.net/Messages/lee576.ashx" 
+  target=_blank>[即时聊天]</A> <A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://hi.csdn.net/Admin/WriteMessage.aspx?Receiver=lee576" 
+  target=_blank>[发私信]</A> <A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://webim.csdn.net/AddFriends/lee576.ashx" 
+  target=_blank>[加为好友]</A>
+  <DT>汪立<SPAN>ID：lee576</SPAN>
+  <DD class=middle><IMG alt="" 
+  src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/1_lee576.jpg">
+  <DD class=middle><A href="http://profile.csdn.net/8/E4/edit.html"></A>
+  <DD>共<EM>224169</EM>次访问，排名<EM>325</EM>，好友<EM>210</EM>人，关注者<EM>204</EM>人。<BR>积累是一个漫长的过程,它足以可以让你写出N本书的内容
+  <DD>
+  <DT>lee576的文章
+  <DD>原创 689 篇
+  <DD>翻译 4 篇
+  <DD>转载 482 篇
+  <DD>评论 62 篇 
+  <DT>汪立的公告
+  <DD>Matrix的世界,一切皆有可能 
+  <DT>最近评论
+  <DD>catheriner66：<A title="点击查看《回复:使用ExtJS GridPanel从Web Service 获取、绑定和显示数据》" 
+  href="http://blog.csdn.net/lee576/archive/2008/11/24/3362645.aspx#965337">推荐一下：开源人网站www.vifir.com 
+  上面有比较全面系统的EXTJS学习资料</A>
+  <DD>catheriner66：<A title=点击查看《回复:ExtJs的.NET控件----TabContainer和TabPanel》 
+  href="http://blog.csdn.net/lee576/archive/2008/11/24/3362886.aspx#965214">推荐一下：开源人网站www.vifir.com 
+  上面有比较全面系统的EXTJS学习资料</A>
+  <DD>catheriner66：<A title=点击查看《回复:使用ExtJS创建前端WebQQ界面》 
+  href="http://blog.csdn.net/lee576/archive/2008/10/28/3169586.aspx#965086">推荐一下：开源人网站www.vifir.com 
+  上面有比较全面系统的EXTJS学习资料</A>
+  <DD>catheriner66：<A title=点击查看《回复:使用ExtJS创建前端WebQQ界面》 
+  href="http://blog.csdn.net/lee576/archive/2008/10/28/3169586.aspx#965085">推荐一下：开源人网站www.vifir.com 
+  上面有比较全面系统的EXTJS学习资料</A>
+  <DD>catheriner66：<A title=点击查看《回复:使用ExtJS创建前端WebQQ界面》 
+  href="http://blog.csdn.net/lee576/archive/2008/10/28/3169586.aspx#965084">推荐一下：开源人网站www.vifir.com 
+  上面有比较全面系统的EXTJS学习资料</A> 
+  <DT>文章分类
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A href="http://blog.csdn.net/lee576/category/484202.aspx">ADO.NET</A><A 
+    href="http://blog.csdn.net/lee576/category/484202.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/358093.aspx">Ajax</A><A 
+    href="http://blog.csdn.net/lee576/category/358093.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/227128.aspx">Asp.Net</A><A 
+    href="http://blog.csdn.net/lee576/category/227128.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/230527.aspx">C#</A><A 
+    href="http://blog.csdn.net/lee576/category/230527.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/375243.aspx">Castle 
+    框架</A><A 
+    href="http://blog.csdn.net/lee576/category/375243.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/category/374956.aspx">CodeSmith</A><A 
+    href="http://blog.csdn.net/lee576/category/374956.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/category/486107.aspx">CSLA.NET</A><A 
+    href="http://blog.csdn.net/lee576/category/486107.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/359764.aspx">CSS</A><A 
+    href="http://blog.csdn.net/lee576/category/359764.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/209064.aspx">delphi</A><A 
+    href="http://blog.csdn.net/lee576/category/209064.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/486642.aspx">Enterprise 
+    Library</A><A 
+    href="http://blog.csdn.net/lee576/category/486642.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/364470.aspx">Erlang</A><A 
+    href="http://blog.csdn.net/lee576/category/364470.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/362356.aspx">Ext Ajax 
+    框架</A><A 
+    href="http://blog.csdn.net/lee576/category/362356.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/253929.aspx">GIS</A><A 
+    href="http://blog.csdn.net/lee576/category/253929.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/358051.aspx">Indy For 
+    Delphi</A><A 
+    href="http://blog.csdn.net/lee576/category/358051.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/category/358045.aspx">JavaScript</A><A 
+    href="http://blog.csdn.net/lee576/category/358045.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/474210.aspx">JQuery</A><A 
+    href="http://blog.csdn.net/lee576/category/474210.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/361714.aspx">LINQ</A><A 
+    href="http://blog.csdn.net/lee576/category/361714.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/368018.aspx">Microsoft 
+    Office Sharepoint Server</A><A 
+    href="http://blog.csdn.net/lee576/category/368018.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/358028.aspx">NetAdvantage 
+    For Asp.net</A><A 
+    href="http://blog.csdn.net/lee576/category/358028.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/category/358054.aspx">NHibernate</A><A 
+    href="http://blog.csdn.net/lee576/category/358054.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/249725.aspx">Oracle</A><A 
+    href="http://blog.csdn.net/lee576/category/249725.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/358679.aspx">PSP 
+    平台编程</A><A 
+    href="http://blog.csdn.net/lee576/category/358679.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/475455.aspx">Python</A><A 
+    href="http://blog.csdn.net/lee576/category/475455.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/366940.aspx">RadControl 
+    For Asp.Net</A><A 
+    href="http://blog.csdn.net/lee576/category/366940.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/358053.aspx">RemObject For 
+    Delphi</A><A 
+    href="http://blog.csdn.net/lee576/category/358053.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/359527.aspx">Ruby</A><A 
+    href="http://blog.csdn.net/lee576/category/359527.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/category/358669.aspx">Silverlight</A><A 
+    href="http://blog.csdn.net/lee576/category/358669.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/237316.aspx">Sql 
+    Server</A><A 
+    href="http://blog.csdn.net/lee576/category/237316.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/360266.aspx">VS.NET</A><A 
+    href="http://blog.csdn.net/lee576/category/360266.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/486839.aspx">VSTS</A><A 
+    href="http://blog.csdn.net/lee576/category/486839.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/368229.aspx">WAP For 
+    Asp.net</A><A 
+    href="http://blog.csdn.net/lee576/category/368229.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/374696.aspx">WCF</A><A 
+    href="http://blog.csdn.net/lee576/category/374696.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/216871.aspx">Windows</A><A 
+    href="http://blog.csdn.net/lee576/category/216871.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/359369.aspx">WPF</A><A 
+    href="http://blog.csdn.net/lee576/category/359369.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/472831.aspx">XML</A><A 
+    href="http://blog.csdn.net/lee576/category/472831.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/481447.aspx">电子商务</A><A 
+    href="http://blog.csdn.net/lee576/category/481447.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/359316.aspx">工作经验积累</A><A 
+    href="http://blog.csdn.net/lee576/category/359316.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/358855.aspx">回忆录</A><A 
+    href="http://blog.csdn.net/lee576/category/358855.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/358892.aspx">经济</A><A 
+    href="http://blog.csdn.net/lee576/category/358892.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/240601.aspx">其它</A><A 
+    href="http://blog.csdn.net/lee576/category/240601.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/325929.aspx">设计模式</A><A 
+    href="http://blog.csdn.net/lee576/category/325929.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/265586.aspx">生活随想</A><A 
+    href="http://blog.csdn.net/lee576/category/265586.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/category/479796.aspx">搜索引擎优化SEO</A><A 
+    href="http://blog.csdn.net/lee576/category/479796.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/438854.aspx">算法</A><A 
+    href="http://blog.csdn.net/lee576/category/438854.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/343255.aspx">网络协议</A><A 
+    href="http://blog.csdn.net/lee576/category/343255.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/category/385476.aspx">我的读书笔记之.net篇</A><A 
+    href="http://blog.csdn.net/lee576/category/385476.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/category/378737.aspx">我的读书笔记之JavaScript篇</A><A 
+    href="http://blog.csdn.net/lee576/category/378737.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/263517.aspx">行业知识</A><A 
+    href="http://blog.csdn.net/lee576/category/263517.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/343961.aspx">业务知识</A><A 
+    href="http://blog.csdn.net/lee576/category/343961.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/353304.aspx">移动通信</A><A 
+    href="http://blog.csdn.net/lee576/category/353304.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/353256.aspx">硬件</A><A 
+    href="http://blog.csdn.net/lee576/category/353256.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/lee576/category/283731.aspx">中间件</A><A 
+    href="http://blog.csdn.net/lee576/category/283731.aspx/rss">(RSS)</A></LI></UL></DIV>
+  <DT>收藏
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL></UL></DIV>
+  <DT>相册
+  <DD><A href="http://blog.csdn.net/lee576/Gallery/401240.aspx">跳伞</A>
+  <DT>ExtJS
+  <DD><A href="http://www.cnblogs.com/beniao/" target=_self>beniao成长笔记</A>
+  <DT>存档
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2008/11.aspx">2008年11月(151)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2008/10.aspx">2008年10月(158)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2008/09.aspx">2008年09月(11)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2008/08.aspx">2008年08月(12)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2008/07.aspx">2008年07月(47)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2008/06.aspx">2008年06月(16)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2008/05.aspx">2008年05月(16)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2008/04.aspx">2008年04月(87)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2008/03.aspx">2008年03月(71)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2008/02.aspx">2008年02月(67)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2008/01.aspx">2008年01月(165)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2007/12.aspx">2007年12月(89)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2007/11.aspx">2007年11月(61)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2007/10.aspx">2007年10月(14)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2007/09.aspx">2007年09月(10)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2007/08.aspx">2007年08月(12)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2007/07.aspx">2007年07月(19)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2007/06.aspx">2007年06月(6)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2007/05.aspx">2007年05月(5)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2007/04.aspx">2007年04月(18)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2007/03.aspx">2007年03月(14)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2007/02.aspx">2007年02月(21)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2007/01.aspx">2007年01月(11)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2006/12.aspx">2006年12月(31)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2006/11.aspx">2006年11月(20)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2006/10.aspx">2006年10月(30)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2006/09.aspx">2006年09月(4)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2006/08.aspx">2006年08月(2)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2006/07.aspx">2006年07月(1)</A>
+    <LI><A 
+    href="http://blog.csdn.net/lee576/archive/2006/06.aspx">2006年06月(6)</A></LI></UL></DIV><SPAN 
+  id=RecentVisitors></SPAN>
+  <DT>软件项目交易
+  <DD><IFRAME 
+  style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 180px; PADDING-TOP: 0px; HEIGHT: 32px" 
+  src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/CsdnBlogPage.htm" 
+  frameBorder=0 scrolling=no></IFRAME><SPAN id=SubscriptionList>
+  <DT>订阅我的博客
+  <DD><A href="http://blog.csdn.net/lee576/Rss.aspx"><IMG alt=XML聚合 
+  src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/xml.gif" 
+  border=0></A>&nbsp;&nbsp;<A href="http://feeds.feedsky.com/csdn.net/lee576" 
+  target=_blank><IMG alt=FeedSky 
+  src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/feedsky.gif" border=0></A>
+  <DD><A 
+  href="http://www.xianguo.com/subscribe.php?url=http://blog.csdn.net/lee576/Rss.aspx" 
+  target=_blank><IMG alt=订阅到鲜果 
+  src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/rss_xianguo.jpg" 
+  border=0></A>
+  <DD><A 
+  href="http://fusion.google.com/add?feedurl=http://blog.csdn.net/lee576/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Google 
+  src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/rss_google.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.zhuaxia.com/add_channel.php?url=http://blog.csdn.net/lee576/Rss.aspx" 
+  target=_blank><IMG alt=订阅到抓虾 
+  src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/rss_zhuaxia.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.bloglines.com/sub/http://blog.csdn.net/lee576/Rss.aspx" 
+  target=_blank><IMG alt=订阅到BlogLines 
+  src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/rss_bloglines.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://add.my.yahoo.com/rss?url=http://blog.csdn.net/lee576/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Yahoo 
+  src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/rss_yahoo.gif" 
+border=0></A>
+  <DD><A 
+  href="http://rss.gougou.com/find_rss.jsp?url=http://blog.csdn.net/lee576/Rss.aspx" 
+  target=_blank><IMG alt=订阅到GouGou 
+  src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/rss_gougou.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.pageflakes.com/subscribe.aspx?url=http://blog.csdn.net/lee576/Rss.aspx" 
+  target=_blank><IMG alt=订阅到飞鸽 
+  src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/rss_pageflakes.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.rojo.com/add-subscription?resource=http://blog.csdn.net/lee576/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Rojo 
+  src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/rss_rojo.gif" border=0></A>
+  <DD><A 
+  href="http://www.newsgator.com/ngs/subscriber/subfext.aspx?url=http://blog.csdn.net/lee576/Rss.aspx" 
+  target=_blank><IMG alt=订阅到newsgator 
+  src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/rss_newsgator.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.netvibes.com/subscribe.php?url=http://blog.csdn.net/lee576/Rss.aspx" 
+  target=_blank><IMG alt=订阅到netvibes 
+  src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/rss_netvibes.gif" 
+  border=0></A></SPAN> </DD></DL></DIV></DIV></DIV>
+<DIV id=csdnblog_content>
+<DIV class=gutter>
+<DIV class=default_contents>
+<DIV class=user_article>
+<SCRIPT src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/LoadFeedbackCount.js" 
+type=text/javascript></SCRIPT>
+
+<H1><IMG height=16 alt=原创 
+src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/authorship.gif" width=15 
+border=0>&nbsp;<A 
+href="http://blog.csdn.net/lee576/archive/2008/01/24/2062786.aspx">显示所有用户表创建时间,数据行数</A><CITE 
+class=fav_csdnstylebykimi><A class=fav_csdnstylebykimi title=收藏到我的网摘中，并分享给我的朋友 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();">收藏</A></CITE></H1>
+<DIV class=blogstory><SPAN id=Post.ascx_ViewPost_PreviousAndNextEntriesUp>
+<H3><A 
+href="http://blog.csdn.net/lee576/archive/2008/01/24/2063240.aspx">新一篇:&nbsp;[转]LINQ（1）：初识 
+LINQ </A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/lee576/archive/2008/01/24/2062546.aspx">旧一篇:&nbsp;SQL 
+Server 2005中应关注的30个知识点</A></H3></SPAN>
+<SCRIPT>function StorePage(){d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(keyit=window.open('http://www.365key.com/storeit.aspx?t='+escape(d.title)+'&u='+escape(d.location.href)+'&c='+escape(t),'keyit','scrollbars=no,width=475,height=575,left=75,top=20,status=no,resizable=yes'));keyit.focus();}</SCRIPT>
+如果只是查用户表有哪些直接查系统表就可以了<BR><BR>/*獲取用戶表信息游標*/<BR>SET NOCOUNT ON<BR>DECLARE 
+find_user_table CURSOR<BR>FOR<BR>SELECT [name],crdate FROM sysobjects<BR>WHERE 
+type='U' /*這裡只查詢用戶定義的表*/<BR>ORDER BY [name]<BR><BR>DECLARE @cName VARCHAR(128) 
+/*定義儲存表名變量*/<BR>DECLARE @crdate DATETIME /*定義表創建日期變量*/<BR>DECLARE @Rows INT 
+/*定義表行數變量*/<BR><BR>CREATE TABLE #tmpTable /*創建用來儲存信息的臨時表*/<BR>(<BR>Tablename 
+VARCHAR(128),<BR>crDate datetime,<BR>Row INT<BR>)<BR>OPEN find_user_table 
+/*打開游標*/<BR>FETCH NEXT FROM find_user_table INTO @cName,@crdate 
+/*從游標中讀取表名到變量*/<BR>WHILE @@FETCH_STATUS=0<BR>BEGIN<BR>DECLARE @cSql 
+nvarchar(500),@par nvarchar(30)<BR>SELECT @par='@nRows INT OUTPUT'<BR>SELECT 
+@cSql='SELECT @nRows=COUNT(*) FROM ['+@cName+']'<BR>EXECUTE sp_executesql 
+@cSql,@par,@rows OUTPUT /*計算當前表的總行數*/<BR><BR>INSERT INTO #tmpTable 
+valueS(@cName,@crdate,@rows) /*將當前表信息存儲到臨時表*/<BR>FETCH NEXT FROM find_user_table 
+INTO @cName,@crdate /*從游標中讀取表名到變量*/<BR>END<BR>SELECT * FROM #tmpTable 
+/*顯示所有表信息*/<BR>DROP TABLE #tmpTable /*刪除臨時表*/<BR>CLOSE find_user_table 
+/*關閉游標*/<BR>DEALLOCATE find_user_table /*釋放游標*/
+<P class="right articalinfo">发表于 @ <A title=permalink 
+href="http://blog.csdn.net/lee576/archive/2008/01/24/2062786.aspx">2008年01月24日 
+11:07:00</A>|<A title=评论 
+href="http://blog.csdn.net/lee576/archive/2008/01/24/2062786.aspx#FeedBack">评论(<SPAN 
+id=FeedbackCount_2062786>loading...</SPAN>
+<SCRIPT type=text/javascript>AddFeedbackCountStack("2062786")</SCRIPT>
+)</A>|<A title=编辑 
+href="http://writeblog.csdn.net/PostEdit.aspx?entryId=2062786">编辑</A></P><SPAN 
+id=Post.ascx_ViewPost_PreviousAndNextEntriesDown>
+<H3><A 
+href="http://blog.csdn.net/lee576/archive/2008/01/24/2063240.aspx">新一篇:&nbsp;[转]LINQ（1）：初识 
+LINQ </A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/lee576/archive/2008/01/24/2062546.aspx">旧一篇:&nbsp;SQL 
+Server 2005中应关注的30个知识点</A></H3></SPAN></DIV></DIV>
+<DIV class=commentslist><SPAN id=Anthem_Post.ascx_Comments_ltlComments__><SPAN 
+id=Post.ascx_Comments_ltlComments>
+<DIV id=commentslist>
+<H3>评论：没有评论。</H3></DIV></SPAN></SPAN></DIV>
+<DIV class=spacecommment>
+<DIV id=Anthem_Post.ascx_PostComment_CommentUpdatePanel__>
+<DIV id=Post.ascx_PostComment_CommentUpdatePanel>
+<FIELDSET><LEGEND>发表评论</LEGEND>
+<UL>
+  <LI>姓&nbsp;&nbsp;&nbsp;名：<INPUT id=Post.ascx_PostComment_tbName disabled 
+  maxLength=32 size=40 name=Post.ascx:PostComment:tbName><SPAN 
+  id=Post.ascx_PostComment_RequiredFieldValidator2 
+  style="VISIBILITY: hidden; COLOR: red" initialvalue="" 
+  evaluationfunction="RequiredFieldValidatorEvaluateIsValid" 
+  errormessage="请输入名字" 
+  controltovalidate="Post.ascx_PostComment_tbName">请输入名字</SPAN> 
+  <LI>主&nbsp;&nbsp;&nbsp;页：<INPUT id=Post.ascx_PostComment_tbUrl disabled 
+  maxLength=256 size=40 name=Post.ascx:PostComment:tbUrl> 
+  <LI>
+  <DIV id=Post.ascx_PostComment_AntiBotImageRegion>校验码： <INPUT 
+  id=Post.ascx_PostComment_tbAntiBotImage style="WIDTH: 75px" 
+  name=Post.ascx:PostComment:tbAntiBotImage> <SPAN 
+  id=Post.ascx_PostComment_valAntiBotImage style="DISPLAY: none; COLOR: red" 
+  evaluationfunction="CustomValidatorEvaluateIsValid" 
+  display="Dynamic">检验码无效!</SPAN> <SPAN 
+  id=Anthem_Post.ascx_PostComment_imgAntiBotImage__><IMG 
+  id=Post.ascx_PostComment_imgAntiBotImage alt="" 
+  src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/AntiBotImage.htm" 
+  align=absMiddle border=0></SPAN> <SPAN 
+  id=Anthem_Post.ascx_PostComment_lbCreateAntiBotImage__><A 
+  id=Post.ascx_PostComment_lbCreateAntiBotImage 
+  onclick="javascript:Anthem_FireCallBackEvent(this,event,'Post.ascx:PostComment:lbCreateAntiBotImage','',false,'','','',true,null,null,null,true,true);return false;" 
+  href="javascript:__doPostBack('Post.ascx$PostComment$lbCreateAntiBotImage','')">看不清,换一张</A></SPAN> 
+  </DIV></LI></UL><SPAN id=Post.ascx_PostComment_RequiredFieldValidator3 
+style="VISIBILITY: hidden; COLOR: red" initialvalue="" 
+evaluationfunction="RequiredFieldValidatorEvaluateIsValid" errormessage="请输入评论" 
+controltovalidate="Post.ascx_PostComment_tbComment">请输入评论</SPAN><BR><TEXTAREA id=Post.ascx_PostComment_tbComment disabled name=Post.ascx:PostComment:tbComment rows=10 cols=50></TEXTAREA><BR><SPAN 
+id=Anthem_Post.ascx_PostComment_btnSubmit__></SPAN><BR><SPAN 
+id=Post.ascx_PostComment_Message 
+style="COLOR: red">当前用户设置只有注册用户才能发表评论。如果你没有登录，请点击<A 
+href="http://passport.csdn.net/member/UserLogin.aspx?from=http://blog.csdn.net/lee576/archive/2008/01/24/2062786.aspx">登录</A></SPAN> 
+</FIELDSET> </DIV></DIV></DIV>
+<SCRIPT type=text/javascript>
+    LoadFeedbackCount();//加载评论
+    document.write("<img src='http://counter.csdn.net/pv.aspx?id=24' border=0 width=0 height=0>");// 计数器
+    </SCRIPT>
+
+<SCRIPT src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/HighLighter.js" 
+type=text/javascript></SCRIPT>
+</DIV></DIV></DIV>
+<DIV id=pubfooter>
+<DL>
+  <DT>
+  <DD>Csdn Blog version 3.1a 
+  <DD>Copyright © 汪立 </DD></DL></DIV></DIV>
+<SCRIPT type=text/javascript>
+<!--
+var Page_Validators =  new Array(document.getElementById("Post.ascx_PostComment_RequiredFieldValidator2"), document.getElementById("Post.ascx_PostComment_valAntiBotImage"), document.getElementById("Post.ascx_PostComment_RequiredFieldValidator3"));
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+</FORM>
+<SCRIPT src="显示所有用户表创建时间,数据行数 - lee576的专栏 - CSDNBlog.files/counter.js" 
+type=text/javascript></SCRIPT>
+</DIV></BODY></HTML>

@@ -1,0 +1,24 @@
+function string_create_urls(i) {
+	return i.replace(/&amp;/gi, '&').replace(/(ftp|http|https):\/\/[A-Za-z0-9-_%&+\?\/.=]+(\b|$)/gim, '<a href="$&" target="_blank">$&</a>');
+}
+
+function traversenode(n) {
+	for (o in n.childNodes) {
+		m = n.childNodes[o];
+
+		if (m.nodeType == 1) {
+			if (m.tagName == 'P') {
+				m.innerHTML = string_create_urls(m.innerHTML);
+			} else if(m.tagName != 'IMG' && m.tagName != 'SCRIPT') {
+				traversenode(m);
+			}
+		} 
+	}
+}
+
+var a = YAHOO.util.Dom.getElementsByClassName('entrydetail', 'div');
+
+for (o in a) {
+	traversenode(a[o]);
+}
+<!-- ksw4.search.cnb.yahoo.com compressed/chunked Tue Dec  2 01:22:58 CST 2008 -->

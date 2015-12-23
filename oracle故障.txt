@@ -1,0 +1,34 @@
+alter database datafile  '/tmp/FY_REC_DATA.DAT' offline drop;
+alter database datafile  '/tmp/FY_REC_DATA.DAT' offline;
+alter database datafile  '/tmp/FY_RST_DATA.DAT' offline;
+
+
+
+alter database datafile 21 offline;
+alter database datafile 22 offline;
+alter tablespace FY_RST_DATA offline immediate; 
+
+
+select name,status from v$datafile; 
+select ts#,name from v$tablespace;
+select tablespace_name,status from dba_tablespaces; 
+
+
+
+archive log list
+alter database datafile '/u01/app/oracle/oradata/disk_1/tbs01.dbf' offline;
+
+
+
+
+ORA-01157: cannot identify/lock data file %s - see DBWR trace file的处理 2012-11-29 10:47:48 
+http://blog.itpub.net/11590946/viewspace-750214/
+
+Oracle数据库启动时出现ORA-01157和ORA-01110问题
+http://www.linuxidc.com/Linux/2013-06/86530.htm
+
+
+
+http://blog.itpub.net/23718752/viewspace-747968/
+ORA-01145: offline immediate disallowed unless media recovery enabled   [复制链接] 
+http://bbs.chinaunix.net/forum.php?mod=viewthread&tid=1007749

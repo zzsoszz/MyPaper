@@ -1,0 +1,711 @@
+http://blog.csdn.net/tianlesoftware/archive/2009/12/18/5024966.aspx
+
+Oracle 坏块 总结 收藏 
+
+Oracle数据库出现坏块现象是指：在Oracle数据库的一个或多个数据块（一个数据块的容量在创建数据库时由db_block_size参数指定，缺省为8K）内出现内容混乱的现象。由于正常的数据块都有固定的合法内容格式，坏块的出现，导致数据库进程无法正常解析数据块的内容，进而使数据库进程报错乃至挂起，并级联导致整个数据库实例出现异常。
+
+ 
+
+一．坏块的产生原因
+
+ 
+
+坏块产生的原因大致有以下几种：
+
+1.1 硬件问题
+
+Oracle进程在处理一个数据块时，首先将其读入物理内存空间，在处理完成后，再由特定进程将其写回磁盘；如果在这个过程中，出现内存故障，CPU计算失误，都会导致内存数据块的内容混乱，最后反映到写回磁盘的数据块内容有误。同样，如果存储子系统出现异常，数据块损坏也就随之出现了。
+
+ 
+
+1.2 操作系统BUG
+
+由于Oracle进程对数据块的读写，都是以操作系统内核调用（system call）的方式完成的，如果操作系统在内核调用存在问题，必然导致Oracle进程写入非法的内容。
+
+ 
+
+1.3 操作系统的I/O错误或缓冲问题
+
+ 
+
+1.4 内存或paging问题
+
+ 
+
+Oracle软件BUG
+
+Oracle软件特定版本上，可能出现导致数据块的内容出现异常BUG。
+
+ 
+
+1.5 非Oracle进程扰乱Oracle共享内存区域
+
+如上文所述，在当数据块的内容被读入主机的物理内存时，如果其他非Oracle进程，对Oracle使用的共享内存区域形成了扰乱，最终导致写回磁盘的数据块内容混乱。
+
+ 
+
+1.6 异常关机，掉电，终止服务
+
+异常关机，掉电，终止服务使进程异常终止，而破坏数据块的完整性，导致坏块产生。
+
+注：这也是为什么突然断电会导致数据库无法启动
+
+ 
+
+由上可见，坏块的形成原因复杂。当出现坏块时，为了找到确切的原因，需要大量的分析时间和排查操作，甚至需要多次重现才能找出根本原因。但当故障发生在生产系统上，我们为了减少停机时间，会尽快实施应急权变措施以保证系统的可用性，这样就破坏了故障现场，对根本原因的分析因而也更加困难了。
+
+ 
+
+二．坏块的预防
+
+ 
+
+坏块问题破坏性大，但并非不可预防。
+
+ 
+
+2.1 在Metalink.oracle.com网站，Oracle定期发布基于特定软件版本的“已知问题(known issues)说明”。对于可能导致坏块的Oracle软件BUG，在Oracle公司内部，是作为高严重级别的问题进行处理，在“已知问题(known issues)说明”中，这些BUG以严重（Noticable）问题标出(标记为*或+)，部分问题，Oracle还会发布警告(Alert)通告。在文档中，Oracle会提供相应的补丁或应对措施。
+
+ 
+
+2.2 Oracle提供备份恢复工具－Recovery Manager，提供了扫描文件检查坏块的功能。
+
+在Recovery Manager界面中，使用： 
+
+RMAN> BACKUP CHECK LOGICAL VALIDATE DATAFILE n ;
+
+ 
+
+可以检查数据文件是否包含坏块，同时并不产生实际的备份输出。
+
+ 
+
+2.3 Dbv工具检查
+
+注：因为dbv要求file后面跟的必须是一个文件扩展名，所以如果用裸设备存储
+
+的，就必须使用ln链接裸设备到一个文件，然后再用dbv对这个链接文件进行检
+
+查。
+
+ 
+
+ANALYZE TABLE tablename VALIDATE STRUCTURE CASCADE
+
+它执行坏块的检查，但是不会标记坏块为corrupt，检测的结果保存在USER_DUMP_DEST目录下的用户trace文件中。
+
+ 
+
+2.4 利用exp工具导出整个数据库可以检测坏块
+
+对以下情况的坏块是检测不出来的：
+
+ HWM以上的坏块是不会发现的
+
+ 索引中存在的坏块是不会发现的
+
+ 数据字典中的坏块是不会发现的
+
+ 
+
+结合数据库性能综合考虑db_block_checksum和db_blockchecking参数。
+
+ 
+
+当我们使用Recovery Manager进行实际的数据库备份时，同时也就进行了坏块
+
+检查。但要注意的是，在线使用Recovery Manager扫描坏块和备份时，需要数
+
+据库运行在归档模式（archive log），否则只能在数据库未打开的情况下进行。
+
+ 
+
+对于操作系统问题和硬件故障，则需要相应厂商的配合支持。同时，避免在数
+
+据库主机运行其他用户进程，避免异常停机，也会减少坏块发生的几率。
+
+ 
+
+三．坏块故障的识别
+
+遇到坏块问题时，数据库的异常表现通常有：
+
+报告ORA-01578错误。
+
+报告Ora-1110错误。
+
+报告ORA-00600错误，其中，第一个参数为2000-8000，Cache layer 2000 – 4000，Transaction layer 4000 – 6000，Data layer 6000 - 8000。
+
+Trace文件中出现Corrupt block dba: 0x160c5958 . found。
+
+分析对象失败。
+
+后台进程,如DBWR，LGWR出现长时间异常等待，如“LGWR wait for redo copy”。
+
+ 
+
+ 
+
+四．Oracle数据块损坏恢复总结
+
+ 
+
+可以用DBV 命令来检测是否有坏块：
+
+ 
+
+在恢复前使用DBV命令检查数据文件是否存在坏块
+
+dbv file=d:\oracle\oradata\mydb\RONLY.DBF blocksize=8192
+
+ 
+
+查看数据坏块所在数据文件号及块号可以对表进行一次全表扫描，如：
+
+select count(*) from tablename;
+
+ 
+
+关于DBV 命令的具体使用，请参考blog：
+
+http://blog.csdn.net/tianlesoftware/archive/2009/12/16/5015164.aspx
+
+ 
+
+ 
+
+4.1 没有备份的情况下：
+
+4.1.1、使用exp/imp恢复
+
+在这种情况下肯定会造成数据的丢失，在这种情况下应采取将数据导出然后重建表再进行导入的方法，来尽量恢复损坏数据块中的数据，但是在有坏块的情况下是不允许导出的，如下命令：
+
+Exp test/test file=t.dmp tables=t;
+
+ 
+
+导出命令在执行中会报ORA-01578错误，在这错误提示中会提示那个文件号的文件以及这个文件中的哪个块被损坏，如：ORA—01578：ORACLE 数据块损坏（文件号 4，块号 35）
+
+针对以上的提示首先查询那些对象被损坏：
+
+ 
+
+Select tablespace_name,segment_type,owner,segment_name From dba_extents Where file_id=4 and 35 between block_id and block_id+blocks-1;
+
+ 
+
+如果被损坏的块是索引，通常可以通过索引重建来解决，如果损坏的是数据（segment_type为table），那么通过设置如下内部事件使得Exp操作跳过坏块。
+
+Alter session set events=’10231 trace name context forever,level 10’;
+
+ 
+
+然后重新执行导出命令，导出相关的表，然后执行Drop Table命令删除相关表，之后重建表最后导入数据。
+
+ 
+
+4.1.2、使用DBMS_REPAIR恢复
+
+用DBMS_REPAIR当然也会丢失数据。这里不做详细的介绍，有兴趣的可以查看oracle的在线文档
+
+ 
+
+ 
+
+4.2 使用Rman进行恢复：
+
+首先要存在Rman的最新备份集，然后执行如下命令：
+
+RMAN>backup validate datafile 4;
+
+ 
+
+检查4号数据文件是否存在坏块
+
+执行查询：
+
+select * from v$database_block_corruption where file#=4;
+
+ 
+
+如果4号文件存在坏块的话，那么将在结果集中有所显示，会显示损坏的块号，根据显示结果执行如下命令进行恢复：
+
+RMAN>blockrecover datafile 4 block 35 from backupset;
+
+ 
+
+该命令执行后即可恢复坏块，并且不会造成数据丢失，但是要求数据库必须要运行在归档模式下，否则RMAN无法发挥作用，而且通过RMAN做过最新的数据库备份
+
+ 
+
+ 
+
+4.3 使用bbed恢复
+
+使用bbed恢复时必须有数据文件的拷贝。
+
+bbed就是英文block browse edit的缩写，用来直接查看和修改数据文件数据的一个工具。
+
+ 
+
+BBED在windows 8i中在$ORACLE_HOME/bin下可以找到，9i中似乎未随软件发布，故
+
+在windows没有这个工具，linux下需要编译：
+
+然后把$ORACLE_HOME/rdbms/lib加到环境变量的PATH里面，就可以直接在命令中bbed了。
+
+BBED的缺省口令为blockedit,
+
+For Oracle Internal Use only 请谨慎使用Oracle不做技术支持。
+
+ 
+
+BBED具体的使用，参考blog：
+
+http://blog.csdn.net/tianlesoftware/archive/2009/12/14/5006580.aspx
+
+ 
+
+五．如何查找坏块所含的数据表名称和数据的rowid
+关于Rowid 的相关知识参看blog：
+
+http://blog.csdn.net/tianlesoftware/archive/2009/12/16/5020718.aspx
+
+ 
+
+5.1. 首先肯定知道那个数据文件坏了，查出该文件的file_id,relative_fno,tablespace_name
+
+ 
+
+  利用dba_data_files可以查询file_id(整个数据库唯一序号),RELATIVE_FNO(相对一个表空间内的序号)
+
+ 
+
+5.2. 找到坏块的ID（可以运行dbverify实现），假设找到的坏块ID为1234。
+
+5.3.运行下面的查询，根据,坏块的file_id,block id查找该块对应的owner,segment_type,
+
+segment_name等信息
+
+ 
+
+    select owner,file_id,segment_name, segment_type, block_id, blocks
+
+　　from dba_extents
+
+　　where  file_id=13 and block_id<=1234 and (block_id + blocks- 1) >= 1234;
+
+ 
+
+ 
+
+5.4. 根据坏块的file_id,owner,segment_name,block_id,如果是数据表的话，用下面的查询来得到对应坏块的rowid
+
+ 
+
+  假设owner  :  DAVE
+
+ 
+
+      segment_name:  BL
+
+ 
+
+      file_id     :  13
+
+ 
+
+      block_id    :  162
+
+ 
+
+  运行下面的查询来获得该块所含的rowid(如果没有索引，可能就不能用下面的方式了): 
+
+ 
+
+select /*+ index(DAVE, i_test)*/ rowid
+
+ from DAVE.BL
+
+  where  dbms_rowid.rowid_to_absolute_fno(rowid,'DAVE','BL')=13
+
+  and  dbms_rowid.rowid_block_number(rowid)=162; 　　
+
+ 
+
+六，如何模拟坏块
+
+ 
+
+DBA 的基本知识，制造坏块的方法很多的，可以用ultraedit,也可以用dd命令，同时也呆以用orapatch工具
+
+ 
+
+6.1 orapatch 工具：
+$orapatch open tools001.dbf write
+patch>set hex --要用十六进制
+patch>display 177 --orapatch以512字节为工作模式，假定想破坏第11个block即为：8k/512*11+1(file header)
+patch>find 00400003 --选一个要编辑的点
+patch>modify 00400002 --破坏
+patch>exit
+
+ 
+
+6.2 用编辑器打开 datafile 以 8192 字节为一大小(db 的block是 8192)
+下面是一个 block 的开始的 20个字节和结尾的 4 个字节
+06 02 00 00 08 00 c0 02 6c 43 0d 00 00 00 01 02
+00 00 00 00 -- block head
+
+06 02 6c 43 -- block tail 这里有 scn(6c 43) 的情况和 block (06)的类型 (01) 和 head 的 seq: 0x01 对应，只要改block尾部的4个字节中的或block开始的对应字节任何一个就一定会有 ora-1578，但如果数据库有 ora-1578的 error不一定是这样引起的
+
+btw ： UE不是很好 用winhex吧 不错喔
+
+ 
+
+6.3 BBED 工具
+
+ 
+
+BBED具体的使用，参考blog：
+
+http://blog.csdn.net/tianlesoftware/archive/2009/12/14/5006580.aspx
+
+ 
+
+
+
+
+
+七． 如何利用dbms_repair来标记和跳过坏块
+
+但是当数据量很大，或7*24的系统时，我们使用dbms_repair来处理。dbms_repair是从oracle8i开始提供的。
+
+ 
+
+准备工作：
+
+create tablespace block datafile '/u01/block.dbf' size 5M; 
+
+create table DMM tablespace block as select * from all_tables; 
+
+commit; 
+
+CREATE INDEX indx_dmm on DMM(TABLE_NAME);
+
+select count(*) from DMM;
+
+  COUNT(*)
+
+----------
+
+12896
+
+ 
+
+ 
+
+7.1.创建管理表：
+
+SQL> conn sys/admin as sysdba;
+
+已连接。
+
+SQL> exec DBMS_REPAIR.ADMIN_TABLES('REPAIR_TABLE',1,1,'USERS');
+
+PL/SQL procedure successfully completed
+
+SQL> exec DBMS_REPAIR.ADMIN_TABLES('ORPHAN_TABLE',2,1,'USERS');
+
+PL/SQL procedure successfully completed 
+
+ 
+
+7.2.检查坏块：dbms_repair.check_object 
+
+ 
+
+/* Formatted on 2009-12-16 23:41:32 (QP5 v5.115.810.9015) */
+
+Set serveroutput on;
+
+DECLARE
+
+   cc  NUMBER;
+
+BEGIN
+
+   DBMS_REPAIR.check_object (schema_name => 'SYS', -- 注意此处是用户名
+
+                             object_name     => 'DMM',
+
+                             corrupt_count   => cc);
+
+   DBMS_OUTPUT.put_line ( TO_CHAR (cc));
+
+END;
+
+ 
+
+正常情况下输入为0.
+
+ 
+
+如果有坏块，可以在创建的REPAIR_TABLE中查看块损坏信息：    
+
+ 
+
+/* Formatted on 2009-12-17 13:18:19 (QP5 v5.115.810.9015) */
+
+SELECT   object_name,
+
+         relative_file_id,
+
+         block_id,
+
+         marked_corrupt,
+
+         corrupt_description,
+
+         repair_description,
+
+         CHECK_TIMESTAMP
+
+  FROM   repair_table;                                                                                                                                                                                                        
+
+                                                                                                                                            
+
+ 
+
+注意：在8i下，check_object只会检查坏块，MARKED_CORRUPT为false，故需要执行第三步： 定位坏块，fix_corrupt_blocks定位 ，修改MARKED_CORRUPT为true，同时更新CHECK_TIMESTAMP。9i以后经过check_object，MARKED_CORRUPT的值已经标识为TRUE了。所以可以直接进行第四步了。
+
+ 
+
+ 
+
+7.3.定位坏块：dbms_repair.fix_corrupt_blocks      
+
+只有将坏块信息写入定义的REPAIR_TABLE后，才能定位坏块。  
+
+/* Formatted on 2009-12-17 13:29:01 (QP5 v5.115.810.9015) */
+
+DECLARE
+
+   cc   NUMBER;
+
+BEGIN
+
+   DBMS_REPAIR.fix_corrupt_blocks (schema_name   => 'SYS',
+
+                                   object_name   => 'DMM',
+
+                                   fix_count     => cc);
+
+   DBMS_OUTPUT.put_line (a => TO_CHAR (cc));
+
+END;
+
+ 
+
+ 
+
+7.4.跳过坏块：
+
+我们前面虽然定位了坏块，但是，如果我们访问table：
+
+SQL> select count(*) from SYS.DMM;
+
+ 
+
+ 
+
+ORA-01578: ORACLE 数据块损坏（文件号14，块号154）
+
+ORA-01110: 数据文件 14: 'D: \BLOCK.DBF'
+
+ 
+
+还是会得到错误信息。 这里需要用skip_corrupt_blocks来跳过坏块：
+
+ 
+
+/* Formatted on 2009-12-17 13:30:17 (QP5 v5.115.810.9015) */
+
+exec dbms_repair.skip_corrupt_blocks(schema_name => 'SYS',object_name => 'DMM',flags => 1);
+
+ 
+
+ 
+
+SQL> select count(*) from SYS.DMM;
+
+ 
+
+  COUNT(*)
+
+----------
+
+     12850
+
+丢失了12896－12850＝46行数据。
+
+ 
+
+ 
+
+7.5.处理index上的无效键值；dump_orphan_keys
+
+ 
+
+/* Formatted on 2009-12-17 13:34:55 (QP5 v5.115.810.9015) */
+
+DECLARE
+
+   cc   NUMBER;
+
+BEGIN
+
+   DBMS_REPAIR.dump_orphan_keys (schema_name         => 'SYS',
+
+                                 object_name         => 'INDX_DMM',
+
+                                 object_type         => 2,
+
+                                 repair_table_name   => 'REPAIR_TABLE',
+
+                                 orphan_table_name   => 'ORPHAN_TABLE',
+
+                                 key_count           => CC);
+
+END;
+
+ 
+
+通过以下命令可以知道丢失行的信息：
+
+SQL> SELECT * FROM ORPHAN_TABLE;
+
+ 
+
+我们根据这个结果来考虑是否需要rebuild index.
+
+7.6.重建freelist：rebuild_freelists
+
+ 
+
+/* Formatted on 2009-12-17 13:37:57 (QP5 v5.115.810.9015) */
+
+exec dbms_repair.rebuild_freelists(schema_name => 'SYS',object_name => 'DMM');
+
+ 
+
+八． 设置内部事件使exp跳过坏块
+
+我们可以用设置event的方法来处理坏块：先模拟出坏块，然后用dbv检查，此时，不用dbms_repair，而用下面的方法：
+
+ 
+
+8.1. 先exp该表试验一下
+
+在这种情况下，如果有备份，需要从备份中恢复，如果没有备份，那么坏块部分的数据肯定要丢失了
+
+在这个时候导出是不允许的:
+E:\>exp system/admin file=t.dmp tables=t
+
+
+
+报错如下：
+即将导出指定的表通过常规路径 ...
+. . 正在导出表 T
+EXP-00056: 遇到 ORACLE 错误 1578
+ORA-01578: ORACLE 数据块损坏（文件号4，块号35）
+ORA-01110: 数据文件 4: 'E:\ORACLE\ORADATA\EYGLE\BLOCK.DBF'
+导出成功终止，但出现警告。
+
+ 
+
+8.2. 对于不同的情况需要区别对待 ，如果损失不是数据而是重要的oracle内部信息，则不能用set event。
+
+ 
+
+首先你需要检查损坏的对象，使用以下SQL：
+
+/* Formatted on 2009-12-17 14:00:42 (QP5 v5.115.810.9015) */
+
+SELECT   tablespace_name,
+
+         segment_type,
+
+         owner,
+
+         segment_name
+
+  FROM   dba_extents
+
+ WHERE   file_id = 4 AND 35 BETWEEN block_id AND block_id + blocks - 1;
+
+
+
+
+ 
+
+
+8.3. 如果损失的是数据,ok，可以设置内部事件，使exp跳过这些损坏的block 
+
+ 
+
+10231事件指定数据库在进行全表扫描时跳过损坏的块
+
+ALTER SYSTEM SET EVENTS='10231 trace name context forever,level 10' ;
+
+然后我们可以导出未损坏的数据
+E:\> exp system/admin file=t.dmp tables=t
+
+即将导出指定的表通过常规路径 ...
+. . 正在导出表 T 8036 行被导出
+在没有警告的情况下成功终止导出。
+
+然后我们可以drop table，recreate，然后导入数据
+
+
+8.4. 重建表，再导入
+
+SQL> connect sys/admin as sysdba
+已连接。
+SQL> drop table t;
+表已丢弃。
+E:\>imp system/admin file=t.dmp tables=t
+
+. 正在将system的对象导入到 system
+. . 正在导入表 "T" 8036行被导入
+成功终止导入，但出现警告。
+
+E:\>exit
+SQL> select count(*) from t;
+
+COUNT(*)
+----------
+8036
+
+
+
+完成数据恢复.
+
+ 
+
+损失的行数可以从2个行数相减计算：
+8192 - 8036 = 156 行数据
+
+ 
+
+ 
+
+8.5如果要取消events设置，做以下操作：
+
+1. 如果你在初始化参数中设置的
+注释之
+
+2. 如果在命令行设置的
+alter system set events='10231 trace name context off';
+
+
+本文来自CSDN博客，转载请标明出处：http://blog.csdn.net/tianlesoftware/archive/2009/12/18/5024966.aspx

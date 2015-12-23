@@ -1,0 +1,27 @@
+#pagecell {
+	OVERFLOW: hidden
+}
+#leftNav {
+	BORDER-RIGHT: 1px solid; BORDER-TOP: 1px solid; FLOAT: left; MARGIN-LEFT: -73%; OVERFLOW: hidden; BORDER-LEFT: 1px solid; WIDTH: 20%; BORDER-BOTTOM: 1px solid
+}
+UNKNOWN {
+	MARGIN-LEFT: -76%
+}
+#rightNav {
+	BORDER-RIGHT: 1px solid; BORDER-TOP: 1px solid; FLOAT: left; MARGIN-LEFT: 2%; OVERFLOW: hidden; BORDER-LEFT: 1px solid; WIDTH: 20%; BORDER-BOTTOM: 1px solid
+}
+#content {
+	FLOAT: left; MARGIN-LEFT: 22%; WIDTH: 54%
+}
+UNKNOWN {
+	MARGIN-LEFT: 23%
+}
+ HTML #content {
+	DISPLAY: inline
+}
+ HTML BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+ HTML #footer {
+	POSITION: relative
+}

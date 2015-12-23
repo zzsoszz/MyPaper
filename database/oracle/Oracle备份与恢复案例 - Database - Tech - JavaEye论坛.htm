@@ -1,0 +1,1570 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0034)http://www.javaeye.com/topic/46244 -->
+<HTML dir=ltr xml:lang="zh-CN" 
+xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Oracle备份与恢复案例 - Database - Tech - JavaEye论坛</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<META 
+content=" 一. 理解什么是数据库恢复 &nbsp; 当我们使用一个数据库时，总希望数据库的内容是可靠的、正确的，但由于计算机系统的故障（硬件故障、软件故障、网络故障、进程故障和系统故障）影响数据库系统的操作，影响数据库中数据的正确性，甚至破坏数据库，使数据库中全部或部分数据丢失。因此当发生上述故障后，希望能重构这个完整的数据库，该处理称为数据库恢复。恢复过程大致可以分为复原(Restore)与恢复(Recover)过 ..." 
+name=description>
+<META content=" Database Tech" name=keywords><LINK href="/images/favicon.ico" 
+type=image/x-icon rel="shortcut icon"><LINK title=JavaEye论坛 
+href="/rss/board/Tech" type=application/rss+xml rel=alternate><LINK 
+title=JavaEye href="/open_search.xml" type=application/opensearchdescription+xml 
+rel=search><LINK media=screen 
+href="Oracle备份与恢复案例 - Database - Tech - JavaEye论坛.files/forum.css" type=text/css 
+rel=stylesheet>
+<SCRIPT src="Oracle备份与恢复案例 - Database - Tech - JavaEye论坛.files/application.js" 
+type=text/javascript></SCRIPT>
+<LINK media=screen 
+href="Oracle备份与恢复案例 - Database - Tech - JavaEye论坛.files/SyntaxHighlighter.css" 
+type=text/css rel=stylesheet>
+<SCRIPT src="Oracle备份与恢复案例 - Database - Tech - JavaEye论坛.files/shCoreCommon.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="Oracle备份与恢复案例 - Database - Tech - JavaEye论坛.files/hotkey.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="Oracle备份与恢复案例 - Database - Tech - JavaEye论坛.files/dragdrop.js" 
+type=text/javascript></SCRIPT>
+
+<META content="MSHTML 6.00.2900.3698" name=GENERATOR></HEAD>
+<BODY>
+<DIV id=page>
+<DIV id=header>
+<DIV class=clearfix>
+<DIV id=user_nav><A class=welcome title=登录 
+href="http://www.javaeye.com/login">您还未登录 !</A> <A style="COLOR: red" 
+href="http://www.javaeye.com/all">我的应用</A> <A 
+href="http://www.javaeye.com/login">登录</A> <A class=nobg 
+href="http://www.javaeye.com/signup">注册</A> </DIV></DIV>
+<DIV class=clearfix>
+<DIV id=branding><A href="http://www.javaeye.com/"><IMG 
+title=JavaEye-最棒的软件开发交流社区 alt=JavaEye-最棒的软件开发交流社区 
+src="Oracle备份与恢复案例 - Database - Tech - JavaEye论坛.files/logo.gif"></A> </DIV>
+<DIV id=gg><IMG 
+src="Oracle备份与恢复案例 - Database - Tech - JavaEye论坛.files/banner.jpg"></DIV></DIV></DIV>
+<DIV class=clearfix id=content>
+<DIV id=main>
+<DIV class=clearfix>
+<DIV class=crumbs><A href="http://www.javaeye.com/forums">论坛首页</A> <SPAN 
+class=arrow>→</SPAN> <A 
+href="http://www.javaeye.com/forums/board/Tech">综合技术版</A> <SPAN 
+class=arrow>→</SPAN> <A 
+href="http://www.javaeye.com/forums/tag/Database">Database</A> <SPAN 
+class=arrow>→</SPAN> 
+<H1>Oracle备份与恢复案例</H1></DIV></DIV>
+<DIV id=forum_tag_list><A href="http://www.javaeye.com/forums/board/Tech">全部</A> 
+<A href="http://www.javaeye.com/forums/tag/Database">Database</A> <A 
+href="http://www.javaeye.com/forums/tag/Haskell">Haskell</A> <A 
+href="http://www.javaeye.com/forums/tag/Erlang">Erlang</A> <A 
+href="http://www.javaeye.com/forums/tag/FP">FP</A> <A 
+href="http://www.javaeye.com/forums/tag/Linux">Linux</A> <A 
+href="http://www.javaeye.com/forums/tag/algorithm">数据结构和算法</A> <A 
+href="http://www.javaeye.com/forums/tag/mysql">mysql</A> <A 
+href="http://www.javaeye.com/forums/tag/OracleDB">oracle</A> <A 
+href="http://www.javaeye.com/forums/tag/DB2">DB2</A> <A 
+href="http://www.javaeye.com/forums/tag/SQLServer">SQLServer</A> <A 
+href="http://www.javaeye.com/forums/tag/PostgreSQL">PostgreSQL</A> <A 
+href="http://www.javaeye.com/forums/tag/MacOSX">MacOSX</A> <A 
+href="http://www.javaeye.com/forums/tag/Unix">Unix</A> <A 
+href="http://www.javaeye.com/forums/tag/Technology">编程综合</A> <A 
+href="http://www.javaeye.com/forums/tag/OS">OS</A> </DIV>
+<DIV class=actions>
+<DIV class=buttons></DIV>
+<DIV class=wrapper>
+<DIV id=forum_recommended_f4></DIV>
+<DIV class=info>浏览 10534 次</DIV></DIV></DIV>
+<TABLE id=forum_main cellSpacing=1>
+  <THEAD>
+  <TR>
+    <TH class=topic_title colSpan=2>
+      <DIV class=wrapper><SPAN class=locked>锁定老贴子</SPAN> <A 
+      href="http://www.javaeye.com/topic/46244">主题：Oracle备份与恢复案例</A></DIV>
+      <DIV id=topic_rate_box>精华帖 (0) :: 良好帖 (0) :: 新手帖 (0) :: 隐藏帖 
+(0)</DIV></TH></TR>
+  <TR>
+    <TD class=first_col>作者</TD>
+    <TD class=last_col>正文</TD></TR></THEAD>
+  <TBODY id=posts>
+  <TR id=203973>
+    <TD class=postauthor>
+      <UL>
+        <LI class=name>alex8946 
+        <LI>等级: 初级会员 
+        <LI><A href="http://fengyouhua.javaeye.com/" target=_blank><IMG 
+        class=logo title="alex8946的博客: [Alex J2EE/WEB2.0]" alt=alex8946的博客 
+        src="Oracle备份与恢复案例 - Database - Tech - JavaEye论坛.files/1a68a84a-b4f6-4c27-905c-16df049d6a0c.png"></A> 
+
+        <LI>性别: <IMG title=男 
+        src="Oracle备份与恢复案例 - Database - Tech - JavaEye论坛.files/icon_minigender_1.gif"> 
+
+        <LI>文章: 4 
+        <LI>积分: 40 
+        <LI>来自: 广东广州 
+        <LI><IMG 
+        src="Oracle备份与恢复案例 - Database - Tech - JavaEye论坛.files/offline.gif"> 
+        </LI></UL></TD>
+    <TD class=postcontent>
+      <DIV class=postactions>
+      <DIV class=description>&nbsp;&nbsp; 发表时间：2007-01-11&nbsp;&nbsp; </DIV>
+      <DIV class=links></DIV></DIV>
+      <DIV class="postbody clearfix">
+      <SCRIPT type=text/javascript>
+      var hunters = ["\u003Ca href='/jobs/713' target='_blank' style='color:#000;'\u003E\u003Cspan style='font-weight:bold;'\u003E\u5317\u4eac: \u003C/span\u003E JavaEye\u62db\u8058Ruby\u9ad8\u7ea7\u5de5\u7a0b\u5e08\u003C/a\u003E","\u003Ca href='/jobs/861' target='_blank' style='color:#000;'\u003E\u003Cspan style='font-weight:bold;'\u003E\u5317\u4eac: \u003C/span\u003E \u3010\u5317\u4eac\u3011\u8bda\u8058java\u6280\u672f\u8d1f\u8d23\u4eba\u003C/a\u003E","\u003Ca href='/jobs/712' target='_blank' style='color:#000;'\u003E\u003Cspan style='font-weight:bold;'\u003E\u5317\u4eac: \u003C/span\u003E JavaEye\u62db\u8058Java\u641c\u7d22\u5de5\u7a0b\u5e08\u003C/a\u003E"]
+      var hunter_id = Math.ceil(Math.random() * hunters.length) - 1;
+      if(hunter_id == -1) hunter_id = 0;
+    </SCRIPT>
+
+      <DIV id=hunter_recommended 
+      style="BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 4px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 4px; BACKGROUND: #fff; MARGIN-BOTTOM: 10px; PADDING-BOTTOM: 4px; BORDER-LEFT: #ccc 1px solid; PADDING-TOP: 4px; BORDER-BOTTOM: #ccc 1px solid"><SPAN 
+      id=hunters_nav style="MARGIN-RIGHT: 5px"><A 
+      style="BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 3px; PADDING-BOTTOM: 0px; BORDER-LEFT: #ccc 1px solid; PADDING-TOP: 0px; BORDER-BOTTOM: #ccc 1px solid; TEXT-DECORATION: none; size: 13px" 
+      onclick="hunter_id <= 0 ? hunter_id = hunters.length - 1 : hunter_id--; $('hunters').update(hunters[hunter_id]);return false;" 
+      href="http://www.javaeye.com/topic/46244#">&lt;</A> <A 
+      style="BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 3px; PADDING-BOTTOM: 0px; BORDER-LEFT: #ccc 1px solid; PADDING-TOP: 0px; BORDER-BOTTOM: #ccc 1px solid; TEXT-DECORATION: none; size: 13px" 
+      onclick="hunter_id >= hunters.length - 1 ? hunter_id = 0 : hunter_id++; $('hunters').update(hunters[hunter_id]);return false;" 
+      href="http://www.javaeye.com/topic/46244#">&gt;</A> </SPAN>猎头职位: <SPAN 
+      id=hunters>
+      <SCRIPT type=text/javascript>document.write(hunters[hunter_id]);</SCRIPT>
+      </SPAN></DIV>
+      <DIV id=related_topics>相关文章: <SPAN class=close><A title=关闭 
+      onclick="$('related_topics').hide();if($('hunter_recommended')){$('hunter_recommended').style.width='780px';} return false;" 
+      href="http://www.javaeye.com/topic/46244#">&nbsp;</A></SPAN> 
+      <UL>
+        <LI><A title="Oracle 学习笔记: Backup &amp; Recovery 常用命令" 
+        href="http://www.javaeye.com/topic/344903" target=_blank>Oracle 学习笔记: 
+        Backup &amp; Recovery 常用命令</A> 
+        <LI><A title="Oracle 学习笔记: 重建Control File" 
+        href="http://www.javaeye.com/topic/336705" target=_blank>Oracle 学习笔记: 
+        重建Control File</A> 
+        <LI><A title=Oracle数据库的闪回恢复区 href="http://www.javaeye.com/topic/202867" 
+        target=_blank>Oracle数据库的闪回恢复区</A> </LI></UL><BR><SPAN>推荐圈子: <A 
+      href="http://javagp.group.javaeye.com/" target=_blank>JAVA 3T</A></SPAN> 
+      <BR><A href="http://www.javaeye.com/wiki/topic/46244" 
+      target=_blank>更多相关推荐</A> </DIV>
+      <SCRIPT type=text/javascript>
+                if($('hunter_recommended')) {
+                  $('hunter_recommended').setStyle({cssFloat: 'left', width: '557px'})
+                }
+                new Draggable("related_topics");
+              </SCRIPT>
+
+      <DIV>
+      <DIV><STRONG>一. 理解什么是数据库恢复<BR>&nbsp; 
+      </STRONG>当我们使用一个数据库时，总希望数据库的内容是可靠的、正确的，但由于计算机系统的故障（硬件故障、软件故障、网络故障、进程故障和系统故障）影响数据库系统的操作，影响数据库中数据的正确性，甚至破坏数据库，使数据库中全部或部分数据丢失。因此当发生上述故障后，希望能重构这个完整的数据库，该处理称为数据库恢复。恢复过程大致可以分为复原(Restore)与恢复(Recover)过程。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>数据库恢复可以分为以下两类：</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV><STRONG>1.1</STRONG><STRONG>实例故障的一致性恢复</STRONG><STRONG><BR><BR></STRONG></DIV>
+      <DIV>当实例意外地（如掉电、后台进程故障等）或预料地（发出SHUTDOUM 
+      ABORT语句）中止时出现实例故障，此时需要实例恢复。实例恢复将数据库恢复到故障之前的事务一致状态。如果在在线后备发现实例故障，则需介质恢复。在其它情况Oracle在下次数据库起动时（对新实例装配和打开），自动地执行实例恢复。如果需要，从装配状态变为打开状态，自动地激发实例恢复，由下列处理：<BR><BR></DIV>
+      <DIV>（1） 为了解恢复数据文件中没有记录的数据，进行向前滚。该数据记录在在线日志，</DIV>
+      <DIV>包括对回滚段的内容恢复。</DIV>
+      <DIV>（2） 回滚未提交的事务，按步1重新生成回滚段所指定的操作。</DIV>
+      <DIV>（3） 释放在故障时正在处理事务所持有的资源。</DIV>
+      <DIV>（4） 解决在故障时正经历一阶段提交的任何悬而未决的分布事务。</DIV>
+      <DIV><BR><STRONG>1.2</STRONG><STRONG>介质故障或文件错误的不一致恢复</STRONG><STRONG><BR><BR></STRONG></DIV>
+      <DIV>介质故障是当一个文件、一个文件的部分或磁盘不能读或不能写时出现的故障。文件错误一般指意外的错误导致文件被删除或意外事故导致文件的不一致。这种状态下的数据库都是不一致的，需要DBA手工来进行数据库的恢复，这种恢复有两种形式，决定于数据库运行的归档方式和备份方式。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>（1） 
+      完全介质恢复可恢复全部丢失的修改。一般情况下需要有数据库的备份且数据库运行在归档状态下并且有可用归档日志时才可能。对于不同类型的错误，有不同类型的完全恢复可使用，其决定于毁坏文件和数据库的可用性。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>（2） 
+      不完全介质恢复是在完全介质恢复不可能或不要求时进行的介质恢复。重构受损的数据库，使其恢复介质故障前或用户出错之前的一个事务一致性状态。不完全介质恢复有不同类型的使用，决定于需要不完全介质恢复的情况，有下列类型：基于撤消、基于时间和基于修改的不完全恢复。<BR><BR></DIV>
+      <DIV>基于撤消(CANCEL)恢复：在某种情况，不完全介质恢复必须被控制，DBA可撤消在指定点的操作。基于撤消的恢复地在一个或多个日志组（在线的或归档的）已被介质故障所破坏，不能用于恢复过程时使用，所以介质恢复必须控制，以致在使用最近的、未损的日志组于数据文件后中止恢复操作。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>基于时间(TIME)和基于修改(SCN)的恢复：如果DBA希望恢复到过去的某个指定点，是一种理想的不完全介质恢复，一般发生在恢复到某个特定操作之前，恢复到如意外删除某个数据表之前。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV><STRONG>第二章. 数据库恢复案例测试环境</STRONG></DIV>
+      <DIV><BR><STRONG>2.1 </STRONG><STRONG>数据库环境</STRONG><STRONG></DIV>
+      <DIV>以下的所有案例都是通过测试经过，环境为：</DIV>
+      <DIV>&nbsp; OS：Windows 2000 Server</DIV>
+      <DIV>&nbsp; DB：Oracle 816</DIV>
+      <DIV>&nbsp; DBNAME：TEST<BR><BR></DIV>
+      <DIV>数据文件：</DIV>
+      <DIV>SQL&gt; select file#,status,enabled,name from v$datafile;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp; FILE# STATUS &nbsp;ENABLED&nbsp;&nbsp;&nbsp; 
+      &nbsp; NAME</DIV>
+      <DIV>----------------------------------------------------------------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 SYSTEM&nbsp; READ 
+      WRITE D:/Oracle/ORADATA/TEST/SYSTEM01.DBF</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 ONLINE&nbsp; READ 
+      WRITE D:/Oracle/ORADATA/TEST/RBS01.DBF</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 ONLINE&nbsp; READ 
+      WRITE D:/Oracle/ORADATA/TEST/USERS01.DBF</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 ONLINE&nbsp; READ 
+      WRITE D:/Oracle/ORADATA/TEST/TEMP01.DBF</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 ONLINE&nbsp; READ 
+      WRITE D:/Oracle/ORADATA/TEST/TOOLS01.DBF</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 ONLINE&nbsp; READ 
+      WRITE D:/Oracle/ORADATA/TEST/INDX01.DBF<BR><BR></DIV>
+      <DIV>控制文件：</DIV>
+      <DIV>SQL&gt; select * from v$controlfile;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>STATUS&nbsp; NAME</DIV>
+      <DIV>---------------------------------------------------------------------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 
+      D:/Oracle/ORADATA/TEST/CONTROL01.CTL</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 
+      D:/Oracle/ORADATA/TEST/CONTROL02.CTL</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 
+      D:/Oracle/ORADATA/TEST/CONTROL03.CTL</DIV>
+      <DIV><BR>联机日志：</DIV>
+      <DIV>SQL&gt; select * from v$logfile;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp; GROUP# STATUS&nbsp; &nbsp;&nbsp;&nbsp; 
+MEMBER</DIV>
+      <DIV>---------------------------------------------------------------------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp; STALE&nbsp;&nbsp; 
+      &nbsp;&nbsp; D:/Oracle/ORADATA/TEST/REDO01.LOG</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;&nbsp; D:/Oracle/ORADATA/TEST/REDO02.LOG</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp; STALE&nbsp;&nbsp; 
+      &nbsp;&nbsp; D:/Oracle/ORADATA/TEST/REDO03.LOG</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV><STRONG>2.2 </STRONG><STRONG>数据库备份脚本</STRONG><STRONG></DIV>
+      <DIV>冷备份脚本:</DIV>
+      <DIV>rem&nbsp;&nbsp;&nbsp;&nbsp; script:coldbak.sql</DIV>
+      <DIV>rem&nbsp;&nbsp;&nbsp;&nbsp; creater:chenjiping</DIV>
+      <DIV>rem&nbsp;&nbsp;&nbsp;&nbsp; date:5.8.2003</DIV>
+      <DIV>rem&nbsp;&nbsp;&nbsp;&nbsp; desc:offline full backup database </DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>--connect database</DIV>
+      <DIV>connect internal/password;</DIV>
+      <DIV>--shutdown database</DIV>
+      <DIV>shutdown immediate;</DIV>
+      <DIV>--Copy Data file</DIV>
+      <DIV>!xcopy d:/Oracle/oradata/test/*.dbf d:/database/H/R; </DIV>
+      <DIV>--Copy Control file</DIV>
+      <DIV>!xcopy d:/Oracle/oradata/test/*.ctl d:/database/H/R;</DIV>
+      <DIV>--Copy Log file</DIV>
+      <DIV>!xcopy d:/Oracle/oradata/test/*.log d:/database/H/R;</DIV>
+      <DIV>--startup database</DIV>
+      <DIV>startup;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>说明：</DIV>
+      <DIV>1、以上脚本在数据库关闭状态下备份数据库所有的数据文件，联机日志，控制文件（在一个目</DIV>
+      <DIV>录下），如果成功备份，所有文件是一致的;</DIV>
+      <DIV>2、没有备份参数文件，参数文件可以另外备份，没有必要每次都备份，只需要在改变设置后备份一次;</DIV>
+      <DIV>3、如果以上命令没有成功依次执行，那么备份将是无效的，如连接数据库不成功，那么肯定关闭数据库也不成功，那么备份则无效;</DIV>
+      <DIV>4、冷备份建议下人工干预下执行。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>数据库OS热全备份脚本</DIV>
+      <DIV>rem&nbsp;&nbsp;&nbsp;&nbsp; script:hotbak.sql</DIV>
+      <DIV>rem&nbsp;&nbsp;&nbsp;&nbsp; creater:chenjiping</DIV>
+      <DIV>rem&nbsp;&nbsp;&nbsp; &nbsp;date:5.8.2003</DIV>
+      <DIV>rem&nbsp;&nbsp;&nbsp;&nbsp; desc:backup all database datafile in 
+      archive</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>--connect database</DIV>
+      <DIV>connect internal/password;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>--archive</DIV>
+      <DIV>alter system archive log current;</DIV>
+      <DIV>--start</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>alter tablespace system begin backup;</DIV>
+      <DIV>!xcopy d:/Oracle/oradata/test/system01.dbf d:/databak/H/R;</DIV>
+      <DIV>alter tablespace system end backup;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>alter tablespace rbs begin backup;</DIV>
+      <DIV>!xcopy d:/Oracle/oradata/test/rbs01.dbf d:/databak/H/R;</DIV>
+      <DIV>alter tablespace rbs end backup;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>alter tablespace users begin backup;</DIV>
+      <DIV>!xcopy d:/Oracle/oradata/test/users01.dbf d:/databak/H/R;</DIV>
+      <DIV>alter tablespace users end backup;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>alter tablespace tools begin backup;</DIV>
+      <DIV>!xcopy d:/Oracle/oradata/test/tools01.dbf d:/databak/H/R;</DIV>
+      <DIV>alter tablespace tools end backup;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>alter tablespace indx begin backup;</DIV>
+      <DIV>!xcopy d:/Oracle/oradata/test/indx01.dbf d:/databak/H/R;</DIV>
+      <DIV>alter tablespace indx end backup;</DIV>
+      <DIV>--end</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>--bak control file</DIV>
+      <DIV>--binary</DIV>
+      <DIV>alter database backup controlfile to 
+      'd:/databak/controlbinbak.000';</DIV>
+      <DIV>--ascii</DIV>
+      <DIV>alter database backup controlfile to trace;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>alter system archive log current;<BR><BR></DIV>
+      <DIV>说明：</DIV>
+      <DIV>1、热备份必须在数据库归档方式下才可以运行；</DIV>
+      <DIV>2、以上脚本可以在数据库运行状态下备份数据库所有的数据文件（除了临时数据文件），没有必要备份联机日志；</DIV>
+      <DIV>3、归档日志至少需要一次完整备份之后的所有日志；</DIV>
+      <DIV>4、如果以上命令没有成功依次执行，那么备份也是无效的，如连接数据库不成功，那么备份则无效。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>RMAN备份只讲叙有恢复目录的情况，如果没有恢复目录，情形大致相似。以下是RMAN的热备份全备份的脚本：</DIV>
+      <DIV>#&nbsp;&nbsp; script:bakup.rcv</DIV>
+      <DIV>#&nbsp;&nbsp; creater:chenjiping</DIV>
+      <DIV>#&nbsp;&nbsp; date:5.8.2003</DIV>
+      <DIV>#&nbsp;&nbsp; desc:backup all database datafile in archive with 
+      rman</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV># connect database</DIV>
+      <DIV>connect rcvcat rman/rman@back;</DIV>
+      <DIV>connect target internal/virpure;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV># start backup database</DIV>
+      <DIV>run{</DIV>
+      <DIV>allocate channel c1 type disk;</DIV>
+      <DIV>backup full tag 'dbfull' format 'd:/backup/full%u_%s_%p' 
+      database</DIV>
+      <DIV>include current controlfile;</DIV>
+      <DIV>sql 'alter system archive log current';</DIV>
+      <DIV>release channel c1;</DIV>
+      <DIV>}</DIV>
+      <DIV># end</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>说明：</DIV>
+      <DIV>1、 数据库必须运行在归档模式下;</DIV>
+      <DIV>2、 RMAN将自动备份数据文件，运行可靠;</DIV>
+      <DIV>3、 归档日志另外备份处理，但至少需要保存一次备份来的日志;</DIV>
+      <DIV>4、 没有必要用RMAN做冷备份，效果不好。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>以上举例说明了数据库的恢复案例的测试环境与部分备份测试脚本，其它的备份脚本可以根据以上脚本演变而来或在案例中加以说明。</DIV>
+      <DIV>数据库的自动实例将不加以说明，这里只举例说明媒体错误或人为错误造成的恢复可能。</DIV>
+      <DIV>以上包括以下案例都是在WINDOWS+Oracle816上测试验证的，在不同的操作系统与不同的数据库版本中略有差别。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV><STRONG>第三章. 了解与恢复相关的信息</STRONG></DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV><STRONG>1</STRONG><STRONG>、</STRONG><STRONG> 
+      </STRONG><STRONG>理解报警日志文件</STRONG><STRONG></DIV>
+      <DIV>报警日志文件一般记载了数据库的启动/关闭信息，归档信息，备份信息，恢复信息，常见错误信息，部分数据库修改记录等。一般令名规则为&lt;sid&gt;&lt;/sid&gt;Alrt.log或Alrt&lt;sid&gt;&lt;/sid&gt;.log，如我的测试数据库的报警日志文件的名称为testalrt.log。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>报警日志文件的路径是根据初始化参数background_dump_dest来决定的，如在我的机器上，该参数值为 
+      D:/Oracle/admin/test/bdump，那么，你就可以在该路径下找到该文件。<BR><BR></DIV>
+      <DIV><STRONG>2</STRONG><STRONG>、</STRONG><STRONG> 
+      </STRONG><STRONG>后台进程跟踪文件</STRONG><STRONG></DIV>
+      <DIV>后台进程跟踪文件的路径与报警日志文件的路径一致，在某些情况下，你可以通过后台跟踪文件的信息了解更多的需要恢复的信息。如在数据库需要恢复的时候，报警日志文件中常有这样的语句：<BR><BR></DIV>
+      <DIV>Errors in file D:/Oracle/admin/test/bdump/testDBW0.TRC:</DIV>
+      <DIV>ORA-01157: cannot identify/lock data file 1 - see DBWR trace 
+      file</DIV>
+      <DIV>通过提示的DBWR跟踪文件，可以查询到更详细的信息。</DIV>
+      <DIV><BR>3、 v$recover_file与v$recovery_log</DIV>
+      <DIV>这是两个动态性能视图，可以在mount下查看，通过这两个视图，你可以了解详细的需要恢复的数据文件与需要使用到的归档日志。<BR><BR></DIV>
+      <DIV><STRONG>第四章. 数据库恢复案例</STRONG></DIV>
+      <DIV><BR><STRONG>4.1</STRONG><STRONG>非归档模式下的备份与恢复</STRONG><STRONG><BR><BR></STRONG></DIV>
+      <DIV>备份方案：采用OS冷备份</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>1.&nbsp; 连接数据库并创建测试表</DIV>
+      <DIV>SQL&gt; connect internal/password as sysdba;</DIV>
+      <DIV>Connected.</DIV>
+      <DIV>SQL&gt; create table test(a int);</DIV>
+      <DIV>Table created</DIV>
+      <DIV>SQL&gt; insert into test values(1);</DIV>
+      <DIV>1 row inserted</DIV>
+      <DIV>SQL&gt; commit;</DIV>
+      <DIV>Commit complete</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>2.&nbsp; 备份数据库</DIV>
+      <DIV>SQL&gt; @coldbak.sql 或在DOS下 svrmgrl @coldbak.sql</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>3.&nbsp; 再插入记录</DIV>
+      <DIV>SQL&gt; insert into test values(2);</DIV>
+      <DIV>1 row inserted</DIV>
+      <DIV>SQL&gt; commit;</DIV>
+      <DIV>Commit complete</DIV>
+      <DIV>SQL&gt; select * from test;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A</DIV>
+      <DIV>-------------------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2</DIV>
+      <DIV>4.&nbsp; 关闭数据库</DIV>
+      <DIV>SQL&gt; shutdown immediate;</DIV>
+      <DIV>Database closed.</DIV>
+      <DIV>Database dismounted.</DIV>
+      <DIV>Oracle instance shut down.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>5.&nbsp; 毁坏一个或多个数据文件，如删除user01.dbf</DIV>
+      <DIV>C:/&gt;del D:/Oracle/ORADATA/TEST/USERS01.DBF</DIV>
+      <DIV>模拟媒体毁坏。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>6.&nbsp; 重新启动数据库，会发现如下错误</DIV>
+      <DIV>SQL&gt; startup</DIV>
+      <DIV>Oracle instance started.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>Total System Global Area&nbsp; 102020364 bytes</DIV>
+      <DIV>Fixed 
+      Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      70924 bytes</DIV>
+      <DIV>Variable 
+      Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      85487616 bytes</DIV>
+      <DIV>Database 
+      Buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      16384000 bytes</DIV>
+      <DIV>Redo Buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;77824 
+      bytes</DIV>
+      <DIV>Database mounted.</DIV>
+      <DIV>ORA-01157: cannot identify/lock data file 3 - see DBWR trace 
+      file</DIV>
+      <DIV>ORA-01110: data file 3: 'D:/Oracle/ORADATA/TEST/USERS01.DBF'</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>在报警文件中，会有更详细的信息</DIV>
+      <DIV>Errors in file D:/Oracle/admin/test/bdump/testDBW0.TRC:</DIV>
+      <DIV>ORA-01157: cannot identify/lock data file 3 - see DBWR trace 
+      file</DIV>
+      <DIV>ORA-01110: data file 3: 'D:/Oracle/ORADATA/TEST/USERS01.DBF'</DIV>
+      <DIV>ORA-27041: unable to open file</DIV>
+      <DIV>OSD-04002: unable to open file</DIV>
+      <DIV>O/S-Error: (OS 2) 系统找不到指定的文件。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>7.&nbsp; 拷贝备份复原到原来位置(restore过程)</DIV>
+      <DIV>C:/&gt;xcopy d:/database/*.* d:/Oracle/oradata/test/H/R/S</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>8.&nbsp; 打开数据库，检查数据</DIV>
+      <DIV>SQL&gt; alter database open;</DIV>
+      <DIV>Database altered.</DIV>
+      <DIV>SQL&gt; select * from test;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      A</DIV>
+      <DIV>---------------------------------------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>这里可以发现，数据库恢复成功，但在备份之后与崩溃之前的数据丢失了。<BR><BR></DIV>
+      <DIV>说明：</DIV>
+      <DIV>1、非归档模式下的恢复方案可选性很小，一般情况下只能有一种恢复方式，就是数据库的冷备<BR>份的完全恢复，仅仅需要拷贝原来的备份就可以(restore)，不需要recover；</DIV>
+      <DIV>2、这种情况下的恢复，可以完全恢复到备份的点上，但是可能是丢失数据的，在备份之后与崩溃之前的数据将全部丢失；</DIV>
+      <DIV>3、不管毁坏了多少数据文件或是联机日志或是控制文件，都可以通过这个办法恢复，因为这个恢复过程是Restore所有的冷备份文件，而这个备份点上的所有文件是一致的，与最新的数据库没有关系，就好比把数据库又放到了一个以前的"点"上；</DIV>
+      <DIV>4、对于非归档模式下，最好的办法就是采用OS的冷备份，建议不要用RMAN来作冷备份，效果不好，因为RMAN不备份联机日志，restore不能根本解决问题；</DIV>
+      <DIV>5、如果没有备份联机日志，如RMAN的备份，就需要利用不完全恢复(until 
+      cancel)的方法来重新创建联机日志文件。<BR><BR></DIV>
+      <DIV><STRONG>4.2</STRONG><STRONG>归档模式下丢失或损坏一个数据文件</STRONG><STRONG><BR><BR></STRONG></DIV>
+      <DIV>4.2.1 OS备份方案</DIV>
+      <DIV>在归档方式下损坏或丢失一个数据文件，如果存在相应的备份与该备份以来的归档日志，恢复还是比较简单的，可以作到尽量少的Down机时间，并能作到数据库的完全恢复。<BR><BR></DIV>
+      <DIV>1、 连接数据库，创建测试表并插入记录</DIV>
+      <DIV>SQL&gt; connect internal/password as sysdba;</DIV>
+      <DIV>Connected.</DIV>
+      <DIV>SQL&gt; create table test(a int) tablespace users;</DIV>
+      <DIV>Table created</DIV>
+      <DIV>SQL&gt; insert into test values(1);</DIV>
+      <DIV>1 row inserted</DIV>
+      <DIV>SQL&gt; commit;</DIV>
+      <DIV>Commit complete</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>2、 备份数据库</DIV>
+      <DIV>SQL&gt; @hotbak.sql 或在DOS下 svrmgrl @hotbak.sql</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>3、 继续在测试表中插入记录</DIV>
+      <DIV>SQL&gt; insert into test values(2);</DIV>
+      <DIV>1 row inserted</DIV>
+      <DIV>SQL&gt; commit;</DIV>
+      <DIV>Commit complete</DIV>
+      <DIV>SQL&gt; select * from test;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      A</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp; --------------------------------------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2</DIV>
+      <DIV>SQL&gt; alter system switch logfile;</DIV>
+      <DIV>System altered.</DIV>
+      <DIV>SQL&gt; alter system switch logfile;</DIV>
+      <DIV>System altered.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>4、 关闭数据库，模拟丢失数据文件</DIV>
+      <DIV>SQL&gt; shutdown immediate;</DIV>
+      <DIV>Database closed.</DIV>
+      <DIV>Database dismounted.</DIV>
+      <DIV>Oracle instance shut down</DIV>
+      <DIV>C:/&gt;del D:/Oracle/ORADATA/TEST/USERS01.DBF</DIV>
+      <DIV>模拟媒体毁坏。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>5、 启动数据库错误，脱机该数据文件：</DIV>
+      <DIV>SQL&gt; startup</DIV>
+      <DIV>Oracle instance started.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>Total System Global Area&nbsp; 102020364 bytes</DIV>
+      <DIV>Fixed 
+      Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      70924 bytes</DIV>
+      <DIV>Variable 
+      Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      85487616 bytes</DIV>
+      <DIV>Database 
+      Buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      16384000 bytes</DIV>
+      <DIV>Redo 
+      Buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      77824 bytes</DIV>
+      <DIV>Database mounted.</DIV>
+      <DIV>ORA-01157: cannot identify/lock data file 3 - see DBWR trace 
+      file</DIV>
+      <DIV>ORA-01110: data file 3: 
+      'D:/Oracle/ORADATA/TEST/USERS01.DBF'<BR><BR></DIV>
+      <DIV>还可以查看报警文件（见上一个恢复案例）或动态视图v$recover_file</DIV>
+      <DIV>如SQL&gt; select * from v$recover_file;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp; FILE# ONLINE&nbsp; 
+      ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CHANGE# 
+      &nbsp;&nbsp;&nbsp; TIME</DIV>
+      <DIV>---------- ------- ------------------ ---------- -----------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 &nbsp; 
+      ONLINE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1013500 &nbsp;&nbsp; 2003-05-07</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>脱机数据文件</DIV>
+      <DIV>SQL&gt; alter database datafile 3 offline drop;</DIV>
+      <DIV>Database altered.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>6、 打开数据库，拷贝备份回来(restore)，恢复(recover)该数据文件，并联机:<BR><BR></DIV>
+      <DIV>SQL&gt; alter database open;</DIV>
+      <DIV>Database altered.</DIV>
+      <DIV><BR>拷贝备份从备份处</DIV>
+      <DIV>copy d:/databak/ users01.dbf d:/Oracle/oradata/test;</DIV>
+      <DIV><BR>恢复该数据文件</DIV>
+      <DIV>SQL&gt; recover datafile 3;<BR><BR></DIV>
+      <DIV>ORA-00279: change 1053698 generated at 05/07/2003 17:51:26 needed for 
+      </DIV>
+      <DIV>thread 1</DIV>
+      <DIV>ORA-00289: suggestion : 
+      <BR>D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00304.ARC</DIV>
+      <DIV>ORA-00280: change 1053698 for thread 1 is in sequence #304</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>Specify log: {&lt;ret&gt;&lt;/ret&gt;=suggested | filename | AUTO | 
+      CANCEL}</DIV>
+      <DIV><STRONG>AUTO</STRONG></DIV>
+      <DIV>ORA-00279: change 1053701 generated at 05/07/2003 17:51:39 needed for 
+      </DIV>
+      <DIV>thread 1</DIV>
+      <DIV>ORA-00289: suggestion : 
+      D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00305.ARC</DIV>
+      <DIV>ORA-00280: change 1053701 for thread 1 is in sequence #305</DIV>
+      <DIV>ORA-00278: log file 
+      'D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00304.ARC' no longer needed for 
+      this recovery Log applied.</DIV>
+      <DIV>Media recovery complete.<BR><BR></DIV>
+      <DIV>恢复成功，联机该数据文件</DIV>
+      <DIV>SQL&gt; alter database datafile 3 online;</DIV>
+      <DIV>Database altered.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>7、 检查数据库的数据（完全恢复）</DIV>
+      <DIV>SQL&gt; select * from test;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      A</DIV>
+      <DIV>--------------------------------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2</DIV>
+      <DIV>说明：</DIV>
+      <DIV>1、采用热备份，需要运行在归档模式下，可以实现数据库的完全恢复，也就是说，从备份后到数据库崩溃时的数据都不会丢失;</DIV>
+      <DIV>2、可以采用全备份数据库的方式备份，对于特殊情况，也可以只备份特定的数据文件，如只备份用户表空间（一般情况下对于某些写特别频繁的数据文件，可以单独加大备份频率）；</DIV>
+      <DIV>3、如果在恢复过程中，发现损坏的是多个数据文件，即可以采用一个一个数据文件的恢复方法（第5步中需要对数据文件一一脱机，第6步中需要对数据文件分别恢复），也可以采用整个数据库的恢复方法；</DIV>
+      <DIV>4、如果是系统表空间的损坏，不能采用此方法。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>4.2.2 RMAN备份方案<BR><BR></DIV>
+      <DIV>RMAN也可以进行联机备份，而且备份与恢复方法将比OS备份更简单可靠。</DIV>
+      <DIV>1、连接数据库，创建测试表并插入记录</DIV>
+      <DIV>SQL&gt; connect internal/password as sysdba;</DIV>
+      <DIV>Connected.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>SQL&gt; create table test(a int) tablespace users;</DIV>
+      <DIV>Table created</DIV>
+      <DIV>SQL&gt; insert into test values(1);</DIV>
+      <DIV>1 row inserted</DIV>
+      <DIV>SQL&gt; commit;</DIV>
+      <DIV>Commit complete</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>2、 备份数据库表空间users</DIV>
+      <DIV><STRONG>C:/&gt;rman</STRONG></DIV>
+      <DIV>Recovery Manager: Release 8.1.6.0.0 - Production</DIV>
+      <DIV>RMAN&gt; connect rcvcat rman/rman@back</DIV>
+      <DIV>RMAN-06008: connected to recovery catalog database</DIV>
+      <DIV>RMAN&gt; connect target internal/virpure</DIV>
+      <DIV>RMAN-06005: connected to target database: TEST 
+(DBID=1788174720)</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>RMAN&gt; run{</DIV>
+      <DIV>2&gt; allocate channel c1 type disk;</DIV>
+      <DIV>3&gt; backup tag 'tsuser' format 'd:/backup/tsuser_%u_%s_%p'</DIV>
+      <DIV>4&gt; tablespace users;</DIV>
+      <DIV>5&gt; release channel c1;</DIV>
+      <DIV>6&gt; }</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>RMAN-03022: compiling command: allocate</DIV>
+      <DIV>RMAN-03023: executing command: allocate</DIV>
+      <DIV>RMAN-08030: allocated channel: c1</DIV>
+      <DIV>RMAN-08500: channel c1: sid=16 devtype=DISK</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>RMAN-03022: compiling command: backup</DIV>
+      <DIV>RMAN-03025: performing implicit partial resync of recovery 
+      catalog</DIV>
+      <DIV>RMAN-03023: executing command: partial resync</DIV>
+      <DIV>RMAN-08003: starting partial resync of recovery catalog</DIV>
+      <DIV>RMAN-08005: partial resync complete</DIV>
+      <DIV>RMAN-03023: executing command: backup</DIV>
+      <DIV>RMAN-08008: channel c1: starting full datafile backupset</DIV>
+      <DIV>RMAN-08502: set_count=5 set_stamp=494177612 
+      creation_time=16-MAY-03</DIV>
+      <DIV>RMAN-08010: channel c1: specifying datafile(s) in backupset</DIV>
+      <DIV>RMAN-08522: input datafile fno=00003 
+      name=D:/Oracle/ORADATA/TEST/USER01.DBF</DIV>
+      <DIV>RMAN-08013: channel c1: piece 1 created</DIV>
+      <DIV>RMAN-08503: piece handle=D:/BACKUP/TSUSER_05EN93AC_5_1 
+      comment=NONE</DIV>
+      <DIV>RMAN-08525: backup set complete, elapsed time: 00:00:01</DIV>
+      <DIV>RMAN-03023: executing command: partial resync</DIV>
+      <DIV>RMAN-08003: starting partial resync of recovery catalog</DIV>
+      <DIV>RMAN-08005: partial resync complete</DIV>
+      <DIV>RMAN-03022: compiling command: release</DIV>
+      <DIV>RMAN-03023: executing command: release</DIV>
+      <DIV>RMAN-08031: released channel: c1</DIV>
+      <DIV>RMAN&gt;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>3、 继续在测试表中插入记录</DIV>
+      <DIV>SQL&gt; insert into test values(2);</DIV>
+      <DIV>1 row inserted</DIV>
+      <DIV>SQL&gt; commit;</DIV>
+      <DIV>Commit complete</DIV>
+      <DIV>SQL&gt; select * from test;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      A</DIV>
+      <DIV>---------------------------------------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2</DIV>
+      <DIV>SQL&gt; alter system switch logfile;</DIV>
+      <DIV>System altered.</DIV>
+      <DIV>SQL&gt;r</DIV>
+      <DIV>1* alter system switch logfile;</DIV>
+      <DIV>System altered.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>4、 关闭数据库，模拟丢失数据文件</DIV>
+      <DIV>SQL&gt; shutdown immediate;</DIV>
+      <DIV>Database closed.</DIV>
+      <DIV>Database dismounted.</DIV>
+      <DIV>Oracle instance shut down</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>C:/&gt;del D:/Oracle/ORADATA/TEST/USER01.DBF</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>5、 启动数据库，检查错误</DIV>
+      <DIV>SQL&gt; startup</DIV>
+      <DIV>Oracle instance started.</DIV>
+      <DIV>Total System Global Area&nbsp; 102020364 bytes</DIV>
+      <DIV>Fixed 
+      Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      70924 bytes</DIV>
+      <DIV>Variable 
+      Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      85487616 bytes</DIV>
+      <DIV>Database 
+      Buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      16384000 bytes</DIV>
+      <DIV>Redo 
+      Buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      77824 bytes</DIV>
+      <DIV>Database mounted.</DIV>
+      <DIV>ORA-01157: cannot identify/lock data file 3 - see DBWR trace 
+      file</DIV>
+      <DIV>ORA-01110: data file 3: 'D:/Oracle/ORADATA/TEST/USER01.DBF'</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>6、 先打开数据库</DIV>
+      <DIV>SQL&gt; alter database datafile 3 offline drop;</DIV>
+      <DIV>Database altered.</DIV>
+      <DIV>SQL&gt; alter database open;</DIV>
+      <DIV>Database altered.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>7、 恢复该表空间</DIV>
+      <DIV>恢复脚本可以是恢复单个数据文件</DIV>
+      <DIV>run{</DIV>
+      <DIV>allocate channel c1 type disk;</DIV>
+      <DIV>restore datafile 3;</DIV>
+      <DIV>recover datafile 3;</DIV>
+      <DIV>sql 'alter database datafile 3 online';</DIV>
+      <DIV>release channel c1;</DIV>
+      <DIV>}</DIV>
+      <DIV>也可以是,恢复表空间</DIV>
+      <DIV>run{</DIV>
+      <DIV>allocate channel c1 type disk;</DIV>
+      <DIV>restore tablespace users;</DIV>
+      <DIV>recover tablespace users;</DIV>
+      <DIV>sql 'alter database datafile 3 online';</DIV>
+      <DIV>release channel c1;</DIV>
+      <DIV>}</DIV>
+      <DIV>过程如下：</DIV>
+      <DIV>C:/&gt;rman</DIV>
+      <DIV>Recovery Manager: Release 8.1.6.0.0 - Production</DIV>
+      <DIV>RMAN&gt; connect rcvcat rman/rman@back</DIV>
+      <DIV>RMAN-06008: connected to recovery catalog database</DIV>
+      <DIV>RMAN&gt; connect target internal/virpure</DIV>
+      <DIV>RMAN-06005: connected to target database: TEST 
+(DBID=1788174720)</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>RMAN&gt; run{</DIV>
+      <DIV>2&gt; allocate channel c1 type disk;</DIV>
+      <DIV>3&gt; restore datafile 3;</DIV>
+      <DIV>4&gt; recover datafile 3;</DIV>
+      <DIV>5&gt; sql 'alter database datafile 3 online';</DIV>
+      <DIV>6&gt; release channel c1;</DIV>
+      <DIV>7&gt; }</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>//输出内容冗长，省略--编者</DIV>
+      <DIV>RMAN&gt;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>8、 检查数据是否完整</DIV>
+      <DIV>SQL&gt; alter database open;</DIV>
+      <DIV>Database altered.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>SQL&gt; select * from test;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      A</DIV>
+      <DIV>---------------------------------------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2</DIV>
+      <DIV>说明：</DIV>
+      <DIV>1、RMAN也可以实现单个表空间或数据文件的恢复，恢复过程可以在mount下或open方式下，如果在open方式下恢复，可以减少down机时间;</DIV>
+      <DIV>2、如果损坏的是一个数据文件，建议offline并在open方式下恢复;</DIV>
+      <DIV>3、这里可以看到，RMAN进行数据文件与表空间恢复的时候，代码都比较简单，而且能保证备份与恢复的可靠性，所以建议采用RMAN的备份与恢复.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV><STRONG>4.3</STRONG><STRONG>丢失多个数据文件，实现整个数据库的恢复</STRONG><STRONG>.</STRONG></DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>4.3.1 OS备份方案</DIV>
+      <DIV>OS备份归档模式下损坏（丢失）多个数据文件，进行整个数据库的恢复</DIV>
+      <DIV>1、 连接数据库，创建测试表并插入记录</DIV>
+      <DIV>SQL&gt; connect internal/password as sysdba;</DIV>
+      <DIV>Connected.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>SQL&gt; create table test(a int);</DIV>
+      <DIV>Table created</DIV>
+      <DIV>SQL&gt; insert into test values(1);</DIV>
+      <DIV>1 row inserted</DIV>
+      <DIV>SQL&gt; commit;</DIV>
+      <DIV>Commit complete</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>2、 备份数据库，备份除临时数据文件后的所数据文件</DIV>
+      <DIV>SQL&gt; @hotbak.sql 或在DOS下 svrmgrl @hotbak.sql</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>3、 继续在测试表中插入记录</DIV>
+      <DIV>SQL&gt; insert into test values(2);</DIV>
+      <DIV>1 row inserted</DIV>
+      <DIV>SQL&gt; commit;</DIV>
+      <DIV>Commit complete</DIV>
+      <DIV>SQL&gt; select * from test;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      A</DIV>
+      <DIV>---------------------------------------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2</DIV>
+      <DIV>SQL&gt; alter system switch logfile;</DIV>
+      <DIV>System altered.</DIV>
+      <DIV>SQL&gt; alter system switch logfile;</DIV>
+      <DIV>System altered.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>4、 关闭数据库，模拟丢失数据文件</DIV>
+      <DIV>SQL&gt; shutdown immediate;</DIV>
+      <DIV>Database closed.</DIV>
+      <DIV>Database dismounted.</DIV>
+      <DIV>Oracle instance shut down</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>C:/&gt;del D:/Oracle/ORADATA/TEST/SYSTEM01.DBF</DIV>
+      <DIV>C:/&gt;del D:/Oracle/ORADATA/TEST/INDX01.DBF</DIV>
+      <DIV>C:/&gt;del D:/Oracle/ORADATA/TEST/TOOLS01.DBF</DIV>
+      <DIV>C:/&gt;del D:/Oracle/ORADATA/TEST/RBS01.DBF</DIV>
+      <DIV>模拟媒体毁坏（这里删除多个数据文件）</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>5、 启动数据库，检查错误</DIV>
+      <DIV>SQL&gt; STARTUP</DIV>
+      <DIV>Oracle instance started.</DIV>
+      <DIV>Total System Global Area&nbsp; 102020364 bytes</DIV>
+      <DIV>Fixed 
+      Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      70924 bytes</DIV>
+      <DIV>Variable 
+      Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      85487616 bytes</DIV>
+      <DIV>Database 
+      Buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      16384000 bytes</DIV>
+      <DIV>Redo 
+      Buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      77824 bytes</DIV>
+      <DIV>Database mounted.</DIV>
+      <DIV>ORA-01157: cannot identify/lock data file 1 - see DBWR trace 
+      file</DIV>
+      <DIV>ORA-01110: data file 1: 'D:/Oracle/ORADATA/TEST/SYSTEM01.DBF'</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>详细信息可以查看报警文件</DIV>
+      <DIV>ORA-1157 signalled during: ALTER DATABASE OPEN...</DIV>
+      <DIV>Thu May 08 09:39:36 2003</DIV>
+      <DIV>Errors in file D:/Oracle/admin/test/bdump/testDBW0.TRC:</DIV>
+      <DIV>ORA-01157: cannot identify/lock data file 1 - see DBWR trace 
+      file</DIV>
+      <DIV>ORA-01110: data file 1: 'D:/Oracle/ORADATA/TEST/SYSTEM01.DBF'</DIV>
+      <DIV>ORA-27041: unable to open file</DIV>
+      <DIV>OSD-04002: unable to open file</DIV>
+      <DIV>O/S-Error: (OS 2) 系统找不到指定的文件。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>Thu May 08 09:39:36 2003</DIV>
+      <DIV>Errors in file D:/Oracle/admin/test/bdump/testDBW0.TRC:</DIV>
+      <DIV>ORA-01157: cannot identify/lock data file 2 - see DBWR trace 
+      file</DIV>
+      <DIV>ORA-01110: data file 2: 'D:/Oracle/ORADATA/TEST/RBS01.DBF'</DIV>
+      <DIV>ORA-27041: unable to open file</DIV>
+      <DIV>OSD-04002: unable to open file</DIV>
+      <DIV>O/S-Error: (OS 2) 系统找不到指定的文件。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>Thu May 08 09:39:36 2003</DIV>
+      <DIV>Errors in file D:/Oracle/admin/test/bdump/testDBW0.TRC:</DIV>
+      <DIV>ORA-01157: cannot identify/lock data file 5 - see DBWR trace 
+      file</DIV>
+      <DIV>ORA-01110: data file 5: 'D:/Oracle/ORADATA/TEST/TOOLS01.DBF'</DIV>
+      <DIV>ORA-27041: unable to open file</DIV>
+      <DIV>OSD-04002: unable to open file</DIV>
+      <DIV>O/S-Error: (OS 2) 系统找不到指定的文件。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>Thu May 08 09:39:36 2003</DIV>
+      <DIV>Errors in file D:/Oracle/admin/test/bdump/testDBW0.TRC:</DIV>
+      <DIV>ORA-01157: cannot identify/lock data file 6 - see DBWR trace 
+      file</DIV>
+      <DIV>ORA-01110: data file 6: 'D:/Oracle/ORADATA/TEST/INDX01.DBF'</DIV>
+      <DIV>ORA-27041: unable to open file</DIV>
+      <DIV>OSD-04002: unable to open file</DIV>
+      <DIV>O/S-Error: (OS 2) 系统找不到指定的文件。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>通过查询v$recover_file可以看到</DIV>
+      <DIV>SQL&gt; select * from v$recover_file;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp; FILE# ONLINE&nbsp; 
+      ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGE# TIME</DIV>
+      <DIV>---------- ------- ------------------ ---------- -----------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 ONLINE&nbsp; FILE 
+      NOT 
+      FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      0 </DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 ONLINE&nbsp; FILE 
+      NOT 
+      FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      0 </DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 ONLINE&nbsp; FILE 
+      NOT 
+      FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      0 </DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 ONLINE&nbsp; FILE 
+      NOT 
+      FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      0</DIV>
+      <DIV>有四个数据文件需要恢复</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>6、 拷贝备份回到原地点(restore)，开始恢复数据库(recover)</DIV>
+      <DIV>restore过程:</DIV>
+      <DIV>C:/&gt;copy D:/DATABAK/SYSTEM01.DBF D:/Oracle/ORADATA/TEST/</DIV>
+      <DIV>C:/&gt;copy D:/DATABAK/TEST/INDX01.DBF D:/Oracle/ORADATA/TEST/</DIV>
+      <DIV>C:/&gt;copy D:/DATABAK/TEST/TOOLS01.DBF D:/Oracle/ORADATA/TEST/</DIV>
+      <DIV>C:/&gt;copy D:/DATABAK/TEST/RBS01.DBF.DBF 
+      D:/Oracle/ORADATA/TEST/</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>Recover过程:</DIV>
+      <DIV>SQL&gt; recover database;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>ORA-00279: change 1073849 generated at 05/08/2003 08:58:35 needed for 
+      thread 1</DIV>
+      <DIV>ORA-00289: suggestion : 
+      D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00311.ARC</DIV>
+      <DIV>ORA-00280: change 1073849 for thread 1 is in sequence #311</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>Specify log: {&lt;ret&gt;&lt;/ret&gt;=suggested | filename | AUTO | 
+      CANCEL}</DIV>
+      <DIV><STRONG>auto</STRONG></DIV>
+      <DIV>ORA-00279: change 1073856 generated at 05/08/2003 09:03:27 needed for 
+      thread 1</DIV>
+      <DIV>ORA-00289: suggestion : 
+      D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00312.ARC</DIV>
+      <DIV>ORA-00280: change 1073856 for thread 1 is in sequence #312</DIV>
+      <DIV>ORA-00278: log file 
+      'D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00311.ARC' no</DIV>
+      <DIV>longer needed for this recovery</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>ORA-00279: change 1073858 generated at 05/08/2003 09:11:43 needed for 
+      thread 1</DIV>
+      <DIV>ORA-00289: suggestion : 
+      D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00313.ARC</DIV>
+      <DIV>ORA-00280: change 1073858 for thread 1 is in sequence #313</DIV>
+      <DIV>ORA-00278: log file 
+      'D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00312.ARC' no</DIV>
+      <DIV>longer needed for this recovery</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>ORA-00279: change 1073870 generated at 05/08/2003 09:11:46 needed for 
+      thread 1</DIV>
+      <DIV>ORA-00289: suggestion : 
+      D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00314.ARC</DIV>
+      <DIV>ORA-00280: change 1073870 for thread 1 is in sequence #314</DIV>
+      <DIV>ORA-00278: log file 
+      'D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00313.ARC' no</DIV>
+      <DIV>longer needed for this recovery</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>Log applied.</DIV>
+      <DIV>Media recovery complete.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>7、 打开数据库，检查数据库的数据（完全恢复）</DIV>
+      <DIV>SQL&gt; alter database open;</DIV>
+      <DIV>Database altered.</DIV>
+      <DIV>SQL&gt; select * from test;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      A</DIV>
+      <DIV>---------------------------------------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>说明：</DIV>
+      <DIV>1、只要有备份与归档存在，就可以实现数据库的完全恢复（不丢失数据）;</DIV>
+      <DIV>2、适合于丢失大量数据文件，或包含系统数据文件在内的数据库的恢复;</DIV>
+      <DIV>3、恢复过程在mount下进行，如果恢复成功，再打开数据库，down机时间可能比较长一些。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>4.3.2 RMAN备份方案</DIV>
+      <DIV>RMAN备份归档模式下损坏（丢失）多个数据文件，进行整个数据库的恢复</DIV>
+      <DIV>1、连接数据库，创建测试表并插入记录</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>SQL&gt; connect internal/password as sysdba;</DIV>
+      <DIV>Connected.</DIV>
+      <DIV>SQL&gt; create table test(a int);</DIV>
+      <DIV>Table created</DIV>
+      <DIV>SQL&gt; insert into test values(1);</DIV>
+      <DIV>1 row inserted</DIV>
+      <DIV>SQL&gt; commit;</DIV>
+      <DIV>Commit complete</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>2、备份数据库</DIV>
+      <DIV>DOS下 C:&gt;/ rman cmdfile=bakup.rcv msglog=backup.log;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>以下是backup.log内容。</DIV>
+      <DIV>Recovery Manager: Release 8.1.6.0.0 - Production</DIV>
+      <DIV>RMAN&gt; #&nbsp;&nbsp;&nbsp;&nbsp; script:bakup.rcv</DIV>
+      <DIV>2&gt; #&nbsp;&nbsp;&nbsp;&nbsp; creater:chenjiping</DIV>
+      <DIV>3&gt; #&nbsp;&nbsp;&nbsp;&nbsp; date:5.8.2003</DIV>
+      <DIV>4&gt; #&nbsp;&nbsp;&nbsp;&nbsp; desc:backup all database datafile in 
+      archive with rman</DIV>
+      <DIV>5&gt; </DIV>
+      <DIV>6&gt; #connect database</DIV>
+      <DIV>7&gt; connect rcvcat rman/rman@back;</DIV>
+      <DIV>8&gt; connect target internal/virpure;</DIV>
+      <DIV>9&gt; </DIV>
+      <DIV>10&gt; #start backup database</DIV>
+      <DIV>11&gt; run{</DIV>
+      <DIV>12&gt; allocate channel c1 type disk;</DIV>
+      <DIV>13&gt; backup full tag 'dbfull' format 'd:/backup/full%u_%s_%p' 
+      database</DIV>
+      <DIV>14&gt; include current controlfile;</DIV>
+      <DIV>15&gt; sql 'alter system archive log current';</DIV>
+      <DIV>16&gt; release channel c1;</DIV>
+      <DIV>17&gt; }</DIV>
+      <DIV>18&gt; #end</DIV>
+      <DIV>19&gt; </DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>RMAN-06008: connected to recovery catalog database</DIV>
+      <DIV>RMAN-06005: connected to target database: TEST 
+(DBID=1788174720)</DIV>
+      <DIV>RMAN-03022: compiling command: allocate</DIV>
+      <DIV>RMAN-03023: executing command: allocate</DIV>
+      <DIV>RMAN-08030: allocated channel: c1</DIV>
+      <DIV>RMAN-08500: channel c1: sid=15 devtype=DISK</DIV>
+      <DIV>RMAN-03022: compiling command: backup</DIV>
+      <DIV>RMAN-03023: executing command: backup</DIV>
+      <DIV>RMAN-08008: channel c1: starting full datafile backupset</DIV>
+      <DIV>RMAN-08502: set_count=4 set_stamp=494074368 
+      creation_time=15-MAY-03</DIV>
+      <DIV>RMAN-08010: channel c1: specifying datafile(s) in backupset</DIV>
+      <DIV>RMAN-08522: input datafile fno=00002 
+      name=D:/Oracle/ORADATA/TEST/RBS01.DBF</DIV>
+      <DIV>RMAN-08522: input datafile fno=00001 
+      name=D:/Oracle/ORADATA/TEST/SYSTEM01.DBF</DIV>
+      <DIV>RMAN-08011: including current controlfile in backupset</DIV>
+      <DIV>RMAN-08522: input datafile fno=00005 
+      name=D:/Oracle/ORADATA/TEST/TOOLS01.DBF</DIV>
+      <DIV>RMAN-08522: input datafile fno=00004 
+      name=D:/Oracle/ORADATA/TEST/TEMP01.DBF</DIV>
+      <DIV>RMAN-08522: input datafile fno=00006 
+      name=D:/Oracle/ORADATA/TEST/INDX01.DBF</DIV>
+      <DIV>RMAN-08522: input datafile fno=00003 
+      name=D:/Oracle/ORADATA/TEST/USER01.DBF</DIV>
+      <DIV>RMAN-08013: channel c1: piece 1 created</DIV>
+      <DIV>RMAN-08503: piece handle=D:/BACKUP/FULL04EN5UG0_4_1 
+comment=NONE</DIV>
+      <DIV>RMAN-08525: backup set complete, elapsed time: 00:01:16</DIV>
+      <DIV>RMAN-03023: executing command: partial resync</DIV>
+      <DIV>RMAN-08003: starting partial resync of recovery catalog</DIV>
+      <DIV>RMAN-08005: partial resync complete</DIV>
+      <DIV>RMAN-03022: compiling command: sql</DIV>
+      <DIV>RMAN-06162: sql statement: alter system archive log current</DIV>
+      <DIV>RMAN-03023: executing command: sql</DIV>
+      <DIV>RMAN-03022: compiling command: release</DIV>
+      <DIV>RMAN-03023: executing command: release</DIV>
+      <DIV>RMAN-08031: released channel: c1</DIV>
+      <DIV>Recovery Manager complete.</DIV>
+      <DIV>到这里表示备份成功。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>3、 继续在测试表中插入记录</DIV>
+      <DIV>SQL&gt; insert into test values(2);</DIV>
+      <DIV>1 row inserted</DIV>
+      <DIV>SQL&gt; commit;</DIV>
+      <DIV>Commit complete</DIV>
+      <DIV>SQL&gt; select * from test;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      A</DIV>
+      <DIV>---------------------------------------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2</DIV>
+      <DIV>SQL&gt;alter system switch logfile;</DIV>
+      <DIV>System altered.</DIV>
+      <DIV>SQL&gt; alter system switch logfile;</DIV>
+      <DIV>System altered.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>4、 关闭数据库，模拟丢失数据文件</DIV>
+      <DIV>SQL&gt; shutdown immediate;</DIV>
+      <DIV>Database closed.</DIV>
+      <DIV>Database dismounted.</DIV>
+      <DIV>Oracle instance shut down</DIV>
+      <DIV>C:/&gt;del D:/Oracle/ORADATA/TEST/SYSTEM01.DBF</DIV>
+      <DIV>C:/&gt;del D:/Oracle/ORADATA/TEST/INDX01.DBF</DIV>
+      <DIV>C:/&gt;del D:/Oracle/ORADATA/TEST/TOOLS01.DBF</DIV>
+      <DIV>C:/&gt;del D:/Oracle/ORADATA/TEST/RBS01.DBF</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>5、启动数据库，检查错误</DIV>
+      <DIV>SQL&gt; STARTUP</DIV>
+      <DIV>Oracle instance started.</DIV>
+      <DIV>Total System Global Area&nbsp; 102020364 bytes</DIV>
+      <DIV>Fixed 
+      Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      70924 bytes</DIV>
+      <DIV>Variable 
+      Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      85487616 bytes</DIV>
+      <DIV>Database 
+      Buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      16384000 bytes</DIV>
+      <DIV>Redo 
+      Buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      77824 bytes</DIV>
+      <DIV>Database mounted.</DIV>
+      <DIV>ORA-01157: cannot identify/lock data file 1 - see DBWR trace 
+      file</DIV>
+      <DIV>ORA-01110: data file 1: 'D:/Oracle/ORADATA/TEST/SYSTEM01.DBF'</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>查询v$recover_file</DIV>
+      <DIV>SQL&gt; select * from v$recover_file;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp; FILE# ONLINE&nbsp; 
+      ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      CHANGE# TIME</DIV>
+      <DIV>---------- ------- ------------------ ---------- -----------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 ONLINE&nbsp; FILE 
+      NOT 
+      FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      0 </DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 ONLINE&nbsp; FILE 
+      NOT FOUND&nbsp;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 </DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 ONLINE&nbsp; FILE 
+      NOT 
+      FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      0 </DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 ONLINE&nbsp; FILE 
+      NOT 
+      FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      0<BR><BR></DIV>
+      <DIV>可以知道有四个数据文件需要恢复.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>6、利用RMAN进行恢复</DIV>
+      <DIV>C:/&gt;rman</DIV>
+      <DIV>Recovery Manager: Release 8.1.6.0.0 - Production</DIV>
+      <DIV>RMAN&gt; connect rcvcat rman/rman@back</DIV>
+      <DIV>RMAN-06008: connected to recovery catalog database</DIV>
+      <DIV>RMAN&gt; connect target internal/virpure</DIV>
+      <DIV>RMAN-06005: connected to target database: TEST 
+(DBID=1788174720)</DIV>
+      <DIV>RMAN&gt; run{</DIV>
+      <DIV>2&gt; allocate channel c1 type disk;</DIV>
+      <DIV>3&gt; restore database;</DIV>
+      <DIV>4&gt; recover database;</DIV>
+      <DIV>5&gt; sql 'alter database open';</DIV>
+      <DIV>6&gt; release channel c1;</DIV>
+      <DIV>7&gt; }</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>RMAN-03022: compiling command: allocate</DIV>
+      <DIV>RMAN-03023: executing command: allocate</DIV>
+      <DIV>RMAN-08030: allocated channel: c1</DIV>
+      <DIV>RMAN-08500: channel c1: sid=17 devtype=DISK</DIV>
+      <DIV>RMAN-03022: compiling command: restore</DIV>
+      <DIV>RMAN-03025: performing implicit partial resync of recovery 
+      catalog</DIV>
+      <DIV>RMAN-03023: executing command: partial resync</DIV>
+      <DIV>RMAN-08003: starting partial resync of recovery catalog</DIV>
+      <DIV>RMAN-08005: partial resync complete</DIV>
+      <DIV>RMAN-03022: compiling command: IRESTORE</DIV>
+      <DIV>RMAN-03023: executing command: IRESTORE</DIV>
+      <DIV>RMAN-08016: channel c1: starting datafile backupset restore</DIV>
+      <DIV>RMAN-08502: set_count=4 set_stamp=494074368 
+      creation_time=15-MAY-03</DIV>
+      <DIV>RMAN-08089: channel c1: specifying datafile(s) to restore from backup 
+      set</DIV>
+      <DIV>RMAN-08523: restoring datafile 00001 to 
+      D:/Oracle/ORADATA/TEST/SYSTEM01.DBF</DIV>
+      <DIV>RMAN-08523: restoring datafile 00002 to 
+      D:/Oracle/ORADATA/TEST/RBS01.DBF</DIV>
+      <DIV>RMAN-08523: restoring datafile 00003 to 
+      D:/Oracle/ORADATA/TEST/USER01.DBF</DIV>
+      <DIV>RMAN-08523: restoring datafile 00004 to 
+      D:/Oracle/ORADATA/TEST/TEMP01.DBF</DIV>
+      <DIV>RMAN-08523: restoring datafile 00005 to 
+      D:/Oracle/ORADATA/TEST/TOOLS01.DBF</DIV>
+      <DIV>RMAN-08523: restoring datafile 00006 to 
+      D:/Oracle/ORADATA/TEST/INDX01.DBF</DIV>
+      <DIV>RMAN-08023: channel c1: restored backup piece 1</DIV>
+      <DIV>RMAN-08511: piece handle=D:/BACKUP/FULL04EN5UG0_4_1 tag=DBFULL 
+      params=NULL</DIV>
+      <DIV>RMAN-08024: channel c1: restore complete</DIV>
+      <DIV>RMAN-03023: executing command: partial resync</DIV>
+      <DIV>RMAN-08003: starting partial resync of recovery catalog</DIV>
+      <DIV>RMAN-08005: partial resync complete</DIV>
+      <DIV>RMAN-03022: compiling command: recover</DIV>
+      <DIV>RMAN-03022: compiling command: recover(1)</DIV>
+      <DIV>RMAN-03022: compiling command: recover(2)</DIV>
+      <DIV>RMAN-03022: compiling command: recover(3)</DIV>
+      <DIV>RMAN-03023: executing command: recover(3)</DIV>
+      <DIV>RMAN-08054: starting media recovery</DIV>
+      <DIV>RMAN-03022: compiling command: recover(4)</DIV>
+      <DIV>RMAN-06050: archivelog thread 1 sequence 327 is already on disk as 
+      file D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00327.ARC</DIV>
+      <DIV>RMAN-06050: archivelog thread 1 sequence 328 is already on disk as 
+      file D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00328.ARC</DIV>
+      <DIV>RMAN-06050: archivelog thread 1 sequence 329 is already on disk as 
+      file D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00329.ARC</DIV>
+      <DIV>RMAN-06050: archivelog thread 1 sequence 330 is already on disk as 
+      file D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00330.ARC</DIV>
+      <DIV>RMAN-03023: executing command: recover(4)</DIV>
+      <DIV>RMAN-08515: archivelog 
+      filename=D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00327.ARC thread=1 
+      sequence=327</DIV>
+      <DIV>RMAN-08515: archivelog 
+      filename=D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00328.ARC thread=1 
+      sequence=328</DIV>
+      <DIV>RMAN-08055: media recovery complete</DIV>
+      <DIV>RMAN-03022: compiling command: sql</DIV>
+      <DIV>RMAN-06162: sql statement: alter database open</DIV>
+      <DIV>RMAN-03023: executing command: sql</DIV>
+      <DIV>RMAN-03022: compiling command: release</DIV>
+      <DIV>RMAN-03023: executing command: release</DIV>
+      <DIV>RMAN-08031: released channel: c1</DIV>
+      <DIV>RMAN&gt;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>7、 检查数据库的数据（完全恢复）</DIV>
+      <DIV>SQL&gt; select * from test;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      A</DIV>
+      <DIV>---------------------------------------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>说明：</DIV>
+      <DIV>1、只要有备份与归档存在，RMAN也可以实现数据库的完全恢复（不丢失数据）;</DIV>
+      <DIV>2、同OS备份数据库恢复，适合于丢失大量数据文件，或包含系统数据文件在内的数据库的恢复;</DIV>
+      <DIV>3、目标数据库在mount下进行，如果恢复成功，再打开数据库;</DIV>
+      <DIV>4、RMAN的备份与恢复命令相对比较简单并可靠，建议有条件的话，都采用RMAN进行数据库的备份。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV><STRONG>4.4 </STRONG><STRONG>不完全恢复案例</STRONG><STRONG></DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>4.4.1 OS备份下的基于时间的恢复</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>不完全恢复可以分为基于时间的恢复，基于改变的恢复与基于撤消的恢复，这里已基于时间的恢复为例子来说明不完全恢复过程。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>基于时间的恢复可以不完全恢复到现在时间之前的某一个时间，对于某些误操作，如删除了一个数据表，可以在备用恢复环境上恢复到表的删除时间之前，然后把该表导出到正式环境，避免一个人为的错误。</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>1、 连接数据库，创建测试表并插入记录:</DIV>
+      <DIV>SQL&gt; connect internal/password as sysdba;</DIV>
+      <DIV>Connected.</DIV>
+      <DIV>SQL&gt; create table test(a int);</DIV>
+      <DIV>Table created</DIV>
+      <DIV>SQL&gt; insert into test values(1);</DIV>
+      <DIV>1 row inserted</DIV>
+      <DIV>SQL&gt; commit;</DIV>
+      <DIV>Commit complete</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>2、 备份数据库，这里最好备份所有的数据文件，包括临时数据文件:</DIV>
+      <DIV>SQL&gt; @hotbak.sql 或在DOS下 svrmgrl @hotbak.sql</DIV>
+      <DIV>或冷备份也可以</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>3、 删除测试表，假定删除前的时间为T1，在删除之前，便于测试，继续插入数据并应用到归&nbsp; </DIV>
+      <DIV>档。</DIV>
+      <DIV>SQL&gt; insert into test values(2);</DIV>
+      <DIV>1 row inserted</DIV>
+      <DIV>SQL&gt; commit;</DIV>
+      <DIV>Commit complete</DIV>
+      <DIV>SQL&gt; select * from test;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      A</DIV>
+      <DIV>---------------------------------------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2</DIV>
+      <DIV>SQL&gt; alter system switch logfile;</DIV>
+      <DIV>Statement processed.</DIV>
+      <DIV>SQL&gt; alter system switch logfile;</DIV>
+      <DIV>Statement processed.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>SQL&gt; select to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') from 
+      dual;</DIV>
+      <DIV>TO_CHAR(SYSDATE,'YY</DIV>
+      <DIV>-------------------</DIV>
+      <DIV>2003-05-21 14:43:01</DIV>
+      <DIV>SQL&gt; drop table test;</DIV>
+      <DIV>Table dropped.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>4、 准备恢复到时间点T1，找回删除的表，先关闭数据库:</DIV>
+      <DIV>SQL&gt; shutdown immediate;</DIV>
+      <DIV>Database closed.</DIV>
+      <DIV>Database dismounted.</DIV>
+      <DIV>Oracle instance shut down.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>5、 拷贝刚才备份的所有数据文件回来</DIV>
+      <DIV>C:/&gt;copy D:/DATABAK/*.DBF D:/Oracle/ORADATA/TEST/</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>6、 启动到mount下</DIV>
+      <DIV>SQL&gt; startup mount;</DIV>
+      <DIV>Oracle instance started.</DIV>
+      <DIV>Total System Global Area&nbsp; 102020364 bytes</DIV>
+      <DIV>Fixed 
+      Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      70924 bytes</DIV>
+      <DIV>Variable 
+      Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      85487616 bytes</DIV>
+      <DIV>Database 
+      Buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      16384000 bytes</DIV>
+      <DIV>Redo 
+      Buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      77824 bytes</DIV>
+      <DIV>Database mounted.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>7、 开始不完全恢复数据库到T1时间</DIV>
+      <DIV>SQL&gt; recover database until time '2003-05-21:14:43:01';</DIV>
+      <DIV>ORA-00279: change 30944 generated at 05/21/2003 14:40:06 needed for 
+      thread 1</DIV>
+      <DIV>ORA-00289: suggestion : 
+      D:/Oracle/ORADATA/TEST/ARCHIVE/TESTT001S00191.ARC</DIV>
+      <DIV>ORA-00280: change 30944 for thread 1 is in sequence #191</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>Specify log: {&lt;ret&gt;&lt;/ret&gt;=suggested | filename | AUTO | 
+      CANCEL}</DIV>
+      <DIV><STRONG>auto</STRONG></DIV>
+      <DIV>Log applied.</DIV>
+      <DIV>Media recovery complete.<BR><BR></DIV>
+      <DIV>8、 打开数据库，检查数据</DIV>
+      <DIV>SQL&gt; alter database open resetlogs;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>Database altered.</DIV>
+      <DIV>SQL&gt; select * from test;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      A</DIV>
+      <DIV>---------------------------------------</DIV>
+      <DIV>&nbsp;&amp;n, 
+      bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      1</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>说明：</DIV>
+      <DIV>1、不完全恢复最好备份所有的数据，冷备份亦可，因为恢复过程是从备份点往后恢复的，如果因为其中一个数据文件的时间戳(SCN)大于要恢复的时间点，那么恢复都是不可能成功的;</DIV>
+      <DIV>2、不完全恢复有三种方式，过程都一样，仅仅是recover命令有所不一样，这里用基于时间的恢复作为示例;</DIV>
+      <DIV>3、不完全恢复之后，都必须用resetlogs的方式打开数据库，建议马上再做一次全备份，因为resetlogs之后再用以前的备份恢复是很难了;</DIV>
+      <DIV>4、以上是在删除之前获得时间，但是实际应用中，很难知道删除之前的实际时间，但可以采用大致时间即可，或可以采用分析日志文件(logmnr)，取得精确的需要恢复的时间;</DIV>
+      <DIV>5、一般都是在测试机后备用机器上采用这种不完全恢复，恢复之后导出/导入被误删的表回生产系统.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>4.4.2 RMAN备份下的基于改变的恢复</DIV>
+      <DIV>以上用OS备份说明了一个基于时间的恢复，现在用RMAN说明一个基于改变的恢复</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>1、 连接数据库，创建测试表并插入记录</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>SQL&gt; connect internal/password as sysdba;</DIV>
+      <DIV>Connected.</DIV>
+      <DIV>SQL&gt; create table test(a int);</DIV>
+      <DIV>Table created</DIV>
+      <DIV>SQL&gt; insert into test values(1);</DIV>
+      <DIV>1 row inserted</DIV>
+      <DIV>SQL&gt; commit;</DIV>
+      <DIV>Commit complete</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>2、 备份数据库</DIV>
+      <DIV>C:/&gt;rman</DIV>
+      <DIV>Recovery Manager: Release 8.1.6.0.0 - Production</DIV>
+      <DIV>RMAN&gt; connect rcvcat rman/rman@back</DIV>
+      <DIV>RMAN-06008: connected to recovery catalog database</DIV>
+      <DIV>RMAN&gt; connect target internal/virpure</DIV>
+      <DIV>RMAN-06005: connected to target database: TEST (DBID=874705288)</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>RMAN&gt; run{</DIV>
+      <DIV>2&gt; allocate channel c1 type disk;</DIV>
+      <DIV>3&gt; backup full tag 'dbfull' format 'd:/backup/full%u_%s_%p' 
+      database</DIV>
+      <DIV>4&gt; include current controlfile;</DIV>
+      <DIV>5&gt; sql 'alter system archive log current';</DIV>
+      <DIV>6&gt; release channel c1;</DIV>
+      <DIV>7&gt; }</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp; //屏幕输出内容冗长，省略--编辑</DIV>
+      <DIV>RMAN&gt;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>3、 删除测试表，在删除之前，便于测试，继续插入数据并应用到归档，并获取删除前的scn号。</DIV>
+      <DIV>SQL&gt; insert into test values(2);</DIV>
+      <DIV>1 row inserted</DIV>
+      <DIV>SQL&gt; commit;</DIV>
+      <DIV>Commit complete</DIV>
+      <DIV>SQL&gt; select * from test;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      A</DIV>
+      <DIV>---------------------------------------</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      2</DIV>
+      <DIV>SQL&gt; alter system switch logfile;</DIV>
+      <DIV>Statement processed.</DIV>
+      <DIV>SQL&gt; alter system switch logfile;</DIV>
+      <DIV>Statement processed.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>SQL&gt; select max(ktuxescnw * power(2, 32) + ktuxescnb) scn from 
+      x$ktuxe;</DIV>
+      <DIV>&nbsp;&nbsp;&nbsp; &nbsp; SCN</DIV>
+      <DIV>----------</DIV>
+      <DIV>&nbsp; 31014</DIV>
+      <DIV>SQL&gt; drop table test;</DIV>
+      <DIV>Table dropped.</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>4、 准备恢复到SCN 31014，先关闭数据库，然后启动到mount下</DIV>
+      <DIV>SQL&gt; shutdown immediate;</DIV>
+      <DIV>Database closed.</DIV>
+      <DIV>Database dismounted.</DIV>
+      <DIV>Oracle instance shut down.</DIV>
+      <DIV>SQL&gt; startup mount;</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>5、 开始恢复到改变点SCN 31014</DIV>
+      <DIV>RMAN&gt; run{</DIV>
+      <DIV>2&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; allocate channel c1 type 
+      disk;</DIV>
+      <DIV>3&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; restore database;</DIV>
+      <DIV>4&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; recover database until scn 
+      31014;</DIV>
+      <DIV>5&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sql 'ALTER DATABASE OPEN 
+      RESETLOGS';</DIV>
+      <DIV>6&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; release channel c1;</DIV>
+      <DIV>7&gt; }</DIV>
+      <DIV>&nbsp;</DIV>
+      <DIV>RMAN-03022: compiling command: allocate</DIV>
+      <DIV>RMAN-03023: executing command: allocate</DIV>
+      <DIV>RMAN-08030: allocated channel: c1</DIV>
+      <DIV>RMAN-08500: channel c1: sid=10 devtype=DISK</DIV>
+      <DIV>RMAN-03022: compiling command: restore</DIV>
+      <DIV>RMAN-03022: compiling command: IRESTORE</DIV>
+      <DIV>RMAN-03023: executing command: IRESTORE</DIV>
+      <DIV>RMAN-08016: channel c1: starting datafile backupset restore</DIV>
+      <DIV>RMAN-08502: set_count=1 set_stamp=494613682 
+      creation_time=21-MAY-03</DIV>
+      <DIV>RMAN-08089: channel c1: specifying datafile(s) to restore from backup 
+      set</DIV>
+      <DIV>RMAN-08523: restoring datafile 00001 to 
+      D:/Oracle/ORADATA/TEST/SYSTEM01.DBF</DIV>
+      <DIV>RMAN-08523: restoring datafile 00002 to 
+      D:/Oracle/ORADATA/TEST/RBS01.DBF</DIV>
+      <DIV>RMAN-08523: restoring datafile 00003 to 
+      D:/Oracle/ORADATA/TEST/USERS01.DBF</DIV>
+      <DIV>RMAN-08523: restoring datafile 00004 to 
+      D:/Oracle/ORADATA/TEST/TEMP01.DBF</DIV>
+      <DIV>RMAN-08523: restoring datafile 00005 to 
+      D:/Oracle/ORADATA/TEST/TOOLS01.DBF</DIV>
+      <DIV>RMAN-08523: restoring datafile 00006 to 
+      D:/Oracle/ORADATA/TEST/INDX01.DBF</DIV>
+      <DIV>RMAN-08023: channel c1: restored backup piece 1</DIV>
+      <DIV>RMAN-08511: piece handle=D:/BACKUP/FULL01ENMD5I_1_1 tag=DBFULL 
+      params=NULL</DIV>
+      <DIV>RMAN-08024: channel c1: restore complete</DIV>&lt;/d&gt;</DIV></DIV>
+      <DIV id=topic_copyright>声明：JavaEye文章版权属于作者，受法律保护。没有作者书面许可不得转载。 </DIV>
+      <DIV id=forum_recommended_f5><SPAN>推荐链接</SPAN>
+      <UL>
+        <LI><EMBED pluginspage=http://www.macromedia.com/go/getflashplayer 
+        src=http://ftp.javaeye.com/public/csdn/oracle/JavaOne720_60.swf 
+        width=728 height=90 type=application/x-shockwave-flash menu="true" 
+        loop="true" play="true"></EMBED></LI></UL></DIV>
+      <DIV id=forum_recommended_f0>
+      <SCRIPT type=text/javascript><!--
+google_ad_client = "pub-1076724771190722";
+/* JE论坛文章728x90 */
+google_ad_slot = "4097489287";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</SCRIPT>
+
+      <SCRIPT 
+      src="Oracle备份与恢复案例 - Database - Tech - JavaEye论坛.files/show_ads.js" 
+      type=text/javascript>
+</SCRIPT>
+      </DIV></STRONG></STRONG></STRONG></STRONG></STRONG></TD></TR>
+  <TR>
+    <TD class=postauthor><A 
+    href="http://www.javaeye.com/topic/46244#">返回顶楼</A></TD>
+    <TD class=postcontent>
+      <DIV class=icons><A class=icon_www title=浏览作者的博客 
+      href="http://fengyouhua.javaeye.com/">&nbsp;</A> <A class=icon_profile 
+      title=浏览作者资料 href="http://fengyouhua.javaeye.com/blog/profile">&nbsp;</A> 
+      <A class=icon_pm title=发送站内短信 
+      href="http://app.javaeye.com/messages/new?message%5Breceiver_name%5D=alex8946">&nbsp;</A> 
+      <A class=icon_guestbook title=给作者留言 
+      href="http://fengyouhua.javaeye.com/blog/guest_book">&nbsp;</A> <A 
+      class=icon_rss title=关注作者 
+      onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit();return false;" 
+      href="http://app.javaeye.com/feed?subscription%5Bsubscribed_user_name%5D=alex8946">&nbsp;</A> 
+      </DIV></TD></TR>
+  <TR class=sep2>
+    <TD colSpan=2></TD></TR>
+  <TR id=215515>
+    <TD class=postauthor>
+      <UL>
+        <LI class=name>iihero 
+        <LI>等级: 初级会员 
+        <LI><A href="http://iihero.javaeye.com/" target=_blank><IMG class=logo 
+        title="iihero的博客: iihero" alt=iihero的博客 
+        src="Oracle备份与恢复案例 - Database - Tech - JavaEye论坛.files/user-logo.gif"></A> 
+
+        <LI>性别: <IMG title=男 
+        src="Oracle备份与恢复案例 - Database - Tech - JavaEye论坛.files/icon_minigender_1.gif"> 
+
+        <LI>文章: 17 
+        <LI>积分: 84 
+        <LI>来自: 北京 
+        <LI><IMG 
+        src="Oracle备份与恢复案例 - Database - Tech - JavaEye论坛.files/offline.gif"> 
+        </LI></UL></TD>
+    <TD class=postcontent>
+      <DIV class=postactions>
+      <DIV class=description>&nbsp;&nbsp; 发表时间：2007-01-31&nbsp;&nbsp; </DIV>
+      <DIV class=links></DIV></DIV>
+      <DIV class="postbody clearfix">真是江湖一大抄啊 </DIV></TD></TR>
+  <TR>
+    <TD class=postauthor><A 
+    href="http://www.javaeye.com/topic/46244#">返回顶楼</A></TD>
+    <TD class=postcontent>
+      <DIV class=icons><A class=icon_www title=浏览作者的博客 
+      href="http://iihero.javaeye.com/">&nbsp;</A> <A class=icon_profile 
+      title=浏览作者资料 href="http://iihero.javaeye.com/blog/profile">&nbsp;</A> <A 
+      class=icon_pm title=发送站内短信 
+      href="http://app.javaeye.com/messages/new?message%5Breceiver_name%5D=iihero">&nbsp;</A> 
+      <A class=icon_guestbook title=给作者留言 
+      href="http://iihero.javaeye.com/blog/guest_book">&nbsp;</A> <A 
+      class=icon_rss title=关注作者 
+      onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit();return false;" 
+      href="http://app.javaeye.com/feed?subscription%5Bsubscribed_user_name%5D=iihero">&nbsp;</A> 
+      <A title=iihero回帖:Oracle备份与恢复案例 
+      href="http://www.javaeye.com/topic/46244#215515">回帖地址</A> </DIV>
+      <DIV class=post_rate_box id=post_rate_box_215515><A class=good title=好 
+      onclick="return false;" href="http://www.javaeye.com/topic/46244#">0</A> 
+      <A class=hidden title=差 onclick="return false;" 
+      href="http://www.javaeye.com/topic/46244#">0</A> 请登录后投票</DIV></TD></TR>
+  <TR class=sep2>
+    <TD colSpan=2></TD></TR></TBODY></TABLE>
+<DIV class=actions>
+<DIV class=buttons></DIV>
+<DIV class=wrapper></DIV></DIV>
+<DIV>
+<DIV class=crumbs><A href="http://www.javaeye.com/forums">论坛首页</A> <SPAN 
+class=arrow>→</SPAN> <A 
+href="http://www.javaeye.com/forums/board/Tech">综合技术版</A> <SPAN 
+class=arrow>→</SPAN> <A 
+href="http://www.javaeye.com/forums/tag/Database">Database</A> 
+<BR><BR>跳转论坛:<SELECT id=forum_urlname 
+onchange="window.location='/forums/board/'+this.value" 
+  name=forum[urlname]><OPTION value=Java>Java编程和Java企业应用</OPTION> <OPTION 
+  value=web>Web前端技术</OPTION> <OPTION value=mobile>移动编程和手机应用开发</OPTION> <OPTION 
+  value=cpp>C/C++编程</OPTION> <OPTION value=Ruby>Ruby编程</OPTION> <OPTION 
+  value=Python>Python编程</OPTION> <OPTION value=PHP>PHP编程</OPTION> <OPTION 
+  value=Flash>Flash编程和RIA</OPTION> <OPTION value=dotnet>Microsoft .Net</OPTION> 
+  <OPTION value=Tech selected>综合技术</OPTION> <OPTION 
+  value=develop>软件开发和项目管理</OPTION> <OPTION value=Industry>行业应用</OPTION> <OPTION 
+  value=New>入门讨论</OPTION> <OPTION value=Job>招聘求职</OPTION> <OPTION 
+  value=Life>海阔天空</OPTION></SELECT> </DIV></DIV>
+<DIV style="DISPLAY: none">
+<FORM id=post_rate_form 
+onsubmit="new Ajax.Request('/posts/rate', {asynchronous:true, evalScripts:true, parameters:Form.serialize(this)}); return false;" 
+action=/posts/rate method=post><INPUT id=post_rate_id type=hidden name=id> 
+<INPUT id=post_rate_type type=hidden name=type> </FORM></DIV>
+<SCRIPT type=text/javascript>
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  fix_image_size($$('div.postbody img'), 760);
+
+  function rate_post(id, type) {
+    Element.update('post_rate_box_' + id, '提交中...');
+    new Ajax.Request('/posts/rate', {asynchronous:true, evalScripts:true, parameters:{"id":id, "type":type}});
+  }
+
+  function rate_topic(type) {
+    Element.update('topic_rate_box', '提交中...');
+    new Ajax.Request('/topics/rate', {asynchronous:true, evalScripts:true, parameters:{"id":46244, "type":type}});
+  }
+</SCRIPT>
+</DIV>
+<DIV id=nav>
+<DIV class=wrapper>
+<UL>
+  <LI><A href="http://www.javaeye.com/">首页</A> </LI>
+  <LI><A href="http://www.javaeye.com/news">新闻</A> </LI>
+  <LI><A class=selected href="http://www.javaeye.com/forums">论坛</A> </LI>
+  <LI><A href="http://www.javaeye.com/ask">问答</A> </LI>
+  <LI><A href="http://www.javaeye.com/wiki">专栏</A> </LI>
+  <LI><A href="http://www.javaeye.com/blogs">博客</A> <!--<li><a href="http://www.javaeye.com/articles">文摘</a></li>//--></LI>
+  <LI><A href="http://www.javaeye.com/groups">圈子</A> </LI>
+  <LI><A href="http://www.javaeye.com/job">招聘</A> </LI>
+  <LI><A href="http://www.javaeye.com/index/service">服务</A> </LI>
+  <LI class=last><A href="http://www.javaeye.com/search">搜索</A> 
+</LI></UL></DIV></DIV>
+<DIV id=channel_nav>
+<UL>
+  <LI><A href="http://java.javaeye.com/">Java</A> </LI>
+  <LI><A href="http://webapp.javaeye.com/">Web</A> </LI>
+  <LI><A href="http://ruby.javaeye.com/">Ruby</A> </LI>
+  <LI><A href="http://python.javaeye.com/">Python</A> </LI>
+  <LI><A href="http://agile.javaeye.com/">敏捷</A> </LI>
+  <LI><A href="http://mysql.javaeye.com/">MySQL</A> </LI>
+  <LI><A href="http://runqian.javaeye.com/">润亁报表</A> </LI>
+  <LI class=last><A href="http://book.javaeye.com/">图书</A> </LI></UL></DIV></DIV>
+<DIV id=footer>
+<DIV id=site_nav>
+<UL>
+  <LI><A href="http://www.javaeye.com/index/service">广告服务</A> 
+  <LI><A href="http://webmaster.javaeye.com/">JavaEye黑板报</A> 
+  <LI><A href="http://www.javaeye.com/index/aboutus">关于我们</A> 
+  <LI><A href="http://www.javaeye.com/index/contactus">联系我们</A> 
+  <LI class=last><A href="http://www.javaeye.com/index/friend_links">友情链接</A> 
+  </LI></UL></DIV>
+<DIV id=copyright>© 2003-2010 JavaEye.com. 上海炯耐计算机软件有限公司版权所有 [ <A 
+href="http://www.miibeian.gov.cn/">沪ICP备05023328号</A> ] </DIV></DIV></DIV>
+<SCRIPT type=text/javascript>
+  document.write("<img src='http://stat.javaeye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&logged_in=no" + "' width='0' height='0' />");
+</SCRIPT>
+</BODY></HTML>

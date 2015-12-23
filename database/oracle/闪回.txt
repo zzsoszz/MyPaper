@@ -1,0 +1,26 @@
+归档文件查看
+select * from v$recovery_file_dest;
+
+
+启用闪回：
+
+shutdown immediate;
+startup;
+ALTER DATABASE ARCHIVELOG;
+ALTER SYSTEM SET DB_RECOVERY_FILE_DEST_SIZE=8G SCOPE=BOTH;
+alter database open;
+
+禁用闪回：
+shutdown immediate;
+startup;
+alter database flashback off;
+ALTER DATABASE NOARCHIVELOG;
+
+
+
+
+alter table test enable row movement;
+flashback table test to timestamp to_timestamp('2005-05-07 15:00:00','yyyy-mm-dd hh24:mi:ss');
+flashback table test to timestamp to_timestamp(sysdate-1/24/60);
+select * from test as of timestamp (sysdate-1/24/60)
+

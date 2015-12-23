@@ -1,0 +1,313 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0068)http://www.365master.com/manage/database/oracle/20080730/36178.shtml -->
+<HTML 
+xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Oracle分析函数over及开窗函数</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content="函数 分析 over aa 数据 窗口 对于 得到 结果 统计 sum " name=keywords>
+<META 
+content="分析函数over 及开窗函数 一：分析函数over Oracle 从8.1.6开始提供分析函数，分析函数用于计算基于组的某种聚合值，它和聚合函数的不同之处是 对于每个组返回多行，而聚合函数对于每个组只返回一行。 下面通过几个例子来说明其应用。 1：统计某商店的营业额。 date sa" 
+name=description><LINK href="Oracle分析函数over及开窗函数.files/365_article.css" 
+type=text/css rel=stylesheet><LINK 
+href="Oracle分析函数over及开窗函数.files/365_title.css" type=text/css rel=stylesheet>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY><!--头-->
+<DIV class=box_1>
+<DIV class=title_top_box>
+<DIV class=title_top_box_l></DIV>
+<DIV class=title_top_box_m1><A title=2008年“同城网管”行军路线 
+href="http://www.365master.com/magazine/2/20080402/31598.shtml" 
+target=_blank>2008年“同城网管”行军路线</A><BR></DIV>
+<DIV class=title_top_box_m2><A title=返回网站首页 
+href="http://www.365master.com/">首页</A> | 登录 | 注册 | 会员中心 | <A 
+href="http://www.365master.com/sitemap.shtml">网站地图</A></DIV>
+<DIV class=title_top_box_r></DIV></DIV>
+<DIV class=logo><A href="http://www.365master.com/"><IMG 
+alt=365MASTER.COM--IT管理专家 src="Oracle分析函数over及开窗函数.files/logo.gif" 
+border=0></A></DIV>
+<DIV class=banner><A href="http://www.365master.com/subscribe/" 
+target=_blank><IMG height=60 alt=订2009全年杂志，天天送大奖，人人有好礼 
+src="Oracle分析函数over及开窗函数.files/_360m1144844.gif" width=760 
+border=0></A></DIV></DIV>
+<DIV class=box_2>
+<DIV class=box_2l></DIV>
+<DIV class=box_3>
+<DIV class=box_2m>
+<DIV class=ac1><A href="http://www.365master.com/">首页</A></DIV>
+<DIV class=ac2><A href="http://www.365master.com/news/">资讯</A></DIV>
+<DIV class=ac2><A href="http://www.365master.com/integ/">部署</A></DIV>
+<DIV class=ac2_1><A href="http://www.365master.com/integ/cwiring/">规划</A><A 
+href="http://www.365master.com/integ/acquire/">选型</A><A 
+href="http://www.365master.com/integ/sol/">方案</A></DIV>
+<DIV class=ac2><A href="http://www.365master.com/security/">安全</A></DIV>
+<DIV class=ac2_1><A href="http://www.365master.com/security/8/">内网安全</A><A 
+href="http://www.365master.com/security/virus/">病毒防治</A><A 
+href="http://www.365master.com/security/hacker/">攻击防范</A></DIV>
+<DIV class=ac2><A href="http://www.365master.com/manage/">网管</A></DIV>
+<DIV class=ac2_1><A href="http://www.365master.com/manage/server/">服务器</A><A 
+href="http://www.365master.com/manage/storage/">存储</A><A 
+href="http://www.365master.com/manage/os/">系统</A><A 
+href="http://www.365master.com/manage/database/">数据库</A><A 
+href="http://www.365master.com/manage/wangluoguanli/">局域网</A><A 
+href="http://www.365master.com/manage/route/">路由交换</A><A 
+href="http://www.365master.com/manage/pc/">桌面</A><A 
+href="http://www.365master.com/pcroom/">机房</A></DIV>
+<DIV class=ac2><A href="http://www.365master.com/special/">专题</A></DIV>
+<DIV class=ac2><A 
+href="http://www.365master.com/webcast/index.shtml">视频</A></DIV>
+<DIV class=ac2><A href="http://bbs.365master.com/" target=_blank>论坛</A></DIV>
+<DIV class=ac2><A href="http://blog.365master.com/">博客</A></DIV>
+<DIV class=ac2><A href="http://blog.365master.com/">杂志</A></DIV></DIV>
+<DIV class=box_5>
+<DIV>
+<DIV><A href="http://www.365master.com/news/1/">业界资讯</A> <A 
+href="http://www.365master.com/security/news/">安全资讯</A> <A 
+href="http://www.365master.com/nettools/">网管工具</A> <A 
+href="http://www.365master.com/netdata/wbook/">白皮书</A> <A 
+href="http://www.365master.com/netdata/knowledge/up/">网络接入</A> <A 
+href="http://www.365master.com/manage/os/windows/">Windows</A> <A 
+href="http://www.365master.com/manage/os/linux/">Unix/Linux</A> <A 
+href="http://www.365master.com/manage/database/oracle/">Oracle</A> <A 
+href="http://www.365master.com/manage/database/sqlserver/">SQL Server</A> <A 
+href="http://www.365master.com/security/firewall/">防火墙</A> <A 
+href="http://www.365master.com/security/vpn/">VPN</A> <A 
+href="http://www.365master.com/manage/server/4/">网站</A> <A 
+href="http://www.365master.com/manage/server/5/">虚拟化</A> <A 
+href="http://www.365master.com/manage/wangluoguanli/">局域网管理</A> <A 
+href="http://www.365master.com/manage/pc/">桌面</A> <A 
+href="http://www.365master.com/manage/wlan/">无线</A> <A 
+href="http://www.365master.com/manage/voip/">VoIP技术</A> <A 
+href="http://www.365master.com/netdata/knowledge/net/">网络基础</A> <A 
+href="http://www.365master.com/netdata/cases/ins/">信息化</A></DIV></DIV></DIV></DIV>
+<DIV class=box_2r></DIV></DIV>
+<DIV style="WIDTH: 100%; HEIGHT: 8px"></DIV>
+<DIV class=pbox_3>
+<DIV class=main>
+<DIV class=pbox_2>　当前位置：<A href="http://www.365master.com/">首页</A> &gt;&gt;<A 
+href="http://www.365master.com/manage/index.shtml"> 网管</A> &gt;&gt;<A 
+href="http://www.365master.com/manage/database/index.shtml"> 数据库</A> &gt;&gt;<A 
+href="http://www.365master.com/manage/database/oracle/index.shtml"> Oracle 
+</A>&gt;&gt; Oracle分析函数over及开窗函数</DIV>
+<DIV class=ch_title>Oracle分析函数over及开窗函数</DIV>
+<DIV class=author>来源：IT专家网　作者：　发布时间：2008-07-30</DIV>
+<DIV class=mainBody>
+<P>　　分析函数over 及开窗函数</P>
+<P>　　<STRONG>一：分析函数over</STRONG></P>
+<P>　<STRONG>　<FONT 
+color=#16387c>Oracle</FONT></STRONG>从8.1.6开始提供分析函数，分析函数用于计算基于组的某种聚合值，它和聚合函数的不同之处是</P>
+<P>　　对于每个组返回多行，而聚合函数对于每个组只返回一行。</P>
+<P>　　下面通过几个例子来说明其应用。</P>
+<P>　　1：统计某商店的营业额。</P>
+<P>　　date&nbsp;&nbsp;&nbsp; sale</P>
+<P>　　1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;20</P>
+<P>　　2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15</P>
+<P>　　3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14</P>
+<P>　　4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 18</P>
+<P>　　5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;30</P>
+<P>　　规则：按天统计：每天都统计前面几天的总额</P>
+<P>　　得到的结果：</P>
+<P>　　DATE&nbsp;&nbsp; SALE&nbsp;&nbsp; SUM</P>
+<P>　　----- -------- ------</P>
+<P>　　1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20 20&nbsp;&nbsp;&nbsp; 
+&nbsp;--1天</P>
+<P>　　2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15 
+35&nbsp;&nbsp;&nbsp;&nbsp; --1天+2天</P>
+<P>　　3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;14 49&nbsp;&nbsp;&nbsp;&nbsp; 
+--1天+2天+3天</P>
+<P>　　4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 67 .</P>
+<P>　　5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+97 .</P>
+<P>　　2:统计各班成绩第一名的同学信息</P>
+<P>　　NAME&nbsp; &nbsp;CLASS&nbsp;&nbsp;&nbsp; S</P>
+<P>　　----- ----- ----------------------</P>
+<P>　　fda&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <FONT 
+color=#16387c>80</FONT></P>
+<P>　　ffd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+78</P>
+<P>　　dss&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;95</P>
+<P>　　cfe&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;74</P>
+<P>　　gds&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;92</P>
+<P>　　gf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; 
+3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 99</P>
+<P>　　ddd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+99</P>
+<P>　　adf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+45</P>
+<P>　　asdf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+55</P>
+<P>　　3dd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+78</P>
+<P>　通过：</P>
+<P>
+<TABLE 
+style="BORDER-RIGHT: #cccccc 1px dotted; TABLE-LAYOUT: fixed; BORDER-TOP: #cccccc 1px dotted; BORDER-LEFT: #cccccc 1px dotted; BORDER-BOTTOM: #cccccc 1px dotted" 
+cellSpacing=0 cellPadding=6 width="95%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD style="WORD-WRAP: break-word" bgColor=#f3f3f3>-- 
+      <BR>　　select&nbsp;*&nbsp;from <BR>　　( <BR>　　select&nbsp;name,<FONT 
+      color=#16387c>class</FONT>,s,rank()over(<FONT 
+      color=#16387c>partition</FONT>&nbsp;by&nbsp;class&nbsp;order&nbsp;by&nbsp;s&nbsp;desc)&nbsp;mm&nbsp;from&nbsp;t2 
+      <BR>　　) <BR>　　where&nbsp;mm=1 <BR>--</TD></TR></TBODY></TABLE></P>
+<P>　　得到结果：</P>
+<P>　　NAME&nbsp; CLASS&nbsp; S&nbsp; MM</P>
+<P>　　----- ----- ---------------------- ----------------------</P>
+<P>　　dss&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+95&nbsp;&nbsp; 1</P>
+<P>　　gds&nbsp;&nbsp;&nbsp;&nbsp; 
+2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;92&nbsp;&nbsp; 1 </P>
+<P>　　gf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;99&nbsp;&nbsp; 1</P>
+<P>　　ddd&nbsp;&nbsp;&nbsp;&nbsp; 
+3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;99&nbsp;&nbsp;&nbsp;1</P>
+<P>　　注意：</P>
+<P>　　1.在求第一名成绩的时候，不能用row_number()，因为如果同班有两个并列第一，row_number()只返回一个结果</P>
+<P>　　2.rank()和dense_rank()的区别是：</P>
+<P>　　--rank()是跳跃排序，有两个第二名时接下来就是第四名</P>
+<P>　　--dense_rank()l是连续排序，有两个第二名时仍然跟着第三名</P>
+<P>　　3.分类统计 (并显示信息)</P>
+<P>　　A&nbsp;&nbsp; B&nbsp;&nbsp; C</P>
+<P>　　-- -- ----------------------</P>
+<P>　　m&nbsp; &nbsp;a&nbsp;&nbsp;2</P>
+<P>　　n&nbsp;&nbsp; a&nbsp;&nbsp;3</P>
+<P>　　m&nbsp; a&nbsp; &nbsp;2</P>
+<P>　　n&nbsp; &nbsp;b&nbsp; &nbsp;2</P>
+<P>　　n&nbsp;&nbsp; b&nbsp;&nbsp; 1</P>
+<P>　　x&nbsp; &nbsp;b&nbsp;&nbsp; 3</P>
+<P>　　x&nbsp;&nbsp; b&nbsp;&nbsp; 2</P>
+<P>　　x&nbsp; &nbsp;b&nbsp;&nbsp; 4</P>
+<P>　　h&nbsp; &nbsp;b&nbsp;&nbsp; 3</P>
+<P>
+<TABLE 
+style="BORDER-RIGHT: #cccccc 1px dotted; TABLE-LAYOUT: fixed; BORDER-TOP: #cccccc 1px dotted; BORDER-LEFT: #cccccc 1px dotted; BORDER-BOTTOM: #cccccc 1px dotted" 
+cellSpacing=0 cellPadding=6 width="95%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD style="WORD-WRAP: break-word" bgColor=#f3f3f3>select&nbsp;a,c,<FONT 
+      color=#16387c>sum</FONT>(c)over(partition&nbsp;by&nbsp;a)&nbsp;from&nbsp;t2</TD></TR></TBODY></TABLE></P></DIV>
+<DIV class=editor>（责任编辑：IORI）</DIV>
+<DIV class=pg>阅读次数：
+<SCRIPT language=javascript src="Oracle分析函数over及开窗函数.files/count.htm"></SCRIPT>
+</DIV>
+<DIV class=pg>共3页: 上一页 1 <A 
+href="http://www.365master.com/manage/database/oracle/20080730/36178_2.shtml">[2]</A> 
+<A 
+href="http://www.365master.com/manage/database/oracle/20080730/36178_3.shtml">[3]</A> 
+<A 
+href="http://www.365master.com/manage/database/oracle/20080730/36178_2.shtml">下一页</A> 
+</DIV>
+<DIV class=pg>上一篇：<A 
+href="http://www.365master.com/news/3/20080730/36177.shtml">IBM发布新版SVC 
+存储咨询成今后重点？</A> &nbsp; 下一篇：<A 
+href="http://www.365master.com/manu/cssis/2/20080730/36179.shtml">防水墙案例</A> 
+</DIV>
+<DIV class=pg_list style="TEXT-ALIGN: right">[<A 
+href="http://www.365master.com/tools/stow.php?arcID=36178">收藏</A>] [<A 
+href="http://www.365master.com/tools/recommend.php?arcID=36178">推荐</A>] [<A 
+href="http://www.365master.com/tools/comment.php?arcID=36178">评论(0条)</A>] [<A 
+href="http://www.365master.com/manage/database/oracle/20080730/36178.shtml#top">返回顶部</A>] 
+[<A onclick=window.print(); 
+href="http://www.365master.com/manage/database/oracle/20080730/36178.shtml#">打印本页</A>] 
+[<A onclick=window.close(); 
+href="http://www.365master.com/manage/database/oracle/20080730/36178.shtml#">关闭窗口</A>]</DIV></DIV>
+<DIV class=box_240>
+<DIV class=sebox>
+<DIV class=seimg><IMG height=35 src="Oracle分析函数over及开窗函数.files/search02.gif" 
+width=35></DIV>
+<DIV class=seText1>快速检索</DIV>
+<FORM name=formsearch onsubmit="return check_search(this)" 
+action=/tools/search.php method=post><INPUT type=hidden value=0 name=kwtype> 
+<DIV class=seForm><INPUT class=seForm id=keyword 
+onclick="if (this.value=='请输入关键字'){this.value='';}" maxLength=50 value=请输入关键字 
+name=keyword></DIV>
+<DIV class=seForm><SELECT class=seForm name=fieldname> <OPTION value=title 
+  selected>标题</OPTION> <OPTION value=titlekeyword>关键字</OPTION></SELECT> </DIV>
+<DIV class=seFormOK><INPUT type=image src="Oracle分析函数over及开窗函数.files/search.gif" 
+name=search></DIV></FORM></DIV>
+<DIV class=box_r2>
+<DIV class=box_r1_t1>
+<DIV class=box_r1_tt2>相关文章</DIV></DIV>
+<DIV class=box_r1_tc>·<A 
+href="http://www.365master.com/manage/database/oracle/20031001/95.shtml">在NetAPP 
+Filer上 安装配制Oracle </A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20031001/115.shtml">Oracle 
+彻底优化（二）</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20031001/117.shtml">启动Oracle常见疑难问题分析 
+</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20030901/146.shtml">Oracle彻底优化（一）</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20031101/325.shtml">Oracle 
+彻底优化（三）</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20020201/699.shtml">DB2 
+数据库　问与答</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20020501/766.shtml"> 
+存储要纳入网管体系中</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20040401/791.shtml">微软：SQL 
+Server 2000 RS</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20020901/816.shtml">数据库乱码的原因与解决</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20020601/850.shtml">Sybase 
+数据库跨平台移植 </A><BR></DIV></DIV>
+<DIV class=box_r2>
+<DIV class=box_r1_t1>
+<DIV class=box_r1_tt2>热点文章</DIV></DIV>
+<DIV class=box_r1_tc>·<A 
+href="http://www.365master.com/manage/database/oracle/20080324/31084.shtml">Linux中如何查看服务及监听端口</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20080430/34341.shtml">数据库慢该如何着手?</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20080407/31816.shtml">Oracle中的表连接方式及使用场合 
+</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20080505/34446.shtml">Oracle提供的多种安全性措施 
+</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20080324/31083.shtml">Oracle中如何建立二进制文件索引</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20080504/34409.shtml">超大型Oracle应用系统的设计方法</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20080505/34445.shtml">如何让Oracle始终保持优良性能 
+</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20080505/34447.shtml">Oracle索引聚簇与哈希聚簇使用指南</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20080506/34467.shtml">开发环境下优化SQl语句的十个重要</A><BR>·<A 
+href="http://www.365master.com/manage/database/oracle/20080103/30763.shtml">如何恢复一个丢失的数据文件</A><BR></DIV></DIV>
+<DIV class=ad_234_90><A href="http://www.365master.com/subscribe/" 
+target=_blank><IMG height=90 alt=订阅2009年杂志送好礼 
+src="Oracle分析函数over及开窗函数.files/_021513254.gif" width=280 
+border=0></A></DIV></DIV></DIV>
+<DIV class=pbox_4>
+<DIV class=main>
+<DIV class=sub_title1>网友评论</DIV>
+<DIV class=comment id=comment>
+<DIV id=gbook><IMG src="Oracle分析函数over及开窗函数.files/ajax_small.gif" 
+align=absMiddle> 评论加载中… </DIV></DIV></DIV>
+<DIV class=box_240></DIV></DIV>
+<DIV class=ad_900_90>
+<SCRIPT type=text/javascript><!--
+google_ad_client = "pub-1073997898223865";
+//728x90, 创建于 07-12-25
+google_ad_slot = "4059117922";
+google_ad_width = 728;
+google_ad_height = 90;
+//--></SCRIPT>
+
+<SCRIPT src="Oracle分析函数over及开窗函数.files/show_ads.js" type=text/javascript>
+</SCRIPT>
+</DIV>
+<DIV class=Bottom>
+<DIV class=foot><A href="http://www.365master.com/docs/index.shtml">友情链接</A> | 
+<A href="http://www.365master.com/docs/post.shtml">欢迎投稿</A> | <A 
+href="http://www.365master.com/docs/magazine.shtml">杂志发行</A> | <A 
+href="http://www.365master.com/docs/adv.shtml">广告报价</A> | <A 
+href="http://www.365master.com/docs/hr.shtml">人才招聘</A> | <A 
+href="http://www.365master.com/docs/services.shtml">服务条款</A> | <A 
+href="http://www.365master.com/docs/liability.shtml">免责声明</A> | <A 
+href="http://www.365master.com/docs/privacy.shtml">隐私保护</A> | <A 
+href="http://www.365master.com/docs/about.shtml">关于网管员世界</A><BR>CopyRight &copy; 
+2001-2008 [<A class=blue_9 href="http://www.365master.com/" target=_blank>网管员世界 
+www.365master.com</A>] All Rights Reserved. 
+<BR>《网管员世界》杂志，专为网管服务的刊物！<BR></DIV></DIV>
+<DIV class=menu2 align=center><A href="http://www.miibeian.gov.cn/" 
+target=_blank>京ICP证041415号</A></DIV>
+<DIV class=red_9 align=right><A 
+href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202007121000005" 
+target=_blank><IMG src="Oracle分析函数over及开窗函数.files/hd315_biaoshi.gif" 
+border=0></A></DIV><IFRAME id=igbook style="VISIBILITY: hidden" name=igbook 
+align=left src="Oracle分析函数over及开窗函数.files/CAKTOTSZ.htm" width=0 
+height=0></IFRAME></BODY></HTML>

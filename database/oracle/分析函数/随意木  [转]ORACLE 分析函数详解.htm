@@ -1,0 +1,664 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0043)http://halfgene.itpub.net/post/32185/304132 -->
+<HTML 
+xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>随意木 : [转]ORACLE 分析函数详解</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=GB2312">
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR>
+<META http-equiv=Content-Language content=zh-CN><LINK title="RSS 2.0" 
+href="http://halfgene.itpub.net/rss/rss20/32185" type=application/xml 
+rel=alternate><LINK title="RSS 1.0" 
+href="http://halfgene.itpub.net/rss/rss10/32185" type=application/xml 
+rel=alternate><LINK title="RSS 0.90" 
+href="http://halfgene.itpub.net/rss/rss090/32185" type=application/xml 
+rel=alternate><LINK title="Atom 0.3" 
+href="http://halfgene.itpub.net/rss/atom/32185" type=application/atom+xml 
+rel=alternate><LINK media=screen href="随意木  [转]ORACLE 分析函数详解.files/default.css" 
+type=text/css rel=stylesheet>
+<SCRIPT language=javascript type=text/javascript>
+var HOST = 'http://halfgene.itpub.net';
+</SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="随意木  [转]ORACLE 分析函数详解.files/treemenu.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="随意木  [转]ORACLE 分析函数详解.files/chgstyle.js" 
+type=text/javascript></SCRIPT>
+<!-- 页面布局css --><LINK title=a href="随意木  [转]ORACLE 分析函数详解.files/style0a.css" 
+type=text/css rel=stylesheet><LINK title=b 
+href="随意木  [转]ORACLE 分析函数详解.files/style0b.css" type=text/css 
+rel=stylesheet><LINK title=c href="随意木  [转]ORACLE 分析函数详解.files/style0c.css" 
+type=text/css rel=stylesheet>
+<SCRIPT language=javascript type=text/javascript>
+	  var cookielayout = readCookie("layout");
+	  var layouttitle = cookielayout ? cookielayout : getPreferredLayout();
+	  setActiveLayout(layouttitle);
+	</SCRIPT>
+<!-- 配色方案css --><LINK title=1 href="随意木  [转]ORACLE 分析函数详解.files/style1.css" 
+type=text/css rel=stylesheet><LINK title=2 
+href="随意木  [转]ORACLE 分析函数详解.files/style2.css" type=text/css rel=stylesheet><LINK 
+title=3 href="随意木  [转]ORACLE 分析函数详解.files/style3.css" type=text/css 
+rel=stylesheet><LINK title=4 href="随意木  [转]ORACLE 分析函数详解.files/style4.css" 
+type=text/css rel=stylesheet><LINK title=5 
+href="随意木  [转]ORACLE 分析函数详解.files/style5.css" type=text/css rel=stylesheet><LINK 
+title=6 href="随意木  [转]ORACLE 分析函数详解.files/style6.css" type=text/css 
+rel=stylesheet>
+<SCRIPT language=javascript type=text/javascript>
+	  var cookiecolor = readCookie("color");
+	  var colortitle = cookiecolor ? cookiecolor : getPreferredColorSchema();
+	  setActiveColorSchema(colortitle);
+	</SCRIPT>
+<LINK title=Home href="http://halfgene.itpub.net" rel=start><LINK 
+title="oracle 的 CONNECT BY 和START WITH" 
+href="http://halfgene.itpub.net/post/32185/304130" rel=prev><LINK 
+title="[转]ORACLE 分析函数（再论）" href="http://halfgene.itpub.net/post/32185/304137" 
+rel=next></HEAD>
+<BODY>
+<DIV id=masthead>
+<DIV id=siteName><A href="http://halfgene.itpub.net/">随意木</A></DIV>
+<DIV id=globalNav>
+<DIV id=globalLink><A href="http://halfgene.itpub.net/">首页</A> | <A 
+href="http://halfgene.itpub.net/admin.php">管理控制台</A> | <A 
+href="http://halfgene.itpub.net/album/32185/0">资源中心</A> | = | <A title=4? 
+href="http://halfgene.itpub.net/category/32185/53344">J2EE</A> | <A title=7? 
+href="http://halfgene.itpub.net/category/32185/52090">9i OCP教程－性能调优</A> | <A 
+title=6? 
+href="http://halfgene.itpub.net/category/32185/50789">ORACLE管理入门学习笔记</A> | <A 
+title=1? href="http://halfgene.itpub.net/category/32185/50201">杂锦</A> | <A 
+title=31? href="http://halfgene.itpub.net/category/32185/50200">ORACLE杂集</A> 
+</DIV>
+<FORM id=search action=http://halfgene.itpub.net/index.php method=post><INPUT 
+size=14 name=searchTerms> <INPUT type=hidden value=Search name=op> <INPUT 
+type=hidden value=32185 name=blogId> <INPUT type=submit value=搜索 name=Search> 
+</FORM></DIV><!--end globalNav--></DIV><!-- end masthead -->
+<DIV id=pagecell><!--pagecell-->
+<DIV id=content>
+<DIV class=story><!-- <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                                   xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                   xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"><rdf:Description
+                             rdf:about="http://halfgene.itpub.net/post/32185/304132"
+                             dc:identifier="http://halfgene.itpub.net/post/32185/304132"
+                             dc:title="[转]ORACLE 分析函数详解"
+                             trackback:ping="http://blog.itpub.net//trackback.php?id=304132"/></rdf:RDF> -->
+<DIV class=noDisplay>=========================================================== 
+</DIV>
+<DIV class=storyTitle>[转]ORACLE 分析函数详解 </DIV>
+<DIV class=noDisplay>=========================================================== 
+</DIV>
+<DIV class=storyInfo>作者: halfgene(http://halfgene.itpub.net)<BR>发表于: 2007.07.05 
+20:28<BR>分类: ORACLE杂集 <BR>出处: 
+http://halfgene.itpub.net/post/32185/304132<BR>--------------------------------------------------------------- 
+<BR></DIV>
+<DIV class=storytext>1. 自动汇总函数rollup,cube,<BR>2. rank 函数, 
+rank,dense_rank,row_number<BR>3. lag,lead函数<BR>4. sum,avg,的移动增加,移动平均数<BR>5. 
+ratio_to_report报表处理函数<BR>6. first,last取基数的分析函数<BR>
+<DIV>Oracle 
+分析函数使用介绍<BR>分析函数是oracle816引入的一个全新的概念,为我们分析数据提供了一种简单高效的处理方式.在分析函数出现以前,我们必须使用自联查询,子查询或者内联视图,甚至复杂的存储过程实现的语句,现在只要一条简单的sql语句就可以实现了,而且在执行效率方面也有相当大的提高.下面我将针对分析函数做一些具体的说明.<BR><BR>今天我主要给大家介绍一下以下几个函数的使用方法<BR>1. 
+自动汇总函数rollup,cube,<BR>2. rank 函数, rank,dense_rank,row_number<BR>3. 
+lag,lead函数<BR>4. sum,avg,的移动增加,移动平均数<BR>5. ratio_to_report报表处理函数<BR>6. 
+first,last取基数的分析函数<BR><BR><BR>基础数据<BR><BR><BR><BR><BR>Code: [Copy to clipboard] 
+<BR>06:34:23 SQL&gt; select * from t;<BR><BR>BILL_MONTH AREA_CODE NET_TYPE 
+LOCAL_FARE<BR>--------------- ---------- ---------- --------------<BR>200405 
+5761 G 7393344.04<BR>200405 5761 J 5667089.85<BR>200405 5762 G 
+6315075.96<BR>200405 5762 J 6328716.15<BR>200405 5763 G 8861742.59<BR>200405 
+5763 J 7788036.32<BR>200405 5764 G 6028670.45<BR>200405 5764 J 
+6459121.49<BR>200405 5765 G 13156065.77<BR>200405 5765 J 11901671.70<BR>200406 
+5761 G 7614587.96<BR>200406 5761 J 5704343.05<BR>200406 5762 G 
+6556992.60<BR>200406 5762 J 6238068.05<BR>200406 5763 G 9130055.46<BR>200406 
+5763 J 7990460.25<BR>200406 5764 G 6387706.01<BR>200406 5764 J 
+6907481.66<BR>200406 5765 G 13562968.81<BR>200406 5765 J 12495492.50<BR>200407 
+5761 G 7987050.65<BR>200407 5761 J 5723215.28<BR>200407 5762 G 
+6833096.68<BR>200407 5762 J 6391201.44<BR>200407 5763 G 9410815.91<BR>200407 
+5763 J 8076677.41<BR>200407 5764 G 6456433.23<BR>200407 5764 J 
+6987660.53<BR>200407 5765 G 14000101.20<BR>200407 5765 J 12301780.20<BR>200408 
+5761 G 8085170.84<BR>200408 5761 J 6050611.37<BR>200408 5762 G 
+6854584.22<BR>200408 5762 J 6521884.50<BR>200408 5763 G 9468707.65<BR>200408 
+5763 J 8460049.43<BR>200408 5764 G 6587559.23<BR><BR>BILL_MONTH AREA_CODE 
+NET_TYPE LOCAL_FARE<BR>--------------- ---------- ---------- 
+--------------<BR>200408 5764 J 7342135.86<BR>200408 5765 G 
+14450586.63<BR>200408 5765 J 12680052.38<BR><BR>40 rows 
+selected.<BR><BR>Elapsed: 00:00:00.00 <BR><BR><BR><BR><BR>1. 
+使用rollup函数的介绍<BR><BR><BR><BR><BR>Quote: 
+<BR>下面是直接使用普通sql语句求出各地区的汇总数据的例子<BR>06:41:36 SQL&gt; set autot on<BR>06:43:36 
+SQL&gt; select area_code,sum(local_fare) local_fare<BR>06:43:50 2 from 
+t<BR>06:43:51 3 group by area_code<BR>06:43:57 4 union all<BR>06:44:00 5 select 
+'合计' area_code,sum(local_fare) local_fare<BR>06:44:06 6 from t<BR>06:44:08 7 
+/<BR><BR>AREA_CODE LOCAL_FARE<BR>---------- --------------<BR>5761 
+54225413.04<BR>5762 52039619.60<BR>5763 69186545.02<BR>5764 53156768.46<BR>5765 
+104548719.19<BR>合计 333157065.31<BR><BR>6 rows selected.<BR><BR>Elapsed: 
+00:00:00.03<BR><BR>Execution 
+Plan<BR>----------------------------------------------------------<BR>0 SELECT 
+STATEMENT Optimizer=ALL_ROWS (Cost=7 Card=1310 Bytes=<BR>24884)<BR><BR>1 0 
+UNION-ALL<BR>2 1 SORT (GROUP BY) (Cost=5 Card=1309 Bytes=24871)<BR>3 2 TABLE 
+ACCESS (FULL) OF 'T' (Cost=2 Card=1309 Bytes=248<BR>71)<BR><BR>4 1 SORT 
+(AGGREGATE)<BR>5 4 TABLE ACCESS (FULL) OF 'T' (Cost=2 Card=1309 
+Bytes=170<BR>17)<BR><BR><BR><BR><BR><BR>Statistics<BR>----------------------------------------------------------<BR>0 
+recursive calls<BR>0 db block gets<BR>6 consistent gets<BR>0 physical reads<BR>0 
+redo size<BR>561 bytes sent via SQL*Net to client<BR>503 bytes received via 
+SQL*Net from client<BR>2 SQL*Net roundtrips to/from client<BR>1 sorts 
+(memory)<BR>0 sorts (disk)<BR>6 rows 
+processed<BR><BR><BR>下面是使用分析函数rollup得出的汇总数据的例子<BR>06:44:09 SQL&gt; select 
+nvl(area_code,'合计') area_code,sum(local_fare) local_fare<BR>06:45:26 2 from 
+t<BR>06:45:30 3 group by rollup(nvl(area_code,'合计'))<BR>06:45:50 4 
+/<BR><BR>AREA_CODE LOCAL_FARE<BR>---------- --------------<BR>5761 
+54225413.04<BR>5762 52039619.60<BR>5763 69186545.02<BR>5764 53156768.46<BR>5765 
+104548719.19<BR>333157065.31<BR><BR>6 rows selected.<BR><BR>Elapsed: 
+00:00:00.00<BR><BR>Execution 
+Plan<BR>----------------------------------------------------------<BR>0 SELECT 
+STATEMENT Optimizer=ALL_ROWS (Cost=5 Card=1309 Bytes=<BR>24871)<BR><BR>1 0 SORT 
+(GROUP BY ROLLUP) (Cost=5 Card=1309 Bytes=24871)<BR>2 1 TABLE ACCESS (FULL) OF 
+'T' (Cost=2 Card=1309 
+Bytes=24871<BR>)<BR><BR><BR><BR><BR><BR>Statistics<BR>----------------------------------------------------------<BR>0 
+recursive calls<BR>0 db block gets<BR>4 consistent gets<BR>0 physical reads<BR>0 
+redo size<BR>557 bytes sent via SQL*Net to client<BR>503 bytes received via 
+SQL*Net from client<BR>2 SQL*Net roundtrips to/from client<BR>1 sorts 
+(memory)<BR>0 sorts (disk)<BR>6 rows 
+processed<BR><BR><BR>从上面的例子我们不难看出使用rollup函数,系统的sql语句更加简单,耗用的资源更少,从6个consistent 
+gets降到4个consistent gets,如果基表很大的话,结果就可想而知了. <BR><BR><BR><BR><BR>1. 
+使用cube函数的介绍<BR><BR><BR><BR><BR>Quote: 
+<BR>为了介绍cube函数我们再来看看另外一个使用rollup的例子<BR>06:53:00 SQL&gt; select 
+area_code,bill_month,sum(local_fare) local_fare<BR>06:53:37 2 from t<BR>06:53:38 
+3 group by rollup(area_code,bill_month)<BR>06:53:49 4 /<BR><BR>AREA_CODE 
+BILL_MONTH LOCAL_FARE<BR>---------- --------------- --------------<BR>5761 
+200405 13060433.89<BR>5761 200406 13318931.01<BR>5761 200407 13710265.93<BR>5761 
+200408 14135782.21<BR>5761 54225413.04<BR>5762 200405 12643792.11<BR>5762 200406 
+12795060.65<BR>5762 200407 13224298.12<BR>5762 200408 13376468.72<BR>5762 
+52039619.60<BR>5763 200405 16649778.91<BR>5763 200406 17120515.71<BR>5763 200407 
+17487493.32<BR>5763 200408 17928757.08<BR>5763 69186545.02<BR>5764 200405 
+12487791.94<BR>5764 200406 13295187.67<BR>5764 200407 13444093.76<BR>5764 200408 
+13929695.09<BR>5764 53156768.46<BR>5765 200405 25057737.47<BR>5765 200406 
+26058461.31<BR>5765 200407 26301881.40<BR>5765 200408 27130639.01<BR>5765 
+104548719.19<BR>333157065.31<BR><BR>26 rows selected.<BR><BR>Elapsed: 
+00:00:00.00<BR><BR>系统只是根据rollup的第一个参数area_code对结果集的数据做了汇总处理,而没有对bill_month做汇总分析处理,cube函数就是为了这个而设计的.<BR>下面,让我们看看使用cube函数的结果<BR><BR>06:58:02 
+SQL&gt; select area_code,bill_month,sum(local_fare) local_fare<BR>06:58:30 2 
+from t<BR>06:58:32 3 group by cube(area_code,bill_month)<BR>06:58:42 4 order by 
+area_code,bill_month nulls last<BR>06:58:57 5 /<BR><BR>AREA_CODE BILL_MONTH 
+LOCAL_FARE<BR>---------- --------------- --------------<BR>5761 200405 
+13060.43<BR>5761 200406 13318.93<BR>5761 200407 13710.27<BR>5761 200408 
+14135.78<BR>5761 54225.41<BR>5762 200405 12643.79<BR>5762 200406 
+12795.06<BR>5762 200407 13224.30<BR>5762 200408 13376.47<BR>5762 
+52039.62<BR>5763 200405 16649.78<BR>5763 200406 17120.52<BR>5763 200407 
+17487.49<BR>5763 200408 17928.76<BR>5763 69186.54<BR>5764 200405 
+12487.79<BR>5764 200406 13295.19<BR>5764 200407 13444.09<BR>5764 200408 
+13929.69<BR>5764 53156.77<BR>5765 200405 25057.74<BR>5765 200406 
+26058.46<BR>5765 200407 26301.88<BR>5765 200408 27130.64<BR>5765 
+104548.72<BR>200405 79899.53<BR>200406 82588.15<BR>200407 84168.03<BR>200408 
+86501.34<BR>333157.05<BR><BR>30 rows selected.<BR><BR>Elapsed: 
+00:00:00.01<BR><BR>可以看到,在cube函数的输出结果比使用rollup多出了几行统计数据.这就是cube函数根据bill_month做的汇总统计结果 
+<BR><BR><BR><BR>1 rollup 和 cube函数的再深入<BR><BR><BR><BR><BR>Quote: 
+<BR>从上面的结果中我们很容易发现,每个统计数据所对应的行都会出现null,<BR>我们如何来区分到底是根据那个字段做的汇总呢,<BR>这时候,oracle的grouping函数就粉墨登场了.<BR>如果当前的汇总记录是利用该字段得出的,grouping函数就会返回1,否则返回0<BR><BR><BR>1 
+select decode(grouping(area_code),1,'all area',to_char(area_code)) 
+area_code,<BR>2 decode(grouping(bill_month),1,'all month',bill_month) 
+bill_month,<BR>3 sum(local_fare) local_fare<BR>4 from t<BR>5 group by 
+cube(area_code,bill_month)<BR>6* order by area_code,bill_month nulls 
+last<BR>07:07:29 SQL&gt; /<BR><BR>AREA_CODE BILL_MONTH LOCAL_FARE<BR>---------- 
+--------------- --------------<BR>5761 200405 13060.43<BR>5761 200406 
+13318.93<BR>5761 200407 13710.27<BR>5761 200408 14135.78<BR>5761 all month 
+54225.41<BR>5762 200405 12643.79<BR>5762 200406 12795.06<BR>5762 200407 
+13224.30<BR>5762 200408 13376.47<BR>5762 all month 52039.62<BR>5763 200405 
+16649.78<BR>5763 200406 17120.52<BR>5763 200407 17487.49<BR>5763 200408 
+17928.76<BR>5763 all month 69186.54<BR>5764 200405 12487.79<BR>5764 200406 
+13295.19<BR>5764 200407 13444.09<BR>5764 200408 13929.69<BR>5764 all month 
+53156.77<BR>5765 200405 25057.74<BR>5765 200406 26058.46<BR>5765 200407 
+26301.88<BR>5765 200408 27130.64<BR>5765 all month 104548.72<BR>all area 200405 
+79899.53<BR>all area 200406 82588.15<BR>all area 200407 84168.03<BR>all area 
+200408 86501.34<BR>all area all month 333157.05<BR><BR>30 rows 
+selected.<BR><BR>Elapsed: 00:00:00.01<BR>07:07:31 
+SQL&gt;<BR><BR><BR>可以看到,所有的空值现在都根据grouping函数做出了很好的区分,这样利用rollup,cube和grouping函数,我们做数据统计的时候就可以轻松很多了.<BR>
+<DIV>2. 
+rank函数的介绍<BR><BR>介绍完rollup和cube函数的使用,下面我们来看看rank系列函数的使用方法.<BR><BR>问题2.我想查出这几个月份中各个地区的总话费的排名.<BR><BR><BR>Quote: 
+<BR>为了将rank,dense_rank,row_number函数的差别显示出来,我们对已有的基础数据做一些修改,将5763的数据改成与5761的数据相同.<BR>1 
+update t t1 set local_fare = (<BR>2 select local_fare from t t2<BR>3 where 
+t1.bill_month = t2.bill_month<BR>4 and t1.net_type = t2.net_type<BR>5 and 
+t2.area_code = '5761'<BR>6* ) where area_code = '5763'<BR>07:19:18 SQL&gt; 
+/<BR><BR>8 rows updated.<BR><BR>Elapsed: 
+00:00:00.01<BR><BR>我们先使用rank函数来计算各个地区的话费排名.<BR>07:34:19 SQL&gt; select 
+area_code,sum(local_fare) local_fare,<BR>07:35:25 2 rank() over (order by 
+sum(local_fare) desc) fare_rank<BR>07:35:44 3 from t<BR>07:35:45 4 group by 
+area_codee<BR>07:35:50 5<BR>07:35:52 SQL&gt; select area_code,sum(local_fare) 
+local_fare,<BR>07:36:02 2 rank() over (order by sum(local_fare) desc) 
+fare_rank<BR>07:36:20 3 from t<BR>07:36:21 4 group by area_code<BR>07:36:25 5 
+/<BR><BR>AREA_CODE LOCAL_FARE FARE_RANK<BR>---------- -------------- 
+----------<BR>5765 104548.72 1<BR>5761 54225.41 2<BR>5763 54225.41 2 <BR>5764 
+53156.77 4 <BR>5762 52039.62 5<BR><BR>Elapsed: 
+00:00:00.01<BR><BR>我们可以看到红色标注的地方出现了,跳位,排名3没有出现<BR>下面我们再看看dense_rank查询的结果.<BR><BR><BR>07:36:26 
+SQL&gt; select area_code,sum(local_fare) local_fare,<BR>07:39:16 2 dense_rank() 
+over (order by sum(local_fare) desc ) fare_rank<BR>07:39:39 3 from t<BR>07:39:42 
+4 group by area_code<BR>07:39:46 5 /<BR><BR>AREA_CODE LOCAL_FARE 
+FARE_RANK<BR>---------- -------------- ----------<BR>5765 104548.72 1<BR>5761 
+54225.41 2<BR>5763 54225.41 2<BR>5764 53156.77 3 这是这里出现了第三名<BR>5762 52039.62 
+4<BR><BR>Elapsed: 
+00:00:00.00<BR><BR><BR>在这个例子中,出现了一个第三名,这就是rank和dense_rank的差别,<BR>rank如果出现两个相同的数据,那么后面的数据就会直接跳过这个排名,而dense_rank则不会,<BR>差别更大的是,row_number哪怕是两个数据完全相同,排名也会不一样,这个特性在我们想找出对应没个条件的唯一记录的时候又很大用处<BR><BR><BR>1 
+select area_code,sum(local_fare) local_fare,<BR>2 row_number() over (order by 
+sum(local_fare) desc ) fare_rank<BR>3 from t<BR>4* group by 
+area_code<BR>07:44:50 SQL&gt; /<BR><BR>AREA_CODE LOCAL_FARE 
+FARE_RANK<BR>---------- -------------- ----------<BR>5765 104548.72 1<BR>5761 
+54225.41 2<BR>5763 54225.41 3<BR>5764 53156.77 4<BR>5762 52039.62 
+5<BR><BR>在row_nubmer函数中,我们发现,哪怕sum(local_fare)完全相同,我们还是得到了不一样排名,我们可以利用这个特性剔除数据库中的重复记录.<BR><BR>这个帖子中的几个例子是为了说明这三个函数的基本用法的. 
+下个帖子我们将详细介绍他们的一些用法.<BR><BR><BR><BR><BR>2. rank函数的介绍<BR><BR>a. 
+取出数据库中最后入网的n个用户<BR>select user_id,tele_num,user_name,user_status,create_date 
+<BR>from (<BR>select 
+user_id,tele_num,user_name,user_status,create_date,<BR>rank() over (order by 
+create_date desc) add_rank<BR>from user_info<BR>)<BR>where add_rank &lt;= 
+:n;<BR><BR>b.根据object_name删除数据库中的重复记录<BR>create table t as select obj#,name from 
+sys.obj$;<BR>再insert into t1 select * from t1 数次.<BR>delete from t1 where rowid 
+in (<BR>select row_id from (<BR>select rowid row_id,row_number() over (partition 
+by obj# order by rowid ) rn<BR>) where rn &lt;&gt; 1<BR>);<BR><BR>c. 
+取出各地区的话费收入在各个月份排名.<BR>SQL&gt; select bill_month,area_code,sum(local_fare) 
+local_fare,<BR>2 rank() over (partition by bill_month order by sum(local_fare) 
+desc) area_rank<BR>3 from t<BR>4 group by bill_month,area_code<BR>5 
+/<BR><BR>BILL_MONTH AREA_CODE LOCAL_FARE AREA_RANK<BR>--------------- 
+--------------- -------------- ----------<BR>200405 5765 25057.74 1<BR>200405 
+5761 13060.43 2<BR>200405 5763 13060.43 2<BR>200405 5762 12643.79 4<BR>200405 
+5764 12487.79 5<BR>200406 5765 26058.46 1<BR>200406 5761 13318.93 2<BR>200406 
+5763 13318.93 2<BR>200406 5764 13295.19 4<BR>200406 5762 12795.06 5<BR>200407 
+5765 26301.88 1<BR>200407 5761 13710.27 2<BR>200407 5763 13710.27 2<BR>200407 
+5764 13444.09 4<BR>200407 5762 13224.30 5<BR>200408 5765 27130.64 1<BR>200408 
+5761 14135.78 2<BR>200408 5763 14135.78 2<BR>200408 5764 13929.69 4<BR>200408 
+5762 13376.47 5<BR><BR>20 rows selected.<BR>SQL&gt;<BR><BR><BR>3. 
+lag和lead函数介绍<BR><BR>取出每个月的上个月和下个月的话费总额<BR>1 select area_code,bill_month, 
+local_fare cur_local_fare,<BR>2 lag(local_fare,2,0) over (partition by area_code 
+order by bill_month ) pre_local_fare,<BR>3 lag(local_fare,1,0) over (partition 
+by area_code order by bill_month ) last_local_fare,<BR>4 lead(local_fare,1,0) 
+over (partition by area_code order by bill_month ) next_local_fare,<BR>5 
+lead(local_fare,2,0) over (partition by area_code order by bill_month ) 
+post_local_fare<BR>6 from (<BR>7 select area_code,bill_month,sum(local_fare) 
+local_fare<BR>8 from t<BR>9 group by area_code,bill_month<BR>10* )<BR>SQL&gt; 
+/<BR>AREA_CODE BILL_MONTH CUR_LOCAL_FARE PRE_LOCAL_FARE LAST_LOCAL_FARE 
+NEXT_LOCAL_FARE POST_LOCAL_FARE<BR>--------- ---------- -------------- 
+-------------- --------------- --------------- ---------------<BR>5761 200405 
+13060.433 0 0 13318.93 13710.265<BR>5761 200406 13318.93 0 13060.433 13710.265 
+14135.781<BR>5761 200407 13710.265 13060.433 13318.93 14135.781 0<BR>5761 200408 
+14135.781 13318.93 13710.265 0 0<BR>5762 200405 12643.791 0 0 12795.06 
+13224.297<BR>5762 200406 12795.06 0 12643.791 13224.297 13376.468<BR>5762 200407 
+13224.297 12643.791 12795.06 13376.468 0<BR>5762 200408 13376.468 12795.06 
+13224.297 0 0<BR>5763 200405 13060.433 0 0 13318.93 13710.265<BR>5763 200406 
+13318.93 0 13060.433 13710.265 14135.781<BR>5763 200407 13710.265 13060.433 
+13318.93 14135.781 0<BR>5763 200408 14135.781 13318.93 13710.265 0 0<BR>5764 
+200405 12487.791 0 0 13295.187 13444.093<BR>5764 200406 13295.187 0 12487.791 
+13444.093 13929.694<BR>5764 200407 13444.093 12487.791 13295.187 13929.694 
+0<BR>5764 200408 13929.694 13295.187 13444.093 0 0<BR>5765 200405 25057.736 0 0 
+26058.46 26301.881<BR>5765 200406 26058.46 0 25057.736 26301.881 
+27130.638<BR>5765 200407 26301.881 25057.736 26058.46 27130.638 0<BR>5765 200408 
+27130.638 26058.46 26301.881 0 0<BR>20 rows 
+selected.<BR><BR>利用lag和lead函数,我们可以在同一行中显示前n行的数据,也可以显示后n行的数据.<BR><BR><BR>4. 
+sum,avg,max,min移动计算数据介绍<BR><BR>计算出各个连续3个月的通话费用的平均数<BR>1 select 
+area_code,bill_month, local_fare,<BR>2 sum(local_fare)<BR>3 over ( partition by 
+area_code<BR>4 order by to_number(bill_month)<BR>5 range between 1 preceding and 
+1 following ) "3month_sum",<BR>6 avg(local_fare)<BR>7 over ( partition by 
+area_code<BR>8 order by to_number(bill_month)<BR>9 range between 1 preceding and 
+1 following ) "3month_avg",<BR>10 max(local_fare)<BR>11 over ( partition by 
+area_code<BR>12 order by to_number(bill_month)<BR>13 range between 1 preceding 
+and 1 following ) "3month_max",<BR>14 min(local_fare)<BR>15 over ( partition by 
+area_code<BR>16 order by to_number(bill_month)<BR>17 range between 1 preceding 
+and 1 following ) "3month_min"<BR>18 from (<BR>19 select 
+area_code,bill_month,sum(local_fare) local_fare<BR>20 from t<BR>21 group by 
+area_code,bill_month<BR>22* )<BR>SQL&gt; /<BR><BR>AREA_CODE BILL_MONTH 
+LOCAL_FARE 3month_sum 3month_avg 3month_max 3month_min<BR>--------- ---------- 
+---------------- ---------- ---------- ---------- ----------<BR>5761 200405 
+13060.433 26379.363 13189.6815 13318.93 13060.433<BR>5761 200406 13318.930 
+40089.628 13363.2093 13710.265 13060.433<BR>5761 200407 13710.265 41164.976 
+13721.6587 14135.781 13318.93<BR>40089.628 = 13060.433 + 13318.930 + 
+13710.265<BR>13363.2093 = (13060.433 + 13318.930 + 13710.265) / 3<BR>13710.265 = 
+max(13060.433 + 13318.930 + 13710.265)<BR>13060.433 = min(13060.433 + 13318.930 
++ 13710.265)<BR>5761 200408 14135.781 27846.046 13923.023 14135.781 
+13710.265<BR>5762 200405 12643.791 25438.851 12719.4255 12795.06 
+12643.791<BR>5762 200406 12795.060 38663.148 12887.716 13224.297 
+12643.791<BR>5762 200407 13224.297 39395.825 13131.9417 13376.468 
+12795.06<BR>5762 200408 13376.468 26600.765 13300.3825 13376.468 
+13224.297<BR>5763 200405 13060.433 26379.363 13189.6815 13318.93 
+13060.433<BR>5763 200406 13318.930 40089.628 13363.2093 13710.265 
+13060.433<BR>5763 200407 13710.265 41164.976 13721.6587 14135.781 
+13318.93<BR>5763 200408 14135.781 27846.046 13923.023 14135.781 
+13710.265<BR>5764 200405 12487.791 25782.978 12891.489 13295.187 
+12487.791<BR>5764 200406 13295.187 39227.071 13075.6903 13444.093 
+12487.791<BR>5764 200407 13444.093 40668.974 13556.3247 13929.694 
+13295.187<BR>5764 200408 13929.694 27373.787 13686.8935 13929.694 
+13444.093<BR>5765 200405 25057.736 51116.196 25558.098 26058.46 
+25057.736<BR>5765 200406 26058.460 77418.077 25806.0257 26301.881 
+25057.736<BR>5765 200407 26301.881 79490.979 26496.993 27130.638 
+26058.46<BR>5765 200408 27130.638 53432.519 26716.2595 27130.638 
+26301.881<BR><BR>20 rows selected.<BR><BR>5. 
+ratio_to_report函数的介绍<BR><BR><BR><BR><BR>Quote: <BR>1 select 
+bill_month,area_code,sum(local_fare) local_fare,<BR>2 
+ratio_to_report(sum(local_fare)) over<BR>3 ( partition by bill_month ) 
+area_pct<BR>4 from t<BR>5* group by bill_month,area_code<BR>SQL&gt; break on 
+bill_month skip 1<BR>SQL&gt; compute sum of local_fare on bill_month<BR>SQL&gt; 
+compute sum of area_pct on bill_month<BR>SQL&gt; /<BR><BR>BILL_MONTH AREA_CODE 
+LOCAL_FARE AREA_PCT<BR>---------- --------- ---------------- 
+----------<BR>200405 5761 13060.433 .171149279<BR>5762 12643.791 
+.165689431<BR>5763 13060.433 .171149279<BR>5764 12487.791 .163645143<BR>5765 
+25057.736 .328366866<BR>********** ---------------- ----------<BR>sum 76310.184 
+1<BR><BR>200406 5761 13318.930 .169050772<BR>5762 12795.060 .162401542<BR>5763 
+13318.930 .169050772<BR>5764 13295.187 .168749414<BR>5765 26058.460 
+.330747499<BR>********** ---------------- ----------<BR>sum 78786.567 
+1<BR><BR>200407 5761 13710.265 .170545197<BR>5762 13224.297 .164500127<BR>5763 
+13710.265 .170545197<BR>5764 13444.093 .167234221<BR>5765 26301.881 
+.327175257<BR>********** ---------------- ----------<BR>sum 80390.801 
+1<BR><BR>200408 5761 14135.781 .170911147<BR>5762 13376.468 .161730539<BR>5763 
+14135.781 .170911147<BR>5764 13929.694 .168419416<BR>5765 27130.638 
+.328027751<BR>********** ---------------- ----------<BR>sum 82708.362 
+1<BR><BR><BR>20 rows selected. <BR><BR><BR><BR>6 
+first,last函数使用介绍<BR><BR><BR><BR><BR>Quote: <BR>取出每月通话费最高和最低的两个用户.<BR>1 select 
+bill_month,area_code,sum(local_fare) local_fare,<BR>2 
+first_value(area_code)<BR>3 over (order by sum(local_fare) desc<BR>4 rows 
+unbounded preceding) firstval,<BR>5 first_value(area_code)<BR>6 over (order by 
+sum(local_fare) asc<BR>7 rows unbounded preceding) lastval<BR>8 from t<BR>9 
+group by bill_month,area_code<BR>10* order by bill_month<BR>SQL&gt; 
+/<BR><BR>BILL_MONTH AREA_CODE LOCAL_FARE FIRSTVAL LASTVAL<BR>---------- 
+--------- ---------------- --------------- ---------------<BR>200405 5764 
+12487.791 5765 5764<BR>200405 5762 12643.791 5765 5764<BR>200405 5761 13060.433 
+5765 5764<BR>200405 5765 25057.736 5765 5764<BR>200405 5763 13060.433 5765 
+5764<BR>200406 5762 12795.060 5765 5764<BR>200406 5763 13318.930 5765 
+5764<BR>200406 5764 13295.187 5765 5764<BR>200406 5765 26058.460 5765 
+5764<BR>200406 5761 13318.930 5765 5764<BR>200407 5762 13224.297 5765 
+5764<BR>200407 5765 26301.881 5765 5764<BR>200407 5761 13710.265 5765 
+5764<BR>200407 5763 13710.265 5765 5764<BR>200407 5764 13444.093 5765 
+5764<BR>200408 5762 13376.468 5765 5764<BR>200408 5764 13929.694 5765 
+5764<BR>200408 5761 14135.781 5765 5764<BR>200408 5765 27130.638 5765 
+5764<BR>200408 5763 14135.781 5765 5764<BR><BR>20 rows selected. 
+</DIV></DIV></DIV>
+<DIV class=storyposted>halfgene 发表于:2007.07.05 20:28 ::分类: ( <A 
+href="http://halfgene.itpub.net/category/32185/50200">ORACLE杂集</A> ) ::阅读:(461次) 
+:: <A href="http://halfgene.itpub.net/post/32185/304132">评论 (0)</A> </DIV></DIV>
+<P>
+<DIV class=story>
+<DIV class=storyTitle>发表评论</DIV>
+<DIV class=storytext>
+<SCRIPT language=javascript type=text/javascript>
+<!--
+function writeImgTag(code)
+{
+var cache = document.NewComment.commentText.value;
+this.code = code;
+document.NewComment.commentText.value = cache + code;
+document.NewComment.commentText.focus();
+}
+//-->
+</SCRIPT>
+
+<FORM id=comments_form name=NewComment 
+onsubmit="if (this.bakecookie.checked) rememberMe(this)" 
+action=http://halfgene.itpub.net/index.php method=post>标题<BR><INPUT size=60 
+value="re: [转]ORACLE 分析函数详解" name=commentTopic><BR>在此添加评论 <BR>表情符号: <IMG 
+onclick="writeImgTag(':)')" height=18 alt=smile 
+src="随意木  [转]ORACLE 分析函数详解.files/smile.gif" width=18 align=middle border=0> <IMG 
+onclick="writeImgTag(':D')" height=18 alt=laughing 
+src="随意木  [转]ORACLE 分析函数详解.files/laughing.gif" width=18 align=middle border=0> 
+<IMG onclick="writeImgTag(':p')" height=18 alt=tongue 
+src="随意木  [转]ORACLE 分析函数详解.files/tongue.gif" width=18 align=middle border=0> 
+<IMG onclick="writeImgTag(':(')" height=18 alt=angry 
+src="随意木  [转]ORACLE 分析函数详解.files/angry.gif" width=18 align=middle border=0> <IMG 
+onclick="writeImgTag(':cry')" height=18 alt=crying 
+src="随意木  [转]ORACLE 分析函数详解.files/crying.gif" width=18 align=middle border=0> 
+<IMG onclick="writeImgTag(':sad')" height=18 alt=sad 
+src="随意木  [转]ORACLE 分析函数详解.files/sad.gif" width=18 align=middle border=0> <IMG 
+onclick="writeImgTag(':what')" height=18 alt=wassat 
+src="随意木  [转]ORACLE 分析函数详解.files/wassat.gif" width=18 align=middle border=0> 
+<IMG onclick="writeImgTag(':wink')" height=18 alt=wink 
+src="随意木  [转]ORACLE 分析函数详解.files/wink.gif" width=18 align=middle border=0> 
+<BR><INPUT type=hidden value=none name=author> <INPUT type=hidden value=none 
+name=email> <INPUT type=hidden value=none name=text> <TEXTAREA name=commentText rows=10 cols=54 onchange="findObj('text').value = this.value"></TEXTAREA><BR>称呼<BR><INPUT 
+onchange="findObj('author').value = this.value" 
+name=userName><BR>邮箱地址（可选）<BR><INPUT 
+onchange="findObj('email').value = this.value" 
+name=userEmail><BR>个人主页（可选）<BR><INPUT size=60 name=userUrl><BR><INPUT 
+id=bakecookie type=checkbox name=bakecookie><LABEL for=bakecookie>记住我？</LABEL> 
+<LABEL for=authImage>验证码: </LABEL><INPUT id=authImage size=6 
+name=authImage>&nbsp;<IMG style="VERTICAL-ALIGN: middle" height=20 alt=authimage 
+src="随意木  [转]ORACLE 分析函数详解.files/index.gif" width=70> <BR><INPUT type=submit value=发表 name=post><BR><BR><INPUT type=hidden 
+value=AddComment name=op> <INPUT type=hidden value=304132 name=articleId> <INPUT 
+type=hidden value=32185 name=blogId> <INPUT type=hidden name=parentId> </FORM>
+<SCRIPT language=javascript type=text/javascript>
+<!--
+document.NewComment.userName.value = getCookie("mtcmtauth");
+document.NewComment.userEmail.value = getCookie("mtcmtmail");
+document.NewComment.userUrl.value = getCookie("mtcmthome");
+document.NewComment.author.value = getCookie("mtcmtauth");
+document.NewComment.email.value = getCookie("mtcmtmail");
+//-->
+</SCRIPT>
+</DIV></DIV></DIV><!--end content-->
+<DIV id=leftNav>
+<DIV class=relatedLinksTitle>自我介绍</DIV>
+<DIV class=relatedLinks>
+<DIV align=center><IMG alt=halfgene 
+src="随意木  [转]ORACLE 分析函数详解.files/%C5%E1%C9%AC%E7%F7.jpg"></DIV>作者:<BR>一段代码，一份心情<BR></DIV>
+<DIV class=relatedLinksTitle>切换风格</DIV>
+<DIV class=relatedLinks>
+<FORM action="">
+<P align=center>布局:<SELECT onchange="setActiveLayout(value); return false;" 
+size=1 name=SelectActiveLayout> <OPTION value=a selected>选择页面布局</OPTION> 
+  <OPTION value=a>两栏左侧导航</OPTION> <OPTION value=b>两栏右侧导航</OPTION> <OPTION 
+  value=c>三栏</OPTION></SELECT> </P></FORM>
+<FORM action="">
+<P align=center>配色:<SELECT onchange="setActiveColorSchema(value); return false;" 
+size=1 name=SelectActiveColorSchema> <OPTION value=1 selected>选择配色方案</OPTION> 
+  <OPTION value=1>纯净蓝灰</OPTION> <OPTION value=2>浪漫紫</OPTION> <OPTION 
+  value=3>清爽绿</OPTION> <OPTION value=4>海蓝</OPTION> <OPTION value=5>粉红</OPTION> 
+  <OPTION value=6>黑白</OPTION></SELECT> </P></FORM>
+<CENTER>提示</CENTER>点击带有[...]标记的栏目可以展开/收拢相应的栏目 
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD class=button onmousedown=turnonall() style="CURSOR: pointer">展开所有</TD>
+    <TD class=button onmousedown=turnoffall() 
+  style="CURSOR: pointer">收拢所有</TD></TR></TBODY></TABLE></DIV>
+<DIV class=relatedLinksTitle>新闻聚合</DIV>
+<DIV class=relatedLinks align=right><A class=nodecoration 
+title="Link to the RSS 0.90 feed." 
+href="http://halfgene.itpub.net/rss/rss090/32185"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="RSS 0.90" src="随意木  [转]ORACLE 分析函数详解.files/rss090_logo.gif"></A><BR><A 
+class=nodecoration title="Link to the RSS 1.0 feed." 
+href="http://halfgene.itpub.net/rss/rss10/32185"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="RSS 1.0" src="随意木  [转]ORACLE 分析函数详解.files/rss10_logo.gif"></A><BR><A 
+class=nodecoration title="Link to the RSS 2.0 feed." 
+href="http://halfgene.itpub.net/rss/rss20/32185"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="RSS 2.0" src="随意木  [转]ORACLE 分析函数详解.files/rss20_logo.gif"></A><BR><A 
+class=nodecoration title="Link to the Atom 0.3 feed." 
+href="http://halfgene.itpub.net/rss/atom/32185"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="Atom 0.3" src="随意木  [转]ORACLE 分析函数详解.files/atom_logo.png"></A><BR><BR><A 
+href="http://www.bloglines.com/sub/http://halfgene.itpub.net/rss/rss20/32185"><IMG 
+alt="Subscribe with Bloglines" 
+src="随意木  [转]ORACLE 分析函数详解.files/sub_bloglines.gif" border=0></A><BR><A 
+href="http://www.rojo.com/add-subscription?resource=http://halfgene.itpub.net/rss/rss20/32185"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="Subscribe in Rojo" src="随意木  [转]ORACLE 分析函数详解.files/add-to-rojo.gif"></A> 
+<BR><A title="Subscribe in NewsGator Online" 
+href="http://www.newsgator.com/ngs/subscriber/subext.aspx?url=http://halfgene.itpub.net/rss/rss20/32185"><IMG 
+alt="Subscribe in NewsGator Online" 
+src="随意木  [转]ORACLE 分析函数详解.files/ngsub1.gif"></A><BR><A 
+title="Subscribe in My Yahoo!" 
+href="http://add.my.yahoo.com/rss?url=http://halfgene.itpub.net/rss/rss20/32185"><IMG 
+alt="Subscribe in My Yahoo!" 
+src="随意木  [转]ORACLE 分析函数详解.files/addtomyyahoo4.gif"></A><BR><A 
+title="Add to Google" 
+href="http://fusion.google.com/add?feedurl=http://halfgene.itpub.net/rss/rss20/32185"><IMG 
+alt="Add to Google" 
+src="随意木  [转]ORACLE 分析函数详解.files/add-to-google-plus.gif"></A><BR></DIV>
+<DIV class=relatedLinksTitle>博客日历</DIV>
+<DIV class=relatedLinks align=center>
+<TABLE class=calMonth>
+  <THEAD>
+  <TR class=calMonthNav>
+    <TH class=calMonthBackward><A title="十一月 2008" 
+      href="http://halfgene.itpub.net/archives/32185/200811">&laquo;</A></TH>
+    <TH class=calMonthCurrent colSpan=5>十二月 2008</TH>
+    <TH class=calMonthForward><A title="一月 2009" 
+      href="http://halfgene.itpub.net/archives/32185/200901">&raquo;</A></TH></TR>
+  <TR class=calMonthHeader>
+    <TH scope=col abbr=星期一>一</TH>
+    <TH scope=col abbr=星期二>二</TH>
+    <TH scope=col abbr=星期三>三</TH>
+    <TH scope=col abbr=星期四>四</TH>
+    <TH scope=col abbr=星期五>五</TH>
+    <TH scope=col abbr=星期六>六</TH>
+    <TH scope=col abbr=星期日>日</TH></TR></THEAD>
+  <TBODY>
+  <TR>
+    <TD class=calMonthToday>1</TD>
+    <TD class=calMonthDay>2</TD>
+    <TD class=calMonthDay>3</TD>
+    <TD class=calMonthDay>4</TD>
+    <TD class=calMonthDay>5</TD>
+    <TD class=calMonthDay>6</TD>
+    <TD class=calMonthDay>7</TD></TR>
+  <TR>
+    <TD class=calMonthDay>8</TD>
+    <TD class=calMonthDay>9</TD>
+    <TD class=calMonthDay>10</TD>
+    <TD class=calMonthDay>11</TD>
+    <TD class=calMonthDay>12</TD>
+    <TD class=calMonthDay>13</TD>
+    <TD class=calMonthDay>14</TD></TR>
+  <TR>
+    <TD class=calMonthDay>15</TD>
+    <TD class=calMonthDay>16</TD>
+    <TD class=calMonthDay>17</TD>
+    <TD class=calMonthDay>18</TD>
+    <TD class=calMonthDay>19</TD>
+    <TD class=calMonthDay>20</TD>
+    <TD class=calMonthDay>21</TD></TR>
+  <TR>
+    <TD class=calMonthDay>22</TD>
+    <TD class=calMonthDay>23</TD>
+    <TD class=calMonthDay>24</TD>
+    <TD class=calMonthDay>25</TD>
+    <TD class=calMonthDay>26</TD>
+    <TD class=calMonthDay>27</TD>
+    <TD class=calMonthDay>28</TD></TR>
+  <TR>
+    <TD class=calMonthDay>29</TD>
+    <TD class=calMonthDay>30</TD>
+    <TD class=calMonthDay>31</TD>
+    <TD class=calMonthDay>&nbsp;</TD>
+    <TD class=calMonthDay>&nbsp;</TD>
+    <TD class=calMonthDay>&nbsp;</TD>
+    <TD class=calMonthDay>&nbsp;</TD></TR></TBODY></TABLE></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('archives')" 
+style="CURSOR: pointer">文章归档...</DIV>
+<DIV class=relatedLinks id=archives style="DISPLAY: none">
+<P align=center><A href="http://halfgene.itpub.net/archives/32185/200801">一月 
+2008(2篇)</A><BR><A href="http://halfgene.itpub.net/archives/32185/200709">九月 
+2007(4篇)</A><BR><A href="http://halfgene.itpub.net/archives/32185/200708">八月 
+2007(11篇)</A><BR><A href="http://halfgene.itpub.net/archives/32185/200707">七月 
+2007(27篇)</A><BR><A href="http://halfgene.itpub.net/archives/32185/200706">六月 
+2007(5篇)</A><BR></P></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('recentposts')" 
+style="CURSOR: pointer">最新发表...</DIV>
+<DIV class=relatedLinks id=recentposts><A 
+href="http://halfgene.itpub.net/post/32185/452770">性能调优学习笔记（七）</A><BR><A 
+href="http://halfgene.itpub.net/post/32185/451373">继续写博</A><BR><A 
+href="http://halfgene.itpub.net/post/32185/399576">[转]关于INSERT ALL和INSERT 
+FIRST</A><BR><A 
+href="http://halfgene.itpub.net/post/32185/399144">性能调优学习笔记（六）</A><BR><A 
+href="http://halfgene.itpub.net/post/32185/392788">ORALCE的异常处理</A><BR><A 
+href="http://halfgene.itpub.net/post/32185/390348">[整理]Oracle的数据池简介及用法</A><BR><A 
+href="http://halfgene.itpub.net/post/32185/388646">[转]对部分表空间作不完全恢复</A><BR><A 
+href="http://halfgene.itpub.net/post/32185/388643">[转]rman复制数据库</A><BR><A 
+href="http://halfgene.itpub.net/post/32185/388474">[整理]oracle中几个特殊的函数</A><BR><A 
+href="http://halfgene.itpub.net/post/32185/387498">[转]隔离级别（isolation 
+level）</A><BR></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('recentcomments')" 
+style="CURSOR: pointer">最新评论... </DIV>
+<DIV class=relatedLinks id=recentcomments style="DISPLAY: block"><A 
+title=" 引用了 谢谢 " 
+href="http://halfgene.itpub.net/post/32185/304206">古韵:ORACLE管理学习第一天</A><BR><A 
+title=... 
+href="http://halfgene.itpub.net/post/32185/308626">gawqwba:ORACLE管理学习第五天</A><BR><A 
+title=... 
+href="http://halfgene.itpub.net/post/32185/309279">hsengql:ORACLE管理学习第六天</A><BR></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('topreadposts')" 
+style="CURSOR: pointer">最多阅读文章... </DIV>
+<DIV class=relatedLinks id=topreadposts style="DISPLAY: none"><A 
+href="http://halfgene.itpub.net/post/32185/314347">性能调优学习笔记（三）</A> (2934 
+次)<BR><A href="http://halfgene.itpub.net/post/32185/320098">性能调优学习笔记（四）</A> 
+(2864 次)<BR><A 
+href="http://halfgene.itpub.net/post/32185/312235">性能调优学习笔记（一）</A> (2822 
+次)<BR><A href="http://halfgene.itpub.net/post/32185/312826">性能调优学习笔记（二）</A> 
+(2801 次)<BR><A 
+href="http://halfgene.itpub.net/post/32185/385597">性能调优学习笔记（五）</A> (2678 
+次)<BR></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('topcommentposts')" 
+style="CURSOR: pointer">最多评论文章... </DIV>
+<DIV class=relatedLinks id=topcommentposts style="DISPLAY: none"><A 
+href="http://halfgene.itpub.net/post/32185/304206">ORACLE管理学习第一天</A> (1 次)<BR><A 
+href="http://halfgene.itpub.net/post/32185/308626">ORACLE管理学习第五天</A> (1 次)<BR><A 
+href="http://halfgene.itpub.net/post/32185/309279">ORACLE管理学习第六天</A> (1 
+次)<BR></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('blog_statistics')" 
+style="CURSOR: pointer">博客统计... </DIV>
+<DIV class=relatedLinks id=blog_statistics style="DISPLAY: none">总文章数: 
+49<BR>总评论数: 3<BR>总引用数: 0<BR>总浏览数: 30627<BR></DIV></DIV>
+<DIV id=rightNav>
+<DIV class=relatedLinksTitle>Blog信息</DIV>
+<DIV class=relatedLinks><EMBED 
+pluginspage=http://www.microsoft.com/windows/mediaplayer/download/default.asp 
+width=190 height=50 type=application/x-mplayer2 allowscriptaccess="never" 
+filename="http://wma4.funmtv.com/Wmam/Z/2007774230262/42303751.wma" 
+showcontrols="1" showstatusbar="1" showdisplay="0" autostart="false" 
+playcount="1" volume="0" loop="true">
+<P></EMBED /></P><BR></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('mylinks')" 
+style="CURSOR: pointer">网站链接...</DIV>
+<DIV class=myLinks id=mylinks></DIV></DIV><!-- end pagenav -->
+<DIV id=pagefoot>&nbsp; <!-- 以下部分的内容，请保留原样， 谢谢！ -->
+<TABLE align=center border=0>
+  <TBODY>
+  <TR>
+    <TD>OW_MS模板,版本:1.30beta </TD>
+    <TD>模板设计:</TD>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0>
+        <TBODY>
+        <TR>
+          <TD><A href="http://oldwain.itpub.net/"><IMG 
+            style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+            alt=oldwain src="随意木  [转]ORACLE 分析函数详解.files/oldwain.gif"></A></TD></TR>
+        <TR>
+          <TD style="FONT-SIZE: xx-small"><A 
+            href="http://oldwain.itpub.net/">oldwain</A></TD></TR></TBODY></TABLE></TD>
+    <TD>, 2006.02</TD>
+    <TD>Powered by</TD>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0>
+        <TBODY>
+        <TR>
+          <TD><A href="http://www.lifetype.net/"><IMG 
+            style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+            alt=LifeType 
+          src="随意木  [转]ORACLE 分析函数详解.files/lt_button42.png"></A></TD></TR>
+        <TR>
+          <TD style="FONT-SIZE: xx-small"><A 
+            href="http://www.lifetype.net/">LifeType</A></TD></TR></TBODY></TABLE></TD><!-- 以上部分的内容，请保留原样， 谢谢！ -->
+    <TD>Blog提供:</TD>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0>
+        <TBODY>
+        <TR>
+          <TD><A href="http://weblog.itpub.net/"><IMG 
+            style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+            alt=Itpub src="随意木  [转]ORACLE 分析函数详解.files/itpub.gif"></A></TD></TR>
+        <TR>
+          <TD style="FONT-SIZE: xx-small"><A 
+            href="http://weblog.itpub.net/">ITPUB</A></TD></TR></TBODY></TABLE></TD><!--
+    <td>Modified by:</td>
+    <td><a href="http://blog.itpub.net/YOURBLOG"> 您的大名</a></td>
+--></TR></TBODY></TABLE></DIV></DIV><!--end pagecell-->
+<SCRIPT language=javascript type=text/javascript>
+	  var cookielayout = readCookie("layout");
+	  var layouttitle = cookielayout ? cookielayout : getPreferredLayout();
+	  setActiveLayout(layouttitle);
+	</SCRIPT>
+
+<SCRIPT language=javascript type=text/javascript>
+	  var cookiecolor = readCookie("color");
+	  var colortitle = cookiecolor ? cookiecolor : getPreferredColorSchema();
+	  setActiveColorSchema(colortitle);
+	</SCRIPT>
+<IMG height=1 alt="" src="随意木  [转]ORACLE 分析函数详解.files/itpub.png" width=1 
+border=0><IMG height=1 alt="" src="随意木  [转]ORACLE 分析函数详解.files/itpubblog.gif" 
+width=1 border=0> </BODY></HTML>

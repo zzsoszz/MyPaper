@@ -1,0 +1,135 @@
+v$lock&v$locked_objectoracle视图 2010-07-19 12:04:36 阅读34 评论0   字号：大中小 订阅 
+学习动态性能表第八篇-(1)-V$LOCK
+
+　　本视图列出Oracle 服务器当前拥有的锁以及未完成的锁或栓锁请求。如果你觉着session在等待等待事件队列那你应该检查本视图。如果你发现session在等待一个锁。那么按如下先后顺序：
+1.使用V$LOCK找出session持有的锁。
+2.使用V$SESSION找出持有锁或等待锁的session执行的sql语句。
+3.使用V$SESSION_WAIT找出什么原因导致session持有锁堵塞。
+4.使用V$SESSION获取关于持有锁的程序和用户的更多信息。
+
+V$LOCK中的常用列
+·SID：表示持有锁的会话信息。
+·TYPE：表示锁的类型。值包括TM和TX等。
+·LMODE：表示会话等待的锁模式的信息。用数字0－6表示，和表1相对应。
+·REQUEST：表示session请求的锁模式的信息。
+·ID1,ID2：表示锁的对象标识。
+
+公共锁类型
+
+　　在Oracle数据库中，DML锁主要包括TM锁和TX锁，其中TM锁称为表级锁，TX锁称为事务锁或行级锁。
+
+　　当Oracle执行DML语句时，系统自动在所要操作的表上申请TM类型的锁。当TM锁获得后，系统再自动申请TX类型的锁，并将实际锁定的数据行的锁标志位进行置位。这样在事务加锁前检查TX锁相容性时就不用再逐行检查锁标志，而只需检查TM锁模式的相容性即可，大大提高了系统的效率。TM锁包括了SS、SX、S、X等多种模式，在数据库中用0－6来表示。不同的SQL操作产生不同类型的TM锁，如下表1。
+
+TX：行级锁，事务锁
+·在改变数据时必须是排它模式(mode 6)。
+·每一个活动事务都拥有一个锁。它将在事务结束(commit/rollback)时释放。
+·如果一个块包括的列被改变而没有ITL(interested transaction list)槽位(entries)，那么session将锁置于共享模式(mode 4)。当session获得块的ITL槽位时释放。
+·当一个事务首次发起一个DML语句时就获得一个TX锁，该锁保持到事务被提交或回滚。当两个或多个会话在表的同一条记录上执行DML语句时，第一个会话在该条记录上加锁，其他的会话处于等待状态。当第一个会话提交后，TX锁被释放，其他会话才可以加锁。
+·指出回滚段和事务表项
+
+　按下列项以避免竞争：
+　　·避免TX－6类型竞争，需要根据您的应用而定。
+　　·避免TX－4类型竞争，可以考虑增加对象INITRANS参数值。
+
+TM：表级锁
+
+·数据库执行任何DDL语句时必须是排它模式；例如，alter table,drop table。
+·执行像insert,update,delete这类DML语句时处于共享模式。它防止其它session对同一个对象同时执行ddl语句。
+·任何对象拥有正被改变的数据，TM锁都将必须存在。
+·锁指向对象。
+
+　　在TM队列避免竞争，可以考虑屏蔽对象表级锁，屏蔽表级锁防止对象执行任何ddl语句。
+
+ST：空间事务锁
+·每个数据库(非实例)拥有一个ST锁。
+·除了本地管理表空间，在space管理操作(新建或删除extents)时必须是排它模式。
+·对象creation, dropping, extension, 以及truncation都处于这种锁
+·多数公共原因的争夺，是在磁盘排序(并非使用真正的临时表空间)或回滚段扩展或收缩。
+
+　按如下项以避免竞争：
+　　·使用真正的临时表空间(true temporary tablespaces)，利用临时文件。临时段在磁盘排序之后并不创建或删除。
+　　·使用本地管理表空间。
+　　·指定回滚段避免动态扩展和收缩，或使用自动undo management。
+　　·避免应用执行创建或删除数据库对象。
+
+UL：用户定义锁用户可以自定义锁。内容较多并与此节关系不大，略过。
+
+ 
+
+V$LOCK中的连接列
+
+Column View Joined Column(s) 
+SID V$SESSION SID
+ID1, ID2, TYPE V$LOCK ID1, ID2, TYPE
+ID1 DBA_OBJECTS OBJECT_ID
+TRUNCID1/65536) V$ROLLNAME USN
+
+如果session在等待锁，这可被用于找出session持有的锁，。
+可被用于找出DML锁类型的被锁对象(type='TM')
+可被用于找出行级事务锁(TYPE='TX')使用中的回滚段，不过，需要通过V$TRANSACTION连接查询得到。
+
+表1 Oracle的TM锁类型 
+锁模式 锁描述 解释 SQL操作 
+0 none 
+1 NULL 空 Select 
+2 SS(Row-S) 行级共享锁，其他对象只能查询这些数据行 Select for update、Lock for update、Lock row share 
+3 SX(Row-X) 行级排它锁，在提交前不允许做DML操作 Insert、Update、Delete、Lock row share 
+4 S(Share) 共享锁 Create index、Lock share 
+5 SSX(S/Row-X) 共享行级排它锁 Lock share row exclusive 
+6 X(Exclusive) 排它锁 Alter table、Drop able、Drop index、Truncate table 、Lock exclusive 
+
+　　数字越大锁级别越高, 影响的操作越多。一般的查询语句如select ... from ... ;是小于2的锁, 有时会在v$locked_object出现。select ... from ... for update; 是2的锁。
+
+　　当对话使用for update子串打开一个游标时，所有返回集中的数据行都将处于行级(Row-X)独占式锁定，其他对象只能查询这些数据行，不能进行update、delete或select...for update操作。insert / update / delete ... ; 是3的锁。 
+
+　　没有commit之前插入同样的一条记录会没有反应, 因为后一个3的锁会一直等待上一个3的锁, 我们必须释放掉上一个才能继续工作。
+
+　　创建索引的时候也会产生3,4级别的锁。locked_mode为2,3,4不影响DML(insert,delete,update,select)操作, 但DDL(alter,drop等)操作会提示ora-00054错误。有主外键约束时 update / delete ... ; 可能会产生4,5的锁。DDL语句时是6的锁。
+
+　　如果出现了锁的问题, 某个DML操作可能等待很久没有反应。当你采用的是直接连接数据库的方式，也不要用OS系统命令 $kill process_num 或者 $kill -9 process_num来终止用户连接，因为一个用户进程可能产生一个以上的锁, 杀OS进程并不能彻底清除锁的问题。记得在数据库级别用alter system kill session 'sid,serial#';杀掉不正常的锁。
+
+示例：
+我按照自己的理解演示的TX,TM锁如下：
+1.create table TMP1(col1 VARCHAR2(50));--创建临时表
+2.select * from v$lock;--关掉当前锁信息
+3.select * from tmp1 for update; --加锁
+4.select * from v$lock; ---看看现在的锁列表，是不是多了两条记录。Type分别为tx,tm，对照表1。
+5.新开一个连接，然后
+select * from tmp1 for update; --呵呵，等待状态了吧
+6.select * from v$lock; --又新增了两条记录，其它一条type=tx,lmode=0
+7.查看当前被锁的session正在执行的sql语句
+select /*+ NO_MERGE(a) NO_MERGE(b) NO_MERGE(c) */ a.username, a.machine, a.sid, a.serial#, a.last_call_et "Seconds", b.id1, c.sql_text "SQL"
+from v$session a, v$lock b, v$sqltext c
+where a.username is not null and a.lockwait = b.kaddr and c.hash_value =a.sql_hash_value
+8.将之前的for update语句commit或者rollback，然后新开连接的session拥有锁。有兴趣的朋友还可以试试两条for update的时候，关闭先执行的那个窗口，看看oracle会给出什么样的响应。
+
+　　这一节是我在自整理v$系列视图以来花费时间和精力最多的一个，我反复看了document，又从网上搜索了各种资料实际使用案例等，就是不开窍。这一节至今我也仍未有把握说尽在掌握，所以在上述文字中除了例子，我如实贴出了收集来的内容，未加任何自我理解，就是担心万一我的理解有误，会对其它浏览本文的人造成困扰。同时我把在收集过程中自我感觉对理解v$lock可能有帮助的资料地址列出，供有心人参考：
+
+Oracle数据库中的锁机制研究
+
+
+DB2和 Oracle的并发控制（锁）比较
+
+
+V$LOCKED_OBJECT中的列说明：
+
+XIDUSN：回滚段号
+XIDSLOT：槽号
+XIDSQN：序列号
+OBJECT_ID：被锁对象ID
+SESSION_ID：持有锁的sessionID
+ORACLE_USERNAME：持有锁的Oracle 用户名
+OS_USER_NAME：持有锁的操作系统 用户名
+PROCESS：操作系统进程号
+LOCKED_MODE：锁模式，值同上表1
+
+示例：1.以DBA角色, 查看当前数据库里锁的情况可以用如下SQL语句：
+select object_id,session_id,locked_mode from v$locked_object;
+
+select t2.username, t2.sid, t2.serial#, t2.logon_time
+from v$locked_object t1, v$session t2
+where t1.session_id = t2.sid order by t2.logon_time;
+
+如果有长期出现的一列，可能是没有释放的锁。我们可以用下面SQL语句杀掉长期没有释放非正常的锁：
+
+alter system kill session 'sid,serial#';

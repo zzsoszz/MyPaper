@@ -1,0 +1,505 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0058)http://www.bitscn.com/oracle/exploiture/200809/151602.html -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟/网管网/bitsCN.com</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content="Oracle 触发器语法及实例（一）-开发技术," name=description>
+<META content=" 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称   Oracle 触发器语法及实例（一）-开发技术" 
+name=keywords>
+<META content="Copyright 中国网管联盟 网管网 bitsCN.com" name=copyright><LINK 
+href="favicon.ico" rel="shortcut Icon"><LINK href="favicon2.ico" 
+rel=bookmark><LINK rev=stylesheet media=screen 
+href="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/bitscn.css" 
+type=text/css rel=stylesheet><LINK 
+href="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/feedback.css" 
+type=text/css rel=stylesheet><!-- Digg 参数 -->
+<SCRIPT language=javascript 
+src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/dedeajax2.js"></SCRIPT>
+
+<SCRIPT language=javascript>
+function Digg(divId,aid){
+   var taget_obj = document.getElementById(divId+''+aid);
+   var myajax = new DedeAjax(taget_obj,false,false,"","","");
+   myajax.SendGet2("/digg.php?action=digg&aid="+aid);
+   DedeXHTTP = null;
+}
+</SCRIPT>
+
+<SCRIPT 
+src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/prototype.js" 
+type=text/javascript></SCRIPT>
+
+<STYLE type=text/css>.login2 {
+	
+}
+.login2 INPUT {
+	BORDER-RIGHT: #000 1px solid; BORDER-TOP: #000 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #000 1px solid; WIDTH: 60px; BORDER-BOTTOM: #000 1px solid
+}
+.login2 SELECT {
+	FONT-SIZE: 12px
+}
+.login3 INPUT {
+	BORDER-RIGHT: #333333 1px solid; BORDER-TOP: #333333 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #333333 1px solid; WIDTH: 160px; BORDER-BOTTOM: #333333 1px solid
+}
+.login3 SELECT {
+	FONT-SIZE: 12px
+}
+.diggArea {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FLOAT: left; BACKGROUND-IMAGE: url(http://www.bitscn.com/plus/img/diggbg2.gif); PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 60px; LINE-HEIGHT: 23px; PADDING-TOP: 0px; HEIGHT: 58px
+}
+.diggNum {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; MARGIN: 8px 0px 0px; WIDTH: 58px; COLOR: #ff6633; PADDING-TOP: 0px; HEIGHT: 23px; TEXT-ALIGN: center
+}
+.diggLink {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 58px; PADDING-TOP: 0px; HEIGHT: 23px; TEXT-ALIGN: center
+}
+.diggLink A {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px
+}
+</STYLE>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY leftMargin=0 topMargin=0 rightMargin=0 marginheight="0" marginwidth="0">
+<TABLE cellSpacing=0 cellPadding=0 width=960 align=center border=0>
+  <TBODY>
+  <TR>
+    <TD class=top-member align=middle><A title=中国网管联盟 
+      href="http://www.bitscn.com/" target=_blank>网管联盟</A>&nbsp;| <A 
+      title=网管论坛,网管社区 href="http://bbs.bitscn.com/" 
+      target=_blank>网管论坛</A>&nbsp;| <A title=网管u家 href="http://u.bitscn.com/" 
+      target=_blank>网管u家</A>&nbsp;| <A title=网管博客 href="http://www.bitscn.net/" 
+      target=_blank>网管博客</A>&nbsp;| <A title=网管软件,软件 
+      href="http://dl.bitscn.com/" target=_blank>网管软件</A>&nbsp;| <A 
+      title=网管求职,网管招聘,网管人才 href="http://www.09hr.com/" 
+      target=_blank>网管求职</A>&nbsp;| <A title=网管游戏,小游戏,在线游戏,Flash游戏,webgame 
+      href="http://play.bitscn.com/" target=_blank>小游戏</A>&nbsp;| <A 
+      title=IT搜索,网管搜索,知识库搜索 href="http://so.bitscn.com/" 
+      target=_blank>网管搜索</A>&nbsp;| <A title=网管原创 
+      href="http://www.bitscn.com/wgyc/" target=_blank>网管原创</A>&nbsp;| <A 
+      title=网管聚合 href="http://blogs.bitscn.com/" target=_blank>网管聚合</A>&nbsp;| 
+      <A title=网管读摘 href="http://www.bitscn.com/read/" 
+      target=_blank>网管读摘</A>&nbsp;| <A title=网管焦点 
+      href="http://www.bitscn.com/focus/" target=_blank>网管焦点</A>&nbsp;| <A 
+      title=世界素材 href="http://sc.bitscn.com/" target=_blank>世界素材</A>&nbsp;| <A 
+      href="http://www.bitscn.com/member/article_add.php" 
+      target=_blank>会员投稿</A>&nbsp;| <A 
+      href="http://www.bitscn.com/member/index.php" 
+    target=_blank>会员中心</A>&nbsp;</TD></TR></TBODY></TABLE>
+<DIV style="PADDING-TOP: 2px"></DIV>
+<TABLE cellSpacing=0 cellPadding=0 width=960 align=center border=0>
+  <TBODY>
+  <TR>
+    <TD align=middle width=190 rowSpan=2><A href="http://www.bitscn.com/"><IMG 
+      height=60 alt=中国网管联盟 
+      src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/logo.gif" 
+      width=180 border=0></A></TD>
+    <TD align=middle width=501 rowSpan=2><IFRAME 
+      src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/a2008d1.htm" 
+      frameBorder=0 width=468 scrolling=no height=60></IFRAME></TD>
+    <TD width=269 height=70>
+      <SCRIPT language=javaScript 
+      src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/alltop.js" 
+      type=text/javascript></SCRIPT>
+    </TD></TR></TBODY></TABLE>
+<DIV style="PADDING-TOP: 2px"></DIV>
+<TABLE cellSpacing=0 cellPadding=0 width=960 align=center border=0>
+  <TBODY>
+  <TR>
+    <TD class=top-border-topbg align=middle><A title=windows 
+      href="http://www.bitscn.com/windows/" target=_blank>Windows</A>&nbsp;<A 
+      title=linux href="http://www.bitscn.com/linux/" 
+      target=_blank>Linux</A>&nbsp;<A title=CISCO 
+      href="http://www.bitscn.com/cisco/" target=_blank>Cisco</A>&nbsp;<A 
+      title=网络技术 href="http://www.bitscn.com/network/" 
+      target=_blank>网络技术</A>&nbsp;<A title=数据库技术 
+      href="http://www.bitscn.com/database/" target=_blank>数据库</A>&nbsp;<A 
+      title=黑客资讯 href="http://www.bitscn.com/hack/" 
+      target=_blank>黑客攻防</A>&nbsp;<A title=dotnet,NET 
+      href="http://www.bitscn.com/dotnet/" target=_blank>DotNet</A>&nbsp;<A 
+      title=JAVA href="http://www.bitscn.com/java/" 
+      target=_blank>Java</A>&nbsp;<A title=PHP href="http://www.bitscn.com/php/" 
+      target=_blank>PHP</A>&nbsp;<A title=认证考试,IT认证 
+      href="http://www.bitscn.com/exam/" target=_blank>认证</A>&nbsp;<A title=新闻资讯 
+      href="http://www.bitscn.com/news/" target=_blank>新闻资讯</A>&nbsp;<A 
+      title=服务器 href="http://www.bitscn.com/server/" 
+      target=_blank>服务器</A>&nbsp;<A title=存储 href="http://www.bitscn.com/stor/" 
+      target=_blank>存储资讯</A>&nbsp;<A title=网络设备 
+      href="http://www.bitscn.com/netpro/" target=_blank>网络设备</A>&nbsp;<A 
+      title=网管学堂 href="http://www.bitscn.com/school/" 
+      target=_blank>网管学堂</A>&nbsp;<A title=技术专题,专题技术 
+      href="http://www.bitscn.com/special/" target=_blank>技术专题</A>&nbsp;<A 
+      title=技术焦点,焦点图片 href="http://www.bitscn.com/focus/" 
+      target=_blank>焦点</A>&nbsp;<A title=网吧资讯,网吧技术,网吧业界,网吧动态,网吧未来 
+      href="http://www.bitscn.com/wb/" 
+target=_blank>网吧频道</A></TD></TR></TBODY></TABLE>
+<DIV style="PADDING-TOP: 7px"></DIV>
+<TABLE cellSpacing=0 cellPadding=0 width=960 align=center border=0>
+  <FORM action=http://so.bitscn.com method=get target=_blank>
+  <TBODY>
+  <TR>
+    <TD class=lh15 align=left>&nbsp;当前位置：&nbsp;&gt;&nbsp;<A 
+      href="http://www.bitscn.com/">bitsCN.com</A> &gt; <A 
+      href="http://www.bitscn.com/database/">数据库技术</A> &gt; <A 
+      href="http://www.bitscn.com/oracle/">Oracle</A> &gt; <A 
+      href="http://www.bitscn.com/oracle/exploiture/">开发技术</A> &gt; Oracle 
+      触发器语法及实例（一）-开发技术</TD>
+    <TD align=right width=269><INPUT class=input 
+      style="BACKGROUND-COLOR: #ffffff" size=25 name=q> <INPUT type=hidden 
+      value=gb2312 name=ie> <INPUT type=hidden value=www name=tr> <INPUT type=submit value=搜索文章 name=searchsubmit> 
+  &nbsp;</TD></TR></FORM></TBODY></TABLE>
+<DIV style="PADDING-TOP: 7px"></DIV>
+<DIV id=divall>
+<DIV id=divleft>
+<DIV class=artitle align=center>
+<H1>Oracle 触发器语法及实例（一）-开发技术</H1>
+<H2>2008-09-16&nbsp;&nbsp;作者:bitsCN整理&nbsp;&nbsp;来源:中国网管联盟&nbsp;&nbsp;<A 
+class=dlgreen2 
+href="http://www.bitscn.com/oracle/exploiture/200809/151602.html#feedbk">点评</A>&nbsp;<A 
+class=dlgreen2 href="http://www.bitscn.com/member/article_add.php" 
+target=_blank>投稿</A>&nbsp;<A class=dlgreen2 
+href="http://www.bitscn.com/plus/stow.php?arcID=151602">收藏</A></H2>
+<SCRIPT type=text/javascript><!--
+google_ad_client = "pub-9969174943212288";
+/* 468x15,wwwarctag创建于 08-6-27 */
+google_ad_slot = "7776775600";
+google_ad_width = 468;
+google_ad_height = 15;
+//-->
+</SCRIPT>
+
+<SCRIPT 
+src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+</DIV>
+<DIV class=hr></DIV>
+<DIV class=shoucang>
+<SCRIPT 
+src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/sc.js"></SCRIPT>
+</DIV>
+<DIV class=lharticle>
+<DIV class=ggtext>
+<SCRIPT type=text/javascript><!--
+google_ad_client = "pub-9969174943212288";
+/* 300x250, www 07-12-27 */
+google_ad_slot = "1613516496";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</SCRIPT>
+
+<SCRIPT 
+src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+</DIV>
+<STYLE>.Mhd639 {
+	DISPLAY: none
+}
+</STYLE>
+
+<P>　　一 <STRONG>Oracle触发器语法</STRONG></P>
+<P>　　触发器是特定事件出现的时候，自动执行的代码块。类似于存储过程，触发器与存储过程的区别在于:存储过程是由用户或应用程序显式调用的,而触发器是不能被直接调用的。 
+<FONT color=#ffffff>网管bitscn_com</FONT> </P>
+<P>　<STRONG>　功能：</STRONG> 
+<P class=Mhd639>网管联盟bitsCN_com</P>
+<P></P>
+<P>　　1、 允许/限制对表的修改 <SPAN class=Mhd639>中国网管论坛bbs.bitsCN.com</SPAN> </P>
+<P>　　2、 自动生成派生列，比如自增字段 <FONT color=#ffffff>网管有家bitscn.net</FONT> </P>
+<P>　　3、 强制数据一致性 <SPAN class=Mhd639>网管u家bitscn.net</SPAN> </P>
+<P>　　4、 提供审计和日志记录 <FONT color=#ffffff>网管联盟bitsCN@com</FONT> </P>
+<P>　　5、 防止无效的事务处理 
+<P class=Mhd639>网管bitscn_com</P>
+<P></P>
+<P>　　6、 启用复杂的业务逻辑 
+<DIV class=Mhd639>网管网www_bitscn_com</DIV>
+<P></P>
+<P>　　触发器触发时间有两种：after和before。 
+<P class=Mhd639>网管u家bitscn.net</P>
+<P></P>
+<P>　<STRONG>　1、触发器的语法：</STRONG> 
+<DIV class=Mhd639>网管u家www.bitscn.net</DIV>
+<P></P>
+<P>　　CREATE [OR REPLACE] TIGGER触发器名 触发时间 触发事件 
+<DIV class=Mhd639>网管下载dl.bitscn.com</DIV>
+<P></P>
+<P>　　ON表名 
+<P class=Mhd639>网管u家www.bitscn.net</P>
+<P></P>
+<P>　　[FOR EACH ROW] 
+<DIV class=Mhd639>中国网管联盟bitsCN.com</DIV>
+<P></P>
+<P>　　BEGIN 
+<P class=Mhd639>中国网管联盟bitsCN.com</P>
+<P></P>
+<P>　　pl/sql语句 <SPAN class=Mhd639>网管朋友网www_bitscn_net</SPAN> </P>
+<P>　　END 
+<DIV class=Mhd639>网管bitscn_com</DIV>
+<P></P>
+<P>　　其中： 
+<P class=Mhd639>网管u家u.bitscn@com</P>
+<P></P>
+<P>　　触发器名：触发器对象的名称。 
+<DIV class=Mhd639>网管网www_bitscn_com</DIV>
+<P></P>
+<P>　　由于触发器是<A 
+href="http://www.bitscn.com/database/">数据库</A>自动执行的，因此该名称只是一个名称，没有实质的用途。 
+<P class=Mhd639>网管论坛bbs_bitsCN_com</P>
+<P></P>
+<P>　　触发时间：指明触发器何时执行，该值可取： <FONT color=#ffffff>网管有家bitscn.net</FONT> </P>
+<P>　　before---表示在<A href="http://www.bitscn.com/database/">数据库</A>动作之前触发器执行; 
+<FONT color=#ffffff>中国网管联盟bitsCN.com</FONT> </P>
+<P>　　after---表示在<A href="http://www.bitscn.com/database/">数据库</A>动作之后出发器执行。 
+<DIV class=Mhd639>网管u家u.bitscn@com</DIV>
+<P></P>
+<P>　　触发事件：指明哪些<A 
+href="http://www.bitscn.com/database/">数据库</A>动作会触发此触发器：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<SPAN class=Mhd639>网管bitscn_com</SPAN> </P>
+<P>　　insert：<A href="http://www.bitscn.com/database/">数据库</A>插入会触发此触发器;&nbsp; 
+<DIV class=Mhd639>网管联盟bitsCN@com</DIV>
+<P></P>
+<P>
+<P class=Mhd639>网管联盟bitsCN_com</P>
+<P></P></DIV>
+<DIV style="PADDING-TOP: 12px"></DIV>
+<DIV class=cupage></DIV>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD><SPAN 
+      style="PADDING-RIGHT: 0px; PADDING-LEFT: 20px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px">
+      <SCRIPT type=text/javascript><!--
+google_ad_client = "pub-9969174943212288";
+/* 468x60,www3,创建于 08-6-26 */
+google_ad_slot = "8119294260";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</SCRIPT>
+
+      <SCRIPT 
+      src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/show_ads.js" 
+      type=text/javascript>
+</SCRIPT>
+      </SPAN></TD>
+    <TD>
+      <DIV class=diggArea id=digg151602>
+      <DIV class=diggNum>1</DIV>
+      <DIV class=diggLink><A 
+      href="javascript:Digg('digg',151602);">顶一下</A></DIV></DIV></TD></TR></TBODY></TABLE>
+<DIV style="PADDING-TOP: 12px"></DIV><IFRAME id=mood_frame marginWidth=0 
+marginHeight=0 
+src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/CAGXI7W5.htm" 
+frameBorder=0 width=510 scrolling=no height=200></IFRAME>
+<DIV style="PADDING-TOP: 20px"></DIV>
+<DIV class=text_tag><A href="http://www.bitscn.com/tag.php" 
+target=_blank>TAGs</A>：<A href="http://so.bitscn.com/.html" 
+target=_blank><B></B></A> &nbsp; <A href="http://so.bitscn.com/实例.html" 
+target=_blank><B>实例</B></A> &nbsp; <A href="http://so.bitscn.com/语法.html" 
+target=_blank><B>语法</B></A> &nbsp; <A href="http://so.bitscn.com/&nbsp;.html" 
+target=_blank><B>&nbsp;</B></A> &nbsp; <A href="http://so.bitscn.com/触发.html" 
+target=_blank><B>触发</B></A> &nbsp; <A href="http://so.bitscn.com/执行.html" 
+target=_blank><B>执行</B></A> &nbsp; <A href="http://so.bitscn.com/数据库.html" 
+target=_blank><B>数据库</B></A> &nbsp; <A href="http://so.bitscn.com/时间.html" 
+target=_blank><B>时间</B></A> &nbsp; <A href="http://so.bitscn.com/存储.html" 
+target=_blank><B>存储</B></A> &nbsp; <A href="http://so.bitscn.com/事件.html" 
+target=_blank><B>事件</B></A> &nbsp; <A href="http://so.bitscn.com/名称.html" 
+target=_blank><B>名称</B></A> &nbsp; <A href="http://so.bitscn.com/.html" 
+target=_blank><B></B></A>&nbsp; <A href="http://so.bitscn.com/.html" 
+target=_blank><B></B></A>&nbsp;</DIV>
+<DIV style="PADDING-TOP: 8px"></DIV>
+<DIV class=hr></DIV>
+<DIV style="PADDING-BOTTOM: 10px; PADDING-TOP: 10px" align=left>&nbsp;上一篇：<A 
+href="http://www.bitscn.com/oracle/exploiture/200809/151601.html">Oracle数据库中跟踪sql语句介绍-开发技术</A> 
+&nbsp; 下一篇：<A 
+href="http://www.bitscn.com/oracle/exploiture/200809/151603.html">SQL 
+Server与Oracle实施成本上的差异-开发技术</A> </DIV>
+<DIV class=hr></DIV>
+<DIV style="PADDING-TOP: 8px"></DIV><IFRAME 
+src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/CA4XUV81.htm" 
+frameBorder=0 width=630 scrolling=no height=170></IFRAME>
+<DIV style="PADDING-TOP: 8px"></DIV>
+<DIV class=box_xg>
+<DIV class=title_xg>相关文章列表</DIV>
+<UL>
+  <LI><A class=dlgreen2 title="Oracle11G之初体验 数据中心自动化等功能-" 
+  href="http://www.bitscn.com/oracle/exploiture/200810/152295.html" 
+  target=_blank>Oracle11G之初体验 数据中心自动化等功能-</A></LI>
+  <LI><A class=dlgreen2 title="Oracle数据库11g高级压缩特性 及压缩好处-" 
+  href="http://www.bitscn.com/oracle/exploiture/200810/152294.html" 
+  target=_blank>Oracle数据库11g高级压缩特性 及压缩好处-</A></LI>
+  <LI><A class=dlgreen2 title="Oracle 触发器语法及实例（二）-开发技术" 
+  href="http://www.bitscn.com/oracle/exploiture/200809/151604.html" 
+  target=_blank>Oracle 触发器语法及实例（二）-开发技术</A></LI>
+  <LI><A class=dlgreen2 title="SQL Server与Oracle实施成本上的差异-开发" 
+  href="http://www.bitscn.com/oracle/exploiture/200809/151603.html" 
+  target=_blank>SQL Server与Oracle实施成本上的差异-开发</A></LI>
+  <LI><A class=dlgreen2 title="Oracle 触发器语法及实例（一）-开发技术" 
+  href="http://www.bitscn.com/oracle/exploiture/200809/151602.html" 
+  target=_blank>Oracle 触发器语法及实例（一）-开发技术</A></LI>
+  <LI><A class=dlgreen2 title=Oracle数据库中跟踪sql语句介绍-开发技术 
+  href="http://www.bitscn.com/oracle/exploiture/200809/151601.html" 
+  target=_blank>Oracle数据库中跟踪sql语句介绍-开发技术</A></LI>
+  <LI><A class=dlgreen2 title="Oracle Workshop对Java EE 5 Web标准的支持" 
+  href="http://www.bitscn.com/oracle/exploiture/200809/151600.html" 
+  target=_blank>Oracle Workshop对Java EE 5 Web标准的支持</A></LI>
+  <LI><A class=dlgreen2 title=Oracle物化视图（一）：创建最简单物化视图 
+  href="http://www.bitscn.com/oracle/exploiture/200809/151599.html" 
+  target=_blank>Oracle物化视图（一）：创建最简单物化视图</A> </LI></UL></DIV>
+<DIV style="PADDING-TOP: 3px"></DIV>
+<DIV class=cDRed 
+style="PADDING-LEFT: 10px; FONT-SIZE: 14px; BACKGROUND: #f2f2f9; WIDTH: 620px; HEIGHT: 18px; TEXT-ALIGN: left"><A 
+name=feedbk></A>Oracle 触发器语法及实例（一）-开发技术 评论：</DIV>
+<SCRIPT 
+src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/action.js" 
+type=text/javascript></SCRIPT>
+
+<DIV id=comm_content><IMG alt=loading.. 
+src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/loading.gif" 
+align=absMiddle> 评论加载中… </DIV><!--评论开始-->
+<DIV style="PADDING-TOP: 15px"></DIV>
+<DIV id=form>
+<DIV id=comment><SPAN id=ajaxBackMsg><B>评论:</B>请自觉遵守互联网相关政策法规，评论不得超过250字。</SPAN> 
+</DIV><INPUT type=hidden value=151602 name=arcID> <INPUT type=hidden value=1 
+name=isconfirm> <TEXTAREA id=comment_text onkeydown=if(submitForm())commSubmit() onfocus=TexFocus(this) name=msg rows=6 wrap=physical cols=60></TEXTAREA> 
+<BR><INPUT id=username onkeydown=if(submitForm())commSubmit() type=hidden 
+maxLength=8 size=8 name=username> 验证码：<INPUT id=validate 
+onkeydown=if(submitForm())commSubmit() maxLength=4 size=6 name=validate 
+_base_target="_self"> <IMG id=code_pic style="DISPLAY: none" 
+onclick="this.src='/include/validateimg.php?'+Math.random()" height=20 
+alt=看不清楚?请点击这里刷新. width=50> <INPUT onclick=commSubmit() type=button value=提交评论 name=按钮> <A 
+href="http://www.bitscn.com/member/index_do.php?fmdo=user&amp;dopost=regnew" 
+target=_blank>注册用户</A> </DIV>
+<SCRIPT language=javascript>
+loadfeeback(151602,1);
+function AjaxPage(p){loadfeeback(151602,p)}
+</SCRIPT>
+<!--评论结束-->
+<DIV style="PADDING-TOP: 20px"></DIV></DIV>
+<DIV id=divright>
+<DIV align=center>
+<SCRIPT language=javaScript 
+src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/right.js" 
+type=text/javascript></SCRIPT>
+</DIV>
+<DIV class=gray-bar-dl>本类热门排行： </DIV>
+<DIV class=gray-border-graybg>1.<A class=dlgreen2 
+title=用POI将Mysql数据导入到Excel中去-开发技 
+href="http://www.bitscn.com/oracle/exploiture/200807/146601.html" 
+target=_blank>用POI将Mysql数据导入到Excel中去-开发技</A><BR>2.<A class=dlgreen2 
+title="Oracle ERP系统月结与年结流程探讨-开发" 
+href="http://www.bitscn.com/oracle/exploiture/200807/146605.html" 
+target=_blank>Oracle ERP系统月结与年结流程探讨-开发</A><BR>3.<A class=dlgreen2 
+title=Oracle中table函数的应用-开发技术 
+href="http://www.bitscn.com/oracle/exploiture/200809/151597.html" 
+target=_blank>Oracle中table函数的应用-开发技术</A><BR>4.<A class=dlgreen2 
+title=EMCA和EMCTL的简单用法-开发技术 
+href="http://www.bitscn.com/oracle/exploiture/200807/146586.html" 
+target=_blank>EMCA和EMCTL的简单用法-开发技术</A><BR>5.<A class=dlgreen2 
+title=Oracle物化视图（一）：创建最简单物化视 
+href="http://www.bitscn.com/oracle/exploiture/200809/151599.html" 
+target=_blank>Oracle物化视图（一）：创建最简单物化视</A><BR>6.<A class=dlgreen2 
+title="Oracle 触发器语法及实例（二）-开发技术" 
+href="http://www.bitscn.com/oracle/exploiture/200809/151604.html" 
+target=_blank>Oracle 触发器语法及实例（二）-开发技术</A><BR>7.<A class=dlgreen2 
+title=Oracle数据库安全性设计建议-开发技术 
+href="http://www.bitscn.com/oracle/exploiture/200807/146602.html" 
+target=_blank>Oracle数据库安全性设计建议-开发技术</A><BR>8.<A class=dlgreen2 
+title=如何在Oracle数据库中使用Java存储过程- 
+href="http://www.bitscn.com/oracle/exploiture/200808/149256.html" 
+target=_blank>如何在Oracle数据库中使用Java存储过程-</A><BR>9.<A class=dlgreen2 
+title=Oracle数据库LogMiner工具的使用方法-开 
+href="http://www.bitscn.com/oracle/exploiture/200807/146607.html" 
+target=_blank>Oracle数据库LogMiner工具的使用方法-开</A><BR>10.<A class=dlgreen2 
+title="Oracle 10g DBMS_SCHEDULER的中度解析-开" 
+href="http://www.bitscn.com/oracle/exploiture/200808/149258.html" 
+target=_blank>Oracle 10g DBMS_SCHEDULER的中度解析-开</A><BR></DIV>
+<DIV style="PADDING-TOP: 8px"></DIV>
+<DIV align=center>
+<SCRIPT type=text/javascript><!--
+google_ad_client = "pub-9969174943212288";
+/* 250x250,www2,创建于 08-3-26 */
+google_ad_slot = "7539062588";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</SCRIPT>
+
+<SCRIPT 
+src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+</DIV>
+<DIV style="PADDING-TOP: 8px"></DIV>
+<DIV class=gray-bar-dl>最新推荐文章： </DIV>
+<DIV class=gray-border-graybg>1.<A class=dlgreen2 title=初始化块与数据库查询控制验证和授权-开 
+href="http://www.bitscn.com/oracle/exploiture/200805/140864.html" 
+target=_blank>初始化块与数据库查询控制验证和授权-开</A><BR>2.<A class=dlgreen2 
+title=Oracle数据库中如何根据时间来执行JOB-开 
+href="http://www.bitscn.com/oracle/exploiture/200805/140863.html" 
+target=_blank>Oracle数据库中如何根据时间来执行JOB-开</A><BR>3.<A class=dlgreen2 
+title=Oracle中如何根据时间来执行JOB-开发技术 
+href="http://www.bitscn.com/oracle/exploiture/200805/140862.html" 
+target=_blank>Oracle中如何根据时间来执行JOB-开发技术</A><BR>4.<A class=dlgreen2 
+title="修改默认的Oracle XML Database监听端口-" 
+href="http://www.bitscn.com/oracle/exploiture/200805/140861.html" 
+target=_blank>修改默认的Oracle XML Database监听端口-</A><BR>5.<A class=dlgreen2 
+title=关闭Oracle死锁进程的具体步骤-开发技术 
+href="http://www.bitscn.com/oracle/exploiture/200805/140860.html" 
+target=_blank>关闭Oracle死锁进程的具体步骤-开发技术</A><BR>6.<A class=dlgreen2 
+title="FORALL与BULK COLLECT的使用方法-开发技" 
+href="http://www.bitscn.com/oracle/exploiture/200805/140859.html" 
+target=_blank>FORALL与BULK COLLECT的使用方法-开发技</A><BR>7.<A class=dlgreen2 
+title=Oracle数据库中的锁机制研究-开发技术 
+href="http://www.bitscn.com/oracle/exploiture/200803/131789.html" 
+target=_blank>Oracle数据库中的锁机制研究-开发技术</A><BR>8.<A class=dlgreen2 
+title=Oracle数据库中的(+)连接 
+href="http://www.bitscn.com/oracle/exploiture/200709/109388.html" 
+target=_blank>Oracle数据库中的(+)连接</A><BR>9.<A class=dlgreen2 
+title=MIS系统实例中Oracle的安全策略 
+href="http://www.bitscn.com/oracle/exploiture/200709/109387.html" 
+target=_blank>MIS系统实例中Oracle的安全策略</A><BR>10.<A class=dlgreen2 
+title=详细讲解容灾技术中的数据一致性 
+href="http://www.bitscn.com/oracle/exploiture/200709/109383.html" 
+target=_blank>详细讲解容灾技术中的数据一致性</A><BR></DIV>
+<DIV style="PADDING-TOP: 8px"></DIV><IFRAME 
+src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/CAV21457.htm" 
+frameBorder=0 width=273 scrolling=no height=315></IFRAME>
+<DIV style="PADDING-TOP: 8px"></DIV>
+<DIV class=gray-bar-dl>网管论坛交流： </DIV>
+<DIV class=gray-border-graybg>·<A class=dlgreen2 
+href="http://bbs.bitscn.com/193030" target=_blank>什么样的游戏,什么样的爱情.</A><BR>·<A 
+class=dlgreen2 href="http://bbs.bitscn.com/192401" 
+target=_blank>大家来开心一下吧---看了会很开心的东西-</A><BR>·<A class=dlgreen2 
+href="http://bbs.bitscn.com/192186" target=_blank>中国人不可不知道的知识</A><BR>·<A 
+class=dlgreen2 href="http://bbs.bitscn.com/191655" 
+target=_blank>http://bbs.bitscn.com/191655</A><BR>·<A class=dlgreen2 
+href="http://bbs.bitscn.com/191589" target=_blank>◎◎小鹏◎◎发现不明生物，居然正在交配</A><BR>·<A 
+class=dlgreen2 href="http://bbs.bitscn.com/191328" 
+target=_blank>[图文]^^^版主是什么?????</A><BR>·<A class=dlgreen2 
+href="http://bbs.bitscn.com/191281" target=_blank>泡论坛的女人是好女人</A><BR>·<A 
+class=dlgreen2 href="http://bbs.bitscn.com/190864" 
+target=_blank>做个“水性杨花”的女人</A><BR>·<A class=dlgreen2 
+href="http://bbs.bitscn.com/190662" target=_blank>献给mm俱乐部的所有mm</A><BR>·<A 
+class=dlgreen2 href="http://bbs.bitscn.com/190638" 
+target=_blank>深圳一集团企业电脑基础应用培训教程</A><BR></DIV></DIV></DIV><BR class=clear-both>
+<DIV id=contentfooter>
+<DIV id=copyright-terms><A href="http://www.bitscn.com/html/aboutus.html" 
+target=_blank>关于我们</A> - <A href="http://www.bitscn.com/html/team.html" 
+target=_blank>联系我们</A> - <A href="http://www.bitscn.com/html/history.html" 
+target=_blank>网站历史</A> - <A href="http://www.bitscn.com/plus/guestbook/" 
+target=_blank>网友留言</A> - <A href="http://www.bitscn.com/html/advertisement.html" 
+target=_blank>广告服务</A> - <A href="http://www.bitscn.com/html/law.html" 
+target=_blank>法律声明</A> - <A href="http://www.bitscn.com/plus/sitemap.html" 
+target=_blank>网站地图</A> - <A href="http://www.bitscn.com/plus/rssmap.html" 
+target=_blank>RSS订阅</A> - <A 
+href="http://www.bitscn.com/oracle/exploiture/200809/151602.html#top">返回顶部</A> 
+</DIV>
+<DIV id=alilinks-terms>Copyright &copy;1999-2008 <A title=中国网管联盟/网管网 
+href="http://www.bitscn.com/">中国网管联盟/网管网</A> 版权所有. 
+网管必上的网站&nbsp;商务联系、网站内容、合作建议：13641763379&nbsp;
+<SCRIPT language=javascript 
+src="Oracle 触发器语法及实例（一）-开发技术 实例 语法 &nbsp; 触发 执行 数据库 时间 存储 事件 名称 _中国网管联盟-网管网-bitsCN_com.files/allbottom.js" 
+type=text/javascript></SCRIPT>
+ </DIV></DIV>
+<SCRIPT language=javascript src=""></SCRIPT>
+</BODY></HTML>

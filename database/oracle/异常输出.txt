@@ -1,0 +1,11 @@
+EXCEPTION WHEN OTHERS THEN
+    ROLLBACK ;
+    ON_FLAG := -100;
+    OS_MSG := 'ERROR IN UFS_ORDER_HOTEL_ACCEPT_P ,'||SQLERRM;
+
+                    DBMS_OUTPUT.put_line(sqlcode);
+                    DBMS_OUTPUT.put_line(sqlerrm);
+                    dbms_output.put_line(dbms_utility.format_error_backtrace);
+                    dbms_output.put_line(dbms_utility.format_error_stack );
+
+END;

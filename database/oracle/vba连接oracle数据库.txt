@@ -1,0 +1,52 @@
+Public Sub ConOra()
+
+
+On Error GoTo ErrMsg:
+Dim ConnDB As ADODB.Connection
+Set ConnDB = New ADODB.Connection
+Dim ConnStr As String
+Dim DBRst As ADODB.Recordset
+Set DBRst = New ADODB.Recordset
+Dim SQLRst As String
+Dim OraOpen As Boolean
+
+
+OraOpen = False
+OraID = "flex" 'Oracle数据库的相关配置
+OraUsr = "wfm"
+OraPwd = "wfm"
+ConnStr = "Provider = MSDAORA.1;Password=" & OraPwd & ";User ID=" & OraUsr & ";Data Source=" & OraID & ";Persist Security Info=True"
+ConnDB.CursorLocation = adUseServer
+ConnDB.Open ConnStr
+OraOpen = True '成功执行后，数据库即被打开
+MsgBox "Connect to the oracle database Successful!", vbInformation, "Connect Successful"
+DBRst.ActiveConnection = ConnDB
+DBRst.CursorLocation = adUseServer
+DBRst.LockType = adLockBatchOptimistic
+SQLRst = "select to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') as mydate   From dual"
+DBRst.Open SQLRst, ConnDB, adOpenStatic, adLockBatchOptimistic
+
+'从结果集中取值
+DBRst.MoveFirst
+MsgBox "111"
+
+While Not DBRst.EOF
+MsgBox "222"
+Worksheets("Sheet1").Range("A1") = DBRst![mydate]
+
+DBRst.MoveNext
+MsgBox "3333"
+
+Wend
+
+
+Exit Sub
+
+ErrMsg:
+OraOpen = False
+MsgBox "Connect to the oracle database fail ,please check!", vbCritical, "Connect fail!"
+
+
+
+
+End Sub

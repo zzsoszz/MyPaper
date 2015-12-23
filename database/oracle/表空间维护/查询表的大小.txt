@@ -1,0 +1,7 @@
+select count(*) extents, sum(blocks) blocks, sum(bytes)/1024/1024 as M, segment_name, 
+partition_name, segment_type, owner 
+from dba_extents 
+where segment_name like '%UCP_BA%'
+and segment_type ='TABLE'
+group
+by segment_name,partition_name,segment_type,owner

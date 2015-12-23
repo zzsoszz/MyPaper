@@ -1,0 +1,4 @@
+oracle∑÷“≥
+SELECT *  FROM (SELECT rownum r,a.* From t1 a where rownum < 20) t2 where t2.r >= 10
+select * from (SELECT rownum r,a.* From t1 a) b where  b.r< 20 and b.r>10
+select * from t1 where  rownum<10 minus select * from t1 where rownum<5

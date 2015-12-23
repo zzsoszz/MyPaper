@@ -1,0 +1,54 @@
+oracle 用户操作
+
+
+-------------------------------------------------------------------安装前准备
+cd /ftp/setup
+unzip  linux.x64_11gR2_database_1of2.zip
+unzip  linux.x64_11gR2_database_2of2.zip
+chown -R 700  database
+chown -R oracle:oinstall database
+
+
+---------------------------------oracle 初始参数配置  start
+vi /home/oracle/.bash_profile
+
+ORACLE_BASE=/u01/app/oracle
+ORACLE_HOME=$ORACLE_BASE/11g
+ORACLE_SID=orcl
+LD_LIBRARY_PATH=$ORACLE_HOME/lib
+PATH=$PATH:$ORACLE_HOME/bin:$HOME/bin
+export ORACLE_BASE ORACLE_HOME ORACLE_SID LD_LIBRARY_PATH PATH
+
+source /home/oracle/.bash_profile
+---------------------------------oracle 初始参数配置  end
+
+
+
+
+
+运行安装文件出现乱码解决
+export LC_ALL=en_US.UTF-8
+
+-------------------------------------------------------------------安装前准备
+
+
+执行安装程序
+LANG=en_US ./runInstaller
+启动监听
+lsnrctl start
+登录创建用户
+sqlplus
+
+
+
+
+安装完成后网页登录检验是否安装成功
+
+https://localhost:1158/em/
+
+
+
+
+
+
+

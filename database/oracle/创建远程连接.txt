@@ -1,0 +1,38 @@
+创建远程连接步骤：
+1.取得远程数据库的用户名和密码
+2.在tnsnames.ora文件指定远程主机的地址
+3.SQL> create database link mylink
+connect to qingtian identified by qingtian 
+using 'design';
+
+create database link mylink
+connect to qingtian identified by qingtian (远程数据库密码用户一致)
+using 'design';(tnsnames.ora文件必须存在此字符串)
+
+
+select * from t_shift_date@mylink
+
+参考
+　　第一种: 
+
+　　根据远端的信息用Net Manager设置好能连接远端的服务及监听程序。　 
+
+　　create public database link fwq12 
+　　connect to fzept identified by neu 
+
+　　using’fjept’//fjept为刚刚配置好的服务名 
+
+　　第二种: 
+
+　　直接建立链接:　　 
+
+　　create database link linkfwq 
+　　connect to fzept identified by neu 
+　　using ’(DESCRIPTION = 
+　　(ADDRESS_LIST = 
+　　(ADDRESS = (PROTOCOL = TCP)(HOST = 10.142.202.12)(PORT = 1521)) 
+　　) 
+　　(CONNECT_DATA = 
+　　(SERVICE_NAME = fjept) 
+　　) 
+　　)’; 

@@ -1,0 +1,252 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+代码：
+SQL codeDECLARE
+    TYPE T_SNO IS TABLE OF ACN_Test_Studeng.SNO%TYPE INDEX BY BINARY_INTEGER;
+    CURSOR student_sno_cur IS
+        SELECT SNO
+        FROM ACN_Test_Studeng;
+    v_sno T_SNO;
+BEGIN
+    OPEN student_sno_cur;
+    LOOP
+        FETCH student_sno_cur INTO v_sno;
+      exit;    
+    END LOOP;
+    CLOSE student_sno_cur;
+END;
+
+
+报错内容：
+
+ORA-06550:line 10,column 30;
+PLS-00597:expression 'V_SNO' in the INTO list is of wrong type
+ORA-06550:line 10,column 3;
+PL/SQL:SQL Statement ignored
+
+我的ORACLE版本是：9.2.0.3.0
+SQLPLUS版本是：8.0.0.0.0
+
+ 
+ 
+ 
+ 
+对我有用[0] 丢个板砖[0] 引用 举报 管理 TOP 回复次数：9  
+ 
+duqiangcise
+ 
+(小强) 
+
+等　级： 
+
+ #1楼 得分：20回复于：2010-01-08 23:13:26如需要阅读该回复，请登录或注册CSDN!
+ 
+ 
+ 
+对我有用[0] 丢个板砖[0] 引用 举报 管理 TOP 精华推荐：特难的SQL,请高书帮助,急,跪求各位大峡!!! 
+ 
+duqiangcise
+ 
+(小强) 
+
+等　级： 
+
+ #2楼 得分：0回复于：2010-01-08 23:15:22再给你个例子。
+
+SQL codecreate or replace
+procedure test_tab_proc
+as
+    TYPE T_SNO_type IS TABLE OF dept.deptno%TYPE INDEX BY BINARY_INTEGER;
+    CURSOR student_sno_cur IS
+        SELECT deptno
+        FROM dept;create or replace
+procedure test_tab_proc
+as
+    TYPE T_SNO_type IS TABLE OF dept.deptno%TYPE INDEX BY BINARY_INTEGER;
+    CURSOR student_sno_cur IS
+        SELECT deptno
+        FROM dept;
+    v_sno T_SNO_type;
+BEGIN
+    OPEN student_sno_cur;
+    LOOP
+        FETCH student_sno_cur bulk collect  INTO v_sno;
+        exit when student_sno_cur%NOtFOUND;    
+    END LOOP;
+      CLOSE student_sno_cur;
+    for i in 1..v_sno.count loop
+     dbms_output.put_line(v_sno(i));
+    end loop;
+  
+END;
+
+    v_sno T_SNO_type;
+BEGIN
+    OPEN student_sno_cur;
+    LOOP
+        FETCH student_sno_cur bulk collect  INTO v_sno;
+        exit when student_sno_cur%NOtFOUND;    
+    END LOOP;
+      CLOSE student_sno_cur;
+    for i in 1..v_sno.count loop
+     dbms_output.put_line(v_sno(i));
+    end loop;
+  
+END;
+ 
+ 
+ 
+对我有用[0] 丢个板砖[0] 引用 举报 管理 TOP 精华推荐：收集网易数据库笔试题，欢迎大家拍砖 
+ 
+crazylaa
+ 
+(crazy) 
+
+等　级： 
+6
+ #3楼 得分：0回复于：2010-01-09 00:51:33小强，很好，嘿嘿 
+ 
+ 
+对我有用[0] 丢个板砖[0] 引用 举报 管理 TOP 精华推荐：其他论坛Oracle版都是大版，火热的很，为何感觉csdn的Oracle版有些冷清？？？？ 
+ 
+duqiangcise
+ 
+(小强) 
+
+等　级： 
+
+ #4楼 得分：0回复于：2010-01-09 12:18:40引用 3 楼 crazylaa 的回复:
+小强，很好，嘿嘿
+
+
+
+我看大家都没有来回答的，随便回答一下罢了。
+呵呵！ 
+ 
+ 
+对我有用[0] 丢个板砖[0] 引用 举报 管理 TOP 精华推荐：经典SQL语句收集（ORACLE） 
+ 
+wildwave
+ 
+(狂浪) 
+
+等　级： 
+2
+2
+3
+ #5楼 得分：0回复于：2010-01-09 13:50:00引用 1 楼 duqiangcise 的回复:
+SQL codeDECLARE
+TYPE T_SNOISTABLEOF ACN_Test_Studeng.SNO%TYPEINDEXBY BINARY_INTEGER;CURSOR student_sno_curISSELECT SNOFROM ACN_Test_Studeng;
+v_sno T_SNO;BEGINOPEN student_sno_cur;
+LOOPFETC?-
+
+
+不错。不过这里的bulk collect后面没有limit参数，没有必要loop 
+ 
+ 
+对我有用[0] 丢个板砖[0] 引用 举报 管理 TOP 精华推荐：oracle面试题目总结---（300分相赠）！ 
+ 
+duqiangcise
+ 
+(小强) 
+
+等　级： 
+
+ #6楼 得分：0回复于：2010-01-09 14:10:12引用 5 楼 wildwave 的回复:
+引用 1 楼 duqiangcise 的回复:
+SQL codeDECLARE
+    TYPE T_SNOISTABLEOF ACN_Test_Studeng.SNO%TYPEINDEXBY BINARY_INTEGER;CURSOR student_sno_curISSELECT SNOFROM ACN_Test_Studeng;
+    v_sno T_SNO;BEGINOPEN student_sno_cur;
+    LOOPFETC?-
+
+不错。不过这里的bull connect后面没有limit参数，没有必要loop
+
+
+bulk collect有个默认的limit，如果表中的记录超过该limit，是否需要loop？ 
+ 
+ 
+对我有用[0] 丢个板砖[0] 引用 举报 管理 TOP  
+ 
+wildwave
+ 
+(狂浪) 
+
+等　级： 
+2
+2
+3
+ #7楼 得分：0回复于：2010-01-09 14:52:39没有吧
+没指定limit参数，默认为unlimit
+参考
+http://www.oracle.com/technology/oramag/oracle/08-mar/o28plsql.html 
+ 
+ 
+对我有用[0] 丢个板砖[0] 引用 举报 管理 TOP  
+ 
+duqiangcise
+ 
+(小强) 
+
+等　级： 
+
+ #8楼 得分：0回复于：2010-01-09 15:06:16引用 7 楼 wildwave 的回复:
+没有吧
+没指定limit参数，默认为unlimit
+参考
+http://www.oracle.com/technology/oramag/oracle/08-mar/o28plsql.html
+
+
+
+"狂浪"说的对，默认的bulk collect抓取的数据是unlimit，即：把游标中的所有数据批量弄到table中去，所以可以在外面不用loop。
+
+DECLARE
+  TYPE T_SNO IS TABLE OF ACN_Test_Studeng.SNO%TYPE INDEX BY BINARY_INTEGER;
+  CURSOR student_sno_cur IS
+  SELECT SNO
+  FROM ACN_Test_Studeng;
+  v_sno T_SNO;
+BEGIN
+  OPEN student_sno_cur;
+  FETCH student_sno_cur bulk collect INTO v_sno;
+  CLOSE student_sno_cur;
+END; 
+ 
+ 
+对我有用[0] 丢个板砖[0] 引用 举报 管理 TOP  
+ 
+jiangdongerbiao
+ 
+(江东二彪) 
+
+等　级： 
+
+ #9楼 得分：0回复于：2010-01-12 09:40:46多谢小强的指点，结贴了。 
+ 

@@ -1,0 +1,465 @@
+A.ask2me {
+	BACKGROUND-POSITION: 0px -22px; DISPLAY: block; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/spask/img/btn_bg.gif); MARGIN: 0px 0px 0px 68px; WIDTH: 80px; TEXT-INDENT: -99999px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 22px; outline: none
+}
+A.ask2group {
+	BACKGROUND-POSITION: 0px 0px; DISPLAY: block; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/spask/img/btn_bg1.gif); MARGIN: 0px 0px 0px 58px; WIDTH: 94px; TEXT-INDENT: -99999px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 22px
+}
+.yn-pd-type1 {
+	PADDING-RIGHT: 9px; PADDING-LEFT: 9px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px
+}
+.yn-pd-type2 {
+	PADDING-RIGHT: 9px; PADDING-LEFT: 9px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.yn-pd-type3 {
+	PADDING-RIGHT: 9px; PADDING-LEFT: 9px; PADDING-BOTTOM: 0px; PADDING-TOP: 10px
+}
+.yn-pd-type4 {
+	PADDING-RIGHT: 9px; PADDING-LEFT: 9px; PADDING-BOTTOM: 10px; PADDING-TOP: 0px
+}
+.yn-pd-type5 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px
+}
+DIV.no-pd {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.yn-tags A {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.yn-title {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px
+}
+.yn-title H3 {
+	FONT-WEIGHT: 800; FONT-SIZE: 14px; LINE-HEIGHT: 1.2
+}
+.yn-title SPAN.links A {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 8px; FONT-WEIGHT: 400; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.yn-title A.more {
+	PADDING-RIGHT: 5px; FONT-WEIGHT: 800; FONT-SIZE: 14px; FLOAT: right; CURSOR: pointer; LINE-HEIGHT: 1
+}
+.yn-title-type1 {
+	PADDING-BOTTOM: 5px
+}
+.yn-title-type1 H4 {
+	FONT-WEIGHT: 800; FONT-SIZE: 14px; PADDING-BOTTOM: 3px; LINE-HEIGHT: 1.2; BORDER-BOTTOM: #7dc343 4px solid
+}
+.yn-title-type1 A.more {
+	FLOAT: right; LINE-HEIGHT: 1.6
+}
+.yn-title-type1 A.more SPAN.orange {
+	FONT-WEIGHT: 800
+}
+.yn-askmod {
+	
+}
+.yn-askmod .l {
+	FLOAT: left; WIDTH: 112px
+}
+.yn-askmod .r {
+	BORDER-RIGHT: #ddd 0px dashed; PADDING-RIGHT: 0px; BORDER-TOP: #ddd 0px dashed; PADDING-LEFT: 15px; FLOAT: right; PADDING-BOTTOM: 10px; BORDER-LEFT: #ddd 1px dashed; WIDTH: 550px; PADDING-TOP: 0px; BORDER-BOTTOM: #ddd 0px dashed
+}
+.yn-askmod .l P.title {
+	FONT-SIZE: 14px; TEXT-ALIGN: right
+}
+.yn-askmod .r .tip {
+	COLOR: #bfbfbf
+}
+.yn-askmod .r P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 3px; LINE-HEIGHT: 1.2; PADDING-TOP: 5px
+}
+.yn-askmod .r H2 {
+	LINE-HEIGHT: 1.2
+}
+.yn-askmod .r H2 STRONG {
+	FONT-SIZE: 14px
+}
+.yn-askmod .r H2 SPAN {
+	PADDING-RIGHT: 20px
+}
+.yn-askmod .r .introduce {
+	MARGIN-TOP: 2px; WIDTH: 512px; HEIGHT: 150px
+}
+.yn-askmod .hue {
+	COLOR: #858585
+}
+.yn-askmod .desired-ques {
+	BORDER-RIGHT: #a4abb1 2px solid; PADDING-RIGHT: 6px; BORDER-TOP: #a4abb1 2px solid; PADDING-LEFT: 6px; PADDING-BOTTOM: 5px; MARGIN: 0px 0px 10px; BORDER-LEFT: #a4abb1 2px solid; WIDTH: 510px; LINE-HEIGHT: 1.2; PADDING-TOP: 4px; BORDER-BOTTOM: #a4abb1 2px solid
+}
+.yn-askmod .checkbox-style1 {
+	MARGIN: 0px 10px 5px 0px; VERTICAL-ALIGN: middle
+}
+.yn-askmod .location-ask {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.yn-askmod .w-em17 {
+	WIDTH: 17em
+}
+.tips {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/hp/img/i_speaker.gif) no-repeat 0px 0px; TEXT-INDENT: 20px
+}
+.redsymbol {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 0px; FONT-SIZE: 18px; PADDING-BOTTOM: 0px; VERTICAL-ALIGN: middle; COLOR: #f00; PADDING-TOP: 0px
+}
+#locationask {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 4px; PADDING-TOP: 7px; HEIGHT: 22px
+}
+#locationask EM {
+	VERTICAL-ALIGN: bottom
+}
+.users-list {
+	LEFT: 0px; OVERFLOW: hidden; WIDTH: 310px; POSITION: relative; TOP: 0px
+}
+.users-list LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 5px; PADDING-TOP: 5px
+}
+.users-list LI .potrait {
+	FLOAT: left; OVERFLOW: hidden; WIDTH: 80px
+}
+.users-list LI .potrait INPUT {
+	DISPLAY: block; FLOAT: left; MARGIN: 15px 0px 0px 5px
+}
+.users-list LI .potrait IMG {
+	FLOAT: right
+}
+.users-list LI .intro {
+	MARGIN-LEFT: 90px; WIDTH: auto; LINE-HEIGHT: 1.72
+}
+.users-list LI .intro H5 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 3px
+}
+.users-list LI .intro P {
+	MARGIN: 0px
+}
+#dialog1 .pagenav {
+	PADDING-BOTTOM: 10px; WIDTH: auto
+}
+#dialog1 .pagenav A {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 6px; PADDING-BOTTOM: 2px; PADDING-TOP: 2px
+}
+#dialog1 .pagenav A.nextpre {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#dialog1 .tacenter {
+	TEXT-ALIGN: center
+}
+#invite-mod-result {
+	DISPLAY: none
+}
+#invite-mod-result .potrait {
+	FLOAT: left; OVERFLOW: hidden; WIDTH: 55px
+}
+#invite-mod-result .potrait INPUT {
+	DISPLAY: none
+}
+#invite-mod-result .potrait IMG {
+	FLOAT: left
+}
+#invite-mod-result .intro {
+	MARGIN-LEFT: 60px; WIDTH: auto; LINE-HEIGHT: 1.3
+}
+#invite-mod-result .intro H5 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#invite-mod-result .intro P {
+	DISPLAY: none
+}
+#invite-mod-result .intro P.excel {
+	DISPLAY: block
+}
+#catselect {
+	PADDING-LEFT: 20px; FONT-SIZE: 12px; COLOR: #666
+}
+#catselect .select_class {
+	COLOR: #000
+}
+#catselect {
+	COLOR: #666
+}
+.dynamic-info {
+	ZOOM: 1
+}
+.dynamic-info .answer {
+	MARGIN-RIGHT: 5px
+}
+.dynamic-info .asker {
+	MARGIN-LEFT: 5px
+}
+.category-list {
+	
+}
+.category-list LI SPAN.num {
+	DISPLAY: block; FONT-WEIGHT: 800; FLOAT: left; WIDTH: 14px; HEIGHT: 40px
+}
+.category-list LI A.aksme {
+	FLOAT: right
+}
+.category-list LI SPAN.up {
+	PADDING-RIGHT: 12px; PADDING-LEFT: 0px; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/spask/img/up_down_arrow.gif); PADDING-BOTTOM: 0px; COLOR: #666; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat
+}
+.category-list LI SPAN.down {
+	PADDING-RIGHT: 12px; PADDING-LEFT: 0px; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/spask/img/up_down_arrow.gif); PADDING-BOTTOM: 0px; COLOR: #666; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat
+}
+.category-list LI SPAN.up {
+	BACKGROUND-POSITION: right 3px
+}
+.category-list LI SPAN.down {
+	BACKGROUND-POSITION: right -9px
+}
+.block-type1 {
+	POSITION: relative
+}
+.block-type1 .reference {
+	LEFT: 0px; WIDTH: 690px; BOTTOM: 0px; POSITION: absolute; TEXT-ALIGN: center
+}
+#ks-scroll {
+	BORDER-RIGHT: #dcdcb7 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #dcdcb7 1px solid; PADDING-LEFT: 35px; BACKGROUND: url(http://cn.yimg.com/i/nks/hp/img/i_speaker.gif) #fffee3 no-repeat 10px 50%; PADDING-BOTTOM: 8px; BORDER-LEFT: #dcdcb7 1px solid; PADDING-TOP: 8px; BORDER-BOTTOM: #dcdcb7 1px solid; HEIGHT: 15px
+}
+#ks-scroll SPAN {
+	DISPLAY: block; OVERFLOW: hidden; WIDTH: 34em; POSITION: relative; HEIGHT: 1.6em; TEXT-ALIGN: left
+}
+#ks-scroll EM.delete {
+	DISPLAY: block; BACKGROUND: url(http://cn.yimg.com/i/nks/spask/img/icons1.gif) no-repeat 0px 0px; FLOAT: right; WIDTH: 8px; CURSOR: pointer
+}
+#ks-scroll A {
+	MARGIN-RIGHT: 0.25em
+}
+#ks-scroll UL {
+	LEFT: 0px; LIST-STYLE-TYPE: none; POSITION: absolute; TOP: 0px
+}
+#ks-scroll LI {
+	CLEAR: both; FLOAT: left; OVERFLOW: hidden; WIDTH: 100%; HEIGHT: 2em
+}
+.seats-container {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px
+}
+.seats-list {
+	MARGIN: 0px 0px 10px
+}
+.seats-list LI {
+	FONT-SIZE: 12px; FLOAT: left; MARGIN: 0px 0px 25px; WIDTH: 19.9%; TEXT-ALIGN: center
+}
+.seats-list LI .sp-uesd {
+	MARGIN: 0px auto 6px; WIDTH: 130px; HEIGHT: 117px
+}
+.seats-list LI .sp-uesd .intro {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/spask/img/tip_bg.gif) no-repeat 0px 0px; MARGIN: 0px 0px 7px; WIDTH: 130px; HEIGHT: 59px; TEXT-ALIGN: left
+}
+.seats-list LI .sp-uesd A {
+	TEXT-DECORATION: none
+}
+.seats-list LI .sp-uesd .intro CITE {
+	PADDING-RIGHT: 8px; DISPLAY: block; PADDING-LEFT: 8px; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1.6; PADDING-TOP: 8px
+}
+.seats-list LI .sp-uesd SPAN.photo {
+	DISPLAY: block; MARGIN: 0px auto; WIDTH: 48px; HEIGHT: 48px
+}
+.seats-list LI .sp-empty {
+	BORDER-RIGHT: #d2d2d2 1px solid; BORDER-TOP: #d2d2d2 1px solid; DISPLAY: block; BACKGROUND: url(http://cn.yimg.com/i/nks/spask/img/seat_bg.gif) no-repeat 0px 0px; MARGIN: 0px auto 6px; BORDER-LEFT: #d2d2d2 1px solid; WIDTH: 128px; BORDER-BOTTOM: #d2d2d2 1px solid; HEIGHT: 115px
+}
+.seats-list LI .btn-area A {
+	DISPLAY: block; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/spask/img/btn_bg.gif); MARGIN: 0px auto; WIDTH: 80px; TEXT-INDENT: -99999px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 22px; outline: none
+}
+.seats-list LI .btn-area A.sp-ask01 {
+	BACKGROUND-POSITION: 0px -22px
+}
+.seats-list LI .btn-area A.sp-ask01:hover {
+	BACKGROUND-POSITION: 0px 0px
+}
+.seats-list LI .btn-area A.sp-sit {
+	BACKGROUND-POSITION: 0px -66px
+}
+.experts .yn-pic-text {
+	COLOR: #666
+}
+.experts .yn-pic-text P .aboutanswers {
+	FLOAT: right
+}
+.experts .yn-pic-text P .aboutanswers EM {
+	PADDING-RIGHT: 0.8em; PADDING-LEFT: 0.8em; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.experts .yn-pic-text P A {
+	TEXT-DECORATION: underline
+}
+.nengren-group .yn-pic-text {
+	COLOR: #666
+}
+.nengren-group .yn-pic-text H4.yn-pt-titl {
+	FONT-WEIGHT: 400; FONT-SIZE: 14px
+}
+.hero-table {
+	WIDTH: 100%
+}
+.hero-table TH {
+	PADDING-RIGHT: 0.3em; PADDING-LEFT: 0.3em; FONT-SIZE: 12px; PADDING-BOTTOM: 0.3em; PADDING-TOP: 0.3em
+}
+.hero-table TD {
+	PADDING-RIGHT: 0.3em; PADDING-LEFT: 0.3em; FONT-SIZE: 12px; PADDING-BOTTOM: 0.3em; PADDING-TOP: 0.3em
+}
+.hero-table TD.avatar {
+	WIDTH: 48px
+}
+.hero-table TH B {
+	DISPLAY: block; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/spask/img/num_bg.gif); WIDTH: 22px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 22px
+}
+.hero-table TH B.num1 {
+	BACKGROUND-POSITION: 0px 0px; WIDTH: 28px; HEIGHT: 28px
+}
+.hero-table TH B.num2 {
+	BACKGROUND-POSITION: -1px -66px; WIDTH: 23px; HEIGHT: 23px
+}
+.hero-table TH B.num3 {
+	BACKGROUND-POSITION: -3px -130px; WIDTH: 22px; HEIGHT: 22px
+}
+.hero-table TH B.num4 {
+	BACKGROUND-POSITION: -3px -193px; WIDTH: 22px; HEIGHT: 22px
+}
+.hero-table TH B.num5 {
+	BACKGROUND-POSITION: -3px -256px; WIDTH: 22px; HEIGHT: 22px
+}
+.hero-table TH B.num6 {
+	BACKGROUND-POSITION: -3px -319px; WIDTH: 22px; HEIGHT: 22px
+}
+.hero-table TH B.num7 {
+	BACKGROUND-POSITION: -3px -380px; WIDTH: 22px; HEIGHT: 22px
+}
+.hero-table TH B.num8 {
+	BACKGROUND-POSITION: -3px -444px; WIDTH: 22px; HEIGHT: 22px
+}
+.hero-table TH B.num9 {
+	BACKGROUND-POSITION: -3px -507px; WIDTH: 22px; HEIGHT: 22px
+}
+.hero-table TH B.num10 {
+	BACKGROUND-POSITION: -3px -571px; WIDTH: 22px; HEIGHT: 22px
+}
+.hero-table TD SPAN {
+	DISPLAY: block; MARGIN: 0px 0px 5px; COLOR: #666; LINE-HEIGHT: 1.6; ZOOM: 1
+}
+.hero-table TD SPAN.up {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/spask/img/up_down_arrow.gif) no-repeat 92% 6px
+}
+.hero-table TD SPAN.down {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/spask/img/up_down_arrow.gif) no-repeat 92% -8px
+}
+.hero-table TD P {
+	MARGIN-BOTTOM: 5px
+}
+.hero-table TD A.sp-ask02 {
+	BACKGROUND-POSITION: 0px -44px; DISPLAY: block; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/spask/img/btn_bg.gif); WIDTH: 80px; TEXT-INDENT: -99999px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 22px; outline: none
+}
+.hero-table TD A.sp-ask02:hover {
+	BACKGROUND-POSITION: 0px 0px
+}
+.hero-table TD A.sp-ask03 {
+	BACKGROUND-POSITION: 0px -22px; DISPLAY: block; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/spask/img/btn_bg.gif); WIDTH: 80px; TEXT-INDENT: -99999px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 22px; outline: none
+}
+.hero-table TD A.sp-ask03:hover {
+	BACKGROUND-POSITION: 0px 0px
+}
+#winBg {
+	BACKGROUND: #000; FILTER: alpha(opacity=50); LEFT: 0px; POSITION: absolute; TOP: 0px; moz-opacity: 0.5; opacity: 0.5; KhtmlOpacity: 0.5
+}
+.yui-panel-container {
+	Z-INDEX: 6; VISIBILITY: hidden; OVERFLOW: visible; WIDTH: auto; POSITION: absolute; BACKGROUND-COLOR: transparent
+}
+.matte {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; BACKGROUND-COLOR: #fff
+}
+.matte .underlay {
+	DISPLAY: none
+}
+.shadow {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; BACKGROUND-COLOR: transparent
+}
+.shadow .underlay {
+	FILTER: alpha(opacity=12); LEFT: 3px; VISIBILITY: inherit; WIDTH: 100%; ZOOM: 1; POSITION: absolute; TOP: 3px; HEIGHT: 100%; BACKGROUND-COLOR: #000; moz-opacity: 0.12; opacity: .12
+}
+.yui-panel {
+	BORDER-RIGHT: #000 1px solid; BORDER-TOP: #000 1px solid; Z-INDEX: 1; LEFT: 0px; VISIBILITY: hidden; FONT: 1em Arial; OVERFLOW: hidden; BORDER-LEFT: #000 1px solid; BORDER-BOTTOM: #000 1px solid; POSITION: relative; TOP: 0px; BORDER-COLLAPSE: separate; BACKGROUND-COLOR: #fff
+}
+.yui-panel .hd {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 4px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 4px; FONT-WEIGHT: bold; FONT-SIZE: 100%; PADDING-BOTTOM: 4px; OVERFLOW: hidden; BORDER-LEFT: #fff 1px solid; COLOR: #fff; LINE-HEIGHT: 100%; PADDING-TOP: 4px; BORDER-BOTTOM: #000 1px solid; BACKGROUND-COLOR: #3d77cb
+}
+.yui-panel .bd {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; OVERFLOW: hidden; PADDING-TOP: 4px
+}
+.yui-panel .bd P {
+	MARGIN: 0px 0px 1em
+}
+.yui-panel .container-close {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; Z-INDEX: 6; RIGHT: 4px; BACKGROUND: url(http://cn.yimg.com/i/js/yui/asset/close12_1.gif) no-repeat; VISIBILITY: inherit; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 12px; CURSOR: pointer; PADDING-TOP: 0px; POSITION: absolute; TOP: 5px; HEIGHT: 12px
+}
+.yui-panel .ft {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; OVERFLOW: hidden; PADDING-TOP: 4px
+}
+#dialog1_c .yui-panel {
+	BORDER-RIGHT: #000 1px solid; BORDER-TOP: #000 1px solid; Z-INDEX: 1; BACKGROUND: url(http://cn.yimg.com/i/nks/spask/img/dialog_bg.gif) #fff no-repeat 0px 0px; VISIBILITY: hidden; OVERFLOW: hidden; BORDER-LEFT: #000 1px solid; BORDER-BOTTOM: #000 1px solid; POSITION: relative; BORDER-COLLAPSE: separate; TEXT-ALIGN: left
+}
+#dialog1_c .yui-panel BUTTON {
+	BORDER-RIGHT: #777 1px solid; PADDING-RIGHT: 0.5em; BORDER-TOP: #777 1px solid; PADDING-LEFT: 0.5em; FONT-WEIGHT: 800; FONT-SIZE: 14px; BACKGROUND: url(http://cn.yimg.com/i/wireless/yid/img/yid_btn_bg.gif) repeat-x 0px 0px; LEFT: 170px; PADDING-BOTTOM: 0px; BORDER-LEFT: #777 1px solid; COLOR: #000; LINE-HEIGHT: 1.22; PADDING-TOP: 0px; BORDER-BOTTOM: #777 1px solid; POSITION: absolute; TOP: 100px; HEIGHT: 25px
+}
+.hide {
+	DISPLAY: none
+}
+#dialog1_c .yui-panel .hd {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 4px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 4px; FONT-WEIGHT: bold; FONT-SIZE: 100%; BACKGROUND: none transparent scroll repeat 0% 0%; PADDING-BOTTOM: 4px; OVERFLOW: hidden; BORDER-LEFT: #fff 1px solid; COLOR: #fff; LINE-HEIGHT: 100%; PADDING-TOP: 4px; BORDER-BOTTOM: #fff 1px; HEIGHT: 20px
+}
+#dialog1_c .yui-panel .bd {
+	PADDING-RIGHT: 25px; PADDING-LEFT: 25px; PADDING-BOTTOM: 10px; OVERFLOW: hidden; PADDING-TOP: 0px
+}
+#dialog1_c .yui-panel .bd #dialog-inp {
+	PADDING-RIGHT: 0.2em; PADDING-LEFT: 0.2em; FONT-SIZE: 12px; LEFT: 170px; PADDING-BOTTOM: 0.2em; WIDTH: 188px; PADDING-TOP: 0.2em; POSITION: absolute; TOP: 60px
+}
+#dialog1_c .yui-panel .bd .hue {
+	COLOR: #ccc
+}
+#dialog1_c .yui-panel .container-close {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; Z-INDEX: 6; RIGHT: 4px; BACKGROUND: url(http://cn.yimg.com/i/wireless/ablum/img/close_btn.gif) no-repeat; VISIBILITY: inherit; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 18px; CURSOR: pointer; PADDING-TOP: 0px; POSITION: absolute; TOP: 5px; HEIGHT: 18px
+}
+#dialog-submit {
+	WIDTH: 60px! important; LINE-HEIGHT: 1.22; HEIGHT: 24px
+}
+#clear-seat {
+	WIDTH: 60px! important; LINE-HEIGHT: 1.22; HEIGHT: 24px
+}
+#dialog2 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/spask/img/dialog_bg2.jpg) #fff no-repeat 0px 0px
+}
+#dialog2 .bd P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: 800; PADDING-BOTTOM: 0px; COLOR: #f60; LINE-HEIGHT: 1.6; PADDING-TOP: 20px; TEXT-ALIGN: center
+}
+#dialog-ask_c .yui-panel {
+	BORDER-RIGHT: #dcdcdc 1px solid; BORDER-TOP: #dcdcdc 1px solid; BORDER-LEFT: #dcdcdc 1px solid; BORDER-BOTTOM: #dcdcdc 1px solid; TEXT-ALIGN: left
+}
+#dialog-ask_c .yui-panel .hd {
+	BORDER-RIGHT: #dcdcdc 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #dcdcdc 1px solid; PADDING-LEFT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%; PADDING-BOTTOM: 0px; BORDER-LEFT: #dcdcdc 1px solid; COLOR: #000; PADDING-TOP: 0px; BORDER-BOTTOM: #dcdcdc 1px dashed; HEIGHT: 30px
+}
+#dialog-ask_c .yui-panel .hd H4 {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-WEIGHT: bold; PADDING-BOTTOM: 8px; PADDING-TOP: 10px
+}
+#dialog-ask_c .yui-panel .bd {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; PADDING-TOP: 10px; POSITION: relative
+}
+#dialog-ask_c .yui-panel .container-close {
+	RIGHT: 10px; TOP: 10px
+}
+#dialog-ask_c .tacenter {
+	TEXT-ALIGN: center
+}
+#dialog-ask_c .pagenav A.nextpre {
+	WIDTH: 4.5em; TEXT-ALIGN: center
+}
+#dialog-ask_c .yui-panel .ft {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+#dialog-ask_c .yui-panel .bd {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+#dialog-ask_c .yui-panel .hd {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 1px; BORDER-RIGHT-WIDTH: 0px
+}
+#dialog-ask_c .ft A {
+	PADDING-RIGHT: 0.6em; PADDING-LEFT: 0.6em; PADDING-BOTTOM: 0.3em; PADDING-TOP: 0.3em
+}
+#dialog-ask_c .pagenav {
+	MARGIN-BOTTOM: 10px
+}

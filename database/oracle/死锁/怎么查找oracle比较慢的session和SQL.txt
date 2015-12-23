@@ -1,0 +1,96 @@
+怎么查找oracle比较慢的session和SQL
+发布: 2009-5-30 22:19 | 作者: Zee | 来源: 7点测试网
+
+一、如何找到消耗资源大的Oracle的session及其执行的SQL语句
+    HP-UX可以用glance,top、IBM- AIX可以用topas、另外可以使用PS命令查看进程。
+    通过这些程序我们可以找到用系统资源特别大的这些进程的进程号，我们就可以通过以下的sql语句发现这个pid正在执行哪个sql，这个sql最好在pl/sql developer,toad等软件中执行, 把<>中的spid换成你的spid就可以了。
+SELECT a.username,
+       a.machine,
+       a.program,
+       a.sid,
+       a.serial#,
+       a.status,
+       c.piece,
+       c.sql_text
+  FROM v$session a,
+       v$process b,
+       v$sqltext c
+WHERE b.spid=<spid>  
+   AND b.addr=a.paddr
+   AND a.sql_address=c.address(+)
+ORDER BY c.piece      
+    我们就可以把得到的这个sql分析一下，看一下它的执行计划是否走索引，对其优化避免全表扫描，以减少IO等待，从而加快语句的执行速度。
+    提示：我在做优化sql时，经常碰到使用in的语句，这时我们一定要用exists把它给换掉，因为Oracle在处理In时是按Or的方式做的，即使使用了索引也会很慢。
+比如：
+SELECT  col1,col2,col3 FROM table1 a 
+WHERE a.col1 not in (SELECT  col1 FROM table2)
+可以换成：
+SELECT  col1,col2,col3 FROM table1 a 
+WHERE not exists
+(SELECT  'x'  FROM table2 b
+WHERE  a.col1=b.col1)
+
+二、另一个有用的脚本：查找前十条性能差的sql
+SELECT * FROM 
+  (
+   SELECT PARSING_USER_ID
+          EXECUTIONS,
+          SORTS,
+          COMMAND_TYPE,
+          DISK_READS,
+          sql_text
+      FROM  v$sqlarea
+     ORDER BY disk_reads DESC 
+   )  
+  WHERE ROWNUM<10 ;
+
+三、迅速发现Oracle Server的性能问题的成因，我们可以求助于v$session_wait这个视图，看系统的这些session在等什么，使用了多少的IO。
+参考脚本：
+--脚本说明：查看占io较大的正在运行的session
+SELECT se.sid,
+       se.serial#,
+       pr.SPID,
+       se.username,
+       se.status,
+       se.terminal,
+       se.program,
+       se.MODULE,
+       se.sql_address,
+       st.event,
+       st.p1text,
+       si.physical_reads,
+       si.block_changes 
+  FROM v$session se,
+       v$session_wait st,
+       v$sess_io si,
+       v$process pr
+WHERE st.sid=se.sid 
+   AND st.sid=si.sid
+   AND se.PADDR=pr.ADDR
+   AND se.sid>6
+   AND st.wait_time=0 
+   AND st.event NOT LIKE '%SQL%'
+ORDER BY physical_reads DESC
+
+对检索出的结果的几点说明：
+1、按每个正在等待的session已经发生的物理读排的序，因为它与实际的IO相关。
+2、可以看一下这些等待的进程都在忙什么，语句是否合理？
+  Select sql_address from v$session where sid=<sid>;
+  Select * from v$sqltext where address=<sql_address>;
+执行以上两个语句便可以得到这个session的语句。
+你也以用alter system kill session 'sid,serial#';把这个session杀掉。
+3、应观注一下event这列，这是我们调优的关键一列，下面对常出现的event做以简要的说明：
+A、buffer busy waits，free buffer waits这两个参数所标识是dbwr是否够用的问题，与IO很大相关的，当v$session_wait中的free buffer wait的条目很小或没有的时侯，说明你的系统的dbwr进程决对够用，不用调整；free buffer wait的条目很多，你的系统感觉起来一定很慢，这时说明你的dbwr已经不够用了，它产生的wio已经成为你的数据库性能的瓶颈，这时的解决办法如下：
+a.1、增加写进程，同时要调整db_block_lru_latches参数
+示例：修改或添加如下两个参数
+  db_writer_processes=4
+  db_block_lru_latches=8
+a.2、开异步IO，IBM这方面简单得多，hp则麻烦一些，可以与Hp工程师联系。
+
+B、db file sequential read，指的是顺序读，即全表扫描，这也是我们应该尽量减少的部分，解决方法就是使用索引、sql调优，同时可以增大db_file_multiblock_read_count这个参数。
+
+C、db file scattered read,这个参数指的是通过索引来读取，同样可以通过增加db_file_multiblock_read_count这个参数来提高性能。
+
+D、latch free,与栓相关的了，需要专门调节。
+
+E、其他参数可以不特别观注。

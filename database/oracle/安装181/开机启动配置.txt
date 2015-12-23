@@ -1,0 +1,338 @@
+/etc/rc.d/rc.local
+/etc/init.d/oracle  start
+
+
+1、编辑rc.local文件
+#vi /etc/rc.d/rc.local
+2、加入如下启动命令
+/usr/sbin/apachectl start
+/etc/rc.d/init.d/mysqld start
+/etc/rc.d/init.d/smb start
+/usr/local/subversion/bin/svnserve -d
+/etc/init.d/vncserver start
+
+
+
+目标：在CentOS 6.4下让Oracle开机启动
+
+方案：首先添加 启动，关闭，重启Oracle的服务和实例的服务；然后把这个服务添加到系统服务的运行级别。
+
+设置CentOS下开机自动启动Oracle  http://www.linuxidc.com/Linux/2011-07/38827p2.htm
+
+步骤：
+
+1，新增service
+
+执行命令：
+
+# vi /etc/rc.d/init.d/oracle
+
+Oracle文件的内容为：
+
+#!/bin/bash
+#chkconfig: 234 61 61
+#description: Oracle 11g AutoRun Service
+#/etc/rc.d/init.d/oracle
+case "$1" in
+    start)
+        # starts oracle listener and instance
+        echo "Starting Oracle Database:"
+        su - oracle -lc "lsnrctl start"
+        su - oracle -lc dbstartup
+        ;;
+    stop)
+        # shutdown oracle listner and instance
+        echo "Shuting down Oracle Database:"
+        su - oracle -lc "lsnrctl stop"
+        su - oracle -lc dbshutdown
+        ;;
+    reload|restart)
+        $0 stop
+        $0 start
+        ;;
+    *)
+    echo "Usage: {start|stop|reload|restart}"
+    exit 1
+esac
+exit 0
+
+注意：脚本中添加至少两行注释行（第3步中），第一行告诉chkconfig该服务的运行级别；第二行添加关于服务的简要说明。
+
+以上脚本中涉及到的两个脚本：dbstart和dbshut
+
+2，编辑dbstartup和dbshutdown
+执行命令
+$ vi $ORACLE_HOME/bin/dbstartup
+内容为：
+
+#dbstartup
+#/u01/app/oracle/product/11gr2/db_1/bin
+sqlplus / as sysdba <<EOF
+startup
+exit
+EOF
+
+
+vi $ORACLE_HOME/bin/dbshutdown
+内容为：
+
+#dbshutdown
+#/u01/app/oracle/product/11gr2/db_1/bin
+sqlplus / as sysdba <<EOF
+shutdown immediate
+exit
+EOF
+
+
+3，检查启动脚本是否正确
+
+# cd /etc/rc.d/init.d
+# ./oracle start
+# ./oracle stop
+ 
+4，把建立好的oracle服务添加到系统级别
+执行如下命令：
+# chmod 750 /etc/rc.d/init.d/oracle
+# chkconfig --level 234 oracle on
+# chkconfig --add oracle
+
+更多CentOS相关信息见CentOS 专题页面 http://www.linuxidc.com/topicnews.aspx?tid=14
+
+更多Oracle相关信息见Oracle 专题页面 http://www.linuxidc.com/topicnews.aspx?tid=12
+
+本文永久更新链接地址：http://www.linuxidc.com/Linux/2014-10/108469.htm
+
+
+
+
+
+chmod 777 /u01/app/oracle/product/11gr2/db_1/bin/dbstartup
+chmod 777 /u01/app/oracle/product/11gr2/db_1/bin/dbshutdown
+
+
+
+
+[root@db2 init.d]# ./oracle start
+Starting Oracle Database:
+
+LSNRCTL for Linux: Version 11.2.0.1.0 - Production on 12-10月-2015 18:58:02
+
+Copyright (c) 1991, 2009, Oracle.  All rights reserved.
+
+TNS-01106: 使用名称LISTENER的监听程序已经启动
+
+SQL*Plus: Release 11.2.0.1.0 Production on 星期一 10月 12 18:58:03 2015
+
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+
+已连接到空闲例程。
+
+SQL> ORA-32004: obsolete or deprecated parameter(s) specified for RDBMS instance
+
+
+
+
+
+
+
+
+
+------------------------------1012
+[root@db2 init.d]# su - oracle
+-bash-4.1$ lsnrctl status
+
+LSNRCTL for Linux: Version 11.2.0.1.0 - Production on 12-10月-2015 19:02:12
+
+Copyright (c) 1991, 2009, Oracle.  All rights reserved.
+
+正在连接到 (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.1.106)(PORT=1521))(CONNECT_DATA=(ORACLE_SID=hotel)))
+^C
+-bash-4.1$ lsnrctl stop
+
+LSNRCTL for Linux: Version 11.2.0.1.0 - Production on 12-10月-2015 19:02:33
+
+Copyright (c) 1991, 2009, Oracle.  All rights reserved.
+
+正在连接到 (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.1.106)(PORT=1521))(CONNECT_DATA=(ORACLE_SID=hotel)))
+^C
+-bash-4.1$ sqlplus "/ as sysdba"
+
+SQL*Plus: Release 11.2.0.1.0 Production on 星期一 10月 12 19:03:00 2015
+
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+
+
+连接到: 
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> shutdown
+^CORA-01013: 用户请求取消当前的操作
+
+SQL> shutdown immediate;
+数据库已经关闭。
+已经卸载数据库。
+ORACLE 例程已经关闭。
+SQL> startup
+ORA-32004: obsolete or deprecated parameter(s) specified for RDBMS instance
+ORACLE 例程已经启动。
+
+Total System Global Area 3.4206E+10 bytes
+Fixed Size                  2215064 bytes
+Variable Size            1.4764E+10 bytes
+Database Buffers         1.9327E+10 bytes
+Redo Buffers              112816128 bytes
+数据库装载完毕。
+数据库已经打开。
+
+
+
+
+
+
+
+-bash-4.1$ lsnrctl status
+
+LSNRCTL for Linux: Version 11.2.0.1.0 - Production on 12-10月-2015 19:09:57
+
+Copyright (c) 1991, 2009, Oracle.  All rights reserved.
+
+正在连接到 (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.1.106)(PORT=1521))(CONNECT_DATA=(ORACLE_SID=hotel)))
+LISTENER 的 STATUS
+------------------------
+别名                      LISTENER
+版本                      TNSLSNR for Linux: Version 11.2.0.1.0 - Production
+启动日期                  12-10月-2015 18:56:01
+正常运行时间              0 天 0 小时 13 分 56 秒
+跟踪级别                  off
+安全性                    ON: Local OS Authentication
+SNMP                      OFF
+监听程序参数文件          /u01/app/oracle/product/11gr2/db_1/network/admin/listener.ora
+监听程序日志文件          /u01/app/oracle/diag/tnslsnr/db2/listener/alert/log.xml
+监听端点概要...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=192.168.1.106)(PORT=1521))(CONNECT_DATA=(ORACLE_SID=hotel)))
+服务摘要..
+服务 "hotel" 包含 1 个实例。
+  实例 "hotel", 状态 UNKNOWN, 包含此服务的 1 个处理程序...
+命令执行成功
+-bash-4.1$ 
+
+
+
+
+
+
+
+root      3804     1 99 18:37 ?        39043-05:34:23 /usr/java/jdk1.6.0_32/jre/bin/java -Djava.util.logging.config.file=/u01/tomcat-webservice/apache-tomcat-6.0.37/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Xms256m -Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m -verbose:gc -Xloggc:../logs/gclog.log -XX:+HeapDumpOnOutOfMemoryError -Djava.endorsed.dirs=/u01/tomcat-webservice/apache-tomcat-6.0.37/endorsed -classpath /u01/tomcat-webservice/apache-tomcat-6.0.37/bin/bootstrap.jar -Dcatalina.base=/u01/tomcat-webservice/apache-tomcat-6.0.37 -Dcatalina.home=/u01/tomcat-webservice/apache-tomcat-6.0.37 -Djava.io.tmpdir=/u01/tomcat-webservice/apache-tomcat-6.0.37/temp org.apache.catalina.startup.Bootstrap start
+root      3815     1 99 18:37 ?        76121-14:25:13 /usr/java/jdk1.6.0_32/jre/bin/java -Djava.util.logging.config.file=/u01/tomcat-hoteladmin/apache-tomcat-6.0.37/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Xms256m -Xmx1536m -XX:PermSize=256m -XX:MaxPermSize=256m -verbose:gc -Xloggc:../logs/gclog.log -XX:+HeapDumpOnOutOfMemoryError -Djava.endorsed.dirs=/u01/tomcat-hoteladmin/apache-tomcat-6.0.37/endorsed -classpath /u01/tomcat-hoteladmin/apache-tomcat-6.0.37/bin/bootstrap.jar -Dcatalina.base=/u01/tomcat-hoteladmin/apache-tomcat-6.0.37 -Dcatalina.home=/u01/tomcat-hoteladmin/apache-tomcat-6.0.37 -Djava.io.tmpdir=/u01/tomcat-hoteladmin/apache-tomcat-6.0.37/temp org.apache.catalina.startup.Bootstrap start
+root      3826     1 99 18:37 ?        107986-13:47:36 /usr/java/jdk1.6.0_32/jre/bin/java -Djava.util.logging.config.file=/u01/tomcat-unicomweb/apache-tomcat-6.0.37/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Xms256m -Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m -verbose:gc -Xloggc:../logs/gclog.log -XX:+HeapDumpOnOutOfMemoryError -Djava.endorsed.dirs=/u01/tomcat-unicomweb/apache-tomcat-6.0.37/endorsed -classpath /u01/tomcat-unicomweb/apache-tomcat-6.0.37/bin/bootstrap.jar -Dcatalina.base=/u01/tomcat-unicomweb/apache-tomcat-6.0.37 -Dcatalina.home=/u01/tomcat-unicomweb/apache-tomcat-6.0.37 -Djava.io.tmpdir=/u01/tomcat-unicomweb/apache-tomcat-6.0.37/temp org.apache.catalina.startup.Bootstrap start
+root      3848     1 99 18:37 ?        81302-15:12:13 /usr/java/jdk1.6.0_32/jre/bin/java -Djava.util.logging.config.file=/u01/tomcat-unicomwebanhui/apache-tomcat-6.0.37/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Xms256m -Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m -verbose:gc -Xloggc:../logs/gclog.log -XX:+HeapDumpOnOutOfMemoryError -Djava.endorsed.dirs=/u01/tomcat-unicomwebanhui/apache-tomcat-6.0.37/endorsed -classpath /u01/tomcat-unicomwebanhui/apache-tomcat-6.0.37/bin/bootstrap.jar -Dcatalina.base=/u01/tomcat-unicomwebanhui/apache-tomcat-6.0.37 -Dcatalina.home=/u01/tomcat-unicomwebanhui/apache-tomcat-6.0.37 -Djava.io.tmpdir=/u01/tomcat-unicomwebanhui/apache-tomcat-6.0.37/temp org.apache.catalina.startup.Bootstrap start
+root      3876     1 99 18:37 ?        12781-20:34:29 /usr/java/jdk1.6.0_32/jre/bin/java -Djava.util.logging.config.file=/u01/tomcat-axiswebservice/apache-tomcat-6.0.37/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Xms256m -Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m -verbose:gc -Xloggc:../logs/gclog.log -XX:+HeapDumpOnOutOfMemoryError -Djava.endorsed.dirs=/u01/tomcat-axiswebservice/apache-tomcat-6.0.37/endorsed -classpath /u01/tomcat-axiswebservice/apache-tomcat-6.0.37/bin/bootstrap.jar -Dcatalina.base=/u01/tomcat-axiswebservice/apache-tomcat-6.0.37 -Dcatalina.home=/u01/tomcat-axiswebservice/apache-tomcat-6.0.37 -Djava.io.tmpdir=/u01/tomcat-axiswebservice/apache-tomcat-6.0.37/temp org.apache.catalina.startup.Bootstrap start
+root      4667     1 99 19:22 pts/0    114657-13:27:42 /usr/java/jdk1.6.0_32/jre/bin/java -Djava.util.logging.config.file=/u01/tomcat-ehui/apache-tomcat-6.0.37/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Xms256m -Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m -verbose:gc -Xloggc:../logs/gclog.log -XX:+HeapDumpOnOutOfMemoryError -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=8999 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Djava.rmi.server.hostname=119.254.84.182 -Djava.endorsed.dirs=/u01/tomcat-ehui/apache-tomcat-6.0.37/endorsed -classpath /u01/tomcat-ehui/apache-tomcat-6.0.37/bin/bootstrap.jar -Dcatalina.base=/u01/tomcat-ehui/apache-tomcat-6.0.37 -Dcatalina.home=/u01/tomcat-ehui/apache-tomcat-6.0.37 -Djava.io.tmpdir=/u01/tomcat-ehui/apache-tomcat-6.0.37/temp org.apache.catalina.startup.Bootstrap start
+
+
+
+
+
+
+
+
+2015-10-12 18:38:07  INFO [Thread-2](com.tdt.unicom.serverforsgip.UnicomSPMonitor:109) - 短消息上行(MO))接收端启动,监听端口:9082
+计费线程启动---------------
+2015-10-12 18:38:07  INFO [Thread-2](com.tdt.unicom.serverforsgip.UnicomSPMonitor:115) - ***************** 网关配置完成  ********************
+
+com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreferenceServerSelector{readPreference=primary}. Client view of cluster state is {type=UNKNOWN, servers=[{address=119.254.84.182:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketOpenException: Exception opening socket}, caused by {java.net.ConnectException: Connection refused}}]
+        at com.mongodb.connection.BaseCluster.createTimeoutException(BaseCluster.java:370)
+        at com.mongodb.connection.BaseCluster.selectServer(BaseCluster.java:101)
+        at com.mongodb.binding.ClusterBinding$ClusterBindingConnectionSource.<init>(ClusterBinding.java:75)
+        at com.mongodb.binding.ClusterBinding$ClusterBindingConnectionSource.<init>(ClusterBinding.java:71)
+        at com.mongodb.binding.ClusterBinding.getReadConnectionSource(ClusterBinding.java:63)
+        at com.mongodb.operation.OperationHelper.withConnection(OperationHelper.java:166)
+        at com.mongodb.operation.FindOperation.execute(FindOperation.java:394)
+        at com.mongodb.operation.FindOperation.execute(FindOperation.java:57)
+        at com.mongodb.Mongo.execute(Mongo.java:736)
+        at com.mongodb.Mongo$2.execute(Mongo.java:723)
+        at com.mongodb.OperationIterable.iterator(OperationIterable.java:47)
+        at com.mongodb.FindIterableImpl.iterator(FindIterableImpl.java:135)
+        at com.mongodb.FindIterableImpl.iterator(FindIterableImpl.java:36)
+        at com.tdt.unicom.serverforsgip.dao.MongodbDAO.dealDgReq(MongodbDAO.java:100)
+        at com.tdt.unicom.serverforsgip.UnicomSPMonitor$JFThread.run(UnicomSPMonitor.java:446)
+        at java.lang.Thread.run(Thread.java:662)
+计费线程结束---------------
+^C
+[root@db1 bin]# 
+
+
+
+
+
+
+------------------------------------------
+
+ CentOS6.0_X86_64 oracle 11g R2 开机自动启动（linux） 2011-12-04 04:58:24
+分类： Oracle
+CentOS6.0_X86_64 racle 11g R2 开机自动启动（linux）
+
+oracle 在 linux 下的开机自动启动脚本，设置如下:  
+ 
+ 1.user root 下面修改：
+[root@ora11gr2 ~]# vi /etc/oratab  
+mytest:/apps/oracle/product/11.2.0.1/db_1:Y
+ 
+将N该为Y
+ 
+2.user oracle 下面修改：
+[root@ora11gr2 ~]# su - oracle
+[oracle@ora11gr2 ~]$cd $ORACLE_HOME/bin
+[oracle@ora11gr2 bin]$ vi dbstart
+找到 ORACLE_HOME_LISTNER=$1  这行， 修改成:
+ORACLE_HOME_LISTNER=/apps/oracle/product/11.2.0.1/ 
+或者直接修改成：
+ORACLE_HOME_LISTNER=$ORACLE_HOME
+ 
+同样道理修改 dbshut
+[oracle@ora11gr2 bin]$ vi dbshut
+ 
+测试运行 dbshut, dbstart 看能否启动oracle 服务及listener服务
+[oracle@ora11gr2 bin]$ ps -efw | grep ora_
+[oracle@ora11gr2 bin]$ lsnrctl status
+[oracle@ora11gr2 bin]$ ps -efw | grep LISTEN | grep -v grep
+  
+在切换回 user root:
+[root@ora11gr2 ~]# cd /etc/rc.d/init.d/
+ 
+[root@ora11gr2 init.d]# vi oracle11g
+代码如下:  
+#!/bin/bash
+# chkconfig: 345 99 10
+# description: Startup Script for Oracle Databases
+# /etc/init.d/oracle11g
+export ORACLE_SID=mytest
+# export ORACLE_HOME_LISTNER=/apps/oracle/product/11.2.0.1/db_1/bin/
+export ORACLE_BASE=/apps/oracle
+export ORACLE_HOME=/apps/oracle/product/11.2.0.1/db_1
+export PATH=$PATH:$ORACLE_HOME/bin
+case "$1" in
+start)
+su oracle -c $ORACLE_HOME/bin/dbstart
+touch /var/lock/oracle
+echo "OK"
+;;
+stop)
+echo -n "Shutdown Oracle: "
+su oracle -c $ORACLE_HOME/bin/dbshut
+rm -f /var/lock/oracle
+echo "OK"
+;;
+*)
+echo "Usage: 'basename $0' start|stop"
+exit 1
+esac
+exit 0
+ 
+保存
+
+[root@ora11gr2 ~]# chkconfig --add oracle11g
+[root@ora11gr2 ~]# chkconfig oracle11g on
+
+这样,当系统重启开机时,oracle11g服务就会启动.

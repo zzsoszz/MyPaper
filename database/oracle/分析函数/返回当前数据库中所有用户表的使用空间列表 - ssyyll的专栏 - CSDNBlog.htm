@@ -1,0 +1,342 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0059)http://blog.csdn.net/ssyyll/archive/2008/10/26/3148688.aspx -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content=宋云林 name=author>
+<META content=Csdn name=Copyright>
+<META content=返回当前数据库中所有用户表的使用空间列表 name=description>
+<META content=宋云林,返回当前数据库中所有用户表的使用空间列表 name=keywords><LINK 
+href="http://profile.csdn.net/ssyyll/picture/1.ico" rel="Shortcut Icon"><LINK 
+media=all 
+href="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/Cogitation_1.css" 
+type=text/css rel=stylesheet><LINK title=RSS 
+href="http://blog.csdn.net/ssyyll/rss.aspx" type=application/rss+xml 
+rel=alternate>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY id=defaultuser>
+<DIV id=csdnblog_allwrap>
+<FORM language=javascript id=Form1 name=Form1 
+onsubmit="javascript:return WebForm_OnSubmit();" action=3148688.aspx 
+method=post><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE>
+<SCRIPT type=text/javascript>
+<!--
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Anthem_FormID = "Form1";
+//]]>
+</SCRIPT>
+
+<SCRIPT src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="C:\Documents and Settings\Administrator\My Documents\返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files\WebResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+// -->
+</SCRIPT>
+ 
+<DIV id=csdnblog_midwrap>
+<DIV id=csdnblog_header>
+<H1><A id=Header1_HeaderTitle 
+href="http://blog.csdn.net/ssyyll/">ssyyll的专栏</A></H1>
+<H2></H2>
+<UL id=personalnav>
+  <LI><A href="http://passport.csdn.net/UserLogin.aspx">登录</A></LI>
+  <LI><A href="http://passport.csdn.net/CSDNUserRegister.aspx">注册</A></LI></UL>
+<UL id=blogsearchsty>
+  <LI><INPUT class=bolgsearch id=inputSearch 
+onkeydown="return keyb(event)"></LI>
+  <LI class=selectsty><SELECT id=Search_ddlSearchScope 
+  name=Search:ddlSearchScope><OPTION value=all selected>全站</OPTION><OPTION 
+    value=ssyyll>当前博客</OPTION></SELECT></LI>
+  <LI><INPUT class=bolggobtn onclick=checkNull() type=button value=搜索></LI></UL>
+<UL id=menu>
+  <LI><A href="http://hi.csdn.net/ssyyll">空间</A></LI>
+  <LI><A class=on href="http://blog.csdn.net/ssyyll">博客</A></LI>
+  <LI><A href="http://hi.csdn.net/ssyyll/profile/contactlist/1.html">好友</A></LI>
+  <LI><A href="http://blog.csdn.net/ssyyll/Gallery.aspx">相册</A></LI>
+  <LI><A href="http://bbs.csdn.net/" target=_blank>论坛</A></LI>
+  <LI><A class=last 
+  href="http://hi.csdn.net/ssyyll/profile/notebook/1.html">留言</A></LI></UL></DIV>
+<DIV id=csdnblog_sidebar>
+<DIV class=gutter>
+<DIV class=aboutauthor>
+<DL>
+  <DT>用户操作
+  <DD class=middle><A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://webim.csdn.net/Messages/ssyyll.ashx" 
+  target=_blank>[即时聊天]</A> <A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://hi.csdn.net/Admin/WriteMessage.aspx?Receiver=ssyyll" 
+  target=_blank>[发私信]</A> <A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://webim.csdn.net/AddFriends/ssyyll.ashx" 
+  target=_blank>[加为好友]</A>
+  <DT>宋云林
+  <DD class=middle><IMG 
+  src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/1_ssyyll.jpg"> 
+  <DT>最近评论
+  <DD>yunmingzi2007：<A title=点击查看《回复:什么是多态?为什么用多态?有什么好处?[转]》 
+  href="http://blog.csdn.net/ssyyll/archive/2008/10/28/3170405.aspx#935476">其实我觉得讲得有点深奥，不是很易懂！因为你讲的是结合设计模式在讲，对于初学者就不是很容易看懂！我觉得要步步深入地讲就好了。不过还是谢谢了。</A> 
+
+  <DT>文章分类
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A href="http://blog.csdn.net/ssyyll/category/474122.aspx">.Net</A><A 
+    href="http://blog.csdn.net/ssyyll/category/474122.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/ssyyll/category/476677.aspx">Java</A><A 
+    href="http://blog.csdn.net/ssyyll/category/476677.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/ssyyll/category/477421.aspx">Sql 
+    Server</A><A 
+    href="http://blog.csdn.net/ssyyll/category/477421.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/ssyyll/category/476678.aspx">VB</A><A 
+    href="http://blog.csdn.net/ssyyll/category/476678.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/ssyyll/category/476680.aspx">分析一下</A><A 
+    href="http://blog.csdn.net/ssyyll/category/476680.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/ssyyll/category/476679.aspx">瞬间妙想</A><A 
+    href="http://blog.csdn.net/ssyyll/category/476679.aspx/rss">(RSS)</A></LI></UL></DIV>
+  <DT>收藏
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A 
+  href="http://blog.csdn.net/ssyyll/category/470278.aspx">Net</A></LI></UL></DIV>
+  <DT>相册
+  <DT>.Net
+  <DD><A href="http://www.51cto.com/art/200509/3398.htm" target=_self>.NET 
+  的JIT编译方式</A>
+  <DT>存档
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A 
+    href="http://blog.csdn.net/ssyyll/archive/2008/10.aspx">2008年10月(5)</A>
+    <LI><A 
+    href="http://blog.csdn.net/ssyyll/archive/2008/06.aspx">2008年06月(1)</A></LI></UL></DIV><SPAN 
+  id=RecentVisitors></SPAN>
+  <DT>软件项目交易
+  <DD><IFRAME 
+  style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 180px; PADDING-TOP: 0px; HEIGHT: 32px" 
+  src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/CsdnBlogPage.htm" 
+  frameBorder=0 scrolling=no></IFRAME><SPAN id=SubscriptionList>
+  <DT>订阅我的博客
+  <DD><A href="http://blog.csdn.net/ssyyll/Rss.aspx"><IMG alt=XML聚合 
+  src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/xml.gif" 
+  border=0></A>&nbsp;&nbsp;<A href="http://feeds.feedsky.com/csdn.net/ssyyll" 
+  target=_blank><IMG alt=FeedSky 
+  src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/feedsky.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.xianguo.com/subscribe.php?url=http://blog.csdn.net/ssyyll/Rss.aspx" 
+  target=_blank><IMG alt=订阅到鲜果 
+  src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/rss_xianguo.jpg" 
+  border=0></A>
+  <DD><A 
+  href="http://fusion.google.com/add?feedurl=http://blog.csdn.net/ssyyll/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Google 
+  src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/rss_google.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.zhuaxia.com/add_channel.php?url=http://blog.csdn.net/ssyyll/Rss.aspx" 
+  target=_blank><IMG alt=订阅到抓虾 
+  src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/rss_zhuaxia.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.bloglines.com/sub/http://blog.csdn.net/ssyyll/Rss.aspx" 
+  target=_blank><IMG alt=订阅到BlogLines 
+  src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/rss_bloglines.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://add.my.yahoo.com/rss?url=http://blog.csdn.net/ssyyll/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Yahoo 
+  src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/rss_yahoo.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://rss.gougou.com/find_rss.jsp?url=http://blog.csdn.net/ssyyll/Rss.aspx" 
+  target=_blank><IMG alt=订阅到GouGou 
+  src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/rss_gougou.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.pageflakes.com/subscribe.aspx?url=http://blog.csdn.net/ssyyll/Rss.aspx" 
+  target=_blank><IMG alt=订阅到飞鸽 
+  src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/rss_pageflakes.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.rojo.com/add-subscription?resource=http://blog.csdn.net/ssyyll/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Rojo 
+  src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/rss_rojo.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.newsgator.com/ngs/subscriber/subfext.aspx?url=http://blog.csdn.net/ssyyll/Rss.aspx" 
+  target=_blank><IMG alt=订阅到newsgator 
+  src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/rss_newsgator.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.netvibes.com/subscribe.php?url=http://blog.csdn.net/ssyyll/Rss.aspx" 
+  target=_blank><IMG alt=订阅到netvibes 
+  src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/rss_netvibes.gif" 
+  border=0></A></SPAN> </DD></DL></DIV></DIV></DIV>
+<DIV id=csdnblog_content>
+<DIV class=gutter>
+<DIV class=default_contents>
+<DIV class=user_article>
+<SCRIPT 
+src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/LoadFeedbackCount.js" 
+type=text/javascript></SCRIPT>
+
+<H1><IMG height=14 alt=转载 
+src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/turnship.gif" width=15 
+border=0>&nbsp;<A 
+href="http://blog.csdn.net/ssyyll/archive/2008/10/26/3148688.aspx">返回当前数据库中所有用户表的使用空间列表</A><CITE 
+class=fav_csdnstylebykimi><A class=fav_csdnstylebykimi title=收藏到我的网摘中，并分享给我的朋友 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();">收藏</A></CITE></H1>
+<DIV class=blogstory><SPAN id=Post.ascx_ViewPost_PreviousAndNextEntriesUp>
+<H3><A 
+href="http://blog.csdn.net/ssyyll/archive/2008/10/26/3148709.aspx">新一篇:&nbsp;使用SQL 
+Server时经常用到的几个设置选项</A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/ssyyll/archive/2008/10/17/3089637.aspx">旧一篇:&nbsp;什么是.Net</A></H3></SPAN>
+<SCRIPT>function StorePage(){d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(keyit=window.open('http://www.365key.com/storeit.aspx?t='+escape(d.title)+'&u='+escape(d.location.href)+'&c='+escape(t),'keyit','scrollbars=no,width=475,height=575,left=75,top=20,status=no,resizable=yes'));keyit.focus();}</SCRIPT>
+&nbsp;--返回当前数据库中所有用户表的使用空间列表 <BR>--create&nbsp;PROC&nbsp;tablespace_list 
+<BR>--AS <BR>--SET&nbsp;NOCOUNT&nbsp;ON 
+<BR><BR>DECLARE&nbsp;@tblcount&nbsp;INT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--表的个数 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;,@tblname&nbsp;VARCHAR(60)&nbsp;--表名 
+<BR>--用于存放最终结果的表变量 
+<BR>DECLARE&nbsp;@result&nbsp;TABLE&nbsp;(表名&nbsp;VARCHAR(40), 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行数&nbsp;VARCHAR(11), 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预申请空间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VARCHAR(15)&nbsp;NULL, 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数据占用空间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VARCHAR(15)&nbsp;NULL, 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;索引占用空间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VARCHAR(15)&nbsp;NULL, 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;空闲&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VARCHAR(15)&nbsp;NULL 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;); <BR>--用于存放所有表名的表变量 
+<BR>DECLARE&nbsp;@tbl&nbsp;TABLE&nbsp;(tblname&nbsp;VARCHAR(256), 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;INT&nbsp;IDENTITY(1,1)&nbsp;NOT&nbsp;NULL 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;); <BR><BR>--将当前库中所有的表名存入表变量@tbl 
+<BR>INSERT&nbsp;INTO&nbsp;@tbl 
+<BR>SELECT&nbsp;'['+b.name+'].['+a.name+']'&nbsp;AS&nbsp;tblname&nbsp; 
+<BR>FROM&nbsp;sys.all_objects&nbsp;a&nbsp;join&nbsp;sys.schemas&nbsp;b 
+<BR>ON&nbsp;&nbsp;&nbsp;&nbsp;a.schema_id=b.schema_id <BR>WHERE&nbsp;a.type='U' 
+<BR><BR>--获得当前库中表的个数 <BR>SELECT&nbsp;@tblcount=MAX(id)&nbsp;FROM&nbsp;@tbl 
+<BR><BR>WHILE&nbsp;@tblcount&gt;0 <BR>BEGIN 
+<BR>SELECT&nbsp;@tblname=tblname&nbsp;FROM&nbsp;@tbl&nbsp;WHERE&nbsp;id=@tblcount 
+<BR>INSERT&nbsp;INTO&nbsp;@result&nbsp;EXEC&nbsp;('EXEC&nbsp;SP_SPACEUSED&nbsp;'&nbsp;+'"'+@tblname+'"') 
+<BR>SET&nbsp;@tblcount=@tblcount-1 <BR>END 
+<BR><BR>SELECT&nbsp;*&nbsp;FROM&nbsp;@result&nbsp;ORDER&nbsp;BY&nbsp;CONVERT(INT,REPLACE(预申请空间,'kb',''))&nbsp;DESC 
+<BR>
+<P class="right articalinfo">发表于 @ <A title=permalink 
+href="http://blog.csdn.net/ssyyll/archive/2008/10/26/3148688.aspx">2008年10月26日 
+11:59:00</A>|<A title=评论 
+href="http://blog.csdn.net/ssyyll/archive/2008/10/26/3148688.aspx#FeedBack">评论(<SPAN 
+id=FeedbackCount_3148688>loading...</SPAN>
+<SCRIPT type=text/javascript>AddFeedbackCountStack("3148688")</SCRIPT>
+)</A>|<CITE class=fav_csdnstylebykimi><A class=fav_csdnstylebykimi 
+title=收藏到我的网摘中，并分享给我的朋友 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();">收藏</A></CITE></P><SPAN 
+id=Post.ascx_ViewPost_PreviousAndNextEntriesDown>
+<H3><A 
+href="http://blog.csdn.net/ssyyll/archive/2008/10/26/3148709.aspx">新一篇:&nbsp;使用SQL 
+Server时经常用到的几个设置选项</A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/ssyyll/archive/2008/10/17/3089637.aspx">旧一篇:&nbsp;什么是.Net</A></H3></SPAN></DIV></DIV>
+<DIV class=commentslist><SPAN id=Anthem_Post.ascx_Comments_ltlComments__><SPAN 
+id=Post.ascx_Comments_ltlComments>
+<DIV id=commentslist>
+<H3>评论：没有评论。</H3></DIV></SPAN></SPAN></DIV>
+<DIV class=spacecommment>
+<DIV id=Anthem_Post.ascx_PostComment_CommentUpdatePanel__>
+<DIV id=Post.ascx_PostComment_CommentUpdatePanel>
+<FIELDSET><LEGEND>发表评论</LEGEND>
+<UL>
+  <LI>姓&nbsp;&nbsp;&nbsp;名：<INPUT id=Post.ascx_PostComment_tbName disabled 
+  maxLength=32 size=40 name=Post.ascx:PostComment:tbName><SPAN 
+  id=Post.ascx_PostComment_RequiredFieldValidator2 
+  style="VISIBILITY: hidden; COLOR: red" initialvalue="" 
+  evaluationfunction="RequiredFieldValidatorEvaluateIsValid" 
+  errormessage="请输入名字" 
+  controltovalidate="Post.ascx_PostComment_tbName">请输入名字</SPAN> 
+  <LI>主&nbsp;&nbsp;&nbsp;页：<INPUT id=Post.ascx_PostComment_tbUrl disabled 
+  maxLength=256 size=40 name=Post.ascx:PostComment:tbUrl> 
+  <LI>
+  <DIV id=Post.ascx_PostComment_AntiBotImageRegion>校验码： <INPUT 
+  id=Post.ascx_PostComment_tbAntiBotImage style="WIDTH: 75px" 
+  name=Post.ascx:PostComment:tbAntiBotImage> <SPAN 
+  id=Post.ascx_PostComment_valAntiBotImage style="DISPLAY: none; COLOR: red" 
+  evaluationfunction="CustomValidatorEvaluateIsValid" 
+  display="Dynamic">检验码无效!</SPAN> <SPAN 
+  id=Anthem_Post.ascx_PostComment_imgAntiBotImage__><IMG 
+  id=Post.ascx_PostComment_imgAntiBotImage alt="" 
+  src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/AntiBotImage.jpg" 
+  align=absMiddle border=0></SPAN> <SPAN 
+  id=Anthem_Post.ascx_PostComment_lbCreateAntiBotImage__><A 
+  id=Post.ascx_PostComment_lbCreateAntiBotImage 
+  onclick="javascript:Anthem_FireCallBackEvent(this,event,'Post.ascx:PostComment:lbCreateAntiBotImage','',false,'','','',true,null,null,null,true,true);return false;" 
+  href="javascript:__doPostBack('Post.ascx$PostComment$lbCreateAntiBotImage','')">看不清,换一张</A></SPAN> 
+  </DIV></LI></UL><SPAN id=Post.ascx_PostComment_RequiredFieldValidator3 
+style="VISIBILITY: hidden; COLOR: red" initialvalue="" 
+evaluationfunction="RequiredFieldValidatorEvaluateIsValid" errormessage="请输入评论" 
+controltovalidate="Post.ascx_PostComment_tbComment">请输入评论</SPAN><BR><TEXTAREA id=Post.ascx_PostComment_tbComment disabled name=Post.ascx:PostComment:tbComment rows=10 cols=50></TEXTAREA><BR><SPAN 
+id=Anthem_Post.ascx_PostComment_btnSubmit__></SPAN><BR><SPAN 
+id=Post.ascx_PostComment_Message 
+style="COLOR: red">当前用户设置只有注册用户才能发表评论。如果你没有登录，请点击<A 
+href="http://passport.csdn.net/member/UserLogin.aspx?from=http://blog.csdn.net/ssyyll/archive/2008/10/26/3148688.aspx">登录</A></SPAN> 
+</FIELDSET> </DIV></DIV></DIV>
+<SCRIPT type=text/javascript>
+    LoadFeedbackCount();//加载评论
+    document.write("<img src='http://counter.csdn.net/pv.aspx?id=24' border=0 width=0 height=0>");// 计数器
+    </SCRIPT>
+
+<SCRIPT src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/HighLighter.js" 
+type=text/javascript></SCRIPT>
+</DIV></DIV></DIV>
+<DIV id=pubfooter>
+<DL>
+  <DT>
+  <DD>Csdn Blog version 3.1a 
+  <DD>Copyright © 宋云林 </DD></DL></DIV></DIV>
+<SCRIPT type=text/javascript>
+<!--
+var Page_Validators =  new Array(document.getElementById("Post.ascx_PostComment_RequiredFieldValidator2"), document.getElementById("Post.ascx_PostComment_valAntiBotImage"), document.getElementById("Post.ascx_PostComment_RequiredFieldValidator3"));
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+</FORM>
+<SCRIPT src="返回当前数据库中所有用户表的使用空间列表 - ssyyll的专栏 - CSDNBlog.files/counter.js" 
+type=text/javascript></SCRIPT>
+</DIV></BODY></HTML>

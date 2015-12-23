@@ -1,0 +1,3 @@
+oradim -new -sid foxconn -inpdw admin -pfile d:\oracle\oracle90\initfoxconn.ora
+
+http://zywang.iteye.com/blog/916489

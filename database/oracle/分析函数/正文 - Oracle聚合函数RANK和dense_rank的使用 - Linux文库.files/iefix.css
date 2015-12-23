@@ -1,0 +1,99 @@
+BODY {
+	TEXT-ALIGN: center
+}
+.container {
+	TEXT-ALIGN: left
+}
+#menu .menu_top UL {
+	BORDER-RIGHT: #eeeeee 4px solid; BACKGROUND: url(image/menu_bottom_fix.gif) repeat-x left bottom; BORDER-LEFT: #eeeeee 4px solid
+}
+DIV#menu .menu_top UL  UL {
+	BACKGROUND-IMAGE: none; BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+#menu UL A#top_href {
+	VERTICAL-ALIGN: middle; LINE-HEIGHT: 31px; HEIGHT: 31px
+}
+#menu UL LI.menu_top LI.hassub A {
+	BACKGROUND-REPEAT: no-repeat; BACKGROUND-COLOR: transparent
+}
+#menu UL LI LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: -3px 0px 0px; PADDING-TOP: 0px; HEIGHT: 21px
+}
+.content .channel .outer {
+	DISPLAY: inline
+}
+DIV.content #channel_52 {
+	BACKGROUND-IMAGE: url(image/tux.jpg)
+}
+DIV.content #channel_51 {
+	BACKGROUND-IMAGE: url(image/windows.jpg)
+}
+DIV.content #channel_56 {
+	BACKGROUND-IMAGE: url(image/design.jpg)
+}
+DIV.blocks .inner {
+	WIDTH: 960px
+}
+.navs LI {
+	BACKGROUND-IMAGE: url(image/navs_sep.gif)
+}
+#article .side_content {
+	WIDTH: 238px
+}
+#article #menu {
+	DISPLAY: none
+}
+#article .article {
+	MARGIN-TOP: 5px
+}
+#article #article_detail .date  {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+#article #article_detail .date {
+	BACKGROUND: none transparent scroll repeat 0% 0%; WIDTH: auto; COLOR: #000000; POSITION: static; HEIGHT: auto
+}
+#article #article_detail LI {
+	DISPLAY: inline; FONT-SIZE: 92%
+}
+#article #article_detail .year {
+	COLOR: #000000
+}
+#article #article_detail CAPTION {
+	FONT-WEIGHT: bolder; BORDER-BOTTOM: #000000 1px solid; TEXT-ALIGN: center
+}
+#article #article_detail THEAD .type {
+	PADDING-TOP: 10px
+}
+#article #article_detail THEAD .hits {
+	PADDING-TOP: 10px
+}
+#category .navs UL {
+	OVERFLOW: hidden; HEIGHT: 36px
+}
+#index .misc .title A {
+	WIDTH: 212px
+}
+#index .misc .page DL DD {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+#index .misc DL {
+	WIDTH: 215px
+}
+#index .misc .page {
+	WIDTH: 200px
+}
+#index .misc .page DL {
+	WIDTH: auto
+}
+#index .misc DD.page_item {
+	PADDING-RIGHT: 0px
+}
+#index .misc DL DD {
+	PADDING-RIGHT: 0px
+}
+#category .titles LI {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; PADDING-TOP: 4px
+}
+#article LI.ui-tabs-nav-item A {
+	WIDTH: 78px
+}

@@ -1,0 +1,431 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0041)http://maincoolbo.javaeye.com/blog/568519 -->
+<HTML dir=ltr xml:lang="zh-CN" 
+xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Oracle归档日志删除 - - JavaEye技术网站</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<META 
+content="Oracle归档日志删除  我们都都知道在controlfile中记录着每一个archivelog的相关信息，当然们在OS下把这些物理文件delete掉后，在我们的 controlfile中仍然记录着这些archivelog的信息，在oracle的OEM管理器中有可视化的日志展现出，当我们手工清除 archive目录下的文件后，这些记录并没有被我们从controlfile中清除掉，也就是oracle ..." 
+name=description>
+<META content=" oracle Oracle归档日志删除" name=keywords><LINK 
+href="/images/favicon.ico" type=image/x-icon rel="shortcut icon"><LINK 
+title=JavaEye href="/open_search.xml" type=application/opensearchdescription+xml 
+rel=search><LINK title="" href="/rss" type=application/rss+xml 
+rel=alternate><LINK media=screen 
+href="Oracle归档日志删除 - - JavaEye技术网站.files/blog.css" type=text/css 
+rel=stylesheet><LINK media=screen 
+href="Oracle归档日志删除 - - JavaEye技术网站.files/blue.css" type=text/css rel=stylesheet>
+<SCRIPT src="Oracle归档日志删除 - - JavaEye技术网站.files/application.js" 
+type=text/javascript></SCRIPT>
+<LINK media=screen 
+href="Oracle归档日志删除 - - JavaEye技术网站.files/SyntaxHighlighter.css" type=text/css 
+rel=stylesheet>
+<SCRIPT src="Oracle归档日志删除 - - JavaEye技术网站.files/shCoreCommon.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="Oracle归档日志删除 - - JavaEye技术网站.files/hotkey.js" 
+type=text/javascript></SCRIPT>
+
+<STYLE>DIV#main {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; WIDTH: 740px; PADDING-TOP: 0px; BACKGROUND-COLOR: transparent; BORDER-RIGHT-WIDTH: 0px
+}
+</STYLE>
+<LINK media=screen href="Oracle归档日志删除 - - JavaEye技术网站.files/ui.css" 
+type=text/css rel=stylesheet>
+<SCRIPT src="Oracle归档日志删除 - - JavaEye技术网站.files/compress.js" 
+type=text/javascript></SCRIPT>
+
+<META content="MSHTML 6.00.2900.3698" name=GENERATOR></HEAD>
+<BODY>
+<DIV id=header>
+<DIV id=blog_site_nav><A class=homepage href="http://www.javaeye.com/">首页</A> <A 
+href="http://www.javaeye.com/news">新闻</A> <A 
+href="http://www.javaeye.com/forums">论坛</A> <A 
+href="http://www.javaeye.com/ask">问答</A> <A 
+href="http://www.javaeye.com/blogs">博客</A> <A 
+href="http://www.javaeye.com/job">招聘</A> <A id=msna onclick="return false;" 
+href="http://maincoolbo.javaeye.com/blog/568519#"><U>更多</U> <SMALL>▼</SMALL></A> 
+
+<DIV class=quick_menu style="DISPLAY: none"><A 
+href="http://www.javaeye.com/wiki">专栏</A> <!--<a href="http://www.javaeye.com/articles">文摘</a>//--><A 
+href="http://www.javaeye.com/groups">圈子</A> <A 
+href="http://www.javaeye.com/search">搜索</A> </DIV></DIV>
+<DIV id=user_nav><A class=welcome title=登录 
+href="http://maincoolbo.javaeye.com/login">您还未登录 !</A> <A style="COLOR: red" 
+href="http://www.javaeye.com/all">我的应用</A> <A 
+href="http://maincoolbo.javaeye.com/login">登录</A> <A class=nobg 
+href="http://maincoolbo.javaeye.com/signup">注册</A> </DIV></DIV>
+<DIV id=page>
+<DIV class=clearfix id=branding>
+<DIV id=blog_name>
+<H1><A href="http://maincoolbo.javaeye.com/">maincoolbo</A></H1></DIV>
+<DIV id=blog_preview></DIV>
+<DIV id=blog_domain>永久域名 <A 
+href="http://maincoolbo.javaeye.com/">http://maincoolbo.javaeye.com/</A></DIV></DIV>
+<DIV class=clearfix id=content>
+<DIV id=main>
+<DIV class=blog_main>
+<DIV class=blog_nav>
+<DIV class=pre_next><A class=next title=ORA-24324,ORA-24323,ORA-01090 
+href="http://maincoolbo.javaeye.com/blog/569049">ORA-24324,ORA-24323,ORA-01090</A> 
+| <A class=pre title="ORACLE日期时间函数大全 " 
+href="http://maincoolbo.javaeye.com/blog/568498">ORACLE日期时间函数大全 </A></DIV></DIV>
+<DIV class=blog_title>
+<DIV class=date><SPAN class=year>2010</SPAN><SPAN class=sep_year>-</SPAN><SPAN 
+class=month>01</SPAN><SPAN class=sep_month>-</SPAN><SPAN 
+class=day>12</SPAN></DIV>
+<H3><A 
+href="http://maincoolbo.javaeye.com/blog/568519">Oracle归档日志删除</A></H3><STRONG>文章分类:<A 
+style="PADDING-RIGHT: 10px; TEXT-DECORATION: none" 
+href="http://www.javaeye.com/blogs/category/database">数据库</A></STRONG> </DIV>
+<DIV class=blog_content>Oracle归档日志删除 
+<BR><BR><BR>我们都都知道在controlfile中记录着每一个archivelog的相关信息，当然们在OS下把这些物理文件delete掉后，在我们的 
+<BR><BR>controlfile中仍然记录着这些archivelog的信息，在oracle的OEM管理器中有可视化的日志展现出，当我们手工清除 
+archive目录下的文件后，这些记录并没有被我们从controlfile中清除掉，也就是oracle并不知道这些文件已经不存在了!这时候我们要做手工的清除的话，下面我经过实验，可以尝试这种方法： 
+<BR><BR>1. 进入rman&nbsp; <BR><BR>2. connect target / <BR><BR>3. crosscheck 
+archivelog all; <BR><BR>4. delete expired archivelog all; 
+<BR><BR>这时候我们再去OEM中看就一定看不到，如果你的从来没有做过这个动作的话，我们可以比较从这个动作前的controlfile后动作后的controlfile的大小! 
+<BR><BR>ORACLE正确删除归档并回收空间的方法 <BR><BR>ORACLE正确删除归档并回收空间的方法 
+<BR><BR>一个ORACLE归档日志经常满，表现为/oraarchive 
+这个文件空间占用100％大家一定抱怨ORACLE为何没有归档维护工具，很多人直接删除了事，错了，ORACLE有，而且很智能，可以正确的删除归档和 
+FLASHBACK，不过切记,ORACLE归档日志对于ORACLE的数据恢复和备份非常重要，不到万不得已不要删除归档日志。 <BR><BR>删除归档日志的过程 
+<BR><BR>以ORACLE用户身份登录到数据库服务器主机或通过网络连接 <BR><BR>进入ORACLE数据备份工具 <BR><BR>rman 
+target/ <BR><BR>或rman target/@orcl <BR><BR>在命令窗口里面执行 <BR><BR>DELETE ARCHIVELOG 
+ALL COMPLETED BEFORE 'SYSDATE-7'; <BR><BR>说明 
+<BR><BR>SYSDATA-7，表明当前的系统时间7天前，before关键字表示在7天前的归档日志，如果使用了闪回功能，也会删除闪回的数据。 
+<BR><BR>同样道理，也可以删除从7天前到现在的全部日志，不过这个命令要考虑清楚，做完这个删除，最好马上进行全备份数据库 <BR><BR>DELETE 
+ARCHIVELOG FROM TIME 'SYSDATE-7'; 
+<BR><BR><BR><BR>UNIX/LINUX下也可以通过FIND找到7天前的归档数据，使用EXEC子操作删除 <BR><BR><BR><BR>find 
+/oraarchive -xdev -mtime +7 -name "*.dbf" -exec rm -f {} ; 
+<BR><BR>这样做仍然会在RMAN里留下未管理的归档文件 <BR><BR>仍需要在RMAN里执行下面2条命令 <BR><BR>crosscheck 
+archivelog all; <BR><BR>delete expired archivelog all; 
+<BR><BR>所以还不如上面的方法好用，不过用FIND的好处就是，可以在条件上，和EXEC子项上做很多操作，实现更复杂的功能 
+<BR><BR>3.简要介绍一下report obsolete命令 <BR><BR><BR><BR>使用report obsolete命令报告过期备份 
+<BR><BR>RMAN&gt; report obsolete; <BR><BR>RMAN retention policy will be applied 
+to the command <BR><BR>RMAN retention policy is set to redundancy 1 
+<BR><BR>Report of obsolete backups and copies 
+<BR><BR>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Key&nbsp;&nbsp;&nbsp; Completion Time&nbsp;&nbsp;&nbsp; Filename/Handle 
+<BR><BR>-------------------- ------ ------------------ -------------------- 
+<BR><BR>Backup Set&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+125&nbsp;&nbsp;&nbsp; 01-NOV-04 <BR><BR>Backup 
+Piece&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 125&nbsp;&nbsp;&nbsp; 
+01-NOV-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/data1/oracle/orabak/full_1_541045804 <BR><BR>Backup 
+Set&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+131&nbsp;&nbsp;&nbsp; 04-NOV-04 <BR><BR>Backup 
+Piece&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 131&nbsp;&nbsp;&nbsp; 
+04-NOV-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/data1/oracle/orabak/full_AVATAR2_20041104_131 <BR><BR>.... <BR><BR>Backup 
+Set&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+173&nbsp;&nbsp;&nbsp; 06-DEC-04 <BR><BR>Backup 
+Piece&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 173&nbsp;&nbsp;&nbsp; 
+06-DEC-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/data1/oracle/orabak/full_AVATAR2_20041206_173 <BR><BR>Backup 
+Set&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+179&nbsp;&nbsp;&nbsp; 11-DEC-04 <BR><BR>Backup 
+Piece&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 179&nbsp;&nbsp;&nbsp; 
+11-DEC-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/data1/oracle/orabak/arch544588206.arc <BR><BR>..... <BR><BR>Backup 
+Piece&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 189&nbsp;&nbsp;&nbsp; 
+17-DEC-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/data1/oracle/orabak/arch545106606.arc <BR><BR>Backup 
+Set&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+190&nbsp;&nbsp;&nbsp; 17-DEC-04 <BR><BR>Backup 
+Piece&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 190&nbsp;&nbsp;&nbsp; 
+17-DEC-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/data1/oracle/orabak/arch545106665.arc <BR><BR>Backup 
+Set&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+191&nbsp;&nbsp;&nbsp; 20-DEC-04 <BR><BR>Backup 
+Piece&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 191&nbsp;&nbsp;&nbsp; 
+20-DEC-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/data1/oracle/orabak/arch_AVATAR2_20041220_194 <BR><BR>Archive 
+Log&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2973&nbsp;&nbsp; 
+20-DEC-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/opt/oracle/oradata/avatar2/archive/1_2985.dbf <BR><BR>Archive 
+Log&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2971&nbsp;&nbsp; 
+20-DEC-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/opt/oracle/oradata/avatar2/archive/1_2984.dbf <BR><BR>..... <BR><BR>Archive 
+Log&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2705&nbsp;&nbsp; 
+17-DEC-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/opt/oracle/oradata/avatar2/archive/1_2717.dbf <BR><BR>Archive 
+Log&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2704&nbsp;&nbsp; 
+17-DEC-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/opt/oracle/oradata/avatar2/archive/1_2716.dbf <BR><BR>Archive 
+Log&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2703&nbsp;&nbsp; 
+17-DEC-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/opt/oracle/oradata/avatar2/archive/1_2715.dbf <BR><BR>Archive 
+Log&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2702&nbsp;&nbsp; 
+17-DEC-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/opt/oracle/oradata/avatar2/archive/1_2714.dbf <BR><BR><BR><BR>4.使用delete 
+obsolete命令删除过期备份: <BR><BR><BR><BR>RMAN&gt; delete obsolete; <BR><BR><BR><BR>RMAN 
+retention policy will be applied to the command <BR><BR>RMAN retention policy is 
+set to redundancy 1 <BR><BR>using channel ORA_DISK_1 <BR><BR>Deleting the 
+following obsolete backups and copies: 
+<BR><BR>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+Key&nbsp;&nbsp;&nbsp; Completion Time&nbsp;&nbsp;&nbsp; Filename/Handle 
+<BR><BR>-------------------- ------ ------------------ -------------------- 
+<BR><BR>Backup Set&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+125&nbsp;&nbsp;&nbsp; 01-NOV-04 <BR><BR>Backup 
+Piece&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 125&nbsp;&nbsp;&nbsp; 
+01-NOV-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/data1/oracle/orabak/full_1_541045804 <BR><BR>.... <BR><BR>Archive 
+Log&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2704&nbsp;&nbsp; 
+17-DEC-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/opt/oracle/oradata/avatar2/archive/1_2716.dbf <BR><BR>Archive 
+Log&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2703&nbsp;&nbsp; 
+17-DEC-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/opt/oracle/oradata/avatar2/archive/1_2715.dbf <BR><BR>Archive 
+Log&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2702&nbsp;&nbsp; 
+17-DEC-04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/opt/oracle/oradata/avatar2/archive/1_2714.dbf <BR><BR><BR><BR>Do you really 
+want to delete the above objects (enter YES or NO)? yes <BR><BR>deleted backup 
+piece <BR><BR>backup piece handle=/data1/oracle/orabak/full_AVATAR2_20041206_173 
+recid=173 stamp=544156241 <BR><BR>..... <BR><BR>deleted archive log 
+<BR><BR>archive log filename=/opt/oracle/oradata/avatar2/archive/1_2715.dbf 
+recid=2703 stamp=545108268 <BR><BR>deleted archive log <BR><BR>archive log 
+filename=/opt/oracle/oradata/avatar2/archive/1_2714.dbf recid=2702 
+stamp=545107659 <BR><BR>Deleted 286 objects <BR><BR><BR><BR><BR><BR>RMAN&gt; 
+crosscheck archivelog all; <BR><BR><BR><BR>released channel: ORA_DISK_1 
+<BR><BR>allocated channel: ORA_DISK_1 <BR><BR>channel ORA_DISK_1: sid=19 
+devtype=DISK <BR><BR>specification does not match any archive log in the 
+recovery catalog <BR><BR><BR><BR><BR><BR>5 在rman中用crosscheck检查归档日志,2个归档日志都是失败的: 
+<BR><BR>RMAN&gt; crosscheck archivelog all; <BR><BR><BR><BR>释放的通道: ORA_DISK_1 
+<BR><BR>分配的通道: ORA_DISK_1 <BR><BR>通道 ORA_DISK_1: sid=14 devtype=DISK 
+<BR><BR>对归档日志的验证失败 <BR><BR>存档日志文件名 =D:ORACLEORADATATESTARCHIVE1_47.DBF 记录 ID=1 
+时间戳 =572866 <BR><BR>683 <BR><BR>对归档日志的验证失败 <BR><BR>存档日志文件名 
+=D:ORACLEORADATATESTARCHIVE11_48.DBF 记录 ID=2 时间戳 =57286 <BR><BR>6931 
+<BR><BR>已交叉检验的 2 对象 <BR><BR><BR><BR>6 试着同步一下,看行不行,结果不行,crosscheck还是失败: 
+<BR><BR>RMAN&gt; resync catalog; <BR><BR><BR><BR>正在启动全部恢复目录的 resync <BR><BR>完成全部 
+resync <BR><BR><BR><BR>RMAN&gt; crosscheck archivelog all; 
+<BR><BR><BR><BR>释放的通道: ORA_DISK_1 <BR><BR>分配的通道: ORA_DISK_1 <BR><BR>通道 
+ORA_DISK_1: sid=14 devtype=DISK <BR><BR>对归档日志的验证失败 <BR><BR>存档日志文件名 
+=D:ORACLEORADATATESTARCHIVE1_47.DBF 记录 ID=1 时间戳 =572866 <BR><BR>683 
+<BR><BR>对归档日志的验证失败 <BR><BR>存档日志文件名 =D:ORACLEORADATATESTARCHIVE11_48.DBF 记录 ID=2 
+时间戳 =57286 <BR><BR>6931 <BR><BR>已交叉检验的 2 对象 <BR><BR><BR><BR>7 用list 
+expired看看是否有失效的archive log,证明没有失效的archive log: <BR><BR>RMAN&gt; list expired 
+archivelog all; <BR><BR><BR><BR>说明与恢复目录中的任何存档日志均不匹配 <BR><BR><BR><BR>8 
+更改语言环境试试,结果再次crosscheck,2个archive log 都成功了: <BR><BR>RMAN&gt; exit 
+<BR><BR><BR><BR><BR><BR>恢复管理器完成。 <BR><BR><BR><BR>C:&gt;set 
+nls_lang=american_america.zhs16gbk <BR><BR><BR><BR>C:&gt;rman 
+catalogrman/rman@safetarget / <BR><BR><BR><BR>Recovery Manager: Release 
+9.2.0.1.0 - Production <BR><BR><BR><BR>Copyright (c) 1995, 2002, Oracle 
+Corporation. All rights reserved. <BR><BR><BR><BR>connected to target database: 
+TEST (DBID=1870953724) <BR><BR>connected to recovery catalog database 
+<BR><BR><BR><BR>RMAN&gt; crosscheck archivelog all; <BR><BR><BR><BR>allocated 
+channel: ORA_DISK_1 <BR><BR>channel ORA_DISK_1: sid=9 devtype=DISK 
+<BR><BR>validation succeeded for archived log <BR><BR>archive log 
+filename=D:ORACLEORADATATESTARCHIVE1_47.DBF recid=1 stamp=57286 <BR><BR>6683 
+<BR><BR>validation succeeded for archived log <BR><BR>archive log 
+filename=D:ORACLEORADATATESTARCHIVE11_48.DBF recid=2 stamp=5728 <BR><BR>66931 
+<BR><BR>Crosschecked 2 objects <BR><BR><BR>==================================== 
+<BR>oracle隐藏参数字典 x$ksppi x$ksppstvl&nbsp; <BR>oracle的隐藏参数字典是 
+x$ksppi，x$ksppstvl基表中，有关隐含参数说明，可以查询这个基表 <BR><BR>SQL&gt; desc x$ksppi <BR>名称 
+是否为空? 类型 <BR>------&nbsp;&nbsp;&nbsp; ----- 
+<BR>ADDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RAW(4) 
+<BR>INDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NUMBER <BR>INST_ID&nbsp;&nbsp; NUMBER 
+<BR>KSPPINM&nbsp;&nbsp; VARCHAR2(64) <BR>KSPPITY&nbsp;&nbsp; NUMBER 
+<BR>KSPPDESC&nbsp; VARCHAR2(64) <BR>KSPPIFLG&nbsp; NUMBER <BR><BR>SQL&gt; 
+<BR><BR>SQL&gt; desc x$ksppcv <BR>名称 是否为空? 类型 
+<BR>----------------------------------------- -------- 
+---------------------------- <BR><BR>ADDR RAW(4) <BR>INDX NUMBER <BR>INST_ID 
+NUMBER <BR>KSPPSTVL VARCHAR2(512) <BR>KSPPSTDF VARCHAR2(9) <BR>KSPPSTVF NUMBER 
+<BR>KSPPSTCMNT VARCHAR2(255) <BR><BR>SQL&gt; <BR><BR>比如我现在要查询隐含参数 
+<BR>_allow_resetlogs_corruption /// 这个参数说明允许数据库在不一致的条件下，进行数据库打开 
+<BR><BR><BR>查看隐含参数的值，方式是 <BR><BR><BR>SQL&gt; col ksppinm format a30 <BR>SQL&gt; 
+col ksppstvl format a30 <BR>SQL&gt; select ksppinm,ksppstvl from x$ksppcv 
+cv,x$ksppi pi where cv.indx=pi.indx a <BR>nd pi.ksppinm like '_allow%'; 
+<BR><BR>KSPPINM KSPPSTVL <BR>------------------------------ 
+------------------------------ <BR>_allow_error_simulation FALSE 
+<BR>_allow_resetlogs_corruption FALSE <BR>_allow_terminal_recovery_corru FALSE 
+<BR>ption <BR><BR>_allow_read_only_corruption FALSE <BR><BR>SQL&gt; 
+<BR><BR>这个参数一般在数据库正常无法恢复了，可以用它来强行打开数据库，把数据文件先备份出来，这是 <BR>一个比较好的办法。 </DIV>
+<SCRIPT type=text/javascript><!--
+google_ad_client = "pub-1076724771190722";
+/* JE个人博客468x60 */
+google_ad_slot = "5506163105";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</SCRIPT>
+
+<SCRIPT src="Oracle归档日志删除 - - JavaEye技术网站.files/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+
+<DIV class=blog_nav>
+<DIV class=pre_next><A class=next title=ORA-24324,ORA-24323,ORA-01090 
+href="http://maincoolbo.javaeye.com/blog/569049">ORA-24324,ORA-24323,ORA-01090</A> 
+| <A class=pre title="ORACLE日期时间函数大全 " 
+href="http://maincoolbo.javaeye.com/blog/568498">ORACLE日期时间函数大全 </A></DIV></DIV>
+<DIV class=blog_bottom>
+<UL>
+  <LI>16:19 </LI>
+  <LI>浏览 (1117) </LI>
+  <LI><A href="http://maincoolbo.javaeye.com/blog/568519#comments">评论</A> (0) 
+  </LI>
+  <LI>分类: <A href="http://maincoolbo.javaeye.com/category/54971">数据库</A> </LI>
+  <LI class=last><A class=more href="http://www.javaeye.com/wiki/topic/568519" 
+  target=_blank>相关推荐</A> </LI></UL></DIV>
+<DIV class=blog_comment>
+<H5>评论</H5><A id=comments name=comments></A></DIV>
+<DIV class=blog_comment>
+<H5>发表评论</H5>
+<FORM id=comment_form onsubmit="return false;" action=/blog/568519 
+method=post><INPUT id=editor_bbcode_flag type=hidden> 
+<DIV id=editor_main><TEXTAREA class="validate-richeditor bad-words min-length-5" id=editor_body style="WIDTH: 500px; HEIGHT: 350px" name=comment[body] rows=20 cols=40></TEXTAREA></DIV>
+<SCRIPT type=text/javascript>
+  var editor = new Control.TextArea.Editor("editor_body", "bbcode", false);
+</SCRIPT>
+
+<P style="PADDING-RIGHT: 30px; TEXT-ALIGN: right">您还没有登录，请<A 
+href="http://maincoolbo.javaeye.com/login">登录</A>后发表评论(快捷键 Alt+S / Ctrl+Enter) <INPUT class=submit id=quick_reply_button type=submit value=提交 name=commit></P></FORM>
+<SCRIPT type=text/javascript>
+          new HotKey("s",function() {$('quick_reply_button').click();},{altKey: true, ctrlKey: false});
+          new HotKey(new Number(13),function() {$('quick_reply_button').click();},{altKey: false, ctrlKey: true});
+
+          new Validation("comment_form", {immediate: false, onFormValidate: function(result, form){
+    
+            if(confirm('您需要登录以后才能执行这个操作，现在要登录吗？')) window.location.href = '/login';
+    
+        }});
+        </SCRIPT>
+</DIV></DIV>
+<SCRIPT type=text/javascript>
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  fix_image_size($$('div.blog_content img'), 700);
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'Post'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);}
+    });
+  }
+</SCRIPT>
+</DIV>
+<DIV id=local>
+<DIV class=local_top></DIV>
+<DIV id=blog_owner>
+<DIV id=blog_owner_logo><A href="http://maincoolbo.javaeye.com/"><IMG class=logo 
+title="maincoolbo的博客: " alt=maincoolbo的博客 
+src="Oracle归档日志删除 - - JavaEye技术网站.files/feae674d-5f25-3d6e-89b5-84a2bb6d07c5.jpg"></A></DIV>
+<DIV id=blog_owner_name>maincoolbo</DIV></DIV>
+<DIV id=blog_actions>
+<UL>
+  <LI>浏览: 21241 次 
+  <LI>性别: <IMG title=男 alt=Icon_minigender_1 
+  src="Oracle归档日志删除 - - JavaEye技术网站.files/icon_minigender_1.gif"> 
+  <LI>来自: 北京 
+  <LI><IMG src="Oracle归档日志删除 - - JavaEye技术网站.files/offline.gif"> 
+  <LI><A class=profile 
+  href="http://maincoolbo.javaeye.com/blog/profile">详细资料</A> <A class=guest_book 
+  href="http://maincoolbo.javaeye.com/blog/guest_book">留言簿</A> </LI></UL>
+<H5>搜索本博客</H5>
+<FORM action=/blog/search method=get><INPUT class=text id=query 
+style="MARGIN-LEFT: 10px; WIDTH: 110px" name=query> <INPUT class=submit type=submit value=搜索> </FORM></DIV>
+<DIV class=clearfix id=user_visits>
+<H5>最近访客 <SPAN 
+style="PADDING-LEFT: 30px; FONT-WEIGHT: normal; FONT-SIZE: 12px"><A 
+href="http://maincoolbo.javaeye.com/blog/user_visits">&gt;&gt;更多访客</A></SPAN></H5>
+<DIV class=user_visit>
+<DIV class=logo><A href="http://mickey-mjy.javaeye.com/" target=_blank><IMG 
+class=logo title="mickey_mjy的博客: " alt=mickey_mjy的博客 
+src="Oracle归档日志删除 - - JavaEye技术网站.files/user-logo-thumb.gif"></A></DIV>
+<DIV class=left><A href="http://mickey-mjy.javaeye.com/" 
+target=_blank>mickey_mjy</A></DIV></DIV>
+<DIV class=user_visit>
+<DIV class=logo><A href="http://huanglppp.javaeye.com/" target=_blank><IMG 
+class=logo title="huanglppp的博客: huanglppp" alt=huanglppp的博客 
+src="Oracle归档日志删除 - - JavaEye技术网站.files/028b0868-8e89-3891-ae81-daeebb72006a-thumb.gif"></A></DIV>
+<DIV class=left><A href="http://huanglppp.javaeye.com/" 
+target=_blank>huanglppp</A></DIV></DIV>
+<DIV class=user_visit>
+<DIV class=logo><A href="http://xiaoxi0302.javaeye.com/" target=_blank><IMG 
+class=logo title="xiaoxi0302的博客: " alt=xiaoxi0302的博客 
+src="Oracle归档日志删除 - - JavaEye技术网站.files/user-logo-thumb.gif"></A></DIV>
+<DIV class=left><A href="http://xiaoxi0302.javaeye.com/" 
+target=_blank>xiaoxi0302</A></DIV></DIV>
+<DIV class=user_visit>
+<DIV class=logo><A href="http://xunmi2009.javaeye.com/" target=_blank><IMG 
+class=logo title="xunmi2009的博客: " alt=xunmi2009的博客 
+src="Oracle归档日志删除 - - JavaEye技术网站.files/user-logo-thumb.gif"></A></DIV>
+<DIV class=left><A href="http://xunmi2009.javaeye.com/" 
+target=_blank>xunmi2009</A></DIV></DIV></DIV>
+<DIV id=blog_menu>
+<H5>博客分类</H5>
+<UL>
+  <LI><A href="http://maincoolbo.javaeye.com/">全部博客 (68)</A> 
+  <LI><A href="http://maincoolbo.javaeye.com/category/54969">python (3)</A> 
+  <LI><A href="http://maincoolbo.javaeye.com/category/54970">java (16)</A> 
+  <LI><A href="http://maincoolbo.javaeye.com/category/54971">数据库 (16)</A> 
+  <LI><A href="http://maincoolbo.javaeye.com/category/57381">杂谈 (7)</A> 
+  <LI><A href="http://maincoolbo.javaeye.com/category/92147">中间件服务 (4)</A> 
+  <LI><A href="http://maincoolbo.javaeye.com/category/92642">oracle (14)</A> 
+  <LI><A href="http://maincoolbo.javaeye.com/category/93543">linux_unix (4)</A> 
+  <LI><A href="http://maincoolbo.javaeye.com/category/94328">日志记录 (0)</A> 
+</LI></UL></DIV>
+<DIV id=blog_others>
+<H5>其他分类</H5>
+<UL>
+  <LI><A href="http://maincoolbo.javaeye.com/blog/favorite">我的收藏</A> (45) 
+  <LI><A href="http://maincoolbo.javaeye.com/blog/topic">我的论坛主题贴</A> (0) 
+  <LI><A href="http://maincoolbo.javaeye.com/blog/post">我的所有论坛贴</A> (53) 
+  <LI><A href="http://maincoolbo.javaeye.com/blog/article">我的精华良好贴</A> (0) 
+</LI></UL></DIV>
+<DIV id=recent_groups>
+<H5>最近加入圈子</H5>
+<UL>
+  <LI><A href="http://javafaq.group.javaeye.com/">Java疑惑 Java面向对象编程研究</A> 
+  <LI><A href="http://sa.group.javaeye.com/">系统架构与架构应用</A> 
+  <LI><A href="http://onlypython.group.javaeye.com/">Python</A> </LI></UL></DIV>
+<DIV id=month_blogs>
+<H5>存档</H5>
+<UL>
+  <LI><A href="http://maincoolbo.javaeye.com/blog/monthblog/2010-09">2010-09</A> 
+  (2) 
+  <LI><A href="http://maincoolbo.javaeye.com/blog/monthblog/2010-08">2010-08</A> 
+  (5) 
+  <LI><A href="http://maincoolbo.javaeye.com/blog/monthblog/2010-07">2010-07</A> 
+  (4) 
+  <LI><A href="http://maincoolbo.javaeye.com/blog/monthblog_more">更多存档...</A> 
+  </LI></UL></DIV>
+<DIV id=comments_top>
+<H5>评论排行榜</H5>
+<UL>
+  <LI><A title=一个Java程序员应该掌握的技能 
+  href="http://maincoolbo.javaeye.com/blog/661163">一个Java程序员应该掌握的技能</A> 
+  <LI><A title=Oracle中JDBC对BLOB和CLOB读取的专用处理和通用处理 
+  href="http://maincoolbo.javaeye.com/blog/556281">Oracle中JDBC对BLOB和CLOB读取的专用处理和 
+  ...</A> 
+  <LI><A title=tomcat启动在80端口 
+  href="http://maincoolbo.javaeye.com/blog/725760">tomcat启动在80端口</A> 
+  <LI><A title="Eclipse+MyEclipse总是显示quick update的解决办法" 
+  href="http://maincoolbo.javaeye.com/blog/753159">Eclipse+MyEclipse总是显示quick 
+  update的 ...</A> 
+  <LI><A title="Oracle中INSTR,SUBSTR方法 " 
+  href="http://maincoolbo.javaeye.com/blog/556557">Oracle中INSTR,SUBSTR方法 
+  </A></LI></UL></DIV>
+<DIV id=rss>
+<UL>
+  <LI><A href="http://maincoolbo.javaeye.com/rss" target=_blank><IMG alt=Rss 
+  src="Oracle归档日志删除 - - JavaEye技术网站.files/rss.png"></A> 
+  <LI><A 
+  href="http://fusion.google.com/add?feedurl=http://maincoolbo.javaeye.com/rss" 
+  target=_blank><IMG alt=Rss_google 
+  src="Oracle归档日志删除 - - JavaEye技术网站.files/rss_google.gif"></A> 
+  <LI><A 
+  href="http://www.xianguo.com/subscribe.php?url=http://maincoolbo.javaeye.com/rss" 
+  target=_blank><IMG alt=Rss_xianguo 
+  src="Oracle归档日志删除 - - JavaEye技术网站.files/rss_xianguo.jpg"></A> 
+  <LI><A href="http://www.google.com/search?hl=zh-CN&amp;q=RSS">[什么是RSS?]</A> 
+  </LI></UL></DIV>
+<DIV class=local_bottom></DIV></DIV></DIV>
+<DIV class=clearfix id=footer>
+<DIV id=copyright>
+<HR>
+声明：JavaEye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<BR>© 
+2003-2010 JavaEye.com. All rights reserved. 上海炯耐计算机软件有限公司 [ 沪ICP备05023328号 ] 
+</DIV></DIV></DIV>
+<SCRIPT type=text/javascript>
+  document.write("<img src='http://stat.javaeye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&logged_in=no" + "' width='0' height='0' />");
+</SCRIPT>
+</BODY></HTML>

@@ -1,0 +1,518 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0042)http://wxy0327.itpub.net/post/16888/110550 -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>雪迎的Blog : Oracle 分析函数的使用（转载）</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=GB2312">
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR>
+<META http-equiv=Content-Language content=zh-CN><LINK title="RSS 2.0" 
+href="http://wxy0327.itpub.net/rss/rss20/16888" type=application/xml 
+rel=alternate><LINK title="RSS 1.0" 
+href="http://wxy0327.itpub.net/rss/rss10/16888" type=application/xml 
+rel=alternate><LINK title="RSS 0.90" 
+href="http://wxy0327.itpub.net/rss/rss090/16888" type=application/xml 
+rel=alternate><LINK title="Atom 0.3" 
+href="http://wxy0327.itpub.net/rss/atom/16888" type=application/atom+xml 
+rel=alternate><LINK media=screen 
+href="雪迎的Blog  Oracle 分析函数的使用（转载）.files/default.css" type=text/css 
+rel=stylesheet>
+<SCRIPT language=javascript type=text/javascript>
+var HOST = 'http://wxy0327.itpub.net';
+</SCRIPT>
+
+<SCRIPT language=JavaScript1.1 
+src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/treemenu.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 
+src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/chgstyle.js" 
+type=text/javascript></SCRIPT>
+<!-- 页面布局css --><LINK title=a 
+href="雪迎的Blog  Oracle 分析函数的使用（转载）.files/style0a.css" type=text/css 
+rel=stylesheet><LINK title=b 
+href="雪迎的Blog  Oracle 分析函数的使用（转载）.files/style0b.css" type=text/css 
+rel=stylesheet><LINK title=c 
+href="雪迎的Blog  Oracle 分析函数的使用（转载）.files/style0c.css" type=text/css 
+rel=stylesheet>
+<SCRIPT language=javascript type=text/javascript>
+	  var cookielayout = readCookie("layout");
+	  var layouttitle = cookielayout ? cookielayout : getPreferredLayout();
+	  setActiveLayout(layouttitle);
+	</SCRIPT>
+<!-- 配色方案css --><LINK title=1 
+href="雪迎的Blog  Oracle 分析函数的使用（转载）.files/style1.css" type=text/css 
+rel=stylesheet><LINK title=2 href="雪迎的Blog  Oracle 分析函数的使用（转载）.files/style2.css" 
+type=text/css rel=stylesheet><LINK title=3 
+href="雪迎的Blog  Oracle 分析函数的使用（转载）.files/style3.css" type=text/css 
+rel=stylesheet><LINK title=4 href="雪迎的Blog  Oracle 分析函数的使用（转载）.files/style4.css" 
+type=text/css rel=stylesheet><LINK title=5 
+href="雪迎的Blog  Oracle 分析函数的使用（转载）.files/style5.css" type=text/css 
+rel=stylesheet><LINK title=6 href="雪迎的Blog  Oracle 分析函数的使用（转载）.files/style6.css" 
+type=text/css rel=stylesheet>
+<SCRIPT language=javascript type=text/javascript>
+	  var cookiecolor = readCookie("color");
+	  var colortitle = cookiecolor ? cookiecolor : getPreferredColorSchema();
+	  setActiveColorSchema(colortitle);
+	</SCRIPT>
+<LINK title=Home href="http://wxy0327.itpub.net" rel=start><LINK 
+title="一个Oracle查询的 sql 问题（推荐！）" 
+href="http://wxy0327.itpub.net/post/16888/108686" rel=prev><LINK 
+title="Oracle 分析函数的使用（转载） " href="http://wxy0327.itpub.net/post/16888/110553" 
+rel=next></HEAD>
+<BODY>
+<DIV id=masthead>
+<DIV id=siteName><A href="http://wxy0327.itpub.net/">雪迎的Blog</A></DIV>
+<DIV id=globalNav>
+<DIV id=globalLink><A href="http://wxy0327.itpub.net/">首页</A> | <A 
+href="http://wxy0327.itpub.net/admin.php">管理控制台</A> | <A 
+href="http://wxy0327.itpub.net/album/16888/0">资源中心</A> | = | <A title=53? 
+href="http://wxy0327.itpub.net/category/16888/32715">信息系统项目管理</A> | <A title=29? 
+href="http://wxy0327.itpub.net/category/16888/35525">Linux</A> | <A title=24? 
+href="http://wxy0327.itpub.net/category/16888/28727">DBA</A> | <A title=30? 
+href="http://wxy0327.itpub.net/category/16888/28725">其它</A> | <A title=15? 
+href="http://wxy0327.itpub.net/category/16888/28556">SQLServer</A> | <A 
+title=135? href="http://wxy0327.itpub.net/category/16888/28406">Oracle</A> | <A 
+title=14? href="http://wxy0327.itpub.net/category/16888/28251">MySQL</A> </DIV>
+<FORM id=search action=http://wxy0327.itpub.net/index.php method=post><INPUT 
+size=14 name=searchTerms> <INPUT type=hidden value=Search name=op> <INPUT 
+type=hidden value=16888 name=blogId> <INPUT type=submit value=搜索 name=Search> 
+</FORM></DIV><!--end globalNav--></DIV><!-- end masthead -->
+<DIV id=pagecell><!--pagecell-->
+<DIV id=content>
+<DIV class=story><!-- <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                                   xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                   xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"><rdf:Description
+                             rdf:about="http://wxy0327.itpub.net/post/16888/110550"
+                             dc:identifier="http://wxy0327.itpub.net/post/16888/110550"
+                             dc:title="Oracle 分析函数的使用（转载）"
+                             trackback:ping="http://blog.itpub.net//trackback.php?id=110550"/></rdf:RDF> -->
+<DIV class=noDisplay>=========================================================== 
+</DIV>
+<DIV class=storyTitle>Oracle 分析函数的使用（转载） </DIV>
+<DIV class=noDisplay>=========================================================== 
+</DIV>
+<DIV class=storyInfo>作者: wxy0327(http://wxy0327.itpub.net)<BR>发表于: 2006.06.05 
+17:32<BR>分类: Oracle <BR>出处: 
+http://wxy0327.itpub.net/post/16888/110550<BR>--------------------------------------------------------------- 
+<BR></DIV>
+<DIV class=storytext>
+<P><FONT face=宋体 color=#000000 
+size=2>分析函数是oracle816引入的一个全新的概念，为我们分析数据提供了一种简单高效的处理方式。在分析函数出现以前，我们必须使用自联查询，子查询或者内联视图，甚至复杂的存储过程实现的语句，现在只要一条简单的sql语句就可以实现了，而且在执行效率方面也有相当大的提高。下面我将针对分析函数做一些具体的说明。</FONT></P><BR>
+<P><FONT face=宋体 color=#000000 size=2>今天我主要给大家介绍一下以下几个函数的使用方法：<BR><B>1. 
+自动汇总函数rollup,cube,<BR>2. rank 函数, rank,dense_rank,row_number<BR>3. 
+lag,lead函数<BR>4. sum,avg,的移动增加,移动平均数<BR>5. ratio_to_report报表处理函数<BR>6. 
+first,last取基数的分析函数</B></FONT></P>
+<P><FONT face=宋体 color=#000000 size=2>基础数据：</FONT><FONT face=宋体 color=#0000ff 
+size=2>select * from t;</FONT><FONT face=宋体 color=#000000 size=2><BR>BILL_MONTH 
+AREA_CODE NET_TYPE LOCAL_FARE<BR>--------------- ---------- ---------- 
+--------------<BR>200405 5761 G 7393344.04<BR>200405 5761 J 5667089.85<BR>200405 
+5762 G 6315075.96<BR>200405 5762 J 6328716.15<BR>200405 5763 G 
+8861742.59<BR>200405 5763 J 7788036.32<BR>200405 5764 G 6028670.45<BR>200405 
+5764 J 6459121.49<BR>200405 5765 G 13156065.77<BR>200405 5765 J 
+11901671.70<BR>200406 5761 G 7614587.96<BR>200406 5761 J 5704343.05<BR>200406 
+5762 G 6556992.60<BR>200406 5762 J 6238068.05<BR>200406 5763 G 
+9130055.46<BR>200406 5763 J 7990460.25<BR>200406 5764 G 6387706.01<BR>200406 
+5764 J 6907481.66<BR>200406 5765 G 13562968.81<BR>200406 5765 J 
+12495492.50<BR>200407 5761 G 7987050.65<BR>200407 5761 J 5723215.28<BR>200407 
+5762 G 6833096.68<BR>200407 5762 J 6391201.44<BR>200407 5763 G 
+9410815.91<BR>200407 5763 J 8076677.41<BR>200407 5764 G 6456433.23<BR>200407 
+5764 J 6987660.53<BR>200407 5765 G 14000101.20<BR>200407 5765 J 
+12301780.20<BR>200408 5761 G 8085170.84<BR>200408 5761 J 6050611.37<BR>200408 
+5762 G 6854584.22<BR>200408 5762 J 6521884.50<BR>200408 5763 G 
+9468707.65<BR>200408 5763 J 8460049.43<BR>200408 5764 G 6587559.23<BR>200408 
+5764 J 7342135.86<BR>200408 5765 G 14450586.63<BR>200408 5765 J 
+12680052.38<BR><BR>40 rows selected.<BR><BR>Elapsed: 00:00:00.00 </FONT></P>
+<P><FONT face=宋体 color=#000000 size=2><B>1. 
+使用rollup函数的介绍</B><BR><BR>下面是直接使用普通sql语句求出各地区的汇总数据的例子</FONT><FONT face=宋体 
+color=#0000ff size=2>set timing on<BR>set autotrace on<BR>col LOCAL_FARE for 
+9999999999.99<BR>select area_code,sum(local_fare) local_fare<BR>from t<BR>group 
+by area_code<BR>union all<BR>select '合计' area_code,sum(local_fare) 
+local_fare<BR>from t<BR>/</FONT><FONT face=宋体 color=#000000 
+size=2><BR><BR>AREA_CODE LOCAL_FARE<BR>------------ --------------<BR>5761 
+54225413.04<BR>5762 52039619.60<BR>5763 69186545.02<BR>5764 53156768.46<BR>5765 
+104548719.19<BR>合计 333157065.31<BR><BR>6 rows selected.<BR><BR>Elapsed: 
+00:00:00.03<BR><BR>Execution 
+Plan<BR>----------------------------------------------------------<BR>0 SELECT 
+STATEMENT Optimizer=ALL_ROWS (Cost=7 Card=1310 Bytes=24884)<BR><BR>1 0 
+UNION-ALL<BR>2 1 SORT (GROUP BY) (Cost=5 Card=1309 Bytes=24871)<BR>3 2 TABLE 
+ACCESS (FULL) OF 'T' (Cost=2 Card=1309 Bytes=24871)<BR><BR>4 1 SORT 
+(AGGREGATE)<BR>5 4 TABLE ACCESS (FULL) OF 'T' (Cost=2 Card=1309 
+Bytes=17017)<BR><BR><BR>Statistics<BR>----------------------------------------------------------<BR>0 
+recursive calls<BR>0 db block gets</FONT><FONT face=宋体 color=#ff0000 size=2>6 
+consistent gets</FONT><FONT face=宋体 color=#000000 size=2><BR>0 physical 
+reads<BR>0 redo size<BR>561 bytes sent via SQL*Net to client<BR>503 bytes 
+received via SQL*Net from client<BR>2 SQL*Net roundtrips to/from client<BR>1 
+sorts (memory)<BR>0 sorts (disk)<BR>6 rows processed</FONT></P>
+<P><FONT face=宋体 color=#000000 size=2>下面是使用分析函数rollup得出的汇总数据的例子</FONT><FONT 
+face=宋体 color=#0000ff size=2>select nvl(area_code,'合计') 
+area_code,sum(local_fare) local_fare<BR>from t<BR>group by 
+rollup(nvl(area_code,'合计'))<BR>/</FONT><FONT face=宋体 color=#000000 
+size=2><BR><BR>AREA_CODE LOCAL_FARE<BR>---------- --------------<BR>5761 
+54225413.04<BR>5762 52039619.60<BR>5763 69186545.02<BR>5764 53156768.46<BR>5765 
+104548719.19<BR>333157065.31<BR><BR>6 rows selected.<BR><BR>Elapsed: 
+00:00:00.00<BR><BR>Execution 
+Plan<BR>----------------------------------------------------------<BR>0 SELECT 
+STATEMENT Optimizer=ALL_ROWS (Cost=5 Card=1309 Bytes=24871)<BR><BR>1 0 SORT 
+(GROUP BY ROLLUP) (Cost=5 Card=1309 Bytes=24871)<BR>2 1 TABLE ACCESS (FULL) OF 
+'T' (Cost=2 Card=1309 
+Bytes=24871)<BR><BR><BR>Statistics<BR>----------------------------------------------------------<BR>0 
+recursive calls<BR>0 db block gets</FONT><FONT face=宋体 color=#ff0000 size=2>4 
+consistent gets</FONT><FONT face=宋体 color=#000000 size=2><BR>0 physical 
+reads<BR>0 redo size<BR>557 bytes sent via SQL*Net to client<BR>503 bytes 
+received via SQL*Net from client<BR>2 SQL*Net roundtrips to/from client<BR>1 
+sorts (memory)<BR>0 sorts (disk)<BR>6 rows processed</FONT></P>
+<P><FONT face=宋体 color=#000000 
+size=2>从上面的例子我们不难看出使用rollup函数，系统的sql语句更加简单，耗用的资源更少，从6个consistent 
+gets降到4个consistent gets，如果基表很大的话，结果就可想而知了。</FONT></P>
+<P><FONT face=宋体 color=#000000 
+size=2><B>使用cube函数的介绍</B><BR><BR>为了介绍cube函数我们再来看看另外一个使用rollup的例子</FONT><FONT 
+face=宋体 color=#0000ff size=2>select area_code,bill_month,sum(local_fare) 
+local_fare<BR>from t<BR>group by rollup(area_code,bill_month)<BR>/ </FONT><FONT 
+face=宋体 color=#000000 size=2><BR><BR>AREA_CODE BILL_MONTH 
+LOCAL_FARE<BR>---------- --------------- --------------<BR>5761 200405 
+13060433.89<BR>5761 200406 13318931.01<BR>5761 200407 13710265.93<BR>5761 200408 
+14135782.21<BR>5761 54225413.04<BR>5762 200405 12643792.11<BR>5762 200406 
+12795060.65<BR>5762 200407 13224298.12<BR>5762 200408 13376468.72<BR>5762 
+52039619.60<BR>5763 200405 16649778.91<BR>5763 200406 17120515.71<BR>5763 200407 
+17487493.32<BR>5763 200408 17928757.08<BR>5763 69186545.02<BR>5764 200405 
+12487791.94<BR>5764 200406 13295187.67<BR>5764 200407 13444093.76<BR>5764 200408 
+13929695.09<BR>5764 53156768.46<BR>5765 200405 25057737.47<BR>5765 200406 
+26058461.31<BR>5765 200407 26301881.40<BR>5765 200408 27130639.01<BR>5765 
+104548719.19<BR>333157065.31<BR><BR>26 rows selected.<BR><BR>Elapsed: 
+00:00:00.00<BR><BR>系统只是根据rollup的第一个参数area_code对结果集的数据做了汇总处理,而没有对bill_month做汇总分析处理,cube函数就是为了这个而设计的.<BR>下面,让我们看看使用cube函数的结果</FONT><FONT 
+face=宋体 color=#0000ff size=2>select area_code,bill_month,sum(local_fare) 
+local_fare<BR>from t<BR>group by cube(area_code,bill_month)<BR>order by 
+area_code,bill_month nulls last<BR>/ </FONT><FONT face=宋体 color=#000000 
+size=2><BR><BR>AREA_CODE BILL_MONTH LOCAL_FARE<BR>---------- --------------- 
+--------------<BR>5761 200405 13060.43<BR>5761 200406 13318.93<BR>5761 200407 
+13710.27<BR>5761 200408 14135.78<BR>5761 54225.41<BR>5762 200405 
+12643.79<BR>5762 200406 12795.06<BR>5762 200407 13224.30<BR>5762 200408 
+13376.47<BR>5762 52039.62<BR>5763 200405 16649.78<BR>5763 200406 
+17120.52<BR>5763 200407 17487.49<BR>5763 200408 17928.76<BR>5763 
+69186.54<BR>5764 200405 12487.79<BR>5764 200406 13295.19<BR>5764 200407 
+13444.09<BR>5764 200408 13929.69<BR>5764 53156.77<BR>5765 200405 
+25057.74<BR>5765 200406 26058.46<BR>5765 200407 26301.88<BR>5765 200408 
+27130.64<BR>5765 104548.72</FONT><FONT face=宋体 color=#ff0000 size=2>200405 
+79899.53<BR>200406 82588.15<BR>200407 84168.03<BR>200408 86501.34 </FONT><FONT 
+face=宋体 color=#000000 size=2><BR>333157.05<BR><BR>30 rows 
+selected.<BR><BR>Elapsed: 
+00:00:00.01<BR><BR>可以看到，在cube函数的输出结果比使用rollup多出了几行统计数据。这就是cube函数根据bill_month做的汇总统计结果。<BR><BR><BR><B>rollup 
+和 
+cube函数的再深入</B><BR><BR>从上面的结果中我们很容易发现，每个统计数据所对应的行都会出现null，<BR>我们如何来区分到底是根据那个字段做的汇总呢，<BR>这时候，oracle的grouping函数就粉墨登场了。<BR>如果当前的汇总记录是利用该字段得出的，grouping函数就会返回1，否则返回0<BR></FONT><FONT 
+face=宋体 color=#0000ff size=2>select decode(grouping(area_code),1,'all 
+area',to_char(area_code)) area_code,<BR>decode(grouping(bill_month),1,'all 
+month',bill_month) bill_month,<BR>sum(local_fare) local_fare<BR>from t<BR>group 
+by cube(area_code,bill_month)<BR>order by area_code,bill_month nulls last<BR>/ 
+</FONT><FONT face=宋体 color=#000000 size=2><BR><BR>AREA_CODE BILL_MONTH 
+LOCAL_FARE<BR>---------- --------------- --------------<BR>5761 200405 
+13060.43<BR>5761 200406 13318.93<BR>5761 200407 13710.27<BR>5761 200408 
+14135.78</FONT><FONT color=#ff0000><FONT face=宋体 size=2>5761 </FONT><FONT 
+face=宋体 size=2>all month 54225.41 </FONT></FONT><FONT face=宋体 color=#000000 
+size=2><BR>5762 200405 12643.79<BR>5762 200406 12795.06<BR>5762 200407 
+13224.30<BR>5762 200408 13376.47</FONT><FONT face=宋体 color=#ff0000 size=2>5762 
+all month 52039.62 </FONT><FONT face=宋体 color=#000000 size=2><BR>5763 200405 
+16649.78<BR>5763 200406 17120.52<BR>5763 200407 17487.49<BR>5763 200408 
+17928.76</FONT><FONT face=宋体 color=#ff0000 size=2>5763 all month 69186.54 
+</FONT><FONT face=宋体 color=#000000 size=2><BR>5764 200405 12487.79<BR>5764 
+200406 13295.19<BR>5764 200407 13444.09<BR>5764 200408 13929.69</FONT><FONT 
+face=宋体 color=#ff0000 size=2>5764 all month 53156.77 </FONT><FONT face=宋体 
+color=#000000 size=2><BR>5765 200405 25057.74<BR>5765 200406 26058.46<BR>5765 
+200407 26301.88<BR>5765 200408 27130.64</FONT><FONT face=宋体 color=#ff0000 
+size=2>5765 all month 104548.72 </FONT><FONT face=宋体 color=#000000 
+size=2></FONT><FONT face=宋体 color=#ff0000 size=2>all area 200405 79899.53<BR>all 
+area 200406 82588.15<BR>all area 200407 84168.03<BR>all area 200408 
+86501.34<BR>all area all month 333157.05 </FONT><FONT face=宋体 color=#000000 
+size=2><BR><BR>30 rows selected.<BR><BR>Elapsed: 
+00:00:00.01<BR><BR><BR>可以看到，所有的空值现在都根据grouping函数做出了很好的区分，这样利用rollup，cube和grouping函数，我们做数据统计的时候就可以轻松很多了。</FONT></P>
+<P><FONT face=宋体 color=#000000 size=2><B>2. 
+rank函数的介绍</B><BR><BR>介绍完rollup和cube函数的使用，下面我们来看看rank系列函数的使用方法。<BR><BR>问题2.我想查出这几个月份中各个地区的总话费的排名。<BR><BR>为了将rank、dense_rank、row_number函数的差别显示出来，我们对已有的基础数据做一些修改，将5763的数据改成与5761的数据相同。</FONT><FONT 
+face=宋体 color=#0000ff size=2>update t t1 set local_fare = (<BR>select local_fare 
+from t t2<BR>where t1.bill_month = t2.bill_month<BR>and t1.net_type = 
+t2.net_type<BR>and t2.area_code = '5761'<BR>) where area_code = '5763'<BR>/ 
+</FONT><FONT face=宋体 color=#000000 size=2><BR><BR>8 rows 
+updated.<BR><BR>Elapsed: 00:00:00.01<BR><BR>我们先使用rank函数来计算各个地区的话费排名。</FONT><FONT 
+face=宋体 color=#0000ff size=2>select area_code,sum(local_fare) 
+local_fare,<BR>rank() over (order by sum(local_fare) desc) fare_rank<BR>from 
+t<BR>group by area_code<BR>/ </FONT><FONT face=宋体 color=#000000 
+size=2><BR><BR>AREA_CODE LOCAL_FARE FARE_RANK<BR>---------- -------------- 
+----------<BR>5765 104548.72 1<BR>5761 54225.41 </FONT><FONT face=宋体 
+color=#ff0000 size=2>2 </FONT><FONT face=宋体 color=#000000 size=2><BR>5763 
+54225.41 </FONT><FONT face=宋体 color=#ff0000 size=2>2</FONT><FONT face=宋体 
+color=#000000 size=2> <BR>5764 53156.77 </FONT><FONT face=宋体 color=#ff0000 
+size=2>4</FONT><FONT face=宋体 color=#000000 size=2> <BR>5762 52039.62 
+5<BR><BR>Elapsed: 
+00:00:00.01<BR><BR>我们可以看到红色标注的地方出现了跳位，排名3没有出现。<BR>下面我们再看看dense_rank查询的结果。<BR></FONT><FONT 
+face=宋体 color=#0000ff size=2>select area_code,sum(local_fare) 
+local_fare,<BR>dense_rank() over (order by sum(local_fare) desc ) 
+fare_rank<BR>from t<BR>group by area_code<BR>/ </FONT><FONT face=宋体 
+color=#000000 size=2><BR><BR>AREA_CODE LOCAL_FARE FARE_RANK<BR>---------- 
+-------------- ----------<BR>5765 104548.72 1<BR>5761 54225.41 </FONT><FONT 
+face=宋体 color=#ff0000 size=2>2 </FONT><FONT face=宋体 color=#000000 
+size=2><BR>5763 54225.41 </FONT><FONT face=宋体 color=#ff0000 size=2>2 
+</FONT><FONT face=宋体 color=#000000 size=2><BR>5764 53156.77 </FONT><FONT face=宋体 
+color=#ff0000 size=2>3 </FONT><FONT face=宋体 color=#000000 size=2><BR>5762 
+52039.62 4<BR><BR>Elapsed: 
+00:00:00.00<BR><BR><BR>在这个例子中，出现了一个第三名，这就是rank和dense_rank的差别，<BR>rank如果出现两个相同的数据，那么后面的数据就会直接跳过这个排名，而dense_rank则不会，<BR>差别更大的是，row_number哪怕是两个数据完全相同，排名也会不一样，这个特性在我们想找出对应没个条件的唯一记录的时候又很大用处。<BR></FONT><FONT 
+face=宋体 color=#0000ff size=2>select area_code,sum(local_fare) 
+local_fare,<BR>row_number() over (order by sum(local_fare) desc ) 
+fare_rank<BR>from t<BR>group by area_code<BR>/ </FONT><FONT face=宋体 
+color=#000000 size=2><BR><BR>AREA_CODE LOCAL_FARE FARE_RANK<BR>---------- 
+-------------- ----------<BR>5765 104548.72 1<BR>5761 54225.41 </FONT><FONT 
+face=宋体 color=#ff0000 size=2>2 </FONT><FONT face=宋体 color=#000000 
+size=2><BR>5763 54225.41 </FONT><FONT face=宋体 color=#ff0000 size=2>3 
+</FONT><FONT face=宋体 color=#000000 size=2><BR>5764 53156.77 </FONT><FONT face=宋体 
+color=#ff0000 size=2>4 </FONT><FONT face=宋体 color=#000000 size=2><BR>5762 
+52039.62 
+5<BR><BR>在row_nubmer函数中，我们发现，哪怕sum(local_fare)完全相同，我们还是得到了不一样排名。我们可以利用这个特性剔除数据库中的重复记录。<BR><BR>a. 
+取出数据库中最后入网的n个用户<B></B></FONT><FONT face=宋体 color=#0000ff size=2>select 
+user_id,tele_num,user_name,user_status,create_date <BR>from (<BR>select 
+user_id,tele_num,user_name,user_status,create_date,<BR>rank() over (order by 
+create_date desc) add_rank<BR>from user_info<BR>)<BR>where add_rank &lt;= 
+:n;</FONT><FONT face=宋体 color=#000000 size=2><BR>b. 
+根据object_name删除数据库中的重复记录<B></B>create table t as select obj#,name from 
+sys.obj$;<BR>再insert into t1 select * from t1 数次.</FONT><FONT face=宋体 
+color=#0000ff size=2>delete from t1 where rowid in (<BR>select row_id from 
+(<BR>select rowid row_id,row_number() over (partition by obj# order by rowid ) 
+rn<BR>) where rn &lt;&gt; 1<BR>);</FONT><FONT face=宋体 color=#000000 
+size=2><BR>c. 取出各地区的话费收入在各个月份排名</FONT><FONT face=宋体 color=#0000ff size=2>select 
+bill_month,area_code,sum(local_fare) local_fare,<BR>rank() over (partition by 
+bill_month order by sum(local_fare) desc) area_rank<BR>from t<BR>group by 
+bill_month,area_code<BR>/</FONT><FONT face=宋体 color=#000000 
+size=2><BR>BILL_MONTH AREA_CODE LOCAL_FARE AREA_RANK<BR>--------------- 
+--------------- -------------- ----------<BR>200405 5765 25057.74 1<BR>200405 
+5761 13060.43 2<BR>200405 5763 13060.43 2<BR>200405 5762 12643.79 4<BR>200405 
+5764 12487.79 5<BR>200406 5765 26058.46 1<BR>200406 5761 13318.93 2<BR>200406 
+5763 13318.93 2<BR>200406 5764 13295.19 4<BR>200406 5762 12795.06 5<BR>200407 
+5765 26301.88 1<BR>200407 5761 13710.27 2<BR>200407 5763 13710.27 2<BR>200407 
+5764 13444.09 4<BR>200407 5762 13224.30 5<BR>200408 5765 27130.64 1<BR>200408 
+5761 14135.78 2<BR>200408 5763 14135.78 2<BR>200408 5764 13929.69 4<BR>200408 
+5762 13376.47 5<BR><BR>20 rows selected.</FONT></P></DIV>
+<DIV class=storyposted>wxy0327 发表于:2006.06.05 17:32 ::分类: ( <A 
+href="http://wxy0327.itpub.net/category/16888/28406">Oracle</A> ) ::阅读:(597次) :: 
+<A href="http://wxy0327.itpub.net/post/16888/110550">Permanent link</A> 
+</DIV></DIV></DIV><!--end content-->
+<DIV id=leftNav>
+<DIV class=relatedLinksTitle>自我介绍</DIV>
+<DIV class=relatedLinks>作者:王雪迎<BR>96年入行，目前职业是DBA<BR></DIV>
+<DIV class=relatedLinksTitle>切换风格</DIV>
+<DIV class=relatedLinks>
+<FORM action="">
+<P align=center>布局:<SELECT onchange="setActiveLayout(value); return false;" 
+size=1 name=SelectActiveLayout> <OPTION value=a selected>选择页面布局</OPTION> 
+  <OPTION value=a>两栏左侧导航</OPTION> <OPTION value=b>两栏右侧导航</OPTION> <OPTION 
+  value=c>三栏</OPTION></SELECT> </P></FORM>
+<FORM action="">
+<P align=center>配色:<SELECT onchange="setActiveColorSchema(value); return false;" 
+size=1 name=SelectActiveColorSchema> <OPTION value=1 selected>选择配色方案</OPTION> 
+  <OPTION value=1>纯净蓝灰</OPTION> <OPTION value=2>浪漫紫</OPTION> <OPTION 
+  value=3>清爽绿</OPTION> <OPTION value=4>海蓝</OPTION> <OPTION value=5>粉红</OPTION> 
+  <OPTION value=6>黑白</OPTION></SELECT> </P></FORM>
+<CENTER>提示</CENTER>点击带有[...]标记的栏目可以展开/收拢相应的栏目 
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD class=button onmousedown=turnonall() style="CURSOR: pointer">展开所有</TD>
+    <TD class=button onmousedown=turnoffall() 
+  style="CURSOR: pointer">收拢所有</TD></TR></TBODY></TABLE></DIV>
+<DIV class=relatedLinksTitle>新闻聚合</DIV>
+<DIV class=relatedLinks align=right><A class=nodecoration 
+title="Link to the RSS 0.90 feed." 
+href="http://wxy0327.itpub.net/rss/rss090/16888"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="RSS 0.90" 
+src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/rss090_logo.gif"></A><BR><A 
+class=nodecoration title="Link to the RSS 1.0 feed." 
+href="http://wxy0327.itpub.net/rss/rss10/16888"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="RSS 1.0" src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/rss10_logo.gif"></A><BR><A 
+class=nodecoration title="Link to the RSS 2.0 feed." 
+href="http://wxy0327.itpub.net/rss/rss20/16888"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="RSS 2.0" src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/rss20_logo.gif"></A><BR><A 
+class=nodecoration title="Link to the Atom 0.3 feed." 
+href="http://wxy0327.itpub.net/rss/atom/16888"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="Atom 0.3" 
+src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/atom_logo.png"></A><BR><BR><A 
+href="http://www.bloglines.com/sub/http://wxy0327.itpub.net/rss/rss20/16888"><IMG 
+alt="Subscribe with Bloglines" 
+src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/sub_bloglines.gif" border=0></A><BR><A 
+href="http://www.rojo.com/add-subscription?resource=http://wxy0327.itpub.net/rss/rss20/16888"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="Subscribe in Rojo" 
+src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/add-to-rojo.gif"></A> <BR><A 
+title="Subscribe in NewsGator Online" 
+href="http://www.newsgator.com/ngs/subscriber/subext.aspx?url=http://wxy0327.itpub.net/rss/rss20/16888"><IMG 
+alt="Subscribe in NewsGator Online" 
+src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/ngsub1.gif"></A><BR><A 
+title="Subscribe in My Yahoo!" 
+href="http://add.my.yahoo.com/rss?url=http://wxy0327.itpub.net/rss/rss20/16888"><IMG 
+alt="Subscribe in My Yahoo!" 
+src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/addtomyyahoo4.gif"></A><BR><A 
+title="Add to Google" 
+href="http://fusion.google.com/add?feedurl=http://wxy0327.itpub.net/rss/rss20/16888"><IMG 
+alt="Add to Google" 
+src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/add-to-google-plus.gif"></A><BR></DIV>
+<DIV class=relatedLinksTitle>博客日历</DIV>
+<DIV class=relatedLinks align=center>
+<TABLE class=calMonth>
+  <THEAD>
+  <TR class=calMonthNav>
+    <TH class=calMonthBackward><A title="十一月 2008" 
+      href="http://wxy0327.itpub.net/archives/16888/200811">&laquo;</A></TH>
+    <TH class=calMonthCurrent colSpan=5>十二月 2008</TH>
+    <TH class=calMonthForward><A title="一月 2009" 
+      href="http://wxy0327.itpub.net/archives/16888/200901">&raquo;</A></TH></TR>
+  <TR class=calMonthHeader>
+    <TH scope=col abbr=星期一>一</TH>
+    <TH scope=col abbr=星期二>二</TH>
+    <TH scope=col abbr=星期三>三</TH>
+    <TH scope=col abbr=星期四>四</TH>
+    <TH scope=col abbr=星期五>五</TH>
+    <TH scope=col abbr=星期六>六</TH>
+    <TH scope=col abbr=星期日>日</TH></TR></THEAD>
+  <TBODY>
+  <TR>
+    <TD class=calMonthDay>1</TD>
+    <TD class=calMonthToday>2</TD>
+    <TD class=calMonthDay>3</TD>
+    <TD class=calMonthDay>4</TD>
+    <TD class=calMonthDay>5</TD>
+    <TD class=calMonthDay>6</TD>
+    <TD class=calMonthDay>7</TD></TR>
+  <TR>
+    <TD class=calMonthDay>8</TD>
+    <TD class=calMonthDay>9</TD>
+    <TD class=calMonthDay>10</TD>
+    <TD class=calMonthDay>11</TD>
+    <TD class=calMonthDay>12</TD>
+    <TD class=calMonthDay>13</TD>
+    <TD class=calMonthDay>14</TD></TR>
+  <TR>
+    <TD class=calMonthDay>15</TD>
+    <TD class=calMonthDay>16</TD>
+    <TD class=calMonthDay>17</TD>
+    <TD class=calMonthDay>18</TD>
+    <TD class=calMonthDay>19</TD>
+    <TD class=calMonthDay>20</TD>
+    <TD class=calMonthDay>21</TD></TR>
+  <TR>
+    <TD class=calMonthDay>22</TD>
+    <TD class=calMonthDay>23</TD>
+    <TD class=calMonthDay>24</TD>
+    <TD class=calMonthDay>25</TD>
+    <TD class=calMonthDay>26</TD>
+    <TD class=calMonthDay>27</TD>
+    <TD class=calMonthDay>28</TD></TR>
+  <TR>
+    <TD class=calMonthDay>29</TD>
+    <TD class=calMonthDay>30</TD>
+    <TD class=calMonthDay>31</TD>
+    <TD class=calMonthDay>&nbsp;</TD>
+    <TD class=calMonthDay>&nbsp;</TD>
+    <TD class=calMonthDay>&nbsp;</TD>
+    <TD class=calMonthDay>&nbsp;</TD></TR></TBODY></TABLE></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('archives')" 
+style="CURSOR: pointer">文章归档...</DIV>
+<DIV class=relatedLinks id=archives style="DISPLAY: none">
+<P align=center><A href="http://wxy0327.itpub.net/archives/16888/200706">六月 
+2007(3篇)</A><BR><A href="http://wxy0327.itpub.net/archives/16888/200705">五月 
+2007(8篇)</A><BR><A href="http://wxy0327.itpub.net/archives/16888/200704">四月 
+2007(7篇)</A><BR><A href="http://wxy0327.itpub.net/archives/16888/200703">三月 
+2007(7篇)</A><BR><A href="http://wxy0327.itpub.net/archives/16888/200702">二月 
+2007(6篇)</A><BR><A href="http://wxy0327.itpub.net/archives/16888/200701">一月 
+2007(16篇)</A><BR><A href="http://wxy0327.itpub.net/archives/16888/200612">十二月 
+2006(18篇)</A><BR><A href="http://wxy0327.itpub.net/archives/16888/200611">十一月 
+2006(25篇)</A><BR><A href="http://wxy0327.itpub.net/archives/16888/200609">九月 
+2006(31篇)</A><BR><A href="http://wxy0327.itpub.net/archives/16888/200608">八月 
+2006(41篇)</A><BR><A href="http://wxy0327.itpub.net/archives/16888/200607">七月 
+2006(36篇)</A><BR><A href="http://wxy0327.itpub.net/archives/16888/200606">六月 
+2006(42篇)</A><BR><A href="http://wxy0327.itpub.net/archives/16888/200605">五月 
+2006(58篇)</A><BR><A href="http://wxy0327.itpub.net/archives/16888/200001">一月 
+2000(2篇)</A><BR></P></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('recentposts')" 
+style="CURSOR: pointer">最新发表...</DIV>
+<DIV class=relatedLinks id=recentposts><A 
+href="http://wxy0327.itpub.net/post/16888/292507">数据库管理员DBA必读（转）</A><BR><A 
+href="http://wxy0327.itpub.net/post/16888/292128">在 Red Hat Advanced Server 4 
+上安装 Oracle 10.2.0.1 RAC</A><BR><A 
+href="http://wxy0327.itpub.net/post/16888/291676">linux NTP 配置时间同步</A><BR><A 
+href="http://wxy0327.itpub.net/post/16888/291281">Linux 裸设备基础知识（转）</A><BR><A 
+href="http://wxy0327.itpub.net/post/16888/288633">配置 Oracle 透明网关访问 SQL 
+Server</A><BR><A 
+href="http://wxy0327.itpub.net/post/16888/288269">5条DBA最佳实践指导（转）</A><BR><A 
+href="http://wxy0327.itpub.net/post/16888/288227">一篇关于 SQL Server Replication 
+的不错的文档</A><BR><A 
+href="http://wxy0327.itpub.net/post/16888/287837">用PL/SQL画直方图（转）</A><BR><A 
+href="http://wxy0327.itpub.net/post/16888/287099">Oracle 中 isnumeric 
+的三种实现</A><BR><A 
+href="http://wxy0327.itpub.net/post/16888/286763">一个比较难的SQL（Oracle 9i 实现 10G 的 
+CONNECT_BY_ISLEAF、CONNECT_BY_ROOT 等功能）</A><BR></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('blog_statistics')" 
+style="CURSOR: pointer">博客统计... </DIV>
+<DIV class=relatedLinks id=blog_statistics style="DISPLAY: none">总文章数: 
+300<BR>总评论数: 252<BR>总引用数: 0<BR>总浏览数: 329235<BR></DIV></DIV>
+<DIV id=rightNav>
+<DIV class=relatedLinksTitle>Blog信息</DIV>
+<DIV class=relatedLinks>出于知识共享的目的，与别人交流数据库技术与DBA的工作心得。 <BR></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('mylinks')" 
+style="CURSOR: pointer">网站链接...</DIV>
+<DIV class=myLinks id=mylinks></DIV></DIV><!-- end pagenav -->
+<DIV id=pagefoot>&nbsp; <!-- 以下部分的内容，请保留原样， 谢谢！ -->
+<TABLE align=center border=0>
+  <TBODY>
+  <TR>
+    <TD>OW_MS模板,版本:1.30beta </TD>
+    <TD>模板设计:</TD>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0>
+        <TBODY>
+        <TR>
+          <TD><A href="http://oldwain.itpub.net/"><IMG 
+            style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+            alt=oldwain 
+          src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/oldwain.gif"></A></TD></TR>
+        <TR>
+          <TD style="FONT-SIZE: xx-small"><A 
+            href="http://oldwain.itpub.net/">oldwain</A></TD></TR></TBODY></TABLE></TD>
+    <TD>, 2006.02</TD>
+    <TD>Powered by</TD>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0>
+        <TBODY>
+        <TR>
+          <TD><A href="http://www.lifetype.net/"><IMG 
+            style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+            alt=LifeType 
+            src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/lt_button42.png"></A></TD></TR>
+        <TR>
+          <TD style="FONT-SIZE: xx-small"><A 
+            href="http://www.lifetype.net/">LifeType</A></TD></TR></TBODY></TABLE></TD><!-- 以上部分的内容，请保留原样， 谢谢！ -->
+    <TD>Blog提供:</TD>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0>
+        <TBODY>
+        <TR>
+          <TD><A href="http://weblog.itpub.net/"><IMG 
+            style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+            alt=Itpub 
+        src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/itpub.gif"></A></TD></TR>
+        <TR>
+          <TD style="FONT-SIZE: xx-small"><A 
+            href="http://weblog.itpub.net/">ITPUB</A></TD></TR></TBODY></TABLE></TD><!--
+    <td>Modified by:</td>
+    <td><a href="http://blog.itpub.net/YOURBLOG"> 您的大名</a></td>
+--></TR></TBODY></TABLE></DIV></DIV><!--end pagecell-->
+<SCRIPT language=javascript type=text/javascript>
+	  var cookielayout = readCookie("layout");
+	  var layouttitle = cookielayout ? cookielayout : getPreferredLayout();
+	  setActiveLayout(layouttitle);
+	</SCRIPT>
+
+<SCRIPT language=javascript type=text/javascript>
+	  var cookiecolor = readCookie("color");
+	  var colortitle = cookiecolor ? cookiecolor : getPreferredColorSchema();
+	  setActiveColorSchema(colortitle);
+	</SCRIPT>
+<IMG height=1 alt="" src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/itpub.png" width=1 
+border=0><IMG height=1 alt="" 
+src="雪迎的Blog  Oracle 分析函数的使用（转载）.files/itpubblog.gif" width=1 border=0> 
+</BODY></HTML>

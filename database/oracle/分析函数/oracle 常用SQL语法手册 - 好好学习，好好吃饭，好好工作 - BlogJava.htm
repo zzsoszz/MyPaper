@@ -1,0 +1,3372 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0059)http://www.blogjava.net/lusm/archive/2007/06/27/126669.html -->
+<HTML><HEAD id=Head><TITLE>oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META id=metaKeywords content="oracle 常用SQL语法手册" name=keywords><LINK id=MainCss 
+href="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/style.css" 
+type=text/css rel=stylesheet><LINK id=RSSLink title=RSS 
+href="http://www.blogjava.net/lusm/rss.aspx" type=application/rss+xml 
+rel=alternate>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<FORM id=Form1 name=Form1 onsubmit="javascript:return WebForm_OnSubmit();" 
+action=126669.html method=post>
+<DIV><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE> </DIV>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</SCRIPT>
+
+<SCRIPT src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=JavaScript>
+									function ctlent(evt,id)
+											{
+												if(evt.ctrlKey && evt.keyCode == 13)
+												{	
+													try
+													{
+														TempSave(id);
+													}
+													catch(ex)
+													{
+													}
+													finally
+													{
+													    __doPostBack('AjaxHolder$PostComment$btnSubmit','')
+													}
+												}
+		
+												}</SCRIPT>
+
+<SCRIPT language=JavaScript>function SetReplyAuhor(author){document.getElementById('AjaxHolder_PostComment_tbComment').value+="@"+author+"\n";document.getElementById('AjaxHolder_PostComment_tbComment').focus();return false}</SCRIPT>
+
+<SCRIPT 
+src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/ScriptResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="D:\oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files\ScriptResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="D:\oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files\ScriptResource(2).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</SCRIPT>
+
+<DIV id=top>
+<DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=HeaderTitles>
+      <H1 class=HeaderTitle><A class=HeaderMainTitle id=Header1_HeaderTitle 
+      href="http://www.blogjava.net/lusm/"><SPAN 
+      style="FONT-SIZE: 14pt">好好学习，好好吃饭，好好工作</SPAN></A></H1>
+      <P id=tagline>喜欢交流 相互促进 共同进步 <SPAN style="COLOR: red">驱动开发群——27054589 
+      </SPAN>注意：转发本blog文章请注明文章出处(http://www.blogjava.net/lusm)，谢谢支持！</P></TD></TR></TBODY></TABLE></DIV>
+<DIV class=HeaderBar>
+<TABLE class=HeaderBar id=HeaderBar>
+  <TBODY>
+  <TR>
+    <TD class=HeaderBarTab noWrap><IMG id=Header1_StartButton 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/BlueTabRight.gif" 
+      align=absMiddle> <IMG id=Header1_MyLinks1_Divider1 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/divider.gif" 
+      align=absMiddle> <A id=Header1_MyLinks1_MyHomeLink 
+      href="http://www.blogjava.net/lusm/">首页</A><IMG id=Header1_MyLinks1_Image1 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/divider.gif" 
+      align=absMiddle> <A id=Header1_MyLinks1_NewPostLink 
+      href="http://www.blogjava.net/lusm/admin/EditPosts.aspx?opt=1">新随笔</A><IMG 
+      id=Header1_MyLinks1_Image2 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/divider.gif" 
+      align=absMiddle> <A id=Header1_MyLinks1_ContactLink accessKey=9 
+      href="http://www.blogjava.net/lusm/contact.aspx?id=1">联系</A><IMG 
+      id=Header1_MyLinks1_Divider2 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/divider.gif" 
+      align=absMiddle> <A id=Header1_MyLinks1_Syndication 
+      href="http://www.blogjava.net/lusm/rss" target=_blank>聚合</A><IMG 
+      id=Header1_MyLinks1_Divider3 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/divider.gif" 
+      align=absMiddle> <!--<a id="Header1_MyLinks1_Syndication2" href="../../../../../Atom.aspx" target="_blank">Syndicate this Site (Atom)</a><img id="Header1_MyLinks1_Divider6" src="../../../../../Skins/WinXPBlue/Images/divider.gif" align="absmiddle" style="border-width:0px;" />
+<a id="Header1_MyLinks1_XMLLink" class="XMLLink" href="http://www.blogjava.net/lusm/rss" target="_blank"><img src="http://www.blogjava.net/images/xml.gif" style="border-width:0px;" /></a>--><A 
+      id=Header1_MyLinks1_Admin 
+      href="http://www.blogjava.net/lusm/admin/EditPosts.aspx">管理</A><IMG 
+      id=Header1_MyLinks1_Divider5 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/divider.gif" 
+      align=absMiddle> </TD>
+    <TD class=HeaderBarTabBack noWrap width="100%">
+      <DIV class=BlogStatsBar>
+      <TABLE class=BlogStatsBar>
+        <TBODY>
+        <TR>
+          <TD width="100%"></TD>
+          <TD class=BlogStatsBar noWrap>&nbsp; 288 Posts&nbsp;:: 0 Stories :: 
+            449 Comments :: 0 Trackbacks 
+</TD></TR></TBODY></TABLE></DIV></TD></TR></TBODY></TABLE></DIV></DIV>
+<DIV id=leftmenu style="DISPLAY: none">
+<H3>公告</H3>
+<DIV class=News>
+<P align=left><IMG height=20 alt="" 
+src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/34.gif" width=20 
+border=0>欢迎光临！&nbsp;<BR>小弟，致力于开源OS Kernels &amp; Drivers&nbsp;、Embedded&nbsp; 
+Processors及 JavaEE/ME&nbsp;学习与开发，但水平一般得很，请多顶、多指教 <IMG height=20 alt="" 
+src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/21.gif" width=20 
+border=0>&nbsp; <EM><BR></EM><SPAN style="COLOR: #808000"><STRONG><SPAN 
+style="COLOR: #ff6600">祝</SPAN>大家天<SPAN style="COLOR: #ff6600">天</SPAN>都<SPAN 
+style="COLOR: #ff6600">开</SPAN><SPAN style="COLOR: #808000">开</SPAN><SPAN 
+style="COLOR: #ff6600">心</SPAN><SPAN style="COLOR: #808000">心</SPAN><SPAN 
+style="COLOR: #ff6600">！</SPAN><SPAN style="COLOR: #808000">！</SPAN><SPAN 
+style="COLOR: #ff6600">！</SPAN><BR></STRONG></SPAN>闲聊<IMG height=20 alt="" 
+src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/31.gif" width=20 
+border=0>&nbsp;QQ：<EM>492006004<BR></EM><A title=下载听听 
+href="http://bbs.kxzyba.cn/yinyue/xyblt.wma"><IMG height=19 alt="" 
+src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/37.gif" width=19 
+border=0>心愿便利贴.mp3 </A><BR><IMG alt="" 
+src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/emrose.gif" 
+align=absMiddle border=0><A 
+href="http://www.ectyu.com/bbs/uploadfile/2007-6/200761870582447.mp3">认真的雪.mp3</A><BR></P></DIV>
+<H3>随笔分类<SPAN style="FONT-WEIGHT: normal; FONT-SIZE: 11px">(341)</SPAN></H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_RssLink 
+  title="Subscribe to <font color='red'>Ajax</font>(5)" 
+  href="http://www.blogjava.net/lusm/category/29426.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_Link 
+  href="http://www.blogjava.net/lusm/category/29426.html"><FONT 
+  color=red>Ajax</FONT>(5)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_RssLink 
+  title="Subscribe to Blog公告(3)" 
+  href="http://www.blogjava.net/lusm/category/20032.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_Link 
+  href="http://www.blogjava.net/lusm/category/20032.html">Blog公告(3)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_RssLink 
+  title="Subscribe to c/c++/C#/pasic/vb/php/asp(.net)/win-cgi/xml...(52)" 
+  href="http://www.blogjava.net/lusm/category/20007.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_Link 
+  href="http://www.blogjava.net/lusm/category/20007.html">c/c++/C#/pasic/vb/php/asp(.net)/win-cgi/xml...(52)</A> 
+
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_RssLink 
+  title="Subscribe to database(13)" 
+  href="http://www.blogjava.net/lusm/category/20009.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_Link 
+  href="http://www.blogjava.net/lusm/category/20009.html">database(13)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_RssLink 
+  title="Subscribe to j2se/j2ee/j2me(142)" 
+  href="http://www.blogjava.net/lusm/category/20000.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_Link 
+  href="http://www.blogjava.net/lusm/category/20000.html">j2se/j2ee/j2me(142)</A> 
+
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_RssLink 
+  title="Subscribe to kernel (15)" 
+  href="http://www.blogjava.net/lusm/category/20010.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_Link 
+  href="http://www.blogjava.net/lusm/category/20010.html">kernel (15)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl07_RssLink 
+  title="Subscribe to linux configuration(5)" 
+  href="http://www.blogjava.net/lusm/category/20001.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl07_Link 
+  href="http://www.blogjava.net/lusm/category/20001.html">linux 
+  configuration(5)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl08_RssLink 
+  title="Subscribe to Listening 所有的声音都是音乐(1)" 
+  href="http://www.blogjava.net/lusm/category/20034.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl08_Link 
+  href="http://www.blogjava.net/lusm/category/20034.html">Listening 
+  所有的声音都是音乐(1)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl09_RssLink 
+  title="Subscribe to matlab~~~值得一学的工具(2)" 
+  href="http://www.blogjava.net/lusm/category/21096.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl09_Link 
+  href="http://www.blogjava.net/lusm/category/21096.html">matlab~~~值得一学的工具(2)</A> 
+
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl10_RssLink 
+  title="Subscribe to network(5)" 
+  href="http://www.blogjava.net/lusm/category/20006.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl10_Link 
+  href="http://www.blogjava.net/lusm/category/20006.html">network(5)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl11_RssLink 
+  title="Subscribe to SUN OS(8)" 
+  href="http://www.blogjava.net/lusm/category/20002.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl11_Link 
+  href="http://www.blogjava.net/lusm/category/20002.html">SUN OS(8)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl12_RssLink 
+  title="Subscribe to unix program(10)" 
+  href="http://www.blogjava.net/lusm/category/20008.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl12_Link 
+  href="http://www.blogjava.net/lusm/category/20008.html">unix program(10)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl13_RssLink 
+  title="Subscribe to 书法，文学 艺术（欲罢不能，神魂颠倒的美）(4)" 
+  href="http://www.blogjava.net/lusm/category/20031.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl13_Link 
+  href="http://www.blogjava.net/lusm/category/20031.html">书法，文学 
+  艺术（欲罢不能，神魂颠倒的美）(4)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl14_RssLink 
+  title="Subscribe to 健身妙招" 
+  href="http://www.blogjava.net/lusm/category/24090.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl14_Link 
+  href="http://www.blogjava.net/lusm/category/24090.html">健身妙招</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl15_RssLink 
+  title="Subscribe to 入侵反入侵(4)" 
+  href="http://www.blogjava.net/lusm/category/20047.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl15_Link 
+  href="http://www.blogjava.net/lusm/category/20047.html">入侵反入侵(4)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl16_RssLink 
+  title="Subscribe to 关于搜索引擎" 
+  href="http://www.blogjava.net/lusm/category/20004.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl16_Link 
+  href="http://www.blogjava.net/lusm/category/20004.html">关于搜索引擎</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl17_RssLink 
+  title="Subscribe to 哲学世界(7)" 
+  href="http://www.blogjava.net/lusm/category/20013.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl17_Link 
+  href="http://www.blogjava.net/lusm/category/20013.html">哲学世界(7)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl18_RssLink 
+  title="Subscribe to 多媒体开发(4)" 
+  href="http://www.blogjava.net/lusm/category/20012.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl18_Link 
+  href="http://www.blogjava.net/lusm/category/20012.html">多媒体开发(4)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl19_RssLink 
+  title="Subscribe to 嵌入式开发(11)" 
+  href="http://www.blogjava.net/lusm/category/20005.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl19_Link 
+  href="http://www.blogjava.net/lusm/category/20005.html">嵌入式开发(11)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl20_RssLink 
+  title="Subscribe to 常用资源(19)" 
+  href="http://www.blogjava.net/lusm/category/20003.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl20_Link 
+  href="http://www.blogjava.net/lusm/category/20003.html">常用资源(19)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl21_RssLink 
+  title="Subscribe to 汇编 *asm/at&amp;t ....(1)" 
+  href="http://www.blogjava.net/lusm/category/26332.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl21_Link 
+  href="http://www.blogjava.net/lusm/category/26332.html">汇编 *asm/at&amp;t 
+  ....(1)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl22_RssLink 
+  title="Subscribe to 科学百科(4)" 
+  href="http://www.blogjava.net/lusm/category/20014.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl22_Link 
+  href="http://www.blogjava.net/lusm/category/20014.html">科学百科(4)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl23_RssLink 
+  title="Subscribe to 算法(2)" 
+  href="http://www.blogjava.net/lusm/category/25551.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl23_Link 
+  href="http://www.blogjava.net/lusm/category/25551.html">算法(2)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl24_RssLink 
+  title="Subscribe to 编程问题(4)" 
+  href="http://www.blogjava.net/lusm/category/25284.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl24_Link 
+  href="http://www.blogjava.net/lusm/category/25284.html">编程问题(4)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl25_RssLink 
+  title="Subscribe to 计算机病毒反病毒学(4)" 
+  href="http://www.blogjava.net/lusm/category/20048.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl25_Link 
+  href="http://www.blogjava.net/lusm/category/20048.html">计算机病毒反病毒学(4)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl26_RssLink 
+  title="Subscribe to 软件 &amp;  书籍 推荐(16)" 
+  href="http://www.blogjava.net/lusm/category/20093.html/rss"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl26_Link 
+  href="http://www.blogjava.net/lusm/category/20093.html">软件 &amp; 书籍 推荐(16)</A> 
+  </LI></UL>
+<H3><FONT color=red>我管理的群</FONT></H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_RssLink 
+  title="Subscribe to j2ee" 
+  href="http://group.qq.com/group_index.shtml?groupid=37486483"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_Link 
+  href="http://group.qq.com/group_index.shtml?groupid=37486483">j2ee</A> 
+  <LI style="MARGIN-TOP: 2px">struts Hibernate spring等学习基础不扎实 可以跳到j2se学习群 
+  37486623 请先退出该群 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl02_RssLink 
+  title="Subscribe to j2se(37486623)" 
+  href="http://group.qq.com/group_index.shtml?groupid=37486623"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl02_Link 
+  href="http://group.qq.com/group_index.shtml?groupid=37486623" 
+  target=_blank>j2se(37486623)</A> 
+  <LI style="MARGIN-TOP: 2px">j2se学习 若人满请加到12999758 学完的可以跳到j2ee学习群 37486483 
+  请先退出该群 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl03_RssLink 
+  title="Subscribe to java || .net(50982019)" 
+  href="http://group.qq.com/group_index.shtml?groupid=50982019"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl03_Link 
+  href="http://group.qq.com/group_index.shtml?groupid=50982019" 
+  target=_blank>java || .net(50982019)</A> 
+  <LI style="MARGIN-TOP: 2px">java &amp; .net都是热门的web技术 当然可以一起学啦 欢迎前来探讨技术 解决问题 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl04_RssLink 
+  title="Subscribe to java 2(35917927)~~~请加这个 " 
+  href="http://group.qq.com/group_index.shtml?groupid=35917927"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl04_Link 
+  href="http://group.qq.com/group_index.shtml?groupid=35917927" 
+  target=_blank>java 2(35917927)~~~请加这个 </A>
+  <LI style="MARGIN-TOP: 2px">该群在发展中，踢人是经常的事情 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl05_RssLink 
+  title="Subscribe to java(12999758)" 
+  href="http://group.qq.com/group_index.shtml?groupid=12999758"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl05_Link 
+  href="http://group.qq.com/group_index.shtml?groupid=12999758" 
+  target=_blank>java(12999758)</A> 
+  <LI style="MARGIN-TOP: 2px">学完的可以跳到j2ee学习群 37486483 请先退出该群 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl06_RssLink 
+  title="Subscribe to Java应用(14821632)" 
+  href="http://group.qq.com/group_index.shtml?groupid=14821632"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl06_Link 
+  href="http://group.qq.com/group_index.shtml?groupid=14821632" 
+  target=_blank>Java应用(14821632)</A> 
+  <LI style="MARGIN-TOP: 2px">学无止境 好好努力! 讨论 web 技术 、 Java (j2se j2ee) 、C/S编程 、 
+  数据库 。。。。 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl07_RssLink 
+  title="Subscribe to Linux C、C++(33318370)" 
+  href="http://group.qq.com/group_index.shtml?groupid=33318370"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl07_Link 
+  href="http://group.qq.com/group_index.shtml?groupid=33318370" 
+  target=_blank>Linux C、C++(33318370)</A> 
+  <LI style="MARGIN-TOP: 2px">将 Linux 和 C、C++ 编程进行到底! 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl08_RssLink 
+  title="Subscribe to Think in java(16705375)~~~请加这个 " 
+  href="http://group.qq.com/group_index.shtml?groupid=16705375"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl08_Link 
+  href="http://group.qq.com/group_index.shtml?groupid=16705375" 
+  target=_blank>Think in java(16705375)~~~请加这个 </A>
+  <LI style="MARGIN-TOP: 2px">《Think in java》 我们的最爱 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl09_RssLink 
+  title="Subscribe to VC++(26883332)" 
+  href="http://group.qq.com/group_index.shtml?groupid=26883332"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl09_Link 
+  href="http://group.qq.com/group_index.shtml?groupid=26883332" 
+  target=_blank>VC++(26883332)</A> 
+  <LI style="MARGIN-TOP: 2px">~~~~C/C++/MFC/C#~~~~~~ “形而上者谓之道，形而下者谓之器。” 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl10_RssLink 
+  title="Subscribe to VC高级群(35537875)" 
+  href="http://group.qq.com/group_index.shtml?groupid=35537875"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl10_Link 
+  href="http://group.qq.com/group_index.shtml?groupid=35537875" 
+  target=_blank>VC高级群(35537875)</A> 
+  <LI style="MARGIN-TOP: 2px">请学好基本语法再进来 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl11_RssLink 
+  title="Subscribe to 文祠实习群(32644370)" 
+  href="http://group.qq.com/group_index.shtml?groupid=32644370"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl11_Link 
+  href="http://group.qq.com/group_index.shtml?groupid=32644370" 
+  target=_blank>文祠实习群(32644370)</A> 
+  <LI style="MARGIN-TOP: 2px">07年文祠实习群 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl12_RssLink 
+  title="Subscribe to 無敵ASM(28287492)" 
+  href="http://group.qq.com/group_index.shtml?groupid=28287492"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl12_Link 
+  href="http://group.qq.com/group_index.shtml?groupid=28287492" 
+  target=_blank>無敵ASM(28287492)</A> 
+  <LI style="MARGIN-TOP: 2px">Win32 
+  ASM，快乐中学习，交流中成长，驾驭操作系统是我们的目标。友谊从这里开始吧！研究单片机的请到群：7470664 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl13_RssLink 
+  title="Subscribe to 驱动开发群(27054589)" 
+  href="http://group.qq.com/group_index.shtml?groupid=27054589"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl13_Link 
+  href="http://group.qq.com/group_index.shtml?groupid=27054589" 
+  target=_blank>驱动开发群(27054589)</A> 
+  <LI style="MARGIN-TOP: 2px">arm || intel ...platform Windows || Linux device 
+  driver development 有一定基础方可加入 </LI></UL>
+<H3>公共blog </H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl01_RssLink 
+  title="Subscribe to n维空间" href="http://www.blogjava.net/java3d"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl01_Link 
+  href="http://www.blogjava.net/java3d" target=_blank>n维空间</A> 
+  <LI style="MARGIN-TOP: 2px">Email : java3d@126.com 群 : 12999758 </LI></UL>
+<H3>参与管理的论坛</H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl01_RssLink 
+  title="Subscribe to ineedyou" href="http://bbs.ineedyou.name/"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl01_Link 
+  href="http://bbs.ineedyou.name/" target=_blank>ineedyou</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl02_RssLink 
+  title="Subscribe to ourlinux" href="http://www.ourlinux.org/"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl02_Link 
+  href="http://www.ourlinux.org/" target=_blank>ourlinux</A> </LI></UL>
+<H3>好友的blog</H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl01_RssLink 
+  title="Subscribe to lyforever" href="http://blog.csdn.net/spotmausoft/"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl01_Link 
+  href="http://blog.csdn.net/spotmausoft/" target=_blank>lyforever</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl02_RssLink 
+  title="Subscribe to Resplendent技术blog" 
+  href="http://hi.baidu.com/luv_resplendent"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl02_Link 
+  href="http://hi.baidu.com/luv_resplendent" target=_blank>Resplendent技术blog</A> 
+
+  <LI style="MARGIN-TOP: 2px">java、VC和嵌入开发 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl03_RssLink 
+  title="Subscribe to 一梦如是" href="http://fanskydream.yculblog.com/"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl03_Link 
+  href="http://fanskydream.yculblog.com/" target=_blank>一梦如是</A> 
+  <LI style="MARGIN-TOP: 2px">c/c++/windows/mfc 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl04_RssLink 
+  title="Subscribe to 三驾马车" href="http://www.blogjava.net/fengwei1314"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl04_Link 
+  href="http://www.blogjava.net/fengwei1314" target=_blank>三驾马车</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl05_RssLink 
+  title="Subscribe to 仙人指路" href="http://www.blogjava.net/wudiasm"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl05_Link 
+  href="http://www.blogjava.net/wudiasm" target=_blank>仙人指路</A> 
+  <LI style="MARGIN-TOP: 2px">弄VC和汇编的家伙 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl06_RssLink 
+  title="Subscribe to 吕鑫磊" href="http://blog.sina.com.cn/lvkean"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl06_Link 
+  href="http://blog.sina.com.cn/lvkean" target=_blank>吕鑫磊</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl07_RssLink 
+  title="Subscribe to 吴卫-3D工作室" 
+  href="http://blog.focus.cn/myblog/2846107.html"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl07_Link 
+  href="http://blog.focus.cn/myblog/2846107.html" target=_blank>吴卫-3D工作室</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl08_RssLink 
+  title="Subscribe to 好好学习,天天向上,态度决定一切" 
+  href="http://blog.csdn.net/standlww"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl08_Link 
+  href="http://blog.csdn.net/standlww" target=_blank>好好学习,天天向上,态度决定一切</A> 
+  <LI style="MARGIN-TOP: 2px">同学的blog 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl09_RssLink 
+  title="Subscribe to 廖益花" href="http://user.qzone.qq.com/397270672"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl09_Link 
+  href="http://user.qzone.qq.com/397270672" target=_blank>廖益花</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl10_RssLink 
+  title="Subscribe to 琦琦" href="http://blog.sina.com.cn/whitney520"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl10_Link 
+  href="http://blog.sina.com.cn/whitney520" target=_blank>琦琦</A> 
+  <LI style="MARGIN-TOP: 2px">北京的朋友，和我一起创建了不少群 呵呵！ 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl11_RssLink 
+  title="Subscribe to 菜菜C++" href="http://blog.csdn.net/cclovetwins/"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl11_Link 
+  href="http://blog.csdn.net/cclovetwins/" target=_blank>菜菜C++</A> 
+  <LI style="MARGIN-TOP: 2px">VC++ 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl12_RssLink 
+  title="Subscribe to 陈敏师兄 " href="http://hi.baidu.com/batxut"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl12_Link 
+  href="http://hi.baidu.com/batxut" target=_blank>陈敏师兄 </A>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl13_RssLink 
+  title="Subscribe to 霍霍" href="http://yuzhuyi.blog.sohu.com/"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl13_Link 
+  href="http://yuzhuyi.blog.sohu.com/" target=_blank>霍霍</A> 
+  <LI style="MARGIN-TOP: 2px">一个和我差不多大的北京女孩 </LI></UL>
+<H3>我的其他blog </H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl05_LinkList_ctl01_RssLink 
+  title="Subscribe to kernel world（csdn）" 
+  href="http://blog.csdn.net/mylusm/"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl05_LinkList_ctl01_Link 
+  href="http://blog.csdn.net/mylusm/" target=_blank>kernel world（csdn）</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl05_LinkList_ctl02_RssLink 
+  title="Subscribe to 寻寻觅觅—— C语言" href="http://lusm.roboticfan.com/"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl05_LinkList_ctl02_Link 
+  href="http://lusm.roboticfan.com/" target=_blank>寻寻觅觅—— C语言</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl05_LinkList_ctl03_RssLink 
+  title="Subscribe to 我的世界 不被打扰" href="http://hi.baidu.com/mylusm"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl05_LinkList_ctl03_Link 
+  href="http://hi.baidu.com/mylusm" target=_blank>我的世界 不被打扰</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl05_LinkList_ctl04_RssLink 
+  title="Subscribe to 虚拟世界-自由自在" 
+  href="http://bbs.ineedyou.name/Blog.asp?BlogUserName=lusm"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl05_LinkList_ctl04_Link 
+  href="http://bbs.ineedyou.name/Blog.asp?BlogUserName=lusm">虚拟世界-自由自在</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl05_LinkList_ctl05_RssLink 
+  title="Subscribe to 音乐在身边" href="http://lusm.blog.sohu.com/"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl05_LinkList_ctl05_Link 
+  href="http://lusm.blog.sohu.com/" target=_blank>音乐在身边</A> </LI></UL>
+<H3>朋友的网站</H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl01_RssLink 
+  title="Subscribe to china1996.cn" href="http://www.china1996.cn/"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl01_Link 
+  href="http://www.china1996.cn/" target=_blank>china1996.cn</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl02_RssLink 
+  title="Subscribe to ourlinux.org" href="http://article.ourlinux.org/"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl02_Link 
+  href="http://article.ourlinux.org/" target=_blank>ourlinux.org</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl03_RssLink 
+  title="Subscribe to ourlinux.org" href="http://news.ourlinux.org/"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl03_Link 
+  href="http://news.ourlinux.org/" target=_blank>ourlinux.org</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl04_RssLink 
+  title="Subscribe to 笑话大全" href="http://joke.itsun.org/"><IMG 
+  src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/xml.gif" align=center 
+  border=0></A> <A id=SingleColumn1_Categories_CatList_ctl06_LinkList_ctl04_Link 
+  href="http://joke.itsun.org/" target=_blank>笑话大全</A> 
+  <LI style="MARGIN-TOP: 2px">累了的时候啦 可以寻下开心 </LI></UL>
+<SCRIPT language=JavaScript>
+function SearchGoogle(key,evt,site)
+		{
+			if(evt.keyCode==13 || evt.keyCode==0 || evt.type =='click')
+			{
+				key.focus();
+				var keystr = encodeURIComponent(key.value);
+				url = "http://www.google.com/search?q=";
+				url = url+keystr;
+				url += "&ie=UTF-8&oe=GB2312&hl=zh-CN&domains="+site+"&sitesearch="+site;
+				window.location=url;
+				return false;
+			}
+		}
+</SCRIPT>
+
+<H3>搜索</H3>
+<UL>
+  <LI>
+  <LI><INPUT id=q 
+  onkeydown="return SearchGoogle(document.getElementById('q'),event,'www.blogjava.net/lusm')" 
+  style="WIDTH: 130px" name=q>&nbsp;<INPUT onclick="SearchGoogle(document.getElementById('q'),event,'www.blogjava.net/lusm')" type=button value=搜索 name=sa> 
+  </LI></UL>
+<H3>最新评论 <A id=SingleColumn1__290302b_RSSHyperlink1 
+href="http://www.blogjava.net/lusm/CommentsRSS.aspx"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+src="D:\oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files\xml(1).gif"></A></H3>
+<DIV class=RecentComment>
+<UL>
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__290302b_CommentList_ctl01_Hyperlink1 
+  href="http://www.blogjava.net/lusm/archive/2008/11/30/164603.html#243497">1.&nbsp;re: 
+  arm9从听说到使用（赠给想弄arm的朋友）</A> 
+  <LI style="WORD-BREAK: break-all">我买了一条usb 转串口(9针)的线 
+  用超级终端,接受能够完全正确的进行(arm),但是到接受完后，但我按下enter键时,没有反映,(不知道为什么,请好心人帮助解决,谢谢啦 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--yq 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__290302b_CommentList_ctl02_Hyperlink1 
+  href="http://www.blogjava.net/lusm/archive/2008/11/27/106737.html#243096">2.&nbsp;re: 
+  [原创]jacob使用入门及问题解析 ~~~~~~~~~~~ 回网友[未登录]</A> 
+  <LI style="WORD-BREAK: break-all">评论内容较长,点击标题查看 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--小寻 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__290302b_CommentList_ctl03_Hyperlink1 
+  href="http://www.blogjava.net/lusm/archive/2008/11/24/106737.html#242396">3.&nbsp;re: 
+  [原创]jacob使用入门及问题解析 ~~~~~~~~~~~ 回网友</A> 
+  <LI style="WORD-BREAK: break-all">评论内容较长,点击标题查看 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--银河使者 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__290302b_CommentList_ctl04_Hyperlink1 
+  href="http://www.blogjava.net/lusm/archive/2008/11/24/106737.html#242393">4.&nbsp;re: 
+  [原创]jacob使用入门及问题解析 ~~~~~~~~~~~ 回网友</A> 
+  <LI 
+  style="WORD-BREAK: break-all">@幻想~@@~<BR>openoffice有自己的jdk，可以研究一下，不错，很好很强大。 
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--银河使者 
+  <LI style="WORD-BREAK: break-all"><A 
+  id=SingleColumn1__290302b_CommentList_ctl05_Hyperlink1 
+  href="http://www.blogjava.net/lusm/archive/2008/11/24/106737.html#242392">5.&nbsp;re: 
+  [原创]jacob使用入门及问题解析 ~~~~~~~~~~~ 回网友</A> 
+  <LI 
+  style="WORD-BREAK: break-all">@郁林<BR>com组件需要一个id来引用，这个错误是com组件的id错了，或根本没有这个组件。 
+
+  <LI style="MARGIN-RIGHT: 4px; TEXT-ALIGN: right">--银河使者 </LI></UL></DIV><!--
+	<br><br>
+	<p align="center">
+	<a href="http://www.WebHost4Life.com/default.asp?refid=MarkHWagner">
+	<img src="http://www.WebHost4Life.com/images/banner3.gif" width="120"
+	height="60" border="0" alt="Join WebHost4Life.com"></a>
+	</p>
+--></DIV>
+<DIV id=main>
+<DIV class=post>
+<DIV class=postTitle><A id=viewpost1_TitleUrl 
+href="http://www.blogjava.net/lusm/archive/2007/06/27/126669.html">oracle 
+常用SQL语法手册</A> </DIV>
+<DIV class=postText>
+<H1 align=left><SPAN>Select</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN>&nbsp;</SPAN><SPAN>从指定表中取出指定的列的数据</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<P align=left>&nbsp;</P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT column_name(s) FROM table_name</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left><STRONG><SPAN>解释：</SPAN></STRONG></P>
+<P align=left><SPAN>从数据库中选取资料列，并允许从一或多个资料表中，选取一或多个资料列或资料行。</SPAN><SPAN>SELECT 
+</SPAN><SPAN>陈述式的完整语法相当复杂，但主要子句可摘要为：</SPAN></P>
+<P align=left><SPAN>SELECT select_list <BR>[ INTO new_table ] <BR>FROM 
+table_source <BR>[ WHERE search_condition ] <BR>[ GROUP BY group_by_expression ] 
+<BR>[ HAVING search_condition ] <BR>[ ORDER BY order_expression [ ASC | DESC ] ] 
+</SPAN></P>
+<P align=left><STRONG><SPAN>例：</SPAN></STRONG></P>
+<P align=left><SPAN>&nbsp;“Persons” </SPAN><SPAN>表中的数据有</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Timoteivn 10</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Borgvn 23</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Storgt 20</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>选出字段名</SPAN><SPAN>”</SPAN><SPAN> 
+LastName</SPAN><SPAN>”</SPAN><SPAN>、</SPAN><SPAN>”</SPAN><SPAN> 
+FirstName</SPAN><SPAN>” </SPAN><SPAN>的数据</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT LastName,FirstName FROM Persons</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果</SPAN><SPAN>:</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Ola</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Tove</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kari</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>选出所有字段的数据</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT * FROM Persons</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果</SPAN><SPAN>:</SPAN></P>
+<P align=left>&nbsp;</P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Timoteivn 10</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Borgvn 23</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Storgt 20</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>Where</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN>被用来规定一种选择查询的标准</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT column FROM table WHERE column condition value</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>下面的操作符能被使用在</SPAN><SPAN>WHERE</SPAN><SPAN>中：</SPAN></P>
+<P align=left><SPAN>=,&lt;&gt;,&gt;,&lt;,&gt;=,&lt;=,BETWEEN,LIKE</SPAN></P>
+<P align=left><SPAN>注意：</SPAN><SPAN> 
+</SPAN><SPAN>在某些</SPAN><SPAN>SQL</SPAN><SPAN>的版本中不等号</SPAN><SPAN>&lt; 
+&gt;</SPAN><SPAN>能被写作为</SPAN><SPAN>!=</SPAN></P>
+<P align=left><STRONG><SPAN>解释：</SPAN></STRONG><STRONG></STRONG></P>
+<P 
+align=left><SPAN>&nbsp;SELECT</SPAN><SPAN>语句返回</SPAN><SPAN>WHERE</SPAN><SPAN>子句中条件为</SPAN><SPAN>true</SPAN><SPAN>的数据</SPAN></P>
+<P align=left><STRONG><SPAN>例：</SPAN></STRONG><STRONG></STRONG></P>
+<P align=left><SPAN>从</SPAN><SPAN>”<STRONG> 
+</STRONG>Persons”</SPAN><SPAN>表中选出生活在</SPAN><SPAN>” Sandnes” 
+</SPAN><SPAN>的人</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT * FROM Persons WHERE City='Sandnes'</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>&nbsp;"Persons" 
+</SPAN><SPAN>表中的数据有</SPAN><STRONG><SPAN>:</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Year</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Timoteivn 10</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD>
+    <TD>
+      <P><SPAN>1951</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Borgvn 23</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD>
+    <TD>
+      <P><SPAN>1978</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stale</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kaivn 18</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD>
+    <TD>
+      <P><SPAN>1980</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Storgt 20</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD>
+    <TD>
+      <P><SPAN>1960</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果</SPAN><STRONG><SPAN>:</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Year</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Timoteivn 10</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD>
+    <TD>
+      <P><SPAN>1951</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Borgvn 23</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD>
+    <TD>
+      <P><SPAN>1978</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stale</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kaivn 18</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD>
+    <TD>
+      <P><SPAN>1980</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>And &amp; Or</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P 
+align=left><SPAN>在</SPAN><SPAN>WHERE</SPAN><SPAN>子句中</SPAN><SPAN>AND</SPAN><SPAN>和</SPAN><SPAN>OR</SPAN><SPAN>被用来连接两个或者更多的条件</SPAN></P>
+<P align=left><STRONG><SPAN>解释：</SPAN></STRONG><STRONG></STRONG></P>
+<P align=left><SPAN>AND</SPAN><SPAN>在结合两个布尔表达式时，只有在两个表达式都为</SPAN><SPAN> TRUE 
+</SPAN><SPAN>时才传回</SPAN><SPAN> TRUE</SPAN></P>
+<P align=left><SPAN>&nbsp;OR</SPAN><SPAN>在结合两个布尔表达式时，只要其中一个条件为</SPAN><SPAN> TRUE 
+</SPAN><SPAN>时，</SPAN><SPAN>OR</SPAN><SPAN>便传回</SPAN><SPAN> 
+TRUE</SPAN><STRONG></STRONG></P>
+<P align=left><STRONG><SPAN>例：</SPAN></STRONG><STRONG></STRONG></P>
+<H2 align=left><SPAN>&nbsp;</SPAN><SPAN>"Persons" 
+</SPAN><SPAN>表中的</SPAN><SPAN>原始数据</SPAN><SPAN>:</SPAN></H2>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Timoteivn 10</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Borgvn 23</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stephen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kaivn 18</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>&nbsp;</SPAN><SPAN>用</SPAN><SPAN>AND</SPAN><SPAN>运算子来查找</SPAN><SPAN>"Persons" 
+</SPAN><SPAN>表中</SPAN><SPAN>FirstName</SPAN><SPAN>为</SPAN><SPAN>”Tove”</SPAN><SPAN>而且</SPAN><SPAN>LastName</SPAN><SPAN>为</SPAN><SPAN>” 
+Svendson”</SPAN><SPAN>的数据</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT * FROM Persons</SPAN></PRE><PRE><SPAN>WHERE FirstName='Tove'</SPAN></PRE><PRE><SPAN>AND LastName='Svendson'</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果</SPAN><STRONG><SPAN>: </SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Borgvn 23</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>用</SPAN><SPAN>OR</SPAN><SPAN>运算子来查找</SPAN><SPAN>"Persons" 
+</SPAN><SPAN>表中</SPAN><SPAN>FirstName</SPAN><SPAN>为</SPAN><SPAN>”Tove”</SPAN><SPAN>或者</SPAN><SPAN>LastName</SPAN><SPAN>为</SPAN><SPAN>” 
+Svendson”</SPAN><SPAN>的数据</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT * FROM Persons</SPAN></PRE><PRE><SPAN>WHERE firstname='Tove'</SPAN></PRE><PRE><SPAN>OR lastname='Svendson'</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果</SPAN><STRONG><SPAN>: </SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Borgvn 23</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stephen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kaivn 18</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>&nbsp;</SPAN><SPAN>你也能结合</SPAN><SPAN>AND</SPAN><SPAN>和</SPAN><SPAN>OR 
+(</SPAN><SPAN>使用括号形成复杂的表达式</SPAN><SPAN>),</SPAN><SPAN>如</SPAN><SPAN>:</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT * FROM Persons WHERE</SPAN></PRE><PRE><SPAN>(FirstName='Tove' OR FirstName='Stephen')</SPAN></PRE><PRE><SPAN>AND LastName='Svendson'</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果</SPAN><STRONG><SPAN>:</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Borgvn 23</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stephen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kaivn 18</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN></SPAN></STRONG>&nbsp;</P>
+<H1 align=left><SPAN>Between…And</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN>&nbsp;</SPAN><SPAN>指定需返回数据的范围</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT column_name FROM table_name<EM></EM></SPAN></PRE><PRE><SPAN>WHERE column_name<EM></EM></SPAN></PRE><PRE><SPAN>BETWEEN value1<EM> </EM>AND value2</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN>例：</SPAN></STRONG></P>
+<P align=left><SPAN>“Persons”</SPAN><SPAN>表中的原始数据</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Timoteivn 10</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Nordmann</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Anna</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Neset 18</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Storgt 20</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Borgvn 23</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>用</SPAN><SPAN>BETWEEN…AND</SPAN><SPAN>返回</SPAN><SPAN>LastName</SPAN><SPAN>为从</SPAN><SPAN>”Hansen”</SPAN><SPAN>到</SPAN><SPAN>”Pettersen”</SPAN><SPAN>的数据：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT * FROM Persons WHERE LastName </SPAN></PRE><PRE><SPAN>BETWEEN 'Hansen' AND 'Pettersen'</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果</SPAN><STRONG><SPAN>:</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Timoteivn 10</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Nordmann</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Anna</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Neset 18</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Storgt 20</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P 
+align=left><SPAN>为了显示指定范围之外的数据，也可以用</SPAN><SPAN>NOT</SPAN><SPAN>操作符：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT * FROM Persons WHERE LastName </SPAN></PRE><PRE><SPAN>NOT BETWEEN 'Hansen' AND 'Pettersen'</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果</SPAN><STRONG><SPAN>:</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Borgvn 23</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>Distinct</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN>&nbsp;DISTINCT</SPAN><SPAN>关键字被用作返回唯一的值</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT DISTINCT column-name(s) FROM table-name</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN>解释：</SPAN></STRONG></P>
+<P 
+align=left><STRONG><SPAN>&nbsp;</SPAN></STRONG><SPAN>当</SPAN><SPAN>column-name(s)</SPAN><SPAN>中存在重复的值时，返回结果仅留下一个</SPAN></P>
+<P align=left><STRONG><SPAN>例：</SPAN></STRONG></P>
+<P align=left><SPAN>“Orders”</SPAN><SPAN>表中的原始数据</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>Company</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>OrderNumber</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Sega</SPAN></P></TD>
+    <TD>
+      <P><SPAN>3412</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>W3Schools</SPAN></P></TD>
+    <TD>
+      <P><SPAN>2312</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Trio</SPAN></P></TD>
+    <TD>
+      <P><SPAN>4678</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>W3Schools</SPAN></P></TD>
+    <TD>
+      <P><SPAN>6798</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>用</SPAN><SPAN>DISTINCT</SPAN><SPAN>关键字返回</SPAN><SPAN>Company</SPAN><SPAN>字段中唯一的值：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT DISTINCT Company FROM Orders</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果</SPAN><STRONG><SPAN>:</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>Company</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Sega</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>W3Schools</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Trio</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>Order by</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN>指定结果集的排序</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT column-name(s) FROM table-name ORDER BY </SPAN><SPAN>{ <EM>order_by_expression</EM> [ ASC | DESC ] }</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN>解释：</SPAN></STRONG></P>
+<P 
+align=left><STRONG><SPAN>&nbsp;</SPAN></STRONG><SPAN>指定结果集的排序，可以按照</SPAN><SPAN>ASC(</SPAN><SPAN>递增方式排序，从最低值到最高值</SPAN><SPAN>)</SPAN><SPAN>或者</SPAN><SPAN>DESC(</SPAN><SPAN>递减方式排序，从最高值到最低值</SPAN><SPAN>)</SPAN><SPAN>的方式进行排序，默认的方式是</SPAN><SPAN>ASC</SPAN></P>
+<P align=left><STRONG><SPAN>例：</SPAN></STRONG></P>
+<P 
+align=left><SPAN>“Orders”</SPAN><SPAN>表中的原始数据</SPAN><STRONG><SPAN>:</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>Company</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>OrderNumber</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Sega</SPAN></P></TD>
+    <TD>
+      <P><SPAN>3412</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>ABC Shop</SPAN></P></TD>
+    <TD>
+      <P><SPAN>5678</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>W3Schools</SPAN></P></TD>
+    <TD>
+      <P><SPAN>2312</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>W3Schools</SPAN></P></TD>
+    <TD>
+      <P><SPAN>6798</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>按照</SPAN><SPAN>Company</SPAN><SPAN>字段的升序方式返回结果集：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT Company, OrderNumber FROM Orders</SPAN></PRE><PRE><SPAN>ORDER BY Company</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果</SPAN><STRONG><SPAN>:</SPAN></STRONG><STRONG><SPAN> 
+</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>Company</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>OrderNumber</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>ABC Shop&nbsp;</SPAN></P></TD>
+    <TD>
+      <P><SPAN>5678</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Sega</SPAN></P></TD>
+    <TD>
+      <P><SPAN>3412</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>W3Schools</SPAN></P></TD>
+    <TD>
+      <P><SPAN>6798</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>W3Schools</SPAN></P></TD>
+    <TD>
+      <P><SPAN>2312</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>按照</SPAN><SPAN>Company</SPAN><SPAN>字段的降序方式返回结果集：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT Company, OrderNumber FROM Orders</SPAN></PRE><PRE><SPAN>ORDER BY Company DESC</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果</SPAN><STRONG><SPAN>:</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>Company</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>OrderNumber</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>W3Schools</SPAN></P></TD>
+    <TD>
+      <P><SPAN>6798</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>W3Schools</SPAN></P></TD>
+    <TD>
+      <P><SPAN>2312</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Sega</SPAN></P></TD>
+    <TD>
+      <P><SPAN>3412</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>ABC Shop</SPAN></P></TD>
+    <TD>
+      <P><SPAN>5678</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>Group by</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN>对结果集进行分组，常与汇总函数一起使用。</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT column,SUM(column) FROM table GROUP BY column</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN>例：</SPAN></STRONG></P>
+<P 
+align=left><SPAN>“Sales”</SPAN><SPAN>表中的原始数据</SPAN><STRONG><SPAN>:</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>Company</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Amount</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>W3Schools</SPAN></P></TD>
+    <TD>
+      <P><SPAN>5500</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>IBM</SPAN></P></TD>
+    <TD>
+      <P><SPAN>4500</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>W3Schools</SPAN></P></TD>
+    <TD>
+      <P><SPAN>7100</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>按照</SPAN><SPAN>Company</SPAN><SPAN>字段进行分组，求出每个</SPAN><SPAN>Company</SPAN><SPAN>的</SPAN><SPAN>Amout</SPAN><SPAN>的合计：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT Company,SUM(Amount) FROM Sales</SPAN></PRE><PRE><SPAN>GROUP BY Company</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果<STRONG>：</STRONG></SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>Company</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>SUM(Amount)</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>W3Schools</SPAN></P></TD>
+    <TD>
+      <P><SPAN>12600</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>IBM</SPAN></P></TD>
+    <TD>
+      <P><SPAN>4500</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>Having</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN>指定群组或汇总的搜寻条件。</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT column,SUM(column) FROM table</SPAN></PRE><PRE><SPAN>GROUP BY column</SPAN></PRE><PRE><SPAN>HAVING SUM(column) condition value</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN>解释：</SPAN></STRONG></P>
+<P align=left><SPAN>HAVING </SPAN><SPAN>通常与</SPAN><SPAN> GROUP BY 
+</SPAN><SPAN>子句同时使用。不使用</SPAN><SPAN> GROUP BY </SPAN><SPAN>时，</SPAN><SPAN>HAVING 
+</SPAN><SPAN>则与</SPAN><SPAN> WHERE 
+</SPAN><SPAN>子句功能相似。</SPAN><STRONG></STRONG></P>
+<P align=left><STRONG><SPAN>例：</SPAN></STRONG></P>
+<P 
+align=left><SPAN>“Sales”</SPAN><SPAN>表中的原始数据</SPAN><STRONG><SPAN>:</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>Company</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Amount</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>W3Schools</SPAN></P></TD>
+    <TD>
+      <P><SPAN>5500</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>IBM</SPAN></P></TD>
+    <TD>
+      <P><SPAN>4500</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>W3Schools</SPAN></P></TD>
+    <TD>
+      <P><SPAN>7100</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>按照</SPAN><SPAN>Company</SPAN><SPAN>字段进行分组，求出每个</SPAN><SPAN>Company</SPAN><SPAN>的</SPAN><SPAN>Amout</SPAN><SPAN>的合计在</SPAN><SPAN>10000</SPAN><SPAN>以上的数据：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT Company,SUM(Amount) FROM Sales</SPAN></PRE><PRE><SPAN>GROUP BY Company HAVING SUM(Amount)&gt;10000</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果<STRONG>：</STRONG></SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>Company</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>SUM(Amount)</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>W3Schools</SPAN></P></TD>
+    <TD>
+      <P><SPAN>12600</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>Join</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P 
+align=left><SPAN>当你要从两个或者以上的表中选取结果集时，你就会用到</SPAN><SPAN>JOIN</SPAN><SPAN>。</SPAN></P>
+<P align=left><STRONG><SPAN>例：</SPAN></STRONG></P>
+<P 
+align=left><SPAN>“Employees”</SPAN><SPAN>表中的数据如下，（其中</SPAN><SPAN>ID</SPAN><SPAN>为主键）</SPAN><SPAN>:</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD width="10%">
+      <P><STRONG><SPAN>ID</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD width="40%">
+      <P><STRONG><SPAN>Name</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>01</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Hansen, Ola</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>02</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Svendson, Tove</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>03</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Svendson, Stephen</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>04</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Pettersen, Kari</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>“Orders”</SPAN><SPAN>表中的数据如下：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD width="10%">
+      <P><STRONG><SPAN>ID</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD width="40%">
+      <P><STRONG><SPAN>Product</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>01</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Printer</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>03</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Table</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>03</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Chair</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>用</SPAN><SPAN>Employees</SPAN><SPAN>的</SPAN><SPAN>ID</SPAN><SPAN>和</SPAN><SPAN>Orders</SPAN><SPAN>的</SPAN><SPAN>ID</SPAN><SPAN>相关联选取数据：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT Employees.Name, Orders.Product</SPAN></PRE><PRE><SPAN>FROM Employees, Orders</SPAN></PRE><PRE><SPAN>WHERE Employees.ID = Orders.ID</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD width="25%">
+      <P><STRONG><SPAN>Name</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD width="25%">
+      <P><STRONG><SPAN>Product</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen, Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Printer</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson, Stephen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Table</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson, Stephen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Chair</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>或者你也可以用</SPAN><SPAN>JOIN</SPAN><SPAN>关键字来完成上面的操作：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT Employees.Name, Orders.Product</SPAN></PRE><PRE><SPAN>FROM Employees</SPAN></PRE><PRE><SPAN>INNER JOIN Orders</SPAN></PRE><PRE><SPAN>ON Employees.ID = Orders.ID</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN>INNER 
+JOIN</SPAN></STRONG><STRONG><SPAN>的语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT field1, field2, field3</SPAN></PRE><PRE><SPAN>FROM first_table</SPAN></PRE><PRE><SPAN>INNER JOIN second_table</SPAN></PRE><PRE><SPAN>ON first_table.keyfield = second_table.foreign_keyfield</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN>解释：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>INNER 
+JOIN</SPAN><SPAN>返回的结果集是两个表中所有相匹配的数据。</SPAN></P>
+<P align=left>&nbsp;</P>
+<P align=left><STRONG><SPAN>LEFT 
+JOIN</SPAN></STRONG><STRONG><SPAN>的语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT field1, field2, field3</SPAN></PRE><PRE><SPAN>FROM first_table</SPAN></PRE><PRE><SPAN>LEFT JOIN second_table</SPAN></PRE><PRE><SPAN>ON first_table.keyfield = second_table.foreign_keyfield</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>用</SPAN><SPAN>”Employees”</SPAN><SPAN>表去左外联结</SPAN><SPAN>”Orders”</SPAN><SPAN>表去找出相关数据：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT Employees.Name, Orders.Product</SPAN></PRE><PRE><SPAN>FROM Employees</SPAN></PRE><PRE><SPAN>LEFT JOIN Orders</SPAN></PRE><PRE><SPAN>ON Employees.ID = Orders.ID</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD width="25%">
+      <P><STRONG><SPAN>Name</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD width="25%">
+      <P><STRONG><SPAN>Product</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen, Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Printer</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson, Tove</SPAN></P></TD>
+    <TD>
+      <P>&nbsp;</P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson, Stephen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Table</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson, Stephen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Chair</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen, Kari</SPAN></P></TD>
+    <TD>
+      <P>&nbsp;</P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN>解释：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>LEFT 
+JOIN</SPAN><SPAN>返回</SPAN><SPAN>”</SPAN><SPAN>first_table”</SPAN><SPAN>中所有的行尽管在</SPAN><SPAN>”</SPAN><SPAN> 
+second_table</SPAN><SPAN>”</SPAN><SPAN>中没有相匹配的数据。</SPAN></P>
+<P align=left>&nbsp;</P>
+<P align=left><STRONG><SPAN>RIGHT 
+JOIN</SPAN></STRONG><STRONG><SPAN>的语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT field1, field2, field3</SPAN></PRE><PRE><SPAN>FROM first_table</SPAN></PRE><PRE><SPAN>RIGHT JOIN second_table</SPAN></PRE><PRE><SPAN>ON first_table.keyfield = second_table.foreign_keyfield</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>用</SPAN><SPAN>”Employees”</SPAN><SPAN>表去右外联结</SPAN><SPAN>”Orders”</SPAN><SPAN>表去找出相关数据：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT Employees.Name, Orders.Product</SPAN></PRE><PRE><SPAN>FROM Employees</SPAN></PRE><PRE><SPAN>RIGHT JOIN Orders</SPAN></PRE><PRE><SPAN>ON Employees.ID = Orders.ID</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD width="49%">
+      <P><STRONG><SPAN>Name</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD width="50%">
+      <P><STRONG><SPAN>Product</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen, Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Printer</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson, Stephen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Table</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson, Stephen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Chair</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN>解释：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>RIGHT 
+JOIN</SPAN><SPAN>返回</SPAN><SPAN>”</SPAN><SPAN> 
+second_table</SPAN><SPAN>”</SPAN><SPAN>中所有的行尽管在</SPAN><SPAN>”</SPAN><SPAN>first_table”</SPAN><SPAN>中没有相匹配的数据。</SPAN></P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>Alias</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN>可用在表、结果集或者列上，为它们取一个逻辑名称</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<P align=left><SPAN>给列取别名：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT column AS column_alias FROM table</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></STRONG><SPAN>给表取别名：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT column FROM table AS table_alias</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN>例：</SPAN></STRONG></P>
+<P 
+align=left><SPAN>“Persons”</SPAN><SPAN>表中的原始数据</SPAN><STRONG><SPAN>:</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Timoteivn 10</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Borgvn 23</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Storgt 20</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>运行下面的</SPAN><SPAN>SQL</SPAN><SPAN>：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT LastName AS Family, FirstName AS Name</SPAN></PRE><PRE><SPAN>FROM Persons</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果<STRONG>：</STRONG></SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>Family</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Name</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Ola</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Tove</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kari</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>运行下面的</SPAN><SPAN>SQL</SPAN><SPAN>：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT LastName, FirstName</SPAN></PRE><PRE><SPAN>FROM Persons AS Employees</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>返回结果<STRONG>：</STRONG></SPAN><STRONG></STRONG></P>
+<P align=left><SPAN>Employees</SPAN><SPAN>中的数据有：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Ola</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Tove</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kari</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>Insert Into</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><STRONG><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></STRONG><SPAN>在表中插入新行</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<P align=left><STRONG><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></STRONG><SPAN>插入一行数据</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>INSERT INTO table_name<EM></EM></SPAN></PRE><PRE><SPAN>VALUES (value1, value2,....)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></STRONG><SPAN>插入一行数据在指定的字段上</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>INSERT INTO table_name (column1, column2,...)</SPAN></PRE><PRE><SPAN>VALUES (value1, value2,....)<SPAN>&nbsp;&nbsp; </SPAN></SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN>例：</SPAN></STRONG></P>
+<P 
+align=left><SPAN>“Persons”</SPAN><SPAN>表中的原始数据</SPAN><STRONG><SPAN>:</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Storgt 20</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>运行下面的</SPAN><SPAN>SQL</SPAN><SPAN>插入一行数据：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>INSERT INTO Persons&nbsp;</SPAN></PRE><PRE><SPAN>VALUES ('Hetland', 'Camilla', 'Hagabakka 24', 'Sandnes')</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>插入后</SPAN><SPAN>”Persons”</SPAN><SPAN>表中的数据为<STRONG>：</STRONG></SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Storgt 20</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hetland</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Camilla</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Hagabakka 24</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>运行下面的</SPAN><SPAN>SQL</SPAN><SPAN>插入一行数据在指定的字段上：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>INSERT INTO Persons (LastName, Address)</SPAN></PRE><PRE><SPAN>VALUES ('Rasmussen', 'Storgt 67')</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>插入后</SPAN><SPAN>”Persons”</SPAN><SPAN>表中的数据为<STRONG>：</STRONG></SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Storgt 20</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hetland</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Camilla</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Hagabakka 24</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Sandnes</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Rasmussen</SPAN></P></TD>
+    <TD>
+      <P>&nbsp;</P></TD>
+    <TD>
+      <P><SPAN>Storgt 67</SPAN></P></TD>
+    <TD>
+      <P>&nbsp;</P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>Update</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><STRONG><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></STRONG><SPAN>更新表中原有数据</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>UPDATE table_name<EM> </EM>SET column_name = new_value<EM></EM></SPAN></PRE><PRE><SPAN>WHERE column_name = some_value</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN>例：</SPAN></STRONG></P>
+<P 
+align=left><SPAN>“Person”</SPAN><SPAN>表中的原始数据</SPAN><STRONG><SPAN>:</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Nilsen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Fred</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kirkegt 56</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Rasmussen</SPAN></P></TD>
+    <TD>
+      <P>&nbsp;</P></TD>
+    <TD>
+      <P><SPAN>Storgt 67</SPAN></P></TD>
+    <TD>
+      <P>&nbsp;</P></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>运行下面的</SPAN><SPAN>SQL</SPAN><SPAN>将</SPAN><SPAN>Person</SPAN><SPAN>表中</SPAN><SPAN>LastName</SPAN><SPAN>字段为</SPAN><SPAN>”Rasmussen”</SPAN><SPAN>的</SPAN><SPAN>FirstName</SPAN><SPAN>更新为</SPAN><SPAN>”Nina”</SPAN><SPAN>：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>UPDATE Person SET FirstName = 'Nina'</SPAN></PRE><PRE><SPAN>WHERE LastName = 'Rasmussen'</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>更新后</SPAN><SPAN>”Person”</SPAN><SPAN>表中的数据为<STRONG>：</STRONG></SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Nilsen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Fred</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kirkegt 56</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Rasmussen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Nina</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Storgt 67</SPAN></P></TD>
+    <TD>
+      <P>&nbsp;</P></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>同样的，用</SPAN><SPAN>UPDATE</SPAN><SPAN>语句也可以同时更新多个字段：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>UPDATE Person</SPAN></PRE><PRE><SPAN>SET Address = 'Stien 12', City = 'Stavanger'</SPAN></PRE><PRE><SPAN>WHERE LastName = 'Rasmussen'</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>更新后</SPAN><SPAN>”Person”</SPAN><SPAN>表中的数据为<STRONG>：</STRONG></SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Nilsen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Fred</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kirkegt 56</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Rasmussen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Nina</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stien 12</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>Delete</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><STRONG><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></STRONG><SPAN>删除表中的数据</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>DELETE FROM table_name<EM> </EM>WHERE column_name = some_value</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN>例：</SPAN></STRONG></P>
+<P 
+align=left><SPAN>“Person”</SPAN><SPAN>表中的原始数据</SPAN><STRONG><SPAN>:</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Nilsen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Fred</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kirkegt 56</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Rasmussen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Nina</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stien 12</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>删除</SPAN><SPAN>Person</SPAN><SPAN>表中</SPAN><SPAN>LastName</SPAN><SPAN>为</SPAN><SPAN>”Rasmussen”</SPAN><SPAN>的数据：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>DELETE FROM Person WHERE LastName = 'Rasmussen'</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>执行删除语句后</SPAN><SPAN>”Person”</SPAN><SPAN>表中的数据为<STRONG>：</STRONG></SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Nilsen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Fred</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kirkegt 56</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Stavanger</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>Create Table</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><STRONG><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></STRONG><SPAN>建立新的资料表。</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>CREATE TABLE table_name<EM></EM></SPAN></PRE><PRE><SPAN>(</SPAN></PRE><PRE><SPAN>column_name1 data_type,<EM></EM></SPAN></PRE><PRE><SPAN>column_name2 data_type,<EM></EM></SPAN></PRE><PRE><EM><SPAN>.......</SPAN></EM></PRE><PRE><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN>例：</SPAN></STRONG></P>
+<P 
+align=left><SPAN>创建一张叫</SPAN><SPAN>“Person”</SPAN><SPAN>的表，该表有</SPAN><SPAN>4</SPAN><SPAN>个字段</SPAN><SPAN>"LastName", 
+"FirstName", "Address", "Age"</SPAN><SPAN>：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>CREATE TABLE Person&nbsp;</SPAN></PRE><PRE><SPAN>(</SPAN></PRE><PRE><SPAN>LastName varchar,</SPAN></PRE><PRE><SPAN>FirstName varchar,</SPAN></PRE><PRE><SPAN>Address varchar,</SPAN></PRE><PRE><SPAN>Age int</SPAN></PRE><PRE><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>如果想指定字段的最大存储长度，你可以这样：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>CREATE TABLE Person&nbsp;</SPAN></PRE><PRE><SPAN>(</SPAN></PRE><PRE><SPAN>LastName varchar(30),</SPAN></PRE><PRE><SPAN>FirstName varchar(30),</SPAN></PRE><PRE><SPAN>Address varchar(120),</SPAN></PRE><PRE><SPAN>Age int(3)&nbsp;</SPAN></PRE><PRE><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>下表中列出了在</SPAN><SPAN>SQL</SPAN><SPAN>的一些数据类型：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD vAlign=top width="30%">
+      <P><STRONG><SPAN>Data Type</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD vAlign=top width="70%">
+      <P><STRONG><SPAN>Description</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD vAlign=top>
+      <P><SPAN>integer(size)<BR>int(size)<BR>smallint(size)<BR>tinyint(size)</SPAN></P></TD>
+    <TD vAlign=top>
+      <P><SPAN>Hold integers only. The maximum number of digits are specified in 
+      parenthesis.</SPAN></P></TD></TR>
+  <TR>
+    <TD vAlign=top>
+      <P><SPAN>decimal(size,d)<BR>numeric(size,d)</SPAN></P></TD>
+    <TD vAlign=top>
+      <P><SPAN>Hold numbers with fractions. The maximum number of digits are 
+      specified in "size". The maximum number of digits to the right of the 
+      decimal is specified in "d".</SPAN></P></TD></TR>
+  <TR>
+    <TD vAlign=top>
+      <P><SPAN>char(size)</SPAN></P></TD>
+    <TD vAlign=top>
+      <P><SPAN>Holds a fixed length string (can contain letters, numbers, and 
+      special characters). The fixed size is specified in 
+    parenthesis.</SPAN></P></TD></TR>
+  <TR>
+    <TD vAlign=top>
+      <P><SPAN>varchar(size)</SPAN></P></TD>
+    <TD vAlign=top>
+      <P><SPAN>Holds a variable length string (can contain letters, numbers, and 
+      special characters). The maximum size is specified in 
+      parenthesis.</SPAN></P></TD></TR>
+  <TR>
+    <TD vAlign=top>
+      <P><SPAN>date(yyyymmdd)</SPAN></P></TD>
+    <TD vAlign=top>
+      <P><SPAN>Holds a date</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>Alter Table</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><STRONG><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></STRONG><SPAN>在已经存在的表中增加后者移除字段</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>ALTER TABLE table_name <EM></EM></SPAN></PRE><PRE><SPAN>ADD column_name datatype</SPAN></PRE><PRE><SPAN>ALTER TABLE table_name <EM></EM></SPAN></PRE><PRE><SPAN>DROP COLUMN column_name</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><STRONG><SPAN>注意：某些数据库管理系统不允许移除表中的字段</SPAN></STRONG></P>
+<P align=left><STRONG></STRONG>&nbsp;</P>
+<P align=left><STRONG><SPAN>例：</SPAN></STRONG></P>
+<P 
+align=left><SPAN>“Person”</SPAN><SPAN>表中的原始数据</SPAN><STRONG><SPAN>:</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Storgt 20</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P 
+align=left><SPAN>在</SPAN><SPAN>Person</SPAN><SPAN>表中增加一个名为</SPAN><SPAN>City</SPAN><SPAN>的字段：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>ALTER TABLE Person ADD City varchar(30)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>增加后表中数据如下：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Address</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Storgt 20</SPAN></P></TD>
+    <TD>
+      <P>&nbsp;</P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P 
+align=left><SPAN>移除</SPAN><SPAN>Person</SPAN><SPAN>表中原有的</SPAN><SPAN>Address</SPAN><SPAN>字段<STRONG>：</STRONG></SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>ALTER TABLE Person DROP COLUMN Address</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>移除后表中数据如下：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>LastName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>FirstName</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>City</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen</SPAN></P></TD>
+    <TD>
+      <P><SPAN>Kari</SPAN></P></TD>
+    <TD>
+      <P>&nbsp;</P></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>Drop Table</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><STRONG><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></STRONG><SPAN>在数据库中移除一个数据表定义及该数据表中的所有资料、索引、触发程序、条件约束及权限指定。</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>DROP TABLE table_name</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>Create Database</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><STRONG><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></STRONG><SPAN>建立新的数据库</SPAN><SPAN>.</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>CREATE DATABASE database_name</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>Drop Database</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><STRONG><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></STRONG><SPAN>移除原有的数据库</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>DROP DATABASE database_name</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>聚集函数</SPAN></H1>
+<H1 align=left><SPAN>count</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回选取的结果集中行的数目。</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT COUNT(column_name) FROM table_name</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN></P>
+<P align=left><SPAN>“Persons”</SPAN><SPAN>表中原始数据如下：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>Name</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Age</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen, Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>34</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson, Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>45</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen, Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>19</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>选取记录总数：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT COUNT(Name) FROM Persons</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>3</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>sum</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>以表达式传回所有值的总和，或仅</SPAN><SPAN> DISTINCT 
+</SPAN><SPAN>值。</SPAN><SPAN>SUM </SPAN><SPAN>仅可用于数值资料行。已忽略</SPAN><SPAN> Null 
+</SPAN><SPAN>值。</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT SUM(column_name) FROM table_name</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN></P>
+<P align=left><SPAN>“Persons”</SPAN><SPAN>表中原始数据如下：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>Name</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Age</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen, Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>34</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson, Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>45</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen, Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>19</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>选取</SPAN><SPAN>”Persons”</SPAN><SPAN>表中所有人的年龄总和：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT SUM(Age) FROM Persons</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>98</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>选取</SPAN><SPAN>”Persons”</SPAN><SPAN>表中年龄超过</SPAN><SPAN>20</SPAN><SPAN>岁的人的年龄总和：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT SUM(Age) FROM Persons WHERE Age&gt;20</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>79</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>avg</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回选取的结果集中值的平均值。已忽略<SPAN> Null 值。</SPAN></SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT AVG(column_name) FROM table_name</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN></P>
+<P align=left><SPAN>“Persons”</SPAN><SPAN>表中原始数据如下：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>Name</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Age</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen, Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>34</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson, Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>45</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen, Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>19</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>选取</SPAN><SPAN>”Persons”</SPAN><SPAN>表中所有人的平均年龄：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT AVG(Age) FROM Persons</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>32.67</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>选取</SPAN><SPAN>”Persons”</SPAN><SPAN>表中年龄超过</SPAN><SPAN>20</SPAN><SPAN>岁的人的平均年龄：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT AVG(Age) FROM Persons WHERE Age&gt;20</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>39.5</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>max</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回选取的结果集中值的</SPAN><SPAN>最大值</SPAN><SPAN>。已忽略<SPAN> Null 
+值。</SPAN></SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT MAX(column_name) FROM table_name</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN></P>
+<P align=left><SPAN>“Persons”</SPAN><SPAN>表中原始数据如下：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>Name</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Age</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen, Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>34</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson, Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>45</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen, Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>19</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>选取</SPAN><SPAN>”Persons”</SPAN><SPAN>表中的最大年龄：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT MAX(Age) FROM Persons</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>45</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>min</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回选取的结果集中值的</SPAN><SPAN>最小值</SPAN><SPAN>。已忽略<SPAN> Null 
+值。</SPAN></SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT MIN(column_name) FROM table_name</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN></P>
+<P align=left><SPAN>“Persons”</SPAN><SPAN>表中原始数据如下：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <P><STRONG><SPAN>Name</SPAN></STRONG><STRONG></STRONG></P></TD>
+    <TD>
+      <P><STRONG><SPAN>Age</SPAN></STRONG><STRONG></STRONG></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Hansen, Ola</SPAN></P></TD>
+    <TD>
+      <P><SPAN>34</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Svendson, Tove</SPAN></P></TD>
+    <TD>
+      <P><SPAN>45</SPAN></P></TD></TR>
+  <TR>
+    <TD>
+      <P><SPAN>Pettersen, Kari</SPAN></P></TD>
+    <TD>
+      <P><SPAN>19</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<P 
+align=left><SPAN>选取</SPAN><SPAN>”Persons”</SPAN><SPAN>表中的最小年龄：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SELECT MIN(Age) FROM Persons</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="50%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>19</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>算术函数</SPAN></H1>
+<H1 align=left><SPAN>abs</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回指定数值表达式<SPAN> (Numeric Expression) 
+的绝对正值。</SPAN></SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>ABS(</SPAN><EM><SPAN>numeric_expression</SPAN></EM><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>ABS(-1.0) ABS(0.0) ABS(1.0)</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>1.0<SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>0.0<SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>1.0</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>ceil</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回大于等于给定数值表达式的最小整数。</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>CEIL(</SPAN><EM><SPAN>numeric_expression</SPAN></EM><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>CEIL(123.45)<SPAN>&nbsp;&nbsp; </SPAN>CEIL(-123.45)</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>124.00<SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>-123.00</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>floor</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回小于或等于给定数值表达式的最大整数。</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>FLOOR(</SPAN><EM><SPAN>numeric_expression</SPAN></EM><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>FLOOR(123.45)<SPAN>&nbsp;&nbsp; </SPAN>FLOOR(-123.45)</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>123.00<SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>-124.00</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>cos</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>在指定表达式中传回指定角度</SPAN><SPAN> 
+(</SPAN><SPAN>以弪度为单位</SPAN><SPAN>) </SPAN><SPAN>的三角余弦值的数学函数。</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>COS(</SPAN><EM><SPAN>numeric_expression</SPAN></EM><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>COS(14.78)</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>-0.599465</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>cosh</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回以弧度为单位的角度值，其余弦为指定的</SPAN> <STRONG><SPAN>float 
+</SPAN></STRONG><SPAN>表达式，也称为反余弦。</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>COSH(</SPAN><EM><SPAN>numeric_expression</SPAN></EM><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>COSH(-1)</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>3.14159</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>sin</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>以近似的数值<SPAN> (<STRONG>float</STRONG>) 表达式传回给定角度 (以弧度) 
+之三角正弦函数 (Trigonometric Sine)。</SPAN></SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SIN(</SPAN><EM><SPAN>numeric_expression</SPAN></EM><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>SIN(</SPAN></CODE><CODE><SPAN>45.175643</SPAN></CODE><CODE><SPAN>)</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>0.929607</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>sinh</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回以弪度为单位的角度，其正弦为指定的 
+<STRONG><SPAN>float</SPAN></STRONG><SPAN> 表达式 (也称为反正弦)。</SPAN></SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SINH(</SPAN><EM><SPAN>numeric_expression</SPAN></EM><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>SINH(</SPAN></CODE><CODE><SPAN>-1.00</SPAN></CODE><CODE><SPAN>)</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>-1.5708</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>tan</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回输入表达式的正切函数。</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>TAN(</SPAN><EM><SPAN>numeric_expression</SPAN></EM><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>TAN(</SPAN></CODE><CODE><SPAN>3.14159265358979/2</SPAN></CODE><CODE><SPAN>)</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>1.6331778728383844E+16</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>tanh</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回以弪度为单位的角度，其正切为指定的</SPAN> 
+<STRONG><SPAN>float</SPAN></STRONG><SPAN> </SPAN><SPAN>表达式</SPAN><SPAN> 
+(</SPAN><SPAN>也称为反正切</SPAN><SPAN>)</SPAN><SPAN>。</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>TANH(</SPAN><EM><SPAN>numeric_expression</SPAN></EM><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>TANH(</SPAN></CODE><CODE><SPAN>-45.01</SPAN></CODE><CODE><SPAN>)</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>-1.54858</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>exp</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回给定的 <STRONG><SPAN>float </SPAN></STRONG>表达式的指数<SPAN> 
+(Exponential) 值。</SPAN></SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>EXP(</SPAN><EM><SPAN>numeric_expression</SPAN></EM><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>EXP(</SPAN></CODE><CODE><SPAN>378.615345498</SPAN></CODE><CODE><SPAN>)</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>2.69498e+164 </SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>log</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回给定的<SPAN> float 表达式之自然对数。</SPAN></SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>LOG(</SPAN><EM><SPAN>numeric_expression</SPAN></EM><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>LOG(</SPAN></CODE><CODE><SPAN>5.175643</SPAN></CODE><CODE><SPAN>)</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>1.64396 </SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>power</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回给定表达式指定乘幂的值。</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>POWER(</SPAN><EM><SPAN>numeric_expression,v</SPAN></EM><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>POWER(</SPAN></CODE><CODE><SPAN>2,6</SPAN></CODE><CODE><SPAN>)</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>64</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>sign</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回给定的表达式之正</SPAN><SPAN> (+1)</SPAN><SPAN>、零</SPAN><SPAN> (0) 
+</SPAN><SPAN>或负</SPAN><SPAN> (-1) </SPAN><SPAN>号。</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SIGN(</SPAN><EM><SPAN>numeric_expression</SPAN></EM><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>SIGN(123)<SPAN>&nbsp;&nbsp;&nbsp; </SPAN>SIGN(0)<SPAN>&nbsp;&nbsp;&nbsp; </SPAN>SIGN(-456)</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>1<SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>0<SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>-1</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P>
+<H1 align=left><SPAN>sqrt</SPAN></H1>
+<P align=left><STRONG><SPAN>用途：</SPAN></STRONG></P>
+<P align=left><SPAN><SPAN>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN><SPAN>传回给定表达式的平方。</SPAN></P>
+<P align=left><STRONG><SPAN>语法：</SPAN></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><SPAN>SQRT(</SPAN><EM><SPAN>numeric_expression</SPAN></EM><SPAN>)</SPAN></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>例：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>SQRT(10)</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left><SPAN>执行结果：</SPAN><STRONG></STRONG></P>
+<DIV align=left>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#eeeedd border=1>
+  <TBODY>
+  <TR>
+    <TD><PRE><CODE><SPAN>100</SPAN></CODE></PRE></TD></TR></TBODY></TABLE></DIV>
+<P align=left>&nbsp;</P><BR><BR><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><STRONG style="COLOR: red"><SPAN 
+style="COLOR: #999999"><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><STRONG>地震让大伙知道：居安思危，才是生存之道。<BR>用心专研技术，用实际行动尽一份绵力吧！</STRONG></SPAN><BR></SPAN></STRONG></SPAN><IMG 
+height=60 alt="" 
+src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/512.gif" width=468 
+border=0> </DIV>
+<DIV class=postfoot>posted on 2007-06-27 22:50 <A 
+href="http://www.blogjava.net/lusm/">小寻</A> 阅读(1686) <A 
+href="http://www.blogjava.net/lusm/archive/2007/06/27/126669.html#Post">评论(0)</A> 
+&nbsp;<A 
+href="http://www.blogjava.net/lusm/admin/EditPosts.aspx?postid=126669">编辑</A> 
+&nbsp;<A href="http://www.blogjava.net/lusm/AddToFavorite.aspx?id=126669">收藏</A> 
+所属分类: <A href="http://www.blogjava.net/lusm/category/20009.html">database</A> 
+</DIV></DIV><IMG height=1 
+src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/126669.jpg" width=1> <!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://www.blogjava.net/lusm/archive/2007/06/27/126669.html"
+dc:identifier="http://www.blogjava.net/lusm/archive/2007/06/27/126669.html"
+dc:title="oracle 常用SQL语法手册"
+trackback:ping="http://www.blogjava.net/lusm/services/trackbacks/126669.aspx" />
+</rdf:RDF>
+-->
+<SCRIPT type=text/javascript>
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('AjaxHolder$scriptmanager1', document.getElementById('Form1'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls(['tAjaxHolder$UpdatePanel1'], [], [], 90);
+//]]>
+</SCRIPT>
+
+<DIV id=AjaxHolder_UpdatePanel1>
+<STYLE>TD {
+	FONT-SIZE: 12px
+}
+.commentTextBox {
+	FONT-SIZE: 13px; FONT-FAMILY: Verdana
+}
+</STYLE>
+<!--Beging Temp Save-->
+<STYLE>.userData {
+	BEHAVIOR: url(#default#userdata)
+}
+</STYLE>
+
+<DIV class=userData id=CommentsPersistDiv></DIV>
+<SCRIPT type=text/javascript>
+function pageLoad()
+{
+    Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(handleInitializeRequest);
+    //Sys.WebForms.PageRequestManager.getInstance().add_endRequest(handleEndRequest);
+}
+
+function handleInitializeRequest(sender, args)
+{
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    var eid = args.get_postBackElement().id;
+    if (eid.indexOf("DeleteLink")>0) 
+    {
+       args.get_postBackElement().innerHTML = "<font color='red'>正在删除...</font>";         
+    }    
+    else if (eid.indexOf("btnSubmit")>0) 
+    {
+       document.getElementById("AjaxHolder_PostComment_ltSubmitMsg").innerHTML="正在提交...";
+       document.getElementById("AjaxHolder_PostComment_btnSubmit").disabled = true;       
+    }   
+    else if(eid.indexOf("refreshList")>0)
+    {
+        document.getElementById("AjaxHolder_PostComment_refreshList").innerHTML="<font color='red'>正在刷新...</font>";
+    }
+   
+}	
+
+function TempSave(ElementID)
+{
+	try
+	{
+	CommentsPersistDiv.setAttribute("CommentContent",document.getElementById(ElementID).value);
+	CommentsPersistDiv.save("CommentXMLStore");
+	}
+	catch(ex)
+	{
+	}
+	
+}
+function Restore(ElementID)
+{
+	CommentsPersistDiv.load("CommentXMLStore");
+	document.getElementById(ElementID).value=CommentsPersistDiv.getAttribute("CommentContent");
+}	
+			
+			
+</SCRIPT>
+<!--Ene TempSave-->
+<DIV id=divRefreshComments 
+style="FONT-SIZE: 12px; MARGIN-BOTTOM: 5px; MARGIN-RIGHT: 10px; TEXT-ALIGN: right"><A 
+href="http://news.cnblogs.com/">IT新闻</A>&nbsp;&nbsp;<A 
+href="http://www.blogjava.net/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+id=AjaxHolder_PostComment_refreshList 
+href="javascript:__doPostBack('AjaxHolder$PostComment$refreshList','')">刷新评论列表</A>&nbsp;&nbsp;</DIV>
+<DIV class=commentform><SPAN id=AjaxHolder_PostComment_ltSubmitMsg 
+style="COLOR: red"></SPAN><BR><A name=Feedback></A>
+<TABLE cellSpacing=1 cellPadding=1 border=0>
+  <TBODY>
+  <TR>
+    <TD colSpan=3 height=5>
+      <SCRIPT type=text/javascript><!--
+google_ad_client = "pub-4210569241504288";
+/* BlogJava_CommentBox_UP_08-11-8 */
+google_ad_slot = "9466389251";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</SCRIPT>
+
+      <SCRIPT 
+      src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/show_ads.js" 
+      type=text/javascript>
+</SCRIPT>
+      <BR><BR></TD></TR>
+  <TR>
+    <TD width=75></TD>
+    <TD></TD>
+    <TD></TD></TR>
+  <TR>
+    <TD width=55>标题</TD>
+    <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbTitle 
+      style="WIDTH: 320px" value="re: oracle 常用SQL语法手册" 
+      name=AjaxHolder$PostComment$tbTitle></TD>
+    <TD><SPAN id=AjaxHolder_PostComment_RequiredFieldValidator1 
+      style="VISIBILITY: hidden; COLOR: red">请输入标题</SPAN></TD></TR>
+  <TR>
+    <TD>姓名</TD>
+    <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbName 
+      style="WIDTH: 320px" name=AjaxHolder$PostComment$tbName></TD>
+    <TD><SPAN id=AjaxHolder_PostComment_RequiredFieldValidator2 
+      style="VISIBILITY: hidden; COLOR: red">请输入你的姓名</SPAN></TD></TR>
+  <TR>
+    <TD>主页</TD>
+    <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbUrl 
+      style="WIDTH: 320px" name=AjaxHolder$PostComment$tbUrl></TD>
+    <TD><FONT face=宋体></FONT></TD></TR>
+  <TR>
+    <TD align=left colSpan=3>
+      <TABLE class=CommentForm id=AjaxHolder_PostComment_tbCaptchaImage 
+      cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD colSpan=3><SPAN 
+            id=AjaxHolder_PostComment_Requiredfieldvalidator4 
+            style="DISPLAY: none; COLOR: red">请输入验证码</SPAN> <SPAN 
+            id=AjaxHolder_PostComment_lblImage 
+            style="FONT-WEIGHT: bold; COLOR: red"></SPAN></TD></TR>
+        <TR>
+          <TD width=78>验证码</TD>
+          <TD><INPUT id=AjaxHolder_PostComment_CodeNumberTextBox 
+            name=AjaxHolder$PostComment$CodeNumberTextBox>*&nbsp;&nbsp;<IMG 
+            src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/JpegImage.jpg"></TD>
+          <TD align=left></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD colSpan=3>内容(请不要发表任何与政治相关的内容) <SPAN 
+      id=AjaxHolder_PostComment_RequiredFieldValidator3 
+      style="VISIBILITY: hidden; COLOR: red">请输入评论内容</SPAN><BR><TEXTAREA class=commentTextBox id=AjaxHolder_PostComment_tbComment onkeydown="ctlent(event,'AjaxHolder_PostComment_tbComment')" style="WIDTH: 480px; HEIGHT: 220px" name=AjaxHolder$PostComment$tbComment rows=10 cols=50></TEXTAREA></TD></TR>
+  <TR>
+    <TD colSpan=3><SPAN id=AjaxHolder_PostComment_Message 
+      style="COLOR: red"></SPAN></TD>
+  <TR>
+    <TD colSpan=3><INPUT id=AjaxHolder_PostComment_chkRemember tabIndex=-1 
+      type=checkbox CHECKED name=AjaxHolder$PostComment$chkRemember><LABEL 
+      for=AjaxHolder_PostComment_chkRemember>Remember Me?</LABEL></TD></TR>
+  <TR>
+    <TD height=23><INPUT class=commentButton id=AjaxHolder_PostComment_btnSubmit onclick="TempSave('AjaxHolder_PostComment_tbComment');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;AjaxHolder$PostComment$btnSubmit&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" type=submit value=提交 name=AjaxHolder$PostComment$btnSubmit> 
+    </TD>
+    <TD colSpan=2 height=23>&nbsp; <A id=AjaxHolder_PostComment_lnkLogin 
+      href="http://www.blogjava.net/login.aspx?ReturnURL=http://www.blogjava.net/lusm/archive/2007/06/27/126669.html&amp;SourceURL=/lusm/archive/2007/06/27/126669.html">登录</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_PostComment_linkLoginComment 
+      onclick="if(document.getElementById('AjaxHolder_PostComment_tbComment').value != '') return confirm('未提交的评论内容将会丢失, 你真的要进入高级评论吗?');" 
+      href="http://www.blogjava.net/lusm/archive/2007/06/27/126669.html?login=1#Post">使用高级评论</A>&nbsp;&nbsp;<A 
+      href="http://www.blogjava.net/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+      href="http://www.blogjava.net/lusm/archive/2007/06/27/126669.html#Top">返回页首</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_PostComment_lbRestore 
+      onclick="Restore('AjaxHolder_PostComment_tbComment'); return false;" 
+      href="http://www.blogjava.net/lusm/archive/2007/06/27/126669.html#Post">恢复上次提交</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </TD></TR>
+  <TR>
+    <TD colSpan=3><LABEL class=CtrlEnter>[使用Ctrl+Enter键可以直接提交]</LABEL></TD></TR>
+  <TR>
+    <TD colSpan=3>该文被作者在 2007-07-17 00:57 编辑过</TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>&nbsp;</TD></TR>
+  <TR>
+    <TD colSpan=3 height=5></TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>&nbsp;</TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>
+      <DIV id=divRelativePosts>相关文章: 
+      <UL style="MARGIN-TOP: 0px; PADDING-LEFT: 0px">
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl01_Hyperlink1 
+        href="http://www.blogjava.net/lusm/archive/2007/12/01/164529.html">几个简单命令解决mysql忘记密码问题</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl02_Hyperlink1 
+        href="http://www.blogjava.net/lusm/archive/2007/09/10/144043.html">Oracle常用的用户管理命令</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl03_Hyperlink1 
+        href="http://www.blogjava.net/lusm/archive/2007/07/15/130395.html">mysql6.0+最新JDBC包下载</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl04_Hyperlink1 
+        href="http://www.blogjava.net/lusm/archive/2007/06/30/127282.html">MyEclipse 
+        的官方Spring,Hibernate入门视频教程</A> 
+        <LI style="DISPLAY: none; LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl05_Hyperlink1 
+        href="http://www.blogjava.net/lusm/archive/2007/06/27/126669.html">oracle 
+        常用SQL语法手册</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl06_Hyperlink1 
+        href="http://www.blogjava.net/lusm/archive/2007/06/26/126384.html">oracle视频下载</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl07_Hyperlink1 
+        href="http://www.blogjava.net/lusm/archive/2007/06/26/126303.html">oracle 
+        8i、9i、10g下载</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl08_Hyperlink1 
+        href="http://www.blogjava.net/lusm/archive/2007/05/05/115450.html">asp用ADO连接sql2000的核心代码和讲解</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl09_Hyperlink1 
+        href="http://www.blogjava.net/lusm/archive/2007/04/12/110283.html">oracle数据库服务器结构~~~~~~~~~~~~~图</A> 
+
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl10_Hyperlink1 
+        href="http://www.blogjava.net/lusm/archive/2007/04/04/108452.html">Hibernate 
+        Quickly--读书笔记（1）</A> </LI></UL></DIV></TD></TR>
+  <TR>
+    <TD colSpan=3></TD></TR>
+  <TR>
+    <TD colSpan=3>相关链接:
+      <SCRIPT type=text/javascript>
+	function GetMeta(ametaName){
+	var METAs = document.getElementsByTagName("meta"); 
+	for (var i=0; i<METAs.length; i++) { 
+	if(METAs[i].name.toLowerCase()==ametaName){return (METAs[i].content);}
+	};
+	return "";
+	}
+	var title = document.title;
+	document.write("<div id=\"a4_ads_output\">");
+	document.write("<script type='text/javascript' src='http://a4.yeshj.com/adwords/EN017?num=5&title="+ encodeURIComponent(title) +"&tag="+ encodeURIComponent(GetMeta("keywords")) +"'></scri"+"pt>");
+	document.write("</div>");
+	</SCRIPT>
+    </TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>网站导航:
+      <DIV id=blogsite><A 
+      href="http://www.cnblogs.com/">博客园</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <A 
+      href="http://www.blogjava.net/">BlogJava</A>&nbsp;&nbsp; <A 
+      href="http://www.cnweblog.com/">博客生活</A>&nbsp;&nbsp; <A 
+      href="http://www.cnitblog.com/">IT博客网</A>&nbsp;&nbsp; <A 
+      href="http://www.cppblog.com/">C++博客</A>&nbsp;&nbsp; <A 
+      href="http://www.phpweblog.net/">PHP博客</A>&nbsp;&nbsp; <A 
+      href="http://space.cnblogs.com/">博客园社区</A> <BR><A 
+      href="http://www.manageblog.net/">管理博客</A>&nbsp;&nbsp; <A 
+      href="http://www.teachblog.net/">教师博客</A>&nbsp;&nbsp;&nbsp;&nbsp; <A 
+      href="http://www.astroblog.cn/">天文博客</A>&nbsp;&nbsp; <A 
+      href="http://www.cnautoblog.com/">汽车博客</A>&nbsp;&nbsp; <A 
+      href="http://www.zuqiublog.com/">足球博客</A>&nbsp;&nbsp; <A 
+      href="http://www.gupiaoblog.com/">股票博客</A>&nbsp;&nbsp; <A 
+      href="http://www.etronblog.com/">电子博客</A>&nbsp;&nbsp;<A 
+      href="http://www.blogjava.net/lusm/archive/2007/06/27/126669.html?opt=admin">管理</A> 
+      </DIV></TD></TR>
+  <TR>
+    <TD colSpan=3></TD></TR></TBODY></TABLE></DIV>
+<DIV id=AjaxHolder_PostComment_ValidationSummary1 
+style="DISPLAY: none; COLOR: red"></DIV></DIV></DIV>
+<P id=footer>Powered by: <BR><A id=Footer1_Hyperlink3 
+style="FONT-SIZE: 12px; FONT-FAMILY: Verdana" href="http://www.blogjava.net/" 
+name=Hyperlink1>BlogJava</A> <BR>Copyright © 小寻 </P>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Page_ValidationSummaries =  new Array(document.getElementById("AjaxHolder_PostComment_ValidationSummary1"));
+var Page_Validators =  new Array(document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2"), document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3"));
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var AjaxHolder_PostComment_RequiredFieldValidator1 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator1"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1");
+AjaxHolder_PostComment_RequiredFieldValidator1.controltovalidate = "AjaxHolder_PostComment_tbTitle";
+AjaxHolder_PostComment_RequiredFieldValidator1.errormessage = "请输入标题";
+AjaxHolder_PostComment_RequiredFieldValidator1.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator1.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator2 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator2"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2");
+AjaxHolder_PostComment_RequiredFieldValidator2.controltovalidate = "AjaxHolder_PostComment_tbName";
+AjaxHolder_PostComment_RequiredFieldValidator2.errormessage = "请输入你的姓名";
+AjaxHolder_PostComment_RequiredFieldValidator2.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator2.initialvalue = "";
+var AjaxHolder_PostComment_Requiredfieldvalidator4 = document.all ? document.all["AjaxHolder_PostComment_Requiredfieldvalidator4"] : document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4");
+AjaxHolder_PostComment_Requiredfieldvalidator4.controltovalidate = "AjaxHolder_PostComment_CodeNumberTextBox";
+AjaxHolder_PostComment_Requiredfieldvalidator4.errormessage = "请输入验证码";
+AjaxHolder_PostComment_Requiredfieldvalidator4.display = "Dynamic";
+AjaxHolder_PostComment_Requiredfieldvalidator4.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_Requiredfieldvalidator4.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator3 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator3"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3");
+AjaxHolder_PostComment_RequiredFieldValidator3.controltovalidate = "AjaxHolder_PostComment_tbComment";
+AjaxHolder_PostComment_RequiredFieldValidator3.errormessage = "请输入评论内容";
+AjaxHolder_PostComment_RequiredFieldValidator3.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator3.initialvalue = "";
+var AjaxHolder_PostComment_ValidationSummary1 = document.all ? document.all["AjaxHolder_PostComment_ValidationSummary1"] : document.getElementById("AjaxHolder_PostComment_ValidationSummary1");
+AjaxHolder_PostComment_ValidationSummary1.showmessagebox = "True";
+AjaxHolder_PostComment_ValidationSummary1.showsummary = "False";
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+
+document.getElementById('AjaxHolder_PostComment_ValidationSummary1').dispose = function() {
+    Array.remove(Page_ValidationSummaries, document.getElementById('AjaxHolder_PostComment_ValidationSummary1'));
+}
+Sys.Application.initialize();
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2'));
+}
+
+document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3'));
+}
+//]]>
+</SCRIPT>
+</FORM>
+<SCRIPT src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/ShowHidden.js" 
+type=text/javascript></SCRIPT>
+<SPAN style="DISPLAY: none">
+<SCRIPT language=javascript 
+src="oracle 常用SQL语法手册 - 好好学习，好好吃饭，好好工作 - BlogJava.files/click.htm"></SCRIPT>
+</SPAN></BODY></HTML>

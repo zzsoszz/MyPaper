@@ -1,0 +1,95 @@
+Oracle函数返回Table集合
+ 
+   在实际的应用中，为了让PL/SQL 函数返回数据的多个行，必须通过返回一个 REF CURSOR 或一个数据集合来完成。REF CURSOR 的这种情况局限于可以从查询中选择的数据，而整个集合在可以返回前，必须进行具体化。 9i 通过引入的管道化表函数纠正了后一种情况。表函数是返回整个行的集（通常作为一个集合）的函数，可以直接从 SQL 语句中进行查询，就好像它是一个真正的数据库表一样。管道化表函数与之相似，但是它像在构建时一样返回数据，而不是一次全部返回。管道化表函数更加有效，因为数据可以尽可能快地返回。 
+
+    管道化表函数必须返回一个集合。在函数中，PIPE ROW 语句被用来返回该集合的单个元素，该函数必须以一个空的 RETURN 语句结束，以表明它已经完成。一旦我们创建了上述函数，我们就可以使用 TABLE 操作符从 SQL 查询中调用它。
+ 
+ 
+ 
+1.使用自定义类型
+ 
+/* Formatted on 2010/02/26 08:42 (Formatter Plus v4.8.8) */
+ 
+CREATE OR REPLACE TYPE objemp AS OBJECT (
+ 
+   maxsal   NUMBER,
+ 
+   minsal   NUMBER
+ 
+);
+ 
+ 
+ 
+ 
+ 
+/* Formatted on 2010/02/26 08:43 (Formatter Plus v4.8.8) */
+ 
+CREATE OR REPLACE TYPE tabemp AS TABLE OF objemp;
+ 
+ 
+ 
+2.使用Pipeline管道函数和Pipe row()
+ 
+CREATE OR REPLACE FUNCTION getmaxminsalary (department NUMBER)
+ 
+   RETURN tabemp PIPELINED
+ 
+AS
+ 
+   maximum_salary   NUMBER;
+ 
+   minimum_salary   NUMBER;
+ 
+   v_errorcode      NUMBER;
+ 
+   v_errortext      VARCHAR2 (200);
+ 
+   v                objemp;
+ 
+BEGIN
+ 
+   FOR myrow IN (SELECT MAX (sal) m_sal, MIN (sal) min_sal
+ 
+                   FROM emp
+ 
+                  WHERE deptno = departmnet)
+ 
+   LOOP
+ 
+      v := (myrow.m_sal, myrow.min_sal);
+ 
+      PIPE ROW (v);
+ 
+   END LOOP;
+ 
+ 
+ 
+   RETURN;
+ 
+EXCEPTION
+ 
+   WHEN OTHERS
+ 
+   THEN
+ 
+      v_errorcode := SQLCODE;
+ 
+      v_errortext := SUBSTR (SQLERRM, 1, 200);
+ 
+ 
+ 
+      INSERT INTO log_table
+ 
+                  (code, MESSAGE, info
+ 
+                  )
+ 
+           VALUES (v_errorcode, v_errortext, 'getMaxMinSalary'
+ 
+                  );
+ 
+END;
+ 
+3.使用Table操作符
+ 
+SELECT * FROM TABLE(getMaxMinSalary(10));

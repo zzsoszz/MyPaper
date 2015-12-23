@@ -1,0 +1,67 @@
+Oracle等待事件：inactive session是什么？
+作者：eygle |English Version 【转载时请以超链接形式标明文章出处和作者信息及本声明】
+链接：http://www.eygle.com/archives/2010/04/wait_inactive_session.html 
+站内相关文章|Related Articles 
+Oracle的to_date转换可能导致的错误SQL结果
+使用SQL_TRACE进行数据库诊断
+ORA-00600 kcratr_nab_less_than_odr案例一则
+淘宝网DBA团队将组织的数据库技术论坛活动
+opened cursors current 超高的数据库Bug
+最近在一个客户的AWR报告中，发现inactive session这个等待事件出现在最前列，这是首次看到这个等待。在Oracle的文档上这样描述该事件：
+
+inactive session
+This event is used for two purposes:
+
+Switching sessions
+
+If a time-out period has been specified, then wait that amount of time for the session to be detached.
+
+Killing sessions
+
+From either KILL SESSION or internal request. Having posted a session that it should kill itself, wait for up to 1 minute for the session to terminate.
+
+Wait Time: 1 second
+
+Parameter Description 
+session# See "session#" 
+waited See "waited" 
+
+这个事件有两个作用，一个是用来切换会话，一个是用来终止会话。那么在当前的数据库中，到底是什么导致了这个等待的出现呢？十分引人困惑。
+在这种情况下，Oracle 10g新增加的ASH信息可以帮助我们获得重要提示：
+
+SQL> select a.sample_time,b.event_name,a.wait_time,a.time_waited,a.program,a.module
+  2  from WRH$_ACTIVE_SESSION_HISTORY a,WRH$_EVENT_NAME b
+  3  where a.event_id=b.event_id and a.instance_number=1
+  4  and trunc(sample_time,'DD')=to_date('2010-04-14','yyyy-mm-dd')
+  5  and b.event_name='inactive session';
+
+SAMPLE_TIME                    EVENT_NAME         WAIT_TIME TIME_WAITED PROGRAM                        MODULE
+------------------------------ ------------------ --------- ----------- ------------------------------ ----------------
+-
+14-4月 -10 09.54.20.591 上午   inactive session           0      986323 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.54.10.491 上午   inactive session           0      986324 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.53.30.091 上午   inactive session           0      986323 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.53.19.991 上午   inactive session           0      986320 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.53.09.891 上午   inactive session           0      986309 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.52.59.791 上午   inactive session           0      986321 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.47.06.176 上午   inactive session           0      986657 sqlplus@XGP2_db1 (TNS V1-V3)   SQL*Plus
+14-4月 -10 09.46.05.577 上午   inactive session           0      986209 sqlplus@XGP2_db1 (TNS V1-V3)   SQL*Plus
+14-4月 -10 09.45.04.967 上午   inactive session           0      986258 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.44.54.859 上午   inactive session           0      983625 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.44.44.749 上午   inactive session           0      986287 plsqldev.exe                   PL/SQL Developer
+
+SAMPLE_TIME                    EVENT_NAME         WAIT_TIME TIME_WAITED PROGRAM                        MODULE
+------------------------------ ------------------ --------- ----------- ------------------------------ ----------------
+-
+14-4月 -10 09.44.34.649 上午   inactive session           0      986195 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.44.24.539 上午   inactive session           0      986176 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.44.14.439 上午   inactive session           0      985975 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.43.23.929 上午   inactive session           0      986760 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.43.13.829 上午   inactive session           0      985187 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.43.03.730 上午   inactive session           0      986105 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.42.53.631 上午   inactive session           0      986288 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.42.43.531 上午   inactive session           0      986283 plsqldev.exe                   PL/SQL Developer
+14-4月 -10 09.42.33.431 上午   inactive session           0      986271 plsqldev.exe                   PL/SQL Developer
+
+
+出乎意外的是，PL/SQL Developer的连接导致了这一事件的出现。这显然是客户的某些手工介入导致的等待提示，手工Kill了会话之后，这个等待会显现出来。

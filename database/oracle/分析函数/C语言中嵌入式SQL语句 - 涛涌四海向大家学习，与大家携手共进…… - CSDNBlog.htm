@@ -1,0 +1,570 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0058)http://blog.csdn.net/cnlht/archive/2007/12/12/1930960.aspx -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content=涛涌四海 name=author>
+<META content=Csdn name=Copyright>
+<META content=在C中嵌入式执行SQL语句 name=description>
+<META content=涛涌四海,嵌入式SQL name=keywords><LINK 
+href="http://profile.csdn.net/cnlht/picture/1.ico" rel="Shortcut Icon"><LINK 
+media=all href="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/arrow_1.css" 
+type=text/css rel=stylesheet><LINK title=RSS 
+href="http://blog.csdn.net/cnlht/rss.aspx" type=application/rss+xml 
+rel=alternate>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY id=defaultuser>
+<DIV id=csdnblog_allwrap>
+<FORM language=javascript id=Form1 name=Form1 
+onsubmit="javascript:return WebForm_OnSubmit();" action=1930960.aspx 
+method=post><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE>
+<SCRIPT type=text/javascript>
+<!--
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Anthem_FormID = "Form1";
+//]]>
+</SCRIPT>
+
+<SCRIPT 
+src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="D:\C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files\WebResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+// -->
+</SCRIPT>
+ 
+<DIV id=csdnblog_midwrap>
+<DIV id=csdnblog_header>
+<H1><A id=Header1_HeaderTitle 
+href="http://blog.csdn.net/cnlht/">涛涌四海向大家学习，与大家携手共进……</A></H1>
+<H2>联合 竞争 开放 创新 设计美丽人生</H2>
+<UL id=personalnav>
+  <LI><A href="http://passport.csdn.net/UserLogin.aspx">登录</A></LI>
+  <LI><A href="http://passport.csdn.net/CSDNUserRegister.aspx">注册</A></LI></UL>
+<UL id=blogsearchsty>
+  <LI><INPUT class=bolgsearch id=inputSearch 
+onkeydown="return keyb(event)"></LI>
+  <LI class=selectsty><SELECT id=Search_ddlSearchScope 
+  name=Search:ddlSearchScope><OPTION value=all selected>全站</OPTION><OPTION 
+    value=cnlht>当前博客</OPTION></SELECT></LI>
+  <LI><INPUT class=bolggobtn onclick=checkNull() type=button value=搜索></LI></UL>
+<UL id=menu>
+  <LI><A href="http://hi.csdn.net/cnlht">空间</A></LI>
+  <LI><A class=on href="http://blog.csdn.net/cnlht">博客</A></LI>
+  <LI><A href="http://hi.csdn.net/cnlht/profile/contactlist/1.html">好友</A></LI>
+  <LI><A href="http://blog.csdn.net/cnlht/Gallery.aspx">相册</A></LI>
+  <LI><A href="http://bbs.csdn.net/" target=_blank>论坛</A></LI>
+  <LI><A class=last 
+  href="http://hi.csdn.net/cnlht/profile/notebook/1.html">留言</A></LI></UL></DIV>
+<DIV id=csdnblog_sidebar>
+<DIV class=gutter>
+<DIV class=aboutauthor>
+<DL>
+  <DT>用户操作
+  <DD class=middle><A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://webim.csdn.net/Messages/cnlht.ashx" 
+  target=_blank>[即时聊天]</A> <A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://hi.csdn.net/Admin/WriteMessage.aspx?Receiver=cnlht" 
+  target=_blank>[发私信]</A> <A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://webim.csdn.net/AddFriends/cnlht.ashx" 
+  target=_blank>[加为好友]</A>
+  <DT>涛涌四海<SPAN>ID：cnlht</SPAN>
+  <DD class=middle><IMG alt="" 
+  src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/1_cnlht.jpg">
+  <DD class=middle><A href="http://profile.csdn.net/8/E4/edit.html"></A>
+  <DD>共<EM>12092</EM>次访问，排名<EM>9847</EM>，好友<EM>4</EM>人，关注者<EM>7</EM>人。<BR>
+  <DD>
+  <DT>cnlht的文章
+  <DD>原创 18 篇
+  <DD>翻译 0 篇
+  <DD>转载 0 篇
+  <DD>评论 17 篇 
+  <DT>最近评论
+  <DD>dreamb：<A title=点击查看《回复:触发器的简单应用》 
+  href="http://blog.csdn.net/cnlht/archive/2007/11/14/1883645.aspx#935630">来学习一下~~~~~~~</A>
+  <DD>dreamb：<A title=点击查看《回复:触发器的简单应用》 
+  href="http://blog.csdn.net/cnlht/archive/2007/11/14/1883645.aspx#935620">来学习一下~</A>
+  <DD>dreamb：<A title=点击查看《回复:触发器的简单应用》 
+  href="http://blog.csdn.net/cnlht/archive/2007/11/14/1883645.aspx#935619">来学习一下~</A>
+  <DD>misheng0218：<A title=点击查看《回复:Eclipse下编辑J2ME小程序，出现模拟器一闪就过得问题》 
+  href="http://blog.csdn.net/cnlht/archive/2007/02/09/1506688.aspx#857196">我也出现了这个问题，不知道该怎么解决</A>
+  <DD>kukala：<A title=点击查看《回复:存储过程》 
+  href="http://blog.csdn.net/cnlht/archive/2007/12/12/1930628.aspx#756479">http://www.nbrr.net 
+  宁波旅游网<BR><A title=宁波旅游网 href="http://www.nbrr.net/">宁波旅游网</A></A> 
+  <DT>文章分类
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A href="http://blog.csdn.net/cnlht/category/481212.aspx">Java程序设计</A><A 
+    href="http://blog.csdn.net/cnlht/category/481212.aspx/rss">(RSS)</A>
+    <LI><A href="http://blog.csdn.net/cnlht/category/481210.aspx">数据库概论</A><A 
+    href="http://blog.csdn.net/cnlht/category/481210.aspx/rss">(RSS)</A>
+    <LI><A 
+    href="http://blog.csdn.net/cnlht/category/486852.aspx">微机原理与接口编程</A><A 
+    href="http://blog.csdn.net/cnlht/category/486852.aspx/rss">(RSS)</A></LI></UL></DIV>
+  <DT>收藏
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL></UL></DIV>
+  <DT>相册
+  <DD><A href="http://blog.csdn.net/cnlht/Gallery/278290.aspx">美图</A>
+  <DT>存档
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A 
+href="http://blog.csdn.net/cnlht/archive/2008/11.aspx">2008年11月(3)</A>
+    <LI><A 
+href="http://blog.csdn.net/cnlht/archive/2008/10.aspx">2008年10月(2)</A>
+    <LI><A 
+href="http://blog.csdn.net/cnlht/archive/2007/12.aspx">2007年12月(6)</A>
+    <LI><A 
+href="http://blog.csdn.net/cnlht/archive/2007/11.aspx">2007年11月(2)</A>
+    <LI><A 
+href="http://blog.csdn.net/cnlht/archive/2007/10.aspx">2007年10月(1)</A>
+    <LI><A 
+href="http://blog.csdn.net/cnlht/archive/2007/06.aspx">2007年06月(2)</A>
+    <LI><A 
+    href="http://blog.csdn.net/cnlht/archive/2007/02.aspx">2007年02月(2)</A></LI></UL></DIV><SPAN 
+  id=RecentVisitors></SPAN>
+  <DT>软件项目交易
+  <DD><IFRAME 
+  style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 180px; PADDING-TOP: 0px; HEIGHT: 32px" 
+  src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/CsdnBlogPage.htm" 
+  frameBorder=0 scrolling=no></IFRAME><SPAN id=SubscriptionList>
+  <DT>订阅我的博客
+  <DD><A href="http://blog.csdn.net/cnlht/Rss.aspx"><IMG alt=XML聚合 
+  src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/xml.gif" 
+  border=0></A>&nbsp;&nbsp;<A href="http://feeds.feedsky.com/csdn.net/cnlht" 
+  target=_blank><IMG alt=FeedSky 
+  src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/feedsky.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.xianguo.com/subscribe.php?url=http://blog.csdn.net/cnlht/Rss.aspx" 
+  target=_blank><IMG alt=订阅到鲜果 
+  src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/rss_xianguo.jpg" 
+  border=0></A>
+  <DD><A 
+  href="http://fusion.google.com/add?feedurl=http://blog.csdn.net/cnlht/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Google 
+  src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/rss_google.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.zhuaxia.com/add_channel.php?url=http://blog.csdn.net/cnlht/Rss.aspx" 
+  target=_blank><IMG alt=订阅到抓虾 
+  src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/rss_zhuaxia.gif" 
+  border=0></A>
+  <DD><A href="http://www.bloglines.com/sub/http://blog.csdn.net/cnlht/Rss.aspx" 
+  target=_blank><IMG alt=订阅到BlogLines 
+  src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/rss_bloglines.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://add.my.yahoo.com/rss?url=http://blog.csdn.net/cnlht/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Yahoo 
+  src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/rss_yahoo.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://rss.gougou.com/find_rss.jsp?url=http://blog.csdn.net/cnlht/Rss.aspx" 
+  target=_blank><IMG alt=订阅到GouGou 
+  src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/rss_gougou.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.pageflakes.com/subscribe.aspx?url=http://blog.csdn.net/cnlht/Rss.aspx" 
+  target=_blank><IMG alt=订阅到飞鸽 
+  src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/rss_pageflakes.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.rojo.com/add-subscription?resource=http://blog.csdn.net/cnlht/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Rojo 
+  src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/rss_rojo.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.newsgator.com/ngs/subscriber/subfext.aspx?url=http://blog.csdn.net/cnlht/Rss.aspx" 
+  target=_blank><IMG alt=订阅到newsgator 
+  src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/rss_newsgator.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.netvibes.com/subscribe.php?url=http://blog.csdn.net/cnlht/Rss.aspx" 
+  target=_blank><IMG alt=订阅到netvibes 
+  src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/rss_netvibes.gif" 
+  border=0></A></SPAN> </DD></DL></DIV></DIV></DIV>
+<DIV id=csdnblog_content>
+<DIV class=gutter>
+<DIV class=default_contents>
+<DIV class=user_article>
+<SCRIPT 
+src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/LoadFeedbackCount.js" 
+type=text/javascript></SCRIPT>
+
+<H1><IMG height=16 alt=原创 
+src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/authorship.gif" 
+width=15 border=0>&nbsp;<A 
+href="http://blog.csdn.net/cnlht/archive/2007/12/12/1930960.aspx">C语言中嵌入式SQL语句</A><CITE 
+class=fav_csdnstylebykimi><A class=fav_csdnstylebykimi title=收藏到我的网摘中，并分享给我的朋友 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();">收藏</A></CITE></H1>
+<DIV class=blogstory><SPAN id=Post.ascx_ViewPost_PreviousAndNextEntriesUp>
+<H3><A 
+href="http://blog.csdn.net/cnlht/archive/2007/12/19/1952880.aspx">新一篇:&nbsp;数据库事务性操作</A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/cnlht/archive/2007/12/12/1930628.aspx">旧一篇:&nbsp;存储过程</A></H3></SPAN>
+<SCRIPT>function StorePage(){d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(keyit=window.open('http://www.365key.com/storeit.aspx?t='+escape(d.title)+'&u='+escape(d.location.href)+'&c='+escape(t),'keyit','scrollbars=no,width=475,height=575,left=75,top=20,status=no,resizable=yes'));keyit.focus();}</SCRIPT>
+&nbsp; 
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-SIZE: 14pt; FONT-FAMILY: 宋体"><STRONG>实验内容</STRONG>：<SPAN 
+lang=EN-US><O:P></O:P></SPAN></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-SIZE: 14pt; FONT-FAMILY: 宋体">掌握<SPAN lang=EN-US>SQL Server 
+2000</SPAN>的预编译程序<SPAN lang=EN-US>NSQLPREP.EXE</SPAN>的使用（以课本例题<SPAN 
+lang=EN-US>1</SPAN>进行调试）；<SPAN lang=EN-US><O:P></O:P></SPAN></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-SIZE: 14pt; FONT-FAMILY: 宋体"><STRONG>实验步骤</STRONG>：</SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><STRONG 
+style="mso-bidi-font-weight: normal"><SPAN 
+style="FONT-SIZE: 14pt; FONT-FAMILY: 宋体">一、数据库环境配置<SPAN 
+lang=EN-US><O:P></O:P></SPAN></SPAN></STRONG></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=EN-US 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">1</SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">、创建<SPAN 
+lang=EN-US>xuesheng</SPAN>数据库，建立<SPAN lang=EN-US>student</SPAN>表等；<SPAN 
+lang=EN-US><O:P></O:P></SPAN></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=EN-US 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">2</SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">、关闭<SPAN lang=EN-US>sql server 
+2000</SPAN>服务管理器；<SPAN lang=EN-US><O:P></O:P></SPAN></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=EN-US 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">3</SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">、将<SPAN 
+lang=EN-US>devtools</SPAN>文件夹拷贝到：<SPAN lang=EN-US>C:\Program Files\Microsoft SQL 
+Server<O:P></O:P></SPAN></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=EN-US 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">4</SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">、将<SPAN 
+lang=EN-US>Binn</SPAN>文件夹拷贝到：<SPAN lang=EN-US>C:\Program Files\Microsoft SQL 
+Server\MSSQL<O:P></O:P></SPAN></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=EN-US 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">5</SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">、启动服务器；<SPAN 
+lang=EN-US><O:P></O:P></SPAN></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><STRONG 
+style="mso-bidi-font-weight: normal"><SPAN 
+style="FONT-SIZE: 14pt; FONT-FAMILY: 宋体">二、<SPAN 
+lang=EN-US>VC++6.0</SPAN>编辑器配置（初始化<SPAN lang=EN-US>Vc++</SPAN>环境）<SPAN 
+lang=EN-US><O:P></O:P></SPAN></SPAN></STRONG></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=EN-US 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">1.</SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">工具—<SPAN lang=EN-US>&gt;</SPAN>选择—<SPAN 
+lang=EN-US>&gt;</SPAN>目录—<SPAN lang=EN-US>&gt;Include 
+Files<O:P></O:P></SPAN></SPAN></P>
+<P class=MsoNormal 
+style="MARGIN: 0cm 0cm 0pt; TEXT-INDENT: 21.75pt; TEXT-ALIGN: left" 
+align=left><SPAN style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">添加： <SPAN 
+lang=EN-US>C:\Program Files\Microsoft SQL Server\devtools\include 
+<O:P></O:P></SPAN></SPAN></P>
+<P class=MsoNormal 
+style="MARGIN: 0cm 0cm 0pt; TEXT-INDENT: 21.75pt; TEXT-ALIGN: left" 
+align=left><STRONG style="mso-bidi-font-weight: normal"><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">并设为第一项<SPAN 
+lang=EN-US><O:P></O:P></SPAN></SPAN></STRONG></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=EN-US 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">2.</SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">选择<SPAN lang=EN-US>Library 
+Files<O:P></O:P></SPAN></SPAN></P>
+<P class=MsoNormal 
+style="MARGIN: 0cm 0cm 0pt; TEXT-INDENT: 12pt; TEXT-ALIGN: left; mso-char-indent-count: 1.0" 
+align=left><SPAN lang=EN-US style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><SPAN 
+style="mso-spacerun: yes">&nbsp; </SPAN></SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">添加：<SPAN lang=EN-US>C:\Program 
+Files\Microsoft SQL Server\devtools\x86lib<O:P></O:P></SPAN></SPAN></P>
+<P class=MsoNormal 
+style="MARGIN: 0cm 0cm 0pt; TEXT-INDENT: 24.1pt; TEXT-ALIGN: left; mso-char-indent-count: 2.0" 
+align=left><STRONG style="mso-bidi-font-weight: normal"><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">并设为第一项</SPAN></STRONG><SPAN lang=EN-US 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><O:P></O:P></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=EN-US 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><O:P></O:P></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><STRONG 
+style="mso-bidi-font-weight: normal"><SPAN 
+style="FONT-SIZE: 14pt; FONT-FAMILY: 宋体">三、写程序，预编译，最后在<SPAN 
+lang=EN-US>VC++</SPAN>中编译、执行<SPAN 
+lang=EN-US><O:P></O:P></SPAN></SPAN></STRONG></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><SPAN lang=EN-US 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">1</SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">、编辑<SPAN 
+lang=EN-US>EXEC.sqc</SPAN>文件，保存到：<SPAN lang=EN-US>C:\Program Files\Microsoft SQL 
+Server\MSSQL\Binn</SPAN>目录</SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">EXEC.sqc文件如下：</SPAN></P><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><FONT face=Arial size=2><SPAN 
+class=Title>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><FONT face=Arial color=#0000ff 
+size=2>// EXEC.cpp : Defines the entry point for the console 
+application.<BR>//</FONT></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><FONT face=Arial color=#0000ff 
+size=2>#include &lt;stdio.h&gt;<BR>#include 
+&lt;stdlib.h&gt;</FONT></SPAN></P><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><BR><FONT face=Arial 
+color=#0000ff size=2>EXEC SQL BEGIN DECLARE SECTION;&nbsp; /*主变量说明开始*/ 
+<BR>&nbsp;char deptname[64];<BR>&nbsp;char HSno[64];<BR>&nbsp;char HSname[64]; 
+<BR>&nbsp;char HSsex[64];<BR>&nbsp;int 
+&nbsp;HSage;<BR>&nbsp;int&nbsp;NEWAGE;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+long SQLCODE;<BR>EXEC SQL END DECLARE SECTION;&nbsp;&nbsp;&nbsp;&nbsp; 
+/*主变量说明结束*/</FONT></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><FONT face=Arial 
+color=#0000ff size=2>EXEC SQL INCLUDE 
+sqlca;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/*定义SQL通信区*/</FONT></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><FONT face=Arial 
+color=#0000ff 
+size=2>/*************************************************************************/</FONT></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><FONT face=Arial 
+color=#0000ff size=2>int 
+main(void)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/*C语言主程序开始*/<BR>{<BR>&nbsp;int &nbsp;count = 0;<BR>&nbsp;char&nbsp; 
+yn;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/*变量yn代表yes或no*/<BR>&nbsp;printf("Please choose the department name(CS/MA/IS): 
+"); <BR>&nbsp;scanf("%s", 
+deptname);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/*为主变量deptname赋值*/<BR>&nbsp;EXEC SQL CONNECT TO demin 
+USER<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+sa;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*连接数据库TEST*/<BR>&nbsp;EXEC 
+SQL DECLARE SX CURSOR FOR&nbsp;&nbsp; /*定义游标*/<BR>&nbsp;&nbsp;SELECT Sno, Sname, 
+Ssex, Sage&nbsp;&nbsp; /*SX对应语句的执行结果*/<BR>&nbsp;&nbsp;FROM 
+Student<BR>&nbsp;&nbsp;WHERE SDept = :deptname;<BR>&nbsp;EXEC SQL OPEN 
+SX;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*打开游标SX便指向查询结果的第一行*/</FONT></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><FONT face=Arial 
+color=#0000ff size=2>for ( ; ; 
+)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;/*用循环结构逐条处理结果集中的记录*/<BR>{ <BR>&nbsp;EXEC SQL FETCH SX INTO :HSno, :HSname, 
+:HSsex,:HSage;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*推进游标，将当前数据放入主变量*/<BR>if 
+(sqlca-&gt;sqlcode != 0)&nbsp;&nbsp;&nbsp;&nbsp; /* sqlcode != 
+0,表示操作不成功*/<BR>&nbsp;&nbsp;break;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;/*利用SQLCA中的状态信息决定何时退出循环*/<BR>&nbsp;if(count++ == 
+0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/*如果是第一行的话，先打出行头*/<BR>&nbsp;&nbsp;printf("\n%-10s %-20s %-10s %-10s\n", "Sno", 
+"Sname", "Ssex", "Sage");<BR>&nbsp;printf("%-10s %-20s %-10s %-10d\n", HSno, 
+HSname, HSsex, HSage);&nbsp; 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*打印查询结果*/<BR>&nbsp;printf("UPDATE 
+AGE(y/n)?"); 
+/*询问用户是否要更新该学生的年龄*/<BR>&nbsp;do{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<BR>&nbsp;&nbsp; &nbsp;scanf("%c",&amp;yn);<BR>&nbsp;}<BR>&nbsp;while(yn != 'N' 
+&amp;&amp; yn != 'n' &amp;&amp; yn != 'Y' &amp;&amp; yn != 'y');<BR>if (yn == 
+'y' || yn == 
+'Y')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/*如果选择更新操作*/<BR>&nbsp;&nbsp;{<BR>&nbsp;&nbsp; printf("INPUT NEW 
+AGE:");<BR>&nbsp;&nbsp; 
+scanf("%d",&amp;NEWAGE);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/*用户输入新年龄到主变量中*/<BR>&nbsp;&nbsp; EXEC SQL UPDATE 
+Student&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; 
+/*嵌入式SQL*/<BR>&nbsp;&nbsp;&nbsp;SET Sage = :NEWAGE<BR>&nbsp;&nbsp;&nbsp;WHERE 
+CURRENT OF SX 
+;<BR>&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/*对当前游标指向的学生年龄进行更新*/<BR>}</FONT></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><FONT face=Arial 
+color=#0000ff size=2>&nbsp;&nbsp;&nbsp;&nbsp; EXEC SQL CLOSE 
+SX;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/*关闭游标SX不再和查询结果对应*/<BR>&nbsp;EXEC SQL COMMIT 
+WORK;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/*提交更新*/<BR>&nbsp;EXEC SQL DISCONNECT 
+TEST;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+/*断开数据库连接*/<BR>}</FONT></P></SPAN></SPAN></FONT></SPAN>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><V:SHAPETYPE 
+id=_x0000_t202 coordsize="21600,21600" o:spt="202" 
+path="m,l,21600r21600,l21600,xe"><V:STROKE joinstyle="miter"></V:STROKE><V:PATH 
+gradientshapeok="t" o:connecttype="rect"></V:PATH></V:SHAPETYPE><SPAN lang=EN-US 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">2</SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">、使用<SPAN 
+lang=EN-US>MS-DOS</SPAN>进行预编译：<SPAN lang=EN-US><O:P></O:P></SPAN></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt; TEXT-ALIGN: left" 
+align=left><SPAN lang=EN-US style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><SPAN 
+style="mso-spacerun: yes">&nbsp;&nbsp; </SPAN>1</SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">）进到<SPAN 
+lang=EN-US>Binn</SPAN>文件下：<SPAN lang=EN-US>cd<SPAN 
+style="mso-spacerun: yes">&nbsp; </SPAN>C:\Program Files\Microsoft SQL 
+Server\MSSQL\Binn<O:P></O:P></SPAN></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><SPAN lang=EN-US 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><SPAN 
+style="mso-spacerun: yes">&nbsp;&nbsp; </SPAN>2</SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">）调用预编译程序<SPAN 
+lang=EN-US>nsqlprep.exe</SPAN>程序：<SPAN lang=EN-US>nsqlprep 
+EXEC</SPAN></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">成功编译完成结果：</SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><SPAN 
+lang=EN-US><O:P>见附件1</O:P></SPAN></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><SPAN lang=EN-US 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><O:P></O:P></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><SPAN lang=EN-US 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">3</SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">、使用<SPAN 
+lang=EN-US>Vc++</SPAN>进行编译，见附件2</SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">4、</SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><SPAN 
+style="FONT-SIZE: 12pt">添加库文件：工程—&gt;设置—&gt;Link—&gt;对象/库模块&nbsp;</SPAN></SPAN></P>
+<DIV style="TEXT-INDENT: 24pt" align=left><SPAN style="FONT-SIZE: 12pt">输入<SPAN 
+style="COLOR: black">SQLakw32.lib Caw32.lib</SPAN><SPAN 
+style="COLOR: black">两个文件名。附件3 </SPAN></SPAN></DIV>
+<DIV style="TEXT-INDENT: 24.1pt" align=left><STRONG><SPAN 
+style="FONT-SIZE: 12pt">注意，两个文件之间用空格分开。</SPAN></STRONG></DIV>
+<DIV align=left><SPAN style="FONT-SIZE: 12pt">5</SPAN><SPAN 
+style="FONT-SIZE: 12pt">、将动态链接库SQLakw32.dll，sqlaiw32.dll文件拷贝到操作系统目录下的子目录C:\WINDOWS\system32中</SPAN></DIV>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><FONT 
+size=3>6、连接：附件4</FONT></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><FONT 
+size=3>7、执行：附件5</FONT></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt" align=left><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><FONT size=3></FONT></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">附件1：</SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><IMG 
+style="WIDTH: 586px; HEIGHT: 405px" height=346 alt="" 
+src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/预编译.jpg" 
+width=566></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">附件2（VC编译EXEC.C）</SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><IMG alt="" 
+src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/编译成功.jpg"></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"></SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"></SPAN><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">附件3（配置添加库文件）</SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"><IMG alt="" 
+src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/库文件配置.jpg"></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体"></SPAN></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-SIZE: 12pt; FONT-FAMILY: 宋体">附件4（连接）<IMG alt="" 
+src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/连接成功2.jpg"></SPAN></P>
+<P class="right articalinfo">发表于 @ <A title=permalink 
+href="http://blog.csdn.net/cnlht/archive/2007/12/12/1930960.aspx">2007年12月12日 
+10:56:00</A>|<A title=评论 
+href="http://blog.csdn.net/cnlht/archive/2007/12/12/1930960.aspx#FeedBack">评论(<SPAN 
+id=FeedbackCount_1930960>loading...</SPAN>
+<SCRIPT type=text/javascript>AddFeedbackCountStack("1930960")</SCRIPT>
+)</A>|<A title=编辑 
+href="http://writeblog.csdn.net/PostEdit.aspx?entryId=1930960">编辑</A></P><SPAN 
+id=Post.ascx_ViewPost_PreviousAndNextEntriesDown>
+<H3><A 
+href="http://blog.csdn.net/cnlht/archive/2007/12/19/1952880.aspx">新一篇:&nbsp;数据库事务性操作</A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/cnlht/archive/2007/12/12/1930628.aspx">旧一篇:&nbsp;存储过程</A></H3></SPAN></DIV></DIV>
+<DIV class=commentslist><SPAN id=Anthem_Post.ascx_Comments_ltlComments__><SPAN 
+id=Post.ascx_Comments_ltlComments>
+<DIV id=commentslist>
+<H3>评论：没有评论。</H3></DIV></SPAN></SPAN></DIV>
+<DIV class=spacecommment>
+<DIV id=Anthem_Post.ascx_PostComment_CommentUpdatePanel__>
+<DIV id=Post.ascx_PostComment_CommentUpdatePanel>
+<FIELDSET><LEGEND>发表评论</LEGEND>
+<UL>
+  <LI>姓&nbsp;&nbsp;&nbsp;名：<INPUT id=Post.ascx_PostComment_tbName disabled 
+  maxLength=32 size=40 name=Post.ascx:PostComment:tbName><SPAN 
+  id=Post.ascx_PostComment_RequiredFieldValidator2 
+  style="VISIBILITY: hidden; COLOR: red" initialvalue="" 
+  evaluationfunction="RequiredFieldValidatorEvaluateIsValid" 
+  errormessage="请输入名字" 
+  controltovalidate="Post.ascx_PostComment_tbName">请输入名字</SPAN> 
+  <LI>主&nbsp;&nbsp;&nbsp;页：<INPUT id=Post.ascx_PostComment_tbUrl disabled 
+  maxLength=256 size=40 name=Post.ascx:PostComment:tbUrl> 
+  <LI>
+  <DIV id=Post.ascx_PostComment_AntiBotImageRegion>校验码： <INPUT 
+  id=Post.ascx_PostComment_tbAntiBotImage style="WIDTH: 75px" 
+  name=Post.ascx:PostComment:tbAntiBotImage> <SPAN 
+  id=Post.ascx_PostComment_valAntiBotImage style="DISPLAY: none; COLOR: red" 
+  evaluationfunction="CustomValidatorEvaluateIsValid" 
+  display="Dynamic">检验码无效!</SPAN> <SPAN 
+  id=Anthem_Post.ascx_PostComment_imgAntiBotImage__><IMG 
+  id=Post.ascx_PostComment_imgAntiBotImage alt="" 
+  src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/AntiBotImage.jpg" 
+  align=absMiddle border=0></SPAN> <SPAN 
+  id=Anthem_Post.ascx_PostComment_lbCreateAntiBotImage__><A 
+  id=Post.ascx_PostComment_lbCreateAntiBotImage 
+  onclick="javascript:Anthem_FireCallBackEvent(this,event,'Post.ascx:PostComment:lbCreateAntiBotImage','',false,'','','',true,null,null,null,true,true);return false;" 
+  href="javascript:__doPostBack('Post.ascx$PostComment$lbCreateAntiBotImage','')">看不清,换一张</A></SPAN> 
+  </DIV></LI></UL><SPAN id=Post.ascx_PostComment_RequiredFieldValidator3 
+style="VISIBILITY: hidden; COLOR: red" initialvalue="" 
+evaluationfunction="RequiredFieldValidatorEvaluateIsValid" errormessage="请输入评论" 
+controltovalidate="Post.ascx_PostComment_tbComment">请输入评论</SPAN><BR><TEXTAREA id=Post.ascx_PostComment_tbComment disabled name=Post.ascx:PostComment:tbComment rows=10 cols=50></TEXTAREA><BR><SPAN 
+id=Anthem_Post.ascx_PostComment_btnSubmit__></SPAN><BR><SPAN 
+id=Post.ascx_PostComment_Message 
+style="COLOR: red">当前用户设置只有注册用户才能发表评论。如果你没有登录，请点击<A 
+href="http://passport.csdn.net/member/UserLogin.aspx?from=http://blog.csdn.net/cnlht/archive/2007/12/12/1930960.aspx">登录</A></SPAN> 
+</FIELDSET> </DIV></DIV></DIV>
+<SCRIPT type=text/javascript>
+    LoadFeedbackCount();//加载评论
+    document.write("<img src='http://counter.csdn.net/pv.aspx?id=24' border=0 width=0 height=0>");// 计数器
+    </SCRIPT>
+
+<SCRIPT src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/HighLighter.js" 
+type=text/javascript></SCRIPT>
+</DIV></DIV></DIV>
+<DIV id=pubfooter>
+<DL>
+  <DT>
+  <DD>Csdn Blog version 3.1a 
+  <DD>Copyright © 涛涌四海 </DD></DL></DIV></DIV>
+<SCRIPT type=text/javascript>
+<!--
+var Page_Validators =  new Array(document.getElementById("Post.ascx_PostComment_RequiredFieldValidator2"), document.getElementById("Post.ascx_PostComment_valAntiBotImage"), document.getElementById("Post.ascx_PostComment_RequiredFieldValidator3"));
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+</FORM>
+<SCRIPT src="C语言中嵌入式SQL语句 - 涛涌四海向大家学习，与大家携手共进…… - CSDNBlog.files/counter.js" 
+type=text/javascript></SCRIPT>
+</DIV></BODY></HTML>

@@ -1,0 +1,138 @@
+.article {
+	MARGIN-TOP: 43px; MARGIN-LEFT: 245px
+}
+.article .assoc_articles {
+	BORDER-RIGHT: #000000 1px solid; BORDER-TOP: #000000 1px solid; MARGIN-TOP: 10px; BORDER-LEFT: #000000 1px solid; BORDER-BOTTOM: #000000 1px solid
+}
+.article .article_content BR {
+	DISPLAY: block; LINE-HEIGHT: 1px
+}
+.article .assoc_articles UL {
+	CLEAR: both; PADDING-RIGHT: 5px; BORDER-TOP: #000000 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; PADDING-TOP: 5px
+}
+.article .assoc_articles LI {
+	PADDING-TOP: 5px
+}
+.article .assoc_articles LI A:hover {
+	BORDER-BOTTOM: blue 1px solid
+}
+.article .assoc_articles H6 {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; FONT-SIZE: 14px; FLOAT: left; PADDING-BOTTOM: 5px; PADDING-TOP: 5px
+}
+.article .assoc_articles P {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; FLOAT: right; PADDING-BOTTOM: 5px; PADDING-TOP: 5px
+}
+.article .maintext {
+	BACKGROUND: url(image/quote_top.gif) no-repeat left top
+}
+.article TBODY TD.texttexttext {
+	BACKGROUND: url(image/quote_bottom.gif) no-repeat right bottom
+}
+.container {
+	POSITION: relative
+}
+.jquery_show {
+	DISPLAY: block! important
+}
+.side_content {
+	OVERFLOW: hidden; WIDTH: 235px; POSITION: absolute; TOP: 135px
+}
+.navs {
+	PADDING-LEFT: 0px; RIGHT: 0px; LEFT: 0px; WIDTH: 960px; POSITION: static; TOP: 0px
+}
+#article #menu {
+	MARGIN-TOP: -2px; Z-INDEX: 100! important; RIGHT: 15px; WIDTH: 130px; BORDER-RIGHT-STYLE: none! important; POSITION: absolute! important
+}
+UNKNOWN {
+	BORDER-RIGHT: #000000 1px solid; BORDER-TOP: #000000 1px solid; MARGIN-TOP: -6px; DISPLAY: none; MARGIN-LEFT: 6px; BORDER-LEFT: #000000 1px solid; BORDER-BOTTOM: #000000 1px solid; BACKGROUND-COLOR: #ffffff
+}
+#article #menu .menu_top A#top_href {
+	BACKGROUND-POSITION: left 50%; MARGIN-TOP: 2px; BACKGROUND-IMAGE: url(image/menu_tab.png); WIDTH: 140px; LINE-HEIGHT: 35px! important
+}
+#article #menu UL UL A {
+	DISPLAY: block
+}
+#article #menu UL UL A:hover {
+	COLOR: white; BACKGROUND-COLOR: gray
+}
+#article #menu UL UL {
+	PADDING-LEFT: 0px! important; TEXT-INDENT: 10px! important
+}
+#article #menu UL UL A {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 1px; COLOR: blue; PADDING-TOP: 1px; BORDER-BOTTOM: green 1px dashed
+}
+#article #menu UL UL UL {
+	TEXT-INDENT: 20px! important
+}
+#article #menu UL UL UL UL {
+	TEXT-INDENT: 30px! important
+}
+#article #menu .menu_current {
+	FONT-WEIGHT: bolder
+}
+UNKNOWN {
+	BACKGROUND-COLOR: #c2ccc2
+}
+.side_content #assocs LI {
+	LIST-STYLE-POSITION: outside; PADDING-BOTTOM: 2px; MARGIN-LEFT: 20px; OVERFLOW: visible; LIST-STYLE-TYPE: decimal; HEIGHT: auto
+}
+.side_content #favorites LI {
+	LIST-STYLE-POSITION: outside; PADDING-BOTTOM: 2px; MARGIN-LEFT: 20px; OVERFLOW: visible; LIST-STYLE-TYPE: decimal; HEIGHT: auto
+}
+.side_content #newests LI {
+	LIST-STYLE-POSITION: outside; PADDING-BOTTOM: 2px; MARGIN-LEFT: 20px; OVERFLOW: visible; LIST-STYLE-TYPE: decimal; HEIGHT: auto
+}
+.side_content .ui-tabs-panel A {
+	COLOR: #000000; BORDER-BOTTOM: #000000 1px solid
+}
+.side_content .ui-tabs-panel A:hover {
+	COLOR: green; BORDER-BOTTOM-STYLE: none
+}
+.ui-tabs-panel {
+	PADDING-RIGHT: 0.5em! important; PADDING-LEFT: 0.5em! important; PADDING-BOTTOM: 0.5em! important; PADDING-TOP: 0.5em! important
+}
+#article .ui-tabs-nav-item A {
+	WIDTH: 77px; LINE-HEIGHT: 24px; TEXT-ALIGN: center
+}
+.article_content {
+	POSITION: relative
+}
+#article_detail .prev {
+	FLOAT: left
+}
+#article_detail CAPTION {
+	PADDING-LEFT: 58px; FONT-WEIGHT: bolder; TEXT-ALIGN: left
+}
+#article_detail .next {
+	FLOAT: right
+}
+#article_detail .date {
+	FONT-SIZE: 92%; BACKGROUND: url(image/date.gif) no-repeat left top; WIDTH: 44px; COLOR: #06a3eb; POSITION: absolute; TOP: 0px; HEIGHT: 53px
+}
+#article_detail .month {
+	MARGIN-TOP: 5px; FONT-SIZE: 82%; PADDING-BOTTOM: 3px
+}
+#article_detail .year {
+	FONT-WEIGHT: normal; COLOR: #ffffff
+}
+#article_detail {
+	BORDER-COLLAPSE: collapse
+}
+#article_detail .type {
+	PADDING-LEFT: 58px; FONT-WEIGHT: normal; PADDING-BOTTOM: 18px; VERTICAL-ALIGN: top; TEXT-TRANSFORM: uppercase; TEXT-ALIGN: left
+}
+#article_detail .hits {
+	FONT-WEIGHT: normal; VERTICAL-ALIGN: top; TEXT-ALIGN: right
+}
+#article_detail THEAD {
+	BORDER-BOTTOM: #cccccc 1px solid
+}
+#article_detail TBODY TD.texttexttext {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 20px; PADDING-BOTTOM: 20px; WIDTH: 680px; PADDING-TOP: 20px
+}
+#article_in_ads {
+	FLOAT: right
+}
+.side_content {
+	TOP: 210px
+}

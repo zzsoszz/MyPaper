@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0101)http://blog.chinaunix.net/comment/comment.php?bg=F9F5E7&ctype=0&iscomment=1&artid=673590&blogid=68268 -->
+<HTML><HEAD><TITLE></TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312"><LINK 
+href="comment.files/index.css" rel=stylesheet><LINK 
+href="comment.files/base.css" rel=stylesheet>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY style="BACKGROUND: #f9f5e7" leftMargin=0 topMargin=0 align="center" 
+marginheight="0" marginwidth="0"><IFRAME style="DISPLAY: none" name=iframecomm 
+src="about:blank" width=0 height=0></IFRAME>
+<FORM id=sortForm onsubmit="return check();" action=?comm=update method=post 
+target=iframecomm><INPUT type=hidden value=0 name=ctype> <INPUT id=iscomment 
+type=hidden value=0 name=iscomment> <INPUT type=hidden value=673590 name=artid> 
+<INPUT type=hidden value=68268 name=userid> 
+<TABLE style="BORDER-COLLAPSE: collapse" cellSpacing=0 cellPadding=0 
+width="100%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD height=25><SPAN id=user1>用户名：<INPUT class=input_title3 id=username 
+      size=15 name=username> 密码：<INPUT class=input_title3 id=password 
+      type=password size=15 name=password> <A 
+      href="http://blog.chinaunix.net/register.php" 
+      target=_blank>免费注册</A><BR></SPAN><SPAN id=freeuser 
+      style="DISPLAY: none">昵称：<INPUT class=input_title3 id=nickname 
+      name=nickname> </SPAN>验证码：<INPUT class=input_title3 id=num 
+      style="WIDTH: 40px" name=num> <IMG height=20 alt="" 
+      src="comment.files/num.png" width=40 border=0> 　<INPUT id=noname 
+      onclick=checkfree(); type=checkbox><LABEL for=noname>匿名</LABEL> </TD></TR>
+  <TR>
+    <TD><TEXTAREA id=comment style="BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #999999 1px solid; WIDTH: 430px; LINE-HEIGHT: 150%; BORDER-BOTTOM: #999999 1px solid; FONT-FAMILY: Tahoma,Verdana,宋体,Fixedsys; HEIGHT: 85px" name=comment></TEXTAREA></TD></TR>
+  <TR>
+    <TD align=cemter><INPUT class=smb_btn onmouseover="this.className='smb_btn3'" onmouseout="this.className='smb_btn'" type=submit value=提交> 
+    </TD></TR></TBODY></TABLE></FORM>
+<SCRIPT language=javascript>
+	function $(s){return document.getElementById(s);}
+	function checkfree(){
+		if($("noname").checked){
+			$("user1").style.display="none";
+			$("freeuser").style.display="";
+			$("iscomment").value=1;
+			
+			if($('nickname').value=='')$('nickname').value='本站网友';
+		}else{
+			$("user1").style.display="";
+			$("freeuser").style.display="none";
+			$("iscomment").value=0;
+		}
+		//alert($("noname").checked);
+	}
+	function check(){
+
+		if($("iscomment").value==0){
+			if($("username").value==""){
+				alert('请输入您的用户名！');
+				$("username").select();
+				return false;
+			}
+			if($("password").value==""){
+				alert('请输入您的密码！');
+				$("password").select();
+				return false;
+			}
+		}else{
+			if($("nickname").value==""){
+				alert('请输入您的称呼！');
+
+				$("nickname").select();
+				return false;
+			}
+			$("username").value="";
+			$("password").value="";
+		}
+		if($("comment").value==""){
+			alert('你忘记输入内容了！');
+			$("comment").select();
+			return false;
+		}
+		return true;
+	}
+
+
+	</SCRIPT>
+</BODY></HTML>

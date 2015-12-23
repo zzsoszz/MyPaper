@@ -1,0 +1,247 @@
+PIVOT and UNPIVOT Operators in Oracle Database 11g Release 1
+
+PIVOT
+UNPIVOT
+PIVOT
+
+The PIVOT operator takes data in separate rows, aggregates it and converts it into columns. To see the PIVOT operator in action we need to create a test table.
+CREATE TABLE pivot_test (
+  id            NUMBER,
+  customer_id   NUMBER,
+  product_code  VARCHAR2(5),
+  quantity      NUMBER
+);
+
+INSERT INTO pivot_test VALUES (1, 1, 'A', 10);
+INSERT INTO pivot_test VALUES (2, 1, 'B', 20);
+INSERT INTO pivot_test VALUES (3, 1, 'C', 30);
+INSERT INTO pivot_test VALUES (4, 2, 'A', 40);
+INSERT INTO pivot_test VALUES (5, 2, 'C', 50);
+INSERT INTO pivot_test VALUES (6, 3, 'A', 60);
+INSERT INTO pivot_test VALUES (7, 3, 'B', 70);
+INSERT INTO pivot_test VALUES (8, 3, 'C', 80);
+INSERT INTO pivot_test VALUES (9, 3, 'D', 90);
+INSERT INTO pivot_test VALUES (10, 4, 'A', 100);
+COMMIT;
+So our test data starts off looking like this.
+SELECT * FROM pivot_test;
+
+        ID CUSTOMER_ID PRODU   QUANTITY
+---------- ----------- ----- ----------
+         1           1 A             10
+         2           1 B             20
+         3           1 C             30
+         4           2 A             40
+         5           2 C             50
+         6           3 A             60
+         7           3 B             70
+         8           3 C             80
+         9           3 D             90
+        10           4 A            100
+
+10 rows selected.
+
+SQL>
+In its basic form the PIVOT operator is quite limited. We are forced to list the required values to PIVOT using the IN clause.
+SELECT *
+FROM   (SELECT product_code, quantity
+        FROM   pivot_test)
+PIVOT  (SUM(quantity) AS sum_quantity FOR (product_code) IN ('A' AS a, 'B' AS b, 'C' AS c));
+
+A_SUM_QUANTITY B_SUM_QUANTITY C_SUM_QUANTITY
+-------------- -------------- --------------
+           210             90            160
+
+1 row selected.
+
+SQL>
+If we want to break it down by customer, we simply include the CUSTOMER_ID column in the initial select list.
+SELECT *
+FROM   (SELECT customer_id, product_code, quantity
+        FROM   pivot_test)
+PIVOT  (SUM(quantity) AS sum_quantity FOR (product_code) IN ('A' AS a, 'B' AS b, 'C' AS c))
+ORDER BY customer_id;
+
+CUSTOMER_ID A_SUM_QUANTITY B_SUM_QUANTITY C_SUM_QUANTITY
+----------- -------------- -------------- --------------
+          1             10             20             30
+          2             40                            50
+          3             60             70             80
+          4            100
+
+4 rows selected.
+
+SQL>
+Adding the XML keyword to the PIVOT operator allows us to convert the generated pivot results to XML format. It also makes the PIVOT a little more flexible, allowing us to replace the hard coded IN clause with a subquery, or the ANY wildcard.
+SET LONG 10000
+
+SELECT *
+FROM   (SELECT product_code, quantity
+        FROM   pivot_test)
+PIVOT XML (SUM(quantity) AS sum_quantity FOR (product_code) IN (SELECT DISTINCT product_code 
+                                                                FROM   pivot_test
+                                                                WHERE  id < 10));
+
+product_code_XML
+----------------------------------------------------------------------------------------------------
+<PivotSet><item><column name = "PRODUCT_CODE">A</column><column name = "SUM_QUANTITY">210</column></
+item><item><column name = "PRODUCT_CODE">B</column><column name = "SUM_QUANTITY">90</column></item><
+item><column name = "PRODUCT_CODE">C</column><column name = "SUM_QUANTITY">160</column></item><item>
+<column name = "PRODUCT_CODE">D</column><column name = "SUM_QUANTITY">90</column></item></PivotSet>
+
+1 row selected.
+
+SQL>
+
+SELECT *
+FROM   (SELECT product_code, quantity
+        FROM   pivot_test)
+PIVOT XML (SUM(quantity) AS sum_quantity FOR (product_code) IN (ANY));
+
+product_code_XML
+----------------------------------------------------------------------------------------------------
+<PivotSet><item><column name = "PRODUCT_CODE">A</column><column name = "SUM_QUANTITY">210</column></
+item><item><column name = "PRODUCT_CODE">B</column><column name = "SUM_QUANTITY">90</column></item><
+item><column name = "PRODUCT_CODE">C</column><column name = "SUM_QUANTITY">160</column></item><item>
+<column name = "PRODUCT_CODE">D</column><column name = "SUM_QUANTITY">90</column></item></PivotSet>
+
+1 row selected.
+
+SQL>
+Once again, the results can be broken down by customer, with each customers XML presented as a separate row.
+SET LONG 10000
+
+SELECT *
+FROM   (SELECT customer_id, product_code, quantity
+        FROM   pivot_test)
+PIVOT XML (SUM(quantity) AS sum_quantity FOR (product_code) IN (SELECT DISTINCT product_code 
+                                                                FROM   pivot_test));
+
+CUSTOMER_ID
+-----------
+PRODUCT_CODE_XML
+----------------------------------------------------------------------------------------------------
+          1
+<PivotSet><item><column name = "PRODUCT_CODE">A</column><column name = "SUM_QUANTITY">10</column></i
+tem><item><column name = "PRODUCT_CODE">B</column><column name = "SUM_QUANTITY">20</column></item><i
+tem><column name = "PRODUCT_CODE">C</column><column name = "SUM_QUANTITY">30</column></item><item><c
+olumn name = "PRODUCT_CODE">D</column><column name = "SUM_QUANTITY"></column></item></PivotSet>
+
+          2
+<PivotSet><item><column name = "PRODUCT_CODE">A</column><column name = "SUM_QUANTITY">40</column></i
+tem><item><column name = "PRODUCT_CODE">B</column><column name = "SUM_QUANTITY"></column></item><ite
+
+CUSTOMER_ID
+-----------
+PRODUCT_CODE_XML
+----------------------------------------------------------------------------------------------------
+m><column name = "PRODUCT_CODE">C</column><column name = "SUM_QUANTITY">50</column></item><item><col
+umn name = "PRODUCT_CODE">D</column><column name = "SUM_QUANTITY"></column></item></PivotSet>
+
+          3
+<PivotSet><item><column name = "PRODUCT_CODE">A</column><column name = "SUM_QUANTITY">60</column></i
+tem><item><column name = "PRODUCT_CODE">B</column><column name = "SUM_QUANTITY">70</column></item><i
+tem><column name = "PRODUCT_CODE">C</column><column name = "SUM_QUANTITY">80</column></item><item><c
+olumn name = "PRODUCT_CODE">D</column><column name = "SUM_QUANTITY">90</column></item></PivotSet>
+
+
+CUSTOMER_ID
+-----------
+PRODUCT_CODE_XML
+----------------------------------------------------------------------------------------------------
+          4
+<PivotSet><item><column name = "PRODUCT_CODE">A</column><column name = "SUM_QUANTITY">100</column></
+item><item><column name = "PRODUCT_CODE">B</column><column name = "SUM_QUANTITY"></column></item><it
+em><column name = "PRODUCT_CODE">C</column><column name = "SUM_QUANTITY"></column></item><item><colu
+mn name = "PRODUCT_CODE">D</column><column name = "SUM_QUANTITY"></column></item></PivotSet>
+
+
+4 rows selected.
+
+SQL>
+UNPIVOT
+
+The UNPIVOT operator converts column-based data into separate rows. To see the UNPIVOT operator in action we need to create a test table.
+CREATE TABLE unpivot_test (
+  id              NUMBER,
+  customer_id     NUMBER,
+  product_code_a  NUMBER,
+  product_code_b  NUMBER,
+  product_code_c  NUMBER,
+  product_code_d  NUMBER
+);
+
+INSERT INTO unpivot_test VALUES (1, 101, 10, 20, 30, NULL);
+INSERT INTO unpivot_test VALUES (2, 102, 40, NULL, 50, NULL);
+INSERT INTO unpivot_test VALUES (3, 103, 60, 70, 80, 90);
+INSERT INTO unpivot_test VALUES (4, 104, 100, NULL, NULL, NULL);
+COMMIT;
+So our test data starts off looking like this.
+SELECT * FROM unpivot_test;
+
+        ID CUSTOMER_ID PRODUCT_CODE_A PRODUCT_CODE_B PRODUCT_CODE_C PRODUCT_CODE_D
+---------- ----------- -------------- -------------- -------------- --------------
+         1         101             10             20             30
+         2         102             40                            50
+         3         103             60             70             80             90
+         4         104            100
+
+4 rows selected.
+
+SQL>
+The UNPIVOT operator converts this column-based data into individual rows.
+SELECT *
+FROM   unpivot_test
+UNPIVOT (quantity FOR product_code IN (product_code_a AS 'A', product_code_b AS 'B', product_code_c AS 'C', product_code_d AS 'D'));
+
+        ID CUSTOMER_ID P   QUANTITY
+---------- ----------- - ----------
+         1         101 A         10
+         1         101 B         20
+         1         101 C         30
+         2         102 A         40
+         2         102 C         50
+         3         103 A         60
+         3         103 B         70
+         3         103 C         80
+         3         103 D         90
+         4         104 A        100
+
+10 rows selected.
+
+SQL>
+There are several things to note about the query:
+The required column names, in this case QUANTITY and PRODUCT_CODE, are define in the UNPIVOT clause. These can be set to any name not currently in the driving table.
+The columns to be unpivoted must be named in the IN clause.
+The PRODUCT_CODE value will match the column name it is derived from, unless you alias it to another value.
+By default the EXCLUDE NULLS clause is used. To override the default behaviour use the INCLUDE NULLS clause.
+The following query shows the inclusion of the INCLUDE NULLS clause.
+SELECT *
+FROM   unpivot_test
+UNPIVOT INCLUDE NULLS (quantity FOR product_code IN (product_code_a AS 'A', product_code_b AS 'B', product_code_c AS 'C', product_code_d AS 'D'));
+
+        ID CUSTOMER_ID P   QUANTITY
+---------- ----------- - ----------
+         1         101 A         10
+         1         101 B         20
+         1         101 C         30
+         1         101 D
+         2         102 A         40
+         2         102 B
+         2         102 C         50
+         2         102 D
+         3         103 A         60
+         3         103 B         70
+         3         103 C         80
+
+        ID CUSTOMER_ID P   QUANTITY
+---------- ----------- - ----------
+         3         103 D         90
+         4         104 A        100
+         4         104 B
+         4         104 C
+         4         104 D
+
+16 rows selected.
+
+SQL>

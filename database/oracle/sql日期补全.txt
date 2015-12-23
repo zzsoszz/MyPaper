@@ -1,0 +1,13 @@
+
+insert into test3
+  (a, b, c, d)
+  select vv.riqi, vv.shijian, 0 , 0
+    from (select *
+            from (select c.to_time as shijian, tt.a as riqi
+                    from t_call_time c,
+                         (select distinct t.a as a
+                            from test3 t) tt) v
+            left join test3 t on v.shijian = t.b
+                                           and v.riqi =
+                                               t.a) vv
+   where vv.a is null 

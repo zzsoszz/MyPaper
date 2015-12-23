@@ -1,0 +1,54 @@
+.overlay_alert {
+	FILTER: alpha(opacity=60); BACKGROUND-COLOR: #85bbef; moz-opacity: 0.6; opacity: 0.6
+}
+.alert_nw {
+	BACKGROUND: url(alert/top_left.gif) no-repeat left bottom; WIDTH: 5px; HEIGHT: 5px
+}
+.alert_n {
+	BACKGROUND: url(alert/top.gif) repeat-x left bottom; WIDTH: 100%; HEIGHT: 5px
+}
+.alert_ne {
+	BACKGROUND: url(alert/top_right.gif) no-repeat left bottom; WIDTH: 5px; HEIGHT: 5px
+}
+.alert_e {
+	BACKGROUND: url(alert/right.gif) repeat-y 0px 0px; WIDTH: 5px; HEIGHT: 100%
+}
+.alert_w {
+	BACKGROUND: url(alert/left.gif) repeat-y 0px 0px; WIDTH: 5px; HEIGHT: 100%
+}
+.alert_sw {
+	BACKGROUND: url(alert/bottom_left.gif) no-repeat 0px 0px; WIDTH: 5px; HEIGHT: 5px
+}
+.alert_s {
+	BACKGROUND: url(alert/bottom.gif) repeat-x 0px 0px; WIDTH: 100%; HEIGHT: 5px
+}
+.alert_se {
+	BACKGROUND: url(alert/bottom_right.gif) no-repeat 0px 0px; WIDTH: 5px; HEIGHT: 5px
+}
+.alert_sizer {
+	DISPLAY: none; WIDTH: 0px; HEIGHT: 0px
+}
+.alert_close {
+	DISPLAY: none; WIDTH: 0px; HEIGHT: 0px
+}
+.alert_title {
+	DISPLAY: none; WIDTH: 0px; HEIGHT: 0px
+}
+.alert_content {
+	FONT-SIZE: 10px; BACKGROUND: #fff; OVERFLOW: auto; COLOR: #000; FONT-FAMILY: Tahoma, Arial, Sans Serif
+}
+.alert_window {
+	BORDER-RIGHT: #f00 1px solid; PADDING-RIGHT: 20px; BORDER-TOP: #f00 1px solid; PADDING-LEFT: 20px; BACKGROUND: #fff; PADDING-BOTTOM: 20px; MARGIN-LEFT: auto; BORDER-LEFT: #f00 1px solid; WIDTH: 400px; MARGIN-RIGHT: auto; PADDING-TOP: 20px; BORDER-BOTTOM: #f00 1px solid
+}
+.alert_message {
+	FONT-SIZE: 16px; PADDING-BOTTOM: 10px; WIDTH: 100%; COLOR: #f00; TEXT-ALIGN: center
+}
+.alert_buttons {
+	WIDTH: 100%; TEXT-ALIGN: center
+}
+.alert_buttons INPUT {
+	MARGIN: 10px; WIDTH: 20%
+}
+.alert_progress {
+	BACKGROUND: url(alert/progress.gif) #fff no-repeat center center; FLOAT: left; MARGIN: auto; WIDTH: 100%; HEIGHT: 16px; TEXT-ALIGN: center
+}

@@ -1,0 +1,449 @@
+主题：Oracle 动态性能表 v$session & v$process 
+林哥 2009-11-05 17:00:43 回复 转载到 四川10000项目团队中国UI设计七星&扬帆7runto
+
+
+整理自google出来的网络资源。google是个好东东。没有google我会心神不宁。
+
+
+
+ 
+
+
+
+v$session
+
+
+
+ 
+
+
+
+SADDR: session address
+
+
+
+ 
+
+
+
+SID: session identifier，常用于连接其它列。
+
+
+
+ 
+
+
+
+SERIAL#: sid 会重用，但是同一个sid被重用时，serial#会增加，不会重复。
+
+
+
+ 
+
+
+
+AUDSID: audit session id。可以通过audsid查询当前session的sid。select sid from v$session where audsid=userenv('sessionid');
+
+
+
+ 
+
+
+
+PADDR: process address，关联v$process的addr字段，可以通过这个字段查处当前session对应操作系统的那个进程的id。
+
+
+
+ 
+
+
+
+USER#: session's user id。等于dba_users中的user_id。Oracle内部进程的user#为0。
+
+
+
+ 
+
+
+
+USERNAME: session's username。等于dba_users中的username。Oracle内部进程的username为空。
+
+
+
+ 
+
+
+
+COMMAND: session正在执行的SQL Id。1代表create table，3代表select。
+
+
+
+ 
+
+
+
+TADDR: 当前的transaction address。可以用来关联v$transaction的addr字段。
+
+
+
+ 
+
+
+
+LOCKWAIT: 可以通过这个字段查询出当前正在等待的锁的相关信息。sid & lockwait与v$lock中的sid & kaddr相对应。
+
+
+
+ 
+
+
+
+STATUS: 用来判断session状态。Active：正执行SQL语句。Inactive：等待操作。Killed：被标注为删除。
+
+
+
+ 
+
+
+
+SERVER: server type (dedicated or shared)
+
+
+
+ 
+
+
+
+SCHEMA#: schema user id。Oracle内部进程的schema#为0。
+
+
+
+ 
+
+
+
+SCHEMANAME: schema username。Oracle内部进程的schemaname为sys。
+
+
+
+ 
+
+
+
+OSUSER: 客户端操作系统用户名。
+
+
+
+ 
+
+
+
+PROCESS: 客户端process id。
+
+
+
+ 
+
+
+
+MACHINE: 客户端machine name。
+
+
+
+ 
+
+
+
+TERMINAL: 客户端执行的terminal name。
+
+
+
+ 
+
+
+
+PROGRAM: 客户端应用程序。比如ORACLE.EXE (PMON)或者sqlplus.exe
+
+
+
+ 
+
+
+
+TYPE: session type (background or user)
+
+
+
+ 
+
+
+
+SQL_ADDRESS, SQL_HASH_VALUE, SQL_ID, SQL_CHILD_NUMBER: session正在执行的sql statement，和v$sql中的address, hash_value, sql_id, child_number相对应。
+
+
+
+ 
+
+
+
+PREV_SQL_ADDR, PREV_HASH_VALUE, PREV_SQL_ID, PREV_CHILD_NUMBER: 上一次执行的sql statement。
+
+
+
+ 
+
+
+
+MODULE, MODULE_HASH, ACTION, ACTION_HASH, CLIENT_INFO: 应用通过DBMS_APPLICATION_INFO设置的一些信息。
+
+
+
+ 
+
+
+
+FIXED_TABLE_SEQUENCE: 当session完成一个user call后就会增加的一个数值，也就是说，如果session inactive，它就不会增加。因此可以根据此字段的值变化来监控某个时间点以来的session的性能情况。例如，一个小时以前，某个session的FIXED_TABLE_SEQUENCE是10000，而现在是20000，则表明一个小时内其user call比较频繁，可以重点关注此session的performance statistics。
+
+
+
+ 
+
+
+
+ROW_WAIT_OBJ#: 被锁定行所在table的object_id。和dba_objects中的object_id关联可以得到被锁定的table name。
+
+
+
+ 
+
+
+
+ROW_WAIT_FILE#: 被锁定行所在的datafile id。和v$datafile中的file#关联可以得到datafile name。
+
+
+
+ 
+
+
+
+ROW_WAIT_BLOCK#: Identifier for the block containing the row specified in ROW_WAIT_ROW#
+
+
+
+ 
+
+
+
+ROW_WAIT_ROW#: session当前正在等待的被锁定的行。
+
+
+
+ 
+
+
+
+LOGON_TIME: session logon time
+
+
+
+ 
+
+
+
+v$process
+
+
+
+ 
+
+
+
+ADDR: process address。可以和v$session的paddr字段关联。
+
+
+
+ 
+
+
+
+PID: Oracle进程identifier。
+
+
+
+ 
+
+
+
+SPID: 操作系统进程identifier。
+
+
+
+ 
+
+
+
+USERNAME: 操作系统进程的用户名。并非Oracle用户名。
+
+
+
+ 
+
+
+
+SERIAL#:: process serial number。
+
+
+
+ 
+
+
+
+TERMINAL: 操作系统terminal identifier(e.g., computer name)。
+
+
+
+ 
+
+
+
+PROGRAM: 进程正在执行的程序(e.g., ORACLE.EXE (ARC0))，和v$session中的program类似。
+
+
+
+ 
+
+
+
+BACKGROUND: 1代表oracle background process，null代表normal process。
+
+
+
+ 
+
+
+
+ 
+
+
+
+查看当前用户的sid和serial#:
+
+
+
+select sid, serial#, status from v$session where audsid=userenv('sessionid');
+
+
+
+ 
+
+
+
+查看当前用户的spid:
+
+
+
+select spid from v$process p, v$session s where s.audsid=userenv('sessionid') and s.paddr=p.addr;
+
+
+
+select spid from v$process p join v$session s on p.addr=s.paddr and s.audsid=userenv('sessionid');
+
+
+
+ 
+
+
+
+查看当前用户的trace file路径:
+
+
+
+select p.value || '\' || t.instance || '_ora_' || ltrim(to_char(p.spid,'fm99999')) || '.trc'
+
+
+
+    from v$process p, v$session s, v$parameter p, v$thread t
+
+
+
+    where p.addr = s.paddr and s.audsid = userenv('sessionid') and p.name = 'user_dump_dest';
+
+
+
+ 
+
+
+
+已知spid，查看当前正在执行或最近一次执行的语句:
+
+
+
+select /*+ ordered */ sql_text from v$sqltext sql
+
+
+
+    where (sql.hash_value, sql.address) in (
+
+
+
+        select decode(sql_hash_value, 0, prev_hash_value, sql_hash_value), decode(sql_hash_value, 0, prev_sql_addr, sql_address)
+
+
+
+        from v$session s where s.paddr = (select addr from v$process p where p.spid = to_number('&pid')))
+
+
+
+    order by piece asc;
+
+
+
+ 
+
+
+
+查看锁和等待:
+
+
+
+col user_name format a10
+
+
+
+col owner format a10
+
+
+
+col object_name format a15
+
+
+
+col sid format 999999
+
+
+
+col serial# format 999999
+
+
+
+col spid format a6
+
+
+
+select /*+ rule */ lpad(' ', decode(l.xidusn, 0, 3, 0)) || l.oracle_username user_name,
+
+
+
+    o.owner, o.object_name, o.object_type, s.sid, s.serial#, p.spid
+
+
+
+    from v$locked_object l, dba_objects o, v$session s, v$process p
+
+
+
+    where l.object_id = o.object_id and l.session_id = s.sid and s.paddr = p.addr
+
+
+
+    order by o.object_id, xidusn desc;

@@ -1,0 +1,224 @@
+   grant execute on dbms_lock to username;
+   update a t set t.field1=dbms_random.value;
+   dbms_lock.sleep(1000);
+
+
+
+
+
+Oracle的 DBMS_LOCK 包（防止多个进程同时调用一个Oracle的存储过程）技术文档 2010-05-31 16:42:48 阅读82 评论0   字号：大中小 订阅 
+    遇到了，存储过程并发执行的问题，在网上看到了DBMS_LOCK包的用法，由于没用过，在网上参考了大家的介绍和总结以及Oracle的帮助文档，自己小总结了一下。可能会有不当的地方，欢迎大家共同讨论。
+
+ 
+
+    为防止多个进程同事调用一个Oracle的存储过程，用DBMS_LOCK包进行加锁。
+
+ 
+
+1.      使用DBMS_Lock前，要先给用户赋予锁的权限：
+
+grant execute on dbms_lock to username;
+
+ 
+
+2.      DBMS_LOCK包的常量：
+
+Name
+ Alternate Name(s)
+ Type
+ Value
+ OEM Abbreviation
+ Description
+ 
+NL_MODE
+ NuL1
+ INTEGER
+ 1
+ -
+ -
+ 
+SS_MODE
+ Sub Shared
+ INTEGER
+ 2
+ ULRS
+ This can be used on an aggregate object to indicate that share locks are being acquired on subparts of the object.
+ 
+SX_MODE
+ Sub eXclusive
+
+Row Exclusive Mode
+ INTEGER
+ 3
+ ULRX
+ This can be used on an aggregate object to indicate that exclusive locks are being acquired on sub-parts of the object.
+ 
+S_MODE
+ Shared
+
+Row Exclusive Mode
+
+Intended Exclusive
+ INTEGER
+ 4
+ ULRSX
+ -
+ 
+SSX_MODE
+ Shared Sub eXclusive
+
+Share Row Exclusive Mode
+ INTEGER
+ 5
+ -
+ This indicates that the entire aggregate object has a share lock, but some of the sub-parts may additionally have exclusive locks.
+ 
+X_MODE
+ Exclusive（排他锁）
+ INTEGER
+ 6
+ ULX
+ -
+ 
+
+These are the various lock modes (nl -> "NuLl", ss -> "Sub Shared", sx -> "Sub eXclusive", s -> "Shared", ssx -> "Shared Sub eXclusive", x -> "eXclusive").
+
+ 3. ALLOCATE_UNIQUE Procedure
+给指定名字的锁分配一个唯一的锁标识（在1073741824 to 1999999999之间）
+
+DBMS_LOCK.ALLOCATE_UNIQUE (
+
+   lockname         IN  VARCHAR2,
+
+   lockhandle       OUT VARCHAR2,
+
+   expiration_secs  IN  INTEGER   DEFAULT 864000);
+
+参数：
+
+Parameter
+ Description
+ 
+lockname
+ 获得唯一锁标识的锁名，不要以OAR$（Oracle的预留关键字）开头
+ 
+lockhandle
+ 与lockname对应的唯一标识
+
+当多个session用同样的名字lockname来获取唯一标识字符串时，不同的session用同样名字获取的lockhandle是相同的，所以，不要在Session之间传递lockhandle。
+ 
+expiration_specs
+ 这种名称到锁的映射的保存时间（默认十天）
+ 
+
+4. REQUEST Function（请求一个锁）
+
+DBMS_LOCK.REQUEST(
+
+   id                 IN  INTEGER ||
+
+   lockhandle         IN  VARCHAR2,
+
+   lockmode           IN  INTEGER DEFAULT X_MODE,
+
+   timeout            IN  INTEGER DEFAULT MAXWAIT,
+
+   release_on_commit  IN  BOOLEAN DEFAULT FALSE)
+
+  RETURN INTEGER;
+
+ 
+
+参数：
+
+Parameter
+ Description
+ 
+id or lockhandle
+ ALLOCATE_UNIQUE 返回的唯一锁标识
+ 
+lockmode
+ 锁模式，默认为X_MODE（排它锁）
+ 
+timeout
+ 等待请求锁的时间
+ 
+release_on_commit
+ commit or roll-back 是否释放锁，默认为（FALSE），在共享模式下，最好设为TRUE。
+ 
+
+  
+
+返回值：
+
+Return Value
+ Description
+ 
+0
+ 成功
+ 
+1
+ 超时
+ 
+2
+ 死锁
+ 
+3
+ 参数错误
+ 
+4
+ 已经分配了锁，重复申请
+ 
+5
+ 无效的 lock handle
+ 
+
+ 
+
+5. RELEASE Function（释放锁）
+
+DBMS_LOCK.RELEASE (
+
+   id         IN INTEGER)
+
+  RETURN INTEGER;
+
+DBMS_LOCK.RELEASE (
+
+   lockhandle IN VARCHAR2)
+
+  RETURN INTEGER;
+
+参数：
+
+Parameter
+ Description
+ 
+id or lockhandle
+ ALLOCATE_UNIQUE返回的锁标识
+ 
+
+返回值：
+
+Return Value
+ Description
+ 
+0
+ 成功
+ 
+3
+ 参数错误
+ 
+4
+ 没有拥有特定的锁
+ 
+5
+ 不合法的 lock handle
+ 
+
+ 
+
+当加锁的存储过程被一个进程调用时，为其分配一个锁，其他进程再次调用时，dbms_lock.request()会处于等待的状态，直到第一个进程把锁释放掉。
+
+ 
+

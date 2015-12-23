@@ -1,0 +1,1360 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0053)http://blog.chinaunix.net/u/27493/showart_433842.html -->
+<HTML><HEAD><TITLE>数据库面试题集 - Database - SENSE</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gbk"><LINK 
+href="数据库面试题集 - Database - SENSE.files/index.css" rel=stylesheet></LINK><LINK 
+title="ChinaUnix Blog RSS Feed" 
+href="http://blog.chinaunix.net/u/rss.php?id=27493" type=application/rss+xml 
+rel=alternate></LINK>
+<META content="数据库面试题集 - Database - SENSE" name=keywords>
+<META content="中国最大的IT技术博客-ChinaUnix博客：数据库面试题集 - Database - SENSE" 
+name=description>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY style="BACKGROUND: #ffffff" leftMargin=0 topMargin=0 align="center" 
+marginheight="0" marginwidth="0">
+<TABLE style="BORDER-COLLAPSE: collapse; HEIGHT: 25px" height=25 cellSpacing=0 
+cellPadding=0 width="100%" 
+background="数据库面试题集 - Database - SENSE.files/tophem1.gif" border=0>
+  <TBODY>
+  <TR>
+    <TD id=tool-bar noWrap align=left width=540>&nbsp; <A 
+      href="http://blog.chinaunix.net/" target=_blank>博客首页</A> <A 
+      href="http://blog.chinaunix.net/register.php" target=_blank>注册</A> <A 
+      href="http://bbs.chinaunix.net/forumdisplay.php?fid=51" 
+      target=_blank>建议与交流</A> <A href="http://blog.chinaunix.net/top/" 
+      target=_blank>排行榜</A> <A 
+      onclick="NewWindows('http://www.cublog.cn/addlink.php?url='+location.href+'&amp;title='+document.title);return false;" 
+      href="http://blog.chinaunix.net/u/27493/" target=_blank>加入友情链接</A> </TD>
+    <FORM id=loginForm action=/search.php method=get target=_blank>
+    <TD noWrap align=right><IMG id=starimg height=12 alt="" 
+      src="数据库面试题集 - Database - SENSE.files/userstar.gif" width=55 border=0> <A 
+      id=star title=给此博客推荐值 onclick="NewWindows(this.href);return false;" 
+      href="http://blog.chinaunix.net/u2/star.php?blogid=27493">推荐</A> <A 
+      id=complaint title=投诉此博客 onclick="NewWindows(this.href);return false;" 
+      href="http://blog.chinaunix.net/u2/complaint.php?blogid=27493">投诉</A> 
+      搜索：<INPUT name=q> <INPUT class=button1 type=submit value=搜索> <A 
+      href="http://blog.chinaunix.net/help/">帮助</A></TD></FORM></TR>
+  <TR>
+    <TD colSpan=2>
+      <TABLE style="BORDER-COLLAPSE: collapse" borderColor=#111111 cellSpacing=0 
+      cellPadding=0 width=1000 border=0>
+        <TBODY>
+        <TR>
+          <TD width=1000></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<SCRIPT language=javascript>
+<!--
+
+navHover = function() {
+var lis = document.getElementById("navmenu").getElementsByTagName("LI");
+for (var i=0; i<lis.length; i++) {
+lis[i].onmouseover=function() {
+this.className+=" iehover";
+}
+lis[i].onmouseout=function() {
+this.className=this.className.replace(new RegExp(" iehover\\b"), "");
+}
+}
+}
+
+function NewWindows(shref){
+var xx=(window.screen.width-450)/2;
+var yy=(window.screen.height-200)/2;
+pp=window.open(shref,"win","menubar=no,location=no,resizable=no,scrollbars=no,status=no,left="+xx+",top="+yy+",Width=450,Height=200");
+}
+function $(s){return document.getElementById(s);}
+//-->
+</SCRIPT>
+
+<TABLE style="BACKGROUND-IMAGE: none; BORDER-COLLAPSE: collapse" height=80 
+cellSpacing=0 cellPadding=0 width="100%" bgColor=#204689 border=0>
+  <TBODY>
+  <TR>
+    <TD align=middle width=200>
+      <P style="MARGIN: 5px; LINE-HEIGHT: 150%"><FONT style="FONT-SIZE: 14px" 
+      color=#ffffff><B>SENSE </B></FONT></P></TD>
+    <TD style="COLOR: #aac6f6">CISSP in Beijing：3月1日 5月17日 9月20日 
+  12月13日</TD></TR></TBODY></TABLE>
+<TABLE style="BORDER-COLLAPSE: collapse" height=27 cellSpacing=0 cellPadding=0 
+width="100%" bgColor=#eeeeee border=0>
+  <TBODY>
+  <TR>
+    <TD>&nbsp; <A class=list1 href="http://sense5.cublog.cn/" 
+      target=_blank>sense5.cublog.cn</A> </TD>
+    <TD style="COLOR: #2a5200" align=right width=680>
+      <UL id=navmenu>
+        <LI class=ul0><A class=list1 href="http://control.cublog.cn/" 
+        target=_blank>管理博客</A> </LI>
+        <LI class=ul0><A class=list1 
+        href="http://control.cublog.cn/article_new.php" target=_blank>发表文章</A> 
+        </LI>
+        <LI class=ul0><A class=list1 
+        href="http://blog.chinaunix.net/u/27493/guestbook.html">留言</A> </LI>
+        <LI class=ul0><A class=list1 
+        href="http://blog.chinaunix.net/u/27493/links.html">收藏夹</A> 
+        <UL class=ul1>
+          <LI><A href="http://blog.chinaunix.net/u/27493/links_9739.html">· 
+          Friends<!-- a9739 --></A><!-- 9739 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/links_16404.html">· IM 
+          Online<!-- a16404 --></A><!-- 16404 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/links_13550.html">· 
+          Project<!-- a13550 --></A><!-- 13550 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/links_9693.html">· 
+          Cisco&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+          <UL class=ul2>
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_11612.html">· 
+            ios<!-- a11612 --></A><!-- 11612 --> </LI></UL>
+          <LI><A href="http://blog.chinaunix.net/u/27493/links_9869.html">· 
+          OS&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+          <UL class=ul2>
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_9971.html">· 
+AIX<!-- a9971 --></A><!-- 9971 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_9695.html">· 
+            FreeBSD<!-- a9695 --></A><!-- 9695 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_9694.html">· 
+            Linux&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+            <UL class=ul2>
+              <LI><A href="http://blog.chinaunix.net/u/27493/links_13670.html">· 
+              shell<!-- a13670 --></A><!-- 13670 --> </LI></UL>
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_10312.html">· 
+NT<!-- a10312 --></A><!-- 10312 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_9702.html">· 
+            Solaris<!-- a9702 --></A><!-- 9702 --> </LI></UL>
+          <LI><A href="http://blog.chinaunix.net/u/27493/links_11772.html">· 
+          Communication<!-- a11772 --></A><!-- 11772 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/links_9725.html">· 
+          System Integration<!-- a9725 --></A><!-- 9725 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/links_10585.html">· 
+          Security<!-- a10585 --></A><!-- 10585 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/links_11682.html">· Web<!-- a11682 --></A><!-- 11682 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/links_12842.html">· 
+Work<!-- a12842 --></A><!-- 12842 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/links_9697.html">· 
+          English&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+          <UL class=ul2>
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_9696.html">· 
+            Library<!-- a9696 --></A><!-- 9696 --> </LI></UL>
+          <LI><A href="http://blog.chinaunix.net/u/27493/links_9975.html">· 
+          Life&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+          <UL class=ul2>
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_12489.html">· 
+            Career<!-- a12489 --></A><!-- 12489 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_15225.html">· 
+            CNKI<!-- a15225 --></A><!-- 15225 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_10708.html">· 
+            Download<!-- a10708 --></A><!-- 10708 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_12497.html">· 
+            Football<!-- a12497 --></A><!-- 12497 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_9976.html">· 
+            Jornada<!-- a9976 --></A><!-- 9976 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_13549.html">· 
+            Manager<!-- a13549 --></A><!-- 13549 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_11073.html">· 
+            Memory<!-- a11073 --></A><!-- 11073 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_9991.html">· 
+            Movie<!-- a9991 --></A><!-- 9991 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_11613.html">· 
+            Online Disk<!-- a11613 --></A><!-- 11613 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_10332.html">· 
+            Phone<!-- a10332 --></A><!-- 10332 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_12331.html">· 
+            Stock<!-- a12331 --></A><!-- 12331 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_11039.html">· 
+            Thinkpad<!-- a11039 --></A><!-- 11039 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/links_10275.html">· 
+            University<!-- a10275 --></A><!-- 10275 --> </LI></UL></LI></UL></LI>
+        <LI class=ul0><A class=list1 
+        href="http://blog.chinaunix.net/u/27493/group.html">博客圈</A> </LI>
+        <LI class=ul0><A class=list1 
+        href="http://blog.chinaunix.net/u/27493/music.html">音乐</A> 
+        <!-- 0 --></LI>
+        <LI class=ul0><A class=list1 
+        href="http://blog.chinaunix.net/u/27493/photo.html">相册</A> 
+        <UL class=ul1>
+          <LI><A href="http://blog.chinaunix.net/u/27493/photo_12956.html">· 
+          cisco<!-- a12956 --></A><!-- 12956 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/photo_12958.html">· 
+          cissp<!-- a12958 --></A><!-- 12958 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/photo_12957.html">· 
+          linux<!-- a12957 --></A><!-- 12957 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/photo_12959.html">· 
+          protocol<!-- a12959 --></A><!-- 12959 --> </LI></UL></LI>
+        <LI class=ul0><A class=list1 
+        href="http://blog.chinaunix.net/u/27493/article.html">文章</A> 
+        <UL class=ul1>
+          <LI><A href="http://blog.chinaunix.net/u/27493/article_65552.html">· 
+          CCIE&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+          <UL class=ul2>
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_55007.html">· 
+            CCIE Devices<!-- a55007 --></A><!-- 55007 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_44072.html">· 
+            CCIE IOS Feture<!-- a44072 --></A><!-- 44072 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_46986.html">· 
+            CCIE Multicast<!-- a46986 --></A><!-- 46986 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_43372.html">· 
+            CCIE Routing<!-- a43372 --></A><!-- 43372 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_43373.html">· 
+            CCIE Switching<!-- a43373 --></A><!-- 43373 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_43374.html">· 
+            CCIE QoS<!-- a43374 --></A><!-- 43374 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_43375.html">· 
+            CCIE IPv6<!-- a43375 --></A><!-- 43375 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_54294.html">· 
+            CCIE MPLS/VPN<!-- a54294 --></A><!-- 54294 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_43376.html">· 
+            CCIE Security<!-- a43376 --></A><!-- 43376 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_55207.html">· 
+            CCIE Troubleshooting<!-- a55207 --></A><!-- 55207 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_48575.html">· 
+            CCIE CABLE<!-- a48575 --></A><!-- 48575 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_49147.html">· 
+            CCIE TIPS<!-- a49147 --></A><!-- 49147 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_61359.html">· 
+            CCIE WAN<!-- a61359 --></A><!-- 61359 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_62512.html">· 
+            CCIE Project<!-- a62512 --></A><!-- 62512 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_70641.html">· 
+            CCIE Dynamips<!-- a70641 --></A><!-- 70641 --> </LI></UL>
+          <LI><A href="http://blog.chinaunix.net/u/27493/article_88355.html">· 
+          CISSP<!-- a88355 --></A><!-- 88355 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/article_44995.html">· 
+          OS&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+          <UL class=ul2>
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_43919.html">· 
+            AIX<!-- a43919 --></A><!-- 43919 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_48574.html">· 
+            BSD<!-- a48574 --></A><!-- 48574 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_72486.html">· 
+            HP/UNIX<!-- a72486 --></A><!-- 72486 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_43361.html">· 
+            Linux&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+            <UL class=ul2>
+              <LI><A 
+              href="http://blog.chinaunix.net/u/27493/article_46907.html">· 
+              COMMAND<!-- a46907 --></A><!-- 46907 --> 
+              <LI><A 
+              href="http://blog.chinaunix.net/u/27493/article_72617.html">· DB 
+              Cluster<!-- a72617 --></A><!-- 72617 --> 
+              <LI><A 
+              href="http://blog.chinaunix.net/u/27493/article_67473.html">· 
+              HARDWARE<!-- a67473 --></A><!-- 67473 --> 
+              <LI><A 
+              href="http://blog.chinaunix.net/u/27493/article_46908.html">· 
+              INITIAL&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+              <UL class=ul2>
+                <LI><A 
+                href="http://blog.chinaunix.net/u/27493/article_67474.html">· 
+                GRUB<!-- a67474 --></A><!-- 67474 --> </LI></UL>
+              <LI><A 
+              href="http://blog.chinaunix.net/u/27493/article_45537.html">· 
+              KERNEL<!-- a45537 --></A><!-- 45537 --> 
+              <LI><A 
+              href="http://blog.chinaunix.net/u/27493/article_46903.html">· LVM<!-- a46903 --></A><!-- 46903 --> 
+              <LI><A 
+              href="http://blog.chinaunix.net/u/27493/article_43363.html">· LVS<!-- a43363 --></A><!-- 43363 --> 
+              <LI><A 
+              href="http://blog.chinaunix.net/u/27493/article_53449.html">· 
+              MANAGEMENT<!-- a53449 --></A><!-- 53449 --> 
+              <LI><A 
+              href="http://blog.chinaunix.net/u/27493/article_46909.html">· 
+              NETWORK&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+              <UL class=ul2>
+                <LI><A 
+                href="http://blog.chinaunix.net/u/27493/article_46904.html">· 
+                DNS/DHCP<!-- a46904 --></A><!-- 46904 --> 
+                <LI><A 
+                href="http://blog.chinaunix.net/u/27493/article_66408.html">· 
+                LAMP&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+                <UL class=ul2>
+                  <LI><A 
+                  href="http://blog.chinaunix.net/u/27493/article_70512.html">· 
+                  Optimize<!-- a70512 --></A><!-- 70512 --> </LI></UL>
+                <LI><A 
+                href="http://blog.chinaunix.net/u/27493/article_68642.html">· 
+                Postfix<!-- a68642 --></A><!-- 68642 --> 
+                <LI><A 
+                href="http://blog.chinaunix.net/u/27493/article_69022.html">· 
+                radius<!-- a69022 --></A><!-- 69022 --> 
+                <LI><A 
+                href="http://blog.chinaunix.net/u/27493/article_70700.html">· 
+                samba<!-- a70700 --></A><!-- 70700 --> 
+                <LI><A 
+                href="http://blog.chinaunix.net/u/27493/article_68646.html">· 
+                Squid<!-- a68646 --></A><!-- 68646 --> 
+                <LI><A 
+                href="http://blog.chinaunix.net/u/27493/article_68643.html">· 
+                syslog<!-- a68643 --></A><!-- 68643 --> 
+                <LI><A 
+                href="http://blog.chinaunix.net/u/27493/article_68526.html">· 
+                VSFTP<!-- a68526 --></A><!-- 68526 --> </LI></UL>
+              <LI><A 
+              href="http://blog.chinaunix.net/u/27493/article_66409.html">· 
+              OPTIMIZE<!-- a66409 --></A><!-- 66409 --> 
+              <LI><A 
+              href="http://blog.chinaunix.net/u/27493/article_68525.html">· RAID<!-- a68525 --></A><!-- 68525 --> 
+              <LI><A 
+              href="http://blog.chinaunix.net/u/27493/article_46905.html">· 
+              SECURITY<!-- a46905 --></A><!-- 46905 --> 
+              <LI><A 
+              href="http://blog.chinaunix.net/u/27493/article_53450.html">· 
+SHELL<!-- a53450 --></A><!-- 53450 --> </LI></UL>
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_46573.html">· 
+            Solaris&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+            <UL class=ul2>
+              <LI><A 
+              href="http://blog.chinaunix.net/u/27493/article_72618.html">· 
+              Install<!-- a72618 --></A><!-- 72618 --> </LI></UL>
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_43902.html">· 
+            NT<!-- a43902 --></A><!-- 43902 --> </LI></UL>
+          <LI><A href="http://blog.chinaunix.net/u/27493/article_43992.html">· 
+          VOIP<!-- a43992 --></A><!-- 43992 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/article_76617.html">· 
+          CRM<!-- a76617 --></A><!-- 76617 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/article_66263.html">· 
+          Database&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+          <UL class=ul2>
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_74667.html">· 
+            Oracle<!-- a74667 --></A><!-- 74667 --> </LI></UL>
+          <LI><A href="http://blog.chinaunix.net/u/27493/article_51689.html">· 
+          ISP<!-- a51689 --></A><!-- 51689 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/article_43524.html">· 
+          Storage&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+          <UL class=ul2>
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_46819.html">· 
+            Foundation<!-- a46819 --></A><!-- 46819 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_46812.html">· 
+            RAID<!-- a46812 --></A><!-- 46812 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_46813.html">· 
+            SATA<!-- a46813 --></A><!-- 46813 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_46815.html">· 
+            Data Restore<!-- a46815 --></A><!-- 46815 --> </LI></UL>
+          <LI><A href="http://blog.chinaunix.net/u/27493/article_52509.html">· 
+          Virtualization &nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+          <UL class=ul2>
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_49058.html">· 
+            VMWARE<!-- a49058 --></A><!-- 49058 --> </LI></UL>
+          <LI><A href="http://blog.chinaunix.net/u/27493/article_72609.html">· 
+          Programming<!-- a72609 --></A><!-- 72609 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/article_43693.html">· 
+          Web<!-- a43693 --></A><!-- 43693 --> 
+          <LI><A href="http://blog.chinaunix.net/u/27493/article_43429.html">· 
+          Life&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+          <UL class=ul2>
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_59781.html">· 
+            Career<!-- a59781 --></A><!-- 59781 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_64614.html">· 
+            Stock<!-- a64614 --></A><!-- 64614 --> 
+            <LI><A href="http://blog.chinaunix.net/u/27493/article_50954.html">· 
+            Thinkpad<!-- a50954 --></A><!-- 50954 --> </LI></UL>
+          <LI><A href="http://blog.chinaunix.net/u/27493/article_48576.html">· 
+          English<!-- a48576 --></A><!-- 48576 --> </LI></UL></LI>
+        <LI class=ul0><A class=list1 
+        href="http://blog.chinaunix.net/u/27493/index.html">首页</A> </LI></UL></TD>
+    <TD width=2></TD></TR></TBODY></TABLE>
+<SCRIPT language=javascript>
+function $(s){return document.getElementById(s);}
+function ShowHideDiv(divid,iImg){
+if($(divid).style.display == "none"){
+iImg.src="../../templates/tech/images/dot2.gif";
+$(divid).style.display = "block";
+iImg.title="收起";
+}else{
+iImg.src="../../templates/tech/images/dot4.gif";
+$(divid).style.display = "none";
+iImg.title="展开";
+}
+}
+if (window.attachEvent) window.attachEvent("onload", navHover);
+</SCRIPT>
+
+<TABLE style="BORDER-COLLAPSE: collapse" cellSpacing=0 cellPadding=0 
+width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD vAlign=top align=middle width=235><BR>
+      <TABLE style="BORDER-COLLAPSE: collapse" borderColor=#111111 cellSpacing=0 
+      cellPadding=0 width=220 border=0>
+        <TBODY>
+        <TR>
+          <TD><IMG alt="" 
+            src="数据库面试题集 - Database - SENSE.files/left_bg_top.gif" 
+        border=0></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#edf2f2 height=25>
+            <TABLE style="BORDER-COLLAPSE: collapse" borderColor=#111111 
+            cellSpacing=0 cellPadding=0 width=200 border=0>
+              <TBODY>
+              <TR>
+                <TD align=middle width=180><FONT style="FONT-SIZE: 10pt" 
+                  color=#1f72d0><B>关于作者</B></FONT></TD>
+                <TD width=20><IMG title=收起 
+                  onclick="ShowHideDiv('aboutwriter',this);return false;" 
+                  src="数据库面试题集 - Database - SENSE.files/dot2.gif" 
+              border=0></TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD bgColor=#d2dee2 height=1></TD></TR>
+        <TR>
+          <TD bgColor=#ffffff height=1></TD></TR>
+        <TR>
+          <TD style="COLOR: #02368d" align=middle bgColor=#f3f6f6>
+            <TABLE id=aboutwriter 
+            style="TABLE-LAYOUT: fixed; COLOR: #02368d; BORDER-COLLAPSE: collapse; WORD-WRAP: break-word" 
+            cellSpacing=0 cellPadding=0 width=200 border=0>
+              <TBODY>
+              <TR>
+                <TD align=middle><A 
+                  href="http://blog.chinaunix.net/u/27493/up_user.gif" 
+                  target=_blank><IMG alt="" 
+                  src="数据库面试题集 - Database - SENSE.files/up_user_pre.jpg" 
+                  border=0></A> 
+                  <TABLE 
+                  style="BORDER-COLLAPSE: collapse; WORD-WRAP: break-word" 
+                  cellSpacing=0 cellPadding=0 width=200 border=0>
+                    <TBODY>
+                    <TR>
+                      <TD width=200><PRE style="MARGIN: 5px; LINE-HEIGHT: 150%" width=25>Name：SENSE
+Profession：System Integration
+Age：21
+Location：Beijing
+
+Info.
+-=======================-
+http://www.redhat.com/docs/
+http://httpd.apache.org/docs/
+http://www.ibm.com/developerworks/
+http://www.unix.org.ua/orelly/
+http://www.ebookee.com.cn/
+http://forum.ubuntu.org.cn/
+http://wilson66.cublog.cn/
+http://www.ctiforum.com/
+http://www.aixchina.net/
+http://www.oracle.com.cn/
+http://www.gotoread.com/
+http://www.sqlzoo.cn/
+http://www.excelhome.net/
+-=======================-
+
+CISSP info.
+-=======================-
+http://www.cccure.org/
+http://www.securityfocus.com/
+-=======================-
+
+CCIE test info.
+-=======================-
+http://www.vpneasy.net/bbs/
+http://blog.internetworkexpert.com/
+http://www.networking-forum.com/
+http://blog.internetworkexpert.com/
+http://www.netemu.cn/bbs/
+http://www.one-tom.com/bbs/
+http://www.net130.com/
+http://www.passforsure.net/
+http://www.ccie.org/
+http://hi.baidu.com/dengyusu/
+http://forum.cisco-club.com.cn/
+http://7200emu.hacki.at/
+http://www.netyourlife.net
+http://www.sadikhov.com/forum/
+http://www.cisconet.com/index.php
+
+cisco software download:
+http://www.sadikhov.com/forum/lofiversion/index.php?t121510.html
+-=======================-
+
+System Integration:
+-=======================-
+http://www.loveunix.net/
+http://www.chinaitlab.com/
+http://www.51cto.com/
+http://www.itpub.net/
+http://www.csai.cn/
+-=======================-
+
+Linux software:
+-=======================-
+http://www.kde-apps.org/
+http://www.deviantart.com/
+(wall,picture)
+http://www.filewatcher.com/
+http://www.rsfind.com/
+-=======================-</PRE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD>
+            <TABLE 
+            style="BORDER-RIGHT: #d2dee2 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #d2dee2 1px solid; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; BORDER-LEFT: #d2dee2 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: #d2dee2 1px solid; BORDER-COLLAPSE: collapse" 
+            cellSpacing=0 cellPadding=0 width=220 align=center bgColor=#ffffff 
+            border=0>
+              <TBODY>
+              <TR bgColor=#edf2f2 height=20>
+                <TD title=上一年 
+                style="FONT-SIZE: 9pt; CURSOR: hand; COLOR: #1f72d0" 
+                onclick="pushBtm('YU')" align=middle width=14>||</TD>
+                <TD title=上一月 
+                style="FONT-SIZE: 9pt; CURSOR: hand; COLOR: #1f72d0" 
+                onclick="pushBtm('MU')" align=middle width=14>&lt;&lt;</TD>
+                <TD id=YMBG style="FONT-SIZE: 9pt; COLOR: #1f72d0" noWrap 
+                align=middle></TD>
+                <TD id=GZ style="FONT-SIZE: 9pt; COLOR: #1f72d0" noWrap 
+                align=middle></TD>
+                <TD title=下一月 
+                style="FONT-SIZE: 9pt; CURSOR: hand; COLOR: #1f72d0" 
+                onclick="pushBtm('MD')" align=middle width=14>&gt;&gt;</TD>
+                <TD title=下一年 
+                style="FONT-SIZE: 9pt; CURSOR: hand; COLOR: #1f72d0" 
+                onclick="pushBtm('YD')" align=middle width=14>||</TD></TR>
+              <TR>
+                <TD colSpan=6>
+                  <DIV id=ttdiv align=center width="210"></DIV></TD></TR>
+              <TR>
+                <TD colSpan=6 height=1></TD></TR></TBODY></TABLE>
+            <SCRIPT src="数据库面试题集 - Database - SENSE.files/mdate.js"></SCRIPT>
+
+            <SCRIPT language=javascript>
+var arrArtdate=new Array('20051002','20061203','20061204','20061205','20061206','20061209','20061210','20061211','20061212','20061213','20061215','20061219','20061220','20061221','20061224','20061226','20061227','20061228','20061230','20061231','20070101','20070102','20070105','20070109','20070110','20070111','20070112','20070113','20070115','20070116','20070117','20070201','20070203','20070205','20070207','20070208','20070209','20070210','20070211','20070212','20070215','20070217','20070223','20070303','20070304','20070307','20070316','20070317','20070318','20070323','20070324','20070328','20070403','20070405','20070406','20070409','20070412','20070415','20070417','20070418','20070420','20070423','20070424','20070425','20070427','20070428','20070429','20070430','20070501','20070505','20070506','20070507','20070508','20070510','20070511','20070512','20070513','20070516','20070520','20070604','20070617','20070618','20070620','20070626','20070627','20070718','20070722','20070730','20070801','20070803','20070807','20070816','20070817','20070819','20070825','20070826','20070829','20070830','20070904','20070906','20070907','20070909','20070911','20070914','20070916','20070918','20070919','20070921','20070922','20070923','20070924','20070925','20070926','20070928','20070930','20071006','20071010','20071011','20071012','20071013','20071016','20071017','20071018','20071019','20071020','20071022','20071024','20071026','20071027','20071101','20071106','20071108','20071109','20071110','20071111','20071112','20071113','20071114','20071119','20071121','20071123','20071126','20071201','20071202','20071203','20071215','20071220','20071221','20071222','20071227','20080103','20080104','20080107','20080108','20080109','20080112','20080117','20080118','20080119','20080121','20080123','20080124','20080127','20080129','20080130','20080201','20080203','20080206','20080207','20080209','20080214','20080228','20080302','20080304','20080305','20080311','20080317','20080320','20080402','20080403','20080408','20080409','20080410','20080411','20080414','20080415','20080428','20080430','20080508','20080518','20080527','20080605','20080608','20080610','20080623','20080624','20080702','20080705','20080711','20080729','20080730','20080731','20080818','20080819','20080909','20081007');
+
+initial("ttdiv");
+
+</SCRIPT>
+          </TD></TR>
+        <TR>
+          <TD bgColor=#d2dee2 height=1></TD></TR>
+        <TR>
+          <TD bgColor=#ffffff height=1></TD></TR>
+        <TR>
+          <TD align=middle bgColor=#edf2f2 height=25>
+            <TABLE style="BORDER-COLLAPSE: collapse" borderColor=#111111 
+            cellSpacing=0 cellPadding=0 width=200 border=0>
+              <TBODY>
+              <TR>
+                <TD align=middle width=180><FONT style="FONT-SIZE: 10pt" 
+                  color=#1f72d0><B>我的分类</B></FONT></TD>
+                <TD width=20><IMG title=收起 
+                  onclick="ShowHideDiv('lefttree',this);return false;" 
+                  src="D:\数据库面试题集 - Database - SENSE.files\dot2(1).gif" 
+                border=0></TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD bgColor=#d2dee2 height=1></TD></TR>
+        <TR>
+          <TD bgColor=#ffffff height=1></TD></TR>
+        <TR>
+          <TD style="COLOR: #02368d" bgColor=#f3f6f6>
+            <SCRIPT src="数据库面试题集 - Database - SENSE.files/tree.js"></SCRIPT>
+
+            <DIV id=lefttree 
+            style="SCROLLBAR-FACE-COLOR: #eeeeee; SCROLLBAR-HIGHLIGHT-COLOR: #ffffff; OVERFLOW: auto; SCROLLBAR-SHADOW-COLOR: #cccccc; SCROLLBAR-3DLIGHT-COLOR: #d1d7dc; SCROLLBAR-ARROW-COLOR: #006699; SCROLLBAR-TRACK-COLOR: #cccccc; SCROLLBAR-DARKSHADOW-COLOR: #eedfe7"></DIV>
+            <SCRIPT language=javascript>
+ContentsTree = new CTree("ContentsTree");
+ContentsTree.bAutoClose = false;
+ContentsTree.stTarget = "";
+a0 = ContentsTree.AddNode(null, "我的文章分类", "article.html");
+a0.bOpen=true;
+p0 = ContentsTree.AddNode(null, "我的图片分类", "photo.html");
+p0.bOpen=true;
+f0 = ContentsTree.AddNode(null, "我的链接分类", "links.html");
+f0.bOpen=true;
+m0 = ContentsTree.AddNode(null, "我的音乐分类", "music.html");
+m0.bOpen=true;
+a65552 = ContentsTree.AddNode(a0, "CCIE", "article_65552.html");
+a55007 = ContentsTree.AddNode(a65552, "CCIE Devices", "article_55007.html");
+a44072 = ContentsTree.AddNode(a65552, "CCIE IOS Feture", "article_44072.html");
+a46986 = ContentsTree.AddNode(a65552, "CCIE Multicast", "article_46986.html");
+a43372 = ContentsTree.AddNode(a65552, "CCIE Routing", "article_43372.html");
+a43373 = ContentsTree.AddNode(a65552, "CCIE Switching", "article_43373.html");
+a43374 = ContentsTree.AddNode(a65552, "CCIE QoS", "article_43374.html");
+a43375 = ContentsTree.AddNode(a65552, "CCIE IPv6", "article_43375.html");
+a54294 = ContentsTree.AddNode(a65552, "CCIE MPLS/VPN", "article_54294.html");
+a43376 = ContentsTree.AddNode(a65552, "CCIE Security", "article_43376.html");
+a55207 = ContentsTree.AddNode(a65552, "CCIE Troubleshooting", "article_55207.html");
+a48575 = ContentsTree.AddNode(a65552, "CCIE CABLE", "article_48575.html");
+a49147 = ContentsTree.AddNode(a65552, "CCIE TIPS", "article_49147.html");
+a61359 = ContentsTree.AddNode(a65552, "CCIE WAN", "article_61359.html");
+a62512 = ContentsTree.AddNode(a65552, "CCIE Project", "article_62512.html");
+a70641 = ContentsTree.AddNode(a65552, "CCIE Dynamips", "article_70641.html");
+a88355 = ContentsTree.AddNode(a0, "CISSP", "article_88355.html");
+a44995 = ContentsTree.AddNode(a0, "OS", "article_44995.html");
+a43919 = ContentsTree.AddNode(a44995, "AIX", "article_43919.html");
+a48574 = ContentsTree.AddNode(a44995, "BSD", "article_48574.html");
+a72486 = ContentsTree.AddNode(a44995, "HP/UNIX", "article_72486.html");
+a43361 = ContentsTree.AddNode(a44995, "Linux", "article_43361.html");
+a46907 = ContentsTree.AddNode(a43361, "COMMAND", "article_46907.html");
+a72617 = ContentsTree.AddNode(a43361, "DB Cluster", "article_72617.html");
+a67473 = ContentsTree.AddNode(a43361, "HARDWARE", "article_67473.html");
+a46908 = ContentsTree.AddNode(a43361, "INITIAL", "article_46908.html");
+a67474 = ContentsTree.AddNode(a46908, "GRUB", "article_67474.html");
+a45537 = ContentsTree.AddNode(a43361, "KERNEL", "article_45537.html");
+a46903 = ContentsTree.AddNode(a43361, "LVM", "article_46903.html");
+a43363 = ContentsTree.AddNode(a43361, "LVS", "article_43363.html");
+a53449 = ContentsTree.AddNode(a43361, "MANAGEMENT", "article_53449.html");
+a46909 = ContentsTree.AddNode(a43361, "NETWORK", "article_46909.html");
+a46904 = ContentsTree.AddNode(a46909, "DNS/DHCP", "article_46904.html");
+a66408 = ContentsTree.AddNode(a46909, "LAMP", "article_66408.html");
+a70512 = ContentsTree.AddNode(a66408, "Optimize", "article_70512.html");
+a68642 = ContentsTree.AddNode(a46909, "Postfix", "article_68642.html");
+a69022 = ContentsTree.AddNode(a46909, "radius", "article_69022.html");
+a70700 = ContentsTree.AddNode(a46909, "samba", "article_70700.html");
+a68646 = ContentsTree.AddNode(a46909, "Squid", "article_68646.html");
+a68643 = ContentsTree.AddNode(a46909, "syslog", "article_68643.html");
+a68526 = ContentsTree.AddNode(a46909, "VSFTP", "article_68526.html");
+a66409 = ContentsTree.AddNode(a43361, "OPTIMIZE", "article_66409.html");
+a68525 = ContentsTree.AddNode(a43361, "RAID", "article_68525.html");
+a46905 = ContentsTree.AddNode(a43361, "SECURITY", "article_46905.html");
+a53450 = ContentsTree.AddNode(a43361, "SHELL", "article_53450.html");
+a46573 = ContentsTree.AddNode(a44995, "Solaris", "article_46573.html");
+a72618 = ContentsTree.AddNode(a46573, "Install", "article_72618.html");
+a43902 = ContentsTree.AddNode(a44995, "NT", "article_43902.html");
+a43992 = ContentsTree.AddNode(a0, "VOIP", "article_43992.html");
+a76617 = ContentsTree.AddNode(a0, "CRM", "article_76617.html");
+a66263 = ContentsTree.AddNode(a0, "Database", "article_66263.html");
+a74667 = ContentsTree.AddNode(a66263, "Oracle", "article_74667.html");
+a51689 = ContentsTree.AddNode(a0, "ISP", "article_51689.html");
+a43524 = ContentsTree.AddNode(a0, "Storage", "article_43524.html");
+a46819 = ContentsTree.AddNode(a43524, "Foundation", "article_46819.html");
+a46812 = ContentsTree.AddNode(a43524, "RAID", "article_46812.html");
+a46813 = ContentsTree.AddNode(a43524, "SATA", "article_46813.html");
+a46815 = ContentsTree.AddNode(a43524, "Data Restore", "article_46815.html");
+a52509 = ContentsTree.AddNode(a0, "Virtualization ", "article_52509.html");
+a49058 = ContentsTree.AddNode(a52509, "VMWARE", "article_49058.html");
+a72609 = ContentsTree.AddNode(a0, "Programming", "article_72609.html");
+a43693 = ContentsTree.AddNode(a0, "Web", "article_43693.html");
+a43429 = ContentsTree.AddNode(a0, "Life", "article_43429.html");
+a59781 = ContentsTree.AddNode(a43429, "Career", "article_59781.html");
+a64614 = ContentsTree.AddNode(a43429, "Stock", "article_64614.html");
+a50954 = ContentsTree.AddNode(a43429, "Thinkpad", "article_50954.html");
+a48576 = ContentsTree.AddNode(a0, "English", "article_48576.html");
+ 
+p12956 = ContentsTree.AddNode(p0, "cisco", "photo_12956.html");
+p12958 = ContentsTree.AddNode(p0, "cissp", "photo_12958.html");
+p12957 = ContentsTree.AddNode(p0, "linux", "photo_12957.html");
+p12959 = ContentsTree.AddNode(p0, "protocol", "photo_12959.html");
+ 
+f9739 = ContentsTree.AddNode(f0, "Friends", "links_9739.html");
+f16404 = ContentsTree.AddNode(f0, "IM Online", "links_16404.html");
+f13550 = ContentsTree.AddNode(f0, "Project", "links_13550.html");
+f9693 = ContentsTree.AddNode(f0, "Cisco", "links_9693.html");
+f11612 = ContentsTree.AddNode(f9693, "ios", "links_11612.html");
+f9869 = ContentsTree.AddNode(f0, "OS", "links_9869.html");
+f9971 = ContentsTree.AddNode(f9869, "AIX", "links_9971.html");
+f9695 = ContentsTree.AddNode(f9869, "FreeBSD", "links_9695.html");
+f9694 = ContentsTree.AddNode(f9869, "Linux", "links_9694.html");
+f13670 = ContentsTree.AddNode(f9694, "shell", "links_13670.html");
+f10312 = ContentsTree.AddNode(f9869, "NT", "links_10312.html");
+f9702 = ContentsTree.AddNode(f9869, "Solaris", "links_9702.html");
+f11772 = ContentsTree.AddNode(f0, "Communication", "links_11772.html");
+f9725 = ContentsTree.AddNode(f0, "System Integration", "links_9725.html");
+f10585 = ContentsTree.AddNode(f0, "Security", "links_10585.html");
+f11682 = ContentsTree.AddNode(f0, "Web", "links_11682.html");
+f12842 = ContentsTree.AddNode(f0, "Work", "links_12842.html");
+f9697 = ContentsTree.AddNode(f0, "English", "links_9697.html");
+f9696 = ContentsTree.AddNode(f9697, "Library", "links_9696.html");
+f9975 = ContentsTree.AddNode(f0, "Life", "links_9975.html");
+f12489 = ContentsTree.AddNode(f9975, "Career", "links_12489.html");
+f15225 = ContentsTree.AddNode(f9975, "CNKI", "links_15225.html");
+f10708 = ContentsTree.AddNode(f9975, "Download", "links_10708.html");
+f12497 = ContentsTree.AddNode(f9975, "Football", "links_12497.html");
+f9976 = ContentsTree.AddNode(f9975, "Jornada", "links_9976.html");
+f13549 = ContentsTree.AddNode(f9975, "Manager", "links_13549.html");
+f11073 = ContentsTree.AddNode(f9975, "Memory", "links_11073.html");
+f9991 = ContentsTree.AddNode(f9975, "Movie", "links_9991.html");
+f11613 = ContentsTree.AddNode(f9975, "Online Disk", "links_11613.html");
+f10332 = ContentsTree.AddNode(f9975, "Phone", "links_10332.html");
+f12331 = ContentsTree.AddNode(f9975, "Stock", "links_12331.html");
+f11039 = ContentsTree.AddNode(f9975, "Thinkpad", "links_11039.html");
+f10275 = ContentsTree.AddNode(f9975, "University", "links_10275.html");
+ 
+ 
+//document.write(ContentsTree.GetHTMLCode());
+document.getElementById("lefttree").innerHTML=ContentsTree.GetHTMLCode();
+</SCRIPT>
+          </TD></TR>
+        <TR>
+          <TD bgColor=#d2dee2 height=1></TD></TR>
+        <TR>
+          <TD bgColor=#ffffff height=1></TD></TR>
+        <TR>
+          <TD><IMG alt="" 
+            src="数据库面试题集 - Database - SENSE.files/left_bg_bottom.gif" 
+          border=0></TD></TR></TBODY></TABLE></TD>
+    <TD width=10></TD>
+    <TD vAlign=top align=middle><BR>
+      <TABLE style="BORDER-COLLAPSE: collapse" cellSpacing=0 cellPadding=0 
+      width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD width=11 height=11><IMG alt="" 
+            src="数据库面试题集 - Database - SENSE.files/g_left_top.gif" border=0></TD>
+          <TD width="99%" bgColor=#dddddd height=11></TD>
+          <TD width=11 height=11><IMG alt="" 
+            src="数据库面试题集 - Database - SENSE.files/g_right_top.gif" 
+        border=0></TD></TR>
+        <TR>
+          <TD vAlign=top align=middle width="100%" bgColor=#dddddd 
+            colSpan=3><BR>
+            <TABLE style="BORDER-COLLAPSE: collapse" cellSpacing=0 cellPadding=0 
+            width="96%" border=0>
+              <TBODY>
+              <TR>
+                <TD width=7 height=7><IMG alt="" 
+                  src="数据库面试题集 - Database - SENSE.files/w_left_top.gif" 
+                border=0></TD>
+                <TD width="100%" bgColor=#f3f3f3></TD>
+                <TD width=7 height=7><IMG alt="" 
+                  src="数据库面试题集 - Database - SENSE.files/w_right_top.gif" 
+                  border=0></TD></TR>
+              <TR>
+                <TD align=middle bgColor=#f3f3f3 colSpan=3>
+                  <TABLE 
+                  style="BORDER-COLLAPSE: collapse; WORD-WRAP: break-word" 
+                  cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD align=middle height=25><FONT style="FONT-SIZE: 14pt" 
+                        color=#02368d><B>数据库面试题集</B></FONT></B></FONT><BR></TD></TR>
+                    <TR>
+                      <TD bgColor=#d2dee2 height=1></TD></TR>
+                    <TR>
+                      <TD bgColor=#ffffff height=1></TD></TR>
+                    <TR>
+                      <TD align=middle>
+                        <TABLE 
+                        style="BORDER-COLLAPSE: collapse; WORD-WRAP: break-word" 
+                        cellSpacing=0 cellPadding=0 width="100%" border=0>
+                          <TBODY>
+                          <TR>
+                            <TD width="100%">
+                              <DIV id=art style="MARGIN: 15px" width="100%">
+                              <DIV id=art style="MARGIN: 15px">
+                              <DIV align=center><FONT 
+                              size=3>数据库笔试题及答案I</FONT></DIV>
+                              <DIV>&nbsp;</DIV>
+                              <DIV><STRONG>第一套</STRONG> 
+                              <P>　　<STRONG>一.选择题</STRONG></P>
+                              <P>　　1. 下面叙述正确的是______。</P>
+                              <P>　　A、算法的执行效率与数据的存储结构无关</P>
+                              <P>　　B、算法的空间复杂度是指算法程序中指令(或语句)的条数</P>
+                              <P>　　C、算法的有穷性是指算法必须能在执行有限个步骤之后终止</P>
+                              <P>　　D、以上三种描述都不对</P>
+                              <P>　　2. 
+                              以下数据结构中不属于线性数据结构的是______。A、队列B、线性表C、二叉树D、栈</P>
+                              <P>　　3. 在一棵二叉树上第5层的结点数最多是______。A、8 B、16 C、32 
+                              D、15</P>
+                              <P>　　4. 下面描述中，符合结构化程序设计风格的是______。</P>
+                              <P>　　A、使用顺序、选择和重复(循环)三种基本控制结构表示程序的控制逻辑</P>
+                              <P>　　B、模块只有一个入口，可以有多个出口</P>
+                              <P>　　C、注重提高程序的执行效率 D、不使用goto语句</P>
+                              <P>　　5. 下面概念中，不属于面向对象方法的是______。</P>
+                              <P>　　A、对象 B、继承 C、类 D、过程调用</P>
+                              <P>　　6. 
+                              在结构化方法中，用数据流程图(DFD)作为描述工具的软件开发阶段是______。</P>
+                              <P>　　A、可行性分析 B、需求分析 C、详细设计 D、程序编码</P>
+                              <P>　　7. 在软件开发中，下面任务不属于设计阶段的是______。</P>
+                              <P>　　A、数据结构设计 B、给出系统模块结构 C、定义模块算法 
+D、定义需求并建立系统模型</P>
+                              <P>　　8. 数据库系统的核心是______。</P>
+                              <P>　　A、数据模型 B、数据库管理系统 C、软件工具 D、数据库</P>
+                              <P>　　9. 下列叙述中正确的是______。</P>
+                              <P>　　A、数据库是一个独立的系统，不需要操作系统的支持</P>
+                              <P>　　B、数据库设计是指设计数据库管理系统</P>
+                              <P>　　C、数据库技术的根本目标是要解决数据共享的问题</P>
+                              <P>　　D、数据库系统中，数据的物理结构必须与逻辑结构一致</P>
+                              <P>　　10. 下列模式中，能够给出数据库物理存储结构与物理存取方法的是______。</P>
+                              <P>　　A、内模式 B、外模式 C、概念模式 D、逻辑模式</P>
+                              <P>　　11. Visual FoxPro数据库文件是______。</P>
+                              <P>　　A、存放用户数据的文件 B、管理数据库对象的系统文件</P>
+                              <P>　　C、存放用户数据和系统的文件 D、前三种说法都对</P>
+                              <P>　12. SQL语句中修改表结构的命令是______。</P>
+                              <P>　　A、MODIFY TABLE B、MODIFY STRUCTURE C、ALTER 
+                              TABLE D、ALTER STRUCTURE</P>
+                              <P>　　13. 
+                              如果要创建一个数据组分组报表，第一个分组表达式是"部门"，第二个分组表达式是"性别"，第三个分组表达式是"基本工资"，当前索引的索引表达式应当是______。</P>
+                              <P>　　A、部门+性别+基本工资 B、部门+性别+STR(基本工资)</P>
+                              <P>　　C、STR(基本工资)+性别+部门 D、性别+部门+STR(基本工资)</P>
+                              <P>　　14. 把一个项目编译成一个应用程序时，下面的叙述正确的是______。</P>
+                              <P>　　A、所有的项目文件将组合为一个单一的应用程序文件</P>
+                              <P>　　B、所有项目的包含文件将组合为一个单一的应用程序文件</P>
+                              <P>　　C、所有项目排除的文件将组合为一个单一的应用程序文件</P>
+                              <P>　　D、由用户选定的项目文件将组合为一个单一的应用程序文件</P>
+                              <P>　　15. 
+                              数据库DB、数据库系统DBS、数据库管理系统DBMS三者之间的关系是______。</P>
+                              <P>　　A、DBS包括DB和DBMS B、DBMS包括DB和DBS</P>
+                              <P>　　C、DB包括DBS和DBMS D、DBS就是DB，也就是DBMS</P>
+                              <P>　　16. 在"选项"对话框的"文件位置"选项卡中可以设置______。</P>
+                              <P>　　A、表单的默认大小 B、默认目录</P>
+                              <P>　　C、日期和时间的显示格式 D、程序代码的颜色</P>
+                              <P>　　17. 
+                              要控制两个表中数据的完整性和一致性可以设置"参照完整性"，要求这两个表______。</P>
+                              <P>　　A、是同一个数据库中的两个表 B、不同数据库中的两个表</P>
+                              <P>　　C、两个自由表 D、一个是数据库表另一个是自由表</P>
+                              <P>　　18. 定位第一条记录上的命令是______。</P>
+                              <P>　　A、GO TOP B、GO BOTTOM C、GO 6 D、SKIP</P>
+                              <P>　　19. 在关系模型中，实现"关系中不允许出现相同的元组"的约束是通过______。</P>
+                              <P>　　A、候选键 B、主键 C、外键 D、超键</P>
+                              <P>　　20. 
+                              设当前数据库有10条记录(记录未进行任何索引)，在下列三种情况下，当前记录号为1时;EOF()为真时;BOF()为真时，命令?RECN()的结果分别是______。</P>
+                              <P>　　A、1,11,1 B、1,10,1 C、1,11,0 D、1,10,0</P>
+                              <P>　　21. 下列表达式中结果不是日期型的是______。</P>
+                              <P>　　A、CTOD("2000/10/01") B、{^99/10/01}+365 
+                              C、VAL("2000/10/01") D、DATE()</P>
+                              <P>　　22. 只有满足联接条件的记录才包含在查询结果中，这种联接为______。</P>
+                              <P>　　A、左联接 B、右联接 C、内部联接 D、完全联接</P>
+                              <P>　23. 索引字段值不唯一，应该选择的索引类型为______。</P>
+                              <P>　　A、主索引 B、普通索引 C、候选索引 D、唯一索引</P>
+                              <P>　　24. 执行SELECT 0选择工作区的结果是______。</P>
+                              <P>　　A、选择了0号工作区 B、选择了空闲的最小号工作区</P>
+                              <P>　　C、关闭选择的工作区 D、选择已打开的工作区</P>
+                              <P>　　25. 从数据库中删除表的命令是______。</P>
+                              <P>　　A、DROP TABLE B、ALTER TABLE C、DELETE TABLE 
+                              D、USE</P>
+                              <P>　　26. DELETE FROM S WHERE 
+                              年龄&gt;60语句的功能是______。</P>
+                              <P>　　A、从S表中彻底删除年龄大于60岁的记录 
+                              B、S表中年龄大于60岁的记录被加上删除标记</P>
+                              <P>　　C、删除S表 D、删除S表的年龄列</P>
+                              <P>　　27. SELECT-SQL语句是______。</P>
+                              <P>　　A、选择工作区语句 B、数据查询语句 C、选择标准语句 D、数据修改语句</P>
+                              <P>　　28. SQL语言是______语言。A、层次数据库 B、网络数据库 C、关系数据库 
+                              D、非数据库</P>
+                              <P>　　29. 在SQL中，删除视图用______。</P>
+                              <P>　　A、DROP SCHEMA命令 B、CREATE TABLE命令 C、DROP 
+                              VIEW命令 D、DROP INDEX命令</P>
+                              <P>　　30. 以下属于非容器类控件的是______。A、Form B、Label C、page 
+                              D、Container</P>
+                              <P>　　31. 将查询结果放在数组中应使用______短语。</P>
+                              <P>　　A、INTO CURSOR B、TO ARRAY C、INTO TABLE D、INTO 
+                              ARRAY</P>
+                              <P>　　32. 在命令窗口执行SQL命令时，若命令要占用多行，续行符是______。</P>
+                              <P>　　A、冒号(:) B、分号(;) C、逗号(,) D、连字符(-)</P>
+                              <P>　　33. 设有图书管理数据库：</P>
+                              <P>　　图书(总编号C(6),分类号C(8),书名C(16),作者C(6),出版单位C(20),单价N(6,2))</P>
+                              <P>　　读者(借书证号C(4),单位C(8),姓名C(6),性别C(2),职称C(6),地址C(20))</P>
+                              <P>　　借阅(借书证号C(4),总编号C(6),借书日期D(8))</P>
+                              <P>　　对于图书管理数据库，查询0001号借书证的读者姓名和所借图书的书名。</P>
+                              <P>　　SQL语句正确的是______。</P>
+                              <P>　　SELECT 姓名,书名 FROM 借阅,图书,读者 WHERE;</P>
+                              <P>　　借阅.借书证号="0001" AND;</P>
+                              <P>　　______</P>
+                              <P>　　______</P>
+                              <P>　　A、图书.总编号=借阅.总编号 AND;</P>
+                              <P>　　读者.借书证号=借阅.借书证号</P>
+                              <P>　　B、图书.分类号=借阅.分类号 AND;</P>
+                              <P>　　读者.借书证号=借阅.借书证号</P>
+                              <P>　　C、读者.总编号=借阅.总编号 AND;</P>
+                              <P>　　读者.借书证号=借阅.借书证号</P>
+                              <P>　　D、图书.总编号=借阅.总编号 AND;</P>
+                              <P>　34. 设有图书管理数据库：</P>
+                              <P>　　图书(总编号C(6),分类号C(8),书名C(16),作者C(6),出版单位C(20),单价N(6,2))</P>
+                              <P>　　读者(借书证号C(4),单位C(8),姓名C(6),性别C(2),职称C(6),地址C(20))</P>
+                              <P>　　借阅(借书证号C(4),总编号C(6),借书日期D(8))</P>
+                              <P>　　对于图书管理数据库，分别求出各个单位当前借阅图书的读者人次。下面的SQL语句正确的是______。</P>
+                              <P>　　SELECT 单位,______ FROM 借阅,读者 WHERE;</P>
+                              <P>　　借阅.借书证号=读者.借书证号 ______</P>
+                              <P>　　A、COUNT(借阅.借书证号) GROUP BY 单位 B、SUM(借阅.借书证号) 
+                              GROUP BY 单位</P>
+                              <P>　　C、COUNT(借阅.借书证号) ORDER BY 单位 D、COUNT(借阅.借书证号) 
+                              HAVING 单位</P>
+                              <P>　　35. 设有图书管理数据库：</P>
+                              <P>　　图书(总编号C(6),分类号C(8),书名C(16),作者C(6),出版单位C(20),单价N(6,2))</P>
+                              <P>　　读者(借书证号C(4),单位C(8),姓名C(6),性别C(2),职称C(6),地址C(20))</P>
+                              <P>　　借阅(借书证号C(4),总编号C(6),借书日期D(8))</P>
+                              <P>　　对于图书管理数据库，检索借阅了《现代网络技术基础》一书的借书证号。下面SQL语句正确的是______。</P>
+                              <P>　　SELECT 借书证号 FROM 借阅 WHERE 总编号=;</P>
+                              <P>　　______</P>
+                              <P>　　A、(SELECT 借书证号 FROM 图书 WHERE 
+                              书名="现代网络技术基础")</P>
+                              <P>　　B、(SELECT 总编号 FROM 图书 WHERE 
+书名="现代网络技术基础")</P>
+                              <P>　　C、(SELECT 借书证号 FROM 借阅 WHERE 
+                              书名="现代网络技术基础")</P>
+                              <P>　　D、(SELECT 总编号 FROM 借阅 WHERE 
+书名="现代网络技术基础")</P>
+                              <P>　　<STRONG>二、填空题</STRONG></P>
+                              <P>　　36. 算法的复杂度主要包括______复杂度和空间复杂度。</P>
+                              <P>　　37. 数据的逻辑结构在计算机存储空间中的存放形式称为数据的______。</P>
+                              <P>　　38. 若按功能划分，软件测试的方法通常分为白盒测试方法和______测试方法。</P>
+                              <P>　　39. 
+                              如果一个工人可管理多个设施，而一个设施只被一个工人管理，则实体"工人"与实体"设备"之间存在______联系。</P>
+                              <P>　　40. 关系数据库管理系统能实现的专门关系运算包括选择、连接和______。</P>
+                              <P>　　41. 命令?LEN("THIS IS MY BOOK")的结果是______。</P>
+                              <P>　　42.SQL 
+SELECT语句为了将查询结果存放到临时表中应该使用______短语。</P>
+                              <P>　　43. 多栏报表的栏目数可以通过______来设置。</P>
+                              <P>44. 
+                              在打开项目管理器之后再打开"应用程序生成器"，可以通过按ALT+F2键，快捷菜单和"工具"菜单中的______。</P>
+                              <P>　　45. 数据库系统的核心是______。</P>
+                              <P>　　46. 查询设计器中的"联接"选项卡，可以控制______选择。</P>
+                              <P>　　47. 设有图书管理数据库：</P>
+                              <P>　　图书(总编号C(6),分类号C(8),书名C(16),作者C(6),出版单位C(20),单价N(6,2))</P>
+                              <P>　　读者(借书证号C(4),单位C(8),姓名C(6),性别C(2),职称C(6),地址C(20))</P>
+                              <P>　　借阅(借书证号C(4),总编号C(6),借书日期D(8))</P>
+                              <P>　　用SQL的CREATE命令建立借阅表(字段顺序要相同)，请对下面的SQL语句填空：</P>
+                              <P>　　______</P>
+                              <P>　　48. 设有图书管理数据库：</P>
+                              <P>　　图书(总编号C(6),分类号C(8),书名C(16),作者C(6),出版单位C(20),单价N(6,2))</P>
+                              <P>　　读者(借书证号C(4),单位C(8),姓名C(6),性别C(2),职称C(6),地址C(20))</P>
+                              <P>　　借阅(借书证号C(4),总编号C(6),借书日期D(8))</P>
+                              <P>　　对图书管理数据库，查询由"清华大学出版社"或"电子工业出版社"出版，并且单价不超出20元的书名。请对下面的SQL语句填空：</P>
+                              <P>　　SELECT 书名,出版单位,单价 FROM 图书;</P>
+                              <P>　　WHERE_______ AND;</P>
+                              <P>　　_______</P>
+                              <P>　　49. 设有图书管理数据库：</P>
+                              <P>　　图书(总编号C(6),分类号C(8),书名C(16),作者C(6),出版单位C(20),单价N(6,2))</P>
+                              <P>　　读者(借书证号C(4),单位C(8),姓名C(6),性别C(2),职称C(6),地址C(20))</P>
+                              <P>　　借阅(借书证号C(4),总编号C(6),借书日期D(8))</P>
+                              <P>　　对图书管理数据库，求共借出多少种图书。请对下面的SQL语句填空：</P>
+                              <P>　　SELECT _______ FROM 借阅</P>
+                              <P>　　<STRONG>第一套题答案</STRONG></P>
+                              <P>　　选择题</P>
+                              <P>　　1-5 CCBAD 6-10 BDBCA 11-15 DCBAA 16-20 BAABA 
+                              21-25 CCBBA 26-30 BBCCB 31-35 DDAAB</P>
+                              <P>　　填空题</P>
+                              <P>　　36.时间 37.模式或逻辑模式 38.黑盒 39. 一对多 或 1对多 或 一对n 或 
+                              1：N 或 1:n 或 1：n 或 1:N 或 一对m 或 1：M 或 1:m 或 1：m 或 
+                              1:N 40. 投影 41.15 42. Into cursor 或 Into cursor 
+                              cursorname 43. 页面设置 或 列数 44. 应用程序生成器 45. 数据库管理系统 或 
+                              DBMS 46. 联接类型 或 联接条件 47. CREATE TABLE 借阅 (借书证号 
+                              C(4),总编号 C(6),借书日期 D(8)) 或 CREA TABL 借阅 (借书证号 
+                              C(4),总编号 C(6),借书日期D(8)) 或 CREATE TABLE 借阅 (借书证号 
+                              C(4),总编号 C(6),借书日期 D) 或 CREA TABL 借阅 (借书证号 
+                              C(4),总编号 C(6),借书日期 D) 48. 单价&lt;=20 或 
+                              (出版单位="清华大学出版社" OR 出版单位="电子工业出版社") 或 
+                              (出版单位="电子工业出版社" OR 出版单位="清华大学出版社") 或 
+                              (出版单位='清华大学出版社' OR 出版单位='电子工业出版社') 与 
+                              (出版单位="清华大学出版社" OR 出版单位="电子工业出版社") 或 
+                              (出版单位='清华大学出版社‘) 49. COUNT(DISTINCT 总编号) 或 
+                              COUN(DISTINCT 总编号) 或 COUNT(DIST 总编号) 或 COUN(DIST 
+                              总编号)</P></DIV></DIV>
+                              <DIV>&nbsp;</DIV>
+                              <DIV>
+                              <DIV><STRONG>第二套题</STRONG> 
+                              <P></P>
+                              <P>　　<STRONG>一、 选择题</STRONG></P>
+                              <P>　　1. 以下数据结构中不属于线性数据结构的是______。</P>
+                              <P>　　A、队列 B、线性表 C、二叉树 D、栈</P>
+                              <P>　　2. 
+                              在结构化方法中，用数据流程图(DFD)作为描述工具的软件开发阶段是______。</P>
+                              <P>　　A、可行性分析 B、需求分析 C、详细设计 D、程序编码</P>
+                              <P>　　3. 结构化程序设计主要强调的是______。</P>
+                              <P>　　A、程序的规模 B、程序的易读性 C、程序的执行效率 D、程序的可移植性</P>
+                              <P>　　4. 
+                              在软件生命周期中，能准确地确定软件系统必须做什么和必须具备哪些功能的阶段是______。</P>
+                              <P>　　A、概要设计 B、详细设计 C、可行性分析 D、需求分析</P>
+                              <P>　　5. 下列关于栈的叙述中正确的是______。A、在栈中只能插入数据 
+                              B、在栈中只能删除数据</P>
+                              <P>　　C、栈是先进先出的线性表 D、栈是先进后出的线性表</P>
+                              <P>　　6. 下面不属于软件设计原则的是______。A、抽象 B、模块化 C、自底向上 
+                              D、信息隐蔽</P>
+                              <P>　　7. 对长度为N的线性表进行顺序查找，在最坏情况下所需要的比较次数为______。</P>
+                              <P>　　A、N+1 B、N C、(N+1)/2 D、N/2</P>
+                              <P>　　8. 视图设计一般有3种设计次序，下列不属于视图设计的是______。</P>
+                              <P>　　A、自顶向下 B、由外向内 C、由内向外 D、自底向上</P>
+                              <P>　　9. 下列有关数据库的描述，正确的是______。A、数据库是一个DBF文件 
+                              B、数据库是一个关系</P>
+                              <P>　　C、数据库是一个结构化的数据集合 D、数据库是一组文件</P>
+                              <P>　　10. 下列说法中，不属于数据模型所描述的内容的是______。</P>
+                              <P>　　A、数据结构 B、数据操作 C、数据查询 D、数据约束</P>
+                              <P>　　11. 在下面的Visual 
+                              FoxPro表达式中，运算结果是逻辑真的是______。</P>
+                              <P>　　A、EMPTY(.NULL.) B、LIKE('acd','ac?') 
+                              C、AT('a','123abc') D、EMPTY(SPACE(2))</P>
+                              <P>　　12. 表达式VAL(SUBS("奔腾586",5,1))*Len("visual 
+                              foxpro")的结果是______。</P>
+                              <P>　　A、13.00 B、14.00 C、45.00 D、65.00</P>
+                              <P>　　13. 以下关于自由表的叙述，正确的是______。</P>
+                              <P>　　A、全部是用以前版本的FOXPRO(FOXBASE)建立的表</P>
+                              <P>　　B、可以用Visual FoxPro建立，但是不能把它添加到数据库中</P>
+                              <P>　　C、自由表可以添加到数据库中，数据库表也可以从数据库中移出成为自由表</P>
+                              <P>　　D、自由表可以添加到数据库中，但数据库表不可从数据库中移出成为自由表</P>
+                              <P>14. 下面关于数据环境和数据环境中两个表之间的关系的陈述中，______是正确的。</P>
+                              <P>　　A、数据环境是对象，关系不是对象 B、数据环境不是对象，关系是对象</P>
+                              <P>　　C、数据环境是对象，关系是数据环境中的对象 D、数据环境和关系均不是对象</P>
+                              <P>　　15. 在"报表设计器"中，可以使用的控件是______。</P>
+                              <P>　　A、标签、域控件和线条 B、标签、域控件和列表框</P>
+                              <P>　　C、标签、文本框和列表框 D、布局和数据源</P>
+                              <P>　　16.用二维表数据来表示实体及实体之间联系的数据模型称为______。</P>
+                              <P>　　A、实体--联系模型 B、层次模型 C、网状模型 D、关系模型</P>
+                              <P>　　17. 用来指明复选框的当前选中状态的属性是______。A、Selected 
+                              B、Caption C、Value D、ControlSource</P>
+                              <P>　　18. 
+                              使用菜单操作方法打开一个在当前目录下已经存在的查询文件zgjk.qpr后，在命令窗口生成的命令是____。</P>
+                              <P>　　A、OPEN QUERY zgjk.qpr B、MODIFY QUERY 
+                              zgjk.qpr</P>
+                              <P>　　C、DO QUERY zgjk.qpr D、CREATE QUERY 
+                              zgjk.qpr</P>
+                              <P>　　19. 可以伴随着表的打开而自动打开的索引是______。</P>
+                              <P>　　A、单一索引文件(IDX) B、复合索引文件(CDX)C、结构化复合索引文件 
+                              D、非结构化复合索引文件</P>
+                              <P>　　20. 
+                              在数据库设计器中，建立两个表之间的一对多联系是通过以下索引实现的______。</P>
+                              <P>　　A、"一方"表的主索引或候选索引，"多方"表的普通索引</P>
+                              <P>　　B、"一方"表的主索引，"多方"表的普通索引或候选索引</P>
+                              <P>　　C、"一方"表的普通索引，"多方"表的主索引或候选索引</P>
+                              <P>　　D、"一方"表的普通索引，"多方"表的候选索引或普通索引</P>
+                              <P>　　21. 下列函数中函数值为字符型的是______。 A、DATE() B、TIME() 
+                              C、YEAR() D、DATETIME()</P>
+                              <P>　　22. 下面对控件的描述正确的是______。</P>
+                              <P>　　A、用户可以在组合框中进行多重选择 B、用户可以在列表框中进行多重选择</P>
+                              <P>　　C、用户可以在一个选项组中选中多个选项按钮 
+                              D、用户对一个表单内的一组复选框只能选中其中一个</P>
+                              <P>　　23. 确定列表框内的某个条目是否被选定应使用的属性是______。</P>
+                              <P>　　A、Value B、ColumnCount C、ListCount 
+                              D、Selected</P>
+                              <P>　　24. 设有关系R1和R2，经过关系运算得到结果S，则S是______。</P>
+                              <P>　　A、一个关系 B、一个表单 C、一个数据库 D、一个数组</P>
+                              <P>　　25. DBAS指的是______。A、数据库管理系统B、数据库系统C、数据库应用系统 
+                              D、数据库服务系统</P>
+                              <P>　　26. 
+                              设X="ABC"，Y="ABCD"，则下列表达式中值为.T.的是______。A、X=Y 
+                              B、X==Y C、X$Y D、AT(X,Y)=0</P>
+                              <P>27. 在表结构中，逻辑型、日期型、备注型字段的宽度分别固定为______。</P>
+                              <P>　　A、3，8，10 B、1，6，4 C、1，8，任意 D、1，8，4</P>
+                              <P>　　28. 在标准SQL中，建立视图的命令是______。</P>
+                              <P>　　A、CREATE SCHEMA命令 B、CREATE TABLE命令 C、CREATE 
+                              VIEW命令 D、CREATE INDEX命令</P>
+                              <P>　　29. 有关SCAN循环结构，叙述正确的是______。</P>
+                              <P>　　A、SCAN循环结构中的LOOP语句，可将程序流程直接指向循环开始语句SCAN，首先判断EOF()函数的真假</P>
+                              <P>　　B、在使用SCAN循环结构时，必须打开某一个数据库</P>
+                              <P>　　C、SCAN循环结构的循环体中必须写有SKIP语句</P>
+                              <P>　　D、SCAN循环结构，如果省略了子句\FOR和WHILE条件子句，则直接退出循环</P>
+                              <P>　　30. 设有图书管理数据库：</P>
+                              <P>　　图书(总编号C(6),分类号C(8),书名C(16),作者C(6),出版单位C(20),单价N(6,2))</P>
+                              <P>　　读者(借书证号C(4),单位C(8),姓名C(6),性别C(2),职称C(6),地址C(20))</P>
+                              <P>　　借阅(借书证号C(4),总编号C(6),借书日期D(8))</P>
+                              <P>　　对于图书管理数据库，要查询所藏图书中，各个出版社的图书最高单价、平均单价和册数，下面SQL语句正确的是______。</P>
+                              <P>　　SELECT 出版单位,______,______,______;</P>
+                              <P>　　FROM 图书管理!图书 ______ 出版单位</P>
+                              <P>　　A、MIN(单价) AVGAGE(单价) COUNT(*) GROUP BY 
+                              B、MAX(单价) AVG(单价) COUNT(*) ORDER BY</P>
+                              <P>　　C、MAX(单价) AVG(单价) SUM(*) ORDER BY D、MAX(单价) 
+                              AVG(单价) COUNT(*) GROUP BY</P>
+                              <P>　　31. 设有图书管理数据库：</P>
+                              <P>　　图书(总编号C(6),分类号C(8),书名C(16),作者C(6),出版单位C(20),单价N(6,2))</P>
+                              <P>　　读者(借书证号C(4),单位C(8),姓名C(6),性别C(2),职称C(6),地址C(20))</P>
+                              <P>　　借阅(借书证号C(4),总编号C(6),借书日期D(8))</P>
+                              <P>　　对于图书管理数据库，求CIE单位借阅图书的读者的人数。</P>
+                              <P>　　下面SQL语句正确的是______。</P>
+                              <P>　　SELECT ______ FROM 借阅 WHERE;</P>
+                              <P>　　借书证号 _______</P>
+                              <P>　　A、COUNT (DISTINCT 借书证号)</P>
+                              <P>　　IN (SELECT 借书证号 FROM 读者 WHERE 单位="CIE")</P>
+                              <P>　　B、COUNT (DISTINCT 借书证号)</P>
+                              <P>　　IN (SELECT 借书证号 FROM 借阅 WHERE 单位="CIE")</P>
+                              <P>　　C、SUM (DISTINCT 借书证号)</P>
+                              <P>　　IN (SELECT 借书证号 FROM 读者 WHERE 单位="CIE")</P>
+                              <P>　　D、SUM (DISTINCT 借书证号)</P>
+                              <P>　　IN (SELECT 借书证号 FOR 借阅 WHERE 单位="CIE")</P>
+                              <P>　32. 查询订购单号(字符型，长度为4)尾字符是"1"的错误命令是______。</P>
+                              <P>　　A、SELECT * FROM 订单 WHERE 
+                              SUBSTR(订购单号,4)="1"</P>
+                              <P>　　B、SELECT * FROM 订单 WHERE 
+                              SUBSTR(订购单号,4,1)="1"</P>
+                              <P>　　C、SELECT * FROM 订单 WHERE "1"$订购单号</P>
+                              <P>　　D、SELECT * FROM 订单 WHERE 
+RIGHT(订购单号,1)="1"</P>
+                              <P>　　33. 
+在关系模型中，为了实现"关系中不允许出现相同元组"的约束应使用______。</P>
+                              <P>　　A、临时关键字 B、主关键字 C、外部关键字 D、索引关键字</P>
+                              <P>　　34. 
+根据"职工"项目文件生成emp_sys.exe应用程序的命令是______。</P>
+                              <P>　　A、BUILD EXE emp_sys FROM 职工 B、BUILD APP 
+                              emp_sys.exe FROM 职工</P>
+                              <P>　　C、LIKE EXE emp_sys FROM 职工 D、LIKE APP 
+                              emp_sys.exe FROM 职工</P>
+                              <P>　　35. 当前盘当前目录下有数据库：学院.dbc，其中有"教师"表和"学院"表。</P>
+                              <P>　　"教师"表：</P>
+                              <P>　　"学院"表：</P>
+                              <P>　　有SQL语句：</P>
+                              <P>　　SELECT DISTINCT 系号 FROM 教师 WHERE 工资&gt;=;</P>
+                              <P>　　ALL (SELECT 工资 FROM 教师 WHERE 系号="02")</P>
+                              <P>　　与如上语句等价的SQL语句是______。</P>
+                              <P>　　A、SELECT DISTINCT 系号 FROM 教师 
+WHERE工资&gt;=;</P>
+                              <P>　　(SELECT MAX(工资) FROM 教师 WHERE 系号="02")</P>
+                              <P>　　B、SELECT DISTINCT 系号 FROM 教师 WHERE 
+                              工资&gt;=;</P>
+                              <P>　　(SELECT MIN(工资) FROM 教师 WHERE 系号="02")</P>
+                              <P>　　C、SELECT DISTINCT 系号 FROM 教师 WHERE 
+                              工资&gt;=;</P>
+                              <P>　　ANY(SELECT 工资 FROM 教师 WHERE 系号="02")</P>
+                              <P>　　D、SELECT DISTINCT 系号 FROM 教师 WHERE 
+                              工资&gt;=;</P>
+                              <P>　　SOME (SELECT 工资 FROM 教师 WHERE 系号="02")</P>
+                              <P>　　<STRONG>二、 填空题</STRONG></P>
+                              <P>　　36. 若按功能划分，软件测试的方法通常分为白盒测试方法和______测试方法。</P>
+                              <P>　　37. 数据库系统的三级模式分别为______模式、内部级模式与外部级模式。</P>
+                              <P>　　38. 在最坏情况下，冒泡排序的时间复杂度为______。</P>
+                              <P>　39. 在面向对象方法中，信息隐蔽是通过对象的______性来实现的。</P>
+                              <P>　　40. 
+                              关系模型的数据操纵即是建立在关系上的数据操纵，一般有______、增加、删除和修改四种操作。</P>
+                              <P>　　41.要把帮助文件设置为复制到硬盘上的Foxhelp.chm文件，需要在"选项"对话框的______选项卡上设置。</P>
+                              <P>　　42. TIME( )的返回值的数据类型是______类型。</P>
+                              <P>　　43. 在定义字段有效性规则中，在规则框中输入的表达式中类型是________。</P>
+                              <P>　　44. 设计报表通常包括两部分内容：______和布局。</P>
+                              <P>　　45. ______是指只有满足联接条件的记录才包含在查询结果中。</P>
+                              <P>　　46. 设有图书管理数据库：</P>
+                              <P>　　图书(总编号C(6),分类号C(8),书名C(16),作者C(6),出版单位C(20),单价N(6,2))</P>
+                              <P>　　读者(借书证号C(4),单位C(8),姓名C(6),性别C(2),职称C(6),地址C(20))</P>
+                              <P>　　借阅(借书证号C(4),总编号C(6),借书日期D(8))</P>
+                              <P>　　检索书价在15元至25元(含15元和25元)之间的图书的书名、作者、书价和分类号，结果按分类号升序排序。</P>
+                              <P>　　SELECT 书名,作者,单价,分类号 FROM 图书;</P>
+                              <P>　　WHERE______;</P>
+                              <P>　　ORDER BY______;</P>
+                              <P>　　47. 设有如下关系表R、S和T：</P>
+                              <P>　　R(BH,XM,XB,DWH)</P>
+                              <P>　　S(SWH,DWM)</P>
+                              <P>　　T(BH,XM,XB,DWH)</P>
+                              <P>　　实现R∪T的SQL语句是_______。</P>
+                              <P>　　48. 设有如下关系表R：</P>
+                              <P>　　R(NO,NAME,SEX,AGE,CLASS)</P>
+                              <P>　　主关键字是NO</P>
+                              <P>　　其中NO为学号，NAME为姓名，SEX为性别，AGE为年龄，CLASS为班号。写出实现下列功能的SQL语句。</P>
+                              <P>　　插入"95031"班学号为30，姓名为"郑和"的学生记录;_______。</P>
+                              <P>　　49. 设有如下关系表R：</P>
+                              <P>　　R(NO,NAME,SEX,AGE,CLASS)</P>
+                              <P>　　主关键字是NO</P>
+                              <P>　　其中NO为学号(数值型)，NAME为姓名，SEX为性别，AGE为年龄，CLASS为班号。写出实现下列功能的SQL语句。</P>
+                              <P>　　删除学号为20的学生记录;______。</P>
+                              <P>　　第二套题答案</P>
+                              <P>　　1-5 CBBDD 6-10 CBBCC 11-15 DDCCA 16-20 DCBCA 
+                              21-25 BBDAC 26-30 CDCBD 31-35 ACBBA</P>
+                              <P>　　36.黑盒 37.概念或概念级 38.n(n-1)/2 39.封装 40.查询 
+                              41.文件位置 42.字符 或 C 43.逻辑表达式</P>
+                              <P>　　44.数据源 45.内部联接</P>
+                              <P>　　46. 单价 BETWEEN 15 AND 25 或 单价 BETW 15 AND 25 
+                              或 单价 BETWE 15 AND 25 或 单价&gt;=15 and 单价&lt;=25 或 
+                              单价&gt;=15 and 单价=&lt;25 或 单价=&gt;15 and 单价&lt;=25 
+                              或 单价=&gt;15 and 单价=&lt;25 与 分类号 ASC 或 分类号</P>
+                              <P>　　47. SELECT * FROM R UNION SELECT * FROM T 或 
+                              SELE * FROM R UNIO SELE * FROM T 或 SELECT * FROM R 
+                              UNIO SELECT * FROM T 或 SELE * FROM R UNION SELE * 
+                              FROM T</P>
+                              <P>　　48. INSERT INTO R(NO,NAME,CLASS) 
+                              VALUES(30,"郑和","95031") 或 INSE INTO 
+                              R(NO,NAME,CLASS) VALUES(30,"郑和","95031")</P>
+                              <P>　　49. DELETE FROM R WHERE NO=20 或 DELE FROM R 
+                              WHERE NO=20 或 DELE FROM R WHER NO=20 或 DELETE FROM 
+                              R WHER NO=20</P>
+                              <P>&nbsp;</P>
+                              <DIV id=art style="MARGIN: 15px">
+                              <DIV align=center><FONT size=3>Oracle 
+                              面试题集锦－技术篇</FONT></DIV>
+                              <DIV>&nbsp;</DIV>
+                              <DIV>&nbsp;</DIV>
+                              <DIV><FONT size=2>1. 解释冷备份和热备份的不同点以及各自的优点</FONT> 
+                              <P>　　解答：热备份针对归档模式的数据库，在数据库仍旧处于工作状态时进行备份。而冷备份指在数据库关闭后，进行备份，适用于所有模式的数据库。热备份的优点在于当备份时，数据库仍旧可以被使用并且可以将数据库恢复到任意一个时间点。冷备份的优点在于它的备份和恢复操作相当简单，并且由于冷备份的数据库可以工作在非归档模式下,数据库性能会比归档模式稍好。(因为不必将archive 
+                              log写入硬盘)</P>
+                              <P>　　2. 你必须利用备份恢复数据库，但是你没有控制文件，该如何解决问题呢?</P>
+                              <P>　　解答：重建控制文件，用带backup control file 子句的recover 
+                              命令恢复</P>
+                              <P>　　数据库。</P>
+                              <P>　　3. 如何转换init.ora到spfile?</P>
+                              <P>　　解答：使用create spfile from pfile 命令.</P>
+                              <P>　　4. 解释data block , extent 和 
+                              segment的区别(这里建议用英文术语)</P>
+                              <P>　　解答：data 
+                              block是数据库中最小的逻辑存储单元。当数据库的对象需要更多的物理存储空间时，连续的data 
+                              block就组成了extent . 一个数据库对象</P>
+                              <P>　　拥有的所有extents被称为该对象的segment.</P>
+                              <P>　　5. 给出两个检查表结构的方法</P>
+                              <P>　　解答：1。DESCRIBE命令</P>
+                              <P>　　2. DBMS_METADATA.GET_DDL 包</P>
+                              <P>　　6. 怎样查看数据库引擎的报错</P>
+                              <P>　　解答：alert log.</P>
+                              <P>　　7. 比较truncate和delete 命令</P>
+                              <P>　　解答：两者都可以用来删除表中所有的记录。区别在于：truncate是DDL操作，它移动HWK，不需要 
+                              rollback segment .而Delete是DML操作, 需要rollback 
+                              segment 且花费较长时间.</P>
+                              <P>　　8. 使用索引的理由</P>
+                              <P>　　解答：快速访问表中的data block</P>
+                              <P>　　9. 给出在STAR SCHEMA中的两种表及它们分别含有的数据</P>
+                              <P>　　解答：Fact tables 和dimension tables. fact table 
+                              包含大量的主要的信息而 dimension tables 存放对fact table 
+                              某些属性描述的信息</P>
+                              <P>　　10. FACT Table上需要建立何种索引?</P>
+                              <P>　　解答：位图索引 (bitmap index)</P>
+                              <P>　　11. 给出两种相关约束?</P>
+                              <P>　　解答：主键和外键</P>
+                              <P>　　12. 如何在不影响子表的前提下，重建一个母表</P>
+                              <P>　　解答：子表的外键强制实效，重建母表，激活外键</P>
+                              <P>　　13. 解释归档和非归档模式之间的不同和它们各自的优缺点</P>
+                              <P>　　解答：归档模式是指你可以备份所有的数据库 
+                              transactions并恢复到任意一个时间点。非归档模式则相反，不能恢复到任意一个时间点。但是非归档模式可以带来数据库性能上的少许提高.</P>
+                              <P>　　14. 如何建立一个备份控制文件?</P>
+                              <P>　　解答：Alter database backup control file to 
+                              trace.</P>
+                              <P>　　15. 给出数据库正常启动所经历的几种状态 ?</P>
+                              <P>　　解答：</P>
+                              <P>　　STARTUP NOMOUNT – 数据库实例启动</P>
+                              <P>　　STARTUP MOUNT - 数据库装载</P>
+                              <P>　　STARTUP OPEN – 数据库打开</P>
+                              <P>　　16. 哪个column可以用来区别V$视图和GV$视图?</P>
+                              <P>　　解答： INST_ID 指明集群环境中具体的 某个instance 。</P>
+                              <P>　　17. 如何生成explain plan?</P>
+                              <P>　　解答：运行utlxplan.sql. 建立plan 表</P>
+                              <P>　　针对特定SQL语句，使用 explain plan set statement_id = 
+                              'tst1' into plan_table</P>
+                              <P>　　运行utlxplp.sql 或 utlxpls.sql察看explain plan</P>
+                              <P>　　18. 如何增加buffer cache的命中率?</P>
+                              <P>　　解答：在数据库较繁忙时，适用buffer cache advisory 
+                              工具，查询v$db_cache_advice . 如果有必要更改，可以使用 alter system 
+                              set db_cache_size 命令</P>
+                              <P>　　19. ORA-01555的应对方法?</P>
+                              <P>　　解答：具体的出错信息是snapshot too old within rollback 
+                              seg , 通常可以通过</P>
+                              <P>　　增大rollback seg来解决问题。当然也需要察看一下具体造成错误的SQL文本</P>
+                              <P>　　20. 解释$ORACLE_HOME和$ORACLE_BASE的区别?</P>
+                              <P>　　解答：ORACLE_BASE是oracle的根目录，ORACLE_HOME是oracle产品的目录。</P>
+                              <P>　　21. 如何判断数据库的时区?</P>
+                              <P>　　解答：SELECT DBTIMEZONE FROM DUAL;</P>
+                              <P>　　22. 解释GLOBAL_NAMES设为TRUE的用途</P>
+                              <P>　　解答：GLOBAL_NAMES指明联接数据库的方式。如果这个参数设置为TRUE,在建立数据库链接时就必须用相同的名字连结远程数据库</P>
+                              <P>　　23。如何加密PL/SQL程序?</P>
+                              <P>　　解答：WRAP</P>
+                              <P>　　24. 解释FUNCTION,PROCEDURE和PACKAGE区别</P>
+                              <P>　　解答：function 
+                              和procedure是PL/SQL代码的集合，通常为了完成一个任务。procedure 
+                              不需要返回任何值而function将返回一个值在另一</P>
+                              <P>　　方面，Package是为了完成一个商业功能的一组function和proceudre的集合</P>
+                              <P>　　25. 解释TABLE Function的用途</P>
+                              <P>　　解答：TABLE 
+                              Function是通过PL/SQL逻辑返回一组纪录，用于普通的表/视图。他们也用于pipeline和ETL过程。</P>
+                              <P>　　26. 举出3种可以收集three advisory statistics</P>
+                              <P>　　解答：Buffer Cache Advice, Segment Level 
+                              Statistics, Timed Statistics</P>
+                              <P>　　27. Audit trace 存放在哪个oracle目录结构中?</P>
+                              <P>　　解答：unix $ORACLE_HOME/rdbms/audit Windows the 
+                              event viewer</P>
+                              <P>　　28. 解释materialized views的作用</P>
+                              <P>　　解答：Materialized views 
+                              用于减少那些汇总，集合和分组的信息的集合数量。它们通常适合于数据仓库和DSS系统。</P>
+                              <P>　　29. 当用户进程出错，哪个后台进程负责清理它</P>
+                              <P>　　解答： PMON</P>
+                              <P>　　30. 哪个后台进程刷新materialized views?</P>
+                              <P>　　解答：The Job Queue Processes.</P>
+                              <P>　　31. 如何判断哪个session正在连结以及它们等待的资源?</P>
+                              <P>　　解答：V$SESSION / V$SESSION_WAIT</P>
+                              <P>　　32. 描述什么是 redo logs</P>
+                              <P>　　解答：Redo Logs 
+                              是用于存放数据库数据改动状况的物理和逻辑结构。可以用来修复数据库.</P>
+                              <P>　　33. 如何进行强制LOG SWITCH?</P>
+                              <P>　　解答：ALTER SYSTEM SWITCH LOGFILE;</P>
+                              <P>　　34. 举出两个判断DDL改动的方法?</P>
+                              <P>　　解答：你可以使用 Logminer 或 Streams</P>
+                              <P>　　35. Coalescing做了什么?</P>
+                              <P>　　解答：Coalescing针对于字典管理的tablespace进行碎片整理，将临近的小extents合并成单个的大extent.</P>
+                              <P>　　36. TEMPORARY tablespace和PERMANENT tablespace 
+                              的区别是?</P>
+                              <P>　　解答：A temporary tablespace 用于临时对象例如排序结构而 
+                              permanent tablespaces用来存储那些'真实'的对象(例如表，回滚段等)</P>
+                              <P>　　37. 创建数据库时自动建立的tablespace名称?</P>
+                              <P>　　解答：SYSTEM tablespace.</P>
+                              <P>　　38. 创建用户时，需要赋予新用户什么权限才能使它联上数据库。</P>
+                              <P>　　解答：CONNECT</P>
+                              <P>　　39. 如何在tablespace里增加数据文件?</P>
+                              <P>　　解答：ALTER TABLESPACE ADD DATAFILE SIZE</P>
+                              <P>　　40. 如何变动数据文件的大小?</P>
+                              <P>　　解答：ALTER DATABASE DATAFILE RESIZE ;</P>
+                              <P>　　41. 哪个VIEW用来检查数据文件的大小?</P>
+                              <P>　　解答： DBA_DATA_FILES</P>
+                              <P>　　42. 哪个VIEW用来判断tablespace的剩余空间</P>
+                              <P>　　解答：DBA_FREE_SPACE</P>
+                              <P>　　43. 如何判断谁往表里增加了一条纪录?</P>
+                              <P>　　解答：auditing</P>
+                              <P>　　44. 如何重构索引?</P>
+                              <P>　　解答： ALTER INDEX REBUILD;</P>
+                              <P>　　45. 解释什么是Partitioning(分区)以及它的优点。</P>
+                              <P>　　解答：Partition将大表和索引分割成更小，易于管理的分区。</P>
+                              <P>　　46. 你刚刚编译了一个PL/SQL 
+                              Package但是有错误报道，如何显示出错信息?</P>
+                              <P>　　解答：SHOW ERRORS</P>
+                              <P>　　47. 如何搜集表的各种状态数据?</P>
+                              <P>　　解答： ANALYZE</P>
+                              <P>　　The ANALYZE command.</P>
+                              <P>　　48. 如何启动SESSION级别的TRACE</P>
+                              <P>　　解答: DBMS_SESSION.SET_SQL_TRACE</P>
+                              <P>　　ALTER SESSION SET SQL_TRACE = TRUE;</P>
+                              <P>　　49. IMPORT和SQL*LOADER 这2个工具的不同点</P>
+                              <P>　　解答：这两个ORACLE工具都是用来将数据导入数据库的。</P>
+                              <P>　　区别是：IMPORT工具只能处理由另一个ORACLE工具EXPORT生成</P>
+                              <P>　　的数据。而SQL*LOADER可以导入不同的ASCII格式的数据源</P>
+                              <P>　　50。用于网络连接的2个文件?</P>
+                              <P>　　解答： TNSNAMES.ORA and SQLNET.ORA</P>
+                              <P>答案仅供参考！！！&nbsp;</P></DIV></DIV></DIV></DIV></DIV></TD></TR></TBODY></TABLE>
+                        <P style="MARGIN: 5px; LINE-HEIGHT: 150%"></P></TD></TR>
+                    <TR>
+                      <TD align=middle height=25><FONT color=#295200>发表于： 
+                        2007-12-01，修改于： 2007-12-01 10:00，已浏览4237次，有评论0条</FONT> 
+                        <A id=star title=推荐这篇文章 
+                        onclick="NewWindows(this.href);return false;" 
+                        href="http://blog.chinaunix.net/u2/star.php?blogid=27493&amp;artid=433842">推荐</A> 
+                        <A id=complaint title=投诉这篇文章 
+                        onclick="NewWindows(this.href);return false;" 
+                        href="http://blog.chinaunix.net/u2/complaint.php?blogid=27493&amp;artid=433842">投诉</A> 
+                      </TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD width=7 height=7><IMG alt="" 
+                  src="数据库面试题集 - Database - SENSE.files/w_left_buttom.gif" 
+                  border=0></TD>
+                <TD bgColor=#f3f3f3></TD>
+                <TD width=7 height=7><IMG alt="" 
+                  src="数据库面试题集 - Database - SENSE.files/w_right_buttom.gif" 
+                  border=0></TD></TR></TBODY></TABLE>
+        <TR>
+          <TD width=11 height=11><IMG alt="" 
+            src="数据库面试题集 - Database - SENSE.files/g_left_bottom.gif" 
+border=0></TD>
+          <TD bgColor=#dddddd></TD>
+          <TD width=11 height=11><IMG alt="" 
+            src="数据库面试题集 - Database - SENSE.files/g_right_bottom.gif" 
+          border=0></TD></TR></TBODY></TABLE><BR><BR>
+      <TABLE style="BORDER-COLLAPSE: collapse" cellSpacing=0 cellPadding=0 
+      width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD width=11 height=11><IMG alt="" 
+            src="数据库面试题集 - Database - SENSE.files/g_left_top.gif" border=0></TD>
+          <TD width="99%" bgColor=#dddddd height=11></TD>
+          <TD width=11 height=11><IMG alt="" 
+            src="数据库面试题集 - Database - SENSE.files/g_right_top.gif" 
+        border=0></TD></TR>
+        <TR>
+          <TD vAlign=top align=middle width="100%" bgColor=#dddddd 
+            colSpan=3><B>网友评论</B> <BR>
+            <TABLE style="BORDER-COLLAPSE: collapse" cellSpacing=0 cellPadding=0 
+            width="96%" border=0>
+              <TBODY>
+              <TR>
+                <TD width=7 height=7><IMG alt="" 
+                  src="数据库面试题集 - Database - SENSE.files/w_left_top.gif" 
+                border=0></TD>
+                <TD width="100%" bgColor=#f3f3f3></TD>
+                <TD width=7 height=7><IMG alt="" 
+                  src="数据库面试题集 - Database - SENSE.files/w_right_top.gif" 
+                  border=0></TD></TR>
+              <TR>
+                <TD align=middle bgColor=#f3f3f3 colSpan=3>
+                  <TABLE style="BORDER-COLLAPSE: collapse" cellSpacing=0 
+                  cellPadding=0 width=700 align=center border=0>
+                    <TBODY>
+                    <TR>
+                      <TD style="COLOR: #0000cc" height=25>　发表评论 </TD></TR>
+                    <TR>
+                      <TD height=25><IFRAME name=comment 
+                        src="数据库面试题集 - Database - SENSE.files/comment.htm" 
+                        frameBorder=0 width=640 
+                    height=160></IFRAME></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD width=7 height=7><IMG alt="" 
+                  src="数据库面试题集 - Database - SENSE.files/w_left_buttom.gif" 
+                  border=0></TD>
+                <TD bgColor=#f3f3f3></TD>
+                <TD width=7 height=7><IMG alt="" 
+                  src="数据库面试题集 - Database - SENSE.files/w_right_buttom.gif" 
+                  border=0></TD></TR></TBODY></TABLE>
+        <TR>
+          <TD width=11 height=11><IMG alt="" 
+            src="数据库面试题集 - Database - SENSE.files/g_left_bottom.gif" 
+border=0></TD>
+          <TD bgColor=#dddddd></TD>
+          <TD width=11 height=11><IMG alt="" 
+            src="数据库面试题集 - Database - SENSE.files/g_right_bottom.gif" 
+          border=0></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<CENTER></CENTER></BODY></HTML>

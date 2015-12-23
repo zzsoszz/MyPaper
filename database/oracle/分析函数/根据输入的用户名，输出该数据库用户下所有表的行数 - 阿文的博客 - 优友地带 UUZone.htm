@@ -1,0 +1,544 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0048)http://www.uuzone.com/blog/uu_bvlzowp/125347.htm -->
+<!--uuzone--><HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<META http-equiv=imagetoolbar content=no><!-- disable IE image toolbar -->
+<META content="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客, 优友地带, UUZone, 社交网络" 
+name=keywords>
+<META content="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客, 优友地带, UUZone, 社交网络" 
+name=searchtitle>
+<META 
+content="根据输入的用户名，输出该数据库用户下所有表的行数, --创建临时表CREATE TABLE tempcount(COUNT NUMBER(10), --行数 TABLE_NAME VARCHAR2(50) --表名)--当然该用户要用访问其它用户表的权..., 优友地带, 您的网络社交平台. 优友地带是领先的中文社交网络(Social Network Service), 是中国web 2.0的先驱和倡导者。优友地带构建一个在线的网络社交平台, 还在此基础上提供了Blog, 日记，圈子，相册等综合的产品，为用户直接搭建了一个健康, 安全的网络环境，用户可以方便地交流，共享，沟通，社交，以存储更多的人脉资源." 
+name=description>
+<META content=UUZone name=author>
+<META content="© 2003~2006 UUZone Interactive Inc. All rights reserved." 
+name=copyright><LINK href="/css/images/logos/uuzone.ico" type=image/x-icon 
+rel="shortcut icon"><LINK href="/css/images/logos/uuzone.ico" type=image/x-icon 
+rel=bookmark><LINK href="/css/images/logos/uuzone.ico" type=image/x-icon 
+rel=icon>
+<SCRIPT src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/domain.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/prototype.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/lightbox.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/login.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=javascript 
+src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/dropdownbutton.js"></SCRIPT>
+
+<SCRIPT language=javascript 
+src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/imagehoverbar.js"></SCRIPT>
+
+<SCRIPT src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/util.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/popmenu.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/editor.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=javascript 
+src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/effects.js"></SCRIPT>
+
+<SCRIPT language=javascript 
+src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/window.js"></SCRIPT>
+
+<SCRIPT src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/nc.htm" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/chat.js" 
+type=text/javascript></SCRIPT>
+<LINK href="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/im.css" 
+type=text/css rel=stylesheet><LINK 
+href="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/default.css" 
+type=text/css rel=stylesheet><LINK 
+href="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/alert.css" 
+type=text/css rel=stylesheet><LINK 
+href="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/alert_lite.css" 
+type=text/css rel=stylesheet>
+<STYLE type=text/css>@import url( /css/uublog_base.css );
+</STYLE>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<DIV id=uuBar>
+<DIV class=uuzoneLogo><A id=uuzone_logo href="http://www.uuzone.com/" 
+target=_top><IMG 
+src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/uuzonelogo.gif"></A> 
+</DIV>
+<DIV class=uuLogin>
+<UL id=uubarLoginStatus>
+  <LI><A onclick="Login.login(this);return false;" 
+  href="http://www.uuzone.com/app/resignin.do">登录</A>&nbsp;|&nbsp; </LI>
+  <LI>还不是会员？<A onclick="Login.login(this,true);return false;" 
+  href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#">注册</A> </LI></UL></DIV>
+<DIV class=uuTabMenu>
+<UL>
+  <LI style="WIDTH: 8em">131454...的&nbsp;&nbsp;» </LI>
+  <LI><A class=normal id=uu_profile 
+  href="http://www.uuzone.com/profile/view/uu_bvlzowp">档案</A> </LI>
+  <LI><A class=normal id=uu_home title=共有1位UU 
+  href="http://www.uuzone.com/uu/uu_bvlzowp/">门户</A> </LI>
+  <LI><A class=normal id=uu_friend title=共有1位UU 
+  href="http://www.uuzone.com/uu/uu_bvlzowp/friends">朋友</A> </LI>
+  <LI><A class=normal id=uu_blog title=共有31篇Blog 
+  href="http://www.uuzone.com/blog/uu_bvlzowp/">Blog</A> </LI>
+  <LI><A class=normal id=uu_photo title=共有0张照片 
+  href="http://www.uuzone.com/photo/uu_bvlzowp/">照片</A> </LI>
+  <LI><A class=normal id=uu_club title="" 
+  href="http://www.uuzone.com/uu/uu_bvlzowp/club/">圈子</A> <!--<li><a id="uu_chat" href="/app/chat/manage/page/publicChat.do?userID=uu_bvlzowp" class="normal"  title="">聊天室</a></li> --></LI></UL></DIV><IFRAME 
+id=userbox style="DISPLAY: none" name=userbox 
+src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/checklogin.htm"></IFRAME>
+<SCRIPT>
+var uutabmenuStrName={
+	uu_profile:"档案",
+	uu_home:"门户",
+	uu_friend:"朋友",
+	uu_blog:"Blog",
+	uu_photo:"照片",
+	uu_club:"圈子",
+	uu_chat:"聊天室"
+};
+function uubarLoginStatus(){
+	$("uubarLoginStatus").innerHTML='<li>您好！<b><a href="/uu/'+Login.userID+'">'+(Login.nickName.length>8? Login.nickName.substring(0,6)+'...':Login.nickName)+'</a></b>&nbsp;|&nbsp;</li>'
+		+'<li>[<a href="/app/logoff.do" onclick="Login.logoff(this);return false;">退出</a>&nbsp;|&nbsp;</li>'
+		+'<li><a href="'+$("uu_blog").href.replace("uu_bvlzowp",Login.userID)+'" class="ownBlog"><font color="#000000">自己'+uutabmenuStrName["uu_blog"]+'</font></a>]</li>';
+}
+if(Login.isLogin){
+	uubarLoginStatus();
+}else{
+	Login.add(uubarLoginStatus);
+}
+try{$('uu_blog').className="current";}catch(e){};	
+</SCRIPT>
+</DIV>
+<DIV style="CLEAR: both; FLOAT: none"></DIV>
+<DIV class=popmenu id=_UU_ style="WIDTH: 150px"></DIV>
+<DIV id=container><!-- 用户选定的样式 --><!-- 导入用户选择的模板样式 --><LINK id=userStyle 
+href="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/styles-site.css" 
+type=text/css rel=stylesheet>
+<DIV id=banner>
+<H1>阿文的博客 </H1>
+<H2>心情和Oracle知识片断 </H2></DIV>
+<DIV id=center>
+<DIV class=content>
+<P class=pre_next><A 
+href="http://www.uuzone.com/blog/uu_bvlzowp/125346.htm">«&nbsp; 将数字同其它字符拆分开来</A> 
+&nbsp;&nbsp;|&nbsp;&nbsp; <A 
+href="http://www.uuzone.com/blog/uu_bvlzowp">Blog首页</A> 
+&nbsp;&nbsp;|&nbsp;&nbsp; <A 
+href="http://www.uuzone.com/blog/uu_bvlzowp/125348.htm">循环删除表数据，避免使用大量回滚段&nbsp;»</A> 
+</P>
+<H2>2006/08/07 </H2>
+<H3>根据输入的用户名，输出该数据库用户下所有表的行数 </H3>
+<P class=blog-content>
+<P>--创建临时表<BR>CREATE TABLE tempcount<BR>(<BR>COUNT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+NUMBER(10),&nbsp;&nbsp; 
+--行数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<BR>TABLE_NAME VARCHAR2(50)&nbsp; --表名<BR>) </P>
+<P>--当然该用户要用访问其它用户表的权限<BR>CREATE OR REPLACE PROCEDURE 
+p_user_table_count<BR>--功能：根据输入的用户名，输出该数据库用户下所有表的行数<BR>--设计：阿文<BR>--编码：阿文<BR>--日期：2006年07月05日<BR>(<BR>iuser&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+VARCHAR2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+--输入数据库用户名<BR>)<BR>AS<BR>&nbsp; vuser&nbsp;&nbsp; 
+VARCHAR2(20):=upper(iuser);--将输入的用户名大写<BR>&nbsp; vnum&nbsp;&nbsp;&nbsp; 
+NUMBER(10);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+--数字变量<BR>&nbsp; vsql&nbsp;&nbsp;&nbsp; 
+VARCHAR2(200);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+--动态SQL语句<BR>&nbsp; vcount&nbsp; 
+INT:=1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+--记数器<BR>BEGIN<BR>&nbsp; DBMS_OUTPUT.ENABLE(1000000);<BR>&nbsp; 
+--先判断该数据库下有没有该用户<BR>&nbsp; SELECT COUNT(*) INTO vnum FROM all_users t WHERE 
+t.username=vuser;<BR>&nbsp; IF vnum=0 THEN&nbsp;&nbsp;&nbsp;&nbsp; 
+--如果该数据库下没有该用户，报表错提示信息<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+DBMS_OUTPUT.put_line(chr(13)||'EXECUTE ERROR!用户'||vuser||'不存在！');<BR>&nbsp; 
+ELSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+--如果该数据库有该用户<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+--判断该用户有没有建立表<BR>&nbsp;&nbsp;&nbsp;&nbsp; SELECT COUNT(*) INTO vnum FROM 
+All_Tables t WHERE t.owner=vuser;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF vnum=0 
+THEN --如果该用户没有建立表<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+DBMS_OUTPUT.put_line(chr(13)||'用户 '||vuser||' 
+没有建立任何表！');<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ELSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+--如果该用户有建立表,则循环输出该用户下每张表的行数<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+DBMS_OUTPUT.put_line(chr(13)||'---统计用户 '||vuser||' 
+各表的行数,共'||vnum||'张表---');<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+--隐性游标c<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FOR c IN (SELECT t.table_name FROM 
+All_Tables t WHERE t.owner=vuser)<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+LOOP<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DELETE FROM 
+tempcount;&nbsp; --清空临时表<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+--动态SQL语句,将行数插入到临时表<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+vsql:='INSERT INTO firefly.tempcount SELECT COUNT(*),'''||vuser||''' FROM 
+'||vuser||'.'||c.table_name;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+--执行该动态SQL语句<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EXECUTE 
+IMMEDIATE vsql;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+--取出该表的行数赋给变量<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SELECT p.count 
+INTO vnum FROM firefly.tempcount p; 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+--格式化输出<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+DBMS_OUTPUT.put_line(to_char(vcount,'999')||' '||'表'||rpad(c.table_name,20,' 
+')||' 
+共有'||to_char(vnum,'999999')||'行');<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+vcount:=vcount+1;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; END 
+LOOP;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+DBMS_OUTPUT.put_line('------------------------------------------');<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+END IF;<BR>&nbsp; END IF;<BR>&nbsp; <BR>&nbsp; --提交<BR>&nbsp; COMMIT;<BR>&nbsp; 
+<BR>EXCEPTION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+--异常处理<BR>&nbsp; WHEN OTHERS THEN&nbsp;&nbsp; --输出错误代码及信息<BR>&nbsp;&nbsp; 
+DBMS_OUTPUT.put_line('EXECUTE FIAL! '||Sqlcode);<BR>&nbsp;&nbsp; 
+DBMS_OUTPUT.put_line(substr(Sqlerrm,1,200));<BR>END p_user_table_count;<BR>/ 
+</P>
+<P></P>
+<P class=blog-content-mobile></P>
+<P class=posted><A 
+onmouseover="UU.onmouseover(this,event,'uu_bvlzowp','1314543');return false;" 
+href="http://www.uuzone.com/uu/uu_bvlzowp/">1314543</A> 发表于 2006-08-07 
+12:16&nbsp; 阅读(6) <A 
+href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#comments">评论( 0)</A> <A 
+href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#TrackBack">引用( 0)</A> <A 
+href="http://www.uuzone.com/blog/uu_bvlzowp/25893/">心情</A> <BR><SPAN 
+class=privacyPublic>所有人可见</SPAN> </P><!-- blog内容 end --><!--收藏文章Start-->
+<DIV class=favtosite>
+<UL id=faul>
+  <LI>收藏文章: </LI>
+  <LI><A 
+  onclick="d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(keyit=window.open('http://www.365key.com/storeit.aspx?q=1&amp;t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'keyit','scrollbars=no,width=475,height=575,left=75,top=20,status=no,resizable=yes'));keyit.focus(); return false;" 
+  href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#" target=_blank><IMG 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/365key.gif" 
+  align=absMiddle></A> </LI>
+  <LI><A title=" save at del.icio.us" style="TEXT-DECORATION: none" 
+  onclick="location.href='http://del.icio.us/post?&amp;url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title); return false;" 
+  href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#" target=_blank><IMG 
+  height=10 alt="save at del.icio.us" 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/ic_delicious.jpg" 
+  width=10 align=absMiddle border=0></A> </LI>
+  <LI><A title="save at digg" 
+  onclick="location.href=('http://digg.com/submit?phase=3&amp;url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title)+'&amp;category=17&amp;bodytext='); return false;" 
+  href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#" target=_blank><IMG 
+  height=12 alt="save at digg" 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/ic_digg.png" 
+  width=12 align=absMiddle border=0></A> </LI>
+  <LI><A title="save at my yahoo" 
+  onclick="javascript:void window.open('http://myweb.yahoo.com/myresults/bookmarklet?t='+encodeURIComponent(document.title)+'&amp;u='+encodeURIComponent(window.location.href)+'&amp;ei=UTF-8','popup','width=520px,height=420px,status=0,location=0,resizable=1,scrollbars=1,left=100,top=50',0); return false;" 
+  href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#" target=_blank><IMG 
+  height=12 alt="save at my yahoo" 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/ic_yahoo.png" 
+  width=12 align=absMiddle border=0></A> </LI>
+  <LI><A title="save at blinklist" 
+  onclick="javascript:location.href='http://www.blinklist.com/?Action=Blink/addblink.php&amp;Description='+encodeURIComponent(document.getSelection())+'&amp;Url='+encodeURIComponent(location.href)+'&amp;Title='+encodeURIComponent(document.title); return false;" 
+  href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#" target=_blank><IMG 
+  height=12 alt="save at blinklist" 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/ic_blinklist.jpg" 
+  width=12 align=absMiddle border=0></A> </LI>
+  <LI><A title="save at furl" 
+  onclick="javascript:location.href='http://www.furl.net/storeIt.jsp?t='+encodeURIComponent(document.getSelection())+'&amp;u='+encodeURIComponent(location.href); return false;" 
+  href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#" target=_blank><IMG 
+  height=13 alt="save at furl" 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/ic_furl.jpg" 
+  width=12 align=absMiddle border=0></A> </LI>
+  <LI><A title="save at simpy" style="TEXT-DECORATION: none" 
+  onclick="javascript:location.href='http://www.simpy.com/simpy/LinkHistory.do?title='  + encodeURIComponent(document.title)  + '&amp;href='+encodeURIComponent(location.href)  + '&amp;v=1&amp;src=bookmarklet'; return false;" 
+  href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#" target=_blank><IMG 
+  style="BACKGROUND-COLOR: rgb(255,255,255)" height=12 alt="save at simpy" 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/ic_simpy.jpg" 
+  width=12 align=absMiddle border=0></A> </LI>
+  <LI><A title="save at blogmarks" style="TEXT-DECORATION: none" 
+  onclick="javascript:var q='';var r='';if(document.selection)q=document.selection.createRange().text;else if(window.getSelection())q=window.getSelection();if(document.referrer)r=document.referrer;void(open('http://blogmarks.net/my/marks,new?mini=1'+'&amp;title='+encodeURIComponent(document.title)+'&amp;url='+encodeURIComponent(location.href)+'&amp;summary='+encodeURIComponent(q)+'&amp;via='+encodeURIComponent(r),'blogmarks','location=no,toolbar=no,scrollbars=yes,width=350,height=450,status=no'));return false;" 
+  href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#" target=_blank><IMG 
+  style="BACKGROUND-COLOR: rgb(255,255,255)" height=12 alt="save at blogmarks" 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/ic_blogmarks.jpg" 
+  width=12 align=absMiddle border=0></A> </LI>
+  <LI><A title="submit at reddit" 
+  onclick="javascript:location.href='http://reddit.com/submit?title='  + encodeURIComponent(document.title)  + '&amp;url='+encodeURIComponent(location.href);return false;" 
+  href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#" target=_blank><IMG 
+  height=13 alt="submit at reddit" 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/ic_reddit.jpg" 
+  width=13 align=absMiddle border=0></A> </LI>
+  <LI><A title="save at spurl" 
+  onclick="javascript:d=document;void(window.open('http://www.spurl.net/spurl.php?v=3&amp;title='+encodeURIComponent(d.title)+'&amp;url='+encodeURIComponent(d.location.href)+'&amp;blocked='+encodeURIComponent(d.selection?d.selection.createRange().text:d.getSelection()),'_blank','width=450,height=550,status=no,resizable=yes,scrollbars=auto'))" 
+  href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#" target=_blank><IMG 
+  height=12 alt="save at spurl" 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/ic_spurl.jpg" 
+  width=12 align=absMiddle border=0></A> </LI>
+  <LI><A title="save at shadows" 
+  onclick="javascript:location.href = 'http://www.shadows.com/bookmark/saveLink.rails?page='+escape(location.href)+'&amp;title='+escape(document.title);return false" 
+  href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#" target=_blank><IMG 
+  height=10 alt="save at shadows" 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/ic_shadows.jpg" 
+  width=10 align=absMiddle border=0></A> </LI>
+  <LI><A title="save at rawsugar" 
+  onclick="javascript:location.href = 'http://www.rawsugar.com/pages/tagger.faces?turl='+ encodeURIComponent(location.href) +'&amp;tttl='+encodeURIComponent(document.title);return false;" 
+  href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#" target=_blank><IMG 
+  height=10 alt="save at rawsugar" 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/ic_rawsugar.jpg" 
+  width=10 align=absMiddle border=0></A> </LI>
+  <LI><A title="save at bloglines" 
+  onclick="javascript:location.href='http://www.bloglines.com/sub/'+location.href;return false;" 
+  href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#" target=_blank><IMG 
+  height=10 alt="save at bloglines" 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/ic_bloglines.jpg" 
+  width=10 align=absMiddle border=0></A> </LI></UL></DIV><!--收藏文章End--><!-- blog引用 begin -->
+<DIV class=trackback><!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<rdf:Description
+	    rdf:about="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm"
+	    trackback:ping="http://www.uuzone.com/app/trackBack.do?type=blog&trackBackID=125347"
+	    dc:title="根据输入的用户名，输出该数据库用户下所有表的行数"
+	    dc:identifier="/blog/uu_bvlzowp/125347.htm"
+	    dc:subject=""
+	    dc:creator="1314543"
+	    dc:date="08-07 12:16" />
+</rdf:RDF>
+--><A name=TrackBack></A>
+<FORM name=trackForm onsubmit="return checkForm(this);" 
+action=/app/trackBackDel.do method=post target=_parent><INPUT type=hidden 
+value=/blog/uu_bvlzowp/125347.htm name=nextUrl> <INPUT type=hidden name=trackID> 
+<INPUT type=hidden value=1 name=trackBackType> <INPUT type=hidden value=125347 
+name=trackBackID> 
+<H2>引用 </H2>
+<DIV class=trackback-common>
+<DIV 
+class=trackback-url>http://www.uuzone.com/app/trackBack.do?type=blog&amp;trackBackID=125347</DIV></DIV>
+<P class=trackback-main></P></FORM>
+<SCRIPT>
+        function hasChecked(objName) {
+          var obj = document.getElementById(objName);
+
+          if (obj != null) {
+            if (obj.length > 1) {
+              for (var i = 0; i < obj.length; i++) {
+                var o = obj[i];
+
+                if (o.checked == true) {
+                  return true;
+                }
+              }
+            } else {
+              return obj.checked;
+            }
+          }
+
+          return false;
+        }
+function checkForm(oForm){
+    with(oForm){
+        if(hasChecked("trackArrayID")){
+            if(confirm("您确定要删除选中的引用吗？"))
+                return true;
+        }else alert("请选择要删除的引用！");
+
+        return false;
+    }
+}
+
+function cancelCheck(objName){
+    var obj = document.getElementById(objName);
+    if ( obj != null ){
+        if ( obj.length > 1 ){
+            for(var i = 0; i < obj.length; i++ ){
+                var o = obj[i];
+                o.checked == false;
+            }
+        }else obj.checked = false;
+    }
+}
+
+        function delOne(id) {
+          if (confirm("您确定要删除该引用吗？")) {
+            document.forms["trackForm"].action = "/app/trackBackDel.do?trackID=" + id;
+
+            document.forms["trackForm"].submit();
+          }
+        }
+      </SCRIPT>
+</DIV><!-- blog引用 end --><!-- 相关内容 begin -->
+<DIV id=correlationTopicList></DIV>
+<SCRIPT>
+      new Ajax.Updater('correlationTopicList','/api/xml/blog/correlationTopic.do?categoryID=25893&pin=1280620&tid=125347',{});
+    </SCRIPT>
+<!-- 相关内容 end --><!-- 如果是系统blog，屏蔽评论 --><!-- blog评论 begin -->
+<DIV id=replyContent></DIV>
+<SCRIPT>      	
+      	function blogTopicLoadReply(){        	
+        	new Ajax.PeriodicalUpdater("replyContent","/api/xml/blog/blogReplyLoad.do?tid=125347&userID=uu_bvlzowp",{evalScripts:true,frequency:120,decay:2});
+        }
+        blogTopicLoadReply();
+        function reloadBlogReply(){
+        	new Ajax.Updater('replyContent','/api/xml/blog/blogReplyLoad.do?tid=125347&userID=uu_bvlzowp',{evalScripts:true});
+        }
+      </SCRIPT>
+<!-- blog评论 end -->
+<P>回复列表每两分钟自动刷新一次，想立即刷新吗？<A onclick="reloadBlogReply();return false;" 
+href="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm#">点击这里</A></P><A 
+name=reply></A>
+<FORM id=blogTopicReplyPostForm name=blogTopicReplyPostForm 
+action=/api/xml/blog/blogReply.do method=post><INPUT type=hidden 
+value=uu_bvlzowp name=userID> <INPUT type=hidden value=125347 name=tid> <INPUT 
+type=hidden value=0 name=isAllowUnlogin> <TEXTAREA id=blogReplyContent style="WIDTH: 510px; HEIGHT: 200px" name=content></TEXTAREA>
+<SCRIPT>editor_generate("blogReplyContent");</SCRIPT>
+ <INPUT class=coolbutton onclick="Login.postForm(this,replyPostLoad);&#10;" type=button value=评论> 
+</FORM>
+<SCRIPT language=javascript>
+      
+      	 setTimeout(function(){
+      	 	var c="";
+      	 	
+      	 		c="<li>[&nbsp;游客&nbsp;]</a>&nbsp;正在浏览&nbsp;<a href='/blog/uu_bvlzowp/125347.htm' target='_blank'>根据输入的用户名，输出该数据库用户下所有...</a></li>";
+      	 	
+      	 	Notisfy.add(function(){notify_mgr.sendaction( "", c , "hotblog" );});
+      	 },15000);
+      
+         function replyPostLoad(r){
+        	if((!r.responseText)||r.responseText==null||r.responseText==""){
+             	reloadBlogReply();
+        	}else{
+        		alert(r.responseText);
+        	}
+        	var replycontent=editor_getHTML("blogReplyContent");
+        	replycontent=replycontent.stripTags();
+        	var c='Blog评论：<a href="/blog/uu_bvlzowp/125347.htm" target="_blank">'+replycontent+'</a>';
+        	Notisfy.add(function(){notify_mgr.sendprivateaction(1280620,'' ,c, 'replyblog');}); 
+        	editor_setHTML("blogReplyContent","");
+        }
+        
+        function TrackBack() {
+          trackBackForm.submit();
+        }
+        function deleteReply(url){
+	  		if(window.confirm("是否删除该评论?")){
+	  			new Ajax.Updater('replyContent',url,{evalScripts:true});
+	  		}
+  		}	
+       function Delete(url){
+    	if (confirm("您确认要删除该blog吗？")){
+        	window.location = url;
+    		}
+		}
+
+        function viewSources(status) {
+          var s = document.getElementById("source");
+          var v = document.getElementById("view");
+          var h = document.getElementById("hide");
+
+          if (status) {
+            s.style.display = "inline";
+            v.style.display = "none";
+            h.style.display = "inline";
+          } else {
+            s.style.display = "none";
+            v.style.display = "inline";
+            h.style.display = "none";
+          }
+        }
+
+        function changeText(type) {
+          var s = document.getElementById("source");
+
+          if (type == "html") {
+            s.value = 
+                    "<embed src=\"http://www.uuzone.com\" width=\"300\" height=\"60\" autostart=\"false\" />"
+                    ;
+          } else {
+            s.value = 
+                    "[embed src=\"http://www.uuzone.com\" width=\"300\" height=\"60\" autostart=\"false\" /]"
+                    ;
+          }
+        }
+      </SCRIPT>
+
+<DIV id=rdfDefine style="DISPLAY: none"><!-- <?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		 xmlns:dc="http://purl.org/dc/elements/1.1/"
+		 xmlns:uz="http://www.uuzone.com/schemas/uuzone/1.0">
+
+	<uz:Blog rdf:about="http://www.uuzone.com/blog/uu_bvlzowp/125347.htm"
+		uz:UUPortal="http://www.uuzone.com/uu/uu_bvlzowp" 
+		uz:UULogo="http://www.uuzone.com/icon/6b/d0/ac/a5/84d81d78680df3b96a0cbf17.jpg"
+		uz:UULogo-middle="http://www.uuzone.com/icon/6b/d0/ac/a5/84d81d78680df3b96a0cbf17_middle.jpg"
+		uz:UULogo-big="http://www.uuzone.com/icon/6b/d0/ac/a5/84d81d78680df3b96a0cbf17_big.jpg"
+		uz:UUID="uu_bvlzowp"
+		uz:UUNickName="1314543"
+		dc:title="根据输入的用户名，输出该数据库用户下所有表的行数"
+		dc:identifier="/blog/uu_bvlzowp/125347.htm"
+		dc:subject="根据输入的用户名，输出该数据库用户下所有表的行数"
+		dc:creator="1314543"
+		dc:date="2006-08-07 12:16:35" />
+</rdf:RDF> --></DIV></DIV></DIV>
+<DIV id=right>
+<DIV class=sidebar>
+<DIV id=userProfile></DIV>
+<SCRIPT>new Ajax.Updater("userProfile","/api/userInfo.do?userID=uu_bvlzowp",{evalScripts:true});</SCRIPT>
+
+<UL>
+  <LI><A title="RSS 2.0" href="http://www.uuzone.com/rss/blog/uu_bvlzowp.xml" 
+  target=_blank><IMG 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/icon_xml.gif" 
+  border=0></A> <LINK title=1314543的blog 
+  href="http://www.uuzone.com/rss/blog/uu_bvlzowp.xml" type=application/rss+xml 
+  rel=alternate>
+  <LI><A title="Add this blog to my Technorati Favorites!" 
+  href="http://technorati.com/faves?add=http://www.uuzone.com/rss/blog/uu_bvlzowp.xml" 
+  target=_blank><IMG 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/tech-fav-1.gif" 
+  border=0></A> 
+  <LI><A title=通过Google订阅 
+  href="http://fusion.google.com/add?feedurl=http://www.uuzone.com/rss/blog/uu_bvlzowp.xml" 
+  target=_blank><IMG 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/addtogoogle.gif" 
+  border=0></A> 
+  <LI><A title="通过My Yahoo订阅" 
+  href="http://add.my.yahoo.com/rss?url=http://www.uuzone.com/rss/blog/uu_bvlzowp.xml" 
+  target=_blank><IMG 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/addtomyyahoo.gif" 
+  border=0></A> 
+  <LI><A title="通过My MSN订阅" 
+  href="http://my.msn.com/addtomymsn.armx?id=rss&amp;ut=http://www.uuzone.com/rss/blog/uu_bvlzowp.xml" 
+  target=_blank><IMG 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/rss_mymsn.gif" 
+  border=0></A> 
+  <LI><A title=通过抓虾zhuaxia.com订阅 
+  href="http://www.zhuaxia.com/add_channel.php?url=http://www.uuzone.com/rss/blog/uu_bvlzowp.xml" 
+  target=_blank><IMG 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/zhuaxia.gif" 
+  border=0></A> 
+  <LI><A title=通过bloglines订阅 
+  href="http://www.bloglines.com/sub/http://www.uuzone.com/rss/blog/uu_bvlzowp.xml" 
+  target=_blank><IMG 
+  src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/bloglines.gif" 
+  border=0></A> </LI></UL>
+<DIV id=newBlogTopicList><IMG alt=loading... 
+src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/loading.gif"></DIV>
+<SCRIPT>new Ajax.Updater("newBlogTopicList","/api/xml/blog/topicList.do?userID=uu_bvlzowp&listType=new",{});</SCRIPT>
+
+<DIV id=hotBlogTopicList><IMG alt=loading... 
+src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/loading.gif"></DIV>
+<SCRIPT>new Ajax.Updater("hotBlogTopicList","/api/xml/blog/topicList.do?userID=uu_bvlzowp&listType=hot",{}); </SCRIPT>
+
+<H2>其他 </H2>
+<DIV id=powered>Powered by 
+<P><A href="http://www.uuzone.com/">UUZone.com</A></P></DIV></DIV></DIV>
+<DIV id=bottom></DIV>
+<DIV style="CLEAR: both; FLOAT: none"></DIV>
+<SCRIPT type=text/javascript>
+    	var nowDate = new Date();
+    	var srcUrl = "/app/counter?id=125347&t=" + nowDate.getTime();
+    	var img = new Image();
+    	img.src = srcUrl;
+    </SCRIPT>
+</DIV>
+<SCRIPT language=javascript 
+src="根据输入的用户名，输出该数据库用户下所有表的行数 - 阿文的博客 - 优友地带 UUZone.files/sound.js"></SCRIPT>
+
+<SCRIPT>
+Event.onDOMReady(Chat.onload);
+Gmap.parse();
+</SCRIPT>
+<NOFRAMES>您的浏览器可能不支持Frame, 优友地带需要使用Frame才能显示正常页面!</NOFRAMES><NOSCRIPT>您的浏览器可能不支持JavaScript, 
+或者您的浏览器安全设置禁止了JavaScript, 优友地带需要使用JavaScript才能显示正常页面!</NOSCRIPT> </BODY></HTML>

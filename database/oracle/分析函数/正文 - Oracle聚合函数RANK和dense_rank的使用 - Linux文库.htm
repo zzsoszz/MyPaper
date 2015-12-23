@@ -1,0 +1,611 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0033)http://doc.linuxpk.com/52481.html -->
+<HTML><HEAD><TITLE>正文 - Oracle聚合函数RANK和dense_rank的使用 - Linux文库</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb18030">
+<META http-equiv=Content-Language content=zh_CN>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR><LINK 
+title=linuxpk.com最新技术文档 href="http://doc.linuxpk.com/rss.php" 
+type=application/rss+xml rel=alternate><LINK href="include/image/favicon.ico" 
+type=image/ico rel=icon><LINK 
+href="正文 - Oracle聚合函数RANK和dense_rank的使用 - Linux文库.files/base.css" type=text/css 
+rel=stylesheet><LINK 
+href="正文 - Oracle聚合函数RANK和dense_rank的使用 - Linux文库.files/article.css" 
+type=text/css rel=stylesheet><LINK 
+href="正文 - Oracle聚合函数RANK和dense_rank的使用 - Linux文库.files/jquery-ui-themeroller.css" 
+type=text/css rel=stylesheet><!--[if IE]>
+<STYLE type=text/css>@import url( include/css/iefix.css );
+</STYLE>
+<![endif]-->
+<SCRIPT src="正文 - Oracle聚合函数RANK和dense_rank的使用 - Linux文库.files/jquery-1.2.6.js" 
+type=text/javascript></SCRIPT>
+</HEAD>
+<BODY id=article>
+<DIV class=container>
+<DIV class=header>
+<DIV class=logos>
+<UL>
+  <LI class=first><A title=Linux宝库 href="http://www.linuxpk.com/" 
+  target=_blank><IMG alt=Linux宝库 
+  src="正文 - Oracle聚合函数RANK和dense_rank的使用 - Linux文库.files/logo.gif"></A> </LI>
+  <LI>
+  <UL>
+    <LI class=one><A title=最新开源资迅 href="http://www.linuxpk.com/action-news.html" 
+    target=_blank>资迅</A> </LI>
+    <LI class=two><A title="Linux论坛 最火的中文Linux论坛" href="http://bbs.linuxpk.com/" 
+    target=_blank>论坛</A> </LI>
+    <LI class=four><A title=最全的中文技术文档 href="http://doc.linuxpk.com/">文库</A> 
+</LI>
+    <LI class=five><A title=图片 href="http://www.linuxpk.com/action-image.html" 
+    target=_blank>图片</A> </LI>
+    <LI class=six><A title=开源杂志 href="http://oss.linuxpk.com/" 
+    target=_blank>杂志</A> </LI>
+    <LI class=three><A title=开源SNS href="http://sns.linuxpk.com/" 
+    target=_blank>开源SNS</A> </LI>
+    <LI class=seven><A title=搜索 href="http://www.linuxpk.com/batch.search.php" 
+    target=_blank>搜索</A> </LI></UL></LI></UL></DIV>
+<DIV class=clear><SPAN>this is a extra element for clear the floated 
+element</SPAN></DIV></DIV>
+<DIV class=ads id=ads_banner>
+<SCRIPT type=text/javascript>cpro_client="linuxmine_cpr";cpro_at="text_image";cpro_161=4;cpro_flush=4;cpro_w=960;cpro_h=75;cpro_template='text_default_960_75';cpro_cbd='#FFFFFF';cpro_cbg='#FFFFFF';cpro_ctitle='#0000FF';cpro_cdesc='#444444';cpro_curl='#008000';cpro_cflush='#E10900';cpro_uap=1;cpro_cad=1;</SCRIPT>
+
+<SCRIPT src="正文 - Oracle聚合函数RANK和dense_rank的使用 - Linux文库.files/cp.js" 
+type=text/javascript></SCRIPT>
+</DIV>
+<DIV id=menu>
+<UL>
+  <LI class=menu_top><A id=top_href 
+  href="http://doc.linuxpk.com/index.html">Linux文库</A> 
+  <UL>
+    <LI><A href="http://doc.linuxpk.com/channel55.html">Oracle</A> 
+    <UL>
+      <LI class=menu_nochild><A 
+      href="http://doc.linuxpk.com/type258.html">安装配置</A> </LI>
+      <LI class=menu_nochild><A 
+      href="http://doc.linuxpk.com/type259.html">PLSQL</A> </LI>
+      <LI class=menu_nochild><A 
+      href="http://doc.linuxpk.com/type260.html">备份恢复</A> </LI>
+      <LI class=menu_nochild><A 
+      href="http://doc.linuxpk.com/type261.html">性能调优</A> </LI>
+      <LI class=menu_nochild><A 
+      href="http://doc.linuxpk.com/type262.html">开发技术</A> </LI>
+      <LI class=menu_nochild><A 
+      href="http://doc.linuxpk.com/type263.html">资讯动态</A> </LI>
+      <LI class=menu_nochild><A 
+      href="http://doc.linuxpk.com/type264.html">考试认证</A> </LI>
+      <LI class="menu_nochild  menu_current"><A 
+      href="http://doc.linuxpk.com/type265.html">入门基础</A> 
+</LI></UL></LI></UL></LI></UL></DIV>
+<DIV class=navs>
+<UL>
+  <LI><A href="http://www.linuxpk.com/">Linux宝库</A> </LI>
+  <LI><A href="http://doc.linuxpk.com/index.php">Linux文库</A> </LI>
+  <LI><A 
+  href="http://doc.linuxpk.com/category.php?cid=55&amp;type=channel">Oracle</A> 
+  </LI>
+  <LI><A href="http://doc.linuxpk.com/category.php?cid=265">入门基础</A> 
+  <LI class=clear><SPAN>this is a extra element for clear the floated 
+  element</SPAN> </LI></UL></DIV>
+<DIV class=article>
+<DIV class=article_content>
+<TABLE id=article_detail summary=Oracle聚合函数RANK和dense_rank的使用>
+  <CAPTION>Oracle聚合函数RANK和dense_rank的使用</CAPTION>
+  <THEAD>
+  <TR>
+    <TH class=date>
+      <UL>
+        <LI class=month>12/31 
+        <LI class=year>2008 </LI></UL></TH>
+    <TH class=type><A title=入门基础 
+      href="http://doc.linuxpk.com/type265.html">入门基础</A> | <A title=Oracle 
+      href="http://doc.linuxpk.com/channel55.html">Oracle</A></TH>
+    <TH class=hits>3406 次查看</TH></TR></THEAD>
+  <TFOOT>
+  <TR>
+    <TD colSpan=3>
+      <DIV class=prev>
+      <UL>
+        <LI><SPAN>上一条：</SPAN><A title=ORACLE数据库常见问题诊断方法 
+        href="http://doc.linuxpk.com/52480.html">ORACLE数据库常见问题诊断方法</A> 
+      </LI></UL></DIV>
+      <DIV class=next>
+      <UL>
+        <LI><SPAN>下一条：</SPAN><A title=Oracle学习之Oracle分析函数（二） 
+        href="http://doc.linuxpk.com/52482.html">Oracle学习之Oracle分析函数（二）</A> 
+      </LI></UL></DIV></TD></TR></TFOOT>
+  <TBODY class=maintext>
+  <TR>
+    <TD class=texttexttext colSpan=3>
+      <DIV class=ads id=article_in_ads>
+      <SCRIPT type=text/javascript>cpro_client="linuxmine_cpr";cpro_at="text_image";cpro_161=9;cpro_flush=4;cpro_81=0;cpro_w=250;cpro_h=250;cpro_template='text_pages_250_250';cpro_cbd='#FFFFFF';cpro_cbg='#FFFFFF';cpro_ctitle='#0000ff';cpro_cdesc='#444444';cpro_curl='#008000';cpro_cflush='#E10900';cpro_uap=1;cpro_cad=1;</SCRIPT>
+
+      <SCRIPT src="正文 - Oracle聚合函数RANK和dense_rank的使用 - Linux文库.files/cp.js" 
+      type=text/javascript></SCRIPT>
+      </DIV>
+      <DIV>　　聚合函数RANK 和 dense_rank 
+      主要的功能是计算一组数值中的排序值。<BR><BR>　　在9i版本之前，只有分析功能（analytic 
+      ），即从一个查询结果中计算每一行的排序值，是基于order_by_clause子句中的value_exprs指定字段的。<BR><BR>　　其语法为：<BR><BR>　　RANK 
+      ( ) OVER ( [query_partition_clause] order_by_clause 
+      )<BR><BR>　　在9i版本新增加了合计功能（aggregate），即对给定的参数值在设定的排序查询中计算出其排序值。这些参数必须是常数或常值表达式，且必须和ORDER 
+      BY子句中的字段个数、位置、类型完全一致。<BR><BR>　　其语法为：<BR><BR>　　RANK ( expr [, expr]... ) 
+      WITHIN GROUP<BR><BR>　　( ORDER BY<BR><BR>　　expr [ DESC | ASC ] [NULLS { 
+      FIRST | LAST }]<BR><BR>　　[, expr [ DESC | ASC ] [NULLS { FIRST | LAST 
+      }]]...<BR><BR>　　)<BR><BR>　　例子1：<BR><BR>　　有表Table内容如下<BR><BR>　　COL1<BR><BR>　　COL2<BR><BR>　　1<BR><BR>　　1<BR><BR>　　2<BR><BR>　　1<BR><BR>　　3<BR><BR>　　2<BR><BR>　　3<BR><BR>　　1<BR><BR>　　4<BR><BR>　　1<BR><BR>　　4<BR><BR>　　2<BR><BR>　　5<BR><BR>　　2<BR><BR>　　5<BR><BR>　　2<BR><BR>　　6<BR><BR>　　2<BR><BR>　　分析功能：列出Col2分组后根据Col1排序,并生成数字列。比较实用于在成绩表中查出各科前几名的信息。<BR><BR>　　SELECT 
+      a.*,RANK() OVER(PARTITION BY col2 ORDER BY col1) "Rank" FROM table 
+      a;<BR><BR>　　结果如下：<BR><BR>　　COL1<BR><BR>　　COL2<BR><BR>　　Rank<BR><BR>　　1<BR><BR>　　1<BR><BR>　　1<BR><BR>　　2<BR><BR>　　1<BR><BR>　　2<BR><BR>　　3<BR><BR>　　1<BR><BR>　　3<BR><BR>　　4<BR><BR>　　1<BR><BR>　　4<BR><BR>　　3<BR><BR>　　2<BR><BR>　　1<BR><BR>　　4<BR><BR>　　2<BR><BR>　　2<BR><BR>　　5<BR><BR>　　2<BR><BR>　　3<BR><BR>　　5<BR><BR>　　2<BR><BR>　　3<BR><BR>　　6<BR><BR>　　2<BR><BR>　　5<BR><BR>　　例子2：<BR><BR>　　TABLE：A 
+      （科目，分数）<BR><BR>　　数学，80<BR><BR>　　语文，70<BR><BR>　　数学，90<BR><BR>　　数学，60<BR><BR>　　数学，100<BR><BR>　　语文，88<BR><BR>　　语文，65<BR><BR>　　语文，77<BR><BR>　　现在我想要的结果是：（即想要每门科目的前3名的分数）<BR><BR>　　数学，100<BR><BR>　　数学，90<BR><BR>　　数学，80<BR><BR>　　语文，88<BR><BR>　　语文，77<BR><BR>　　语文，70<BR><BR>　　那么语句就这么写：<BR><BR>　　select 
+      * from (select rank() over(partition by 科目 order by 分数 desc) rk,a.* from 
+      a) t<BR><BR>　　where 
+      t.rk&lt;=3;<BR><BR>　　例子3：<BR><BR>　　合计功能：计算出数值(4,1)在Orade By 
+      Col1,Col2排序下的排序值，也就是col1=4,col2=1在排序以后的位置<BR><BR>　　SELECT RANK(4,3) WITHIN 
+      GROUP (ORDER BY col1,col2) "Rank" FROM 
+      table;<BR><BR>　　结果如下：<BR><BR>　　Rank<BR><BR>　　4<BR><BR>　　dense_rank与rank()用法相当，但是有一个区别：dence_rank在并列关系是，相关等级不会跳过。rank则跳过<BR><BR>　　例如：表<BR><BR>　　A<BR><BR>　　B<BR><BR>　　C<BR><BR>　　a<BR><BR>　　liu<BR><BR>　　wang<BR><BR>　　a<BR><BR>　　jin<BR><BR>　　shu<BR><BR>　　a<BR><BR>　　cai<BR><BR>　　kai<BR><BR>　　b<BR><BR>　　yang<BR><BR>　　du<BR><BR>　　b<BR><BR>　　lin<BR><BR>　　ying<BR><BR>　　b<BR><BR>　　yao<BR><BR>　　cai<BR><BR>　　b<BR><BR>　　yang<BR><BR>　　99<BR><BR>　　例如：当rank时为：<BR><BR>　　select 
+      m.a,m.b,m.c,rank() over(partition by a order by b) liu from test3 
+      m<BR><BR>　　A<BR><BR>　　B<BR><BR>　　C<BR><BR>　　LIU<BR><BR>　　a<BR><BR>　　cai<BR><BR>　　kai<BR><BR>　　1<BR><BR>　　a<BR><BR>　　jin<BR><BR>　　shu<BR><BR>　　2<BR><BR>　　a<BR><BR>　　liu<BR><BR>　　wang<BR><BR>　　3<BR><BR>　　b<BR><BR>　　lin<BR><BR>　　ying<BR><BR>　　1<BR><BR>　　b<BR><BR>　　yang<BR><BR>　　du<BR><BR>　　2<BR><BR>　　b<BR><BR>　　yang<BR><BR>　　99<BR><BR>　　2<BR><BR>　　b<BR><BR>　　yao<BR><BR>　　cai<BR><BR>　　4<BR><BR>　　而如果用dense_rank时为：<BR><BR>　　select 
+      m.a,m.b,m.c,dense_rank() over(partition by a order by b) liu from test3 
+      m<BR><BR>　　A<BR><BR>　　B<BR><BR>　　C<BR><BR>　　LIU<BR><BR>　　a<BR><BR>　　cai<BR><BR>　　kai<BR><BR>　　1<BR><BR>　　a<BR><BR>　　jin<BR><BR>　　shu<BR><BR>　　2<BR><BR>　　a<BR><BR>　　liu<BR><BR>　　wang<BR><BR>　　3<BR><BR>　　b<BR><BR>　　lin<BR><BR>　　ying<BR><BR>　　1<BR><BR>　　b<BR><BR>　　yang<BR><BR>　　du<BR><BR>　　2<BR><BR>　　b<BR><BR>　　yang<BR><BR>　　99<BR><BR>　　2<BR><BR>　　b<BR><BR>　　yao<BR><BR>　　cai<BR><BR>　　3<BR><BR>　　</DIV>
+      <DIV></DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV class=assoc_articles>
+<H6>您可能感兴趣的:</H6>
+<P><A title=更多相关内容 href="http://doc.linuxpk.com/" target=_blank>更多相关内容</A></P>
+<UL></UL></DIV></DIV>
+<DIV class=side_content>
+<UL>
+  <LI class=ui-tabs-nav-item><A 
+  href="http://doc.linuxpk.com/52481.html#assocs">相关文档</A> </LI>
+  <LI class=ui-tabs-nav-item><A 
+  href="http://doc.linuxpk.com/52481.html#favorites">最受欢迎</A> </LI>
+  <LI class=ui-tabs-nav-item><A 
+  href="http://doc.linuxpk.com/52481.html#newests">最新文档</A> </LI></UL>
+<DIV id=assocs>
+<UL>
+  <LI><A title=Oracle学习手册：Oracle的“OFFSAP” 
+  href="http://doc.linuxpk.com/52509.html">Oracle学习手册：Oracle的“OFFSAP”</A> 
+  <LI><A title=你的数据库升级吗? href="http://doc.linuxpk.com/52580.html">你的数据库升级吗?</A> 
+  <LI><A title=Oracle的数据库对象中表与视图 
+  href="http://doc.linuxpk.com/52532.html">Oracle的数据库对象中表与视图</A> 
+  <LI><A title=oracle服务启动和停止脚本 
+  href="http://doc.linuxpk.com/52446.html">oracle服务启动和停止脚本</A> 
+  <LI><A title=Oracle中使用PL/SQL操作COM对象 
+  href="http://doc.linuxpk.com/52523.html">Oracle中使用PL/SQL操作COM对象</A> 
+  <LI><A title=深入了解Oracle数据字典 
+  href="http://doc.linuxpk.com/52645.html">深入了解Oracle数据字典</A> 
+  <LI><A title=Oracle下定时执行过程脚本 
+  href="http://doc.linuxpk.com/52455.html">Oracle下定时执行过程脚本</A> 
+  <LI><A title=Oracle入门教程，新手必读 
+  href="http://doc.linuxpk.com/52553.html">Oracle入门教程，新手必读</A> 
+  <LI><A title=Oracle学习手册：Oracle游标使用大全二 
+  href="http://doc.linuxpk.com/52507.html">Oracle学习手册：Oracle游标使用大全二</A> 
+  <LI><A title=Oracle9i数据库设计指引全集（2） 
+  href="http://doc.linuxpk.com/52547.html">Oracle9i数据库设计指引全集（2）</A> 
+  <LI><A title=Oracle和SQLServer浅析 
+  href="http://doc.linuxpk.com/52521.html">Oracle和SQLServer浅析</A> 
+  <LI><A title=ANT操控ORACLE数据库实践 
+  href="http://doc.linuxpk.com/52516.html">ANT操控ORACLE数据库实践</A> 
+  <LI><A title=全套Sybex教材（推荐） 
+  href="http://doc.linuxpk.com/52596.html">全套Sybex教材（推荐）</A> 
+  <LI><A title=kingate的大概流程 
+  href="http://doc.linuxpk.com/52581.html">kingate的大概流程</A> 
+  <LI><A title=ORACLEDeveloper/2000编程技巧 
+  href="http://doc.linuxpk.com/52585.html">ORACLEDeveloper/2000编程技巧</A> 
+  <LI><A title=Oracle8资料库函式库 
+  href="http://doc.linuxpk.com/52428.html">Oracle8资料库函式库</A> 
+  <LI><A title=Oracle弱智900问二 
+  href="http://doc.linuxpk.com/52496.html">Oracle弱智900问二</A> 
+  <LI><A title=Oracle弱智900问六 
+  href="http://doc.linuxpk.com/52492.html">Oracle弱智900问六</A> 
+  <LI><A title=浅谈Oracle数据库的建模与设计 
+  href="http://doc.linuxpk.com/52525.html">浅谈Oracle数据库的建模与设计</A> 
+  <LI><A title=ORACLE培训教程(3)-SQL概述 
+  href="http://doc.linuxpk.com/52583.html">ORACLE培训教程(3)-SQL概述</A> 
+  <LI><A title=Oracle数据库开发的一些经验积累（二） 
+  href="http://doc.linuxpk.com/52542.html">Oracle数据库开发的一些经验积累（二）</A> 
+  <LI><A title=在Oracle中发布和调用Javafunctions 
+  href="http://doc.linuxpk.com/52534.html">在Oracle中发布和调用Javafunctions</A> 
+  <LI><A title=Oracle9i约束条件 
+  href="http://doc.linuxpk.com/52472.html">Oracle9i约束条件</A> 
+  <LI><A title=Oracle9i数据库设计指引全集（1） 
+  href="http://doc.linuxpk.com/52548.html">Oracle9i数据库设计指引全集（1）</A> 
+  <LI><A title=OracleforNT系统实用工具介绍 
+  href="http://doc.linuxpk.com/52429.html">OracleforNT系统实用工具介绍</A> 
+  <LI><A title=Oracle弱智900问九 
+  href="http://doc.linuxpk.com/52489.html">Oracle弱智900问九</A> 
+  <LI><A title=Oracle9i学习笔记 
+  href="http://doc.linuxpk.com/52515.html">Oracle9i学习笔记</A> 
+  <LI><A title=Oracle数据库关于连接池二 
+  href="http://doc.linuxpk.com/52458.html">Oracle数据库关于连接池二</A> 
+  <LI><A title=SQLServer和Oracle的常用函数对比 
+  href="http://doc.linuxpk.com/52539.html">SQLServer和Oracle的常用函数对比</A> 
+  <LI><A title=Oracle启动程序方式详细介绍 
+  href="http://doc.linuxpk.com/52434.html">Oracle启动程序方式详细介绍</A> </LI></UL></DIV>
+<DIV id=favorites>
+<UL>
+  <LI><A title=Oracle数据类型简介 
+  href="http://doc.linuxpk.com/52573.html">Oracle数据类型简介</A> 
+  <LI><A title=oracle里常用命令 
+  href="http://doc.linuxpk.com/52551.html">oracle里常用命令</A> 
+  <LI><A title=Oracle中SQL*PLUS使用的一些技巧 
+  href="http://doc.linuxpk.com/52527.html">Oracle中SQL*PLUS使用的一些技巧</A> 
+  <LI><A title=怎样修改查看Oracle字符集 
+  href="http://doc.linuxpk.com/52468.html">怎样修改查看Oracle字符集</A> 
+  <LI><A title=深入了解Oracle数据字典 
+  href="http://doc.linuxpk.com/52645.html">深入了解Oracle数据字典</A> 
+  <LI><A title=心得共享：Oracle经验技巧集锦 
+  href="http://doc.linuxpk.com/52549.html">心得共享：Oracle经验技巧集锦</A> 
+  <LI><A title=Oracle常用的SQL语法和数据对象 
+  href="http://doc.linuxpk.com/52537.html">Oracle常用的SQL语法和数据对象</A> 
+  <LI><A title=Oracle9i学习笔记 
+  href="http://doc.linuxpk.com/52634.html">Oracle9i学习笔记</A> 
+  <LI><A title=linux下oracle启动和关闭脚本 
+  href="http://doc.linuxpk.com/52457.html">linux下oracle启动和关闭脚本</A> 
+  <LI><A title=Oracle学习之Oracle分析函数（二） 
+  href="http://doc.linuxpk.com/52482.html">Oracle学习之Oracle分析函数（二）</A> 
+  <LI><A title=Oracle9i数据库设计指引全集（1） 
+  href="http://doc.linuxpk.com/52548.html">Oracle9i数据库设计指引全集（1）</A> 
+  <LI><A title=Oracle数据库开发的一些经验积累（三） 
+  href="http://doc.linuxpk.com/52541.html">Oracle数据库开发的一些经验积累（三）</A> 
+  <LI><A title=Oracle新手最常碰到的6个错误及解决方案 
+  href="http://doc.linuxpk.com/52550.html">Oracle新手最常碰到的6个错误及解决方案</A> 
+  <LI><A title=Oracle的SQL*PLUS命令的使用大全 
+  href="http://doc.linuxpk.com/52528.html">Oracle的SQL*PLUS命令的使用大全</A> 
+  <LI><A title=Oracle下定时执行过程脚本 
+  href="http://doc.linuxpk.com/52455.html">Oracle下定时执行过程脚本</A> 
+  <LI><A title=Oracle聚合函数RANK和dense_rank的使用 
+  href="http://doc.linuxpk.com/52481.html">Oracle聚合函数RANK和dense_rank的使用</A> 
+  <LI><A title=Oracle数据库开发的一些经验积累（二） 
+  href="http://doc.linuxpk.com/52542.html">Oracle数据库开发的一些经验积累（二）</A> 
+  <LI><A title=Oracle9i数据库设计指引全集（2） 
+  href="http://doc.linuxpk.com/52547.html">Oracle9i数据库设计指引全集（2）</A> 
+  <LI><A title=Oracle9i数据库设计指引全集（3） 
+  href="http://doc.linuxpk.com/52546.html">Oracle9i数据库设计指引全集（3）</A> 
+  <LI><A title=oracle使用杂记二 
+  href="http://doc.linuxpk.com/52450.html">oracle使用杂记二</A> 
+  <LI><A title=Oracle入门教程，新手必读 
+  href="http://doc.linuxpk.com/52553.html">Oracle入门教程，新手必读</A> 
+  <LI><A title=查查oracle函数宝典，看看函数大全 
+  href="http://doc.linuxpk.com/52632.html">查查oracle函数宝典，看看函数大全</A> 
+  <LI><A title=Oracle数据库开发的一些经验积累（一） 
+  href="http://doc.linuxpk.com/52543.html">Oracle数据库开发的一些经验积累（一）</A> 
+  <LI><A title=OracleRAC中Srvctl命令详细说明文档 
+  href="http://doc.linuxpk.com/52529.html">OracleRAC中Srvctl命令详细说明文档</A> 
+  <LI><A title=常用数据库比较 href="http://doc.linuxpk.com/52587.html">常用数据库比较</A> 
+  <LI><A title=Oracle9i数据库设计指引全集（4） 
+  href="http://doc.linuxpk.com/52545.html">Oracle9i数据库设计指引全集（4）</A> 
+  <LI><A title=Oracle提供企业数据仓库解决方案 
+  href="http://doc.linuxpk.com/52639.html">Oracle提供企业数据仓库解决方案</A> 
+  <LI><A title=Oracle学习手册：Oracle游标使用大全二 
+  href="http://doc.linuxpk.com/52507.html">Oracle学习手册：Oracle游标使用大全二</A> 
+  <LI><A title=Solaris下Oracle的基本操作 
+  href="http://doc.linuxpk.com/52638.html">Solaris下Oracle的基本操作</A> 
+  <LI><A title=oracle10g新特性中文笔记一 
+  href="http://doc.linuxpk.com/52487.html">oracle10g新特性中文笔记一</A> </LI></UL></DIV>
+<DIV id=newests>
+<UL>
+  <LI><A title=设置不使用spfile 
+  href="http://doc.linuxpk.com/52564.html">设置不使用spfile</A> 
+  <LI><A title=OracleLogMiner终结版 
+  href="http://doc.linuxpk.com/52552.html">OracleLogMiner终结版</A> 
+  <LI><A title=oracle里常用命令 
+  href="http://doc.linuxpk.com/52551.html">oracle里常用命令</A> 
+  <LI><A title=Oracle新手最常碰到的6个错误及解决方案 
+  href="http://doc.linuxpk.com/52550.html">Oracle新手最常碰到的6个错误及解决方案</A> 
+  <LI><A title=心得共享：Oracle经验技巧集锦 
+  href="http://doc.linuxpk.com/52549.html">心得共享：Oracle经验技巧集锦</A> 
+  <LI><A title=Oracle9i数据库设计指引全集（1） 
+  href="http://doc.linuxpk.com/52548.html">Oracle9i数据库设计指引全集（1）</A> 
+  <LI><A title=Oracle9i数据库设计指引全集（2） 
+  href="http://doc.linuxpk.com/52547.html">Oracle9i数据库设计指引全集（2）</A> 
+  <LI><A title=Oracle9i数据库设计指引全集（3） 
+  href="http://doc.linuxpk.com/52546.html">Oracle9i数据库设计指引全集（3）</A> 
+  <LI><A title=Oracle9i数据库设计指引全集（4） 
+  href="http://doc.linuxpk.com/52545.html">Oracle9i数据库设计指引全集（4）</A> 
+  <LI><A title=Oracle入门教程，新手必读 
+  href="http://doc.linuxpk.com/52553.html">Oracle入门教程，新手必读</A> 
+  <LI><A title=logminer使用方法 
+  href="http://doc.linuxpk.com/52554.html">logminer使用方法</A> 
+  <LI><A title=对刚接触oracle的人比较有用的一些工具 
+  href="http://doc.linuxpk.com/52555.html">对刚接触oracle的人比较有用的一些工具</A> 
+  <LI><A title=在Oracle9i中建立SPFILE文件 
+  href="http://doc.linuxpk.com/52563.html">在Oracle9i中建立SPFILE文件</A> 
+  <LI><A title=使用product_user_profile来实现用户权限的设定 
+  href="http://doc.linuxpk.com/52562.html">使用product_user_profile来实现用户权限的设定</A> 
+  <LI><A title=FuseTalk安装学CFMX数据库安装技巧 
+  href="http://doc.linuxpk.com/52561.html">FuseTalk安装学CFMX数据库安装技巧</A> 
+  <LI><A title=OracleEnterpriseManager常见问题及解决 
+  href="http://doc.linuxpk.com/52560.html">OracleEnterpriseManager常见问题及解决</A> 
+  <LI><A title=常见数据库系统之比较Oracle数据库 
+  href="http://doc.linuxpk.com/52559.html">常见数据库系统之比较Oracle数据库</A> 
+  <LI><A title=创建一个ORACLEstandbydatabase的全过程 
+  href="http://doc.linuxpk.com/52558.html">创建一个ORACLEstandbydatabase的全过程</A> 
+  <LI><A title=Oracle数据库中常用操作的具体说明 
+  href="http://doc.linuxpk.com/52557.html">Oracle数据库中常用操作的具体说明</A> 
+  <LI><A title=显式游标范围大小和复杂间隔的相关问题介绍 
+  href="http://doc.linuxpk.com/52556.html">显式游标范围大小和复杂间隔的相关问题介绍</A> 
+  <LI><A title=OracleSQL依然无可替代-MasteringOracleSQL 
+  href="http://doc.linuxpk.com/52544.html">OracleSQL依然无可替代-MasteringOracleSQL</A> 
+
+  <LI><A title=Oracle数据库开发的一些经验积累（一） 
+  href="http://doc.linuxpk.com/52543.html">Oracle数据库开发的一些经验积累（一）</A> 
+  <LI><A title=Oracle数据库开发的一些经验积累（二） 
+  href="http://doc.linuxpk.com/52542.html">Oracle数据库开发的一些经验积累（二）</A> 
+  <LI><A title=OraclePL/SQLProfiler应用指南 
+  href="http://doc.linuxpk.com/52530.html">OraclePL/SQLProfiler应用指南</A> 
+  <LI><A title=OracleRAC中Srvctl命令详细说明文档 
+  href="http://doc.linuxpk.com/52529.html">OracleRAC中Srvctl命令详细说明文档</A> 
+  <LI><A title=Oracle的SQL*PLUS命令的使用大全 
+  href="http://doc.linuxpk.com/52528.html">Oracle的SQL*PLUS命令的使用大全</A> 
+  <LI><A title=Oracle中SQL*PLUS使用的一些技巧 
+  href="http://doc.linuxpk.com/52527.html">Oracle中SQL*PLUS使用的一些技巧</A> 
+  <LI><A title=Oracle9i数据库异常关闭后的启动 
+  href="http://doc.linuxpk.com/52526.html">Oracle9i数据库异常关闭后的启动</A> 
+  <LI><A title=浅谈Oracle数据库的建模与设计 
+  href="http://doc.linuxpk.com/52525.html">浅谈Oracle数据库的建模与设计</A> 
+  <LI><A title=Oracle中捕获问题SQL解决CPU过渡消耗 
+  href="http://doc.linuxpk.com/52524.html">Oracle中捕获问题SQL解决CPU过渡消耗</A> 
+</LI></UL></DIV></DIV>
+<DIV class=footer>
+<DIV class=blocks>
+<DIV class=outer>
+<DIV class=inner>
+<DIV class=expand>
+<P class=unfold id=button><SPAN>隐藏文档分类快捷跳转菜单</SPAN><SPAN class=ads><A 
+class=outlink title=中国Linux爱好者的SNS 
+href="http://sns.linuxpk.com/">中国Linux爱好者的SNS</A></SPAN><CODE class=clear><!--just a hack--></CODE></P></DIV>
+<DIV class=blocks_content>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel01.html">互联网</A> 
+  <DD><A href="http://doc.linuxpk.com/type1.html">圈子动态</A> 
+  <DD><A href="http://doc.linuxpk.com/type7.html">互联网投资</A> 
+  <DD><A href="http://doc.linuxpk.com/type6.html">互联网广告</A> 
+  <DD><A href="http://doc.linuxpk.com/type5.html">Web2.0</A> 
+  <DD><A href="http://doc.linuxpk.com/type11.html">内幕传闻</A> 
+  <DD><A href="http://doc.linuxpk.com/type4.html">IM</A> 
+  <DD><A href="http://doc.linuxpk.com/type10.html">电子商务</A> 
+  <DD><A href="http://doc.linuxpk.com/type3.html">搜索</A> 
+  <DD><A href="http://doc.linuxpk.com/type9.html">门户</A> 
+  <DD><A href="http://doc.linuxpk.com/type2.html">博客</A> 
+  <DD><A href="http://doc.linuxpk.com/type8.html">网游</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel02.html">IT动态</A> 
+  <DD><A href="http://doc.linuxpk.com/type14.html">观察分析</A> 
+  <DD><A href="http://doc.linuxpk.com/type13.html">IT要闻</A> 
+  <DD><A href="http://doc.linuxpk.com/type12.html">IT业界</A> 
+  <DD><A href="http://doc.linuxpk.com/type18.html">热门话题</A> 
+  <DD><A href="http://doc.linuxpk.com/type17.html">新经济</A> 
+  <DD><A href="http://doc.linuxpk.com/type16.html">硬件</A> 
+  <DD><A href="http://doc.linuxpk.com/type15.html">软件</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel03.html">通信</A> 
+  <DD><A href="http://doc.linuxpk.com/type20.html">市场行情</A> 
+  <DD><A href="http://doc.linuxpk.com/type26.html">移动</A> 
+  <DD><A href="http://doc.linuxpk.com/type19.html">通信动态</A> 
+  <DD><A href="http://doc.linuxpk.com/type25.html">VOIP</A> 
+  <DD><A href="http://doc.linuxpk.com/type24.html">IPTV</A> 
+  <DD><A href="http://doc.linuxpk.com/type23.html">3G</A> 
+  <DD><A href="http://doc.linuxpk.com/type22.html">手机世界</A> 
+  <DD><A href="http://doc.linuxpk.com/type28.html">解决方案</A> 
+  <DD><A href="http://doc.linuxpk.com/type21.html">分析报告</A> 
+  <DD><A href="http://doc.linuxpk.com/type27.html">增值</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel04.html">服务器</A> 
+  <DD><A href="http://doc.linuxpk.com/type33.html">服务器应用</A> 
+  <DD><A href="http://doc.linuxpk.com/type32.html">评测</A> 
+  <DD><A href="http://doc.linuxpk.com/type31.html">产品导购</A> 
+  <DD><A href="http://doc.linuxpk.com/type30.html">新闻</A> 
+  <DD><A href="http://doc.linuxpk.com/type29.html">行情</A> 
+  <DD><A href="http://doc.linuxpk.com/type34.html">解决方案</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel05.html">安全</A> 
+  <DD><A href="http://doc.linuxpk.com/type39.html">病毒专区</A> 
+  <DD><A href="http://doc.linuxpk.com/type38.html">安全基础</A> 
+  <DD><A href="http://doc.linuxpk.com/type37.html">软件产品</A> 
+  <DD><A href="http://doc.linuxpk.com/type36.html">硬件产品</A> 
+  <DD><A href="http://doc.linuxpk.com/type42.html">安全方案</A> 
+  <DD><A href="http://doc.linuxpk.com/type35.html">安全资讯</A> 
+  <DD><A href="http://doc.linuxpk.com/type41.html">防火墙</A> 
+  <DD><A href="http://doc.linuxpk.com/type40.html">黑客技术</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel06.html">游戏开发</A> 
+  <DD><A href="http://doc.linuxpk.com/type46.html">算法设计</A> 
+  <DD><A href="http://doc.linuxpk.com/type45.html">特效处理</A> 
+  <DD><A href="http://doc.linuxpk.com/type44.html">程序设计</A> 
+  <DD><A href="http://doc.linuxpk.com/type43.html">游戏策划</A> 
+  <DD><A href="http://doc.linuxpk.com/type47.html">图形图像</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel07.html">Cisco</A> 
+  <DD><A href="http://doc.linuxpk.com/type72.html">路由技术</A> 
+  <DD><A href="http://doc.linuxpk.com/type105.html">Cisco教材</A> 
+  <DD><A href="http://doc.linuxpk.com/type63.html">综合技术</A> 
+  <DD><A href="http://doc.linuxpk.com/type98.html">安全技术</A> 
+  <DD><A href="http://doc.linuxpk.com/type59.html">解决方案</A> 
+  <DD><A href="http://doc.linuxpk.com/type94.html">无线技术</A> 
+  <DD><A href="http://doc.linuxpk.com/type54.html">CISCO产品</A> 
+  <DD><A href="http://doc.linuxpk.com/type89.html">网络协议</A> 
+  <DD><A href="http://doc.linuxpk.com/type48.html">考试认证</A> 
+  <DD><A href="http://doc.linuxpk.com/type82.html">网络管理</A> 
+  <DD><A href="http://doc.linuxpk.com/type77.html">交换技术</A> 
+  <DD><A href="http://doc.linuxpk.com/type114.html">资讯动态</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel101.html">华为</A> 
+  <DD><A href="http://doc.linuxpk.com/type120.html">解决方案</A> 
+  <DD><A href="http://doc.linuxpk.com/type119.html">应用技术</A> 
+  <DD><A href="http://doc.linuxpk.com/type118.html">学习教程</A> 
+  <DD><A href="http://doc.linuxpk.com/type117.html">考试心得</A> 
+  <DD><A href="http://doc.linuxpk.com/type116.html">考试介绍</A> 
+  <DD><A href="http://doc.linuxpk.com/type115.html">认证介绍</A> 
+  <DD><A href="http://doc.linuxpk.com/type121.html">产品介绍</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel102.html">CIW</A> 
+  <DD><A href="http://doc.linuxpk.com/type126.html">应用技术</A> 
+  <DD><A href="http://doc.linuxpk.com/type125.html">学习教程</A> 
+  <DD><A href="http://doc.linuxpk.com/type124.html">考试心得</A> 
+  <DD><A href="http://doc.linuxpk.com/type123.html">考试介绍</A> 
+  <DD><A href="http://doc.linuxpk.com/type122.html">认证介绍</A> 
+  <DD><A href="http://doc.linuxpk.com/type127.html">解决方案</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel51.html">Windows</A> 
+  <DD><A href="http://doc.linuxpk.com/type170.html">系统优化</A> 
+  <DD><A href="http://doc.linuxpk.com/type165.html">系统技巧</A> 
+  <DD><A href="http://doc.linuxpk.com/type159.html">系统故障</A> 
+  <DD><A href="http://doc.linuxpk.com/type150.html">系统安全</A> 
+  <DD><A href="http://doc.linuxpk.com/type144.html">网络技巧</A> 
+  <DD><A href="http://doc.linuxpk.com/type180.html">资讯动态</A> 
+  <DD><A href="http://doc.linuxpk.com/type136.html">服务器技术</A> 
+  <DD><A href="http://doc.linuxpk.com/type175.html">windows新手入门</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel52.html">Linux</A> 
+  <DD><A href="http://doc.linuxpk.com/type128.html">其他</A> 
+  <DD><A href="http://doc.linuxpk.com/type198.html">Linux数据库</A> 
+  <DD><A href="http://doc.linuxpk.com/type129.html">发行版</A> 
+  <DD><A href="http://doc.linuxpk.com/type194.html">网络管理</A> 
+  <DD><A href="http://doc.linuxpk.com/type188.html">系统管理</A> 
+  <DD><A href="http://doc.linuxpk.com/type184.html">linux新手入门</A> 
+  <DD><A href="http://doc.linuxpk.com/type1079.html">编辑工具</A> 
+  <DD><A href="http://doc.linuxpk.com/type201.html">Linux编程</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel53.html">Java</A> 
+  <DD><A href="http://doc.linuxpk.com/type225.html">J2EE</A> 
+  <DD><A href="http://doc.linuxpk.com/type219.html">高级技术</A> 
+  <DD><A href="http://doc.linuxpk.com/type213.html">核心技术</A> 
+  <DD><A href="http://doc.linuxpk.com/type249.html">其它技术</A> 
+  <DD><A href="http://doc.linuxpk.com/type207.html">java新手入门</A> 
+  <DD><A href="http://doc.linuxpk.com/type240.html">开源技术</A> 
+  <DD><A href="http://doc.linuxpk.com/type206.html">资讯动态</A> 
+  <DD><A href="http://doc.linuxpk.com/type237.html">XML</A> 
+  <DD><A href="http://doc.linuxpk.com/type233.html">J2ME</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel55.html">Oracle</A> 
+  <DD><A href="http://doc.linuxpk.com/type265.html">入门基础</A> 
+  <DD><A href="http://doc.linuxpk.com/type258.html">安装配置</A> 
+  <DD><A href="http://doc.linuxpk.com/type264.html">考试认证</A> 
+  <DD><A href="http://doc.linuxpk.com/type263.html">资讯动态</A> 
+  <DD><A href="http://doc.linuxpk.com/type262.html">开发技术</A> 
+  <DD><A href="http://doc.linuxpk.com/type261.html">性能调优</A> 
+  <DD><A href="http://doc.linuxpk.com/type260.html">备份恢复</A> 
+  <DD><A href="http://doc.linuxpk.com/type259.html">PLSQL</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel56.html">网页设计</A> 
+  <DD><A href="http://doc.linuxpk.com/type285.html">JavaScript</A> 
+  <DD><A href="http://doc.linuxpk.com/type284.html">HTML/CSS</A> 
+  <DD><A href="http://doc.linuxpk.com/type283.html">FrontPage</A> 
+  <DD><A href="http://doc.linuxpk.com/type278.html">Fireworks</A> 
+  <DD><A href="http://doc.linuxpk.com/type272.html">Flash</A> 
+  <DD><A href="http://doc.linuxpk.com/type268.html">Dreamweaver</A> 
+  <DD><A href="http://doc.linuxpk.com/type1116.html">ASP</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/type57.html">平面设计</A> 
+  <DD><A href="http://doc.linuxpk.com/type299.html">Freehand</A> 
+  <DD><A href="http://doc.linuxpk.com/type298.html">Illustrator</A> 
+  <DD><A href="http://doc.linuxpk.com/type297.html">AuotoCAD</A> 
+  <DD><A href="http://doc.linuxpk.com/type292.html">CorelDraw</A> 
+  <DD><A href="http://doc.linuxpk.com/type286.html">Photoshop</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/type58.html">多媒体</A> 
+  <DD><A href="http://doc.linuxpk.com/type300.html">3DMax</A> 
+  <DD><A href="http://doc.linuxpk.com/type307.html">Maya</A> 
+  <DD><A href="http://doc.linuxpk.com/type306.html">Director</A> 
+  <DD><A href="http://doc.linuxpk.com/type305.html">Authorware</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/type59.html">工具软件</A> 
+  <DD><A href="http://doc.linuxpk.com/type311.html">eMule</A> 
+  <DD><A href="http://doc.linuxpk.com/type317.html">Maxthon</A> 
+  <DD><A href="http://doc.linuxpk.com/type310.html">BT</A> 
+  <DD><A href="http://doc.linuxpk.com/type316.html">IE</A> 
+  <DD><A href="http://doc.linuxpk.com/type309.html">迅雷</A> 
+  <DD><A href="http://doc.linuxpk.com/type315.html">Outlook</A> 
+  <DD><A href="http://doc.linuxpk.com/type308.html">PP点点通</A> 
+  <DD><A href="http://doc.linuxpk.com/type314.html">Ghost</A> 
+  <DD><A href="http://doc.linuxpk.com/type313.html">Nero</A> 
+  <DD><A href="http://doc.linuxpk.com/type312.html">FlashGet</A> 
+  <DD><A href="http://doc.linuxpk.com/type318.html">Office</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel60.html">即时通讯</A> 
+  <DD><A href="http://doc.linuxpk.com/type328.html">新浪UC</A> 
+  <DD><A href="http://doc.linuxpk.com/type327.html">雅虎通</A> 
+  <DD><A href="http://doc.linuxpk.com/type326.html">Skype</A> 
+  <DD><A href="http://doc.linuxpk.com/type325.html">网易泡泡</A> 
+  <DD><A href="http://doc.linuxpk.com/type324.html">MSN</A> 
+  <DD><A href="http://doc.linuxpk.com/type323.html">QQ</A> </DD></DL>
+<DL>
+  <DT><A href="http://doc.linuxpk.com/channel54.html">.Net</A> 
+  <DD><A href="http://doc.linuxpk.com/type252.html">C#</A> 
+  <DD><A href="http://doc.linuxpk.com/type251.html">ASP.NET</A> 
+  <DD><A href="http://doc.linuxpk.com/type257.html">.NETFramework</A> 
+  <DD><A href="http://doc.linuxpk.com/type250.html">资讯动态</A> 
+  <DD><A href="http://doc.linuxpk.com/type256.html">VB.NET</A> 
+  <DD><A href="http://doc.linuxpk.com/type255.html">VC.NET</A> 
+  <DD><A href="http://doc.linuxpk.com/type254.html">ADO.NET</A> 
+  <DD><A href="http://doc.linuxpk.com/type253.html">XML/WebService</A> 
+</DD></DL></DIV>
+<DIV class=clear></DIV></DIV></DIV></DIV>
+<DIV class=friend_links>
+<DIV class=links_img></DIV>
+<DIV class=links_text>
+<H6>友情链接</H6>
+<UL>
+  <LI><A title=比特网软件与服务 href="http://soft.chinabyte.com/" 
+  target=_blank>比特网软件与服务</A> 
+  <LI><A title=51CTO.com href="http://www.51cto.com/" 
+  target=_blank>51CTO.com</A> 
+  <LI><A title=CIOAge.com href="http://www.cioage.com/" 
+  target=_blank>CIOAge.com</A> 
+  <LI><A title=红联linux论坛 href="http://www.linuxdiyf.com/" 
+  target=_blank>红联linux论坛</A> 
+  <LI><A title=Freelamp href="http://www.freelamp.com/" 
+  target=_blank>Freelamp</A> 
+  <LI><A title=mysql中文网 href="http://imysql.cn/" target=_blank>mysql中文网</A> 
+  <LI><A title=蓝森林-自由软件 href="http://www.lslnet.com/linux/" 
+  target=_blank>蓝森林-自由软件</A> 
+  <LI><A title=考拉网 href="http://www.kaola.cn/" target=_blank>考拉网</A> 
+  <LI><A title=亲亲家园 href="http://www.77my.com/" target=_blank>亲亲家园</A> 
+  <LI><A title=望京网 href="http://www.wangjing.cn/" target=_blank>望京网</A> 
+  <LI><A title=豆豆技术应用 href="http://www.ddvip.com/" target=_blank>豆豆技术应用</A> 
+  <LI><A title=弯曲评论 href="http://www.tektalk.cn/" target=_blank>弯曲评论</A> 
+  <LI><A title=群英荟萃 href="http://www.jobvisa.cn/" target=_blank>群英荟萃</A> 
+  <LI><A title=软件项目交易网 href="http://www.sxsoft.com/" target=_blank>软件项目交易网</A> 
+  <LI><A title=红旗Linux href="http://www.redflag-linux.com/" 
+  target=_blank>红旗Linux</A> 
+  <LI><A title=Linux宝库论坛 href="http://bbs.linuxpk.com/" 
+  target=_blank>Linux宝库论坛</A> 
+  <LI><A title=西三旗网 href="http://www.xisanqi.net/" target=_blank>西三旗网</A> 
+</LI></UL></DIV></DIV>
+<DIV class=site_info>
+<DIV class=infos>
+<UL>
+  <LI class=first><A title=linuxpk href="http://www.linuxpk.com/" 
+  target=_blank>Linux宝库</A> 
+  <LI><A title=交流论坛 href="http://bbs.linuxpk.com/" target=_blank>交流论坛</A> 
+  <LI><A title=快捷面板 href="http://www.linuxpk.com/action/site/type/panel.html" 
+  target=_blank>快捷面板</A> 
+  <LI><A title=站点地图 href="http://www.linuxpk.com/action/site/type/map.html" 
+  target=_blank>站点地图</A> 
+  <LI><A title=友情链接 href="http://www.linuxpk.com/action/site/type/link.html" 
+  target=_blank>友情链接</A> 
+  <LI><A title=空间列表 href="http://www.linuxpk.com/action/spaces.html" 
+  target=_blank>空间列表</A> 
+  <LI><A title=站点存档 href="http://www.linuxpk.com/archiver/" 
+  target=_blank>站点存档</A> 
+  <LI><A title=联系我们 href="mailto:admin@you.com" target=_blank>联系我们</A> 
+</LI></UL></DIV>
+<P>Copyright ©2004 - 2008 <SPAN><A title=linux宝库 href="http://www.linuxpk.com/" 
+target=_blank>Linux宝库</A></SPAN> All Rights Reserved <SPAN><A 
+href="http://www.miibeian.gov.cn/" 
+target=_blank>京ICP备06004652号</A></SPAN></P></DIV></DIV></DIV>
+<SCRIPT 
+src="正文 - Oracle聚合函数RANK和dense_rank的使用 - Linux文库.files/jquery-ui-personalized-1.5.2.min.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="正文 - Oracle聚合函数RANK和dense_rank的使用 - Linux文库.files/article.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="正文 - Oracle聚合函数RANK和dense_rank的使用 - Linux文库.files/common.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="正文 - Oracle聚合函数RANK和dense_rank的使用 - Linux文库.files/urchin.js" 
+type=text/javascript>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+_uacct = "UA-437782-6";
+urchinTracker();
+</SCRIPT>
+</BODY></HTML>

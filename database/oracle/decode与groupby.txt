@@ -1,0 +1,27 @@
+select sum(zixun),sum(tousu),sum(yuyue) from 
+(
+  select 
+  two.org_alias,two.org_id,two.user_id
+  ,sum(decode(two.in_acceptedtype,'×ÉÑ¯',1,0)) as zixun 
+  ,sum(decode(two.in_acceptedtype,'Í¶Ëß',1,0)) as tousu
+  ,sum(decode(two.in_acceptedtype,'Ô¤Ô¼',1,0)) as yuyue
+ -- ,count(decode(two.in_acceptedtype,'×ÉÑ¯',two.in_acceptedtype,null))
+ -- ,count(decode(two.in_acceptedtype,'Í¶Ëß',two.in_acceptedtype,null))
+ -- ,count(decode(two.in_acceptedtype,'Ô¤Ô¼',two.in_acceptedtype,null))
+  from  
+  (
+     select * from  wb_inb  wh, 
+     (
+             select sou.user_id,so.org_id,so.org_alias from 
+             s_org_user sou
+             ,s_org so
+             where  
+             sou.org_id=so.org_id(+)
+     ) one
+     where wh.userlogin=one.user_id(+)
+  ) two
+  group by two.org_alias,two.org_id,two.user_id
+  
+) outtable
+group by org_alias.org_id,two.user_id
+

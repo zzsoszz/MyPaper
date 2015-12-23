@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<config>
+
+    <summary>
+        Main page - view all records and addnew form
+    </summary>
+
+    <log>false</log>
+
+    <transaction>
+        <classname>transactions.function.voice.NiceSearchVoice</classname>
+        <validator>false</validator>
+        <transaction>false</transaction>
+        <jdbc-log>false</jdbc-log>
+        <datasource>jdbc/nice</datasource>
+        
+        <recordset id="query.sql" source="session" scope="session" />
+        
+        <recordset id="vcquery.sql" source="sql" scope="session" />
+        
+    </transaction>
+    <!--
+	 <output>
+        <classname>dinamica.GenericOutput</classname>
+        <template>template.txt</template>
+        <set-http-headers>true</set-http-headers>
+        <content-type>text/html;charset=GBK</content-type>
+        <expiration>1</expiration>
+        <print mode="table" recordset="query.sql" tag="combo-items-voice" />
+        <print mode="form" recordset="query.sql"/>
+    </output>
+    -->
+    <on-exit return-code="0" forward-to="/action/function/voicenew/search"/>
+    <on-exit return-code="1" forward-to="/action/function/voice/noresult"/>
+</config>

@@ -1,0 +1,101 @@
+Oracle Long类型转换为Clob类型2009年03月27日 星期五 16:29INSERT INTO sammy_test_clob
+   SELECT TO_LOB (report_xml)
+     FROM qm_s_report
+    WHERE report_name = 'Sammy';
+
+
+TO_LOB函数和LONG类型一样，限制有很多。简单的说，TO_LOB一般只用在CREATE TABLE或INSERT TABLE语句后面的子查询中。在其他地方使用会报错，比如UPDATE语句。
+这还不是最大的问题，最大的问题在于，TO_LOB函数似乎并没有真正的将LONG类型转化为LOB数据类型。个人感觉，Oracle只是对LONG类型做了一些处理，使之可以存放到一个LOB类型中去。
+
+
+
+转自：http://blog.csdn.net/gbnew/archive/2007/07/20/1700596.aspx
+
+TO_LOB函数是一个很特殊的函数，特殊之处在于，这个函数可以处理LONG类型数据，而且这个函数和LONG类型一样，拥有很多的限制。不过，这些还不是很特殊的地方，下面简单看一下TO_LOB这个函数。
+
+
+
+Oracle的LONG类型可谓“臭名昭著”，由于LONG类型的限制太多，以至于Oracle很少去提LONG类型有哪些限制条件，而一般都是通过说明在哪些情况下，可以使用LONG类型。
+
+正是这些限制阻止了LONG的使用，Oracle也在推出了大对象类型——LOB之后，强烈建议用户不要在使用LONG类型。
+
+但是，具有讽刺意味的是，Oracle建议用户不要再使用LONG类型，可是数据字典中，随处可以看到LONG的身影。而且，即使是目前使用的最高版本10R2，LONG类型仍然在数据字典中随处可见。不知道Oracle是考虑兼容性的问题还是其他什么原因，反正Oracle仍然没有把LONG类型从数据字典中移出去。不知道11g中是否有所改观。
+
+虽然Oracle自己没有做到，但是仍然建议用户不要在使用LONG，并使用BLOB、CLOB来替换现有系统中的LONG字段。而且LONG类型的限制也确实使人头疼，将LONG类型转化为LOB类型的工具，就是TO_LOB函数。
+
+TO_LOB函数和LONG类型一样，限制有很多。简单的说，TO_LOB一般只用在CREATE TABLE或INSERT TABLE语句后面的子查询中。在其他地方使用会报错，比如UPDATE语句。
+
+这还不是最大的问题，最大的问题在于，TO_LOB函数似乎并没有真正的将LONG类型转化为LOB数据类型。个人感觉，Oracle只是对LONG类型做了一些处理，使之可以存放到一个LOB类型中去。
+
+SQL> CREATE TABLE T1 (ID NUMBER, TEXT CLOB);
+
+表已创建。
+
+SQL> CREATE TABLE T2 (ID NUMBER, TEXT VARCHAR2(4000));
+
+表已创建。
+
+SQL> INSERT INTO T1 SELECT ROWNUM, TEXT FROM DBA_VIEWS;
+INSERT INTO T1 SELECT ROWNUM, TEXT FROM DBA_VIEWS
+*第 1 行出现错误:
+ORA-00997: illegal use of LONG datatype
+
+
+SQL> INSERT INTO T1 SELECT ROWNUM, TO_LOB(TEXT) FROM DBA_VIEWS;
+
+已创建2268行。
+
+SQL> COMMIT;
+
+提交完成。
+
+使用TO_LOB可以将LONG数据插入到CLOB字段中，但是如果想要将LONG数据插入到VARCHAR2中：
+
+SQL> INSERT INTO T2 SELECT ROWNUM, TEXT FROM DBA_VIEWS;
+INSERT INTO T2 SELECT ROWNUM, TEXT FROM DBA_VIEWS
+*第 1 行出现错误:
+ORA-00997: illegal use of LONG datatype
+
+
+SQL> INSERT INTO T2 SELECT ROWNUM, DBMS_LOB.SUBSTR(TO_LOB(TEXT), 4000, 1) FROM DBA_VIEWS;
+INSERT INTO T2 SELECT ROWNUM, DBMS_LOB.SUBSTR(TO_LOB(TEXT), 4000, 1) FROM DBA_VIEWS
+*第 1 行出现错误:
+ORA-00932: inconsistent datatypes: expected - got LONG
+
+直接插入肯定不行，但是刚才已经得到了CLOB类型，那么将CLOB转化为VARCHAR2不就可以了？但是结果确出人意料。观察错误信息，Oracle认为返回的数据类型是LONG。似乎TO_LOB并没有进行数据类型的转化。下面再验证一下：
+
+SQL> SELECT DUMP(TO_LOB(TEXT)) FROM DBA_VIEWS;
+SELECT DUMP(TO_LOB(TEXT)) FROM DBA_VIEWS
+*第 1 行出现错误:
+ORA-00932: inconsistent datatypes: expected - got LONG
+
+
+SQL> SELECT DUMP(TEXT) FROM T1;
+SELECT DUMP(TEXT) FROM T1
+*第 1 行出现错误:
+ORA-00932: inconsistent datatypes: expected - got CLOB
+
+从这个对比中已经可以清楚的看到，TO_LOB函数并不像想象中的那样返回CLOB类型，而实际上返回的仍然是LONG类型。
+
+SQL> INSERT INTO T2 SELECT ROWNUM, TO_LOB(TEXT) FROM DBA_VIEWS;
+
+已创建2268行。
+
+直接使用TO_LOB似乎可以插入，但是仔细对比一下结果就会发现，LONG类型数据没有真正的插入到表中：
+
+SQL> COL TEXT FORMAT A50
+SQL> SET LONG 50
+SQL> SELECT * FROM T2 WHERE ROWNUM < 3;
+
+ID TEXT
+---------- --------------------------------------------------
+1
+2
+
+SQL> SELECT * FROM T1 WHERE ROWNUM < 3;
+
+ID TEXT
+---------- --------------------------------------------------
+1 select OWNER, TABLE_NAME, TABLESPACE_NAME, CLUSTER
+2 select a.apply_name, a.queue_name, a.queue_owner,
+ 

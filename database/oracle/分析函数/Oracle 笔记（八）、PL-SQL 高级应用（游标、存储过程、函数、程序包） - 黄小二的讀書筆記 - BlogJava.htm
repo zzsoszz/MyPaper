@@ -1,0 +1,917 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0050)http://www.blogjava.net/kiant/articles/236591.html -->
+<HTML><HEAD id=Head><TITLE>Oracle 笔记（八）、PL/SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META id=metaKeywords content="Oracle 笔记（八）、PL/SQL 高级应用（游标、存储过程、函数、程序包）" 
+name=keywords><LINK id=MainCss 
+href="Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files/style.css" 
+type=text/css rel=stylesheet><LINK id=RSSLink title=RSS 
+href="http://www.blogjava.net/kiant/rss.aspx" type=application/rss+xml 
+rel=alternate>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<FORM id=Form1 name=Form1 onsubmit="javascript:return WebForm_OnSubmit();" 
+action=236591.html method=post>
+<DIV><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE> </DIV>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</SCRIPT>
+
+<SCRIPT 
+src="Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=JavaScript>
+									function ctlent(evt,id)
+											{
+												if(evt.ctrlKey && evt.keyCode == 13)
+												{	
+													try
+													{
+														TempSave(id);
+													}
+													catch(ex)
+													{
+													}
+													finally
+													{
+													    __doPostBack('AjaxHolder$PostComment$btnSubmit','')
+													}
+												}
+		
+												}</SCRIPT>
+
+<SCRIPT language=JavaScript>function SetReplyAuhor(author){document.getElementById('AjaxHolder_PostComment_tbComment').value+="@"+author+"\n";document.getElementById('AjaxHolder_PostComment_tbComment').focus();return false}</SCRIPT>
+
+<SCRIPT 
+src="Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files/ScriptResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="D:\Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files\ScriptResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="D:\Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files\ScriptResource(2).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</SCRIPT>
+<!--done-->
+<DIV id=header><!--done-->
+<DIV class=header>
+<DIV class=headerText><A class=headermaintitle id=Header1_HeaderTitle 
+href="http://www.blogjava.net/kiant/">黄小二的讀書筆記</A><BR>理解绝对是养育一切友情之果的土壤 
+</DIV></DIV></DIV>
+<DIV id=mylinks><!--done--><A class=menu id=MyLinks1_HomeLink 
+href="http://www.blogjava.net/">BlogJava</A>&nbsp;&nbsp;&nbsp; <A class=menu 
+id=MyLinks1_MyHomeLink 
+href="http://www.blogjava.net/kiant/">首页</A>&nbsp;&nbsp;&nbsp; <A class=menu 
+id=MyLinks1_NewPostLink 
+href="http://www.blogjava.net/kiant/admin/EditPosts.aspx?opt=1">新随笔</A>&nbsp;&nbsp;&nbsp; 
+<A class=menu id=MyLinks1_ContactLink accessKey=9 
+href="http://www.blogjava.net/kiant/contact.aspx?id=1">联系</A>&nbsp;&nbsp;&nbsp; 
+<A class=menu id=MyLinks1_Syndication 
+href="http://www.blogjava.net/kiant/rss">聚合</A><A id=MyLinks1_XMLLink 
+href="http://www.blogjava.net/kiant/rss"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+src="Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files/xml.gif"></A>&nbsp;&nbsp;&nbsp; 
+<A class=menu id=MyLinks1_Admin 
+href="http://www.blogjava.net/kiant/admin/EditPosts.aspx">管理</A> </DIV>
+<DIV id=mytopmenu><!--done-->
+<DIV class=blogStats>随笔 - 7&nbsp; 文章 - 0&nbsp; trackbacks - 0 </DIV></DIV>
+<DIV id=leftcontent>
+<DIV id=leftcontentcontainer>
+<TABLE class=Cal id=Calendar1_entryCal title=Calendar 
+style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px; BORDER-COLLAPSE: collapse" 
+cellSpacing=0 cellPadding=0 border=0>
+  <TBODY>
+  <TR>
+    <TD style="BACKGROUND-COLOR: transparent" colSpan=7>
+      <TABLE class=CalTitle style="WIDTH: 100%; BORDER-COLLAPSE: collapse" 
+      cellSpacing=0 border=0>
+        <TBODY>
+        <TR>
+          <TD class=CalNextPrev style="WIDTH: 15%"><A 
+            title="Go to the previous month" style="COLOR: black" 
+            href="javascript:__doPostBack('Calendar1$entryCal','V3227')">&lt;</A></TD>
+          <TD style="WIDTH: 70%" align=middle>2008年12月</TD>
+          <TD class=CalNextPrev style="WIDTH: 15%" align=right><A 
+            title="Go to the next month" style="COLOR: black" 
+            href="javascript:__doPostBack('Calendar1$entryCal','V3288')">&gt;</A></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TH class=CalDayHeader scope=col align=middle abbr=日>日</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=一>一</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=二>二</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=三>三</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=四>四</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=五>五</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=六>六</TH></TR>
+  <TR>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>30</TD>
+    <TD style="WIDTH: 14%" align=middle>1</TD>
+    <TD class=CalTodayDay style="WIDTH: 14%" align=middle>2</TD>
+    <TD style="WIDTH: 14%" align=middle>3</TD>
+    <TD style="WIDTH: 14%" align=middle>4</TD>
+    <TD style="WIDTH: 14%" align=middle>5</TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>6</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>7</TD>
+    <TD style="WIDTH: 14%" align=middle>8</TD>
+    <TD style="WIDTH: 14%" align=middle>9</TD>
+    <TD style="WIDTH: 14%" align=middle>10</TD>
+    <TD style="WIDTH: 14%" align=middle>11</TD>
+    <TD style="WIDTH: 14%" align=middle>12</TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>13</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>14</TD>
+    <TD style="WIDTH: 14%" align=middle>15</TD>
+    <TD style="WIDTH: 14%" align=middle>16</TD>
+    <TD style="WIDTH: 14%" align=middle>17</TD>
+    <TD style="WIDTH: 14%" align=middle>18</TD>
+    <TD style="WIDTH: 14%" align=middle>19</TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>20</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>21</TD>
+    <TD style="WIDTH: 14%" align=middle>22</TD>
+    <TD style="WIDTH: 14%" align=middle>23</TD>
+    <TD style="WIDTH: 14%" align=middle>24</TD>
+    <TD style="WIDTH: 14%" align=middle>25</TD>
+    <TD style="WIDTH: 14%" align=middle>26</TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>27</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>28</TD>
+    <TD style="WIDTH: 14%" align=middle>29</TD>
+    <TD style="WIDTH: 14%" align=middle>30</TD>
+    <TD style="WIDTH: 14%" align=middle>31</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>1</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>2</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>3</TD></TR>
+  <TR>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>4</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>5</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>6</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>7</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>8</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>9</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" 
+align=middle>10</TD></TR></TBODY></TABLE><BR>
+<H3>常用链接</H3>
+<UL>
+  <LI><A id=SingleColumn1_ctl00_repeaterLinks_ctl01_lnkLinkItem 
+  href="http://www.blogjava.net/kiant/MyPosts.html">我的随笔</A> 
+  <LI><A id=SingleColumn1_ctl00_repeaterLinks_ctl02_lnkLinkItem 
+  href="http://www.blogjava.net/kiant/MyArticles.html">我的文章</A> 
+  <LI><A id=SingleColumn1_ctl00_repeaterLinks_ctl03_lnkLinkItem 
+  href="http://www.blogjava.net/kiant/MyComments.html">我的评论</A> 
+  <LI><A id=SingleColumn1_ctl00_repeaterLinks_ctl04_lnkLinkItem 
+  href="http://www.blogjava.net/kiant/OtherPosts.html">我的参与</A> </LI></UL><!--done-->
+<H1 class=catListTitle>文章分类</H1>
+<UL class=catList>
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_Link 
+  href="http://www.blogjava.net/kiant/category/35695.html">ASP.NET(2)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_RssLink 
+  title="Subscribe to ASP.NET(2)" 
+  href="http://www.blogjava.net/kiant/category/35695.html/rss"><IMG 
+  title="Subscribe to ASP.NET(2)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_Link 
+  href="http://www.blogjava.net/kiant/category/34315.html">Database(6)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_RssLink 
+  title="Subscribe to Database(6)" 
+  href="http://www.blogjava.net/kiant/category/34315.html/rss"><IMG 
+  title="Subscribe to Database(6)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_Link 
+  href="http://www.blogjava.net/kiant/category/35341.html">Database -- 
+  Oracle(10)</A><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_RssLink 
+  title="Subscribe to Database -- Oracle(10)" 
+  href="http://www.blogjava.net/kiant/category/35341.html/rss"><IMG 
+  title="Subscribe to Database -- Oracle(10)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_Link 
+  href="http://www.blogjava.net/kiant/category/32981.html">Hibernate(6)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_RssLink 
+  title="Subscribe to Hibernate(6)" 
+  href="http://www.blogjava.net/kiant/category/32981.html/rss"><IMG 
+  title="Subscribe to Hibernate(6)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_Link 
+  href="http://www.blogjava.net/kiant/category/32999.html">J2EE(12)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_RssLink 
+  title="Subscribe to J2EE(12)" 
+  href="http://www.blogjava.net/kiant/category/32999.html/rss"><IMG 
+  title="Subscribe to J2EE(12)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_Link 
+  href="http://www.blogjava.net/kiant/category/34637.html">J2SE(4)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_RssLink 
+  title="Subscribe to J2SE(4)" 
+  href="http://www.blogjava.net/kiant/category/34637.html/rss"><IMG 
+  title="Subscribe to J2SE(4)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl07_Link 
+  href="http://www.blogjava.net/kiant/category/34296.html">Web Design(4)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl07_RssLink 
+  title="Subscribe to Web Design(4)" 
+  href="http://www.blogjava.net/kiant/category/34296.html/rss"><IMG 
+  title="Subscribe to Web Design(4)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files\xml(1).gif"></A> 
+  </LI></UL>
+<H1 class=catListTitle>文章档案</H1>
+<UL class=catList>
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_Link 
+  href="http://www.blogjava.net/kiant/archives/2008/11.html">2008年11月 (1)</A> 
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl02_Link 
+  href="http://www.blogjava.net/kiant/archives/2008/10.html">2008年10月 (17)</A> 
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl03_Link 
+  href="http://www.blogjava.net/kiant/archives/2008/09.html">2008年9月 (18)</A> 
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl04_Link 
+  href="http://www.blogjava.net/kiant/archives/2008/08.html">2008年8月 (2)</A> 
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl05_Link 
+  href="http://www.blogjava.net/kiant/archives/2008/07.html">2008年7月 (3)</A> 
+  </LI></UL>
+<H1 class=catListTitle>相册</H1>
+<UL class=catList>
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl01_Link 
+  href="http://www.blogjava.net/kiant/gallery/32889.html">PowerDesigner</A> 
+</LI></UL>
+<H1 class=catListTitle>收藏夹</H1>
+<UL class=catList>
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl01_Link 
+  href="http://www.blogjava.net/kiant/favorite/34330.html">.Net(1)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl01_RssLink 
+  title="Subscribe to .Net(1)" 
+  href="http://www.blogjava.net/kiant/favorite/34330.html/rss"><IMG 
+  title="Subscribe to .Net(1)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl02_Link 
+  href="http://www.blogjava.net/kiant/favorite/34329.html">Database(7)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl02_RssLink 
+  title="Subscribe to Database(7)" 
+  href="http://www.blogjava.net/kiant/favorite/34329.html/rss"><IMG 
+  title="Subscribe to Database(7)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl03_Link 
+  href="http://www.blogjava.net/kiant/favorite/34316.html">Java(7)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl03_RssLink 
+  title="Subscribe to Java(7)" 
+  href="http://www.blogjava.net/kiant/favorite/34316.html/rss"><IMG 
+  title="Subscribe to Java(7)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl04_Link 
+  href="http://www.blogjava.net/kiant/favorite/35400.html">Java -- J2EE(2)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl04_RssLink 
+  title="Subscribe to Java -- J2EE(2)" 
+  href="http://www.blogjava.net/kiant/favorite/35400.html/rss"><IMG 
+  title="Subscribe to Java -- J2EE(2)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl05_Link 
+  href="http://www.blogjava.net/kiant/favorite/35391.html">Java -- J2SE</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl05_RssLink 
+  title="Subscribe to Java -- J2SE" 
+  href="http://www.blogjava.net/kiant/favorite/35391.html/rss"><IMG 
+  title="Subscribe to Java -- J2SE" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files\xml(1).gif"></A> 
+
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl06_Link 
+  href="http://www.blogjava.net/kiant/favorite/34298.html">Web Design(4)</A><A 
+  class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl06_RssLink 
+  title="Subscribe to Web Design(4)" 
+  href="http://www.blogjava.net/kiant/favorite/34298.html/rss"><IMG 
+  title="Subscribe to Web Design(4)" 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  src="D:\Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files\xml(1).gif"></A> 
+  </LI></UL>
+<H1 class=catListTitle>在线帮助</H1>
+<UL class=catList>
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl01_Link 
+  href="http://java.sun.com/reference/api/index.html" target=_blank>Java API 
+  Specifications </A>
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl02_Link 
+  href="http://msdn.microsoft.com/zh-cn/library/default.aspx" target=_blank>MSDN 
+  技术资源库</A> 
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl03_Link 
+  href="http://dev.mysql.com/doc/refman/5.1/zh/index.html" target=_blank>MySQL 
+  5.1参考手册</A> 
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl04_LinkList_ctl04_Link 
+  href="http://tahiti.oracle.com/" target=_blank>Oracle Documentation</A> 
+</LI></UL>
+<H1 class=catListTitle>社区</H1>
+<UL class=catList>
+  <LI class=catListItem><A class=listitem 
+  id=SingleColumn1_Categories_CatList_ctl05_LinkList_ctl01_Link 
+  href="http://www.ibm.com/developerworks/cn/" target=_blank>developerWorks 
+  中国</A> </LI></UL>
+<SCRIPT language=JavaScript>
+function SearchGoogle(key,evt,site)
+		{
+			if(evt.keyCode==13 || evt.keyCode==0 || evt.type =='click')
+			{
+				key.focus();
+				var keystr = encodeURIComponent(key.value);
+				url = "http://www.google.com/search?q=";
+				url = url+keystr;
+				url += "&ie=UTF-8&oe=GB2312&hl=zh-CN&domains="+site+"&sitesearch="+site;
+				window.location=url;
+				return false;
+			}
+		}
+</SCRIPT>
+
+<H3>搜索</H3>
+<UL>
+  <LI>
+  <LI><INPUT id=q 
+  onkeydown="return SearchGoogle(document.getElementById('q'),event,'www.blogjava.net/kiant')" 
+  style="WIDTH: 130px" name=q>&nbsp;<INPUT onclick="SearchGoogle(document.getElementById('q'),event,'www.blogjava.net/kiant')" type=button value=搜索 name=sa> 
+  </LI></UL>
+<H3>最新评论 <A id=SingleColumn1__290302b_RSSHyperlink1 
+href="http://www.blogjava.net/kiant/CommentsRSS.aspx"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+src="Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files/xml.gif"></A></H3>
+<DIV class=RecentComment></DIV>
+<H3>阅读排行榜</H3>
+<DIV class=RecentComment>
+<UL style="WORD-BREAK: break-all"></UL></DIV>
+<H3>评论排行榜</H3>
+<DIV class=RecentComment>
+<UL style="WORD-BREAK: break-all"></UL></DIV></DIV></DIV>
+<DIV id=centercontent><!--done-->
+<DIV class=post>
+<DIV class=postTitle><A class=postTitle2 id=viewpost1_TitleUrl 
+href="http://www.blogjava.net/kiant/articles/236591.html">Oracle 笔记（八）、PL/SQL 
+高级应用（游标、存储过程、函数、程序包）</A> </DIV><BR><BR><A 
+href="http://www.blogjava.net/kiant/articles/236591.html#1">一、游标</A><BR><A 
+href="http://www.blogjava.net/kiant/articles/236591.html#2">二、存储过程</A><BR><A 
+href="http://www.blogjava.net/kiant/articles/236591.html#3">三、函数</A><BR>&nbsp;&nbsp;&nbsp; 
+<A 
+href="http://www.blogjava.net/kiant/articles/236591.html#30">过程与函数的异同</A><BR><A 
+href="http://www.blogjava.net/kiant/articles/236591.html#4">四、程序包</A><BR><BR><BR><BR><A 
+id=1 name=1></A><STRONG><SPAN 
+style="FONT-SIZE: 14pt">一、游标</SPAN></STRONG><BR>&nbsp;&nbsp;&nbsp; 游标是一种 PL/SQL 
+控制结构，可以对SQL语句的处理进行显式控制，便于对表的数据逐条进行处理。<BR>ps.当表中数据量大的时候，不建议使用游标（效率不高，耗费资源），但是它能逐条取数据方法灵活。<BR>&nbsp;&nbsp;&nbsp; 
+游标是记录的指针，利用游标对活动集的更新或删除会反馈到表的记录上。<BR><BR>游标属性：%FOUND、%NOTFOUND、%ROWCOUNT、%ISOPEN<BR><BR><BR><STRONG>1、显式游标</STRONG><BR>&nbsp;&nbsp;&nbsp; 
+显式游标是由用户显式声明的游标。根据在游标中定义的查询，查询返回的行集可以包含零或多行，这些行称为活动集。游标将指向活动集中的当前行。<BR><BR>显式游标操纵过程：声明、打开、从游标中获取记录、关闭。<BR>
+<BLOCKQUOTE>SET SERVEROUTPUT ON;<BR>DECLARE<BR>&nbsp; CURSOR cur 
+  IS<BR>&nbsp;&nbsp;&nbsp; SELECT * FROM books;<BR>&nbsp; myrecord 
+  books%ROWTYPE;<BR>BEGIN<BR>&nbsp; OPEN cur;<BR>&nbsp; 
+  LOOP<BR>&nbsp;&nbsp;&nbsp; FETCH cur INTO books;<BR>&nbsp;&nbsp;&nbsp; EXIT 
+  WHEN cur%NOTFOUND;<BR>&nbsp;&nbsp;&nbsp; DBMS_OUTPUT.PUT_LINE(books.id || ' ' 
+  || books.name);<BR>&nbsp; END LOOP;<BR>&nbsp; CLOSE 
+cur;<BR>END;<BR></BLOCKQUOTE><BR>1.1、带参数的显式游标：参数不需指定长度或者精度。<BR>1.2、FOR 
+循环游标：采用遍历方式，自动打开、提取和关闭游标。（能否利用 %ROWCOUNT 获得游标提取的行数？）<BR>
+<BLOCKQUOTE>DECLARE<BR>&nbsp; /* 定义带参数游标 */<BR>&nbsp; CURSOR cur_para(id 
+  varchar2) IS<BR>&nbsp; SELECT books_name FROM books WHERE books_id = 
+  id;<BR>BGEIN<BR>&nbsp; /* 调用带参数游标，并以 FOR 循环方式处理 */<BR>&nbsp; FOR cur IN 
+  cur_para('0001') LOOP<BR>&nbsp;&nbsp;&nbsp; DBMS_OUTPUT.PUT_LINE(cur.books_id 
+  || ' ' || cur.books_id);<BR>&nbsp; END 
+LOOP;<BR>END;<BR></BLOCKQUOTE>1.3、使用显示游标删除或更新记录<BR>定义时：需使用 SELECT ... FOR UPDATE 
+语句表示事物的锁定；<BR>执行时：需使用 WHERE CURRENT OF curXXX 子句指定游标的当前行。<BR><BR>&nbsp; /* 定义部分 
+*/<BR>&nbsp; CURSOR cur IS<BR>&nbsp; SELECT name FROM deptment FOR 
+UPDATE;<BR>....<BR>&nbsp; /* 执行部分 */<BR>&nbsp; UPDATE deptment SET name=name || 
+'_tt' WHERE CURRENT OF 
+cur;<BR><BR><BR><STRONG>2、隐式游标</STRONG><BR>不需声明，打开和关闭的游标。PL/SQL 为所有的 SQL 
+数据操纵语句隐式声明游标，它是不能直接命名和控制。<BR>
+<BLOCKQUOTE>BEGIN<BR>&nbsp; FROM cur IN (SELECT name FROM deptment) 
+  LOOP<BR>&nbsp;&nbsp;&nbsp; DBMS_OUTPUT.PUT_LINE(cur.books_id || ' ' || 
+  cur.books_id);<BR>&nbsp; END 
+LOOP;<BR>END;<BR></BLOCKQUOTE><BR>ps.<BR>匿名块：每次执行时都需要被编译，并且无法存储到数据库中，别的 PL/SQL 
+块也无法调用它。<BR>命名块：存储在数据库中，属于数据库对象。<BR><BR>排错：SHOW ERRORS 
+PROCEDURE/FUNCTION/PACKAGE obj_name;<BR><BR><BR><BR><A id=2 
+style="BACKGROUND-IMAGE: url(/CuteSoft_Client/CuteEditor/Load.ashx?type=image&file=anchor.gif); WIDTH: 20px; TEXT-INDENT: 20px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 20px" 
+name=2></A><STRONG><SPAN style="FONT-SIZE: 14pt">二、存储过程</SPAN></STRONG><BR>
+<BLOCKQUOTE>CREATE OR REPLACE PROCEDURE test (value IN varchar2, value2 OUT 
+  NUMBER)<BR>&nbsp; /* 参数，不需指定长度或精度 */<BR>IS<BR>&nbsp; /* 局部变量，省略 DECLARE 
+  关键字，需有长度 */<BR>&nbsp; identity NUMBER;<BR>BEGIN<BR>&nbsp; SELECT ITEMRATE INTO 
+  identity<BR>&nbsp;&nbsp;&nbsp; FROM itemFile<BR>&nbsp;&nbsp;&nbsp; WHERE 
+  itemcode = value;<BR>&nbsp; IF identity &lt; 200 THEN<BR>&nbsp;&nbsp;&nbsp; 
+  value2 := 200;<BR>&nbsp; ELSE<BR>&nbsp;&nbsp;&nbsp; value2 :=50;<BR>&nbsp; END 
+  IF;<BR>END;<BR></BLOCKQUOTE><BR>● 匿名块执行过程<BR>
+<BLOCKQUOTE>DECLARE<BR>&nbsp; tvalue2 NUMBER;<BR>BEGIN<BR>&nbsp; test('i202', 
+  tvalue2);<BR>&nbsp; DBMS_OUTPUT.PUT_LINE('value2的值为：' || 
+  TO_CHAR(value2));<BR>END;<BR></BLOCKQUOTE>● 单独执行<BR>&nbsp;&nbsp;&nbsp; EXECUTE 
+myproc('0001');<BR><BR><BR><BR><A id=3 
+style="BACKGROUND-IMAGE: url(/CuteSoft_Client/CuteEditor/Load.ashx?type=image&file=anchor.gif); WIDTH: 20px; TEXT-INDENT: 20px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 20px" 
+name=3></A><STRONG><SPAN 
+style="FONT-SIZE: 14pt">三、函数</SPAN></STRONG><BR>&nbsp;&nbsp;&nbsp; 
+函数的主要特性是它必须返回一个值。创建函数时通过 RETURN 子句指定函数返回值的数据类型。<BR>函数的一些限制：<BR>&nbsp; ● 函数只能带有 
+IN 参数，不能带有 IN OUT 或 OUT 参数。<BR>&nbsp; ● 形式参数必须只使用数据库类型，不能使用 PL/SQL 类型。<BR>&nbsp; 
+● 函数的返回类型必须是数据库类型。<BR>
+<BLOCKQUOTE>CREATE OR REPLACE FUNCTION item_price_rage (price 
+  NUMBER)<BR>&nbsp;&nbsp; /* 参数、指定返回类型 */<BR>&nbsp; RETURN 
+  varchar2<BR>AS<BR>&nbsp;&nbsp; /* 定义局部变量 */<BR>&nbsp; min_price 
+  NUMBER;<BR>&nbsp; max_price NUMBER;<BR>BEGIN<BR>&nbsp; SELECT MAX(ITEMRATE), 
+  MIN(ITEMRATE) INTO max_price, min_price<BR>&nbsp;&nbsp;&nbsp; FROM 
+  itemfile;<BR>&nbsp; IF price &gt;= min_price AND price &lt;= max_price 
+  THEN<BR>&nbsp;&nbsp;&nbsp; RETURN '输入的单价介于最低价与最高价之间';<BR>&nbsp; 
+  ELSE<BR>&nbsp;&nbsp;&nbsp; RETURN '超出范围';<BR>&nbsp; END 
+IF;<BR>END;<BR></BLOCKQUOTE><BR>● 匿名块执行函数<BR>
+<BLOCKQUOTE>DECLARE<BR>&nbsp; p NUMBER := 300;<BR>&nbsp; MSG 
+  varchar2(200);<BR>BEGIN<BR>&nbsp; MSG := item_price_range(p);<BR>&nbsp; 
+  DBMS_OUTPUT.PUT_LINE(MSG);<BR>END;<BR></BLOCKQUOTE>● 
+SELECT查询调用（因为函数必须有返回值）<BR>&nbsp; &nbsp; SELECT myfunction FROM 
+dual;<BR><BR><BR><BR><A id=30 
+style="BACKGROUND-IMAGE: url(/CuteSoft_Client/CuteEditor/Load.ashx?type=image&file=anchor.gif); WIDTH: 20px; TEXT-INDENT: 20px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 20px" 
+name=30></A><STRONG><SPAN style="FONT-SIZE: 14pt">&nbsp;&nbsp;&nbsp; 
+过程与函数的异同</SPAN></STRONG><BR><STRONG>过程：</STRONG><BR>&nbsp;&nbsp;&nbsp; 作为 PL/SQL 
+语句执行；<BR>&nbsp;&nbsp;&nbsp; 在规范中不包含 RETURN 子句；<BR>&nbsp;&nbsp;&nbsp; 
+不返回任何值（只有输入/输出参数，结果集）；<BR>&nbsp;&nbsp;&nbsp; 可以包含 RETURN 
+语句，但是与函数不同，它不能用于返回值。<BR><STRONG>函数：</STRONG><BR>&nbsp;&nbsp;&nbsp; 
+作为表达式的一部分调用；<BR>&nbsp;&nbsp;&nbsp; 必须在规范中包含 RETURN 子句；<BR>&nbsp;&nbsp;&nbsp; 
+必须返回单个值；<BR>&nbsp;&nbsp;&nbsp; 必须包含至少一条 RETURN 语句。<BR><BR><BR><BR><A id=4 
+style="BACKGROUND-IMAGE: url(/CuteSoft_Client/CuteEditor/Load.ashx?type=image&file=anchor.gif); WIDTH: 20px; TEXT-INDENT: 20px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 20px" 
+name=4></A><STRONG><SPAN 
+style="FONT-SIZE: 14pt">四、程序包</SPAN></STRONG><BR>&nbsp;&nbsp;&nbsp; 
+程序包是一种数据库对象，它是对相关 PL/SQL 
+类型、子程序、游标、异常、变量和常量的封装。<BR>程序包规范：声明类型、变量、常量、异常、游标和子程序。<BR>程序包主体：用于实现在程序包规范中定义的游标、子程序。<BR><BR><BR><STRONG>4.1、程序包规范</STRONG><BR>包含应用程序所需的程序包资源，是与应用程序的接口。<BR>
+<BLOCKQUOTE>CREATE OR REPLACE PACKAGE pack_me<BR>IS<BR>&nbsp; PROCEDURE 
+  order_proc (orno varchar2);<BR>&nbsp; FUNCTION order_fun (ornos varchar2) 
+  RETURN varchar2;<BR>END pack_me;<BR></BLOCKQUOTE>*创建 pack_me 包，并声明了子程序 
+order_proc 和 
+order_fun，并交由程序包主体实现。<BR><BR><BR><STRONG>4.2、程序包主体</STRONG><BR>当程序包规范中指定了子程序和游标时，必须有程序包主体。<BR>
+<BLOCKQUOTE>CREATE OR REPLACE PACKAGE BODY pack_me<BR>AS<BR>&nbsp; /* 
+  实现定义的存储过程 */<BR>&nbsp; PROCEDURE order_proc (orno varchar2) <BR>&nbsp; 
+  IS<BR>&nbsp;&nbsp;&nbsp; stst CHAR(1);<BR>&nbsp; BEGIN<BR>&nbsp;&nbsp;&nbsp; 
+  SELECT ostatus INTO stat FROM order_master<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  WHERE orderno = orno;<BR>&nbsp;&nbsp;&nbsp; IF stat = 'p' 
+  THEN<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  DBMS_OUTPUT.PUT_LINE('暂挂的订单');<BR>&nbsp;&nbsp;&nbsp; 
+  ELSE<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  DBMS_OUTPUT.PUT_LINE('已完成的订单');<BR>&nbsp;&nbsp;&nbsp; END IF;<BR>&nbsp; END 
+  order_proc;<BR>&nbsp; /* 实现定义的函数 */<BR>&nbsp; FUNCTION order_fun(ornos 
+  varchar2) RETURN varchar2<BR>&nbsp; IS<BR>&nbsp;&nbsp;&nbsp; icode 
+  varchar2(5);<BR>&nbsp;&nbsp;&nbsp; ocode varchar2(5);<BR>&nbsp;&nbsp;&nbsp; 
+  qtyord NUMBER;<BR>&nbsp;&nbsp;&nbsp; qtydeld NUMBER;<BR>&nbsp; 
+  BEGIN<BR>&nbsp;&nbsp;&nbsp; SELECT qty_ord, qty_deld, itemcode, ordernc INTO 
+  qtyord, qtydeld, icode, ocode<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FROM 
+  order_detail<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WHERE orderno = 
+  ornos;<BR>&nbsp;&nbsp;&nbsp; IF qtyord &lt; qtydeld 
+  THEN<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RETURN ocode;<BR>&nbsp;&nbsp;&nbsp; 
+  ELSE<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RETURN icode;<BR>&nbsp;&nbsp;&nbsp; END 
+  IF;<BR>&nbsp; END order_fun;<BR>END pack_me;<BR></BLOCKQUOTE><BR>● 要执行 
+pack_me包中的 order_proc过程，输入<BR>&nbsp;&nbsp;&nbsp; EXECUTE 
+pack_me.order_proc('o002');<BR><BR>● 要执行包中预定义的函数<BR>
+<BLOCKQUOTE>DECLARE<BR>&nbsp; msg varchar2(10);<BR>BEGIN<BR>&nbsp; msg := 
+  pack_me.order_fun('o002');<BR>&nbsp; DBMS_OUTPUT.PUT_LINE('值是 ' || 
+  msg);<BR>END;<BR></BLOCKQUOTE>&nbsp; 
+<BR><STRONG>4.3、程序包的优点</STRONG><BR>&nbsp;&nbsp;&nbsp; 
+程序包将相关的功能在逻辑上组织在一起，模块化，信息隐藏和更好的性能。<BR>ps.数据字典视图 USER_SOURCE 
+包含存储过程的代码文本。<BR><BR><BR><STRONG>4.4、内置程序包</STRONG><BR>STANDARD 和 
+DBMS_STANDARD：定义和扩展 PL/SQL 语言环境<BR>DBMS_LOB：提供对 Oracle LOB 
+数据类型进行操作的功能<BR>DBMS_LOCK：用户定义的锁<BR>DBMS_OUTPUT：处理 PL/SQL 
+块和子程序输出调试信息<BR>DBMS_SESSION：提供 ALTER SESSION 命令的 PL/SQL 等效功能<BR>DBMS_ROWID：获得 
+ROWID 的详细信息<BR>DBMS_RANDOM：提供随机数生成器<BR>DBMS_SQL：允许用户使用动态 SQL，构造和执行任意 DML 或 DDL 
+语句<BR>DBMS_JOB：提交和管理在数据库中执行的定时任务<BR>DBMS_XMLDOM：用 DOM 模型读写 XML 
+类型的数据<BR>DBMS_XMLPARSER：XML 解析，处理 XML 文档内容和结构<BR>DBMS_XMLGEN：将 SQL 查询结果转换为规范的 
+XML 格式<BR>DBMS_XMLQUERY：提供将数据转换为 XML 类型的功能<BR>DBMS_XSLPROCESSOR：提供 XSLT 功能，转换 
+XML 文档<BR>UTL_FILE：用 PL/SQL 程序来读写操作系统文本文件<BR><BR><BR><BR>
+<DIV class=postDesc>posted on 2008-10-25 21:08 <A 
+href="http://www.blogjava.net/kiant/">黄小二</A> 阅读(47) <A 
+href="http://www.blogjava.net/kiant/articles/236591.html#Post">评论(0)</A> 
+&nbsp;<A 
+href="http://www.blogjava.net/kiant/admin/EditArticles.aspx?postid=236591">编辑</A> 
+&nbsp;<A 
+href="http://www.blogjava.net/kiant/AddToFavorite.aspx?id=236591">收藏</A> 所属分类: 
+<A href="http://www.blogjava.net/kiant/category/35341.html">Database -- 
+Oracle</A> </DIV></DIV><IMG height=1 
+src="Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files/236591.jpg" 
+width=1> <!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://www.blogjava.net/kiant/articles/236591.html"
+dc:identifier="http://www.blogjava.net/kiant/articles/236591.html"
+dc:title="Oracle 笔记（八）、PL/SQL 高级应用（游标、存储过程、函数、程序包）"
+trackback:ping="http://www.blogjava.net/kiant/services/trackbacks/236591.aspx" />
+</rdf:RDF>
+-->
+<SCRIPT type=text/javascript>
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('AjaxHolder$scriptmanager1', document.getElementById('Form1'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls(['tAjaxHolder$UpdatePanel1'], [], [], 90);
+//]]>
+</SCRIPT>
+
+<DIV id=AjaxHolder_UpdatePanel1>
+<STYLE>TD {
+	FONT-SIZE: 12px
+}
+.commentTextBox {
+	FONT-SIZE: 13px; FONT-FAMILY: Verdana
+}
+</STYLE>
+<!--Beging Temp Save-->
+<STYLE>.userData {
+	BEHAVIOR: url(#default#userdata)
+}
+</STYLE>
+
+<DIV class=userData id=CommentsPersistDiv></DIV>
+<SCRIPT type=text/javascript>
+function pageLoad()
+{
+    Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(handleInitializeRequest);
+    //Sys.WebForms.PageRequestManager.getInstance().add_endRequest(handleEndRequest);
+}
+
+function handleInitializeRequest(sender, args)
+{
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    var eid = args.get_postBackElement().id;
+    if (eid.indexOf("DeleteLink")>0) 
+    {
+       args.get_postBackElement().innerHTML = "<font color='red'>正在删除...</font>";         
+    }    
+    else if (eid.indexOf("btnSubmit")>0) 
+    {
+       document.getElementById("AjaxHolder_PostComment_ltSubmitMsg").innerHTML="正在提交...";
+       document.getElementById("AjaxHolder_PostComment_btnSubmit").disabled = true;       
+    }   
+    else if(eid.indexOf("refreshList")>0)
+    {
+        document.getElementById("AjaxHolder_PostComment_refreshList").innerHTML="<font color='red'>正在刷新...</font>";
+    }
+   
+}	
+
+function TempSave(ElementID)
+{
+	try
+	{
+	CommentsPersistDiv.setAttribute("CommentContent",document.getElementById(ElementID).value);
+	CommentsPersistDiv.save("CommentXMLStore");
+	}
+	catch(ex)
+	{
+	}
+	
+}
+function Restore(ElementID)
+{
+	CommentsPersistDiv.load("CommentXMLStore");
+	document.getElementById(ElementID).value=CommentsPersistDiv.getAttribute("CommentContent");
+}	
+			
+			
+</SCRIPT>
+<!--Ene TempSave-->
+<DIV id=divRefreshComments 
+style="FONT-SIZE: 12px; MARGIN-BOTTOM: 5px; MARGIN-RIGHT: 10px; TEXT-ALIGN: right"><A 
+href="http://news.cnblogs.com/">IT新闻</A>&nbsp;&nbsp;<A 
+href="http://www.blogjava.net/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+id=AjaxHolder_PostComment_refreshList 
+href="javascript:__doPostBack('AjaxHolder$PostComment$refreshList','')">刷新评论列表</A>&nbsp;&nbsp;</DIV>
+<DIV class=commentform><SPAN id=AjaxHolder_PostComment_ltSubmitMsg 
+style="COLOR: red"></SPAN><BR><A name=Feedback></A>
+<TABLE cellSpacing=1 cellPadding=1 border=0>
+  <TBODY>
+  <TR>
+    <TD colSpan=3 height=5></TD></TR>
+  <TR>
+    <TD width=75></TD>
+    <TD></TD>
+    <TD></TD></TR>
+  <TR>
+    <TD width=55>标题</TD>
+    <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbTitle 
+      style="WIDTH: 320px" value="re: Oracle 笔记（八）、PL/SQL 高级应用（游标、存储过程、函数、程序包）" 
+      name=AjaxHolder$PostComment$tbTitle></TD>
+    <TD><SPAN id=AjaxHolder_PostComment_RequiredFieldValidator1 
+      style="VISIBILITY: hidden; COLOR: red">请输入标题</SPAN></TD></TR>
+  <TR>
+    <TD>姓名</TD>
+    <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbName 
+      style="WIDTH: 320px" name=AjaxHolder$PostComment$tbName></TD>
+    <TD><SPAN id=AjaxHolder_PostComment_RequiredFieldValidator2 
+      style="VISIBILITY: hidden; COLOR: red">请输入你的姓名</SPAN></TD></TR>
+  <TR>
+    <TD>主页</TD>
+    <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbUrl 
+      style="WIDTH: 320px" name=AjaxHolder$PostComment$tbUrl></TD>
+    <TD><FONT face=宋体></FONT></TD></TR>
+  <TR>
+    <TD align=left colSpan=3>
+      <TABLE class=CommentForm id=AjaxHolder_PostComment_tbCaptchaImage 
+      cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD colSpan=3><SPAN 
+            id=AjaxHolder_PostComment_Requiredfieldvalidator4 
+            style="DISPLAY: none; COLOR: red">请输入验证码</SPAN> <SPAN 
+            id=AjaxHolder_PostComment_lblImage 
+            style="FONT-WEIGHT: bold; COLOR: red"></SPAN></TD></TR>
+        <TR>
+          <TD width=78>验证码</TD>
+          <TD><INPUT id=AjaxHolder_PostComment_CodeNumberTextBox 
+            name=AjaxHolder$PostComment$CodeNumberTextBox>*&nbsp;&nbsp;<IMG 
+            src="Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files/JpegImage.jpg"></TD>
+          <TD align=left></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD colSpan=3>内容(请不要发表任何与政治相关的内容) <SPAN 
+      id=AjaxHolder_PostComment_RequiredFieldValidator3 
+      style="VISIBILITY: hidden; COLOR: red">请输入评论内容</SPAN><BR><TEXTAREA class=commentTextBox id=AjaxHolder_PostComment_tbComment onkeydown="ctlent(event,'AjaxHolder_PostComment_tbComment')" style="WIDTH: 480px; HEIGHT: 220px" name=AjaxHolder$PostComment$tbComment rows=10 cols=50></TEXTAREA></TD></TR>
+  <TR>
+    <TD colSpan=3><SPAN id=AjaxHolder_PostComment_Message 
+      style="COLOR: red"></SPAN></TD>
+  <TR>
+    <TD colSpan=3><INPUT id=AjaxHolder_PostComment_chkRemember tabIndex=-1 
+      type=checkbox CHECKED name=AjaxHolder$PostComment$chkRemember><LABEL 
+      for=AjaxHolder_PostComment_chkRemember>Remember Me?</LABEL></TD></TR>
+  <TR>
+    <TD height=23><INPUT class=commentButton id=AjaxHolder_PostComment_btnSubmit onclick="TempSave('AjaxHolder_PostComment_tbComment');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;AjaxHolder$PostComment$btnSubmit&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" type=submit value=提交 name=AjaxHolder$PostComment$btnSubmit> 
+    </TD>
+    <TD colSpan=2 height=23>&nbsp; <A id=AjaxHolder_PostComment_lnkLogin 
+      href="http://www.blogjava.net/login.aspx?ReturnURL=http://www.blogjava.net/kiant/articles/236591.html&amp;SourceURL=/kiant/articles/236591.html">登录</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_PostComment_linkLoginComment 
+      onclick="if(document.getElementById('AjaxHolder_PostComment_tbComment').value != '') return confirm('未提交的评论内容将会丢失, 你真的要进入高级评论吗?');" 
+      href="http://www.blogjava.net/kiant/articles/236591.html?login=1#Post">使用高级评论</A>&nbsp;&nbsp;<A 
+      href="http://www.blogjava.net/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+      href="http://www.blogjava.net/kiant/articles/236591.html#Top">返回页首</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_PostComment_lbRestore 
+      onclick="Restore('AjaxHolder_PostComment_tbComment'); return false;" 
+      href="http://www.blogjava.net/kiant/articles/236591.html#Post">恢复上次提交</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </TD></TR>
+  <TR>
+    <TD colSpan=3><LABEL class=CtrlEnter>[使用Ctrl+Enter键可以直接提交]</LABEL></TD></TR>
+  <TR>
+    <TD colSpan=3>该文被作者在 2008-10-27 00:46 编辑过</TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>&nbsp;</TD></TR>
+  <TR>
+    <TD colSpan=3 height=5></TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>&nbsp;</TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>
+      <DIV id=divRelativePosts>相关文章: 
+      <UL style="MARGIN-TOP: 0px; PADDING-LEFT: 0px">
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl01_Hyperlink1 
+        href="http://www.blogjava.net/kiant/articles/236263.html">Oracle 
+        笔记（六）、表的管理（约束、索引、锁定、表分区）</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl02_Hyperlink1 
+        href="http://www.blogjava.net/kiant/articles/237151.html">Oracle 
+        笔记（十）、视图、同义词、序列</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl03_Hyperlink1 
+        href="http://www.blogjava.net/kiant/articles/236787.html">Oracle 
+        笔记（九）、触发器</A> 
+        <LI style="DISPLAY: none; LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl04_Hyperlink1 
+        href="http://www.blogjava.net/kiant/articles/236591.html">Oracle 
+        笔记（八）、PL/SQL 高级应用（游标、存储过程、函数、程序包）</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl05_Hyperlink1 
+        href="http://www.blogjava.net/kiant/articles/236268.html">Oracle 
+        笔记（七）、PL/SQL 基础</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl06_Hyperlink1 
+        href="http://www.blogjava.net/kiant/articles/235277.html">Oracle 
+        笔记（五）、表空间管理</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl07_Hyperlink1 
+        href="http://www.blogjava.net/kiant/articles/234781.html">Oracle 
+        笔记（四）、SQL 几个要点</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl08_Hyperlink1 
+        href="http://www.blogjava.net/kiant/articles/234324.html">Oracle 
+        笔记（三）、SQL*PLUS 相关</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl09_Hyperlink1 
+        href="http://www.blogjava.net/kiant/articles/234102.html">Oracle 
+        笔记（二）、安全管理</A> 
+        <LI style="LIST-STYLE-TYPE: none"><A 
+        id=AjaxHolder_PostComment_ctl06_RelativePostsList_ctl10_Hyperlink1 
+        href="http://www.blogjava.net/kiant/articles/232784.html">Oracle 
+        笔记（一）、安装及体系结构</A> </LI></UL></DIV></TD></TR>
+  <TR>
+    <TD colSpan=3><BR>
+      <SCRIPT type=text/javascript><!--
+google_ad_client = "pub-4210569241504288";
+/* BlogJava_评论框下方_468x60, 创建于 08-9-12 */
+google_ad_slot = "6054757011";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</SCRIPT>
+
+      <SCRIPT 
+      src="Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files/show_ads.js" 
+      type=text/javascript>
+</SCRIPT>
+    </TD></TR>
+  <TR>
+    <TD colSpan=3>相关链接:
+      <SCRIPT type=text/javascript>
+	function GetMeta(ametaName){
+	var METAs = document.getElementsByTagName("meta"); 
+	for (var i=0; i<METAs.length; i++) { 
+	if(METAs[i].name.toLowerCase()==ametaName){return (METAs[i].content);}
+	};
+	return "";
+	}
+	var title = document.title;
+	document.write("<div id=\"a4_ads_output\">");
+	document.write("<script type='text/javascript' src='http://a4.yeshj.com/adwords/EN017?num=5&title="+ encodeURIComponent(title) +"&tag="+ encodeURIComponent(GetMeta("keywords")) +"'></scri"+"pt>");
+	document.write("</div>");
+	</SCRIPT>
+    </TD></TR>
+  <TR>
+    <TD colSpan=3 height=5>网站导航:
+      <DIV id=blogsite><A 
+      href="http://www.cnblogs.com/">博客园</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <A 
+      href="http://www.blogjava.net/">BlogJava</A>&nbsp;&nbsp; <A 
+      href="http://www.cnweblog.com/">博客生活</A>&nbsp;&nbsp; <A 
+      href="http://www.cnitblog.com/">IT博客网</A>&nbsp;&nbsp; <A 
+      href="http://www.cppblog.com/">C++博客</A>&nbsp;&nbsp; <A 
+      href="http://www.phpweblog.net/">PHP博客</A>&nbsp;&nbsp; <A 
+      href="http://space.cnblogs.com/">博客园社区</A> <BR><A 
+      href="http://www.manageblog.net/">管理博客</A>&nbsp;&nbsp; <A 
+      href="http://www.teachblog.net/">教师博客</A>&nbsp;&nbsp;&nbsp;&nbsp; <A 
+      href="http://www.astroblog.cn/">天文博客</A>&nbsp;&nbsp; <A 
+      href="http://www.cnautoblog.com/">汽车博客</A>&nbsp;&nbsp; <A 
+      href="http://www.zuqiublog.com/">足球博客</A>&nbsp;&nbsp; <A 
+      href="http://www.gupiaoblog.com/">股票博客</A>&nbsp;&nbsp; <A 
+      href="http://www.etronblog.com/">电子博客</A>&nbsp;&nbsp;<A 
+      href="http://www.blogjava.net/kiant/articles/236591.html?opt=admin">管理</A> 
+      </DIV></TD></TR>
+  <TR>
+    <TD colSpan=3><BR><BR><IFRAME 
+      style="BORDER-RIGHT: #666 0px solid; BORDER-TOP: #666 0px solid; BORDER-LEFT: #666 0px solid; BORDER-BOTTOM: #666 0px solid" 
+      marginWidth=0 marginHeight=0 
+      src="Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files/CAS1UZ6N.htm" 
+      frameBorder=0 width=468 scrolling=no height=0 
+      allowTransparency></IFRAME><BR></TD></TR></TBODY></TABLE></DIV>
+<DIV id=AjaxHolder_PostComment_ValidationSummary1 
+style="DISPLAY: none; COLOR: red"></DIV></DIV><!--done-->
+<DIV class=footer>Copyright ©2008 黄小二 Powered by: <A class=footerlink 
+href="http://www.cnblogs.com/">博客园</A> 模板提供：<A class=footerlink 
+href="http://blog.hjenglish.com/">沪江博客</A><BR></DIV></DIV>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Page_ValidationSummaries =  new Array(document.getElementById("AjaxHolder_PostComment_ValidationSummary1"));
+var Page_Validators =  new Array(document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2"), document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3"));
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var AjaxHolder_PostComment_RequiredFieldValidator1 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator1"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1");
+AjaxHolder_PostComment_RequiredFieldValidator1.controltovalidate = "AjaxHolder_PostComment_tbTitle";
+AjaxHolder_PostComment_RequiredFieldValidator1.errormessage = "请输入标题";
+AjaxHolder_PostComment_RequiredFieldValidator1.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator1.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator2 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator2"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2");
+AjaxHolder_PostComment_RequiredFieldValidator2.controltovalidate = "AjaxHolder_PostComment_tbName";
+AjaxHolder_PostComment_RequiredFieldValidator2.errormessage = "请输入你的姓名";
+AjaxHolder_PostComment_RequiredFieldValidator2.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator2.initialvalue = "";
+var AjaxHolder_PostComment_Requiredfieldvalidator4 = document.all ? document.all["AjaxHolder_PostComment_Requiredfieldvalidator4"] : document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4");
+AjaxHolder_PostComment_Requiredfieldvalidator4.controltovalidate = "AjaxHolder_PostComment_CodeNumberTextBox";
+AjaxHolder_PostComment_Requiredfieldvalidator4.errormessage = "请输入验证码";
+AjaxHolder_PostComment_Requiredfieldvalidator4.display = "Dynamic";
+AjaxHolder_PostComment_Requiredfieldvalidator4.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_Requiredfieldvalidator4.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator3 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator3"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3");
+AjaxHolder_PostComment_RequiredFieldValidator3.controltovalidate = "AjaxHolder_PostComment_tbComment";
+AjaxHolder_PostComment_RequiredFieldValidator3.errormessage = "请输入评论内容";
+AjaxHolder_PostComment_RequiredFieldValidator3.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator3.initialvalue = "";
+var AjaxHolder_PostComment_ValidationSummary1 = document.all ? document.all["AjaxHolder_PostComment_ValidationSummary1"] : document.getElementById("AjaxHolder_PostComment_ValidationSummary1");
+AjaxHolder_PostComment_ValidationSummary1.showmessagebox = "True";
+AjaxHolder_PostComment_ValidationSummary1.showsummary = "False";
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+
+document.getElementById('AjaxHolder_PostComment_ValidationSummary1').dispose = function() {
+    Array.remove(Page_ValidationSummaries, document.getElementById('AjaxHolder_PostComment_ValidationSummary1'));
+}
+Sys.Application.initialize();
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2'));
+}
+
+document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3'));
+}
+//]]>
+</SCRIPT>
+</FORM>
+<SCRIPT 
+src="Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files/ShowHidden.js" 
+type=text/javascript></SCRIPT>
+<SPAN style="DISPLAY: none">
+<SCRIPT language=javascript 
+src="Oracle 笔记（八）、PL-SQL 高级应用（游标、存储过程、函数、程序包） - 黄小二的讀書筆記 - BlogJava.files/click.htm"></SCRIPT>
+</SPAN></BODY></HTML>

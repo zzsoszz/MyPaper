@@ -1,0 +1,523 @@
+create or replace view bx_dc_restaurant_v as
+select t."RESTAURANTID",
+       t."RESTAURANTNAME",
+       t."STARTBUSINESSTIME",
+       t."BUSINESSHOURS",
+       t."PROVINCE",
+       t."CITY",
+       t."REGION",
+       t."BUSINESSAREA",
+       t."ADDRESS",
+       t."IFTOP",
+       t."IFVALID",
+       t."LASTFITMENTDATE",
+       t."FITMENTDESC",
+       t."ISHANGUP",
+       t."HANGUPDATE",
+       t."RESTAURANTTYPE",
+       t."TELEPHONE",
+       t."WAITTELEPHONE",
+       t."WAITFAX",
+       t."ZIPCODE",
+       t."IFPOSECARD",
+       t."RECOMMENDED",
+       t."REMARK",
+       t."ADVANTAGE",
+       t."RESTAURANTDESC",
+       t."AVGSPENDMIN",
+       t."AVGSPENDMAX",
+       t."PRIVILEGEDESC",
+       t."HALLDEFAULTVALUE",
+       t."HALLREMARK",
+       t."PARLORDEFAULTVALUE",
+       t."PARLORREMARK",
+       t."COMMENTONSCORE",
+       t."DISCOUNT",
+       t."LONGITUDE",
+       t."LATITUDE",
+       t."SERVICE",
+       t."SOURCETYPE",
+       t."AVERAGEPRICE",
+       t."AVERAGEPRICERANGE",
+       t."RESID",
+       t."RESCITYNAME",
+       t."RESCITYID",
+       t."CATEGORY",
+       t."RESSTATUS",
+       t."EQUIPMENT",
+       t."SERVICEINFO",
+       t."SUITABLE",
+       t."RECOMMENDMENU",
+       t."SUBWAY",
+       t."BUS",
+       t."XIAOMSREGION",
+       t."PARKING",
+       t."ISCANBOOKING",
+       t."ENGLISHNAME",
+       t."BRANCHNAME",
+       t."LSTDISCOUNT",
+       t."LSTCASHCOUPON",
+       t."XIAOMISHUWAPURL",
+       t."XIAOMISHUWEBURL",
+       t."TRAFFIC",
+       t."PHOTOID",
+       t."CREATEDATE",
+       t."CREATEBY",
+       t."LASTUPDATEDATE",
+       t."LASTUPDATEBY",
+       t."SEEDREGION",
+       t."RESLOGOURL",
+       nvl(t2.cleanscore, 0) cleanscore,
+       nvl(t2.servicescore, 0) servicescore,
+       nvl(t2.installationscore, 0) installationscore,
+       nvl(t2.avgscore, 0) avgscore,
+       (select wmsys.wm_concat(distinct ca.categorynamepath) as categoryname
+          from bx_dc_category_v ca
+         where instr(t.category, ca.categoryid) > 0
+         and ca.cityid=t.rescityid
+         ) as categoryname,
+       (select wm_concat(distinct
+                         t.rescityname || '' || c.region || ' ' || t.address)
+          from bx_dc_OpenCity c
+         where t.xiaomsregion = c.area_id) as regionname
+  from bx_dc_restaurant_t t
+
+  left join bx_dc_restaurant_score_v t2
+    on t.restaurantid = t2.companyid
+where t.iscanbooking = 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+with t1(col) aS(
+  select 'abcx1bcdx2mno' from dual
+)
+select regexp_substr( regexp_replace(col, 'x[[:digit:]]', ' '), '[^ ]+'
+                     , 1, level) as res
+from t1
+connect by level <= regexp_count( regexp_replace(col, 'x[[:digit:]]', ' ') , '[^ ]+')
+
+								 
+
+								 
+								 
+								 
+								 
+								 
+
+
+Change your regular expression to this.
+(.?+) -- any one or more characters. Put this in brackets as first subexpression
+q     -- letter q
+\d+   -- one or more digits
+#     -- character #
+and include one more paraemter in REGEXP_SUBSTR function to extract only first subexpression. Use TRIM to remove blank spaces.
+WITH base AS (SELECT 'sam s123 565 q2#
+      nicole s1257 546 q4#
+      mary s568 545' str1 FROM DUAL)
+    SELECT TRIM (REGEXP_SUBSTR (str1,
+                                '(.?+)q\d+#',
+                                1,
+                                LEVEL,
+                                'm',
+                                1       --first subexpression
+                               )
+                )
+              AS split
+      FROM base
+CONNECT BY LEVEL <= REGEXP_COUNT (str1, '(.?+)q\d+#');
+Output:
+split
+-------------
+sam s123 565
+nicole s1257 546
+Since your third line doesn't have the matching pattern, it doesn't return that.
+ 
+0down vote
+ 
+
+
+Change your regular expression to this.
+(.?+) -- any one or more characters. Put this in brackets as first subexpression
+q     -- letter q
+\d+   -- one or more digits
+#     -- character #
+and include one more paraemter in REGEXP_SUBSTR function to extract only first subexpression. Use TRIM to remove blank spaces.
+WITH base AS (SELECT 'sam s123 565 q2#
+      nicole s1257 546 q4#
+      mary s568 545' str1 FROM DUAL)
+    SELECT TRIM (REGEXP_SUBSTR (str1,
+                                '(.?+)q\d+#',
+                                1,
+                                LEVEL,
+                                'm',
+                                1       --first subexpression
+                               )
+                )
+              AS split
+      FROM base
+CONNECT BY LEVEL <= REGEXP_COUNT (str1, '(.?+)q\d+#');
+Output:
+split
+-------------
+sam s123 565
+nicole s1257 546
+Since your third line doesn't have the matching pattern, it doesn't return that.
+ 
+ 
+ 
+ 
+ 
+ Is there a function to split a string in plsql?
+ http://stackoverflow.com/questions/3710589/is-there-a-function-to-split-a-string-in-plsql
+ 
+ 
+ http://www.go4expert.com/articles/splitting-string-using-delimiter-oracle-t29481/
+ Splitting String Using Delimiter in Oracle
+ 
+ 函数regexp_substr()&wm_concat() 
+ http://wangjingyi.iteye.com/blog/1829542
+ 
+ Oracle中REGEXP_SUBSTR函数
+ http://www.2cto.com/database/201209/154045.html
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+http://www.techrepublic.com/article/oracle-tip-create-functions-to-join-and-split-strings-in-sql/
+
+Oracle Tip: Create functions to join and split strings in SQL
+
+Oracle的pipelined函数实现高性能大数据处理 
+http://mikixiyou.iteye.com/blog/1673672
+
+
+
+Learn how to take a comma delimited list of values in a single string and use it as a table of values. 
+
+
+A common task when selecting data from a database is to take a set of values a query returns and format it as a comma delimited list. Another task that's almost as common is the need to do the reverse: Take a comma delimited list of values in a single string and use it as a table of values. 
+
+Many scripting languages, such as Perl and Python, provide functions that do this with their own language-specific list of values; so it's surprising that, as of yet, this functionality isn't a standard part of SQL functions. I've seen some pretty ugly looking code that involved complex declarations with MAX and DECODE, but that solution usually only returns a limited set of values. With some of the new Oracle9i and above features, it's possible to do this yourself. 
+I'd like to use a "join" functionality to specify a query that returns a single column and a delimiter, and then receive a simple string that contains a list of those values separated by my delimiter. The query part can be passed to the function as a REF CURSOR using the new SQL CURSOR function. The delimiter should default to a comma, since that is the most commonly used delimiter. So, the syntax should be: 
+
+SQL> select join(cursor(select ename from emp)) from dual;
+ 
+SMITH,ALLEN,WARD,JONES,MARTIN,BLAKE,CLARK,SCOTT,KING,TURNER,ADAMS,
+JAMES,FORD,MILLER 
+
+The following code will perform this function: 
+
+create or replace function join
+ (
+     p_cursor sys_refcursor,
+     p_del varchar2 := ','
+ ) return varchar2
+ is
+     l_value   varchar2(32767);
+     l_result  varchar2(32767);
+ begin
+     loop
+         fetch p_cursor into l_value;
+         exit when p_cursor%notfound;
+         if l_result is not null then
+             l_result := l_result || p_del;
+         end if;
+         l_result := l_result || l_value;
+     end loop;
+     return l_result;
+ end join;
+ /
+ show errors; 
+
+The PL/SQL User's Guide says you always have to declare a package that defines a ref cursor; however, the database already defines this as SYS_REFCURSOR in the STANDARD package. The PL/SQL code should be fairly straightforward. There is a limit of 32,767 characters on the output string and the input column. 
+
+Since all datatypes can be automatically converted to character strings, you can use any datatype in the cursor--as long as it's one column. For example: 
+
+SQL> select join(cursor(select trunc(hiredate,'month') from emp),'|') from
+ dual;
+ 
+01-DEC-80|01-FEB-81|01-FEB-81|01-APR-81|01-SEP-81|01-MAY-81|01-JUN-81|01-APR-87|01-NOV-81|01-SEP-81|01-MAY-87|01-DEC-81|
+01-DEC-81|01-JAN-82 
+
+There's another extra benefit. Since the cursor is part of the SQL statement, you can easily join the query inside the join with the outer query. Here is a query that returns each table and a list of the columns that make up its primary key: 
+
+SQL> select table_name,join(cursor(select column_name from user_cons_columns
+                  where constraint_name = user_constraints.constraint_name
+                  order by position)) columns
+        from user_constraints where constraint_type = 'P';
+  
+
+ 
+View the output in Table A. 
+
+You can also use this "join" function to compare two sets of ordered data. For example, the following query will check that an index has been created on a foreign key (which helps prevent locking the table and aids master-detail queries): 
+
+column status format a7
+ column table_name format a30
+ column columns format a40 word_wrapped
+ 
+select decode(indexes.table_name,null,'missing','ok') status,
+        constraints.table_name,
+        constraints.columns
+   from
+     (select table_name,
+             constraint_name,
+             join(cursor
+             (
+                 select column_name
+                   from user_cons_columns
+                  where constraint_name = user_constraints.constraint_name
+             )) columns
+         from user_constraints
+        where constraint_type = 'R'
+        ) constraints,
+     (select table_name, index_name,
+             join(cursor
+             (
+                 select column_name
+                   from user_ind_columns
+                  where index_name = user_indexes.index_name
+             )) columns
+       from user_indexes) indexes
+     where constraints.table_name = indexes.table_name (+)
+       and constraints.columns = indexes.columns (+);
+
+ 
+This query works by executing two subqueries: one that queries foreign keys and another that queries indexes. The join between these two queries is on the table name and the list of columns used in creating the foreign key and the index, taken as an ordered list of values. 
+
+We'd also like the reverse functionality: to have the ability to take a single comma-delimited value and treat it as if it were a column in a table. We can take advantage of the TABLE SQL function and PL/SQL function tables to do this quite easily, but first, we must define the result type to be a TABLE type of the largest possible string. 
+
+create or replace type split_tbl as table of varchar2(32767);
+ /
+ show errors;
+ 
+create or replace function split
+ (
+     p_list varchar2,
+     p_del varchar2 := ','
+ ) return split_tbl pipelined
+ is
+     l_idx    pls_integer;
+     l_list    varchar2(32767) := p_list;
+ AA
+     l_value    varchar2(32767);
+ begin
+     loop
+         l_idx := instr(l_list,p_del);
+         if l_idx > 0 then
+             pipe row(substr(l_list,1,l_idx-1));
+             l_list := substr(l_list,l_idx+length(p_del));
+ 
+        else
+             pipe row(l_list);
+             exit;
+         end if;
+     end loop;
+     return;
+ end split;
+ /
+ show errors;
+
+ 
+With this function, I can run a query like this: 
+
+SQL> select * from table(split('one,two,three'));
+ 
+one
+ two
+ three 
+
+The PL/SQL procedure will parse its argument and return each part through a PIPELINE; the TABLE function allows it to be used in the FROM statement, so it appears to SQL as if it is a table with one column and three rows. (Remember that the column being returned is named COLUMN_VALUE if you want to use the value elsewhere.) 
+
+Here's an example query, which shows a dynamic IN condition in a query. The split function generates a table of values, which can be used on a row-by-row basis. 
+
+SQL> select ename from emp
+       where to_char(hiredate,'YY')
+          in (select column_value from table(split('81,82')));
+
+ 
+View the output in Table B. 
+
+If you want, you can join a column and then split it, too: 
+
+SQL> select * from table(split(join(cursor(select ename from emp)))); 
+
+And, you can use this method to merge sets of values: 
+
+create table t(a varchar2(200));
+ insert into t values('81,82');
+ insert into t values('84,85');
+ 
+SQL> select * from table(split(join(cursor(select a from t))));
+ 
+81
+ 82
+ 84
+ 85
+
+ 
+These are just simple example functions. You could extend join to enclose values in quotes and escape quotes inside the values. You could extend split to allow a REF CURSOR parameter instead of a single VARCHAR2, so it could split up sets of columns as well. 
+
+TechRepublic's Oracle newsletter covers automating Oracle utilities, generating database alerts, solving directed graph problems, and more. Automatically subscribe today!
+
+
+
+
+
+
+
+
+
+
+
+
+/* from :http://www.builderau.com.au/architect/database/soa/Create-functions-to-join-and-split-strings-in-Oracle/0,339024547,339129882,00.htm
+
+select split('foo,bar,zoo') from dual;
+select * from table(split('foo,bar,zoo'));
+
+pipelined function is SQL only (no PL/SQL !)
+*/
+
+create or replace type split_tbl as table of varchar2(32767);
+/
+show errors
+
+create or replace function split
+(
+    p_list varchar2,
+    p_del varchar2 := ','
+) return split_tbl pipelined
+is
+    l_idx    pls_integer;
+    l_list    varchar2(32767) := p_list;
+    l_value    varchar2(32767);
+begin
+    loop
+        l_idx := instr(l_list,p_del);
+        if l_idx > 0 then
+            pipe row(substr(l_list,1,l_idx-1));
+            l_list := substr(l_list,l_idx+length(p_del));
+
+        else
+            pipe row(l_list);
+            exit;
+        end if;
+    end loop;
+    return;
+end split;
+/
+show errors;
+
+/* An own implementation. */
+
+create or replace function split2(
+  list in varchar2,
+  delimiter in varchar2 default ','
+) return split_tbl as
+  splitted split_tbl := split_tbl();
+  i pls_integer := 0;
+  list_ varchar2(32767) := list;
+begin
+  loop
+    i := instr(list_, delimiter);
+    if i > 0 then
+      splitted.extend(1);
+      splitted(splitted.last) := substr(list_, 1, i - 1);
+      list_ := substr(list_, i + length(delimiter));
+    else
+      splitted.extend(1);
+      splitted(splitted.last) := list_;
+      return splitted;
+    end if;
+  end loop;
+end;
+/
+show errors
+
+declare
+  got split_tbl;
+
+  procedure print(tbl in split_tbl) as
+  begin
+    for i in tbl.first .. tbl.last loop
+      dbms_output.put_line(i || ' = ' || tbl(i));
+    end loop;
+  end;
+
+begin
+  got := split2('foo,bar,zoo');
+  print(got);
+  print(split2('1 2 3 4 5', ' '));
+end;
+/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+我试着去弄了一下，只能返回游标啊
+select xx from dual好像本身只能返回一行数据，无法返回多行数据
+以下是我做一个返回游标的函数。
+create or replace package types  as
+      type mytype is ref cursor;
+end;
+
+create or replace function oraclefunc(col_in varchar)
+ return types.mytype is
+       mycursor types.mytype;
+       restr varchar2(4096);
+begin
+       restr:=trim(col_in);
+       restr:=replace(restr,',',''' as 列名 from dual union select ''');
+       restr:=''''||restr||'''';
+       restr:='select '||restr;
+       restr:=restr||' as 列名 from dual';
+       open mycursor for restr;
+       return mycursor;
+end;
+提问者评价
+谢谢大家.

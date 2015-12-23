@@ -1,0 +1,1 @@
+document.write('<li><a onclick="LogClickCount(this,224);" href="http://topic.csdn.net/u/20101231/14/879232e6-5ddd-4d5e-afc4-113c984a3032.html" target="_blank">2011年4月微软MVP申请开始啦！有兴趣的抓紧时间哦！</a></li>')

@@ -1,0 +1,126 @@
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 12px; BACKGROUND: #cce7ff; PADDING-BOTTOM: 0px; MARGIN: 8px auto; WIDTH: 988px; PADDING-TOP: 0px
+}
+UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+A {
+	COLOR: #268cd4; TEXT-DECORATION: none
+}
+A:hover {
+	TEXT-DECORATION: underline
+}
+DIV {
+	WORD-BREAK: break-all; WHITE-SPACE: normal; WORD-WRAP: break-word
+}
+.red1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: red
+}
+#top {
+	CLEAR: both; WIDTH: 100%; HEIGHT: 60px
+}
+#logo {
+	FLOAT: left; WIDTH: auto
+}
+#menu {
+	DISPLAY: inline; FLOAT: right; MARGIN: 6px 0px 6px 6px; WIDTH: 800px
+}
+#tab_dzh {
+	FONT-WEIGHT: bold; BACKGROUND: url(http://txt.mop.com/images/topic/main/tabtop.gif); FLOAT: left; WIDTH: 57px; COLOR: #fff; LINE-HEIGHT: 22px; POSITION: relative; TOP: 1px; HEIGHT: 22px; TEXT-ALIGN: center
+}
+#sitlnk {
+	MARGIN-TOP: 5px; FLOAT: right
+}
+#sitlnk A {
+	COLOR: #116ba9; TEXT-DECORATION: none
+}
+#logbox {
+	FLOAT: right
+}
+#submenu {
+	CLEAR: both; BORDER-RIGHT: #297bb4 1px solid; BORDER-TOP: #297bb4 1px solid; BACKGROUND: url(http://txt.mop.com/images/topic/main/tabbg.gif); BORDER-LEFT: #297bb4 1px solid; BORDER-BOTTOM: #297bb4 1px solid; HEIGHT: 24px
+}
+#submenu UL {
+	MARGIN: 3px 5px; LIST-STYLE-TYPE: none
+}
+#submenu UL LI {
+	BORDER-RIGHT: #14649c 1px solid; PADDING-RIGHT: 10px; DISPLAY: inline; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; BORDER-LEFT: #cce7ff 1px solid; LINE-HEIGHT: 18px; PADDING-TOP: 0px
+}
+#submenu UL LI A {
+	COLOR: #fff; FONT-FAMILY: tahoma; TEXT-DECORATION: none
+}
+#main_left {
+	BORDER-RIGHT: #6bcceb 1px solid; BORDER-TOP: #6bcceb 1px solid; FLOAT: left; BORDER-LEFT: #6bcceb 1px solid; BORDER-BOTTOM: #6bcceb 1px solid
+}
+#maplnk {
+	BACKGROUND: #02acdb; COLOR: #fff; LINE-HEIGHT: 23px
+}
+#maplnk A {
+	COLOR: #fff; TEXT-DECORATION: none
+}
+#readbox {
+	MARGIN: 15px; WIDTH: 720px
+}
+.rd_tit {
+	CLEAR: both; FONT-SIZE: 18px; LINE-HEIGHT: 32px; BORDER-BOTTOM: #6bcceb 1px solid; TEXT-ALIGN: center
+}
+.rd_info {
+	CLEAR: both; FONT-SIZE: 14px; LINE-HEIGHT: 28px; TEXT-ALIGN: center
+}
+.rd_main {
+	CLEAR: both; FONT-SIZE: 14px; MARGIN: 15px auto; LINE-HEIGHT: 150%; TEXT-ALIGN: left
+}
+.rd_author {
+	FONT-SIZE: 12px; MARGIN: 10px auto; LINE-HEIGHT: 30px; TEXT-ALIGN: left
+}
+#rd_author .date {
+	COLOR: #09c
+}
+.s_line {
+	OVERFLOW: hidden; BORDER-BOTTOM: #6bcceb 1px solid; HEIGHT: 1px
+}
+.rd_lnk {
+	COLOR: #09c; LINE-HEIGHT: 24px
+}
+rd_lnk A {
+	COLOR: #09c; LINE-HEIGHT: 24px
+}
+.rd_rep {
+	TEXT-ALIGN: center
+}
+.floor {
+	CLEAR: both; FONT-SIZE: 12px; MARGIN: 10px auto; LINE-HEIGHT: 28px
+}
+#main_ad01 {
+	OVERFLOW: hidden; WIDTH: 750px
+}
+#main_right {
+	FLOAT: right; WIDTH: 230px; HEIGHT: 500px
+}
+.piclnk {
+	BORDER-RIGHT: #ddd 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #ddd 1px solid; PADDING-LEFT: 0px; BACKGROUND: #f6f6f6; FLOAT: right; PADDING-BOTTOM: 5px; BORDER-LEFT: #ddd 1px solid; WIDTH: 100%; PADDING-TOP: 5px; BORDER-BOTTOM: #ddd 1px solid; TEXT-ALIGN: center
+}
+.top {
+	BORDER-RIGHT: #f5dbd4 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #f5dbd4 1px solid; MARGIN-TOP: 5px; PADDING-LEFT: 3px; BACKGROUND: #ffefeb; PADDING-BOTTOM: 3px; BORDER-LEFT: #f5dbd4 1px solid; PADDING-TOP: 3px; BORDER-BOTTOM: #f5dbd4 1px solid
+}
+.topList {
+	BORDER-RIGHT: #f5dbd4 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #f5dbd4 1px; PADDING-LEFT: 3px; BACKGROUND: #fff; PADDING-BOTTOM: 3px; BORDER-LEFT: #f5dbd4 1px solid; PADDING-TOP: 3px; BORDER-BOTTOM: #f5dbd4 1px solid
+}
+.topList P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 1px; MARGIN: 4px 2px; PADDING-TOP: 4px; BORDER-BOTTOM: #e5e5e5 1px solid
+}
+.topList P.gray {
+	BACKGROUND: #fbfbfb
+}
+.topList P.nogray {
+	BACKGROUND: #fbfbfb; BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+.topList SPAN {
+	FONT-WEIGHT: bold; FONT-SIZE: 9px; BACKGROUND: url(http://txt.mop.com/images/topic/main/bg_top1.gif) no-repeat; FLOAT: left; WIDTH: 16px; COLOR: #474747; LINE-HEIGHT: 16px; MARGIN-RIGHT: 3px; FONT-FAMILY: Arial; HEIGHT: 16px; TEXT-ALIGN: center
+}
+.topList SPAN.big {
+	BACKGROUND: url(http://txt.mop.com/images/topic/main/bg_top.gif) no-repeat; COLOR: #ff410e
+}
+.topList A {
+	COLOR: #b8553a
+}

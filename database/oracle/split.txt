@@ -1,0 +1,95 @@
+/*
+  * Oracle 创建 split 和 splitstr 函数
+  */
+ 
+ /* 创建一个表类型 */
+ create or replace type tabletype as table of VARCHAR2(32676)
+
+ /* 创建 split 函数 */
+ CREATE OR REPLACE FUNCTION split (p_list CLOB, p_sep VARCHAR2 := ',')
+    RETURN tabletype
+    PIPELINED
+ /**************************************
+  * Name:        split
+  * Author:      Sean Zhang.
+  * Date:        2012-09-03.
+  * Function:    返回字符串被指定字符分割后的表类型。
+  * Parameters:  p_list: 待分割的字符串。
+                 p_sep: 分隔符，默认逗号，也可以指定字符或字符串。
+  * Example:     SELECT *
+                   FROM users
+                  WHERE u_id IN (SELECT COLUMN_VALUE
+                                   FROM table (split ('1,2')))
+                 返回u_id为1和2的两行数据。
+  **************************************/
+ IS
+    l_idx    PLS_INTEGER;
+    v_list   VARCHAR2 (32676) := p_list;
+ BEGIN
+    LOOP
+       l_idx   := INSTR (v_list, p_sep);
+ 
+       IF l_idx > 0
+       THEN
+          PIPE ROW (SUBSTR (v_list, 1, l_idx - 1));
+          v_list   := SUBSTR (v_list, l_idx + LENGTH (p_sep));
+       ELSE
+          PIPE ROW (v_list);
+          EXIT;
+       END IF;
+    END LOOP;
+ END;
+ /
+ 
+ /* 创建 splitstr 函数 */
+ CREATE OR REPLACE FUNCTION splitstr (str IN CLOB,
+                                        i   IN NUMBER := 0,
+                                        sep IN VARCHAR2 := ','
+ )
+    RETURN VARCHAR2
+ /**************************************
+  * Name:        splitstr
+  * Author:      Sean Zhang.
+  * Date:        2012-09-03.
+  * Function:    返回字符串被指定字符分割后的指定节点字符串。
+  * Parameters:  str: 待分割的字符串。
+                 i: 返回第几个节点。当i为0返回str中的所有字符，当i 超过可被分割的个数时返回空。
+                 sep: 分隔符，默认逗号，也可以指定字符或字符串。当指定的分隔符不存在于str中时返回sep中的字符。
+  * Example:     select splitstr('abc,def', 1) as str from dual;  得到 abc
+                 select splitstr('abc,def', 3) as str from dual;  得到 空
+  **************************************/
+ IS
+    t_i       NUMBER;
+    t_count   NUMBER;
+    t_str     VARCHAR2 (4000);
+ BEGIN
+    IF i = 0
+    THEN
+       t_str   := str;
+    ELSIF INSTR (str, sep) = 0
+    THEN
+       t_str   := sep;
+    ELSE
+       SELECT COUNT ( * )
+       INTO t_count
+       FROM table (split (str, sep));
+ 
+       IF i <= t_count
+       THEN
+          SELECT str
+          INTO t_str
+          FROM (SELECT ROWNUM AS item, COLUMN_VALUE AS str
+                FROM table (split (str, sep)))
+          WHERE item = i;
+       END IF;
+    END IF;
+ 
+    RETURN t_str;
+ END;
+ /
+ 
+ 
+ 
+ select 
+COLUMN_VALUE
+                                FROM table (split ('1,2'))

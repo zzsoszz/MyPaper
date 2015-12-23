@@ -1,0 +1,268 @@
+如何写一个取连续日期范围的sql　 浏览：34次  时间：2011-01-21 08:21:04 
+如何取到每段连续日期的起始终止日期以及持续天数及起始日期距上一期终止日期的天数,能否用一句sql实现？
+备注：数据库环境是sql server 2000
+SQL code
+create table tmptable(rq datetime)
+go
+insert tmptable values('2010.1.1')
+insert tmptable values('2010.1.2')
+insert tmptable values('2010.1.3')
+insert tmptable values('2010.1.6')
+insert tmptable values('2010.1.7')
+insert tmptable values('2010.1.10')
+insert tmptable values('2010.1.11')
+insert tmptable values('2010.1.12')
+insert tmptable values('2010.1.19')
+insert tmptable values('2010.1.20')
+insert tmptable values('2010.1.22')
+insert tmptable values('2010.1.23')
+insert tmptable values('2010.1.28')
+go
+---希望得到的结果
+--本期起始日期 本期终止日期  持续天数 距上一期天数
+--2010.1.1     2010.1.3      3        0
+--2010.1.6     2010.1.7      2        3
+--2010.1.10    2010.1.12     3        3
+--2010.1.19    2010.1.20     2        7
+--2010.1.22    2010.1.23     2        2
+--2010.1.28    2010.1.28     1        5
+
+drop table tmptable
+go
+
+
+
+ 
+
+--------------------------------------------------------------------------------
+
+用户名：coleling　得分：80　时间：2011-01-22 01:22:05
+引用 8 楼 hxy75 的回复:
+
+有没有在sql server 2000环境下用一句sql实现的方法？
+
+
+
+SQL code
+select 本期起始日期=min(rq),本期终止日期=max(rq),持续天数=max(id1)-min(id1)+1,
+    距上一期天数=case a.id1-a.id2 when -1 then 0 else max(datediff(d,rq2,rq)) end 
+from (
+    select id1=datediff(d,'2010-01-01',rq),id2=(select count(1) from tmptable where rq <= a.rq),rq2=(select max(rq) from tmptable where rq < a.rq),* from tmptable a
+) a
+group by a.id1-a.id2
+/*
+本期起始日期                  本期终止日期                  持续天数        距上一期天数
+----------------------- ----------------------- ----------- -----------
+2010-01-01 00:00:00.000 2010-01-03 00:00:00.000 3           0
+2010-01-06 00:00:00.000 2010-01-07 00:00:00.000 2           3
+2010-01-10 00:00:00.000 2010-01-12 00:00:00.000 3           3
+2010-01-19 00:00:00.000 2010-01-20 00:00:00.000 2           7
+2010-01-22 00:00:00.000 2010-01-23 00:00:00.000 2           2
+2010-01-28 00:00:00.000 2010-01-28 00:00:00.000 1           5
+警告: 聚合或其他 SET 操作消除了空值。
+
+(6 行受影响)
+*/
+
+--------------------------------------------------------------------------------
+
+用户名：maco_wang　得分：5　时间：2011-01-21 09:11:11
+SQL code
+DECLARE @tmp TABLE
+(id INT IDENTITY(1, 1),datatime DATETIME,flag INT) ;
+
+INSERT @tmp(datatime,flag)
+SELECT  a.rq AS datatime ,
+CASE WHEN b.rq IS NULL THEN 0 ELSE 1 END
+FROM tmptable a LEFT JOIN tmptable b 
+ON a.rq = DATEADD(d, 1, b.rq) ORDER BY a.rq ;
+
+WITH  maco AS 
+(SELECT ROW_NUMBER() OVER ( ORDER BY a.id DESC ) AS rowid ,
+                        a.datatime AS begintime ,
+                        b.datatime,DATEDIFF(d,a.datatime,b.datatime) AS num
+               FROM     @tmp a LEFT JOIN @tmp b ON a.id = b.id + 1
+               WHERE    a.flag = 0)
+    SELECT  CONVERT(VARCHAR(10), a.begintime, 120) AS '本期起始日期' ,
+            CONVERT(VARCHAR(10), ISNULL(b.datatime, a.begintime), 120) AS '本期终止日期',
+            DATEDIFF(d,a.begintime,ISNULL(b.datatime, a.begintime))+1 AS '持续天数',
+            ABS(ISNULL(a.num,0)) AS  '距上一期天数'
+    FROM    maco a LEFT JOIN maco b ON a.rowid = b.rowid + 1
+               
+        --------------------------------------------------------------------------------用户名：maco_wang　得分：5　时间：2011-01-21 09:06:42SQL code
+DECLARE @tmp TABLE
+    (
+      id INT IDENTITY(1, 1) ,
+      datatime DATETIME ,
+      datanext DATETIME ,
+      flag INT
+    ) ;
+
+INSERT  @tmp
+        ( datatime ,
+          datanext ,
+          flag
+        )
+        SELECT  a.rq AS datatime ,
+                b.rq ,
+                CASE WHEN b.rq IS NULL THEN 0
+                     ELSE 1
+                END
+        FROM    tmptable a
+                LEFT JOIN tmptable b ON a.rq = DATEADD(d, 1, b.rq)
+        ORDER BY a.rq ;
+WITH    maco
+          AS ( SELECT   ROW_NUMBER() OVER ( ORDER BY a.id DESC ) AS rowid ,
+                        a.datatime AS begintime ,
+                        b.datatime,DATEDIFF(d,a.datatime,b.datatime) AS num
+               FROM     @tmp a
+                        LEFT JOIN @tmp b ON a.id = b.id + 1
+               WHERE    a.flag = 0
+             )
+    SELECT  CONVERT(VARCHAR(10), a.begintime, 120) AS '本期起始日期' ,
+            CONVERT(VARCHAR(10), ISNULL(b.datatime, a.begintime), 120) AS '本期终止日期',
+            DATEDIFF(d,a.begintime,ISNULL(b.datatime, a.begintime))+1 AS '持续天数',
+            ABS(ISNULL(a.num,0)) AS  '距上一期天数'
+    FROM    maco a
+            LEFT JOIN<            
+        --------------------------------------------------------------------------------用户名：feilniu　得分：5　时间：2011-01-21 08:49:15SQL code
+--SQL Server 2005+
+WITH CTE AS(
+    SELECT
+        本期起始日期 = MIN(rq),
+        本期终止日期 = MAX(rq),
+        持续天数 = DATEDIFF(day,MIN(rq),MAX(rq))+1,
+        SN = ROW_NUMBER() OVER(ORDER BY MIN(rq))
+    FROM (
+        SELECT *, sn = ROW_NUMBER() OVER(ORDER BY rq)
+        FROM #tmptable
+    ) tmp
+    GROUP BY rq - sn
+)
+SELECT
+    t.本期起始日期,
+    t.本期终止日期,
+    t.持续天数,
+    距上一期天数 = ISNULL(DATEDIFF(day,t2.本期终止日期,t.本期起始日期),0)
+FROM CTE t
+LEFT JOIN CTE t2
+ON t.SN - 1 = t2.SN
+ORDER BY t.本期起始日期
+
+--------------------------------------------------------------------------------用户名：feilniu　得分：5　时间：2011-01-21 08:44:40SQL code
+CREATE TABLE #tmptable(
+    rq datetime NOT NULL PRIMARY KEY CLUSTERED,
+    sn int IDENTITY(1,1) NOT NULL
+)
+GO
+INSERT #tmptable VALUES('20100101')
+INSERT #tmptable VALUES('20100102')
+INSERT #tmptable VALUES('20100103')
+INSERT #tmptable VALUES('20100106')
+INSERT #tmptable VALUES('20100107')
+INSERT #tmptable VALUES('20100110')
+INSERT #tmptable VALUES('20100111')
+INSERT #tmptable VALUES('20100112')
+INSERT #tmptable VALUES('20100119')
+INSERT #tmptable VALUES('20100120')
+INSERT #tmptable VALUES('20100122')
+INSERT #tmptable VALUES('20100123')
+INSERT #tmptable VALUES('20100128')
+GO
+SELECT
+    本期起始日期 = MIN(rq),
+    本期终止日期 = MAX(rq),
+    持续天数 = DATEDIFF(day,MIN(rq),MAX(rq))+1,
+    距上一期天数 = 0,
+    SN = IDENTITY(int,1,1)
+INTO #tmpresult
+FROM #tmptable
+GROUP BY rq - sn
+ORDER BY
+        
+--------------------------------------------------------------------------------
+    
+        用户名：hxy75　
+得分：0　
+时间：2011-01-22 09:59:03
+
+            研究了一下午，终于整明白10楼的SQL是如何实现我的要求了            
+        
+--------------------------------------------------------------------------------
+    
+        用户名：LCAAA　
+得分：0　
+时间：2011-01-22 09:27:04
+
+            引用 10 楼 coleling 的回复:引用 8 楼 hxy75 的回复:有没有在sql server 2000环境下用一句sql实现的方法？SQL codeselect 本期起始日期=min(rq),本期终止日期=max(rq),持续天数=max(id1)-min(id1)+1,距上一期天数=case a.id1-a.id2 when -1 then 0 else max(datediff(……领教了。。。            
+        
+--------------------------------------------------------------------------------
+    
+        用户名：maco_wang　
+得分：0　
+时间：2011-01-22 04:46:48
+
+            引用 10 楼 coleling 的回复:引用 8 楼 hxy75 的回复:有没有在sql server 2000环境下用一句sql实现的方法？SQL codeselect 本期起始日期=min(rq),本期终止日期=max(rq),持续天数=max(id1)-min(id1)+1,距上一期天数=case a.id1-a.id2 when -1 then 0 else max(datediff(……这个很强悍 赞！            
+        
+--------------------------------------------------------------------------------
+    
+        用户名：qiang0326　
+得分：0　
+时间：2011-01-22 03:02:20
+
+            SQL codeselect 本期起始日期=min(rq),本期终止日期=max(rq),持续天数=max(id1)-min(id1)+1,
+    距上一期天数=case a.id1-a.id2 when -1 then 0 else max(datediff(d,rq2,rq)) end 
+from (
+    select id1=datediff(d,'2010-01-01',rq),id2=(select count(1) from tmptable where rq <= a.rq),rq2=(select max(rq) from tmptable where rq < a.rq),* from tmptable a
+) a
+group by a.id1-a.id2
+            
+        
+--------------------------------------------------------------------------------
+    
+        用户名：acupofnescafe　
+得分：0　
+时间：2011-01-22 02:52:23
+
+            有点神马的感觉            
+        
+--------------------------------------------------------------------------------
+    
+        用户名：maco_wang　
+得分：0　
+时间：2011-01-21 13:36:15
+
+            引用 8 楼 hxy75 的回复:有没有在sql server 2000环境下用一句sql实现的方法？数据需要判断连续，还需要计算天数，而且只有一个日期字段，关系需要行与行之间的各种比较，一句sql搞不定的            
+        
+--------------------------------------------------------------------------------
+    
+        用户名：hxy75　
+得分：0　
+时间：2011-01-21 13:30:36
+
+            有没有在sql server 2000环境下用一句sql实现的方法？            
+        
+--------------------------------------------------------------------------------
+    
+        用户名：vilorsnow　
+得分：0　
+时间：2011-01-21 09:50:25
+
+                        
+        
+--------------------------------------------------------------------------------
+    
+        用户名：jiao3630　
+得分：0　
+时间：2011-01-21 08:35:17
+
+            看起来挺复杂的 搬个板凳 等高手            
+        
+--------------------------------------------------------------------------------
+    
+        用户名：dawugui　
+得分：0　
+时间：2011-01-21 08:33:57
+
+            建议用游标去慢慢折腾.            
+        

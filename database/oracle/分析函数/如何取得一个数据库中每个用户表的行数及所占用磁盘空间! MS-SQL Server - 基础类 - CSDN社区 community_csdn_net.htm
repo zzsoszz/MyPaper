@@ -1,0 +1,297 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0048)http://topic.csdn.net/t/20050528/10/4041716.html -->
+<HTML lang=zh-CN xml:lang="zh-CN" 
+xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server / 基础类 - CSDN社区 community.csdn.net</TITLE>
+<META content=all name=robots>
+<META http-equiv=Content-Language content=zh-CN>
+<META http-equiv=Content-Type content="text/html; charset=utf-8"><LINK 
+href="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/topic.css" 
+type=text/css rel=stylesheet>
+<SCRIPT 
+src="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/Topic.js" 
+type=text/javascript></SCRIPT>
+
+<META content="数据库 空间 表 记录 varchar exec sp tb 使用 table MS-SQL  Server 基础类" 
+name=Keywords>
+<META content=如何取得一个数据库中每个用户表的行数及所占用磁盘空间! name=description>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<DIV id=wrapper>
+<DIV id=innerWrapper>
+<DIV id=logo>
+<SCRIPT 
+src="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/csdn_ggmm.js"></SCRIPT>
+
+<SCRIPT type=text/javascript>show_ads_zone(230);</SCRIPT>
+<IMG style="DISPLAY: none" alt="" 
+src="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/pv.htm"> 
+
+<DIV>
+<TABLE class=CSDN-PHF id=CSDNPHL cellSpacing=1 cellPadding=0 border=0>
+  <TBODY>
+  <TR>
+    <TD><A href="http://www.csdn.net/" rel=external>CSDN首页</A></TD>
+    <TD><A href="http://hi.csdn.net/" rel=external>空间</A></TD>
+    <TD><A href="http://news.csdn.net/" rel=external>新闻</A></TD>
+    <TD><A href="http://bbs.csdn.net/" rel=external>论坛</A></TD>
+    <TD><A href="http://blog.csdn.net/" rel=external>Blog</A></TD>
+    <TD><A href="http://download.csdn.net/" rel=external>下载</A></TD>
+    <TD><A href="http://book.csdn.net/" rel=external>读书</A></TD>
+    <TD><A href="http://wz.csdn.net/" rel=external>网摘</A></TD>
+    <TD><A href="http://search.csdn.net/" rel=external>搜索</A></TD>
+    <TD><A href="http://dotnet.csdn.net/" rel=external>.NET</A></TD>
+    <TD><A href="http://java.csdn.net/" rel=external>Java</A></TD>
+    <TD><A href="http://live.csdn.net/" rel=external>视频</A></TD>
+    <TD><A href="http://prj.csdn.net/" rel=external>接项目</A></TD>
+    <TD><A href="http://job.csdn.net/" rel=external>求职</A></TD>
+    <TD><A href="http://www.itcast.net/" rel=external>在线学习</A></TD>
+    <TD><A href="http://www.dearbook.com.cn/" rel=external>买书</A></TD>
+    <TD><A href="http://www.programmer.com.cn/" rel=external>程序员</A></TD>
+    <TD><A href="http://hi.csdn.net/Admin/NotifyList.aspx"><SPAN 
+      id=notifyPrompt>通知</SPAN></A></TD></TR></TBODY></TABLE>
+<DIV id=logo>
+<TABLE cellSpacing=0 cellPadding=0 width=760 border=0>
+  <TBODY>
+  <TR style="TEXT-ALIGN: center">
+    <TD style="MARGIN: auto; VERTICAL-ALIGN: middle; BACKGROUND-COLOR: #026994" 
+    align=middle width=380 height=36><!--a href="http://community.csdn.net/Games/GamesList.aspx/" target="_blank"><font size="3px" color="white"><strong>可用分押宝游戏火热进行中...</strong></font></a--><A 
+      href="http://g.csdn.net/5071212" target=_blank><FONT color=white 
+      size=3><STRONG>（图）邪恶的韩国UMPC </STRONG></FONT></A></TD>
+    <TD style="MARGIN: auto; VERTICAL-ALIGN: middle; BACKGROUND-COLOR: #026994" 
+    align=middle width=380 height=36><A 
+      href="http://www.ibm.com/developerworks/cn/offers/lp/demos/summary/purequery.html?S_TACT=105AGX52&amp;S_CMP=tec-csdn" 
+      target=_blank><FONT color=white size=3><STRONG>使用 Java 
+      编写数据库应用新规范</STRONG></FONT></A> </TD></TR>
+  <TR id=bigFlash style="TEXT-ALIGN: center"><!--td colspan="2"><a href="http://community.csdn.net/" target="_blank"><img src="/t/img/topicAD.jpg" width="760" height="300" border="0" /></a></td-->
+    <TD colSpan=2><A href="http://g.csdn.net/5071868" target=_blank><IMG 
+      height=300 
+      src="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/20081124.jpg" 
+      width=760 border=0></A></TD></TR></TBODY></TABLE>
+<SCRIPT type=text/javascript>setTimeout("document.getElementById('bigFlash').style.display='none'", 5000);</SCRIPT>
+</DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD><A href="http://community.csdn.net/" rel=external><IMG alt=CSDN社区 
+      src="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/logo_csdn.gif"></A></TD>
+    <TD>
+      <SCRIPT type=text/javascript>show_ads_zone(228);</SCRIPT>
+<!--<iframe frameborder="0" width="475" height="60" scrolling="no" src="/t/img/centerAd.htm">
+    </iframe>--></TD>
+    <TD>
+      <SCRIPT type=text/javascript>show_ads_zone(229);</SCRIPT>
+    </TD></TR></TBODY></TABLE><!-- script src="http://notify.hi.csdn.net/PromptInfo.ashx?ForWhat=FullJs"></script --><LINK 
+media=all 
+href="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/csdn_favbykimi.css" 
+type=text/css rel=stylesheet>
+<DIV id=navigation>
+<DIV id=search>
+<DIV id=innerSearch><INPUT id=key onfocus="value=''"><A 
+onclick="return Search()" 
+href="http://topic.csdn.net/t/20050528/10/4041716.html#">搜索</A>&nbsp;<CITE 
+class=fav_csdnstylebykimi><A title=收藏到我的网摘中，并分享给我的朋友 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();">收藏</A></CITE>&nbsp;<A 
+onclick="return Print()" 
+href="http://topic.csdn.net/t/20050528/10/4041716.html#">打印</A>&nbsp;<A 
+onclick="return Close()" 
+href="http://topic.csdn.net/t/20050528/10/4041716.html#">关闭</A> </DIV></DIV>
+<DIV><A class=CSDNRoom href="http://community.csdn.net/" 
+rel=external>CSDN社区</A>&nbsp;&gt;&nbsp; <A 
+href="http://community.csdn.net/Expert/ForumsList.asp?typenum=1&amp;roomid=57" 
+rel=external>MS-SQL Server</A>&nbsp;&gt;&nbsp; <A 
+href="http://community.csdn.net/Expert/ForumList.asp?typenum=1&amp;roomid=5701" 
+rel=external>基础类</A> </DIV></DIV>
+<DIV id=mainWrapper>
+<DIV id=pageContent>
+<DIV id=innerContent>
+<H1>如何取得一个数据库中每个用户表的行数及所占用磁盘空间!</H1>
+<DIV class=author><A class=anchor name=Top>楼主</A>stone66789（）<INPUT class=user1 title="一级用户 该版得分小于等于100分" type=button>2005-05-28 
+10:31:02 在 MS-SQL Server / 基础类 提问</DIV>
+<P>如何取得一个数据库中每个用户表的行数及所占用磁盘空间! <SPAN>问题点数：50、回复次数：3</SPAN><A 
+href="http://topic.csdn.net/t/20050528/10/4041716.html#">Top</A> </P>
+<DIV class=tagad><IFRAME 
+src="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/Board.htm" 
+frameBorder=0 scrolling=no></IFRAME></DIV>
+<H3><STRONG><A class=anchor name=r_29766740>1 楼</A>zjcxc（邹建）<INPUT class=diam4 title="四级钻石用户 该版得分小于等于1000000分，大于800000分" type=button></STRONG><SPAN>回复于 
+2005-05-28 10:35:10 得分 <EM>20</EM></SPAN></H3>
+<P>--得到数据库中所有表的空间/记录情况 &nbsp; <BR>&nbsp; &nbsp; <BR>&nbsp; exec &nbsp; 
+sp_MSForEachTable &nbsp; &nbsp; <BR>&nbsp; @precommand=N' &nbsp; <BR>&nbsp; 
+create &nbsp; table &nbsp; ##( &nbsp; <BR>&nbsp; 表名 &nbsp; sysname, &nbsp; 
+<BR>&nbsp; 记录数 &nbsp; int, &nbsp; <BR>&nbsp; 保留空间 &nbsp; Nvarchar(10), &nbsp; 
+<BR>&nbsp; 使用空间 &nbsp; varchar(10), &nbsp; <BR>&nbsp; 索引使用空间 &nbsp; varchar(10), 
+&nbsp; <BR>&nbsp; 未用空间 &nbsp; varchar(10))', &nbsp; <BR>&nbsp; 
+@command1=N'insert &nbsp; ## &nbsp; exec &nbsp; sp_spaceused &nbsp; ''?''', 
+&nbsp; <BR>&nbsp; @postcommand=N'select &nbsp; * &nbsp; from &nbsp; ## &nbsp; 
+order &nbsp; by &nbsp; 记录数 &nbsp; drop &nbsp; table &nbsp; ##' &nbsp; <BR>&nbsp; 
+<A href="http://topic.csdn.net/t/20050528/10/4041716.html#">Top</A></P>
+<H3><STRONG><A class=anchor name=r_29766758>2 楼</A>woxiangfang（小黑黑脸）<INPUT class=user2 title="二级用户 该版得分小于等于500分，大于100分" type=button></STRONG><SPAN>回复于 
+2005-05-28 10:36:23 得分 <EM>10</EM></SPAN></H3>
+<P>我也想知道<A href="http://topic.csdn.net/t/20050528/10/4041716.html#">Top</A></P>
+<H3><STRONG><A class=anchor name=r_29767978>3 楼</A>hdhai9451（☆新人类☆）<INPUT class=star3 title="三星用户 该版得分小于等于50000分，大于30000分" type=button></STRONG><SPAN>回复于 
+2005-05-28 11:53:55 得分 <EM>20</EM></SPAN></H3>
+<P>--得到数据库中所有表的空间/记录情况 &nbsp; <BR>&nbsp; create &nbsp; table &nbsp; #tb(表名 
+&nbsp; sysname,记录数 &nbsp; int &nbsp; <BR>&nbsp; ,保留空间 &nbsp; varchar(10),使用空间 
+&nbsp; varchar(10) &nbsp; <BR>&nbsp; ,索引使用空间 &nbsp; varchar(10),未用空间 &nbsp; 
+varchar(10)) &nbsp; <BR>&nbsp; insert &nbsp; into &nbsp; #tb &nbsp; exec &nbsp; 
+sp_MSForEachTable &nbsp; 'EXEC &nbsp; sp_spaceused &nbsp; ''?''' &nbsp; 
+<BR>&nbsp; select &nbsp; * &nbsp; from &nbsp; #tb &nbsp; <BR>&nbsp; &nbsp; 
+<BR>&nbsp; go &nbsp; <BR>&nbsp; drop &nbsp; table &nbsp; #tb<A 
+href="http://topic.csdn.net/t/20050528/10/4041716.html#">Top</A></P>
+<H4><STRONG>相关问题</STRONG></H4>
+<DIV class=relation>
+<UL>
+  <LI><A href="http://topic.csdn.net/t/20020208/13/525424.html" 
+  rel=external>用SQL语句如何SQLServer中各个数据库的磁盘占用空间！谢谢</A> 
+  <LI><A href="http://topic.csdn.net/t/20001214/12/48427.html" 
+  rel=external>数据库报表</A> 
+  <LI><A href="http://topic.csdn.net/t/20010207/02/65702.html" 
+  rel=external>数据库与表</A> 
+  <LI><A href="http://topic.csdn.net/t/20030111/12/1348770.html" 
+  rel=external>数据库表示：</A> 
+  <LI><A href="http://topic.csdn.net/t/20020304/22/554966.html" 
+  rel=external>数据库两个回滚断表空间为何占用率一直是99％，怎么办？</A> 
+  <LI><A href="http://topic.csdn.net/t/20050629/13/4112182.html" 
+  rel=external>如何测定ORACLE数据库中某个表实际占用了多少硬盘空间？</A> 
+  <LI><A href="http://topic.csdn.net/t/20010907/13/276531.html" 
+  rel=external>数据库中的表</A> 
+  <LI><A href="http://topic.csdn.net/t/20011102/02/351958.html" 
+  rel=external>Oracle的数据库和表。</A> 
+  <LI><A href="http://topic.csdn.net/t/20020401/16/614746.html" 
+  rel=external>有关数据库报表</A> 
+  <LI><A href="http://topic.csdn.net/t/20020414/11/645479.html" rel=external>VC 
+  数据库报表</A> </LI></UL></DIV></DIV></DIV>
+<DIV id=sidebar>
+<H3>关键词</H3>
+<DIV>
+<UL>
+  <LI><A href="http://tag.csdn.net/tag/数据库/" rel=external>数据库</A> 
+  <LI><A href="http://tag.csdn.net/tag/空间/" rel=external>空间</A> 
+  <LI><A href="http://tag.csdn.net/tag/表/" rel=external>表</A> 
+  <LI><A href="http://tag.csdn.net/tag/记录/" rel=external>记录</A> 
+  <LI><A href="http://tag.csdn.net/tag/varchar/" rel=external>varchar</A> 
+  <LI><A href="http://tag.csdn.net/tag/exec%20sp/" rel=external>exec sp</A> 
+  <LI><A href="http://tag.csdn.net/tag/tb/" rel=external>tb</A> 
+  <LI><A href="http://tag.csdn.net/tag/使用/" rel=external>使用</A> 
+  <LI><A href="http://tag.csdn.net/tag/table/" rel=external>table</A> 
+</LI></UL></DIV>
+<H3>得分解答快速导航</H3>
+<DIV>
+<UL>
+  <LI>帖主：<A 
+  href="http://topic.csdn.net/t/20050528/10/4041716.html#Top">stone66789</A> 
+  <LI><A 
+  href="http://topic.csdn.net/t/20050528/10/4041716.html#r_29766740">zjcxc</A> 
+  <LI><A 
+  href="http://topic.csdn.net/t/20050528/10/4041716.html#r_29766758">woxiangfang</A> 
+
+  <LI><A 
+  href="http://topic.csdn.net/t/20050528/10/4041716.html#r_29767978">hdhai9451</A> 
+  </LI></UL></DIV>
+<H3>相关链接</H3>
+<DIV>
+<UL>
+  <LI><A 
+  href="http://www.dearbook.com.cn/Book/SearchBook.aspx?sortid=23&amp;sorttype=smallsort" 
+  target=_blank>SQL Server类图书</A> </LI></UL></DIV>
+<H3>广告也精彩</H3>
+<DIV>
+<SCRIPT 
+src="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/show_ads.js" 
+type=text/javascript></SCRIPT>
+</DIV>
+<H3>反馈</H3>
+<DIV>请通过下述方式给我们反馈<BR><IMG alt=反馈 
+src="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/feedback.gif"></DIV></DIV>
+<DIV class=clear></DIV></DIV>
+<DIV style="TEXT-ALIGN: center">
+<DIV id=pubfooter style="WIDTH: 770px">
+<DIV id=Float21789 
+style="Z-INDEX: 9; RIGHT: 3px; WIDTH: 190px; POSITION: absolute; TOP: 200px">
+<CENTER>
+<DIV id=AD21789 
+style="FLOAT: none; WIDTH: 190px; HEIGHT: 90px; TEXT-ALIGN: center"><A 
+href="http://g.csdn.net/5060169" target=_blank><IMG 
+style="PADDING-RIGHT: 3px; WIDTH: 180px; HEIGHT: 50px" alt=提问 
+src="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/questions.gif"></A> 
+</DIV></CENTER></DIV>
+<SCRIPT language=JavaScript type=text/javascript>
+    var csdnScrollTop=function(){
+        return document.documentElement.scrollTop?document.documentElement.scrollTop:document.body.scrollTop;
+        };
+        function mymove21789(){
+        document.getElementById("Float21789").style.top=csdnScrollTop()+300+'px';document.getElementById("Float21789").style.right=3+'px';setTimeout("mymove21789();",50);
+        }
+        mymove21789();
+    </SCRIPT>
+<LINK 
+href="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/public_header_footer.css" 
+type=text/css rel=stylesheet>
+<DL>
+  <DT>
+  <DD><A href="http://www.csdn.net/help/intro.htm" target=_blank>网站简介</A>|<A 
+  href="http://www.csdn.net/help/ads.htm" target=_blank>广告服务</A>|<A 
+  href="http://www.csdn.net/help/vip.htm" target=_blank>VIP资费标准</A>|<A 
+  href="http://www.csdn.net/help/bankaccount.htm" target=_blank>银行汇款帐号</A>|<A 
+  href="http://www.csdn.net/help/sitemap.htm" target=_blank>网站地图</A>|<A 
+  href="http://www.csdn.net/help/help.htm" target=_blank>帮助</A>|<A 
+  href="http://www.csdn.net/help/contact.htm" target=_blank>联系方式</A>|<A 
+  href="http://job.csdn.net/Jobs/f9c75c9f2ad14404a604669b757b9ed0/viewcompany.aspx" 
+  target=_blank>诚聘英才</A>|<A href="http://www.csdn.net/help/english.htm" 
+  target=_blank>English</A>|<A 
+  onclick="window.location.href='mai'+'lto:'+'webm'+'aster@c'+'sdn.n'+'et?subject=Report To CSDN';return false" 
+  href="http://topic.csdn.net/t/20050528/10/4041716.html#">问题报告</A> 
+  <DD>北京创新乐知广告有限公司 版权所有,&nbsp;京&nbsp;ICP&nbsp;证&nbsp;070598&nbsp;号 
+  <DD>世纪乐知(北京)网络技术有限公司 提供技术支持 
+  <DD class=small>Copyright © 2000-2008, CSDN.NET, All Rights Reserved 
+  <DD><A 
+  href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" 
+  target=_blank><IMG alt=GongshangLogo 
+  src="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/gongshang_logos.gif"></A> 
+  </DD></DL></DIV></DIV><!--google   Analytics begin -->
+<SCRIPT 
+src="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/urchin.js" 
+type=text/javascript>
+        </SCRIPT>
+
+<SCRIPT type=text/javascript>
+_uacct = "UA-2688088-7";
+urchinTracker();
+        </SCRIPT>
+<!--google   Analytics end -->
+<SCRIPT 
+src="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/counter.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="如何取得一个数据库中每个用户表的行数及所占用磁盘空间! MS-SQL Server - 基础类 - CSDN社区 community_csdn_net.files/clickeye.js"></SCRIPT>
+<!-- Control Code/Caption.Yo-Focus-->
+<SCRIPT language=JavaScript1.1>
+var afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8 = "";
+var afp_ad_count = 0;
+var afp_keyword_lenth = 200;
+
+var _YOYI_CONTROL_ = false;
+
+if ((navigator.userAgent.indexOf("MSIE 7.0") != -1) && (navigator.userAgent.indexOf("Windows") != -1))
+{
+	afp_keyword_lenth = 273;
+}
+
+if (document.title != "")
+	afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8 = document.title;
+if (window.keywords)
+	afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8 += window.keywords.content;
+if (window.description)
+	afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8 += window.description.content;
+
+if (document.innerTEXT)
+	afp_all_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8 = document.innerTEXT;
+
+if(afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8.length > afp_keyword_lenth) 
+{
+	afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8 = afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8.substring(0,afp_keyword_lenth);
+}
+
+document.write("<scr"+"ipt src='http://server.yoyi.com.cn/afp/get/;pl_id=BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8;tp=js;sk=0;ck=0;ext_key="+afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8+";u_id=afu;ex_id=;/?'></scr"+"ipt>");
+</SCRIPT>
+<!-- Control Code End/No.csdn--></DIV></DIV></DIV></DIV></BODY></HTML>

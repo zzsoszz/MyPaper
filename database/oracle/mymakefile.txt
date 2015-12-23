@@ -1,0 +1,10 @@
+#all: hello.exe #zifu.exe xygregex.exe hunluan.exe mytime.exe
+%.exe:%.o
+	gcc -o $@ $^
+xyg.so:hello.o
+	gcc -fpic -shared -o $@ hello.c
+%.o:%.c
+	cc -z muldefs -c -o $@ $^
+clean:
+	rm *.o
+	rm *.exe

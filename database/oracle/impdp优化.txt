@@ -1,0 +1,43 @@
+关于Expdp/Impdp 并行导入导出详细测试结果和并行参数的正确理解！！关于Expdp/Impdp 并行导入导出详细测试结果和并行参数的正确理解！！
+
+由于准备做一个120G左右的数据库的数据迁移，使用EXPDP和impdp做了一系列的测试
+导出环境 4CPU AIX P4 -750M   16G 内存
+导入环境 4CPU AIX P6-4G 32G 内存 4CPU可以虚拟出16个线程来，可以看到16个虚拟的CPU
+存储都是一样的DS4300 24块146G 15K ，都是使用裸设备，单机导入
+导出测试
+导出脚本，只修改PARALLEL=3的数字，导入相同
+nohup expdp system/manager schemas=kdjm DIRECTORY=DUMP_FILES PARALLEL=3 dumpfile=KDJM2008-11-28_%U.dmp logfile=nnsiexp2008_12_28.log&
+导出时间成绩
+1个并行文件 1:05
+2个并行 0:56:36
+3个并行 0:30:41 
+4个并行 0:51
+6个并行 1:21
+注意到没有，不是什么数量的并行值都能快速的导出，期间使用sar －ud 5 1000，监控磁盘I/O情况，发现在最快的3个管道的时侯I/O等待为40－50，1个管道的时侯I/O等待只有5－10个，6个管道的时侯是70－80的I/O等待，因此我认为无论是那种平台导出要想更快，一定要压榨I/O的能力，尽量使i/o等待在30－50之间，太多了I/O能力反而可能下降，看来在这个平台上，3个管道是最好的呵呵，导出时的PARALLEL应该是指生成的数据文件过程的I/O进程数，如果指定了%U参数，也将是文件数。 
+导入时间：
+导入脚本
+nohup impdp system/manager schemas=kdjm DIRECTORY=DUMP_FILES PARALLEL=12 dumpfile=KDMJ2008-12-11_%U.dmp logfile=KDMJ2008-12-11.log&
+导入时ORACLE参数配置，导出时好像配啥参数都没有效果呵呵
+alter system set db_file_multiblock_read_count=256 scope=spfile;
+alter system set pga_aggregate_target=4G scope=spfile;
+alter system set shared_pool_size=4G scope=spfile;
+alter system set db_cache_size=18G   scope=spfile;
+alter system set sga_max_size=24G scope=spfile;
+alter system   set sga_target=24G scope=spfile;
+alter system   set   processes=400 scope=spfile;
+排序区＝1.5G 
+alter system   set sort_area_size=1610612736 scope=spfile;
+导入耗时成绩
+1个并行，1个导入文件 11:27:21
+4个并行，4个导入文件6:12:32
+8个并行,4个导入文件4:42:45
+12个并行，3个导入文件3:42:27
+14个并行，3个导入文件4:40:13
+16个并行，2个导入文件4:39:07
+看到没有，导入选择合理的参数，从11个多小时降到3小时多一点，差异非常巨大，这样的差距，尽量在导入的时侯压榨I/O的压力，是说不通的。事实上到了导入后半程，SAR监控到的I/O压力并不大，是什么影响了导入的速度？我看到一个出错的语句帮助我解开了这个秘密，这个出错的语句是创建索引的语句
+这是出错的语句，应该是开发错误地将创建索引的表空间指到了SYSAUX，从而导致出错了，注意最后的PARALLEL 8
+ORA-31685: Object type INDEX:"DBSNMP"."DK_WERR" failed due to insufficient privileges. Failing sql is:
+CREATE INDEX "DBSNMP"."DK_WERR" ON "KDMJ"."DK_WERR" ("SCY", "AWERR") PCTFREE 10 INITRANS 2 MAXTRANS 255   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT) TABLESPACE "SYSAUX" PARALLEL 8 
+这个出错，让我们知道导入时指定PARALLEL值实际是用在创建索引的并行度上的，所以导入的时侯选择较高的并行度是可以大幅度提高创建索引的速度，从而加快了导入的速度。其实从导入数据来看，无论你选择多少个并行值，都是在1个小时左右数据就全部导入了，这时查询数据能查询到，但是没有索引，无论那种导入方式浪费时间，最多都是创建索引的时间，我们修改创建索引的并行度，使创建索引的速度大大增加了，当然增加到更多的值，会产生的I/O和锁之类的竞争，从而导致速度下降了，我们看到14个并行值和16个并行值还不如12个的，另外要特别指出一点，导入的时侯PARALLEL值和导出时的PARALLEL值可以完全不同的，估计好多人和我以前的理解一样，认为导入导出的数量要严格相等的,但是手册推荐导入数量要等于导出的数量罢了。
+
+如果要给导入一个合理的PARALLEL值，通过测试，我认为是可用的CPU数（不管你是虚拟的还是多核的）的60－70％左右的值是一个比较好的值。当然如果有可能还是测试一下来决定一个最优的值吧。 

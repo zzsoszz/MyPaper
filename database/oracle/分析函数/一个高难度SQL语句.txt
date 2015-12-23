@@ -1,0 +1,87 @@
+
+   
+CSDN=>FAQ=>FAQ 展示  问题内容：一个高难度SQL语句，我想了三天三夜，或许根本就没有解 
+原讨论链接：http://community.csdn.net/expert/topicview1.asp?id=903545 
+所属论坛：基础类     审核组：MS-SQL Server 
+提问者：netcoder     解决者：OpenVMS 
+感谢：j9988、OpenVMS、tj_dns 
+关键字：函数 调用 控件 MS-SQL Server SQL语句 字段 触发器 变量 语句 堆栈 窗体 视图 
+答案： 
+一个表sample,有两个字段A 、B(B只有三种取值1、2、3)：要求，当A=a1 或A=a2时，求出 B 取每一个可能值的记录数量 
+
+sample表如下 
+
+A     B 
+---------- 
+a1    1 
+---------- 
+a2    2 
+---------- 
+a1    1 
+---------- 
+a1    1 
+----------- 
+
+上例：A=a1时，B=1的记录数是3，B=2记录数是0，B=3的记录数是0…… 
+输出要求： 
+a1,3,0，0 
+a2,0,0, 1 
+
+--------------------------------------------------------------- 
+
+a1,3,0，0 
+a2,0,0, 1 ??   应是：a2,0,1,0  (a2 2) 
+
+
+select A, 
+sum(case when B=1 then 1 else 0 end) as B1, 
+sum(case when B=2 then 1 else 0 end) as B2, 
+sum(case when B=3 then 1 else 0 end) as B3, 
+from tablename group by A  
+
+--------------------------------------------------------------- 
+
+select A, 
+max(case B=1 then count(B) else 0 end) '1', 
+max(case B=2 then count(B) else 0 end) '2', 
+max(case B=3 then count(B) else 0 end) '3' 
+from sample group by A 
+--------------------------------------------------------------- 
+
+select X.A, isnull(count(T.B), 0), isnull(count(Y.B), 0), isnull(count(Z.B), 0) from  
+ (select distinct A from sample  ) as X 
+ left join sample as T on X.A = T.A and T.B = 1  
+ left join sample as Y on X.A = Y.A and Y.B = 2  
+ left join sample as Z on X.A = Z.A and Z.B = 3 
+group by X.A 
+
+
+
+评价：  给朵鲜花（0）  扔个鸡蛋（0） 
+相关FAQ ORA-00313: 无法打开日志组 1 (线程 1) 的成员,如何解决？
+大数据量的相同记录次数统计
+产生服从均匀分布的随机数
+急！请问：知道了函数的绝对地址，怎样用call 来调用此函数？
+插件开发中如何在两个视图之间实现事件监听
+存储段描述符中标号A(accessed)具体含义？？
+本人最近做ADSL路由器，一切都正常了，当在功能中加上一个TCP客户端就出问题。也就是说，在路由器中加上这个功能：当路由器接入Internet以后，路由器立即与远端一个固定IP地址建立TCP连接，路由器作为TCP客户端，建立连接后进行一些必要的通信。在测试中发现，远端的TCP Server总是显示以下错误：错误10053:Connection is aborted due to timeout or other failure 这是什么问题？注：经测试，远端的TCP Server没有任何问题。将路由器的NAT功能取消则上述测试通过。但是为什么用NAT就连接不上呢？请高手指教，谢谢！
+51C里有随机数函数吗？
+求客户端自动升级源代码
+const常量、指向常量的指针和常量指针
+为何C++中类的析构函数有时设计成virtual？
+自己动手制作控制台定位函数
+写好C程序的10+大要点
+深度探索C++对象模型系列问题之二(2)
+麻烦哪位大虾解答一个关于中断的疑问
+求一条sql语句
+typedef的四个用途和两个陷阱
+参与贴子“怎么知道鼠标在控件上面刚停下？”的同志及关注者快进来，有好消息！
+Java Puzzlers里面的一个谜题,大家都给个解释,进者有分
+想做一个鼠标拖动控件的效果，应该怎么做。 
+ 
+网站简介|广告服务|VIP资费标准|银行汇款帐号|网站地图|帮助|联系方式|诚聘英才|English|问题报告 
+北京创新乐知广告有限公司 版权所有, 京 ICP 证 070598 号 
+世纪乐知(北京)网络技术有限公司 提供技术支持 
+Copyright ? 2000-2008, CSDN.NET, All Rights Reserved 
+ 
+ 

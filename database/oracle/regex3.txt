@@ -1,0 +1,37 @@
+create type row_type as object(a varchar2(4000));--定义行对象
+
+create type table_type as table of row_type; --定义表对象
+
+
+create or replace function qsplit(
+    str in varchar2,
+    splitpattern in varchar2    --分隔符正则表达式
+)
+return table_type pipelined
+is
+    v row_type;--定义v为行对象类型
+    zj varchar(4000);
+begin
+  
+  zj:=splitpattern;
+  if zj is null then 
+      zj:='[^,]+';
+  end if; 
+  
+  for thisrow in 
+    (
+              select regexp_substr(str,zj,1,rownum) as res
+              from dual connect by rownum<= length(regexp_replace(str,zj,null))+1
+    )
+  loop
+    v := row_type(thisrow.res);
+    pipe row (v);
+  end loop;
+end;
+
+
+
+
+select * from table(qsplit('aaa,bbb  ',null)) ;
+select * from table(qsplit('aaa bbb  ','[^[:space:]]+')) ;
+select regexp_substr('2222 333 4444','[^[:space:]]+',1,1) from  dual;

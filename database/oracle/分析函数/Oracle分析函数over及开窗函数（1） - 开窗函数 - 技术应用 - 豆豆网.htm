@@ -1,0 +1,369 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0050)http://tech.ddvip.com/2008-08/122006572758830.html -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Oracle分析函数over及开窗函数（1） - 开窗函数 - 技术应用 - 豆豆网</TITLE><!-- 本模板由 legmail 最后于 2007-09-19 10:36 修改 -->
+<META http-equiv=Content-Type content="text/html; charset=gb2312"><LINK 
+href="Oracle分析函数over及开窗函数（1） - 开窗函数 - 技术应用 - 豆豆网.files/tech_content_new.css" 
+type=text/css rel=stylesheet>
+<STYLE>#legv2-01 {
+	WIDTH: 50px
+}
+#legv2-02 {
+	WIDTH: 75px
+}
+#legv2-03 {
+	WIDTH: 35px
+}
+#legv2-04 {
+	WIDTH: 85px
+}
+#legv2-05 {
+	WIDTH: 60px
+}
+#legv2-08 {
+	WIDTH: 58px
+}
+#legv2-09 {
+	BACKGROUND: none transparent scroll repeat 0% 0%; WIDTH: 65px; TEXT-INDENT: 4px
+}
+.legv2 LI {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 0px; BACKGROUND: url(/images/index/ddvip_i_ws_010.gif) no-repeat right 8px; FLOAT: left; PADDING-BOTTOM: 0px; OVERFLOW: hidden; COLOR: #556b96; LINE-HEIGHT: 27px; PADDING-TOP: 0px; HEIGHT: 27px; TEXT-ALIGN: center
+}
+</STYLE>
+
+<SCRIPT>
+<!--
+document.domain = 'ddvip.com';
+var node = 'tech';
+var subid = "2008-08-30_58830";
+-->
+</SCRIPT>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<DIV id=main><!-- 页面头部 -->
+<DIV class=header>
+<DIV class=top_nav><A href="http://news.ddvip.com/index.html">资讯</A>| <A 
+href="http://tech.ddvip.com/os/index.html">操作系统</A>| <A 
+href="http://tech.ddvip.com/program/index.html">编程</A>| <A 
+href="http://tech.ddvip.com/pic/index.html">平面</A>| <A 
+href="http://tech.ddvip.com/mediamovice/index.html">动画</A>| <A 
+href="http://tech.ddvip.com/network/index.html">网络</A>| <A 
+href="http://tech.ddvip.com/safe/index.html">安全</A>| <A 
+href="http://tech.ddvip.com/comm/index.html">通信</A>| <A 
+href="http://tech.ddvip.com/cert/index.html">认证</A>| <A 
+href="http://tech.ddvip.com/office/index.html">办公</A>| <A 
+href="http://tech.ddvip.com/server/index.html"><FONT 
+color=#ff0000>服务器</FONT></A>| <A 
+href="http://tech.ddvip.com/db/index.html">数据库</A>| <A 
+href="http://tech.ddvip.com/ent/index.html">企业应用</A>| <A 
+href="http://tech.ddvip.com/soft/index.html">软件应用</A>| <A 
+href="http://tech.ddvip.com/server/datasave/index.html">存储</A>| <A 
+href="http://tech.ddvip.com/machine/index.html">电子机械</A>| <A 
+href="http://tech.ddvip.com/chatsoft/qq.html">QQ</A>| <A 
+href="http://tech.ddvip.com/soa/index.html">SOA</A> </DIV>
+<DIV class=sitelogo><IMG alt=网站LOGO 
+src="Oracle分析函数over及开窗函数（1） - 开窗函数 - 技术应用 - 豆豆网.files/logo.gif"> 
+<DIV class=top_ad_580x60 id=top_ad_580x60></DIV></DIV>
+<DIV class=clear></DIV>
+<DIV class=c_nav>
+<UL class=legv2>
+  <LI id=legv2-01><A 
+  href="http://tech.ddvip.com/db/mysql/index.html"><STRONG>MySQL</STRONG></A> 
+  </LI>
+  <LI id=legv2-02><A href="http://tech.ddvip.com/db/mssql/index.html">SQL 
+  Server</A> </LI>
+  <LI id=legv2-01><A 
+  href="http://tech.ddvip.com/db/oracle/index.html"><STRONG>Oracle</STRONG></A> 
+  </LI>
+  <LI id=legv2-03><A href="http://tech.ddvip.com/db/db2/index.html">DB2</A> 
+</LI>
+  <LI id=legv2-04><A 
+  href="http://tech.ddvip.com/db/postgresql/index.html">PostgreSQL</A> </LI>
+  <LI id=legv2-01><A 
+  href="http://tech.ddvip.com/db/sqlite/index.html"><STRONG>SQLite</STRONG></A> 
+  </LI>
+  <LI id=legv2-01><A 
+  href="http://tech.ddvip.com/db/sybase/index.html">Sybase</A> </LI>
+  <LI id=legv2-05><A 
+  href="http://tech.ddvip.com/db/informix/index.html">Informix</A> </LI>
+  <LI id=legv2-01><A 
+  href="http://tech.ddvip.com/db/foxpro/index.html">Foxpro</A> </LI>
+  <LI id=legv2-01><A 
+  href="http://tech.ddvip.com/db/access/index.html"><STRONG>Access</STRONG></A> 
+  </LI>
+  <LI id=legv2-05><A href="http://tech.ddvip.com/db/sql/index.html">SQL语言</A> 
+  </LI>
+  <LI id=legv2-08><A 
+  href="http://tech.ddvip.com/db/datawarehouse/index.html">数据仓库</A> </LI>
+  <LI id=legv2-09><A href="http://tech.ddvip.com/db/theory/index.html">数据库理论</A> 
+  </LI></UL></DIV></DIV>
+<DIV class=tlad id=tech_content_tl></DIV><!-- 内容部分 -->
+<DIV class=content>
+<DIV class=location><A href="http://www.ddvip.com/" target=_balnk>豆豆网</A> &gt; 
+<A href="http://tech.ddvip.com/index.html">技术应用</A> &gt; <A 
+href="http://tech.ddvip.com/db/index.html">数据库</A> &gt; <A 
+href="http://tech.ddvip.com/db/oracle/index.html">Oracle</A> &gt; 正文 </DIV>
+<DIV class=content_left>
+<DIV class=article>
+<DIV class=article_title>
+<H1>Oracle分析函数over及开窗函数</H1>
+<DIV class=title_bottom>
+<SCRIPT language=javascript 
+src="Oracle分析函数over及开窗函数（1） - 开窗函数 - 技术应用 - 豆豆网.files/title_bottom.js"></SCRIPT>
+</DIV>
+<P><A 
+href="http://tech.ddvip.com/">http://tech.ddvip.com/</A>&nbsp;&nbsp;&nbsp;2008年08月30日 
+&nbsp;&nbsp;&nbsp;<A href="http://bbs.ddvip.com/">社区交流</A></P></DIV>
+<DIV class=article_content>
+<DIV class=title_bottom_cpr>
+<SCRIPT 
+src="Oracle分析函数over及开窗函数（1） - 开窗函数 - 技术应用 - 豆豆网.files/ad_title_bottom.js"></SCRIPT>
+</DIV><!--ID="929"-->
+<DIV class=searchhot>关键字： <A href="http://tech.ddvip.com/search.php?key=触发器语法" 
+target=_blank>触发器语法</A> <A 
+href="http://tech.ddvip.com/search.php?key=Oracle物化视图" 
+target=_blank>Oracle物化视图</A> <A 
+href="http://tech.ddvip.com/search.php?key=跟踪sql语句" target=_blank>跟踪sql语句</A> <A 
+href="http://tech.ddvip.com/search.php?key=密码丢失" target=_blank>密码丢失</A> <A 
+href="http://tech.ddvip.com/search.php?key=数据仓储" target=_blank>数据仓储</A> <A 
+href="http://tech.ddvip.com/search.php?key=Oracle 9i个人版" target=_blank>Oracle 
+9i个人版</A> </DIV>
+<DIV class=article_z>
+<H2>内容摘要：　Oracle从8.1.6开始提供分析函数，分析函数用于计算基于组的某种聚合值，它和聚合函数的不同之处是，对于每个组返回多行，而聚合函数对于每个组只返回一行。 
+</H2></DIV>
+<DIV class=article_ad>
+<SCRIPT language=javascript 
+src="Oracle分析函数over及开窗函数（1） - 开窗函数 - 技术应用 - 豆豆网.files/ads_250x250.js"></SCRIPT>
+</DIV>
+<DIV id=clickeye_content>
+<DIV class=article_c id=fontsize>
+<P>　　分析函数over 及开窗函数 
+<P>　　一：分析函数over</P>
+<P>　　Oracle从8.1.6开始提供分析函数，分析函数用于计算基于组的某种聚合值，它和聚合函数的不同之处是</P>
+<P>　　对于每个组返回多行，而聚合函数对于每个组只返回一行。</P>
+<P>　　下面通过几个例子来说明其应用。</P>
+<P>　　1：统计某商店的营业额。</P>
+<P>　　date　　sale</P>
+<P>　　1　　　　 20</P>
+<P>　　2　　　　　15</P>
+<P>　　3　　　　　14</P>
+<P>　　4　　　　　18</P>
+<P>　　5　　　　　30</P>
+<P>　　规则：按天统计：每天都统计前面几天的总额</P>
+<P>　　得到的结果：</P>
+<P>　　DATE　 SALE　 SUM</P>
+<P>　　----- -------- ------</P>
+<P>　　1　　　　20 20　　--1天</P>
+<P>　　2　　　　15 35　　 --1天+2天</P>
+<P>　　3　　　 14 49　　 --1天+2天+3天</P>
+<P>　　4　　　　18　　　　　　67 .</P>
+<P>　　5　　　　30　　　　　　97 .</P>
+<P>　　2:统计各班成绩第一名的同学信息</P>
+<P>　　NAME　CLASS　　S</P>
+<P>　　----- ----- ----------------------</P>
+<P>　　fda　　　　1　　　　　80</P>
+<P>　　ffd　　　　1　　　　　78</P>
+<P>　　dss　　　　1　　　　 95</P>
+<P>　　cfe　　　　2　　　　　74</P>
+<P>　　gds　　　　2　　　　　92</P>
+<P>　　gf　　　　 　3　　　　　99</P>
+<P>　　ddd　　　　3　　　　　99</P>
+<P>　　adf　　　　3　　　　　45</P>
+<P>　　asdf　　　3　　　　　55</P>
+<P>　　3dd　　　　3　　　　　78</P>
+<P>　　通过：</P>
+<P><CODE>--<BR>　　select*from<BR>　　(<BR>　　selectname,class,s,rank()over(partitionbyclassorderbysdesc)mmfromt2<BR>　　)<BR>　　wheremm=1<BR>--</CODE></P>
+<P>　　得到结果：</P>
+<P>　　NAME　CLASS　S　MM</P>
+<P>　　----- ----- ---------------------- ----------------------</P>
+<P>　　dss　　 1　　　　95　 1</P></DIV></DIV><!-- 分页 -->
+<DIV class=page><SPAN class=current>1</SPAN><A 
+href="http://tech.ddvip.com/2008-08/122006572758830_2.html">2</A><A 
+href="http://tech.ddvip.com/2008-08/122006572758830_2.html">下一页</A></DIV><!-- 分页end -->
+<P 
+style="PADDING-RIGHT: 4px; FONT-SIZE: 12px; COLOR: #000000; TEXT-ALIGN: right">作者：kezong 
+&nbsp;&nbsp; 责编：豆豆技术应用</P>
+<DIV id=art_content_end_468x60>
+<SCRIPT 
+src="Oracle分析函数over及开窗函数（1） - 开窗函数 - 技术应用 - 豆豆网.files/ads_468x60.js"></SCRIPT>
+</DIV></DIV>
+<DIV class=related>
+<DIV class=relatedtop>与“Oracle分析函数over及开窗函数”相关的文章</DIV>
+<UL>
+  <LI>暂无相关文章 </LI></UL></DIV>
+<DIV class=clear></DIV>
+<DIV class=related>
+<DIV class=relatedtop>本栏目更新</DIV>
+<UL>
+  <LI><A 
+  href="http://tech.ddvip.com/2008-09/122215220869178.html">Oracle推出应用集成架构促销管理解决方案</A> 
+  </LI>
+  <LI><A href="http://tech.ddvip.com/2008-09/122188296167959.html">安装Oracle 
+  9i加载数据库时出错的解决方法</A> </LI>
+  <LI><A 
+  href="http://tech.ddvip.com/2008-09/122188288367958.html">Oracle数据库管理员职责（四）</A> 
+  </LI>
+  <LI><A 
+  href="http://tech.ddvip.com/2008-09/122188249967955.html">Oracle数据库管理员职责（三）</A> 
+  </LI>
+  <LI><A 
+  href="http://tech.ddvip.com/2008-09/122188239667954.html">Oracle数据库管理员职责（二）</A> 
+  </LI>
+  <LI><A 
+  href="http://tech.ddvip.com/2008-09/122188219367951.html">从Alert.log文件中详细分析Oracle 
+  9i启动过程</A> </LI>
+  <LI><A 
+  href="http://tech.ddvip.com/2008-09/122188200767949.html">sysdba权限的管理</A> 
+</LI>
+  <LI><A 
+  href="http://tech.ddvip.com/2008-09/122188191967948.html">Oracle数据库管理员职责（一）</A> 
+  </LI>
+  <LI><A href="http://tech.ddvip.com/2008-09/122188178067946.html">Oracle查询 
+  rownum和rowid的区别</A> </LI>
+  <LI><A 
+  href="http://tech.ddvip.com/2008-09/122188165067945.html">Oracle的监听口令及监听器安全设置</A> 
+  </LI></UL></DIV>
+<DIV class=clear></DIV><!-- 评论开始 -->
+<DIV id=cmtline>
+<DIV class=cltop><A 
+onclick="document.getElementById('cmts').style.display='block'" 
+href="http://tech.ddvip.com/2008-08/122006572758830.html#showcomment">点击发表评论</A></DIV>
+<DIV class=clcmt id=cmts style="DISPLAY: none">
+<FORM id=comment_form name=comment_form method=post target=post_target><INPUT 
+id=rid type=hidden name=rid> 
+<DIV>网友昵称：<INPUT size=14 name=user> <INPUT type=checkbox CHECKED value=1 
+name=anonymous>匿名发表(无需注册) </DIV>
+<DIV id=quote_content>&nbsp;</DIV>
+<DIV class=comment><TEXTAREA id=content name=content></TEXTAREA></DIV>
+<DIV>请输入验证码：<INPUT size=14 name=num> &nbsp; <IMG height=25 
+src="Oracle分析函数over及开窗函数（1） - 开窗函数 - 技术应用 - 豆豆网.files/autoimg.png" width=65 
+align=absMiddle></DIV>
+<DIV>如果您还不是豆豆会员,<A href="http://bbs.ddvip.com/">欢迎注册</A>。<INPUT onclick="submit_post();return false" type=button value=提交留言></DIV>
+<DIV class=clear>&nbsp;</DIV></FORM></DIV></DIV>
+<DIV id=cntComment>正在加载评论...</DIV><IFRAME style="DISPLAY: none" name=post_target 
+src="Oracle分析函数over及开窗函数（1） - 开窗函数 - 技术应用 - 豆豆网.files/CA63CZD2.htm" width=0 
+height=0></IFRAME><!-- 评论结束 --></DIV></DIV>
+<DIV class=conent_right><!--搜索部分,独立CSS-->
+<DIV id=s>
+<FORM action=http://www.ddvip.com/s.php method=get target=_parent>
+<DIV class=search><INPUT class=input maxLength=30 size=12 name=key> <LABEL><INPUT class=button1 id=搜索 style="FONT-SIZE: 12px; HEIGHT: 21px" type=submit value=搜索 name=搜索> 
+</LABEL><BR><LABEL><INPUT style="MARGIN: 6px 0px 0px 5px" type=radio CHECKED 
+value=1 name=select> 教程</LABEL> <LABEL><INPUT type=radio value=2 name=select> 
+软件</LABEL> <LABEL><INPUT type=radio value=3 name=select> 源码</LABEL> 
+</DIV></FORM></DIV>
+<DIV class=clear></DIV>
+<DIV class=conent_right_1>
+<DIV class=conent_right_1_title><A 
+href="http://tech.ddvip.com/zt/oracle.html">Oracle 专题</A></DIV>
+<UL>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_10g.html" target=_blank>Oracle 
+  10g 教程</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_trouble.html" 
+  target=_blank>Oracle 故障处理</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_sp.html" target=_blank>Oracle 
+  存储过程</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_backup.html" target=_blank>Oracle 
+  备份恢复</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_opt.html" target=_blank>Oracle 
+  性能调优</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_9i.html" target=_blank>Oracle 9i 
+  教程</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_11g.html" target=_blank>Oracle 
+  11g 教程</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_start.html" target=_blank>Oracle 
+  启动</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_command.html" 
+  target=_blank>Oracle 命令</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_mange.html" target=_blank>Oracle 
+  数据库管理</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_time.html" target=_blank>Oracle 
+  时间</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_pass.html" target=_blank>Oracle 
+  密码</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_user.html" target=_blank>Oracle 
+  用户</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_faq.html" target=_blank>Oracle 
+  常见错误</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_table.html" target=_blank>Oracle 
+  建数据表</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_index.html" target=_blank>Oracle 
+  索引</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_link.html" target=_blank>Oracle 
+  数据库连接</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_lock.html" target=_blank>Oracle 
+  锁</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_rac.html" target=_blank>Oracle 
+  RAC 专题</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_exp.html" target=_blank>Oracle 
+  exp/imp 命令</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_table-s.html" 
+  target=_blank>Oracle 表空间</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_query.html" target=_blank>Oracle 
+  查询</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_function.html" 
+  target=_blank>Oracle 函数</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle_plsql.html" target=_blank>Oracle 
+  PL/SQL 专题</A> </LI>
+  <LI><A href="http://tech.ddvip.com/zt/oracle.html" target=_blank><FONT 
+  color=#ff0000>更多Oracle 专题&gt;&gt;&gt;</FONT></A> </LI></UL>
+<DIV class=conent_right_1_title><A 
+href="http://tech.ddvip.com/db/oracle/index.html">精华推荐</A></DIV>
+<UL>
+  <LI><A href="http://tech.ddvip.com/2008-09/122188098267936.html" 
+  target=_blank>Oracle时间操作大全</A> </LI>
+  <LI><A href="http://tech.ddvip.com/2008-09/122188066667927.html" 
+  target=_blank>Oracle快照原理及实现</A> </LI>
+  <LI><A href="http://tech.ddvip.com/2008-09/122094966462230.html" 
+  target=_blank>Oracle11g: PL/SQL基础</A> </LI>
+  <LI><A href="http://tech.ddvip.com/2008-09/122049998460199.html" 
+  target=_blank>Oracle存储过程的语法</A> </LI>
+  <LI><A href="http://tech.ddvip.com/2008-09/122032879059446.html" 
+  target=_blank>Oracle常见错误诊断</A> </LI>
+  <LI><A href="http://tech.ddvip.com/2008-09/122032434159387.html" 
+  target=_blank>Oracle结构设计技巧</A> </LI>
+  <LI><A href="http://tech.ddvip.com/2008-02/120377832442373.html" 
+  target=_blank>oracle中连接和会话</A> </LI>
+  <LI><A href="http://tech.ddvip.com/2007-09/118976266034479.html" 
+  target=_blank>Oracle四种启动方式</A> </LI></UL>
+<DIV 
+class=conent_right_1_bottom></DIV></DIV></DIV><!-- conent_right end --></DIV></DIV><!-- main -->
+<DIV style="CLEAR: both"></DIV>
+<DIV class=footer>
+<DIV class=about><A href="http://www.ddvip.com/about.html">关于我们</A> - <A 
+href="http://www.ddvip.com/contactus.html">联系我们</A> - <A 
+href="http://www.ddvip.com/corp.html">版权申明</A> - <A 
+href="http://www.ddvip.com/ad.html">广告服务</A> - <A 
+href="http://www.ddvip.com/map.html">网站地图</A> - <A 
+href="http://www.ddvip.com/lawfirm.html">网站律师</A> - <A 
+href="http://bbs.ddvip.com/">报告错误</A> - <A 
+href="http://www.ddvip.com/disclaimer.html">免责条款</A> - <A 
+href="http://www.ddvip.com/link.html">友情连接</A> </DIV>
+<DIV class=copy>豆豆网 版权所有 &copy; 2002-2008 <BR>蜀ICP证05002354号 All rights reserved <A 
+href="http://www.ddvip.com/">DDVIP.COM</A> </DIV></DIV>
+<SCRIPT 
+src="Oracle分析函数over及开窗函数（1） - 开窗函数 - 技术应用 - 豆豆网.files/content.js"></SCRIPT>
+
+<SCRIPT 
+src="Oracle分析函数over及开窗函数（1） - 开窗函数 - 技术应用 - 豆豆网.files/comment.js"></SCRIPT>
+
+<SCRIPT>
+if(self!=top){
+    window.open(self.location,'_top');
+}
+function get_larger(img){
+    var image = img.src;
+	window.open('http://www.ddvip.com/images.html?'+image,'image');
+}
+</SCRIPT>
+<!-- published at 2008-09-26 19:38:12 by CMS_ddvip -->
+<DIV style="DISPLAY: none">
+<SCRIPT src="Oracle分析函数over及开窗函数（1） - 开窗函数 - 技术应用 - 豆豆网.files/urchin.js" 
+type=text/javascript>
+</SCRIPT>
+
+<SCRIPT 
+type=text/javascript>
+_uacct = "UA-1077666-3";
+urchinTracker();
+</SCRIPT>
+</DIV></BODY></HTML>

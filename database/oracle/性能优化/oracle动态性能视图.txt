@@ -1,0 +1,319 @@
+ Oracle 动态性能视图
+ http://blog.csdn.net/tianlesoftware/article/details/5863191
+ 
+
+http://trailblizer.blog.163.com/blog/static/596303642009964470391/
+
+
+ORACLE动态性能视图  
+
+2009-10-06 16:47:00|  分类： DB |举报|字号 订阅
+ORACLE动态性能视图
+2008年08月21日 星期四 下午 02:28
+一、不同数据库状态下动态性能视图：
+
+
+用于记录当前例程的活动信息。启动例程时，ORACLE会自动建立动态性能视图；停止例程时，ORACLE会自动删除动态性能视图。数据字典信息是从数据文件中获得，而动态性能视图信息是从SGA和控制文件取得。
+通过查询动态视图，一方面可以获取性能数据，另一方面还可以取得与磁盘和内存结构相关的其他信息。
+  所有动态性能视图都是以V_$开始的，ORACLE为每个动态性能视图提供了相应的同义词（V$开头）通过查询V$FIXED_TABLE,可以显示所有动态性能视图。动态性能视图的所有者为SYS，并且多数动态性能视图只能由特权用户和DBA用户查询。当数据库处于不同状态时，可以访问的动态性能视图有所不同。
+
+1．   NOMOUNT
+启动例程时，ORACLE会打开参数文件，分配SGA并启动后台进程。因此例程处于NOMOUNT状态时，只能访问从SGA中获取信息的动态性能视图。
+SGA----àV$PARAMETER     V$SGA   V$OPTION V$PROCESS
+      V$SESSION        V$VERSION V$INSTANCE
+
+2.MOUNT
+装载数据库时，ORACLE根据初始化参数control_file 打开所有控制文件。当例程处于MOUNT状态时，不仅可以访问从SGA中获取信息的动态性能视图，还可以访问从控制文件中获取信息的动态性能视图。
+控制文件-------àV$THREAD V$CONTROLFILE V$DATABASE
+            V$DATAFILE   V$DATAFILE_HEADER   V$LOGFILE
+
+3．   OPEN
+数据库打开时，ORACLE按照控制文件所记载的信息打开所有数据文件和重做日志。除了可以访问SGA和控制文件中获取信息的动态性能视图外，还可以访问与ORACLE性能相关的动态性能视图（V$FILESTAT   V$SESSION_WAIT   V$WAITSTAT）
+注意的是，只有处于OPEN状态时，才能访问数据字典视图。
+
+二、常用动态性能视图：
+
+
+维护数据库、调整数据库性能时，需要经常访问动态性能视图，以获取例程的动态信息。大多数动态性能视图只能由特权用户和DBA用户访问。
+
+1．   V$FIXED_TABLE
+该动态性能视图用于列出所有可用的动态性能视图和动态性能表。
+SQL> conn system/manager
+已连接。
+SQL> select name from v$fixed_table where name like 'V$%';
+
+NAME
+------------------------------
+V$WAITSTAT
+V$BH
+V$GC_ELEMENT
+V$CR_BLOCK_SERVER
+V$GC_ELEMENTS_WITH_COLLISIONS
+。。。。。。。
+
+2．   V$INSTANCE
+获取当前例程的详细信息。
+SQL> col host_name format a20
+SQL> select instance_name,host_name,status from   V$instance;
+
+INSTANCE_NAME HOST_NAME          STATUS
+---------------- -------------------- -------
+dpx007           DPX123             OPEN
+
+3．   V$SGA
+显示SGA主要组成部分
+SQL> select * from V$SGA;
+
+NAME                   VALUE
+-------------------- ----------
+Fixed Size             282576
+Variable Size       83886080
+Database Buffers    33554432
+Redo Buffers          532480
+
+
+4．   V$SGAINFO
+取得SGA的更详细信息
+
+
+5．   V$PARAMETER
+取得初始化参数的详细信息
+SQL> select name,value,description from v$parameter
+   2   where name='db_name';
+
+NAME    VALUE    DESCRIPTION
+---------- ---------- ------------------------------
+db_name dpx007     database name specified in CRE
+ATE DATABASE
+
+
+6．   V$VERSION
+获取ORACLE版本的详细信息
+SQL> select * from V$version;
+
+BANNER
+-------------------------------------------------------------
+Oracle9i Enterprise Edition Release 9.0.1.1.1 - Production
+PL/SQL Release 9.0.1.1.1 - Production
+CORE 9.0.1.1.1    Production
+TNS for 32-bit Windows: Version 9.0.1.1.0 - Production
+NLSRTL Version 9.0.1.1.1 – Production
+
+
+7．   V$OPTION
+显示已经安装的ORACLE选项
+SQL> select * from V$OPTION；
+
+
+8．   V$SESSION
+显示会话的详细信息
+SQL> select sid,serial#,username from V$session
+   2   where username is not null;
+
+   SID SERIAL# USERNAME
+---------- ---------- ------------------------------
+7 198 SYS
+如果username为NULL，则表示是后台进程会话。
+
+
+9．   V$PROCESS
+显示与ORACLE相关的所有进程信息（包括后台进程和服务器进程）
+SQL> select a.terminal,a.spid,a.pga_alloc_mem
+   2   from V$process a ,V$session b
+3       where a.addr=b.paddr and b.username='SCOTT';
+
+
+10．       V$BGPROCESS
+显示后台进程详细信息
+SQL>select name,description from V$bgprocess
+where paddr<>'00';
+NAME    DESCRIPTION
+---------- ------------------------------
+PMON    process cleanup
+DBW0    db writer process 0
+LGWR    Redo etc.
+CKPT    checkpoint
+SMON    System Monitor Process
+RECO    distributed recovery
+
+
+11．       V$DATABASE
+取得当前数据库的详细信息
+SQL> select name, log_mode,created from V$database;
+
+NAME    LOG_MODE     CREATED
+---------- ------------ ----------
+DPX007     NOARCHIVELOG 08-10月-06
+
+
+12．       V$CONTROLFILE
+取得当前数据库所有控制文件的信息。
+SQL> select name from V$controlfile;
+
+NAME
+----------
+F:\ORANT\O
+RADATA\DPX
+007\CONTRO
+L01.CTL
+。。。。。。。。。
+
+
+13．       V$DATAFILE
+取得当前数据库的所有数据文件的详细信息
+SQL> select file#,name,bytes from v$datafile;
+
+    FILE# NAME          BYTES
+---------- ---------- ----------
+      1 F:\ORANT\O   340787200
+          RADATA\DPX
+          007\SYSTEM
+01. DBF
+。。。。。。。。。
+
+
+14．       V$DBFILE
+取得数据文件编号及名称
+SQL> select * from V$dbfile;
+
+
+15．       V$LOGFILE
+显示重做日志成员的信息
+SQL> col member format a50
+SQL> select group#,member from V$logfile;
+
+GROUP# MEMBER
+---------- -----------------------------------------
+      3 F:\ORANT\ORADATA\DPX007\REDO03.LOG
+      2 F:\ORANT\ORADATA\DPX007\REDO02.LOG
+      1 F:\ORANT\ORADATA\DPX007\REDO01.LOG
+
+
+16．       V$LOG
+显示日志组的详细信息
+SQL> select group#,thread#,sequence#,bytes,members,status
+   2   from V$log;
+
+GROUP# THREAD#   SEQUENCE#    BYTES MEMBERS STATUS
+---------- ---------- ---------- ---------- ---------- --------------
+      1       1       11   104857600       1 INACTIVE
+      2       1       12   104857600       1 INACTIVE
+      3       1       13   104857600       1 CURRENT
+
+
+17．       V$THREAD
+取得重做线程的详细信息，当使用RAC结构时，每个例程都对应一个重做线程，并且每个重做线程包含独立的重做日志组。
+SQL> select thread#,status,groups,instance,sequence#
+   2   from V$thread;
+
+THREAD# STATUS     GROUPS INSTANCE SEQUENCE#
+---------- ------ ---------- ---------- ----------
+      1 OPEN          3 dpx007          13
+
+
+18．       V$LOCK
+显示锁信息，通过与V$SESSION进行连接查询，可以显示占有锁的会话，以及等待锁的会话。
+SQL> col username format a10;
+SQL> col machine format a25;
+SQL> select a.username,a.machine,b.lmode,b.request
+   2   from V$session a,V$lock b
+   3   where a.sid=b.sid and a.type='USER';
+
+
+19．       V$LOCKED_OBJECT
+显示被加锁的数据库对象。通过与DBA_OBJECTS进行连接查询，以显示具体的对象名及执行加锁操作的ORACLE用户名。
+select a.oracle_username,b.owner||'.'||b.object_name object
+from V$locked_object a,dba_objects b
+where a.object_id=b.object_id;
+
+
+20．       V$ROLLNAME V$ROLLSTAT
+V$ROLLNAME显示处于ONLINE状态的UNDO段，V$ROLLSTAT显示UNDO段的统计信息。通过二者执行连接查询，以显示UNDO的详细统计信息。
+SQL> select a.name,b.xacts from V$rollname a,V$rollstat b
+   2   where a.usn=b.usn;
+
+NAME          XACTS
+---------- ----------
+SYSTEM              0
+_SYSSMU1$           0
+。。。。。。
+
+
+21．       V$TABLESPACE
+显示表空间信息
+SQL> select * from V$tablespace;
+
+   TS# NAME    INC
+--------- ---------- ---
+       2 CWMLITE YES
+       3 DRSYS    YES
+       4 EXAMPLE YES
+       5 INDX    YES
+       0 SYSTEM     YES
+       7 TOOLS    YES
+       1 UNDOTBS YES
+       8 USERS    YES
+       6 TEMP    YES
+
+
+22．       V$TEMPFILE
+显示数据库所包含的临时文件
+SQL> select name from V$tempfile;
+
+NAME
+----------
+F:\ORANT\O
+RADATA\DPX
+007\TEMP01
+.DBF
+
+三、oracle最重要的9个动态性能视图
+
+v$session + v$session_wait (在10g里功能被整合,凑合算1个吧.)
+v$process
+v$sql
+v$sqltext
+v$bh (更宁愿是x$bh)
+v$lock
+v$latch_children
+v$sysstat
+v$system_event
+
+
+按组分的几组重要的性能视图
+
+1.System 的 over view 
+v$sysstat ,--整个系统的统计信息
+
+v$system_event , --This view contains information on total waits for an event.每个事件的等待情况
+
+v$parameter
+
+2.某个session 的当前情况
+v$process , v$session ,
+v$session_wait ,--This view lists the resources or events for which active sessions are waiting. 当前活动的会话正在等待的事件情况
+v$session_event , --This view lists information on waits for an event by a session. 每个会话对每个事件的等待情况
+v$sesstat –-每个会话的统计信息
+
+3.SQL 的情况
+v$sql , v$sqlarea , v$SQL_PLAN , V$SQL_PLAN_STATISTICS, v$sqltext_with_newlines
+
+4. Latch / lock /ENQUEUE(闩,锁相关)
+v$latch , v$latch_children , v$latch_holder , v$lock ,V$ENQUEUE_STAT ,V$ENQUEUE_LOCK
+
+5. IO 方面的
+v$segstat , v$filestat , v$tempstat ,v$datafile , v$tempfile
+
+6.shared pool / Library cache
+v$Librarycache , v$rowcache , x$ksmsp
+7.几个advice也不错
+v$db_cache_advice , v$PGA_TARGET_ADVICE, v$SHARED_POOL_ADVICE
+
+8.等待事件:
+v$system_event, v$session_wait ,v$session_event
+9.块竞争:
+v$waitstat-- This view lists block contention statistics.块竞争引起的等待统计
+10.热块:
+v$bh
+
+

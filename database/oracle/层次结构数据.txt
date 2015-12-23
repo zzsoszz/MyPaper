@@ -1,0 +1,3 @@
+select * from myemployee t
+connect by  t.id= prior t.manager (先检索id=4的那一行，然后以manager为优先，检索等于manager的id 循环)
+start with t.id =4;

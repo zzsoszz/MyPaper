@@ -1,0 +1,182 @@
+PERCENT_RANK 首先算出所有的记录数量，然后将 1/（记录数-1）作为每行增长值，以0为第一元素
+select area,count(*) over(PARTITION BY area) from sys.sell;
+select * from sys.sell;
+select sellmoney,ntile(100) over(order by sellmoney) from sys.sell;
+select sellmoney,percent_rank() over(order by sellmoney) from sys.sell;
+select sellmoney,cume_dist() over(order by sellmoney) from sys.sell;
+select sellmoney,dense_rank() over(order by sellmoney) from sys.sell;
+select id,month,money,row_number() over(order by money) from gongzi t
+group by 
+rollup 以左为固定点，右边为动点进行聚合
+cube  相反
+grouping 以谁为动点的聚合为1
+select area,sellp,sum(sellmoney),grouping(area),grouping(sellp) from sell 
+group by area,sellp with cube
+
+
+开窗函数
+select id,month,money,sum(money) over() from gongzi t;
+select id,month,money,sum(money) over(order by money) from gongzi t;
+select id,month,money,count(*) over(order by month) from gongzi t
+没有order by 整体数据为窗口，有order by 以字段的排序为窗口
+	id	month  money	count(*)
+1	3	7	3	5
+2	4	7	1	5
+3	5	7	4	5
+4	12	7	1	5
+5	13	7	2	5
+6	1	8	3	7
+7	2	8	2	7
+8	6	9	4	10
+9	7	9	5	10
+10	8	9	9	10
+11	9	10	2	13
+12	10	10	1	13
+13	11	10	9	13
+
+partition by将数据划分区域
+
+
+使用窗口必须指定order by ;
+order by 字段 窗口大小 ：后面没有指定窗口大小是，就以字段的不同为窗口大小，指定了窗口大小就以指定值为窗口大小;
+order by 字段 row  BETWEEN 2 PRECEDING AND 3 FOLLOWING ：当前行的2行和后三行为窗口大小;
+order by month RANGE BETWEEN 2 PRECEDING AND 3 FOLLOWING：当前月份-2 到 当前月份+2 的行做统计，比如当前月份为9月，将会对7-11的月份做统计;
+CUME_DIST
+row 和当前行有关，range和当前值有关
+select sum(aa)over（order by aa range between 2 preceding and 2 following）
+   得出的结果是
+            AA                       SUM
+            ---------------------- ------------------------------------------------------- 
+            1                       10      当前行aa为1，将计算1-2到1+2之间的所有值的求和1+2+2+2+3=10                                               
+            2                       14       2-2到2+2之间的值1+2+2+2+3+4=14                                               
+            2                       14                                                      
+            2                       14                                                      
+            3                       18                                                     
+            4                       18                                                      
+            5                       22       5-2到5+2之间的值  3+4+5+6+7                                             
+            6                       18                                                                
+            7                       22                                                                
+            9                       9
+       
+查看指定值在列中的排序名次
+select rank(2) within group(order by money) from gongzi t
+
+以月份排名，取出排名为1的所有记录，然后进行统计
+select id,month,money,dense_rank() over(order by month) from gongzi t
+select sum(money) KEEP (DENSE_RANK FIRST ORDER BY month) as 'rank' from gongzi; 统计
+DENSE_RANK FIRST ORDER BY month 等价于select id,month,money,dense_rank() over(order by month) from gongzi t
+	id	month   money	rank
+1	3	7	3+	1  
+2	4	7	1+	1
+3	5	7	4+	1
+4	12	7	1+	1
+5	13	7	2+	1            所以3+1+4+1+2=11
+6	1	8	3	2
+7	2	8	2	2
+8	6	9	4	3
+9	7	9	5	3
+10	8	9	9	3
+11	9	10	2+	4
+12	10	10	1+	4          select sum(money) KEEP (DENSE_RANK Last ORDER BY month) from gongzi;
+13	11	10	9+	4	   2+1+9排名最后的统计为12
+
+返回以当前值的上以行元素的值
+select id,month,money,lag(money,1,0) over(order by month) from gongzi;
+1	3	7	3 *	0
+2	4	7	1	3*
+3	5	7	4	1
+4	12	7	1	4
+5	13	7	2	1
+6	1	8	3*	2
+7	2	8	2	3*
+8	6	9	4	2
+9	7	9	5	4
+10	8	9	9	5
+11	9	10	2	9
+12	10	10	1*	2
+13	11	10	9	1*
+以month分区，并且进行money排序，然后取当前窗口money的第一个值作为当前行值
+select id,month,money,first_value(money) over(partition by month order by money)  from gongzi;
+1	4	7	1*	1
+2	12	7	1	1
+3	13	7	2	1
+4	3	7	3	1
+5	5	7	4	1
+*****这就是窗口,也是分区
+6	2	8	2*	2
+7	1	8	3	2
+*****
+8	6	9	4*	4
+9	7	9	5	4
+10	8	9	9	4
+*****
+11	10	10	1*	1
+12	9	10	2	1
+13	11	10	9	1
+
+首先分区，然后排序，然后以当前元素的前一个和自己作为窗口找到第一个值，若果没指定rows将以排序字段相同值内为作用范围
+select id,month,money,first_value(money) over(partition by month order by money rows BETWEEN 1 PRECEDING AND 0 FOLLOWING)  from gongzi;
+	id    month	money	firstvalue
+1	4	7	1*	1
+2	12	7	1*	1
+3	13	7	2*	1
+4	3	7	3*	2  以上一行的元素为第一元素所以是2
+5	5	7	4	3
+****
+6	2	8	2*	2
+7	1	8	3	2
+****
+8	6	9	4*	4
+9	7	9	5*	4
+10	8	9	9	5
+****
+11	10	10	1*	1
+12	9	10	2*	1
+13	11	10	9	2
+
+计算元素的相对位置：
+排序，以 1/行数减号1 为增长率，
+select id,month,money,percent_rank() over(order by money)  from gongzi;
+select PERCENTILE_CONT(0.7) WITHIN GROUP (ORDER BY money)  from gongzi;//将取得值4
+select PERCENTILE_CONT(0.8) WITHIN GROUP (ORDER BY money)  from gongzi;//将取得值5
+	id    month	money	percent_rank	
+1	4	7	1	0    0.0
+2	10	10	1	0    0.1  序号-1/行数-1  2-1/11-1=0.1
+3	2	8	2	0.2  0.2
+4	9	10	2	0.2  0.3
+5	1	8	3	0.4  0.4
+6	3	7	3	0.4  0.5
+7	5	7	4	0.6  0.6 
+8	6	9	4	0.6  0.7 
+9	7	9	5	0.8  0.8
+10	8	9	9	0.9  0.9
+11	11	10	9	0.9  1.0 由于有相同值所以增长率是不连续的
+以 1/行数 为增长率，
+select id,month,money,CUME_DIST() over(order by money)  from gongzi;
+select PERCENTILE_DISC(0.46) WITHIN GROUP (ORDER BY money)  from gongzi;//将取得值2
+select PERCENTILE_DISC(0.5) WITHIN GROUP (ORDER BY money)  from gongzi;//将取得值3
+	id    month	money	CUME_DIST
+1	4	7	1	0.2 	0.1
+2	10	10	1	0.2 	0.2
+3	2	8	2	0.4 	0.3
+4	9	10	2	0.4 	0.4
+5	1	8	3	0.6 	0.5
+6	3	7	3	0.6 	0.6 
+7	5	7	4	0.8 	0.7
+8	6	9	4	0.8 	0.8
+9	7	9	5	0.9 	0.9
+10	8	9	9	1       由于有相同值所以增长率是不连续的
+以month,money排序，求出money的排名
+select id,month,money,rank() over(order by month,money) from gongzi t;
+select RANK(7,3) within group( order by month,money) from gongzi t; 查到的将是2（查找指定值的排名，指定值可以来自多个字段）
+1	4	7	1	1
+2	3	7*	3*	2*
+3	5	7	4	3
+4	2	8	2	4
+5	1	8	3	5
+6	6	9	4	6
+7	7	9	5	7
+8	8	9	9	8
+9	10	10	1	9
+10	9	10	2	10
+11	11	10	10	11

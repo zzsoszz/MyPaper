@@ -1,0 +1,49 @@
+只能 rownum = 1, <= 大于1 的自然数.
+=大于1 的数是没有结果的, 大于一个数也是没有结果的
+
+　　10．返回表中[N，M]条记录： 
+　　取得某列中第N大的行 
+　　 
+　　select column_name from 
+　　(select table_name.*,dense_rank() over (order by column desc) rank from table_name) 
+　　where rank = &N； 
+　　假如要返回前5条记录： 
+　　 
+　　select * from tablename where rownum<6;(或是rownum <= 5 或是rownum != 6) 
+　　假如要返回第5-9条记录： 
+　　 
+　　select * from tablename 
+　　where … 
+　　and rownum<10 
+　　minus 
+　　select * from tablename 
+　　where … 
+　　and rownum<5 
+　　order by name 
+　　选出结果后用name排序显示结果。(先选再排序) 
+　　 
+　　注意：只能用以上符号(<、<=、!=)。 
+　　 
+　　select * from tablename where rownum != 10;返回的是前９条记录。 
+　　不能用：>;,>;=,=,Between...and。由于rownum是一个总是从1开始的伪列，Oracle 认为这种条件 不成立，查不到记录. 
+　　 
+　　另外，这个方法更快： 
+　　 
+　　select * from ( 
+　　select rownum r,a from yourtable 
+　　where rownum <= 20 
+　　order by name ) 
+　　where r >; 10 
+　　这样取出第11-20条记录!(先选再排序再选) 
+　　 
+　　要先排序再选则须用select嵌套：内层排序外层选。 
+　　 
+　　rownum是随着结果集生成的，一旦生成，就不会变化了；同时,生成的结果是依次递加的，没有1就永远不会有2! 
+　　 
+　　rownum 是在 查询集合产生的过程中产生的伪列，并且如果where条件中存在 rownum 条件的话，则: 
+　　 
+　　1： 假如 判定条件是常量，则： 
+　　 
+　　只能 rownum = 1, <= 大于1 的自然数， = 大于1 的数是没有结果的， 大于一个数也是没有结果的 
+　　 
+　　即 当出现一个 rownum 不满足条件的时候则 查询结束 

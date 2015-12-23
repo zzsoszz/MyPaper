@@ -1,0 +1,39 @@
+.overlay_alert_lite {
+	FILTER: alpha(opacity=60); BACKGROUND-COLOR: #85bbef; moz-opacity: 0.6; opacity: 0.6
+}
+.alert_lite_sizer {
+	DISPLAY: none; WIDTH: 0px; HEIGHT: 0px
+}
+.alert_lite_close {
+	DISPLAY: none; WIDTH: 0px; HEIGHT: 0px
+}
+.alert_lite_minimize {
+	DISPLAY: none; WIDTH: 0px; HEIGHT: 0px
+}
+.alert_lite_maximize {
+	DISPLAY: none; WIDTH: 0px; HEIGHT: 0px
+}
+.alert_lite_title {
+	DISPLAY: none; WIDTH: 0px; HEIGHT: 0px
+}
+.alert_lite_content {
+	FONT-SIZE: 10px; BACKGROUND: #fff; OVERFLOW: auto; COLOR: #000; FONT-FAMILY: Tahoma, Arial, Sans Serif
+}
+.alert_lite_window {
+	BORDER-RIGHT: #f00 1px solid; PADDING-RIGHT: 20px; BORDER-TOP: #f00 1px solid; PADDING-LEFT: 20px; BACKGROUND: #fff; PADDING-BOTTOM: 20px; MARGIN-LEFT: auto; BORDER-LEFT: #f00 1px solid; WIDTH: 400px; MARGIN-RIGHT: auto; PADDING-TOP: 20px; BORDER-BOTTOM: #f00 1px solid
+}
+.alert_lite_message {
+	FONT-SIZE: 16px; PADDING-BOTTOM: 10px; WIDTH: 100%; COLOR: #f00; TEXT-ALIGN: center
+}
+.alert_lite_buttons {
+	WIDTH: 100%; TEXT-ALIGN: center
+}
+.alert_lite_buttons INPUT {
+	MARGIN: 10px; WIDTH: 20%
+}
+.alert_lite_progress {
+	BACKGROUND: url(alert/progress.gif) #fff no-repeat center center; FLOAT: left; MARGIN: auto; WIDTH: 100%; HEIGHT: 16px; TEXT-ALIGN: center
+}
+TABLE.alert_lite_header {
+	BORDER-RIGHT: #f00 1px solid; BORDER-TOP: #f00 1px solid; BACKGROUND: #fff; BORDER-LEFT: #f00 1px solid; BORDER-BOTTOM: #f00 1px solid
+}

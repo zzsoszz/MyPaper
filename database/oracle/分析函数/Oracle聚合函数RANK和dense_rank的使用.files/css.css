@@ -1,0 +1,42 @@
+BODY {
+	BACKGROUND: #fff; MARGIN: 0px; FONT: 12px Tahoma; TEXT-ALIGN: center
+}
+UL {
+	LIST-STYLE-TYPE: none
+}
+LEGEND {
+	DISPLAY: none
+}
+FIELDSET {
+	BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+#container {
+	MARGIN: 10px auto; WIDTH: 1008px
+}
+DIV#Header {
+	BACKGROUND: #827064; MARGIN: 0px auto; WIDTH: 1008px; HEIGHT: 100px
+}
+DIV.menu {
+	FLOAT: right; MARGIN: 0px; WIDTH: 1008px; LIST-STYLE-TYPE: none
+}
+DIV.menuDiv {
+	BACKGROUND: #999; WIDTH: 1px; HEIGHT: 28px
+}
+DIV#PageBody {
+	BACKGROUND: #ccff00; MARGIN: 0px auto; WIDTH: 1008px; HEIGHT: 400px
+}
+DIV#Footer {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: #ffffff; PADDING-BOTTOM: 0px; MARGIN: 0px auto; WIDTH: 1008px; PADDING-TOP: 0px; HEIGHT: 100%
+}
+DIV.banner {
+	CLEAR: both; BACKGROUND: url(banner.jpg) no-repeat 0px 30px; MARGIN: 0px auto; WIDTH: 1008px; BORDER-BOTTOM: #000000 1px solid; HEIGHT: 1px
+}
+DIV#pagebody {
+	MARGIN: 8px auto; WIDTH: 1008px
+}
+DIV#sidebar {
+	BORDER-TOP-WIDTH: 0px; CLEAR: left; BORDER-LEFT-WIDTH: 0px; FLOAT: left; BORDER-BOTTOM-WIDTH: 0px; OVERFLOW: hidden; WIDTH: 200px; TEXT-ALIGN: left; BORDER-RIGHT-WIDTH: 0px
+}
+DIV#mainbody {
+	CLEAR: right; BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; FLOAT: right; OVERFLOW: hidden; BORDER-LEFT: #cccccc 1px solid; WIDTH: 804px; BORDER-BOTTOM: #cccccc 1px solid; TEXT-ALIGN: left
+}

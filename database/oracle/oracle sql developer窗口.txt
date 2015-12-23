@@ -1,0 +1,13 @@
+²âÊÔ´°¿Ú
+
+-- Created on 2011/12/21 by ADMINISTRATOR 
+declare 
+  -- Local variables here
+  i varchar2(100);
+begin
+  -- Test statements here
+  select 'X' into i from dual;
+
+end;
+
+

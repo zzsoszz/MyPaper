@@ -1,0 +1,63 @@
+
+
+Oracle中的MD5加密 
+.
+ 分类： PL/SQL编程2009-03-20 09:035910人阅读评论(0)收藏举报
+ 
+oraclestringinputfunction加密存储
+
+ 
+一、技术点 
+1、 DBMS_OBFUSCATION_TOOLKIT.MD5 
+DBMS_OBFUSCATION_TOOLKIT.MD5是MD5编码的数据包函数，但偶在使用select DBMS_OBFUSCATION_TOOLKIT.MD5(input_string =>'abc') a from Dual时，却有错误提示，看来该函数只能直接在程序包中调用，不能直接应用于SELECT语句。 
+　　
+2、Utl_Raw.Cast_To_Raw 
+DBMS_OBFUSCATION_TOOLKIT.MD5返回的字串，是RAW类型，要正确显示，需要经过Utl_Raw.Cast_To_Raw转换
+ 
+ 
+ 
+二、应用
+ 
+1、直接调用
+ 
+declare
+ 
+v2 varchar2(32);
+ 
+begin
+ 
+v2 := Utl_Raw.Cast_To_Raw(sys.dbms_obfuscation_toolkit.md5(input_string => '111'));
+ 
+dbms_output.put_line(v2);
+ 
+end;
+ 
+注意：可以在存储过程中直接调用，如果要嵌套调用md5时，记得每次调用后都用Utl_Raw.Cast_To_Raw进行转换，否则最后出来的结果是错误的。
+ 
+ 
+ 
+2、构造函数后，再调用
+ 
+CREATE OR REPLACE FUNCTION MD5(
+ 
+passwd IN VARCHAR2)
+ 
+RETURN VARCHAR2
+ 
+IS
+ 
+retval varchar2(32);
+ 
+BEGIN
+ 
+retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => passwd)) ;
+ 
+RETURN retval;
+ 
+END;
+ 
+ 
+ 
+调用md5函数示例:
+ 
+select md5(1) from dual

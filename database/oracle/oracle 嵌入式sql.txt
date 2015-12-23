@@ -1,0 +1,113 @@
+******************************************************
+1.FETCH 语句不能包含AT语句，必须在定义cursor指定
+2.光标只能向前移动
+3.sql变量有简单变量，数组，指针，从功能上分有输入输出和指示器变量，输入输出又叫宿主变量
+EXEC SQL BEGIN DECLARE SECTION
+	int* pnumber;
+	char* pname;
+	short ind_pname;/*指示器变量*/
+	int dep_number[30];
+	int dep_number[3]={10,23,34};/*错误，这里不能初始化数组*/
+	VARCHAR username[];/*无效，必须指明大小*/
+	VARCHAR username[30]；
+	EXEC SQL TYPE mystring IS STRING(8192)
+	EXEC SQL TYPE mylong IS LONGRAW(8192)
+EXEC SQL END DECLARE SECTION
+c语言中引用数组:
+EXEC SQL SELECT USERNAME INTO :username FROM BOOK	
+username.arr[username.len]='\0'
+******************************************************
+
+EXEC SQL INCLUDE sqlca;
+
+*************************
+EXEC SQL WHENEVER {SQLERROR|NOT FOUND|SQLWARNING|}{CONTINUE|DO function call|DO BREAK|GOTO labelname|stop}
+EXEC SQL WHENEVER (SQLERROR;NOT FOUND) CONTINUE;
+EXEC SQL WHENEVER (SQLERROR;NOT FOUND) DO function()
+EXEC SQL WHENEVER (SQLERROR;NOT FOUND) GOTO function()
+
+*************************
+EXEC SQL FOR varname/*这里是sql变量不是常量*/ INSERT INTO clolumn values();
+*************************
+EXEC SQL DECLARE mycursor cursor for SELECT columnname FROM tablename
+EXEC SQL OPEN mycursor	
+EXEC SQL FETCH mycursor INTO varname1,varname2;
+EXEC SQL INSERT INTO tablename values();
+EXEC SQL CLOSE mycursor
+EXEC SQL COMMIT
+EXEC SQL COMMIT WORK
+EXEC SQL ROLLBACK
+EXEC SQL ROLLBACK WORK RELEASE
+******************************************************
+创建远程连接步骤：
+1.取得远程数据库的用户名和密码
+2.在tnsnames.ora文件指定远程主机的地址
+3.SQL> create database link mylink
+connect to qingtian identified by qingtian 
+using 'design';
+
+create database link mylink
+connect to qingtian identified by qingtian (远程数据库密码用户一致)
+using 'design';(tnsnames.ora文件必须存在此字符串)
+
+远程连接处理
+/*先定义连接，后连接*/
+EXEC SQL DECLARE mylink DATABASE;
+EXEC SQL CONNECT username IDENTIFIED BY password AT mylink using 'design'		
+/*合并*/
+EXEC SQL CREATE DATABASE LINK mylink CONNECT TO username IDENTIFIED BY password using
+'design'
+/*创建一个同义词*/
+EXEC SQL CREATE SYNONYM dept FOR dept@mylink 
+EXEC SQL SELECT columnname FROM dept
+******************************************************
+***********************
+动态sql
+1.
+EXEC SQL AT mylink EXECUTE IMMEDIATE sqlstmt 
+2.
+EXEC SQL AT mylink DECLARE sqlstmt STATEMENT
+EXEC SQL PREPARE sqlstmt FROM :sqlstring /*:sqlstring可能存在虚拟变量*/
+EXEC SQL EXECUTE sql_stmt USRING :var1,:var2;/*为虚拟变量赋值*/
+3.
+EXEC SQL PREPARE s FROM :sqlstmt;
+EXEC SQL DECLARE c CURSOR FOR s;
+EXEC SQL OPEN c USING :var1;/*为虚拟变量赋值*/
+
+嵌入式sql块
+EXEC SQL EXECUTE
+	DECLARE 
+
+	BEGIN
+		packagename.myany();
+	END;
+END EXEC;
+
+建立储存子程序
+EXEC SQL CREATE	(FUNCTION|PROCEDURE|PACKAGE|PACKAGE BODY) myany
+	BEGIN
+		
+	END my;
+END EXEC
+执行方式:EXEC SQL EXEC myany
+*************************
+
+******************************************************
+事务
+1.创建事务保存点
+EXEC SQL AT mylink SAVEPOINT mysavepoint;
+EXEC SQL SAVEPOINT mysavepoint;
+返回事务保存点
+EXEC SQL ROLLBACK TO SAVEPOINT mysavepoint;
+2.事务回滚
+事务级别
+EXEC SQL ROLLBACK WORK RELEASE
+保存点级别
+EXEC SQL ROLLBACK TO SAVEPOINT mysavepoint;
+语句级别
+语句执行产生错误自动回滚
+3.只读事务
+EXEC SQL SET TRANSACTION READ ONLY
+4.表锁定
+EXEC SQL LOCK TABLE tablename IN ROW SHARE MODE NOWAIT
+******************************************************

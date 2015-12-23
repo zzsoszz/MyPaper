@@ -1,0 +1,358 @@
+
+Oracle 常用性能监控SQL语句
+
+
+
+
+Oracle 常用性能监控SQL语句：
+ 
+
+1.  --查看表锁    
+ 
+SELECT * FROM SYS.V_$SQLAREA WHERE DISK_READS > 100;   
+ 
+2.  --监控事例的等待    
+ 
+SELECT EVENT,   
+ 
+       SUM(DECODE(WAIT_TIME, 0, 0, 1)) "Prev",   
+ 
+       SUM(DECODE(WAIT_TIME, 0, 1, 0)) "Curr",   
+ 
+       COUNT(*) "Tot"  
+ 
+  FROM V$SESSION_WAIT   
+ 
+ GROUP BY EVENT   
+ 
+ ORDER BY 4;   
+ 
+3.  --回滚段的争用情况   
+ 
+SELECT NAME, WAITS, GETS, WAITS / GETS "Ratio"  
+ 
+  FROM V$ROLLSTAT A, V$ROLLNAME B   
+ 
+ WHERE A.USN = B.USN;   
+ 
+4.  --查看前台正在发出的SQL语句   
+ 
+SELECT USER_NAME, SQL_TEXT 　　   
+ 
+  FROM V$OPEN_CURSOR 　　   
+ 
+ WHERE SID IN (SELECT SID   
+ 
+                 FROM (SELECT SID, SERIAL#, USERNAME, PROGRAM 　　   
+ 
+                         FROM V$SESSION 　　   
+ 
+                        WHERE STATUS = 'ACTIVE'));   
+ 
+5.  --数据表占用空间大小情况   
+ 
+SELECT SEGMENT_NAME, TABLESPACE_NAME, BYTES, BLOCKS   
+ 
+  FROM USER_SEGMENTS   
+ 
+ WHERE SEGMENT_TYPE = 'TABLE'  
+ 
+ ORDER BY BYTES DESC, BLOCKS DESC;   
+ 
+6.  --查看表空间碎片大小   
+ 
+SELECT TABLESPACE_NAME,   
+ 
+       ROUND(SQRT(MAX(BLOCKS) / SUM(BLOCKS)) *   
+ 
+             (100 / SQRT(SQRT(COUNT(BLOCKS)))),   
+ 
+             2) FSFI   
+ 
+  FROM DBA_FREE_SPACE   
+ 
+ GROUP BY TABLESPACE_NAME   
+ 
+ ORDER BY 1;   
+ 
+7.  --查看表空间占用磁盘情况   
+ 
+SELECT B.FILE_ID 文件ID号,   
+ 
+       B.TABLESPACE_NAME 表空间名,   
+ 
+       B.BYTES 字节数,   
+ 
+       (B.BYTES - SUM(NVL(A.BYTES, 0))) 已使用,   
+ 
+       SUM(NVL(A.BYTES, 0)) 剩余空间,   
+ 
+       SUM(NVL(A.BYTES, 0)) / (B.BYTES) * 100 剩余百分比   
+ 
+  FROM DBA_FREE_SPACE A, DBA_DATA_FILES B   
+ 
+ WHERE A.FILE_ID = B.FILE_ID   
+ 
+ GROUP BY B.TABLESPACE_NAME, B.FILE_ID, B.BYTES   
+ 
+ ORDER BY B.FILE_ID;   
+ 
+8.  --查看session使用回滚段   
+ 
+SELECT R.NAME 回滚段名,   
+ 
+       S.SID,   
+ 
+       S.SERIAL#,   
+ 
+       S.USERNAME 用户名,   
+ 
+       T.STATUS,   
+ 
+       T.CR_GET,   
+ 
+       T.PHY_IO,   
+ 
+       T.USED_UBLK,   
+ 
+       T.NOUNDO,   
+ 
+       SUBSTR(S.PROGRAM, 1, 78) 操作程序   
+ 
+  FROM SYS.V_$SESSION S, SYS.V_$TRANSACTION T, SYS.V_$ROLLNAME R   
+ 
+ WHERE T.ADDR = S.TADDR   
+ 
+   AND T.XIDUSN = R.USN   
+ 
+ ORDER BY T.CR_GET, T.PHY_IO;   
+ 
+9.  --查看SGA区剩余可用内存   
+ 
+SELECT NAME,   
+ 
+       　　　　　　SGASIZE / 1024 / 1024　　　　　　　　"Allocated(M)",   
+ 
+       　　　　　　BYTES / 1024　　　　　　　　　　　 "**空间(K)",   
+ 
+       　　　　　　ROUND(BYTES / SGASIZE * 100, 2) 　　　"**空间百分比(%)" 　　   
+ 
+  FROM (SELECT SUM(BYTES) SGASIZE FROM SYS.V_$SGASTAT) S,   
+ 
+       SYS.V_$SGASTAT F 　　   
+ 
+ WHERE F.NAME = 'free memory';   
+ 
+10.  --监控表空间I/O比例   
+ 
+SELECT DF.TABLESPACE_NAME NAME,   
+ 
+       DF.FILE_NAME       "file",   
+ 
+       F.PHYRDS           PYR,   
+ 
+       F.PHYBLKRD         PBR,   
+ 
+       F.PHYWRTS          PYW,   
+ 
+       F.PHYBLKWRT        PBW   
+ 
+  FROM V$FILESTAT F, DBA_DATA_FILES DF   
+ 
+ WHERE F.FILE# = DF.FILE_ID   
+ 
+ ORDER BY DF.TABLESPACE_NAME;   
+ 
+11.  --监控SGA命中率   
+ 
+SELECT A.VALUE + B.VALUE "logical_reads",   
+ 
+       C.VALUE "phys_reads",   
+ 
+       ROUND(100 * ((A.VALUE + B.VALUE) - C.VALUE) / (A.VALUE + B.VALUE)) "BUFFER HIT RATIO"  
+ 
+  FROM V$SYSSTAT A, V$SYSSTAT B, V$SYSSTAT C   
+ 
+ WHERE A.STATISTIC# = 38   
+ 
+   AND B.STATISTIC# = 39   
+ 
+   AND C.STATISTIC# = 40;   
+ 
+12.  --监控 SGA 中字典缓冲区的命中率   
+ 
+SELECT PARAMETER,   
+ 
+       GETS,   
+ 
+       GETMISSES,   
+ 
+       GETMISSES / (GETS + GETMISSES) * 100 "miss ratio",   
+ 
+       (1 - (SUM(GETMISSES) / (SUM(GETS) + SUM(GETMISSES)))) * 100 "Hit ratio"  
+ 
+  FROM V$ROWCACHE   
+ 
+ WHERE GETS + GETMISSES <> 0   
+ 
+ GROUP BY PARAMETER, GETS, GETMISSES;   
+ 
+13.  --监控 SGA **享缓存区的命中率，应该小于1%   
+ 
+SELECT SUM(PINS) "Total Pins",   
+ 
+       SUM(RELOADS) "Total Reloads",   
+ 
+       SUM(RELOADS) / SUM(PINS) * 100 LIBCACHE   
+ 
+  FROM V$LIBRARYCACHE;   
+ 
+14.  --监控 SGA 中重做日志缓存区的命中率，应该小于1%   
+ 
+SELECT NAME,   
+ 
+       GETS,   
+ 
+       MISSES,   
+ 
+       IMMEDIATE_GETS,   
+ 
+       IMMEDIATE_MISSES,   
+ 
+       DECODE(GETS, 0, 0, MISSES / GETS * 100) RATIO1,   
+ 
+       DECODE(IMMEDIATE_GETS + IMMEDIATE_MISSES,   
+ 
+              0,   
+ 
+              0,   
+ 
+              IMMEDIATE_MISSES / (IMMEDIATE_GETS + IMMEDIATE_MISSES) * 100) RATIO2   
+ 
+  FROM V$LATCH   
+ 
+ WHERE NAME IN ('redo allocation', 'redo copy');   
+ 
+15.  --监控内存和硬盘的排序比率，最好使它小于 .10   
+ 
+SELECT NAME, VALUE   
+ 
+  FROM V$SYSSTAT   
+ 
+ WHERE NAME IN ('sorts (memory)', 'sorts (disk)');   
+ 
+16.  --监控字典缓冲区   
+ 
+SELECT SUM(GETS) "DICTIONARY GETS",   
+ 
+       SUM(GETMISSES) "DICTIONARY CACHE GET MISSES"  
+ 
+  FROM V$ROWCACHE;   
+ 
+17.  --非系统用户建在SYSTEM表空间中的表   
+ 
+SELECT OWNER, TABLE_NAME   
+ 
+  FROM DBA_TABLES   
+ 
+ WHERE TABLESPACE_NAME IN ('SYSTEM', 'USER_DATA')   
+ 
+   AND OWNER NOT IN  
+ 
+       ('SYSTEM', 'SYS', 'OUTLN', 'ORDSYS', 'MDSYS', 'SCOTT', 'HOSTEAC');   
+ 
+18.  --性能最差的SQL   
+ 
+SELECT *   
+ 
+  FROM (SELECT PARSING_USER_ID EXECUTIONS,   
+ 
+               SORTS,   
+ 
+               COMMAND_TYPE,   
+ 
+               DISK_READS,   
+ 
+               SQL_TEXT   
+ 
+          FROM V$SQLAREA   
+ 
+         ORDER BY DISK_READS DESC)   
+ 
+ WHERE ROWNUM < 100;   
+ 
+  
+ 
+--用下列SQL 工具找出低效SQL ：    
+ 
+SELECT EXECUTIONS,   
+ 
+       DISK_READS,   
+ 
+       BUFFER_GETS,   
+ 
+       ROUND((BUFFER_GETS - DISK_READS) / BUFFER_GETS, 2) HIT_RADIO,   
+ 
+       ROUND(DISK_READS / EXECUTIONS, 2) READS_PER_RUN,   
+ 
+       SQL_TEXT   
+ 
+  FROM V$SQLAREA   
+ 
+ WHERE EXECUTIONS > 0   
+ 
+   AND BUFFER_GETS > 0   
+ 
+   AND (BUFFER_GETS - DISK_READS) / BUFFER_GETS < 0.8   
+ 
+ ORDER BY 4 DESC;   
+ 
+  
+ 
+19.  --读磁盘数超100次的sql   
+ 
+SELECT * FROM SYS.V_$SQLAREA WHERE DISK_READS > 100;   
+ 
+20.  --最频繁执行的sql   
+ 
+SELECT * FROM SYS.V_$SQLAREA WHERE EXECUTIONS > 100;   
+ 
+21.  --查询使用CPU多的用户session   
+ 
+SELECT A.SID,   
+ 
+       SPID,   
+ 
+       STATUS,   
+ 
+       SUBSTR(A.PROGRAM, 1, 40) PROG,   
+ 
+       A.TERMINAL,   
+ 
+       OSUSER,   
+ 
+       VALUE / 60 / 100 VALUE   
+ 
+  FROM V$SESSION A, V$PROCESS B, V$SESSTAT C   
+ 
+ WHERE C.STATISTIC# = 12   
+ 
+   AND C.SID = A.SID   
+ 
+   AND A.PADDR = B.ADDR   
+ 
+ ORDER BY VALUE DESC;   
+ 
+22.  --当前每个会话使用的对象数   
+ 
+SELECT A.SID, S.TERMINAL, S.PROGRAM, COUNT(A.SID)   
+ 
+  FROM V$ACCESS A, V$SESSION S   
+ 
+ WHERE A.OWNER <> 'SYS'  
+ 
+   AND S.SID = A.SID   
+ 
+ GROUP BY A.SID, S.TERMINAL, S.PROGRAM   
+ 
+ ORDER BY COUNT(A.SID);  

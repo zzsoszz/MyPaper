@@ -1,0 +1,977 @@
+create or replace view om_area_v as
+select t."F_AREA_ID",
+       t."F_PARENT_AREA_ID",
+       t."F_AREA_NAME",
+       t."F_AREA_LEVEL",
+       t."F_POSTAL_CODE",
+       t."F_AREA_CODE",
+       t."F_ACTIVE_DATE",
+       t."F_INACTIVE_DATE",
+       t."F_CITY_CODE",
+       t."IF_LISTING",
+       t."IF_MANAGE",
+       SYS_CONNECT_BY_PATH(t.f_area_name, '>') as f_area_name_path
+       ,trim(SYS_CONNECT_BY_PATH(decode(level,2,t.f_area_name,''), ' ')) as province_name
+        ,trim(SYS_CONNECT_BY_PATH(decode(level,2,t.f_area_id,''), ' ')) as province_id
+       ,lpad(' ',level*2,' ')|| t.F_AREA_NAME  f_area_name_path2
+  from om_area_t t
+ start with t.f_parent_area_id is null
+connect by prior t.f_area_id = t.f_parent_area_id;
+
+
+
+
+
+
+
+
+
+
+
+
+sys_connect_by_path 用法 
+.
+ 分类： Oracle2009-04-08 17:438141人阅读评论(6)收藏举报
+ 
+pathsqln2脚本测试oracle
+
+ 
+个人觉得这个函数其实很好用，sys_connect_by_path(字段名, 2个字段之间的连接符号)，注意这里的连接符号不要使用逗号，oracle会报错，如果一定要用，可以使用replace替换一下，方法如下 REPLACE(字段名,原字符,',')。
+还有，这个函数使用之前必须先建立一个树，否则无用。
+举个例子：
+目的：将num值相等的项目写成 seq1,seq2,seq3,……的形式
+(SELECT num,REPLACE(MAX(sql0), ';', ',')
+                         FROM (SELECT num, sys_connect_by_path(sql1, ';') AS sql0
+                              FROM (SELECT num, sql1, rn, lead(rn) over(PARTITION BY num ORDER BY rn) rn1
+                                       FROM (SELECT num, sql1, row_number() over(ORDER BY num, sql1 DESC) rn FROM tlsbk))
+                              START WITH num = '1' AND rn1 IS NULL
+                               CONNECT BY rn1 = PRIOR rn));
+结果：
+num REPLACE(MAX(sql0), ';', ',')
+--------------------------------------------------------
+1 sql0,sql1,sql2
+2 sql20,sql21,sql23,sql24,sql25
+3 sql30,sql31,sql32,sql33,sql34,sql35,sql36
+ 
+树结构和它的专用函数SYS_CONNECT_BY_PATH(网摘：http://blog.oracle.com.cn/html/83/t-122083.html)
+简单的树型结构
+关于树的普通应用
+学习了下这个函数, 用ORGINDUSTRIES的表做了个测试:
+正常的树型结构
+select lpad(' ',6*(level-1))||industry,indlevel,indid,pindid
+from ORGINDUSTRIES
+start with indid=1
+connect by pindid=prior indid
+结果显示如下
+                Indlevel   indid pindid
+       服装与服饰             1          1          0
+             服装             2          2             1
+                   女装        3          3             2
+ 
+倒型树
+下面这个例子是个”倒数”—倒过来的树型结构
+select lpad(' ',6*(level-1))||industry,indlevel,indid,pindid
+from ORGINDUSTRIES
+start with indid=20
+connect by indid=prior pindid;
+这是标准结果:
+                            Indlevel indid pindid
+二手服装                   3        20    2
+   服装                    2        2        1
+         服装与服饰        1        1        0
+结论
+无论正树还是倒树, 关键就在于connect by的条件. 
+正树:   必须是   ‘父’= prior ‘子’
+倒树:   必须是   ‘子’= prior ‘父’
+ 
+树型结构的条件过滤
+采用树型结构的话, 如果我们想将树上的一个分支砍掉.   将分支后面的结构都抛弃掉, 这个可以实现麽？当然可以。 但是不是用where， where条件只能去除单一的条件。
+所以， 这种树型的过滤条件就需要加在connect by上面。
+ 
+测试如下：由于用真实环境比较贴近实际，所以提前用下SYS_CONNECT_BY_PATH函数来显示下环境
+ 
+不加任何条件的环境：
+select areaname,sys_connect_by_path(areaname,',')
+from areas bb
+start with areaname='中国大陆'
+connect by parentareaid=prior areaid  
+
+结果：
+1        中国大陆,中国大陆
+2        北京        ,中国大陆,北京
+3        北京        ,中国大陆,北京,北京
+4        东城区        ,中国大陆,北京,东城区
+5        西城区        ,中国大陆,北京,西城区
+22        广东        ,中国大陆,广东
+23        广州        ,中国大陆,广东,广州
+24        汕尾        ,中国大陆,广东,汕尾
+25        潮阳        ,中国大陆,广东,潮阳
+46        上海        ,中国大陆,上海
+47        上海        ,中国大陆,上海,上海
+48        黄浦区        ,中国大陆,上海,黄浦区
+49        闸北区        ,中国大陆,上海,闸北区
+ 
+
+加了where过滤条件的SQL:
+select areaname,sys_connect_by_path(areaname,',')
+from areas bb
+where bb.areaid>861000
+start with areaname='中国大陆'
+connect by parentareaid=prior areaid
+ 
+结果为：
+2        北京        ,中国大陆,北京
+3        北京        ,中国大陆,北京,北京
+4        东城区        ,中国大陆,北京,东城区
+5        西城区        ,中国大陆,北京,西城区
+22        广东        ,中国大陆,广东
+23        广州        ,中国大陆,广东,广州
+24        汕尾        ,中国大陆,广东,汕尾
+25        潮阳        ,中国大陆,广东,潮阳
+46        上海        ,中国大陆,上海
+47        上海        ,中国大陆,上海,上海
+48        黄浦区        ,中国大陆,上海,黄浦区
+49        闸北区        ,中国大陆,上海,闸北区
+ 
+结论：去掉了“1        中国大陆,中国大陆”数据
+ 
+加了connect by的过滤条件：
+select areaname,sys_connect_by_path(areaname,',')
+from areas bb
+where bb.areaid>861000
+start with areaname='中国大陆'
+connect by parentareaid=prior areaid   and areaname<>'广东'
+ 
+结果为：
+2        北京        ,中国大陆,北京
+3        北京        ,中国大陆,北京,北京
+4        东城区        ,中国大陆,北京,东城区
+5        西城区        ,中国大陆,北京,西城区
+46        上海        ,中国大陆,上海
+47        上海        ,中国大陆,上海,上海
+48        黄浦区        ,中国大陆,上海,黄浦区
+49        闸北区        ,中国大陆,上海,闸北区
+ 
+结论：去掉了整个广东的分支，   在结果集中只有北京和上海
+ 
+
+SYS_CONNECT_BY_PATH函数
+采用SYS_CONNECT_BY_PATH函数为:
+ 
+select industry,sys_connect_by_path(industry,'/')
+from ORGINDUSTRIES
+start with indid=3
+connect by indid=prior pindid;
+ 
+结果为:
+女装             /女装
+服装             /女装/服装
+服装与服饰          /女装/服装/服装与服饰
+ 
+这样的话, 就可以实现, 树结构的结果集的单行拼接:
+ 
+我们只需要取最大的字段就OK了
+ 
+测试如下：
+ 
+select max(sys_connect_by_path(industry,'/'))
+from ORGINDUSTRIES
+start with indid=3
+connect by indid=prior pindid;
+ 
+结果为：
+/女装/服装/服装与服饰
+ 
+
+复杂的树型结构――多列变单列
+树型结构也分单树和多树(我的称呼,实际上就是指单支和多支)
+对于下面的这种情况， 我们必须要构造的树就属于单支树。
+原始环境
+环境如下：
+select * from test；
+ 
+结果为：
+1        n1
+1        n2
+1        n3
+1        n4
+1        n5
+3        t1
+3        t2
+3        t3
+3        t4
+3        t5
+3        t6
+2        m1
+ 
+造树
+脚本如下：
+select no,q,
+   no+row_number() over( order by no) rn,
+   row_number() over(partition by no order by no) rn1
+from test
+ 
+结果如下：
+No   Q   RN RN1
+1        n1        2        1
+1        n2        3        2
+1        n3        4        3
+1        n4        5        4
+1        n5        6        5
+2        m1        8        1
+3        t1        10        1
+3        t2        11        2
+3        t3        12        3
+3        t4        13        4
+3        t5        14        5
+3        t6        15        6
+ 
+每列的目的是：
+RN1列主要的目的是分组， 按照value值‘1’，我们可以start with使用它。
+ 
+RN列主要用来做connect by使用。 实际上它就是我们要的树。
+第一个支： 2，3，4，5，6
+第二个支： 8
+第三个支： 10，11，12，13，14，15
+ 
+中间为什么要断掉：7,9   目的就是为了区别每个分支。 到后面看具体的SQL，就明白这里的说法了。
+ 
+杀手锏
+既然我们有了树， 就可以使用树型函数SYS_CONNECT_BY_PATH和connect by啦，来拼接我们所需要的多列值。
+ 
+脚本如下：
+select no,sys_connect_by_path(q,',')
+from (
+select no,q,
+   no+row_number() over( order by no) rn,
+   row_number() over(partition by no order by no) rn1
+from test
+)
+start with rn1=1
+connect by rn-1=prior rn
+ 
+结果为：
+1        ,n1
+1        ,n1,n2
+1        ,n1,n2,n3
+1        ,n1,n2,n3,n4
+1        ,n1,n2,n3,n4,n5
+2        ,m1
+3        ,t1
+3        ,t1,t2
+3        ,t1,t2,t3
+3        ,t1,t2,t3,t4
+3        ,t1,t2,t3,t4,t5
+3        ,t1,t2,t3,t4,t5,t6
+ 
+终极武器
+最终我们要的值，是单列值， 其实想想， 也就是最长的一行咯。 那么就好办了。 我们直接GROUP BY ，然后取MAX值。
+脚本如下：
+select no,max(sys_connect_by_path(q,','))
+from (
+select no,q,
+   no+row_number() over( order by no) rn,
+   row_number() over(partition by no order by no) rn1
+from test
+)
+start with rn1=1
+connect by rn-1=prior rn 
+group by no
+ 
+结果为：
+1        ,n1,n2,n3,n4,n5
+2        ,m1
+3        ,t1,t2,t3,t4,t5,t6
+ 
+如果觉得前面的‘，’不好看，可以使用ltrim去掉。 或者用substr也可以。
+如下：
+ltrim(max(sys_connect_by_path(q,',')),',')
+或者
+substr(max(sys_connect_by_path(q,',')),2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Oracle Connect By Function
+
+
+
+Version 11.1
+
+
+
+ 
+
+
+
+
+
+
+Syntax 1
+
+CONNECT BY [NOCYCLE] <condition> START WITH <condition>
+
+
+
+Syntax 2
+
+START WITH <condition> CONNECT BY [NOCYCLE] <condition> 
+
+
+
+ 
+
+
+
+CONNECT BY LEVEL
+
+
+
+A condition that identifies the relationship between parent rows and child rows of the hierarchy
+
+CONNECT BY <child_value> = <parent_value>
+
+
+
+conn uwclass/uwclass
+
+CREATE TABLE t (
+ rid NUMBER(12),
+ col1 VARCHAR2(30),
+ col2 VARCHAR2(300));
+
+CREATE SEQUENCE seq_t_rid;
+
+INSERT INTO t
+SELECT seq_t_rid.NEXTVAL, dbms_crypto.randombytes(15), dbms_crypto.randombytes(150)
+FROM DUAL
+CONNECT BY LEVEL <= 1000;
+
+
+
+ 
+
+
+
+CONNECT BY PRIOR
+
+
+
+A condition that identifies the relationship between parent rows and child rows of the hierarchy
+
+CONNECT BY <child_value> = <parent_value>
+
+
+
+conn hr/hr
+
+SELECT employee_id, last_name, manager_id
+FROM employees
+CONNECT BY PRIOR employee_id = manager_id;
+
+
+
+ 
+
+
+
+START WITH
+
+
+
+
+ Specifies a condition that identifies the row(s) to be used as the root(s) of a hierarchical query
+
+START WITH (column_name) = <value>
+
+
+
+conn hr/hr
+
+SELECT last_name, employee_id, manager_id, LEVEL
+FROM employees
+START WITH employee_id = 100
+CONNECT BY PRIOR employee_id = manager_id;
+
+SELECT last_name, employee_id, manager_id, LEVEL
+FROM employees
+START WITH employee_id = 101
+CONNECT BY PRIOR employee_id = manager_id;
+
+ set pagesize 0
+ col last_name format a30
+
+SELECT LEVEL, LPAD(' ', LEVEL*3) || LAST_NAME AS LAST_NAME
+FROM employees
+START WITH employee_id = 100
+CONNECT BY PRIOR employee_id = manager_id;
+
+ set pagesize 20
+
+
+
+ 
+
+
+
+ORDER SIBLINGS BY
+
+
+
+SIBLINGS BY preserves any ordering specified in the hierarchical query clause and then applies the order_by_clause to the siblings of the hierarchy
+
+ORDER SIBLINGS BY (column_name)
+
+
+
+conn hr/hr
+
+SELECT last_name, employee_id, manager_id, LEVEL
+FROM employees
+START WITH employee_id = 100
+CONNECT BY PRIOR employee_id = manager_id
+ ORDER SIBLINGS BY last_name;
+
+
+
+ 
+
+
+
+CONNECT_BY_ROOT
+
+
+
+
+ CONNECT_BY_ROOT is a unary operator that is valid only in hierarchical queries. When you qualify a column with this operator, Oracle returns the column value using data from the root row.
+
+ Cannot be specified with the START WITH or  CONNECT BY condition.
+
+The following example returns the last name of each employee in department 110, each manager above that employee in the hierarchy, the number of levels between manager and employee, and the path between the two:
+
+
+
+conn hr/hr
+
+ set linesize 121
+ col emp format a20
+ col mgr format a20
+
+SELECT last_name
+FROM employees
+WHERE department_id = 110;
+
+SELECT last_name, CONNECT_BY_ROOT last_name MGR,
+LEVEL-1 PATHLEN, SYS_CONNECT_BY_PATH(last_name, '/') PATH
+FROM employees
+WHERE LEVEL > 1
+AND department_id = 110
+CONNECT BY PRIOR employee_id = manager_id
+ORDER BY last_name, MGR, PATHLEN, PATH;
+
+
+
+ 
+
+
+
+CONNECT_BY_ISCYCLE Pseudocolumn
+
+
+
+
+ The CONNECT_BY_ISCYCLE pseudocolumn returns 1 if the current row has a child which is also its ancestor. Otherwise it returns 0
+
+
+
+conn hr/hr
+
+UPDATE employees SET manager_id = 145
+WHERE employee_id = 100;
+
+ set linesize 121
+ col path format a50
+
+SELECT last_name, LEVEL, SYS_CONNECT_BY_PATH(last_name, '/') "Path"
+FROM employees
+WHERE LEVEL <= 3 AND department_id = 80
+START WITH last_name = 'King'
+CONNECT BY PRIOR employee_id = manager_id AND LEVEL <= 4;
+ ERROR:
+ORA-01436: CONNECT BY loop in user data
+
+SELECT last_name, CONNECT_BY_ISCYCLE "Cycle", LEVEL, SYS_CONNECT_BY_PATH(last_name, '/') "Path"
+FROM employees
+WHERE LEVEL <= 3 AND department_id = 80
+START WITH last_name = 'King'
+CONNECT BY NOCYCLE PRIOR employee_id = manager_id
+AND LEVEL <= 4;
+
+ROLLBACK;
+
+
+
+ 
+
+
+
+CONNECT_BY_ISLEAF Pseudocolumn
+
+
+
+The CONNECT_BY_ISLEAF pseudocolumn returns 1 if the current row is a leaf of the tree defined by the CONNECT BY condition. Otherwise it returns 0. This information indicates whether a given row can be further expanded to show more of the hierarchy.
+
+
+
+conn hr/hr
+
+SELECT last_name "Employee", CONNECT_BY_ISLEAF "IsLeaf",
+LEVEL, SYS_CONNECT_BY_PATH(last_name, '/') "Path"
+FROM employees
+WHERE level <= 3
+AND department_id = 80
+START WITH last_name = 'King'
+CONNECT BY PRIOR employee_id = manager_id
+AND LEVEL <= 4;
+
+
+
+ 
+
+
+
+LEVEL Pseudocolumn
+
+
+
+
+ For each row returned by a hierarchical query, the LEVEL pseudocolumn returns 1 for a root row, 2 for a child of a root, and so on
+
+
+
+ conn hr/hr
+
+SELECT employee_id, last_name, manager_id, LEVEL
+FROM employees
+CONNECT BY PRIOR employee_id = manager_id;
+SELECT LPAD(' ',2*(LEVEL-1)) || last_name ORG_CHART,
+ employee_id, manager_id, job_id
+FROM employees
+START WITH job_id = 'AD_VP'
+CONNECT BY PRIOR employee_id = manager_id;
+ 
+
+
+ 
+
+
+
+SYS_CONNECT_BY_PATH
+
+
+
+
+ Returns the path of a column value from root to node, with column values separated by char for each row returned by CONNECT BY condition
+
+
+
+SYS_CONNECT_BY_PATH(<column>, <char>)
+
+
+
+conn scott/tiger
+
+ col empname format a20
+ col cbp format a30
+
+SELECT LPAD(' ', 2*LEVEL, ' ' ) || ename empName, dname, job,
+sys_connect_by_path( ename, '/' ) cbp
+FROM emp e, dept d
+WHERE e.deptno = d.deptno
+START WITH mgr IS NULL
+CONNECT BY PRIOR empno = mgr
+ ORDER SIBLINGS BY job;
+
+SELECT LPAD(' ', 2*LEVEL, ' ' ) || ename empName, dname, job,
+sys_connect_by_path(empno, '.') cbp
+FROM scott.emp emp, scott.dept dept
+WHERE emp.deptno = dept.deptno
+START WITH mgr IS NULL
+CONNECT BY PRIOR empno = mgr
+ ORDER SIBLINGS BY ename;
+
+
+
+ 
+
+
+
+Function Demo
+
+
+
+
+ Use A Function To Receive The Current Node and Search for Parents of the Current Node
+
+
+
+CREATE OR REPLACEFUNCTION permissions_sub_tree_root (
+ the_id IN NUMBER,
+ the_level IN NUMBER)
+RETURN NUMBER IS
+
+ sub_tree_root NUMBER(10);
+
+BEGIN
+   SELECT id
+   INTO sub_tree_root
+   FROM hierarchy
+   WHERE level = the_level
+   -- Connect 'upwards', i.e. find the parent
+   CONNECT BY PRIOR PARENT = id
+   START WITH ID = the_id;
+
+   RETURN sub_tree_root;
+END permissions_sub_tree_root;
+ /
+
+SELECT id, name, username
+FROM (
+   SELECT ID, PARENT, NAME,
+   permissions_sub_tree_root(id, LEVEL) ROOT
+   FROM hierarchy
+   CONNECT BY PRIOR id = PARENT) HIERARCHY, permissions
+WHERE ROOT = hierarchy_id;
+
+
+
+ 
+
+
+
+GROUP BY Demo
+
+
+
+
+ Group By Demo with CONNECT_BY_ROOT and
+ CONNECT_BY_PRIOR
+
+
+
+conn hr/hr
+
+SELECT name, SUM(salary) "Total_Salary"
+FROM (
+   SELECT CONNECT_BY_ROOT last_name name, salary
+   FROM employees
+   WHERE department_id = 110
+   CONNECT BY PRIOR employee_id = manager_id)
+GROUP BY name;
+
+
+
+ 
+
+
+
+ Demos
+
+
+
+
+ Indenting
+
+conn hr/hr
+
+ col lname format a30
+
+SELECT LPAD(' ', level*2, ' ') || last_name LNAME, d.department_id
+FROM employees e, departments d
+WHERE e.department_id = d.department_id
+START WITH employee_id = 100
+CONNECT BY PRIOR e.employee_id = e.manager_id;
+
+
+
+
+ Hierarchical Query with IN
+
+In a [NOT] IN condition in a WHERE clause, if the right-hand side of the condition is a subquery, you cannot use LEVEL on the left-hand side of the condition. However, you can specify LEVEL in a subquery of the FROM clause to achieve the same result. For example, the following statement is not valid:
+
+
+
+SELECT employee_id, last_name FROM employees
+WHERE (employee_id, LEVEL)
+ IN (SELECT employee_id, 2 FROM employees)
+START WITH employee_id = 2
+CONNECT BY PRIOR employee_id = manager_id;
+
+
+
+ But the following statement is valid because it encapsulates the query containing the LEVEL information in the FROM clause:
+
+
+
+SELECT v.employee_id, v.last_name, v.lev
+FROM (
+   SELECT employee_id, last_name, LEVEL lev
+   FROM employees v
+   START WITH employee_id = 100
+   CONNECT BY PRIOR employee_id = manager_id) v
+WHERE (v.employee_id, v.lev) IN (
+   SELECT employee_id, 2 FROM employees);
+ 
+
+ 
+ 
+ 
+ 
+ORACLE--Connect By、Level、Start With的使用(Hierarchical query-层次查询) 
+.
+分类： oracle2013-01-31 18:24233人阅读评论(0)收藏举报
+
+
+ 
+查找员工编号为7369的领导:
+ 
+1 SELECT LEVEL,E.* FROM EMP E CONNECT BY PRIOR E.MGR = E.EMPNO  START WITH E.EMPNO = 7876
+2 ORDER BY LEVEL DESC 
+
+
+"start with" -- this identifies all LEVEL=1 nodes in the tree
+ 
+"connect by" -- describes how to walk from the parent nodes above to their children and 
+ their childrens children.
+ 
+Easiest to use an example on emp. If we start with "where mgr is NULL", we generate the 
+ set of employees that have no mgr (they are the top of the tree). If we
+ 
+CONNECT BY PRIOR EMPNO = /* current */ MGR
+ 
+that will take all of the PRIOR records (the start with at first) and find all records 
+ such that the MGR column equals their EMPNO (find all the records of people managed by 
+ the people we started with).
+ 
+
+使用WITH语句优化查询结果:优化等级
+ 
+
+
+ 1 WITH A AS
+ 2  (SELECT MAX(LEVEL) + 1 LVL
+ 3     FROM EMP E
+ 4   CONNECT BY PRIOR E.MGR = E.EMPNO
+ 5    START WITH E.EMPNO = 7876
+ 6    ORDER BY LEVEL DESC)
+ 7 SELECT A.LVL 最高等级加1,
+ 8        LEVEL 当前等级,
+ 9        A.LVL - LEVEL 优化后等级,
+10        E.* 　FROM A,
+11        EMP E CONNECT BY PRIOR E.MGR = E.EMPNO START WITH E.EMPNO = 7876 ORDER BY LEVEL DESC 
+
+
+
+
+查找员工编号为7839的所有下属(7839为king):
+ 
+1 SELECT LEVEL 等级, E.*
+2   FROM EMP E
+3 CONNECT BY PRIOR E.EMPNO = E.MGR
+4  START WITH E.EMPNO = 7839 
+
+
+--构造整个的层次结构
+ 
+1 select lpad(' ',level*2,' ')||ename ename, empno, mgr
+2     from emp
+3     START WITH MGR IS NULL
+4     CONNECT BY PRIOR EMPNO = MGR 
+
+
+So, KING is the start with set then JONES BLAKE and CLARK fall under him. Each of them 
+ becomes the PRIOR record in turn and their trees are expanded.
+ 
+
+
+
+
+使用Connect By 结合 level构造虚拟行:
+ 
+1 SELECT LEVEL FROM DUAL CONNECT BY LEVEL < 5 
+
+
+使用rownum实现类似的功能:
+ 
+1 SELECT LEVEL FROM DUAL CONNECT BY LEVEL < 5 
+
+
+---------------------待续-----------------------
+ 
+使用UNION ALL构造两层节点的树:
+ 
+视图如下所示:
+ 
+
+
+ 1 CREATE OR REPLACE VIEW TREE_VIEW AS
+ 2 SELECT
+ 3  '1' AS rootnodeid,
+ 4  'xxxx有限责任公司' AS treename,
+ 5  '-1'  AS parent_id
+ 6 FROM dual
+ 7 UNION
+ 8 SELECT
+ 9   to_char(d.deptno),
+10   d.dname || '_' ||d.loc,
+11   '1' AS parent_id
+12  FROM dept d; 
+
+
+查询语句:
+ 
+1 SELECT T.*, LEVEL
+2   FROM TREE_VIEW T
+3  START WITH T.PARENT_ID = '-1'
+4 CONNECT BY PRIOR T.ROOTNODEID = T.PARENT_ID 
+
+
+-----以下为更新内容:
+ 
+1、先查看总共有几个等级：
+ 
+1 SELECT COUNT(LEVEL)
+2   FROM EMP E
+3 CONNECT BY PRIOR E.EMPNO = E.MGR
+4  START WITH E.MGR IS NULL; 
+
+
+2、查看每个等级的人数。主要是通过LEVEL进行GROUP BY
+ 
+1 SELECT COUNT(LEVEL)
+2   FROM EMP E
+3 CONNECT BY PRIOR E.EMPNO = E.MGR
+4  START WITH E.MGR IS NULL
+5  GROUP BY LEVEL; 
+
+
+3、Oracle 10g提供了一个简单的connect_by_isleaf=1,
+ 
+0 表示非叶子节点
+ 
+1 SELECT LEVEL AS 等级, CONNECT_BY_ISLEAF AS 是否是叶子节点, E.*
+2   FROM EMP E
+3 CONNECT BY PRIOR E.EMPNO = E.MGR
+4  START WITH E.MGR IS NULL 
+
+
+4、SYS_CONNECT_BY_PATH
+ 
+Oracle 9i提供了sys_connect_by_path(column,char),其中column 是字符型或能自动转
+ 
+换成字符型的列名。它的主要目的就是将父节点到当前节点的”path”按照指定的模式展现出现。这个函数只能使用在层次查询中。
+ 
+1 SELECT LEVEL AS 等级,
+2        CONNECT_BY_ISLEAF AS 是否是叶子节点,
+3        LPAD(' ', LEVEL * 2 - 1) || SYS_CONNECT_BY_PATH(ENAME, '=>')
+4   FROM EMP E
+5 CONNECT BY PRIOR E.EMPNO = E.MGR
+6  START WITH E.MGR IS NULL; 
+
+
+5、修剪树枝和节点:
+ 
+
+
+    过滤掉编号是7566的数据(修剪节点)，他指的是把这个节点给裁掉，但是并没有破坏树结构，它的子节点还是可以正常的显示。
+ 
+
+
+1 SELECT LEVEL AS 等级,
+2        CONNECT_BY_ISLEAF AS 是否是叶子节点,
+3        LPAD(' ', LEVEL * 2 - 1) || SYS_CONNECT_BY_PATH(ENAME, '=>'),
+4        E.*
+5   FROM EMP E
+6 WHERE e.empno != 7566
+7 CONNECT BY PRIOR E.EMPNO = E.MGR
+8  START WITH E.MGR IS NULL; 
+
+
+
+
+裁掉编号是7698的节点和它的子节点:
+ 
+
+
+1 SELECT LEVEL AS 等级,
+2        CONNECT_BY_ISLEAF AS 是否是叶子节点,
+3        LPAD(' ', LEVEL * 2 - 1) || SYS_CONNECT_BY_PATH(ENAME, '=>'),
+4        E.*
+5   FROM EMP E
+6 CONNECT BY PRIOR E.EMPNO = E.MGR
+7        AND E.EMPNO != 7698
+8  START WITH E.MGR IS NULL; 
+
+
+
+
+6、CONNECT_BY_ROOT的使用，oracle10g新增connect_by_root,用在列名之前表示此行的根节点的相同列名的值。
+ 
+
+
+1 SELECT LEVEL AS 等级,
+2        CONNECT_BY_ISLEAF AS 是否是叶子节点,
+3        CONNECT_BY_ROOT ENAME,
+4        LPAD(' ', LEVEL * 2 - 1) || SYS_CONNECT_BY_PATH(ENAME, '=>'),
+5        E.*
+6   FROM EMP E
+7 CONNECT BY PRIOR E.EMPNO = E.MGR
+8  START WITH E.MGR IS NULL; 
+
+
+ 
+ 
+
+
+对于层次查询如果用order by排序，比如order by last_name则是先做完层次获得level,然后按last_name 排序，这样破坏了层次，比如特别关注某行的深度，按level 排序，也是会破坏层次的。在oracle10g中，增加了siblings 关键字的排序。
+ 
+语法：order siblings by <expre>
+ 
+它会保护层次，并且在每个等级中按expre排序。
+ 
+
+
+1 SELECT LEVEL AS 等级,
+2        CONNECT_BY_ISLEAF AS 是否是叶子节点,
+3        LPAD(' ', LEVEL * 2 - 1) || SYS_CONNECT_BY_PATH(ENAME, '=>'),
+4        E.*
+5   FROM EMP E
+6 CONNECT BY PRIOR E.EMPNO = E.MGR 
+7  START WITH E.MGR IS NULL
+8  ORDER SIBLINGS BY  E.ENAME; 
+
+
+
+
+connect_by_iscycle(存在循环，将返回1，否则返回0)
+ 
+The CONNECT_BY_ISCYCLE pseudocolumn returns 1 if the current row has a child which is also its ancestor. Otherwise it returns 0. 
+ You can specify CONNECT_BY_ISCYCLE only if you have specified the NOCYCLE parameter of the CONNECT BY clause. NOCYCLE enables Oracle to return the results of a query that would otherwise fail because of a CONNECT BY loop in the data.
+ 
+没有人可以和生活讨价还价，所以只要活着，就一定要努力。

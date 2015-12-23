@@ -1,0 +1,528 @@
+http://www.cnblogs.com/mophee/archive/2013/06/01/3107137.html
+
+http://www.cnblogs.com/lightnear/archive/2012/10/07/2714247.html
+
+
+http://rpm.pbone.net/
+
+
+http://docs.oracle.com/cd/E11882_01/install.112/e24326/toc.htm#CEGEGDBA
+
+
+
+ORACLE_BASE=/u01/oracle; #安装目录
+ORACLE_HOME=$ORACLE_BASE/11g; #oracle家目录
+ORACLE_SID=orcl; #实例名
+LD_LIBRARY_PATH=$ORACLE_HOME/lib;
+PATH=$PATH:$ORACLE_HOME/bin:$HOME/bin;
+export ORACLE_BASE ORACLE_HOME ORACLE_SID LD_LIBRARY_PATH PATH;
+
+
+
+
+
+
+---> Package glibc-common.x86_64 0:2.12-1.132.el6 will be updated
+---> Package glibc-common.x86_64 0:2.12-1.149.el6_6.7 will be an update
+---> Package glibc-headers.x86_64 0:2.12-1.132.el6 will be updated
+---> Package glibc-headers.x86_64 0:2.12-1.149.el6_6.7 will be an update
+---> Package libX11-common.noarch 0:1.5.0-4.el6 will be updated
+---> Package libX11-common.noarch 0:1.6.0-2.2.el6 will be an update
+---> Package libgomp.x86_64 0:4.4.7-4.el6 will be updated
+---> Package libgomp.x86_64 0:4.4.7-11.el6 will be an update
+---> Package libtool-ltdl.i686 0:2.2.6-15.5.el6 will be installed
+---> Package mpfr.x86_64 0:2.4.1-6.el6 will be installed
+---> Package nss-softokn-freebl.x86_64 0:3.14.3-9.el6 will be updated
+---> Package nss-softokn-freebl.i686 0:3.14.3-22.el6_6 will be installed
+---> Package nss-softokn-freebl.x86_64 0:3.14.3-22.el6_6 will be an update
+---> Package readline.i686 0:6.0-4.el6 will be installed
+--> Processing Dependency: libtinfo.so.5 for package: readline-6.0-4.el6.i686
+--> Running transaction check
+---> Package ncurses-libs.i686 0:5.7-3.20090208.el6 will be installed
+---> Package ppl.x86_64 0:0.10.2-11.el6 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                  Arch      Version                    Repository  Size
+================================================================================
+Installing:
+ compat-libcap1           x86_64    1.10-1                     base        17 k
+ compat-libstdc++-33      i686      3.2.3-69.el6               base       189 k
+ compat-libstdc++-33      x86_64    3.2.3-69.el6               base       183 k
+ elfutils-libelf-devel    x86_64    0.158-3.2.el6              base        31 k
+ gcc                      x86_64    4.4.7-11.el6               base        10 M
+ gcc-c++                  x86_64    4.4.7-11.el6               base       4.7 M
+ glibc                    i686      2.12-1.149.el6_6.7         updates    4.3 M
+ glibc-devel              i686      2.12-1.149.el6_6.7         updates    984 k
+ ksh                      x86_64    20120801-21.el6_6.3        updates    758 k
+ libaio                   i686      0.3.107-10.el6             base        21 k
+ libaio-devel             i686      0.3.107-10.el6             base        13 k
+ libaio-devel             x86_64    0.3.107-10.el6             base        13 k
+ libgcc                   i686      4.4.7-11.el6               base       113 k
+ libstdc++                i686      4.4.7-11.el6               base       301 k
+ libstdc++-devel          i686      4.4.7-11.el6               base       1.6 M
+ libstdc++-devel          x86_64    4.4.7-11.el6               base       1.6 M
+ unixODBC                 i686      2.2.14-14.el6              base       382 k
+ unixODBC                 x86_64    2.2.14-14.el6              base       378 k
+ unixODBC-devel           i686      2.2.14-14.el6              base        53 k
+ unixODBC-devel           x86_64    2.2.14-14.el6              base        53 k
+Updating:
+ binutils                 x86_64    2.20.51.0.2-5.42.el6       base       2.8 M
+ elfutils-libelf          x86_64    0.158-3.2.el6              base       182 k
+ glibc                    x86_64    2.12-1.149.el6_6.7         updates    3.8 M
+ glibc-devel              x86_64    2.12-1.149.el6_6.7         updates    983 k
+ libX11                   x86_64    1.6.0-2.2.el6              base       586 k
+ libXext                  x86_64    1.3.2-2.1.el6              base        35 k
+ libXi                    x86_64    1.7.2-2.2.el6              base        37 k
+ libXtst                  x86_64    1.2.2-2.1.el6              base        19 k
+ libgcc                   x86_64    4.4.7-11.el6               base       102 k
+ libstdc++                x86_64    4.4.7-11.el6               base       294 k
+ libxcb                   x86_64    1.9.1-2.el6                base       110 k
+ sysstat                  x86_64    9.0.4-27.el6               base       233 k
+Installing for dependencies:
+ cloog-ppl                x86_64    0.15.7-1.2.el6             base        93 k
+ cpp                      x86_64    4.4.7-11.el6               base       3.7 M
+ libtool-ltdl             i686      2.2.6-15.5.el6             base        45 k
+ mpfr                     x86_64    2.4.1-6.el6                base       157 k
+ ncurses-libs             i686      5.7-3.20090208.el6         base       251 k
+ nss-softokn-freebl       i686      3.14.3-22.el6_6            updates    157 k
+ ppl                      x86_64    0.10.2-11.el6              base       1.3 M
+ readline                 i686      6.0-4.el6                  base       176 k
+Updating for dependencies:
+ elfutils                 x86_64    0.158-3.2.el6              base       233 k
+ elfutils-libs            x86_64    0.158-3.2.el6              base       211 k
+ glibc-common             x86_64    2.12-1.149.el6_6.7         updates     14 M
+ glibc-headers            x86_64    2.12-1.149.el6_6.7         updates    612 k
+ libX11-common            noarch    1.6.0-2.2.el6              base       192 k
+ libgomp                  x86_64    4.4.7-11.el6               base       133 k
+ nss-softokn-freebl       x86_64    3.14.3-22.el6_6            updates    167 k
+
+Transaction Summary
+================================================================================
+Install      28 Package(s)
+Upgrade      19 Package(s)
+
+Total download size: 56 M
+Downloading Packages:
+(1/47): binutils-2.20.51.0.2-5.42.el6.x86_64.rpm         | 2.8 MB     00:00     
+(2/47): cloog-ppl-0.15.7-1.2.el6.x86_64.rpm              |  93 kB     00:00     
+(3/47): compat-libcap1-1.10-1.x86_64.rpm                 |  17 kB     00:00     
+(4/47): compat-libstdc++-33-3.2.3-69.el6.i686.rpm        | 189 kB     00:00     
+(5/47): compat-libstdc++-33-3.2.3-69.el6.x86_64.rpm      | 183 kB     00:00     
+(6/47): cpp-4.4.7-11.el6.x86_64.rpm                      | 3.7 MB     00:00     
+(7/47): elfutils-0.158-3.2.el6.x86_64.rpm                | 233 kB     00:00     
+(8/47): elfutils-libelf-0.158-3.2.el6.x86_64.rpm         | 182 kB     00:00     
+(9/47): elfutils-libelf-devel-0.158-3.2.el6.x86_64.rpm   |  31 kB     00:00     
+(10/47): elfutils-libs-0.158-3.2.el6.x86_64.rpm          | 211 kB     00:00     
+(11/47): gcc-4.4.7-11.el6.x86_64.rpm                     |  10 MB     00:03     
+(12/47): gcc-c++-4.4.7-11.el6.x86_64.rpm                 | 4.7 MB     00:01     
+(13/47): glibc-2.12-1.149.el6_6.7.i686.rpm               | 4.3 MB     00:01     
+(14/47): glibc-2.12-1.149.el6_6.7.x86_64.rpm             | 3.8 MB     00:01     
+(15/47): glibc-common-2.12-1.149.el6_6.7.x86_64.rpm      |  14 MB     00:05     
+(16/47): glibc-devel-2.12-1.149.el6_6.7.i686.rpm         | 984 kB     00:00     
+(17/47): glibc-devel-2.12-1.149.el6_6.7.x86_64.rpm       | 983 kB     00:00     
+(18/47): glibc-headers-2.12-1.149.el6_6.7.x86_64.rpm     | 612 kB     00:00     
+(19/47): ksh-20120801-21.el6_6.3.x86_64.rpm              | 758 kB     00:00     
+(20/47): libX11-1.6.0-2.2.el6.x86_64.rpm                 | 586 kB     00:00     
+(21/47): libX11-common-1.6.0-2.2.el6.noarch.rpm          | 192 kB     00:00     
+(22/47): libXext-1.3.2-2.1.el6.x86_64.rpm                |  35 kB     00:00     
+(23/47): libXi-1.7.2-2.2.el6.x86_64.rpm                  |  37 kB     00:00     
+(24/47): libXtst-1.2.2-2.1.el6.x86_64.rpm                |  19 kB     00:00     
+(25/47): libaio-0.3.107-10.el6.i686.rpm                  |  21 kB     00:00     
+(26/47): libaio-devel-0.3.107-10.el6.i686.rpm            |  13 kB     00:00     
+(27/47): libaio-devel-0.3.107-10.el6.x86_64.rpm          |  13 kB     00:00     
+(28/47): libgcc-4.4.7-11.el6.i686.rpm                    | 113 kB     00:00     
+(29/47): libgcc-4.4.7-11.el6.x86_64.rpm                  | 102 kB     00:00     
+(30/47): libgomp-4.4.7-11.el6.x86_64.rpm                 | 133 kB     00:00     
+(31/47): libstdc++-4.4.7-11.el6.i686.rpm                 | 301 kB     00:00     
+(32/47): libstdc++-4.4.7-11.el6.x86_64.rpm               | 294 kB     00:00     
+(33/47): libstdc++-devel-4.4.7-11.el6.i686.rpm           | 1.6 MB     00:00     
+(34/47): libstdc++-devel-4.4.7-11.el6.x86_64.rpm         | 1.6 MB     00:00     
+(35/47): libtool-ltdl-2.2.6-15.5.el6.i686.rpm            |  45 kB     00:00     
+(36/47): libxcb-1.9.1-2.el6.x86_64.rpm                   | 110 kB     00:00     
+(37/47): mpfr-2.4.1-6.el6.x86_64.rpm                     | 157 kB     00:00     
+(38/47): ncurses-libs-5.7-3.20090208.el6.i686.rpm        | 251 kB     00:00     
+(39/47): nss-softokn-freebl-3.14.3-22.el6_6.i686.rpm     | 157 kB     00:00     
+(40/47): nss-softokn-freebl-3.14.3-22.el6_6.x86_64.rpm   | 167 kB     00:00     
+(41/47): ppl-0.10.2-11.el6.x86_64.rpm                    | 1.3 MB     00:00     
+(42/47): readline-6.0-4.el6.i686.rpm                     | 176 kB     00:00     
+(43/47): sysstat-9.0.4-27.el6.x86_64.rpm                 | 233 kB     00:00     
+(44/47): unixODBC-2.2.14-14.el6.i686.rpm                 | 382 kB     00:00     
+(45/47): unixODBC-2.2.14-14.el6.x86_64.rpm               | 378 kB     00:00     
+(46/47): unixODBC-devel-2.2.14-14.el6.i686.rpm           |  53 kB     00:00     
+(47/47): unixODBC-devel-2.2.14-14.el6.x86_64.rpm         |  53 kB     00:00     
+--------------------------------------------------------------------------------
+Total                                           2.6 MB/s |  56 MB     00:21     
+Running rpm_check_debug
+Running Transaction Test
+Transaction Test Succeeded
+Running Transaction
+  Updating   : libgcc-4.4.7-11.el6.x86_64                                  1/66 
+  Updating   : glibc-common-2.12-1.149.el6_6.7.x86_64                      2/66 
+  Updating   : glibc-2.12-1.149.el6_6.7.x86_64                             3/66 
+  Updating   : nss-softokn-freebl-3.14.3-22.el6_6.x86_64                   4/66 
+  Updating   : libstdc++-4.4.7-11.el6.x86_64                               5/66 
+  Updating   : elfutils-libelf-0.158-3.2.el6.x86_64                        6/66 
+  Installing : unixODBC-2.2.14-14.el6.x86_64                               7/66 
+  Installing : mpfr-2.4.1-6.el6.x86_64                                     8/66 
+  Updating   : glibc-headers-2.12-1.149.el6_6.7.x86_64                     9/66 
+  Installing : nss-softokn-freebl-3.14.3-22.el6_6.i686                    10/66 
+  Installing : glibc-2.12-1.149.el6_6.7.i686                              11/66 
+  Installing : libaio-0.3.107-10.el6.i686                                 12/66 
+  Installing : libgcc-4.4.7-11.el6.i686                                   13/66 
+  Installing : glibc-devel-2.12-1.149.el6_6.7.i686                        14/66 
+  Installing : cpp-4.4.7-11.el6.x86_64                                    15/66 
+  Updating   : elfutils-libs-0.158-3.2.el6.x86_64                         16/66 
+  Installing : libstdc++-devel-4.4.7-11.el6.x86_64                        17/66 
+  Installing : ppl-0.10.2-11.el6.x86_64                                   18/66 
+  Installing : cloog-ppl-0.15.7-1.2.el6.x86_64                            19/66 
+  Updating   : libgomp-4.4.7-11.el6.x86_64                                20/66 
+  Updating   : binutils-2.20.51.0.2-5.42.el6.x86_64                       21/66 
+  Installing : gcc-4.4.7-11.el6.x86_64                                    22/66 
+  Updating   : libxcb-1.9.1-2.el6.x86_64                                  23/66 
+  Updating   : libX11-common-1.6.0-2.2.el6.noarch                         24/66 
+  Updating   : libX11-1.6.0-2.2.el6.x86_64                                25/66 
+  Updating   : libXext-1.3.2-2.1.el6.x86_64                               26/66 
+  Updating   : libXi-1.7.2-2.2.el6.x86_64                                 27/66 
+  Updating   : libXtst-1.2.2-2.1.el6.x86_64                               28/66 
+  Installing : gcc-c++-4.4.7-11.el6.x86_64                                29/66 
+  Updating   : elfutils-0.158-3.2.el6.x86_64                              30/66 
+  Installing : libaio-devel-0.3.107-10.el6.x86_64                         31/66 
+  Installing : libaio-devel-0.3.107-10.el6.i686                           32/66 
+  Updating   : glibc-devel-2.12-1.149.el6_6.7.x86_64                      33/66 
+  Installing : unixODBC-devel-2.2.14-14.el6.x86_64                        34/66 
+  Installing : elfutils-libelf-devel-0.158-3.2.el6.x86_64                 35/66 
+  Installing : compat-libstdc++-33-3.2.3-69.el6.x86_64                    36/66 
+  Installing : compat-libcap1-1.10-1.x86_64                               37/66 
+  Updating   : sysstat-9.0.4-27.el6.x86_64                                38/66 
+  Installing : ksh-20120801-21.el6_6.3.x86_64                             39/66 
+  Installing : libstdc++-4.4.7-11.el6.i686                                40/66 
+  Installing : libtool-ltdl-2.2.6-15.5.el6.i686                           41/66 
+  Installing : ncurses-libs-5.7-3.20090208.el6.i686                       42/66 
+  Installing : libstdc++-devel-4.4.7-11.el6.i686                          43/66 
+  Installing : readline-6.0-4.el6.i686                                    44/66 
+  Installing : unixODBC-2.2.14-14.el6.i686                                45/66 
+  Installing : unixODBC-devel-2.2.14-14.el6.i686                          46/66 
+  Installing : compat-libstdc++-33-3.2.3-69.el6.i686                      47/66 
+  Cleanup    : elfutils-0.152-1.el6.x86_64                                48/66 
+  Cleanup    : elfutils-libs-0.152-1.el6.x86_64                           49/66 
+  Cleanup    : libXtst-1.2.1-2.el6.x86_64                                 50/66 
+  Cleanup    : glibc-devel-2.12-1.132.el6.x86_64                          51/66 
+  Cleanup    : libXi-1.6.1-3.el6.x86_64                                   52/66 
+  Cleanup    : libXext-1.3.1-2.el6.x86_64                                 53/66 
+  Cleanup    : libX11-1.5.0-4.el6.x86_64                                  54/66 
+  Cleanup    : libstdc++-4.4.7-4.el6.x86_64                               55/66 
+  Cleanup    : glibc-headers-2.12-1.132.el6.x86_64                        56/66 
+  Cleanup    : libxcb-1.8.1-1.el6.x86_64                                  57/66 
+  Cleanup    : elfutils-libelf-0.152-1.el6.x86_64                         58/66 
+  Cleanup    : binutils-2.20.51.0.2-5.36.el6.x86_64                       59/66 
+  Cleanup    : libgomp-4.4.7-4.el6.x86_64                                 60/66 
+  Cleanup    : sysstat-9.0.4-22.el6.x86_64                                61/66 
+  Cleanup    : libX11-common-1.5.0-4.el6.noarch                           62/66 
+  Cleanup    : glibc-common-2.12-1.132.el6.x86_64                         63/66 
+  Cleanup    : glibc-2.12-1.132.el6.x86_64                                64/66 
+  Cleanup    : nss-softokn-freebl-3.14.3-9.el6.x86_64                     65/66 
+  Cleanup    : libgcc-4.4.7-4.el6.x86_64                                  66/66 
+  Verifying  : nss-softokn-freebl-3.14.3-22.el6_6.x86_64                   1/66 
+  Verifying  : libstdc++-4.4.7-11.el6.x86_64                               2/66 
+  Verifying  : compat-libstdc++-33-3.2.3-69.el6.x86_64                     3/66 
+  Verifying  : glibc-2.12-1.149.el6_6.7.i686                               4/66 
+  Verifying  : glibc-devel-2.12-1.149.el6_6.7.i686                         5/66 
+  Verifying  : unixODBC-2.2.14-14.el6.x86_64                               6/66 
+  Verifying  : libaio-devel-0.3.107-10.el6.x86_64                          7/66 
+  Verifying  : libgcc-4.4.7-11.el6.x86_64                                  8/66 
+  Verifying  : libtool-ltdl-2.2.6-15.5.el6.i686                            9/66 
+  Verifying  : unixODBC-devel-2.2.14-14.el6.x86_64                        10/66 
+  Verifying  : unixODBC-devel-2.2.14-14.el6.i686                          11/66 
+  Verifying  : compat-libstdc++-33-3.2.3-69.el6.i686                      12/66 
+  Verifying  : readline-6.0-4.el6.i686                                    13/66 
+  Verifying  : libstdc++-devel-4.4.7-11.el6.x86_64                        14/66 
+  Verifying  : libX11-1.6.0-2.2.el6.x86_64                                15/66 
+  Verifying  : compat-libcap1-1.10-1.x86_64                               16/66 
+  Verifying  : libstdc++-devel-4.4.7-11.el6.i686                          17/66 
+  Verifying  : libXext-1.3.2-2.1.el6.x86_64                               18/66 
+  Verifying  : ncurses-libs-5.7-3.20090208.el6.i686                       19/66 
+  Verifying  : ppl-0.10.2-11.el6.x86_64                                   20/66 
+  Verifying  : sysstat-9.0.4-27.el6.x86_64                                21/66 
+  Verifying  : mpfr-2.4.1-6.el6.x86_64                                    22/66 
+  Verifying  : elfutils-libs-0.158-3.2.el6.x86_64                         23/66 
+  Verifying  : ksh-20120801-21.el6_6.3.x86_64                             24/66 
+  Verifying  : libgomp-4.4.7-11.el6.x86_64                                25/66 
+  Verifying  : binutils-2.20.51.0.2-5.42.el6.x86_64                       26/66 
+  Verifying  : unixODBC-2.2.14-14.el6.i686                                27/66 
+  Verifying  : cloog-ppl-0.15.7-1.2.el6.x86_64                            28/66 
+  Verifying  : libaio-devel-0.3.107-10.el6.i686                           29/66 
+  Verifying  : elfutils-0.158-3.2.el6.x86_64                              30/66 
+  Verifying  : gcc-c++-4.4.7-11.el6.x86_64                                31/66 
+  Verifying  : elfutils-libelf-devel-0.158-3.2.el6.x86_64                 32/66 
+  Verifying  : glibc-2.12-1.149.el6_6.7.x86_64                            33/66 
+  Verifying  : libXtst-1.2.2-2.1.el6.x86_64                               34/66 
+  Verifying  : glibc-common-2.12-1.149.el6_6.7.x86_64                     35/66 
+  Verifying  : libstdc++-4.4.7-11.el6.i686                                36/66 
+  Verifying  : glibc-devel-2.12-1.149.el6_6.7.x86_64                      37/66 
+  Verifying  : libXi-1.7.2-2.2.el6.x86_64                                 38/66 
+  Verifying  : gcc-4.4.7-11.el6.x86_64                                    39/66 
+  Verifying  : glibc-headers-2.12-1.149.el6_6.7.x86_64                    40/66 
+  Verifying  : libgcc-4.4.7-11.el6.i686                                   41/66 
+  Verifying  : libxcb-1.9.1-2.el6.x86_64                                  42/66 
+  Verifying  : elfutils-libelf-0.158-3.2.el6.x86_64                       43/66 
+  Verifying  : nss-softokn-freebl-3.14.3-22.el6_6.i686                    44/66 
+  Verifying  : cpp-4.4.7-11.el6.x86_64                                    45/66 
+  Verifying  : libX11-common-1.6.0-2.2.el6.noarch                         46/66 
+  Verifying  : libaio-0.3.107-10.el6.i686                                 47/66 
+  Verifying  : glibc-2.12-1.132.el6.x86_64                                48/66 
+  Verifying  : glibc-devel-2.12-1.132.el6.x86_64                          49/66 
+  Verifying  : glibc-headers-2.12-1.132.el6.x86_64                        50/66 
+  Verifying  : libstdc++-4.4.7-4.el6.x86_64                               51/66 
+  Verifying  : glibc-common-2.12-1.132.el6.x86_64                         52/66 
+  Verifying  : libX11-1.5.0-4.el6.x86_64                                  53/66 
+  Verifying  : binutils-2.20.51.0.2-5.36.el6.x86_64                       54/66 
+  Verifying  : libgomp-4.4.7-4.el6.x86_64                                 55/66 
+  Verifying  : libXi-1.6.1-3.el6.x86_64                                   56/66 
+  Verifying  : libX11-common-1.5.0-4.el6.noarch                           57/66 
+  Verifying  : elfutils-libelf-0.152-1.el6.x86_64                         58/66 
+  Verifying  : sysstat-9.0.4-22.el6.x86_64                                59/66 
+  Verifying  : libxcb-1.8.1-1.el6.x86_64                                  60/66 
+  Verifying  : libXtst-1.2.1-2.el6.x86_64                                 61/66 
+  Verifying  : nss-softokn-freebl-3.14.3-9.el6.x86_64                     62/66 
+  Verifying  : elfutils-libs-0.152-1.el6.x86_64                           63/66 
+  Verifying  : elfutils-0.152-1.el6.x86_64                                64/66 
+  Verifying  : libgcc-4.4.7-4.el6.x86_64                                  65/66 
+  Verifying  : libXext-1.3.1-2.el6.x86_64                                 66/66 
+
+Installed:
+  compat-libcap1.x86_64 0:1.10-1                                                
+  compat-libstdc++-33.i686 0:3.2.3-69.el6                                       
+  compat-libstdc++-33.x86_64 0:3.2.3-69.el6                                     
+  elfutils-libelf-devel.x86_64 0:0.158-3.2.el6                                  
+  gcc.x86_64 0:4.4.7-11.el6                                                     
+  gcc-c++.x86_64 0:4.4.7-11.el6                                                 
+  glibc.i686 0:2.12-1.149.el6_6.7                                               
+  glibc-devel.i686 0:2.12-1.149.el6_6.7                                         
+  ksh.x86_64 0:20120801-21.el6_6.3                                              
+  libaio.i686 0:0.3.107-10.el6                                                  
+  libaio-devel.i686 0:0.3.107-10.el6                                            
+  libaio-devel.x86_64 0:0.3.107-10.el6                                          
+  libgcc.i686 0:4.4.7-11.el6                                                    
+  libstdc++.i686 0:4.4.7-11.el6                                                 
+  libstdc++-devel.i686 0:4.4.7-11.el6                                           
+  libstdc++-devel.x86_64 0:4.4.7-11.el6                                         
+  unixODBC.i686 0:2.2.14-14.el6                                                 
+  unixODBC.x86_64 0:2.2.14-14.el6                                               
+  unixODBC-devel.i686 0:2.2.14-14.el6                                           
+  unixODBC-devel.x86_64 0:2.2.14-14.el6                                         
+
+Dependency Installed:
+  cloog-ppl.x86_64 0:0.15.7-1.2.el6                                             
+  cpp.x86_64 0:4.4.7-11.el6                                                     
+  libtool-ltdl.i686 0:2.2.6-15.5.el6                                            
+  mpfr.x86_64 0:2.4.1-6.el6                                                     
+  ncurses-libs.i686 0:5.7-3.20090208.el6                                        
+  nss-softokn-freebl.i686 0:3.14.3-22.el6_6                                     
+  ppl.x86_64 0:0.10.2-11.el6                                                    
+  readline.i686 0:6.0-4.el6                                                     
+
+Updated:
+  binutils.x86_64 0:2.20.51.0.2-5.42.el6                                        
+  elfutils-libelf.x86_64 0:0.158-3.2.el6                                        
+  glibc.x86_64 0:2.12-1.149.el6_6.7                                             
+  glibc-devel.x86_64 0:2.12-1.149.el6_6.7                                       
+  libX11.x86_64 0:1.6.0-2.2.el6                                                 
+  libXext.x86_64 0:1.3.2-2.1.el6                                                
+  libXi.x86_64 0:1.7.2-2.2.el6                                                  
+  libXtst.x86_64 0:1.2.2-2.1.el6                                                
+  libgcc.x86_64 0:4.4.7-11.el6                                                  
+  libstdc++.x86_64 0:4.4.7-11.el6                                               
+  libxcb.x86_64 0:1.9.1-2.el6                                                   
+  sysstat.x86_64 0:9.0.4-27.el6                                                 
+
+Dependency Updated:
+  elfutils.x86_64 0:0.158-3.2.el6                                               
+  elfutils-libs.x86_64 0:0.158-3.2.el6                                          
+  glibc-common.x86_64 0:2.12-1.149.el6_6.7                                      
+  glibc-headers.x86_64 0:2.12-1.149.el6_6.7                                     
+  libX11-common.noarch 0:1.6.0-2.2.el6                                          
+  libgomp.x86_64 0:4.4.7-11.el6                                                 
+  nss-softokn-freebl.x86_64 0:3.14.3-22.el6_6                                   
+
+Complete!
+[root@702oracle database]# yum -y install  compat-libstdc++.i686 compat-libstdc++.x86_64 
+Loaded plugins: fastestmirror, refresh-packagekit, security
+Loading mirror speeds from cached hostfile
+ * base: mirrors.btte.net
+ * extras: mirrors.sina.cn
+ * updates: mirrors.btte.net
+Setting up Install Process
+No package compat-libstdc++.i686 available.
+No package compat-libstdc++.x86_64 available.
+Error: Nothing to do
+[root@702oracle database]# yum -y install  compat-libstdc
+Loaded plugins: fastestmirror, refresh-packagekit, security
+Loading mirror speeds from cached hostfile
+ * base: mirrors.btte.net
+ * extras: mirrors.sina.cn
+ * updates: mirrors.btte.net
+Setting up Install Process
+No package compat-libstdc available.
+Error: Nothing to do
+[root@702oracle database]# cd ..
+[root@702oracle setup]# ll
+总用量 2296312
+drwxr-xr-x. 8 root root       4096 8月  21 2009 database
+-rw-r--r--. 1 root root 1239269270 5月   6 11:05 linux.x64_11gR2_database_1of2.zip
+-rw-r--r--. 1 root root 1111416131 5月   6 11:05 linux.x64_11gR2_database_2of2.zip
+-rw-r--r--. 1 root root     723185 5月   6 11:11 linux下oracle的安装.docx
+[root@702oracle setup]# wget ftp://ftp.muug.mb.ca/mirror/centos/6.6/os/x86_64/Packages/compat-libstdc++-33-3.2.3-69.el6.x86_64.rpm
+--2015-05-06 11:26:44--  ftp://ftp.muug.mb.ca/mirror/centos/6.6/os/x86_64/Packages/compat-libstdc++-33-3.2.3-69.el6.x86_64.rpm
+           => “compat-libstdc++-33-3.2.3-69.el6.x86_64.rpm”
+正在解析主机 ftp.muug.mb.ca... 失败：未知的名称或服务。
+wget: 无法解析主机地址 “ftp.muug.mb.ca”
+[root@702oracle setup]# wget ftp://ftp.muug.mb.ca/mirror/centos/6.6/os/x86_64/Packages/compat-libstdc++-33-3.2.3-69.el6.x86_64.rpm
+--2015-05-06 11:26:51--  ftp://ftp.muug.mb.ca/mirror/centos/6.6/os/x86_64/Packages/compat-libstdc++-33-3.2.3-69.el6.x86_64.rpm
+           => “compat-libstdc++-33-3.2.3-69.el6.x86_64.rpm”
+正在解析主机 ftp.muug.mb.ca... 失败：未知的名称或服务。
+wget: 无法解析主机地址 “ftp.muug.mb.ca”
+[root@702oracle setup]# yum -qa | grep pdksh
+Command line error: no such option: -a
+[root@702oracle setup]# rpm -qa | grep pdksh
+[root@702oracle setup]# rpm -qa | grep ksh
+ksh-20120801-21.el6_6.3.x86_64
+[root@702oracle setup]# rpm -qa | grep pdksh
+[root@702oracle setup]# vi /etc/sysctl.conf
+[root@702oracle setup]# sysctl -p
+net.ipv4.ip_forward = 0
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.default.accept_source_route = 0
+kernel.sysrq = 0
+kernel.core_uses_pid = 1
+net.ipv4.tcp_syncookies = 1
+error: "net.bridge.bridge-nf-call-ip6tables" is an unknown key
+error: "net.bridge.bridge-nf-call-iptables" is an unknown key
+error: "net.bridge.bridge-nf-call-arptables" is an unknown key
+kernel.msgmnb = 65536
+kernel.msgmax = 65536
+kernel.shmmax = 68719476736
+kernel.shmall = 4294967296
+net.ipv4.ip_local_port_range = 9000 65500
+fs.file-max = 6815744
+kernel.shmall = 10523004
+kernel.shmmax = 6465333657
+kernel.shmmni = 4096
+kernel.sem = 250 32000 100 128
+net.core.rmem_default = 262144
+net.core.wmem_default = 262144
+net.core.rmem_max = 4194304
+net.core.wmem_max = 1048576
+fs.aio-max-nr = 1048576
+[root@702oracle setup]# more /etc/oraInst.loc
+/etc/oraInst.loc: 没有那个文件或目录
+[root@702oracle setup]#  grep dba /etc/group
+[root@702oracle setup]# /usr/sbin/groupadd oinstall
+[root@702oracle setup]# /usr/sbin/groupadd dba
+[root@702oracle setup]# id oracle
+id: oracle：无此用户
+[root@702oracle setup]# /usr/sbin/usermod -g oinstall -G dba oracle
+usermod: user 'oracle' does not exist
+[root@702oracle setup]# /usr/sbin/useradd -g oinstall -G dba oracle
+[root@702oracle setup]# /usr/sbin/usermod -g oinstall -G dba oracle
+[root@702oracle setup]# passwd oracle
+更改用户 oracle 的密码 。
+新的 密码：
+重新输入新的 密码：
+passwd： 所有的身份验证令牌已经成功更新。
+[root@702oracle setup]#  /sbin/sysctl -a | grep file-max
+fs.file-max = 6815744
+[root@702oracle setup]# /sbin/chkconfig boot.sysctl on
+在 boot.sysctl 服务中读取信息时出错：没有那个文件或目录
+[root@702oracle setup]#  ulimit -Sn
+1024
+[root@702oracle setup]# ulimit -Hn
+4096
+[root@702oracle setup]# vi  /etc/security/limits.conf
+[root@702oracle setup]#  vi /etc/security/limits.conf
+[root@702oracle setup]# vi /etc/pam.d/login
+[root@702oracle setup]#  vi /etc/security/limits.conf
+[root@702oracle setup]# vi /etc/pam.d/login
+[root@702oracle setup]# mkdir /u01/oracle
+mkdir: 无法创建目录"/u01/oracle": 没有那个文件或目录
+[root@702oracle setup]# mkdir /u01/oracle -p
+[root@702oracle setup]# mkdir -p /u01/app/
+[root@702oracle setup]# chown -R oracle:oinstall /u01/app/
+[root@702oracle setup]# chmod -R 775 /u01/app/
+[root@702oracle setup]# passwd oracle
+更改用户 oracle 的密码 。
+新的 密码：
+无效的密码： 过于简单化/系统化
+重新输入新的 密码：
+抱歉，密码不匹配。
+新的 密码：
+[root@702oracle setup]# passwd oracle
+更改用户 oracle 的密码 。
+新的 密码：
+重新输入新的 密码：
+passwd： 所有的身份验证令牌已经成功更新。
+[root@702oracle setup]# ll
+总用量 2336492
+drwxr-xr-x. 8 root root       4096 8月  21 2009 database
+-rw-r--r--. 1 root root 1239269270 5月   6 11:05 linux.x64_11gR2_database_1of2.zip
+-rw-r--r--. 1 root root 1111416131 5月   6 11:05 linux.x64_11gR2_database_2of2.zip
+-rw-r--r--. 1 root root     723185 5月   6 11:11 linux下oracle的安装.docx
+-rw-r--r--. 1 root root   41139132 5月   6 11:52 teamviewer_10.0.41499.i686.rpm
+-rw-r--r--. 1 root root        226 5月   6 13:30 新文件
+[root@702oracle setup]# chmod -R 700 database
+[root@702oracle setup]# chown -R oracle:oinstall database
+[root@702oracle setup]# vi /home/oracle/.bash_profile
+[root@702oracle setup]# vi /home/oracle/.bash_profile
+[root@702oracle setup]# vi /home/oracle/.bash_profile
+[root@702oracle setup]# source /home/oracle/.bash_profile
+[root@702oracle setup]# dir
+database			   linux下oracle的安装.docx
+linux.x64_11gR2_database_1of2.zip  teamviewer_10.0.41499.i686.rpm
+linux.x64_11gR2_database_2of2.zip  新文件
+[root@702oracle setup]# ll
+总用量 2336492
+drwx------. 8 oracle oinstall       4096 8月  21 2009 database
+-rw-r--r--. 1 root   root     1239269270 5月   6 11:05 linux.x64_11gR2_database_1of2.zip
+-rw-r--r--. 1 root   root     1111416131 5月   6 11:05 linux.x64_11gR2_database_2of2.zip
+-rw-r--r--. 1 root   root         723185 5月   6 11:11 linux下oracle的安装.docx
+-rw-r--r--. 1 root   root       41139132 5月   6 11:52 teamviewer_10.0.41499.i686.rpm
+-rw-r--r--. 1 root   root            226 5月   6 13:30 新文件
+[root@702oracle setup]# cd database/
+[root@702oracle database]# ll
+总用量 36
+drwx------. 12 oracle oinstall 4096 8月  17 2009 doc
+drwx------.  4 oracle oinstall 4096 8月  15 2009 install
+drwx------.  2 oracle oinstall 4096 8月  15 2009 response
+drwx------.  2 oracle oinstall 4096 8月  15 2009 rpm
+-rwx------.  1 oracle oinstall 3226 8月  15 2009 runInstaller
+drwx------.  2 oracle oinstall 4096 8月  15 2009 sshsetup
+drwx------. 14 oracle oinstall 4096 8月  15 2009 stage
+-rwx------.  1 oracle oinstall 5402 8月  18 2009 welcome.html
+[root@702oracle database]# ./runInstaller 
+
+该用户是 root 用户。如果用户是 root 用户, Oracle Universal Installer 将无法继续安装。
+: 没有那个文件或目录
+[root@702oracle database]# vi /home/oracle/.bash_profile
+[root@702oracle database]# hostname 702oracle
+[root@702oracle database]# hostname
+702oracle
+[root@702oracle database]# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+[root@702oracle database]# vi /etc/hosts
+[root@702oracle database]# cat /etc/sysconfig/network
+NETWORKING=yes
+HOSTNAME=702oracle
+[root@702oracle database]# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.131 702oracle
+[root@702oracle database]# cat /etc/sysconfig/network
+NETWORKING=yes
+HOSTNAME=702oracle
+[root@702oracle database]# 
+
+
+

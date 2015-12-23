@@ -1,0 +1,2511 @@
+ {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+SELECT {
+	FONT: 13px arial,"ËÎÌå"
+}
+BODY {
+	BACKGROUND: #fff; FONT: 13px/1.5 arial,helvetica,sans-serif; COLOR: #000
+}
+IMG {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+A:link {
+	COLOR: #04d; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #04d; TEXT-DECORATION: none
+}
+A:hover {
+	TEXT-DECORATION: underline
+}
+OPTION {
+	PADDING-RIGHT: 4px
+}
+H2 {
+	FONT-SIZE: 14px
+}
+H3 {
+	FONT-SIZE: 14px
+}
+.button {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 6px; FONT-WEIGHT: bold; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; PADDING-TOP: 2px
+}
+.x {
+	CLEAR: both; BORDER-TOP: transparent 0px solid
+}
+#ks-main A:active {
+	COLOR: #d40
+}
+#ks-main A:visited {
+	COLOR: #551a8b
+}
+#ks-main #ks_nav A:visited {
+	COLOR: #04d
+}
+#ks-main .mqlist .hd A:visited {
+	COLOR: #04d
+}
+#ks-main .navbar A:visited {
+	COLOR: #04d
+}
+#ks-main .mqlist TH A:visited {
+	COLOR: #04d
+}
+#ks-main .avopion A:visited {
+	COLOR: #04d
+}
+#ks-main .gmodule .ft A:link {
+	COLOR: #04d
+}
+#ks-main .gmodule .ft A:visited {
+	COLOR: #04d
+}
+#ks-main .gmodule .hd .more:link {
+	COLOR: #04d
+}
+#ks-main .gmodule .hd .more:visited {
+	COLOR: #04d
+}
+#foot {
+	COLOR: #b5b5b5
+}
+#ks-main {
+	COLOR: #666
+}
+#ks-main H2 {
+	COLOR: #000
+}
+#hdnav {
+	MARGIN: 0px auto; WIDTH: 950px; TEXT-ALIGN: left
+}
+#foot {
+	MARGIN: 0px auto; WIDTH: 950px; TEXT-ALIGN: left
+}
+#ks-main {
+	MARGIN: 0px auto; WIDTH: 950px; TEXT-ALIGN: left
+}
+.searchbar {
+	MARGIN: 0px auto; WIDTH: 950px; TEXT-ALIGN: left
+}
+#doc-head {
+	MARGIN: 0px auto; WIDTH: 950px; TEXT-ALIGN: left
+}
+#foot {
+	PADDING-RIGHT: 0px; BORDER-TOP: #ccc 1px solid; MARGIN-TOP: 1em; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1.6; PADDING-TOP: 0.8em; TEXT-ALIGN: center
+}
+#topbar:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+#topbar OL:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+#content:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+#kf .bd:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+.hottopics .bd:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+#mostaware UL:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+.mqlist .hd UL:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+.ksgallery:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+.actions:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+#happy_cd:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+#happy_top_ban .bd UL:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+#recent_pass .bd UL:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+#play_method .bd UL:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+#pass_list:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+#pass_person .bd .info:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+#pass_person .bd .list LI:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+#happy_cd .pass_result .progress:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+#happy_cd .pass_result .progress UL:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+.pass_result .mainbox .bd:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+.happy_question .titl:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+.sms_mod:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+.sms_mod .rightbar #send_sms .bd P:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+.happy_question .questionbox .bd UL LI:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+.happy_question #error_report_end .bd:unknown {
+	CLEAR: both; DISPLAY: block; OVERFLOW: hidden; HEIGHT: 0px; content: ""
+}
+#topbar {
+	ZOOM: 1
+}
+#topbar OL {
+	ZOOM: 1
+}
+#content {
+	ZOOM: 1
+}
+#kf .bd {
+	ZOOM: 1
+}
+.hottopics .bd {
+	ZOOM: 1
+}
+#mostaware UL {
+	ZOOM: 1
+}
+.mqlist .hd UL {
+	ZOOM: 1
+}
+.ksgallery {
+	ZOOM: 1
+}
+.actions {
+	ZOOM: 1
+}
+.navbar {
+	MARGIN: 10px 0px; ZOOM: 1; POSITION: relative
+}
+.navbar FORM {
+	RIGHT: 0px; POSITION: absolute; TOP: 0px
+}
+#topbar {
+	BORDER-RIGHT: #6ac4c4 1px solid; BORDER-TOP: #6ac4c4 1px solid; Z-INDEX: 100; BACKGROUND: #ecf7f6; MARGIN: 10px 0px; BORDER-LEFT: #6ac4c4 1px solid; BORDER-BOTTOM: #6ac4c4 1px solid; POSITION: relative
+}
+#topbar .promotion {
+	BORDER-RIGHT: #6ac4c4 1px solid; BACKGROUND: #fff; FLOAT: left; WIDTH: 705px
+}
+#topbar .login {
+	MARGIN-LEFT: 705px
+}
+#topbar .login A:visited {
+	COLOR: #04d
+}
+#topbar .unlogin {
+	PADDING-RIGHT: 13px; FONT-SIZE: 14px; PADDING-TOP: 18px; TEXT-ALIGN: right
+}
+#topbar .logined {
+	Z-INDEX: 2; PADDING-TOP: 6px; POSITION: relative; TOP: 0px
+}
+#topbar .logined SPAN {
+	MARGIN-TOP: 4px; DISPLAY: inline
+}
+#topbar .avatar {
+	POSITION: relative
+}
+#topbar .avatar {
+	PADDING-LEFT: 80px
+}
+#topbar .rinfo {
+	PADDING-LEFT: 80px
+}
+#topbar .avatar IMG {
+	BORDER-RIGHT: #6ac4c4 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #6ac4c4 1px solid; DISPLAY: block; PADDING-LEFT: 5px; BACKGROUND: #def1ef; LEFT: 10px; PADDING-BOTTOM: 5px; BORDER-LEFT: #6ac4c4 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: #6ac4c4 1px solid; POSITION: absolute; TOP: -5px; HEIGHT: 48px
+}
+#topbar .avatar SPAN {
+	MARGIN-TOP: 0px! important; DISPLAY: inline-block; OVERFLOW: hidden; CURSOR: pointer; WHITE-SPACE: nowrap
+}
+#topbar LI {
+	BORDER-RIGHT: #bae3df 1px solid; DISPLAY: inline; FLOAT: left; MARGIN: 5px 0px; WIDTH: 234px; LIST-STYLE-TYPE: none; HEIGHT: 40px
+}
+#topbar LI STRONG {
+	DISPLAY: none
+}
+#topbar LI A {
+	PADDING-RIGHT: 0px; BACKGROUND-POSITION: 13px 5px; DISPLAY: block; PADDING-LEFT: 110px; PADDING-BOTTOM: 0px; WIDTH: 0.1em; PADDING-TOP: 22px; BACKGROUND-REPEAT: no-repeat; WHITE-SPACE: nowrap
+}
+#topbar LI A:link {
+	COLOR: #9f9f9f
+}
+#topbar LI A:visited {
+	COLOR: #9f9f9f
+}
+#topbar LI#discover {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+#topbar LI#ask A {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/ask3.gif)
+}
+#topbar LI#answer A {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/answer3.gif)
+}
+#topbar LI#discover A {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/discover4.gif)
+}
+.searchbar {
+	CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: #def1ef; PADDING-BOTTOM: 5px; MARGIN: 10px 0px; PADDING-TOP: 5px
+}
+.searchbar INPUT {
+	VERTICAL-ALIGN: middle
+}
+.searchbar .text {
+	BORDER-RIGHT: #acb4b7 1px solid; PADDING-RIGHT: 4px; BORDER-TOP: #acb4b7 1px solid; PADDING-LEFT: 4px; FONT-SIZE: 14px; BACKGROUND: url(http://cn.yimg.com/i/hp/07/inpbg2.gif) #fff no-repeat 0px 0px; PADDING-BOTTOM: 4px; MARGIN-LEFT: 155px; BORDER-LEFT: #acb4b7 1px solid; WIDTH: 500px; PADDING-TOP: 4px; BORDER-BOTTOM: #acb4b7 1px solid
+}
+#main {
+	DISPLAY: inline; FLOAT: left; OVERFLOW: hidden
+}
+#side1 {
+	DISPLAY: inline; FLOAT: left; OVERFLOW: hidden
+}
+#side2 {
+	DISPLAY: inline; FLOAT: left; OVERFLOW: hidden
+}
+#main {
+	MARGIN-LEFT: 210px; WIDTH: 490px
+}
+.cate #main {
+	MARGIN-LEFT: 160px; WIDTH: 540px
+}
+#side1 {
+	MARGIN-LEFT: -700px; WIDTH: 200px
+}
+.cate #side1 {
+	WIDTH: 150px
+}
+#side2 {
+	MARGIN-LEFT: 8px; WIDTH: 240px
+}
+#content H2 {
+	FONT-SIZE: 14px
+}
+.banner {
+	MARGIN: 10px 0px; TEXT-ALIGN: center
+}
+.gmodule {
+	BORDER-RIGHT: #bae3df 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #bae3df 1px solid; PADDING-LEFT: 1px; MARGIN-BOTTOM: 10px; PADDING-BOTTOM: 1px; OVERFLOW: hidden; BORDER-LEFT: #bae3df 1px solid; WORD-BREAK: break-all; PADDING-TOP: 1px; BORDER-BOTTOM: #bae3df 1px solid; ZOOM: 1
+}
+#side1 .gmodule {
+	BORDER-RIGHT: #6ac4c4 1px solid; BORDER-TOP: #6ac4c4 1px solid; BORDER-LEFT: #6ac4c4 1px solid; BORDER-BOTTOM: #6ac4c4 1px solid
+}
+.gmodule .hd {
+	PADDING-RIGHT: 13px; PADDING-LEFT: 13px; BACKGROUND: url(http://cn.yimg.com/i/nks/mbg.gif) repeat-x 0px 0px; PADDING-BOTTOM: 4px; PADDING-TOP: 8px; POSITION: relative
+}
+.gmodule .hd .more {
+	PADDING-LEFT: 8px; RIGHT: 13px; BACKGROUND: url(http://cn.yimg.com/i/nks/more_arrow.gif) no-repeat 0px 0.5em; POSITION: absolute; TOP: 8px
+}
+.amodule .hd .more {
+	TOP: 18px
+}
+.gmodule UL {
+	LIST-STYLE-TYPE: none
+}
+.gmodule .bd {
+	PADDING-RIGHT: 16px; PADDING-LEFT: 16px; PADDING-BOTTOM: 8px; PADDING-TOP: 0px
+}
+.gmodule .ft {
+	PADDING-RIGHT: 13px; PADDING-LEFT: 13px; FONT-SIZE: 14px; BACKGROUND: #f4fafa; PADDING-BOTTOM: 4px; PADDING-TOP: 4px; TEXT-ALIGN: right
+}
+.amodule {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.amodule .hd {
+	BORDER-TOP: #def1ef 8px solid; BACKGROUND: none transparent scroll repeat 0% 0%
+}
+#rlinks .hd {
+	BACKGROUND: none transparent scroll repeat 0% 0%
+}
+#ks_nav .hd {
+	BACKGROUND: none transparent scroll repeat 0% 0%
+}
+#bestanswer .hd {
+	BACKGROUND: none transparent scroll repeat 0% 0%
+}
+#side1 #rlinks {
+	BORDER-RIGHT: #facc89 1px solid; BORDER-TOP: #facc89 1px solid; BORDER-LEFT: #facc89 1px solid; BORDER-BOTTOM: #facc89 1px solid
+}
+#bestanswer {
+	BORDER-RIGHT: #facc89 1px solid; BORDER-TOP: #facc89 1px solid; BORDER-LEFT: #facc89 1px solid; BORDER-BOTTOM: #facc89 1px solid
+}
+#rlinks .alt {
+	BORDER-TOP: #dbdbdb 1px dashed; MARGIN-TOP: 8px; PADDING-TOP: 8px
+}
+#ks_nav {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: #ecf7f6; PADDING-BOTTOM: 0px; OVERFLOW: hidden! important; PADDING-TOP: 0px
+}
+#ks_nav LI {
+	PADDING-LEFT: 13px; BACKGROUND: url(http://cn.yimg.com/i/nks/arrow.gif) no-repeat 0px 50%; MARGIN-BOTTOM: 2px; COLOR: #949494
+}
+#ks_nav LI.alt {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/star.gif) no-repeat 0px 5px
+}
+#ks_nav LI#elite {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/star.gif) no-repeat 0px 5px
+}
+#ks_nav LI LI {
+	PADDING-LEFT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%
+}
+#ks_nav LI LI A {
+	PADDING-LEFT: 13px; BACKGROUND: url(http://cn.yimg.com/i/nks/dot.gif) no-repeat 0px 50%
+}
+#ks_nav .current_cate {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/darrow2.gif) no-repeat 0px 0.5em
+}
+#ks_nav .current_item {
+	DISPLAY: block; BACKGROUND: none transparent scroll repeat 0% 0%; OVERFLOW: hidden; WIDTH: 100px; ZOOM: 1
+}
+#ks_nav .current_item A {
+	PADDING-RIGHT: 0px; BORDER-TOP: #ade1dc 1px solid; DISPLAY: block; PADDING-LEFT: 28px; FONT-WEIGHT: bold; Z-INDEX: 2; BACKGROUND: url(http://cn.yimg.com/i/nks/darrow2.gif) #fff no-repeat 14px 50%; LEFT: -28px; PADDING-BOTTOM: 2px; WIDTH: 118px; PADDING-TOP: 2px; BORDER-BOTTOM: #ade1dc 1px solid; POSITION: relative
+}
+#ks_nav .current_item#elite A {
+	BACKGROUND-POSITION: 14px 5px; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/star.gif); BACKGROUND-REPEAT: no-repeat
+}
+#ks_nav .current_cate .current_item A {
+	BACKGROUND-POSITION: 28px 50%; PADDING-LEFT: 42px; LEFT: -28px; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/current_item.gif); WIDTH: 104px
+}
+#ks_nav #elite .current_item A {
+	BACKGROUND-POSITION: 28px 50%; PADDING-LEFT: 42px; LEFT: -28px; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/current_item.gif); WIDTH: 104px
+}
+#ks_nav .current_item LI A {
+	BORDER-TOP-WIDTH: 0px; DISPLAY: inline; PADDING-LEFT: 13px; FONT-WEIGHT: normal; BORDER-LEFT-WIDTH: 0px; BACKGROUND: url(http://cn.yimg.com/i/nks/dot.gif) no-repeat 0px 50%; BORDER-BOTTOM-WIDTH: 0px; POSITION: static; BORDER-RIGHT-WIDTH: 0px
+}
+#ks_nav .current_item#elite LI A {
+	BORDER-TOP-WIDTH: 0px; DISPLAY: inline; PADDING-LEFT: 13px; FONT-WEIGHT: normal; BORDER-LEFT-WIDTH: 0px; BACKGROUND: url(http://cn.yimg.com/i/nks/dot.gif) no-repeat 0px 50%; BORDER-BOTTOM-WIDTH: 0px; POSITION: static; BORDER-RIGHT-WIDTH: 0px
+}
+.glist {
+	LIST-STYLE-TYPE: none
+}
+.glist LI {
+	PADDING-LEFT: 8px; BACKGROUND: url(http://cn.yimg.com/i/nks/dot.gif) no-repeat 0px 0.5em; WORD-BREAK: break-all; WHITE-SPACE: normal; WORD-WRAP: break-word
+}
+.imgtxt {
+	DISPLAY: block; TEXT-ALIGN: center
+}
+.imgtxt IMG {
+	DISPLAY: block; MARGIN: auto
+}
+#kf .headline {
+	FLOAT: left; WIDTH: 150px; PADDING-TOP: 10px
+}
+.hottopics .headline {
+	FLOAT: left; WIDTH: 150px; PADDING-TOP: 10px
+}
+.hottopics .headline {
+	WIDTH: 120px
+}
+#kf .glist {
+	MARGIN-LEFT: 170px
+}
+.hottopics .qlist {
+	MARGIN-LEFT: 135px
+}
+#main .glist {
+	FONT-SIZE: 14px
+}
+#main .qlist {
+	FONT-SIZE: 14px
+}
+#main .qlist .cate {
+	FONT-SIZE: 13px
+}
+#main .qlist .m {
+	FONT-SIZE: 13px
+}
+#main .qlist .cate:link {
+	COLOR: #949494
+}
+#main .qlist .cate:visited {
+	COLOR: #949494
+}
+.qlist LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 2px; PADDING-TOP: 2px; BORDER-BOTTOM: #dbdbdb 1px dashed; POSITION: relative
+}
+.qlist .cate {
+	LEFT: 0px; POSITION: absolute; TOP: 2px
+}
+.qlist .topic {
+	MARGIN-LEFT: 6em
+}
+.m {
+	PADDING-LEFT: 13px; BACKGROUND: url(http://cn.yimg.com/i/nks/coin.gif) no-repeat 0px 50%; MARGIN-LEFT: 10px
+}
+#expertsrmd LI {
+	PADDING-LEFT: 60px; MIN-HEIGHT: 74px; POSITION: relative; HEIGHT: 64px
+}
+#kslad .headline {
+	PADDING-LEFT: 60px; MIN-HEIGHT: 74px; POSITION: relative; HEIGHT: 64px
+}
+#expertsrmd LI {
+	BORDER-TOP: #dbdbdb 1px dashed; PADDING-TOP: 10px
+}
+#expertsrmd LI.first {
+	BORDER-TOP-WIDTH: 0px
+}
+#expertsrmd LI .avatar IMG {
+	LEFT: 0px; POSITION: absolute; TOP: 10px
+}
+#kslad .avatar IMG {
+	LEFT: 0px; POSITION: absolute; TOP: 10px
+}
+#expertsrmd LI .more {
+	TEXT-ALIGN: right
+}
+#expertsrmd LI .more A {
+	COLOR: #cc6601
+}
+#kslad .avatar IMG {
+	TOP: 0px
+}
+#kslad .glist {
+	BORDER-TOP: #e5e5e5 1px dashed; PADDING-TOP: 8px
+}
+#ksspecial .bd P {
+	TEXT-ALIGN: left
+}
+#uprating OL {
+	LIST-STYLE-POSITION: inside
+}
+#gather OL {
+	LIST-STYLE-POSITION: inside
+}
+#uprating LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 4px; PADDING-TOP: 4px; BORDER-BOTTOM: #e5e5e5 1px dashed; POSITION: relative
+}
+#gather LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 4px; PADDING-TOP: 4px; BORDER-BOTTOM: #e5e5e5 1px dashed; POSITION: relative
+}
+#uprating LI A {
+	DISPLAY: inline-block; OVERFLOW: hidden; WIDTH: 7em; WHITE-SPACE: nowrap
+}
+#gather LI A {
+	DISPLAY: inline-block; OVERFLOW: hidden; WIDTH: 7em; WHITE-SPACE: nowrap
+}
+#gather LI A {
+	WIDTH: 10em
+}
+#uprating LI SPAN {
+	POSITION: absolute; TOP: 4px
+}
+#gather LI SPAN {
+	POSITION: absolute; TOP: 4px
+}
+#uprating LI SPAN {
+	PADDING-LEFT: 30px; BACKGROUND: url(http://cn.yimg.com/i/nks/ascend.gif) no-repeat 0px 50%; LEFT: 120px
+}
+#gather LI SPAN {
+	RIGHT: 23px
+}
+#mostaware UL {
+	ZOOM: 1
+}
+#mostaware LI {
+	FLOAT: left; WIDTH: 75px
+}
+.mqlist .hd {
+	Z-INDEX: 2; POSITION: relative
+}
+.mqlist .hd .addfavor {
+	PADDING-LEFT: 16px; RIGHT: 0px; BACKGROUND: url(http://cn.yimg.com/i/nks/add.gif) no-repeat 0px 50%; POSITION: absolute; TOP: 12px
+}
+.mqlist .hd UL {
+	PADDING-TOP: 6px
+}
+.mqlist .hd LI {
+	BORDER-RIGHT: #bae3df 1px solid; BORDER-TOP: #bae3df 1px solid; DISPLAY: inline; FONT-SIZE: 14px; FLOAT: left; BORDER-LEFT: #bae3df 1px solid; MARGIN-RIGHT: -1px; BORDER-BOTTOM: #bae3df 0px solid; LIST-STYLE-TYPE: none
+}
+.mqlist .hd LI.current {
+	FONT-WEIGHT: bold; POSITION: relative; TOP: -6px
+}
+.mqlist .hd LI A {
+	PADDING-RIGHT: 12px; DISPLAY: block; PADDING-LEFT: 12px; PADDING-BOTTOM: 2px; PADDING-TOP: 6px
+}
+.mqlist .hd LI STRONG {
+	PADDING-RIGHT: 12px; DISPLAY: block; PADDING-LEFT: 12px; PADDING-BOTTOM: 2px; PADDING-TOP: 6px
+}
+.mqlist .hd LI.current STRONG {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 12px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 12px; BACKGROUND: url(http://cn.yimg.com/i/nks/mbg.gif) repeat-x 0px 0px; PADDING-BOTTOM: 6px; BORDER-LEFT: #fff 1px solid; COLOR: #000; PADDING-TOP: 6px; BORDER-BOTTOM: #fff 1px solid
+}
+.mqlist .bd {
+	BORDER-RIGHT: #bae3df 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #bae3df 1px solid; MARGIN-TOP: -7px; PADDING-LEFT: 10px; Z-INDEX: 1; BACKGROUND: #fff; PADDING-BOTTOM: 0px; BORDER-LEFT: #bae3df 1px solid; PADDING-TOP: 10px; BORDER-BOTTOM: #bae3df 1px solid; ZOOM: 1; POSITION: relative
+}
+.mqlist .bd P.top {
+	FONT-SIZE: 14px; LINE-HEIGHT: 180%
+}
+.mqlist TABLE {
+	TABLE-LAYOUT: fixed; WIDTH: 99.9%; BORDER-COLLAPSE: collapse
+}
+.mqlist TH {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; PADDING-TOP: 4px; WHITE-SPACE: nowrap
+}
+.mqlist TD {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; PADDING-TOP: 4px; WHITE-SPACE: nowrap
+}
+.mqlist TD {
+	BORDER-BOTTOM: #dadada 1px dashed
+}
+.mqlist TH {
+	FONT-WEIGHT: normal; BACKGROUND: #f5f5f5
+}
+.mqlist .mqlist_cate {
+	WIDTH: 6em
+}
+.mqlist .m_question {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; WIDTH: 1.1em; PADDING-TOP: 0px
+}
+#ks-main .mqlist .mqlist_cate A {
+	COLOR: #949494
+}
+#ks-main .mqlist .mqlist_cate A:visited {
+	COLOR: #949494
+}
+.mqlist .mqlist_title {
+	TEXT-ALIGN: left
+}
+.mqlist TD.mqlist_title {
+	FONT-SIZE: 14px
+}
+#expert TD.mqlist_auther {
+	FONT-SIZE: 14px
+}
+#expert TD.mqlist_auther {
+	TEXT-ALIGN: center
+}
+.mqlist .mqlist_offer {
+	WIDTH: 3em; TEXT-ALIGN: center
+}
+.mqlist .mqlist_answer {
+	WIDTH: 3em; TEXT-ALIGN: center
+}
+.mqlist TD.mqlist_offer SPAN {
+	PADDING-LEFT: 14px; BACKGROUND: url(http://cn.yimg.com/i/nks/coin.gif) no-repeat 0px 50%
+}
+.mqlist .mqlist_dt {
+	WIDTH: 4.2em; TEXT-ALIGN: right
+}
+.mqlist TH.mqlist_dt {
+	TEXT-ALIGN: center
+}
+.mqlist .up {
+	PADDING-RIGHT: 12px; BACKGROUND: url(http://cn.yimg.com/i/nks/order.gif) no-repeat 100% 50%
+}
+.mqlist .down {
+	PADDING-RIGHT: 12px; BACKGROUND: url(http://cn.yimg.com/i/nks/order.gif) no-repeat 100% 50%
+}
+.mqlist .down {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/order_d.gif)
+}
+.mqlist .stat1 {
+	DISPLAY: inline-block; BACKGROUND: url(http://cn.yimg.com/i/ks/070429/bg-ic1.gif) no-repeat; OVERFLOW: hidden; WIDTH: 13px; HEIGHT: 19px
+}
+.mqlist .stat2 {
+	DISPLAY: inline-block; BACKGROUND: url(http://cn.yimg.com/i/ks/070429/bg-ic1.gif) no-repeat; OVERFLOW: hidden; WIDTH: 13px; HEIGHT: 19px
+}
+.mqlist .stat3 {
+	DISPLAY: inline-block; BACKGROUND: url(http://cn.yimg.com/i/ks/070429/bg-ic1.gif) no-repeat; OVERFLOW: hidden; WIDTH: 13px; HEIGHT: 19px
+}
+.mqlist .stat4 {
+	DISPLAY: inline-block; BACKGROUND: url(http://cn.yimg.com/i/ks/070429/bg-ic1.gif) no-repeat; OVERFLOW: hidden; WIDTH: 13px; HEIGHT: 19px
+}
+.mqlist .stat2 {
+	BACKGROUND-POSITION: -13px 0px
+}
+.mqlist .stat3 {
+	BACKGROUND-POSITION: -26px 0px
+}
+.mqlist .stat4 {
+	BACKGROUND-POSITION: -39px 0px
+}
+#expert TH {
+	COLOR: #000; TEXT-ALIGN: center
+}
+#expert .mqlist_dt {
+	WIDTH: 5em; TEXT-ALIGN: center
+}
+#expert .mqlist_answered {
+	WIDTH: 5em; TEXT-ALIGN: center
+}
+#expert TD.mqlist_flag {
+	WIDTH: 5em; TEXT-ALIGN: center
+}
+#expert TD.mqlist_answered {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/exp_icon_answered.gif) no-repeat center 50%
+}
+#expert TD.mqlist_flag {
+	BACKGROUND: url(http://cn.yimg.com/i/comn/ico/icotarg.gif) no-repeat center 50%
+}
+#expert .mqlist_offer {
+	WIDTH: 5em
+}
+.page {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 1.4em; MARGIN: auto; PADDING-TOP: 1.4em; ZOOM: 1; TEXT-ALIGN: center
+}
+.page A {
+	COLOR: #04d! important
+}
+.page A:visited {
+	COLOR: #04d! important
+}
+.page UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; FONT-FAMILY: arial; LIST-STYLE-TYPE: none
+}
+.page LI {
+	DISPLAY: inline; BORDER-TOP-STYLE: none! important; BORDER-RIGHT-STYLE: none! important; BORDER-LEFT-STYLE: none! important; BORDER-BOTTOM-STYLE: none! important
+}
+.page SPAN {
+	PADDING-RIGHT: 6px; DISPLAY: inline-block; PADDING-LEFT: 6px; FONT-WEIGHT: bold; FONT-SIZE: 13px; PADDING-BOTTOM: 2px; PADDING-TOP: 2px
+}
+.page A:link {
+	BORDER-RIGHT: #ddd 1px solid; PADDING-RIGHT: 4px; BORDER-TOP: #ddd 1px solid; DISPLAY: inline-block; PADDING-LEFT: 4px; FONT-SIZE: 13px; PADDING-BOTTOM: 2px; BORDER-LEFT: #ddd 1px solid; COLOR: #04d; PADDING-TOP: 2px; BORDER-BOTTOM: #ddd 1px solid; FONT-FAMILY: arial
+}
+.page A:visited {
+	BORDER-RIGHT: #ddd 1px solid; PADDING-RIGHT: 4px; BORDER-TOP: #ddd 1px solid; DISPLAY: inline-block; PADDING-LEFT: 4px; FONT-SIZE: 13px; PADDING-BOTTOM: 2px; BORDER-LEFT: #ddd 1px solid; COLOR: #04d; PADDING-TOP: 2px; BORDER-BOTTOM: #ddd 1px solid; FONT-FAMILY: arial
+}
+.page A:hover {
+	BORDER-RIGHT: #0e977f 1px solid; BORDER-TOP: #0e977f 1px solid; BORDER-LEFT: #0e977f 1px solid; COLOR: #fff! important; BORDER-BOTTOM: #0e977f 1px solid; BACKGROUND-COLOR: #3db7a2; TEXT-DECORATION: none
+}
+.page A.pre {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 6px; FONT-SIZE: 14px; PADDING-BOTTOM: 2px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #fff 1px solid
+}
+.page A.nxt {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 6px; FONT-SIZE: 14px; PADDING-BOTTOM: 2px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #fff 1px solid
+}
+.page A.pre:link {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 6px; FONT-SIZE: 14px; PADDING-BOTTOM: 2px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #fff 1px solid
+}
+.page A.pre:visited {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 6px; FONT-SIZE: 14px; PADDING-BOTTOM: 2px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #fff 1px solid
+}
+.page A.pre:hover {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 6px; FONT-SIZE: 14px; PADDING-BOTTOM: 2px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #fff 1px solid
+}
+.page A.pre:active {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 6px; FONT-SIZE: 14px; PADDING-BOTTOM: 2px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #fff 1px solid
+}
+.page A.nxt:link {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 6px; FONT-SIZE: 14px; PADDING-BOTTOM: 2px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #fff 1px solid
+}
+.page A.nxt:visited {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 6px; FONT-SIZE: 14px; PADDING-BOTTOM: 2px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #fff 1px solid
+}
+.page A.nxt:hover {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 6px; FONT-SIZE: 14px; PADDING-BOTTOM: 2px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #fff 1px solid
+}
+.page A.nxt:active {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 6px; FONT-SIZE: 14px; PADDING-BOTTOM: 2px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #fff 1px solid
+}
+.page A.pre:link {
+	PADDING-LEFT: 1.3em; BACKGROUND: url(http://cn.yimg.com/i/ks/07/bg_p.gif) no-repeat 10% 40%
+}
+.page A.pre:visited {
+	PADDING-LEFT: 1.3em; BACKGROUND: url(http://cn.yimg.com/i/ks/07/bg_p.gif) no-repeat 10% 40%
+}
+.page A.pre:hover {
+	BORDER-RIGHT: #0e977f 1px solid; BORDER-TOP: #0e977f 1px solid; PADDING-LEFT: 1.3em; BACKGROUND: url(http://cn.yimg.com/i/ks/07/bg_p_hover.gif) #3db7a2 no-repeat 10% 40%; BORDER-LEFT: #0e977f 1px solid; BORDER-BOTTOM: #0e977f 1px solid
+}
+.page A.nxt:link {
+	PADDING-RIGHT: 1.3em; BACKGROUND: url(http://cn.yimg.com/i/ks/07/bg_n.gif) no-repeat 90% 40%
+}
+.page A.nxt:visited {
+	PADDING-RIGHT: 1.3em; BACKGROUND: url(http://cn.yimg.com/i/ks/07/bg_n.gif) no-repeat 90% 40%
+}
+.page A.nxt:hover {
+	BORDER-RIGHT: #0e977f 1px solid; PADDING-RIGHT: 1.3em; BORDER-TOP: #0e977f 1px solid; BACKGROUND: url(http://cn.yimg.com/i/ks/07/bg_n_hover.gif) #3db7a2 no-repeat 90% 40%; BORDER-LEFT: #0e977f 1px solid; BORDER-BOTTOM: #0e977f 1px solid
+}
+.opionslist .page A.pre {
+	BORDER-RIGHT: #ecf7f6 1px solid; BORDER-TOP: #ecf7f6 1px solid; BORDER-LEFT: #ecf7f6 1px solid; BORDER-BOTTOM: #ecf7f6 1px solid
+}
+.opionslist .page A.nxt {
+	BORDER-RIGHT: #ecf7f6 1px solid; BORDER-TOP: #ecf7f6 1px solid; BORDER-LEFT: #ecf7f6 1px solid; BORDER-BOTTOM: #ecf7f6 1px solid
+}
+.page:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+.page:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+#otheranswers .page LI {
+	BORDER-TOP-WIDTH: 0px! important; BORDER-LEFT-WIDTH: 0px! important; BORDER-BOTTOM-WIDTH: 0px! important; BORDER-RIGHT-WIDTH: 0px! important
+}
+.ksgallery {
+	LIST-STYLE-TYPE: none
+}
+.ksgallery LI {
+	MARGIN-TOP: 8px; FLOAT: left; WIDTH: 49%; TEXT-ALIGN: center
+}
+.ksgallery IMG {
+	DISPLAY: block; MARGIN: auto; WIDTH: 90px; HEIGHT: 55px
+}
+#otheranswers H2 SPAN {
+	FONT-WEIGHT: normal; FONT-SIZE: 13px; COLOR: #949494
+}
+#question H2 SPAN {
+	FONT-WEIGHT: normal; FONT-SIZE: 13px; COLOR: #949494
+}
+#question H3 SPAN {
+	FONT-WEIGHT: normal; FONT-SIZE: 13px; COLOR: #949494
+}
+.entrydetail H3 SPAN {
+	FONT-WEIGHT: normal; FONT-SIZE: 13px; COLOR: #949494
+}
+#otheranswers .bd {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 8px; PADDING-BOTTOM: 8px; PADDING-TOP: 0px
+}
+#bestanswer .bd {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 8px; PADDING-BOTTOM: 8px; PADDING-TOP: 0px
+}
+#question .bd {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 8px; PADDING-BOTTOM: 8px; PADDING-TOP: 0px
+}
+.ksentry {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 100px; FONT-SIZE: 14px; MIN-HEIGHT: 150px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px; POSITION: relative; HEIGHT: 150px
+}
+.usrinfo {
+	FONT-SIZE: 13px; LEFT: -10px; OVERFLOW: hidden; WIDTH: 100px; COLOR: #949494; POSITION: absolute; TOP: 10px; TEXT-ALIGN: center
+}
+.usrinfo .avatar {
+	DISPLAY: block; OVERFLOW: hidden; WIDTH: 100px; TEXT-ALIGN: center
+}
+.usrinfo P {
+	WIDTH: 100px; TEXT-ALIGN: center
+}
+.usrinfo .avatar IMG {
+	DISPLAY: block; MARGIN: auto; WIDTH: 48px
+}
+.entrydetail {
+	OVERFLOW: hidden
+}
+.opionslist .entrydetail {
+	
+}
+.entrydetail .usrinfo P {
+	MARGIN: 0px
+}
+.entryinfo {
+	MARGIN-TOP: 10px; COLOR: #949494
+}
+.entryinfo .impeach {
+	DISPLAY: none
+}
+.entryinfo {
+	FONT-SIZE: 13px; MARGIN: 10px 0px
+}
+.avopion {
+	FONT-SIZE: 13px; MARGIN: 10px 0px
+}
+.entrydetail H3 {
+	MARGIN-BOTTOM: 10px
+}
+.entrydetail P {
+	MARGIN-BOTTOM: 10px
+}
+.entrydetail P EM {
+	DISPLAY: block; FONT-SIZE: 13px; COLOR: #949494; FONT-STYLE: normal; TEXT-ALIGN: center
+}
+.entrydetail .refer P {
+	MARGIN: 0px
+}
+.inset {
+	MIN-HEIGHT: 20px; BACKGROUND: url(http://cn.yimg.com/i/reg/070313/spinner_grey.gif) no-repeat center 10%; OVERFLOW: hidden; WIDTH: 420px; TEXT-ALIGN: center
+}
+.supplement {
+	MARGIN-TOP: 15px
+}
+.refer {
+	MARGIN-TOP: 15px
+}
+.refer H3 {
+	MARGIN: 0px; LINE-HEIGHT: 1
+}
+.actions .l {
+	FLOAT: left
+}
+.actions .r {
+	FLOAT: right
+}
+.qactions {
+	DISPLAY: block
+}
+.vote {
+	DISPLAY: block
+}
+.qactions A {
+	DISPLAY: inline; BACKGROUND: url(http://cn.yimg.com/i/nks/actions.gif) no-repeat 0px 0px; FLOAT: left; MARGIN-LEFT: 5px; OVERFLOW: hidden; WIDTH: 24px; TEXT-INDENT: -999em; HEIGHT: 24px
+}
+.qactions A:hover {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/actions_hover.gif)
+}
+.qactions .mail {
+	BACKGROUND-POSITION: -29px 0px
+}
+.qactions .impeach {
+	BACKGROUND-POSITION: -58px 0px
+}
+.vote A {
+	DISPLAY: inline; FONT-WEIGHT: bold; FLOAT: left; MARGIN-LEFT: 5px; HEIGHT: 24px
+}
+.vote A:hover {
+	TEXT-DECORATION: none
+}
+#ks-main .vote .for:link {
+	COLOR: #89c897
+}
+#ks-main .vote .for:visited {
+	COLOR: #89c897
+}
+#ks-main .vote .against:link {
+	COLOR: #f29a76
+}
+#ks-main .vote .against:visited {
+	COLOR: #f29a76
+}
+.vote .for {
+	PADDING-LEFT: 8px; BACKGROUND: url(http://cn.yimg.com/i/nks/for.gif) no-repeat 0px 0px
+}
+.vote .against {
+	PADDING-LEFT: 8px; BACKGROUND: url(http://cn.yimg.com/i/nks/for.gif) no-repeat 0px 0px
+}
+.vote .for:hover {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/for_hover.gif); COLOR: #094
+}
+.vote .for:hover SPAN {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/for_hover.gif); COLOR: #094
+}
+.vote .for SPAN {
+	PADDING-RIGHT: 24px; DISPLAY: block; PADDING-LEFT: 0px; BACKGROUND: url(http://cn.yimg.com/i/nks/for.gif) no-repeat 100% 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 2px
+}
+.vote .against SPAN {
+	PADDING-RIGHT: 24px; DISPLAY: block; PADDING-LEFT: 0px; BACKGROUND: url(http://cn.yimg.com/i/nks/for.gif) no-repeat 100% 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 2px
+}
+.vote .against {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/against.gif)
+}
+.vote .against SPAN {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/against.gif)
+}
+.vote .against:hover {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/against_hover2.gif); COLOR: #f00
+}
+.vote .against:hover SPAN {
+	BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/against_hover2.gif); COLOR: #f00
+}
+.quizfb {
+	PADDING-RIGHT: 0px; BORDER-TOP: #dbdbdb 1px dashed; MARGIN-TOP: 15px; PADDING-LEFT: 100px; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; PADDING-TOP: 10px
+}
+.quizfb H3 IMG {
+	VERTICAL-ALIGN: middle
+}
+.ballot {
+	WHITE-SPACE: nowrap
+}
+.ballot .histogram {
+	DISPLAY: inline-block
+}
+.ballot .histogram SPAN {
+	BORDER-RIGHT: #c9c9c9 1px solid; BORDER-TOP: #c9c9c9 1px solid; DISPLAY: block; BACKGROUND: #fffcde; BORDER-LEFT: #c9c9c9 1px solid; TEXT-INDENT: -999em; BORDER-BOTTOM: #c9c9c9 1px solid
+}
+#otheranswers LI {
+	BORDER-BOTTOM: #dbdbdb 1px dashed
+}
+#message_board LI {
+	BORDER-BOTTOM: #dbdbdb 1px dashed
+}
+#otheranswers .opionslist LI {
+	BORDER-BOTTOM: #6ac4c4 1px dashed
+}
+#question .opionslist LI {
+	BORDER-BOTTOM: #6ac4c4 1px dashed
+}
+#bestanswer .opionslist LI {
+	BORDER-BOTTOM: #6ac4c4 1px dashed
+}
+.opionslist {
+	PADDING-RIGHT: 10px; DISPLAY: none; PADDING-LEFT: 10px; BACKGROUND: #ecf7f6; PADDING-BOTTOM: 10px; PADDING-TOP: 10px
+}
+.cmtaction {
+	PADDING-RIGHT: 10px; MARGIN: 10px 0px; TEXT-ALIGN: right
+}
+.cmtarea {
+	FONT-SIZE: 13px
+}
+.cmtarea TEXTAREA {
+	BORDER-RIGHT: #6ac4c4 1px solid; BORDER-TOP: #6ac4c4 1px solid; FONT-SIZE: 14px; MARGIN: 10px 0px 0px 10px; BORDER-LEFT: #6ac4c4 1px solid; WIDTH: 376px; BORDER-BOTTOM: #6ac4c4 1px solid; HEIGHT: 156px
+}
+.cmtarea .caption {
+	PADDING-LEFT: 10px; FONT-SIZE: 13px
+}
+.cmtarea .yzm {
+	PADDING-LEFT: 0px; PADDING-TOP: 0.8em
+}
+#expert #message_board .ft .yzm {
+	PADDING-LEFT: 0px; PADDING-TOP: 0.8em
+}
+#expert #message_board .ft .yzm {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.cmtarea .yzm A {
+	FONT-SIZE: 13px
+}
+#expert #message_board .ft .yzm A {
+	FONT-SIZE: 13px
+}
+.cmtarea .yzm SPAN.error {
+	COLOR: #f00
+}
+#expert #message_board .ft .yzm SPAN.error {
+	COLOR: #f00
+}
+.cmtarea .inp_yzm {
+	BORDER-RIGHT: #6ac4c4 1px solid; BORDER-TOP: #6ac4c4 1px solid; FONT-SIZE: 14px; BORDER-LEFT: #6ac4c4 1px solid; WIDTH: 88px; PADDING-TOP: 3px; BORDER-BOTTOM: #6ac4c4 1px solid; HEIGHT: 20px
+}
+#expert #message_board .ft .inp_yzm {
+	BORDER-RIGHT: #6ac4c4 1px solid; BORDER-TOP: #6ac4c4 1px solid; FONT-SIZE: 14px; BORDER-LEFT: #6ac4c4 1px solid; WIDTH: 88px; PADDING-TOP: 3px; BORDER-BOTTOM: #6ac4c4 1px solid; HEIGHT: 20px
+}
+.cmtarea .inp_yzm {
+	MARGIN: 10px 0pt 0pt 10px
+}
+.cmtarea .yzm P {
+	FONT-SIZE: 13px; MARGIN: 10px 0pt 0pt 10px; COLOR: #666; LINE-HEIGHT: 180%
+}
+#kslad {
+	ZOOM: 1
+}
+#uprating {
+	ZOOM: 1
+}
+.ks_opt {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 15px; PADDING-BOTTOM: 15px; PADDING-TOP: 0px
+}
+.ks_opt EM {
+	FONT-STYLE: normal
+}
+.top_titl {
+	MARGIN-TOP: 20px; MARGIN-BOTTOM: 0.8em
+}
+.top_titl H1 {
+	PADDING-LEFT: 20px; FONT-SIZE: 14px; BACKGROUND: url(http://cn.yimg.com/i/nks/path_icon.gif) no-repeat; COLOR: #000; LINE-HEIGHT: 150%
+}
+.top_titl H1.edit {
+	BACKGROUND-POSITION: left 2px
+}
+.top_titl H1.error {
+	BACKGROUND-POSITION: left -19px
+}
+.top_titl H1.suc {
+	BACKGROUND-POSITION: left -41px
+}
+.top_titl H1.email {
+	BACKGROUND-POSITION: left -62px
+}
+.top_titl H1.tips {
+	BACKGROUND-POSITION: left -83px
+}
+.top_titl P {
+	PADDING-LEFT: 20px; COLOR: #9f9f9f; LINE-HEIGHT: 150%
+}
+.ks_opt H1.all_titl {
+	BORDER-RIGHT: #90c8c9 1px solid; PADDING-RIGHT: 16px; BORDER-TOP: #90c8c9 1px solid; PADDING-LEFT: 16px; FONT-SIZE: 14px; BACKGROUND: #e9f7f7; PADDING-BOTTOM: 5px; BORDER-LEFT: #90c8c9 1px solid; COLOR: #000; LINE-HEIGHT: 150%; PADDING-TOP: 5px; BORDER-BOTTOM: #90c8c9 1px solid
+}
+.ks_opt .q_box {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; MARGIN-BOTTOM: 0.8em; PADDING-BOTTOM: 0.8em; PADDING-TOP: 0.8em; TEXT-ALIGN: center
+}
+.ks_opt .q_box .gmodule {
+	BORDER-RIGHT: #f2ca51 1px solid; BORDER-TOP: #f2ca51 1px solid; BACKGROUND: #fff; MARGIN: 0px auto; BORDER-LEFT: #f2ca51 1px solid; WIDTH: 587px; BORDER-BOTTOM: #f2ca51 1px solid; TEXT-ALIGN: left
+}
+.ks_opt .q_box .gmodule .hd {
+	PADDING-RIGHT: 13px; BORDER-TOP: #faefd9 8px solid; PADDING-LEFT: 13px; BACKGROUND: none transparent scroll repeat 0% 0%; PADDING-BOTTOM: 4px; PADDING-TOP: 8px; POSITION: relative
+}
+.ks_opt .q_box .gmodule .hd H2 {
+	COLOR: #666! important
+}
+.ks_opt .q_box .gmodule .hd .more {
+	TOP: 18px
+}
+.ks_opt .q_box .gmodule .bd LI {
+	FONT-SIZE: 14px
+}
+.ks_opt .ask_form {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0.8em; PADDING-TOP: 0.8em; TEXT-ALIGN: center
+}
+.ks_opt .ask_form TABLE {
+	MARGIN: 0px auto
+}
+.ks_opt .ask_form TH {
+	BORDER-RIGHT: #dcdcdc 1px dashed; PADDING-RIGHT: 12px; PADDING-LEFT: 0px; FONT-WEIGHT: 400; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; VERTICAL-ALIGN: top; WIDTH: 215px; COLOR: #656565; LINE-HEIGHT: 160%; PADDING-TOP: 0.5em; TEXT-ALIGN: right
+}
+.ks_opt .ask_form TH EM {
+	COLOR: #f00; MARGIN-RIGHT: 0.5em
+}
+.ks_opt .ask_form TD {
+	PADDING-RIGHT: 148px; PADDING-LEFT: 15px; PADDING-BOTTOM: 0px; VERTICAL-ALIGN: top; COLOR: #b5b5b5; LINE-HEIGHT: 160%; PADDING-TOP: 0.5em; TEXT-ALIGN: left
+}
+.ks_opt .ask_form TD #pic_room {
+	BACKGROUND-POSITION: 0px 10%; TEXT-ALIGN: left
+}
+.ks_opt .ask_form TD P {
+	LINE-HEIGHT: 160%
+}
+.ks_opt .ask_form TD H2 {
+	FONT-SIZE: 14px; COLOR: #666! important; LINE-HEIGHT: 150%
+}
+.ks_opt .ask_form TD H2 EM {
+	PADDING-LEFT: 0.5em; FONT-WEIGHT: 400; MARGIN-LEFT: 0.5em; BORDER-LEFT: #666 1px solid
+}
+.ks_opt .ask_form TD TEXTAREA.edit {
+	BORDER-RIGHT: #949494 1px solid; BORDER-TOP: #949494 1px solid; FONT-SIZE: 14px; BORDER-LEFT: #949494 1px solid; WIDTH: 513px; BORDER-BOTTOM: #949494 1px solid; HEIGHT: 156px
+}
+.ks_opt .ask_form TD #add_box {
+	DISPLAY: none; MARGIN: 10px 0px; POSITION: relative
+}
+.ks_opt .ask_form TD #add_box .file {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; FONT-SIZE: 14px; PADDING-BOTTOM: 3px; WIDTH: 285px; PADDING-TOP: 3px
+}
+.ks_opt .ask_form TD INPUT.inp {
+	BORDER-RIGHT: #949494 1px solid; BORDER-TOP: #949494 1px solid; FONT-SIZE: 14px; BORDER-LEFT: #949494 1px solid; WIDTH: 315px; PADDING-TOP: 3px; BORDER-BOTTOM: #949494 1px solid; HEIGHT: 20px
+}
+.ks_opt .ask_form TD INPUT.inp2 {
+	BORDER-RIGHT: #949494 1px solid; BORDER-TOP: #949494 1px solid; FONT-SIZE: 14px; BORDER-LEFT: #949494 1px solid; WIDTH: 315px; PADDING-TOP: 3px; BORDER-BOTTOM: #949494 1px solid; HEIGHT: 20px
+}
+.ks_opt .ask_form TD INPUT.inp3 {
+	BORDER-RIGHT: #949494 1px solid; BORDER-TOP: #949494 1px solid; FONT-SIZE: 14px; BORDER-LEFT: #949494 1px solid; WIDTH: 315px; PADDING-TOP: 3px; BORDER-BOTTOM: #949494 1px solid; HEIGHT: 20px
+}
+.ks_opt .ask_form TD INPUT.inp2 {
+	WIDTH: 208px
+}
+.ks_opt .ask_form TD INPUT.inp3 {
+	WIDTH: 88px
+}
+.ks_opt .ask_form TD DIV BUTTON {
+	FONT-SIZE: 14px; LEFT: 320px; WIDTH: 53px; LINE-HEIGHT: 120%; POSITION: absolute; TOP: 0px; HEIGHT: 25px
+}
+.ks_opt .ask_form TD DD {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; TEXT-INDENT: 0px; PADDING-TOP: 0px
+}
+.ks_opt .ask_form TD DL {
+	FONT-SIZE: 14px; COLOR: #666; LINE-HEIGHT: 160%
+}
+.ks_opt .ask_form TD LABEL {
+	MARGIN-LEFT: 0.5em
+}
+.ks_opt .ask_form TD INPUT.check {
+	MARGIN-TOP: 0px; FLOAT: none
+}
+.ks_opt .ask_form TD SELECT.report {
+	BORDER-RIGHT: #949494 1px solid; BORDER-TOP: #949494 1px solid; BORDER-LEFT: #949494 1px solid; WIDTH: 221px; BORDER-BOTTOM: #949494 1px solid; HEIGHT: 20px
+}
+.ks_opt .ask_form TD P SELECT {
+	BORDER-RIGHT: #a5acb2 1px solid; BORDER-TOP: #a5acb2 1px solid; BORDER-LEFT: #a5acb2 1px solid; WIDTH: 65px; BORDER-BOTTOM: #a5acb2 1px solid
+}
+.ks_opt .ask_form TD P SPAN.error {
+	COLOR: #f00
+}
+.ks_opt .ask_form TD SPAN.spectext {
+	FONT-SIZE: 14px; COLOR: #666
+}
+.ks_opt .ask_form TD SELECT.pingfen {
+	FONT-SIZE: 13px; WIDTH: 65px
+}
+.ks_opt .ask_form TD BUTTON.submitbtn {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 6px; FONT-WEIGHT: 800; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; LINE-HEIGHT: 120%; PADDING-TOP: 2px; HEIGHT: 29px
+}
+.ks_opt .ask_form .entrydetail {
+	FONT-SIZE: 14px; MARGIN: 10px 0px; WIDTH: auto; COLOR: #666
+}
+.ks_opt .tip_list {
+	PADDING-RIGHT: 117px; PADDING-LEFT: 27px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px
+}
+.ks_opt .error_info {
+	PADDING-RIGHT: 117px; PADDING-LEFT: 208px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px
+}
+.ks_opt OL {
+	MARGIN-LEFT: 40px
+}
+.ks_opt OL LI {
+	FONT-SIZE: 14px; COLOR: #666; LINE-HEIGHT: 180%
+}
+.ks_opt .y_q {
+	POSITION: relative; HEIGHT: 116px
+}
+.ks_opt .y_q .titl {
+	FONT-SIZE: 14px; LEFT: 100px; COLOR: #666; LINE-HEIGHT: 160%; POSITION: absolute; TOP: 20px
+}
+.ks_opt .y_q .titl EM {
+	COLOR: #f00
+}
+.ks_opt .y_q .inp {
+	BORDER-RIGHT: #a5acb2 1px solid; BORDER-TOP: #a5acb2 1px solid; FONT-SIZE: 14px; RIGHT: 130px; BORDER-LEFT: #a5acb2 1px solid; WIDTH: 587px; PADDING-TOP: 5px; BORDER-BOTTOM: #a5acb2 1px solid; POSITION: absolute; TOP: 16px; HEIGHT: 21px
+}
+.ks_opt .y_q .text_l {
+	LEFT: 200px; COLOR: #b4b4b4; LINE-HEIGHT: 160%; POSITION: absolute; TOP: 50px
+}
+.ks_opt .y_q .text_l #name_hide {
+	MARGIN-TOP: 0px; FLOAT: none
+}
+.ks_opt .y_q .text_l LABEL {
+	MARGIN-LEFT: 0.5em
+}
+.ks_opt .y_q .text_r {
+	RIGHT: 130px; COLOR: #b4b4b4; LINE-HEIGHT: 160%; POSITION: absolute; TOP: 50px; TEXT-ALIGN: right
+}
+.ks_opt .y_q SPAN.error {
+	COLOR: #f00
+}
+.ks_opt .y_q .btn {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 6px; FONT-WEIGHT: 800; FONT-SIZE: 14px; LEFT: 200px; PADDING-BOTTOM: 0px; LINE-HEIGHT: 120%; PADDING-TOP: 2px; POSITION: absolute; TOP: 88px; HEIGHT: 29px
+}
+.ks_opt .error_tips {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: 800; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; COLOR: #666; LINE-HEIGHT: 160%; PADDING-TOP: 50px; TEXT-ALIGN: center
+}
+.ks_opt P.ask_done {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: 800; FONT-SIZE: 14px; PADDING-BOTTOM: 50px; LINE-HEIGHT: 160%; PADDING-TOP: 50px; TEXT-ALIGN: center
+}
+.ks_opt P.ask_done A {
+	PADDING-RIGHT: 0.75em; PADDING-LEFT: 0.75em; PADDING-BOTTOM: 0px; COLOR: #04d! important; PADDING-TOP: 0px
+}
+.ks_layout_b {
+	HEIGHT: 1%
+}
+.ks_layout_b:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+#expert #recommend:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+#expert #recommend .bd:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+#expert #pictorial .bd UL:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+#expert_rank .bd .headline:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+#expert_rank .bd .noline:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+#expert #expert_online .bd .headline:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+#expert #expert_online .bd .noline:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+#expert #expert_join .bd .headline:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+#expert #expert_join .bd .noline:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+#message_board .ft P:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+#exp_live .ft:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+.ks_layout_b .main {
+	FLOAT: left; WIDTH: 698px
+}
+.ks_layout_b .sideblock {
+	FLOAT: right; WIDTH: 240px
+}
+#expert #pro_tips {
+	BORDER-RIGHT: #90c8c9 1px solid; PADDING-RIGHT: 0.75em; BORDER-TOP: #90c8c9 1px solid; PADDING-LEFT: 0.75em; FONT-SIZE: 14px; BACKGROUND: #e9f7f7; MARGIN-BOTTOM: 0.8em; PADDING-BOTTOM: 0.3em; BORDER-LEFT: #90c8c9 1px solid; COLOR: #000; LINE-HEIGHT: 160%; PADDING-TOP: 0.3em; BORDER-BOTTOM: #90c8c9 1px solid
+}
+#expert #pro_tips SPAN {
+	COLOR: #017f01
+}
+#expert #exp_list .bd TBODY TD SPAN {
+	COLOR: #017f01
+}
+#expert #recommend .bd .main_co TD STRONG {
+	COLOR: #f29901
+}
+#expert #recommend .bd .main_co TD SPAN {
+	COLOR: #f29901
+}
+#expert #recommend {
+	MARGIN-BOTTOM: 0.8em; HEIGHT: 1%
+}
+#expert #recommend .bd {
+	PADDING-RIGHT: 27px; PADDING-LEFT: 46px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; HEIGHT: 1%
+}
+#expert #recommend .bd .exp_pic {
+	FLOAT: left; WIDTH: 160px; TEXT-ALIGN: center
+}
+#expert #recommend .bd .exp_pic IMG {
+	MARGIN-BOTTOM: 0.3em
+}
+#expert #recommend .bd .exp_pic P {
+	LINE-HEIGHT: 150%
+}
+#expert #recommend .bd .main_co {
+	FONT-SIZE: 14px; FLOAT: right; WIDTH: 440px
+}
+#expert #recommend .bd .main_co TABLE {
+	MARGIN-BOTTOM: 0.5em; BORDER-BOTTOM: #dadada 1px dashed
+}
+#expert #recommend .bd .main_co TD {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0.2em; WIDTH: 50%; COLOR: #666; LINE-HEIGHT: 180%; PADDING-TOP: 0.2em
+}
+#expert #recommend .bd .main_co TD SPAN.rank {
+	FLOAT: right; COLOR: #666
+}
+#expert #recommend .bd .main_co H3 {
+	COLOR: #666; LINE-HEIGHT: 160%
+}
+#expert #recommend .bd .main_co P {
+	line_height: 180%
+}
+#expert #recommend .ft {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 15px; BACKGROUND: none transparent scroll repeat 0% 0%; PADDING-BOTTOM: 15px; PADDING-TOP: 15px
+}
+#expert .question {
+	BORDER-RIGHT: #d3f0ec 1px solid; PADDING-RIGHT: 15px; BORDER-TOP: #d3f0ec 1px solid; PADDING-LEFT: 15px; FONT-SIZE: 14px; BACKGROUND: #f5fafd; PADDING-BOTTOM: 10px; BORDER-LEFT: #d3f0ec 1px solid; COLOR: #666; LINE-HEIGHT: 150%; PADDING-TOP: 10px; BORDER-BOTTOM: #d3f0ec 1px solid; POSITION: relative; HEIGHT: 1%; TEXT-ALIGN: left
+}
+#expert .question .inp1 {
+	BORDER-RIGHT: #7f9db9 1px solid; BORDER-TOP: #7f9db9 1px solid; BORDER-LEFT: #7f9db9 1px solid; WIDTH: 503px; PADDING-TOP: 0.3em; BORDER-BOTTOM: #7f9db9 1px solid; HEIGHT: 19px
+}
+#expert .question .inp2 {
+	BORDER-RIGHT: #7f9db9 1px solid; BORDER-TOP: #7f9db9 1px solid; BORDER-LEFT: #7f9db9 1px solid; WIDTH: 503px; PADDING-TOP: 0.3em; BORDER-BOTTOM: #7f9db9 1px solid; HEIGHT: 19px
+}
+#expert .question .inp2 {
+	WIDTH: 396px
+}
+#expert .question BUTTON {
+	FONT-SIZE: 14px; RIGHT: 15px; WIDTH: 115px; LINE-HEIGHT: 120%; POSITION: absolute; TOP: 9px; HEIGHT: 28px
+}
+#expert .question SPAN.text {
+	LEFT: 20px; COLOR: #999; LINE-HEIGHT: 160%; POSITION: absolute; TOP: 13px
+}
+#expert .question SPAN#xz_text2 {
+	LEFT: 125px
+}
+#expert .question P {
+	FONT-SIZE: 13px; COLOR: #f00; LINE-HEIGHT: 150%
+}
+#expert .question P#error_tip2 {
+	PADDING-LEFT: 104px
+}
+#expert #pictorial {
+	MARGIN-BOTTOM: 0.8em
+}
+#expert #pictorial .bd UL {
+	MARGIN-BOTTOM: 0.5em; HEIGHT: 1%
+}
+#expert #pictorial .bd LI {
+	FLOAT: left; WIDTH: 24.85%; TEXT-ALIGN: center
+}
+#expert #pictorial .bd LI P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0.2em; LINE-HEIGHT: 160%; PADDING-TOP: 0.2em
+}
+#expert #pictorial .bd .text {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0.5em; COLOR: #000; LINE-HEIGHT: 150%; PADDING-TOP: 0.5em; TEXT-ALIGN: center
+}
+#expert #pictorial .bd .text IMG {
+	MARGIN-LEFT: 0.5em
+}
+#expert #exp_list .bd {
+	PADDING-RIGHT: 13px; PADDING-LEFT: 13px; PADDING-BOTTOM: 15px; PADDING-TOP: 0px
+}
+#expert #exp_list .bd THEAD TD {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: #f5f5f5; PADDING-BOTTOM: 0.2em; COLOR: #000; LINE-HEIGHT: 150%; PADDING-TOP: 0.2em; TEXT-ALIGN: center
+}
+#expert #exp_list .bd .exp_name {
+	WIDTH: 16em
+}
+#expert #exp_list .bd .exp_name #exp_select {
+	BORDER-RIGHT: #dadada 1px solid; BORDER-TOP: #dadada 1px solid; OVERFLOW-Y: scroll; BACKGROUND: #fff; LEFT: -29px; BORDER-LEFT: #dadada 1px solid; WIDTH: 125px; BORDER-BOTTOM: #dadada 1px solid; POSITION: absolute; TOP: 21px; HEIGHT: 146px
+}
+#expert #exp_list .bd .exp_name #exp_select LI {
+	PADDING-RIGHT: 0.3em; PADDING-LEFT: 0.3em; PADDING-BOTTOM: 0.1em; CURSOR: pointer; LINE-HEIGHT: 150%; PADDING-TOP: 0.1em; TEXT-ALIGN: left
+}
+#expert #exp_list .bd .exp_name #exp_select LI A {
+	PADDING-RIGHT: 10px! important; BACKGROUND: none transparent scroll repeat 0% 0%; TEXT-DECORATION: none
+}
+#expert #exp_list .bd .exp_name #exp_select LI.top {
+	BORDER-BOTTOM: #ccc 1px dashed
+}
+#expert #exp_list .bd .best_solution {
+	WIDTH: 6em
+}
+#expert #exp_list .bd .spec_answer {
+	WIDTH: 6em
+}
+#expert #exp_list .bd .message_cunt {
+	WIDTH: 3em
+}
+#expert #exp_list .bd THEAD TD A {
+	PADDING-RIGHT: 10px; BACKGROUND: url(http://cn.yimg.com/i/nks/exp_icon01.gif) no-repeat right 50%
+}
+#expert #exp_list .bd TBODY TH {
+	PADDING-RIGHT: 0.3em; PADDING-LEFT: 0.3em; PADDING-BOTTOM: 0.75em; LINE-HEIGHT: 150%; PADDING-TOP: 0.75em; BORDER-BOTTOM: #dadada 1px dashed; TEXT-ALIGN: center
+}
+#expert #exp_list .bd TBODY TD {
+	PADDING-RIGHT: 0.3em; PADDING-LEFT: 0.3em; PADDING-BOTTOM: 0.75em; LINE-HEIGHT: 150%; PADDING-TOP: 0.75em; BORDER-BOTTOM: #dadada 1px dashed; TEXT-ALIGN: center
+}
+#expert #exp_list .bd TBODY TH {
+	WHITE-SPACE: nowrap
+}
+#expert #exp_list .bd TBODY TD.business {
+	FONT-SIZE: 14px; WIDTH: 10em
+}
+#expert #exp_list .bd TBODY TD.exp_intro {
+	WIDTH: 20em; TEXT-INDENT: 24px; TEXT-ALIGN: left
+}
+#expert #exp_list .bd TBODY TD.exp_intro {
+	TEXT-INDENT: 0px
+}
+#expert #exp_list .bd TBODY TD.exp_intro P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0.8em
+}
+#expert #expert_online .bd .headline {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0.8em; PADDING-TOP: 0.8em; BORDER-BOTTOM: #dadada 1px dashed; HEIGHT: 1%
+}
+#expert #expert_online .bd .noline {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0.8em; PADDING-TOP: 0.8em; BORDER-BOTTOM: #dadada 1px dashed; HEIGHT: 1%
+}
+#expert #expert_join .bd .headline {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0.8em; PADDING-TOP: 0.8em; BORDER-BOTTOM: #dadada 1px dashed; HEIGHT: 1%
+}
+#expert #expert_join .bd .noline {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0.8em; PADDING-TOP: 0.8em; BORDER-BOTTOM: #dadada 1px dashed; HEIGHT: 1%
+}
+#expert #expert_rank .bd .headline {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0.8em; PADDING-TOP: 0.8em; BORDER-BOTTOM: #dadada 1px dashed; HEIGHT: 1%
+}
+#expert #expert_rank .bd .noline {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0.8em; PADDING-TOP: 0.8em; BORDER-BOTTOM: #dadada 1px dashed; HEIGHT: 1%
+}
+#expert #expert_online .bd .noline {
+	BORDER-BOTTOM-STYLE: none
+}
+#expert #expert_join .bd .noline {
+	BORDER-BOTTOM-STYLE: none
+}
+#expert #expert_rank .bd .noline {
+	BORDER-BOTTOM-STYLE: none
+}
+#expert #expert_online .bd A.avatar {
+	DISPLAY: block; FLOAT: left; WIDTH: 60px; TEXT-ALIGN: center
+}
+#expert #expert_join .bd .avatar {
+	DISPLAY: block; FLOAT: left; WIDTH: 60px; TEXT-ALIGN: center
+}
+#expert #expert_rank .bd A.avatar {
+	DISPLAY: block; FLOAT: left; WIDTH: 60px; TEXT-ALIGN: center
+}
+#expert #expert_online .bd P {
+	FLOAT: right; WIDTH: 140px; LINE-HEIGHT: 150%
+}
+#expert #expert_join .bd P {
+	FLOAT: right; WIDTH: 140px; LINE-HEIGHT: 150%
+}
+#expert #expert_rank .bd P {
+	FLOAT: right; WIDTH: 140px; LINE-HEIGHT: 150%
+}
+#expert #expert_join .bd .noline .avatar A {
+	DISPLAY: block
+}
+#expert .side_ad {
+	MARGIN-BOTTOM: 0.8em
+}
+#exp_mqlist {
+	MARGIN-BOTTOM: 0.8em
+}
+#exp_mqlist LI.new1 {
+	PADDING-RIGHT: 30px; BACKGROUND: url(http://cn.yimg.com/i/nks/exp_icon_new.gif) no-repeat 70px 50%
+}
+#exp_mqlist LI.new2 {
+	PADDING-RIGHT: 30px; BACKGROUND: url(http://cn.yimg.com/i/nks/exp_icon_new.gif) no-repeat 70px 50%
+}
+#exp_mqlist LI.new2 {
+	BACKGROUND-POSITION: 100px 50%
+}
+#exp_mqlist TABLE {
+	TABLE-LAYOUT: auto
+}
+#exp_mqlist TD {
+	WHITE-SPACE: normal
+}
+#exp_mqlist TD P {
+	FONT-SIZE: 13px
+}
+#exp_mqlist TD P SPAN {
+	COLOR: #000
+}
+#exp_mqlist TD.mqlist_auther {
+	WIDTH: 6em
+}
+#expert #message_board {
+	PADDING-BOTTOM: 23px
+}
+#expert #message_board .hd H2 SPAN {
+	FONT-WEIGHT: 400; FONT-SIZE: 13px; COLOR: #037f03
+}
+#expert #message_board .bd {
+	PADDING-RIGHT: 37px; PADDING-LEFT: 37px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#expert #message_board .bd UL {
+	LIST-STYLE-TYPE: none
+}
+#expert #message_board .bd LI {
+	MARGIN-BOTTOM: 0.8em
+}
+#expert #message_board .ft {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 20px; FONT-SIZE: 13px; PADDING-BOTTOM: 20px; MARGIN: 0px 40px; PADDING-TOP: 20px; TEXT-ALIGN: left
+}
+#expert #message_board .ft .text_area {
+	BORDER-RIGHT: #6ac4c4 1px solid; BORDER-TOP: #6ac4c4 1px solid; FONT-SIZE: 13px! important; BORDER-LEFT: #6ac4c4 1px solid; WIDTH: 574px; BORDER-BOTTOM: #6ac4c4 1px solid; HEIGHT: 156px
+}
+#expert #message_board .ft P.fb {
+	LINE-HEIGHT: 160%; HEIGHT: 1%; TEXT-ALIGN: right
+}
+#expert #message_board .ft P.fb BUTTON {
+	FONT-WEIGHT: 800; FONT-SIZE: 14px; FLOAT: right; WIDTH: 80px; LINE-HEIGHT: 120%; HEIGHT: 25px
+}
+#expert #message_board .ft P.fb LABEL {
+	MARGIN-RIGHT: 0.75em
+}
+#expert #message_board .ft P.fb LABEL.by {
+	PADDING-RIGHT: 16px; BACKGROUND: url(http://cn.yimg.com/i/nks/message_by.gif) no-repeat right top
+}
+#expert #message_board .ft P.fb LABEL.pp {
+	PADDING-RIGHT: 16px; BACKGROUND: url(http://cn.yimg.com/i/nks/message_pp.gif) no-repeat right top
+}
+#expert #exp_live .bd P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 14px; PADDING-BOTTOM: 20px; LINE-HEIGHT: 160%; PADDING-TOP: 20px; TEXT-ALIGN: center
+}
+#expert #exp_live .ft {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 25px; FONT-SIZE: 13px; HEIGHT: 1%; TEXT-ALIGN: left
+}
+#expert #exp_live .ft BUTTON {
+	FLOAT: right; WIDTH: 72px; LINE-HEIGHT: 120%; HEIGHT: 25px
+}
+#expert #exp_pictorial .bd {
+	TEXT-ALIGN: center
+}
+#expert #exp_pictorial .bd DD {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0.2em; PADDING-TOP: 0.2em
+}
+#expert #exp_pictorial .bd DD IMG {
+	BORDER-RIGHT: #707070 1px solid; BORDER-TOP: #707070 1px solid; BORDER-LEFT: #707070 1px solid; BORDER-BOTTOM: #707070 1px solid
+}
+#expert #exp_pictorial .bd DD P {
+	LINE-HEIGHT: 150%; PADDING-TOP: 0.3em
+}
+#expert #expert_rank .bd P STRONG {
+	FLOAT: right; COLOR: #017f01
+}
+.exp_a_module {
+	BORDER-RIGHT: #bae3df 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #bae3df 1px solid; PADDING-LEFT: 0px; BACKGROUND: #edf7f6; PADDING-BOTTOM: 15px; BORDER-LEFT: #bae3df 1px solid; PADDING-TOP: 15px; BORDER-BOTTOM: #bae3df 1px solid
+}
+.exp_a_module .hd {
+	PADDING-BOTTOM: 15px; TEXT-ALIGN: center
+}
+.exp_a_module .hd H3 {
+	FONT-WEIGHT: 400; FONT-SIZE: 20px; COLOR: #479899; LINE-HEIGHT: 180%; FONT-FAMILY: "ºÚÌå"
+}
+.exp_a_module .bd {
+	POSITION: relative; TEXT-ALIGN: center
+}
+.exp_a_module .bd #cal1Container {
+	LEFT: 343px; WIDTH: 218px; POSITION: absolute! important; TOP: 34px; HEIGHT: 205px
+}
+.exp_a_module .bd #cal1Container TH {
+	PADDING-RIGHT: 0.3em; PADDING-LEFT: 0.3em; PADDING-BOTTOM: 0.3em; PADDING-TOP: 0.3em; TEXT-ALIGN: center
+}
+.exp_a_module .bd #cal1Container TD {
+	PADDING-RIGHT: 0.3em; PADDING-LEFT: 0.3em; PADDING-BOTTOM: 0.3em; PADDING-TOP: 0.3em; TEXT-ALIGN: center
+}
+.exp_a_module .bd .live_apply {
+	MARGIN: 0px auto; WIDTH: 888px
+}
+.exp_a_module .bd .live_apply TBODY TH {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: 400; FONT-SIZE: 14px; PADDING-BOTTOM: 0.5em; VERTICAL-ALIGN: top; WIDTH: 10em; COLOR: #000; PADDING-TOP: 0.2em; TEXT-ALIGN: right
+}
+.exp_a_module .bd .live_apply TBODY TD {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 14px; PADDING-BOTTOM: 0.75em; VERTICAL-ALIGN: top; COLOR: #999; PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+.exp_a_module .bd .live_apply TBODY TD .sel1 {
+	BORDER-RIGHT: #bae3df 1px solid; BORDER-TOP: #bae3df 1px solid; BORDER-LEFT: #bae3df 1px solid; WIDTH: 98px; COLOR: #333; BORDER-BOTTOM: #bae3df 1px solid; HEIGHT: 22px
+}
+.exp_a_module .bd .live_apply TBODY TD .inp1 {
+	BORDER-RIGHT: #bae3df 1px solid; BORDER-TOP: #bae3df 1px solid; BORDER-LEFT: #bae3df 1px solid; WIDTH: 198px; COLOR: #333; PADDING-TOP: 0.3em; BORDER-BOTTOM: #bae3df 1px solid; HEIGHT: 19px
+}
+.exp_a_module .bd .live_apply TBODY TD .inp2 {
+	BORDER-RIGHT: #bae3df 1px solid; BORDER-TOP: #bae3df 1px solid; BORDER-LEFT: #bae3df 1px solid; WIDTH: 198px; COLOR: #333; PADDING-TOP: 0.3em; BORDER-BOTTOM: #bae3df 1px solid; HEIGHT: 19px
+}
+.exp_a_module .bd .live_apply TBODY TD .inp2 {
+	WIDTH: 446px
+}
+.exp_a_module .bd .live_apply TBODY TD .myfile {
+	WIDTH: 545px; POSITION: relative; TEXT-ALIGN: right
+}
+.exp_a_module .bd .live_apply TBODY TD .myfile .file {
+	Z-INDEX: 2; RIGHT: 13px; FILTER: alpha(opacity: 0); WIDTH: 80px; POSITION: relative; HEIGHT: 25px; TEXT-ALIGN: right; moz-opacity: 0; opacity: 0
+}
+.exp_a_module .bd .live_apply TBODY TD .myfile .fakefile {
+	Z-INDEX: 1; RIGHT: 0px; POSITION: absolute; TOP: 0px; TEXT-ALIGN: right
+}
+.exp_a_module .bd .live_apply TBODY TD .text_aa01 {
+	BORDER-RIGHT: #bae3df 1px solid; BORDER-TOP: #bae3df 1px solid; BORDER-LEFT: #bae3df 1px solid; WIDTH: 446px; BORDER-BOTTOM: #bae3df 1px solid; HEIGHT: 58px
+}
+.exp_a_module .bd .live_apply TBODY TR.filebox TH {
+	PADDING-TOP: 15px
+}
+.exp_a_module .bd .live_apply TBODY TR.filebox TD {
+	PADDING-TOP: 15px
+}
+.exp_a_module .bd .live_apply TBODY TR.dashline TH {
+	PADDING-BOTTOM: 15px; BORDER-BOTTOM: #6ac4c4 1px dashed
+}
+.exp_a_module .bd .live_apply TBODY TR.dashline TD {
+	PADDING-BOTTOM: 15px; BORDER-BOTTOM: #6ac4c4 1px dashed
+}
+.exp_a_module .bd SPAN.error {
+	DISPLAY: block; COLOR: #f00; LINE-HEIGHT: 160%
+}
+.exp_a_module .bd SPAN.emp {
+	DISPLAY: block; LINE-HEIGHT: 160%
+}
+.exp_a_module .ft {
+	PADDING-TOP: 0.8em; TEXT-ALIGN: center
+}
+.exp_a_module .ft BUTTON {
+	PADDING-RIGHT: 0.5em; PADDING-LEFT: 0.5em; FONT-WEIGHT: 800; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; LINE-HEIGHT: 120%; PADDING-TOP: 0px; HEIGHT: 25px
+}
+#agreement {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 20px; PADDING-BOTTOM: 20px; PADDING-TOP: 20px; TEXT-ALIGN: left
+}
+#agreement .hd {
+	COLOR: #000
+}
+#agreement .bd {
+	BORDER-RIGHT: #ccc 1px solid; BORDER-TOP: #999 1px solid; OVERFLOW-Y: scroll; BACKGROUND: #fff; BORDER-LEFT: #999 1px solid; BORDER-BOTTOM: #ccc 1px solid; HEIGHT: 300px; TEXT-ALIGN: left
+}
+#agreement .bd P {
+	FONT-SIZE: 13px; COLOR: #000; TEXT-INDENT: 28px; LINE-HEIGHT: 180%
+}
+.return_home {
+	FONT-SIZE: 14px; MARGIN-BOTTOM: 0.8em; COLOR: #666; LINE-HEIGHT: 160%; TEXT-ALIGN: center
+}
+.return_home A {
+	PADDING-RIGHT: 0.75em; PADDING-LEFT: 0.75em; FONT-WEIGHT: 800; PADDING-BOTTOM: 0px; COLOR: #04d! important; PADDING-TOP: 0px
+}
+#ks_today .bd SPAN.green {
+	COLOR: #390
+}
+#ks_today .bd SPAN.red {
+	COLOR: #f00
+}
+#ks_today .bd P.huangli {
+	FONT-SIZE: 14px
+}
+#hot_history .bd UL {
+	LIST-STYLE-TYPE: none
+}
+#hot_history .bd LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 20px; PADDING-BOTTOM: 0.2em; LINE-HEIGHT: 150%; PADDING-TOP: 0.2em; BORDER-BOTTOM: #e5e5e5 1px dashed
+}
+#hot_history .bd LI.top {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: #f5f5f5; PADDING-BOTTOM: 0.2em; COLOR: #666; LINE-HEIGHT: 160%; PADDING-TOP: 0.2em
+}
+#hot_history .bd LI.top SPAN.titl {
+	PADDING-LEFT: 40px
+}
+#hot_history .bd LI.top SPAN.hits {
+	PADDING-LEFT: 96px
+}
+#hot_history .bd LI SPAN.click {
+	PADDING-RIGHT: 0.3em; FLOAT: right; COLOR: #666
+}
+#hot_history .bd LI.no1 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num1a.gif) no-repeat left 7px
+}
+#hot_history .bd LI.no2 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num2a.gif) no-repeat left 7px
+}
+#hot_history .bd LI.no3 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num3a.gif) no-repeat left 7px
+}
+#hot_history .bd LI.no4 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num4.gif) no-repeat left 7px
+}
+#hot_history .bd LI.no5 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num5.gif) no-repeat left 7px
+}
+#hot_history .bd LI.no6 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num6.gif) no-repeat left 7px
+}
+#hot_history .bd LI.no7 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num7.gif) no-repeat left 7px
+}
+#hot_history .bd LI.no8 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num8.gif) no-repeat left 7px
+}
+#hot_history .bd LI.no9 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num9.gif) no-repeat left 7px
+}
+#hot_history .bd LI.no10 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num10.gif) no-repeat left 7px
+}
+#hot_recent .bd UL {
+	LIST-STYLE-TYPE: none
+}
+#hot_recent .bd LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 20px; PADDING-BOTTOM: 0.2em; LINE-HEIGHT: 150%; PADDING-TOP: 0.2em; BORDER-BOTTOM: #e5e5e5 1px dashed
+}
+#hot_recent .bd LI.top {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: #f5f5f5; PADDING-BOTTOM: 0.2em; COLOR: #666; LINE-HEIGHT: 160%; PADDING-TOP: 0.2em
+}
+#hot_recent .bd LI.top SPAN.titl {
+	PADDING-LEFT: 40px
+}
+#hot_recent .bd LI.top SPAN.hits {
+	PADDING-LEFT: 96px
+}
+#hot_recent .bd LI SPAN.click {
+	PADDING-RIGHT: 0.3em; FLOAT: right; COLOR: #666
+}
+#hot_recent .bd LI.no1 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num1b.gif) no-repeat left 7px
+}
+#hot_recent .bd LI.no2 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num2b.gif) no-repeat left 7px
+}
+#hot_recent .bd LI.no3 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num3b.gif) no-repeat left 7px
+}
+#hot_recent .bd LI.no4 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num4.gif) no-repeat left 7px
+}
+#hot_recent .bd LI.no5 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num5.gif) no-repeat left 7px
+}
+#hot_recent .bd LI.no6 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num6.gif) no-repeat left 7px
+}
+#hot_recent .bd LI.no7 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num7.gif) no-repeat left 7px
+}
+#hot_recent .bd LI.no8 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num8.gif) no-repeat left 7px
+}
+#hot_recent .bd LI.no9 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num9.gif) no-repeat left 7px
+}
+#hot_recent .bd LI.no10 {
+	BACKGROUND: url(http://cn.yimg.com/search/kl/img/ks_num10.gif) no-repeat left 7px
+}
+#ks_pictorial .bd {
+	HEIGHT: 1%
+}
+#ks_pictorial .bd:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+#ks_pictorial .bd UL {
+	LIST-STYLE-TYPE: none
+}
+#ks_pictorial .bd LI {
+	FLOAT: left; WIDTH: 24.99%; TEXT-ALIGN: center
+}
+#asking_tab {
+	MARGIN-TOP: -0.3em; MARGIN-BOTTOM: 0.8em
+}
+#asking_tab UL {
+	LIST-STYLE-TYPE: none
+}
+#asking_tab LI.current {
+	FONT-WEIGHT: 800
+}
+#asking_tab LI.current A {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 12px; BORDER-TOP: #fff 1px solid; DISPLAY: block; PADDING-LEFT: 12px; BACKGROUND: url(http://cn.yimg.com/i/nks/mbg.gif) repeat-x 0px 0px; PADDING-BOTTOM: 6px; BORDER-LEFT: #fff 1px solid; COLOR: #000! important; PADDING-TOP: 6px; BORDER-BOTTOM: #fff 1px solid; TEXT-DECORATION: none
+}
+#asking_tab .bd {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#asking_tab .bd UL {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; PADDING-TOP: 10px; LIST-STYLE-TYPE: none
+}
+#asking_tab .bd P {
+	PADDING-RIGHT: 13px; PADDING-LEFT: 13px; FONT-SIZE: 14px; BACKGROUND: #f4fafa; PADDING-BOTTOM: 4px; PADDING-TOP: 4px; TEXT-ALIGN: right
+}
+#asking_tab .bd P A {
+	COLOR: #04d! important
+}
+#myexp_info P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0.8em; LINE-HEIGHT: 150%; PADDING-TOP: 0.8em
+}
+#myexp_info P.expinfo {
+	PADDING-BOTTOM: 0.5em; BORDER-BOTTOM: #dadada 1px dashed
+}
+#myexp_info P.companyintro {
+	PADDING-TOP: 0.3em
+}
+#happy_cd {
+	ZOOM: 1
+}
+#happy_cd .main {
+	FLOAT: left; WIDTH: 695px
+}
+#happy_cd .side_bar {
+	FLOAT: right; WIDTH: 240px
+}
+#happy_top_ban {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 295px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/index_ban_bg.jpg) no-repeat 0px 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; HEIGHT: 308px
+}
+#happy_top_ban .hd {
+	BORDER-RIGHT: #90c8c7 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #90c8c7 1px solid; PADDING-LEFT: 117px; FONT-SIZE: 12px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/in_titl_bg01.gif) #e9f7f7 no-repeat 25px 0px; PADDING-BOTTOM: 0px; MARGIN: 20px 0px 0.8em; BORDER-LEFT: #90c8c7 1px solid; LINE-HEIGHT: 27px; PADDING-TOP: 0px; BORDER-BOTTOM: #90c8c7 1px solid; HEIGHT: 27px
+}
+#happy_top_ban .bd {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#happy_top_ban .bd P {
+	FONT-SIZE: 12px; MARGIN: 0px 0px 0.5em; COLOR: #666; TEXT-INDENT: 24px; LINE-HEIGHT: 180%
+}
+#happy_top_ban .bd UL {
+	ZOOM: 1; LIST-STYLE-TYPE: none
+}
+#happy_top_ban .bd UL LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/happy_bot.gif) no-repeat 0px 50%; FLOAT: left; PADDING-BOTTOM: 0px; WIDTH: 47%; LINE-HEIGHT: 180%; PADDING-TOP: 0px
+}
+#happy_top_ban .ft {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%; PADDING-BOTTOM: 0px; PADDING-TOP: 0.8em; TEXT-ALIGN: right
+}
+#recent_pass .hd H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 30px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/in_icon.gif) no-repeat 0px 0px; PADDING-BOTTOM: 0px; LINE-HEIGHT: 180%; PADDING-TOP: 0px
+}
+#recent_pass .bd UL {
+	BORDER-BOTTOM: #e5e5e5 1px dashed; ZOOM: 1; LIST-STYLE-TYPE: none
+}
+#recent_pass .bd UL LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; FONT-SIZE: 14px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/happy_bot.gif) no-repeat 0px 50%; FLOAT: left; PADDING-BOTTOM: 0px; WIDTH: 48%; COLOR: #666; LINE-HEIGHT: 180%; PADDING-TOP: 0px
+}
+#recent_pass .bd UL LI EM {
+	MARGIN-LEFT: 0.75em; FONT-STYLE: normal
+}
+#recent_pass .bd UL LI A {
+	PADDING-RIGHT: 0.5em; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#play_method .hd H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 30px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/in_icon.gif) no-repeat 0px -51px; PADDING-BOTTOM: 0px; LINE-HEIGHT: 180%; PADDING-TOP: 0px
+}
+#play_method .bd UL {
+	ZOOM: 1; LIST-STYLE-TYPE: none
+}
+#play_method .bd UL LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/happy_bot.gif) no-repeat 0px 50%; FLOAT: left; PADDING-BOTTOM: 0px; WIDTH: 48%; LINE-HEIGHT: 180%; PADDING-TOP: 0px
+}
+#pass_list {
+	ZOOM: 1
+}
+#pass_list .left {
+	FLOAT: left; WIDTH: 340px
+}
+#pass_list .right {
+	FLOAT: left; WIDTH: 340px
+}
+#pass_list .right {
+	FLOAT: right
+}
+#pass_list .hd H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 15px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/in_icon.gif) no-repeat 0px -90px; PADDING-BOTTOM: 0px; LINE-HEIGHT: 180%; PADDING-TOP: 0px
+}
+#pass_list .bd {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+#pass_list .bd THEAD TD {
+	BACKGROUND: #f5f5f5; TEXT-ALIGN: center
+}
+#pass_list .bd TD.num {
+	WIDTH: 8em; TEXT-ALIGN: center
+}
+#pass_list .bd THEAD TD.nickname {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 1em; PADDING-BOTTOM: 0px; WIDTH: 32em; PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+#pass_list .bd TD.time {
+	WIDTH: 16em; TEXT-ALIGN: center
+}
+#pass_list .bd TBODY TD {
+	LINE-HEIGHT: 180%; BORDER-BOTTOM: #e6e6e6 1px dashed
+}
+#pass_list .ft {
+	TEXT-ALIGN: center
+}
+#pass_person .hd {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: #def1ef 1px solid
+}
+#pass_person .hd H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/titl_bg01.jpg) no-repeat right -1px; PADDING-BOTTOM: 0px; LINE-HEIGHT: 37px; PADDING-TOP: 0px; HEIGHT: 37px
+}
+#pass_person .hd H2 SPAN {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 20px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/in_icon.gif) no-repeat 0px -117px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#pass_person .bd {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+#pass_person .bd .info {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px; ZOOM: 1
+}
+#pass_person .bd .info .photo {
+	FLOAT: left; WIDTH: 70px
+}
+#pass_person .bd .info UL {
+	MARGIN: 0px 0px 0px 80px
+}
+#pass_person .bd .info UL LI {
+	FONT-SIZE: 14px; COLOR: #666; LINE-HEIGHT: 180%
+}
+#pass_person .bd .info UL LI SPAN.icon {
+	DISPLAY: inline-block; PADDING-LEFT: 20px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/in_icon.gif) no-repeat 0px -144px; MARGIN: 0px 0px 0px 0.5em
+}
+#pass_person .bd .list LI {
+	PADDING-RIGHT: 0.75em; BORDER-TOP: #e6e6e6 1px dashed; PADDING-LEFT: 0.75em; FONT-SIZE: 14px; PADDING-BOTTOM: 0.2em; LINE-HEIGHT: 180%; PADDING-TOP: 0.2em; ZOOM: 1
+}
+#pass_person .bd .list LI SPAN.icon1 {
+	PADDING-LEFT: 15px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/in_icon.gif) no-repeat 0px -167px; MARGIN: 0px 0px 0px 5px
+}
+#pass_person .bd .list LI SPAN.icon2 {
+	PADDING-LEFT: 15px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/in_icon.gif) no-repeat 0px -167px; MARGIN: 0px 0px 0px 5px
+}
+#pass_person .bd .list LI SPAN.icon2 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/in_icon.gif) no-repeat 0px -192px
+}
+#pass_person .bd .list LI EM {
+	DISPLAY: block; FLOAT: left; WIDTH: 72px; FONT-STYLE: normal
+}
+#person_richest .hd {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: #def1ef 1px solid
+}
+#person_richest .hd H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/titl_bg01.jpg) no-repeat right -39px; PADDING-BOTTOM: 0px; LINE-HEIGHT: 37px; PADDING-TOP: 0px; HEIGHT: 37px
+}
+#person_richest .hd H2 SPAN {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 20px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/in_icon.gif) no-repeat 0px -218px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#person_richest .bd {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+#person_richest .bd .info {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px; ZOOM: 1
+}
+#person_richest .bd .info .photo {
+	FLOAT: left; WIDTH: 70px
+}
+#person_richest .bd .info UL {
+	MARGIN: 0px 0px 0px 80px
+}
+#person_richest .bd .info UL LI {
+	FONT-SIZE: 14px; COLOR: #666; LINE-HEIGHT: 180%
+}
+#knowledge_contribute .hd H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 20px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/in_icon.gif) no-repeat 0px -272px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#test_self .hd H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 20px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/in_icon.gif) no-repeat 0px -306px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#knowledge_contribute .bd LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/happy_bot.gif) no-repeat 0px 0.5em; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#test_self .bd LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/happy_bot.gif) no-repeat 0px 0.5em; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.pass_result {
+	MARGIN: 60px auto; WIDTH: 695px
+}
+.pass_result .progress {
+	MARGIN: 0px 0px 0.8em; LINE-HEIGHT: 18px; ZOOM: 1; HEIGHT: 18px
+}
+.pass_result .progress EM {
+	FLOAT: left; COLOR: #000; FONT-STYLE: normal
+}
+.pass_result .progress UL {
+	ZOOM: 1; LIST-STYLE-TYPE: none
+}
+.pass_result .progress UL LI {
+	BORDER-RIGHT: #b5b5b5 1px solid; BORDER-TOP: #b5b5b5 1px solid; BACKGROUND: #fff; FLOAT: left; MARGIN: 0px 0px 0px -1px; BORDER-LEFT: #b5b5b5 1px solid; WIDTH: 17px; BORDER-BOTTOM: #b5b5b5 1px solid; POSITION: relative; HEIGHT: 16px
+}
+.pass_result .progress UL LI.passed {
+	BACKGROUND: #eee
+}
+.pass_result .progress UL LI P.flag {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_flag.gif) no-repeat; LEFT: 4px; OVERFLOW: hidden; WIDTH: 10px; POSITION: absolute; TOP: -15px; HEIGHT: 12px
+}
+.pass_result .mainbox {
+	BORDER-RIGHT: #bae3df 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #bae3df 1px solid; PADDING-LEFT: 312px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_result_bg.jpg) no-repeat left bottom; PADDING-BOTTOM: 0px; BORDER-LEFT: #bae3df 1px solid; PADDING-TOP: 0px; BORDER-BOTTOM: #bae3df 1px solid; POSITION: relative; HEIGHT: 308px
+}
+.pass_result .mainbox .hd {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 15px
+}
+.pass_result .mainbox .hd H2 {
+	TEXT-ALIGN: center
+}
+.pass_result .mainbox .hd P {
+	MARGIN: 0px 0px 15px; COLOR: #656565; TEXT-INDENT: 26px; LINE-HEIGHT: 160%
+}
+.pass_result .mainbox .bd {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; ZOOM: 1; TEXT-ALIGN: right
+}
+.pass_result .mainbox .bd A {
+	DISPLAY: block; FLOAT: right; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/happy/result_button.jpg); MARGIN: 0px 0px 0px 20px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 54px
+}
+.pass_result .mainbox .bd A.cannel {
+	BACKGROUND-POSITION: 0px 0px; WIDTH: 96px
+}
+.pass_result .mainbox .bd A.continue {
+	BACKGROUND-POSITION: -125px 0px; WIDTH: 146px
+}
+.pass_result .mainbox .bd A.repass {
+	BACKGROUND-POSITION: -305px 0px; WIDTH: 146px
+}
+.pass_result .mainbox .bd A.reback {
+	BACKGROUND-POSITION: -484px 0px; WIDTH: 146px
+}
+.pass_result .mainbox .ft {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 0px; FONT-SIZE: 14px; BACKGROUND: none transparent scroll repeat 0% 0%; PADDING-BOTTOM: 0px; LINE-HEIGHT: 180%; PADDING-TOP: 10px; TEXT-ALIGN: right
+}
+.pass_result .result_state {
+	LEFT: 193px; WIDTH: 63px; POSITION: absolute; TOP: 130px; HEIGHT: 47px; TEXT-ALIGN: center
+}
+.pass_result #pass_result_03 .hd H2 {
+	MARGIN: 50px 0px 0px; COLOR: #f00
+}
+.pass_result #pass_result_03 .hd H2 CITE {
+	FONT-SIZE: 18px; FONT-STYLE: normal
+}
+.pass_result #pass_result_right01 .hd H2 EM {
+	COLOR: #f00; FONT-STYLE: normal
+}
+.pass_result #pass_result_right01 P {
+	TEXT-ALIGN: center
+}
+.pass_result #pass_result_right02 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/pass_result03_bg.jpg) no-repeat left bottom
+}
+.pass_result #pass_result_right02 .hd H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 1em; PADDING-TOP: 2em; TEXT-ALIGN: left
+}
+.pass_result #pass_result_right02 .hd P {
+	FONT-SIZE: 14px; COLOR: #000
+}
+.pass_result #pass_result_right02 .hd P STRONG {
+	PADDING-RIGHT: 1em; PADDING-LEFT: 1em; PADDING-BOTTOM: 0px; COLOR: #007231; PADDING-TOP: 0px
+}
+.pass_result #pass_result_right02 .hd P A {
+	PADDING-RIGHT: 1em; PADDING-LEFT: 1em; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.pass_result .unlogin {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 14px; PADDING-BOTTOM: 0.5em; COLOR: #656565; LINE-HEIGHT: 180%; PADDING-TOP: 0.5em; TEXT-ALIGN: center
+}
+.happy_question {
+	MARGIN: 20px auto 60px; WIDTH: 925px
+}
+.happy_question .titl {
+	FONT-WEIGHT: 800; FONT-SIZE: 14px; COLOR: #000; LINE-HEIGHT: 180%; ZOOM: 1
+}
+.happy_question .titl CITE {
+	FONT-SIZE: 18px; MARGIN: 0px 0.5em; COLOR: #f19800; FONT-STYLE: normal
+}
+.happy_question .titl EM {
+	COLOR: #f19800; FONT-STYLE: normal
+}
+.happy_question .titl SPAN.cent {
+	FONT-WEIGHT: 400; COLOR: #666
+}
+.happy_question .titl SPAN.cent A {
+	DISPLAY: inline-block; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/best_star.gif) repeat-x 0px 0px; TEXT-DECORATION: none
+}
+.happy_question .titl SPAN.cent A.nd1 {
+	PADDING-LEFT: 15px
+}
+.happy_question .titl SPAN.cent A.nd2 {
+	PADDING-LEFT: 30px
+}
+.happy_question .titl SPAN.cent A.nd3 {
+	PADDING-LEFT: 45px
+}
+.happy_question .titl SPAN.cent A.nd4 {
+	PADDING-LEFT: 60px
+}
+.happy_question .titl SPAN.cent A.nd5 {
+	PADDING-LEFT: 75px
+}
+.happy_question .titl SPAN.cent A.nd6 {
+	PADDING-LEFT: 90px
+}
+.happy_question .titl SPAN.cent A.nd7 {
+	PADDING-LEFT: 105px
+}
+.happy_question .titl SPAN.cent A.nd8 {
+	PADDING-LEFT: 120px
+}
+.happy_question .titl SPAN.cent A.nd9 {
+	PADDING-LEFT: 135px
+}
+.happy_question .titl SPAN.cent A.nd10 {
+	PADDING-LEFT: 150px
+}
+.happy_question .titl SPAN.cent A.nd11 {
+	PADDING-LEFT: 165px
+}
+.happy_question .titl SPAN.cent A.nd12 {
+	PADDING-LEFT: 180px
+}
+.happy_question .titl SPAN.cent A.nd13 {
+	PADDING-LEFT: 195px
+}
+.happy_question .titl SPAN.cent A.nd14 {
+	PADDING-LEFT: 210px
+}
+.happy_question .titl SPAN.cent A.nd15 {
+	PADDING-LEFT: 225px
+}
+.happy_question .titl .timeset {
+	FONT-WEIGHT: 800; FONT-SIZE: 14px; FLOAT: right
+}
+.happy_question .titl .timeset SPAN#timeout {
+	FONT-SIZE: 24px; COLOR: #f00
+}
+.happy_question .questionbox {
+	BORDER-RIGHT: #bae3df 1px solid; PADDING-RIGHT: 20px; BORDER-TOP: #bae3df 1px solid; PADDING-LEFT: 394px; PADDING-BOTTOM: 0px; BORDER-LEFT: #bae3df 1px solid; PADDING-TOP: 0px; BORDER-BOTTOM: #bae3df 1px solid; POSITION: relative
+}
+.happy_question #pass_man_01 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_man_01.jpg) no-repeat left bottom
+}
+.happy_question #error_report_end {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_man_01.jpg) no-repeat left bottom
+}
+.happy_question #pass_man_02 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_man_02.jpg) no-repeat left bottom
+}
+.happy_question #pass_man_03 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_man_03.jpg) no-repeat left bottom
+}
+.happy_question #pass_man_04 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_man_04.jpg) no-repeat left bottom
+}
+.happy_question #pass_man_05 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_man_05.jpg) no-repeat left bottom
+}
+.happy_question #pass_man_06 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_man_06.jpg) no-repeat left bottom
+}
+.happy_question #pass_man_07 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_man_07.jpg) no-repeat left bottom
+}
+.happy_question #pass_nv_01 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_nv_01.jpg) no-repeat left bottom
+}
+.happy_question #pass_nv_02 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_nv_02.jpg) no-repeat left bottom
+}
+.happy_question #pass_nv_03 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_nv_03.jpg) no-repeat left bottom
+}
+.happy_question #pass_nv_04 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_nv_04.jpg) no-repeat left bottom
+}
+.happy_question #pass_nv_05 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_nv_05.jpg) no-repeat left bottom
+}
+.happy_question #pass_nv_06 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_nv_06.jpg) no-repeat left bottom
+}
+.happy_question #pass_nv_07 {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_nv_07.jpg) no-repeat left bottom
+}
+.happy_question .questionbox .hd {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 15px; PADDING-TOP: 30px
+}
+.happy_question .questionbox .hd H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 30px; FONT-SIZE: 14px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/question_icon01.gif) no-repeat left 5px; PADDING-BOTTOM: 0px; COLOR: #000; LINE-HEIGHT: 180%; PADDING-TOP: 0px
+}
+.happy_question .questionbox .bd P {
+	TEXT-ALIGN: center
+}
+.happy_question .questionbox .bd P IMG {
+	BORDER-RIGHT: #eee 3px solid; BORDER-TOP: #eee 3px solid; BORDER-LEFT: #eee 3px solid; BORDER-BOTTOM: #eee 3px solid
+}
+.happy_question .questionbox .bd UL {
+	LIST-STYLE-TYPE: none
+}
+.happy_question .questionbox .bd UL LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 14px; PADDING-BOTTOM: 0.3em; COLOR: #666; LINE-HEIGHT: 160%; PADDING-TOP: 0.3em; ZOOM: 1
+}
+.happy_question .questionbox .bd UL LI INPUT {
+	FLOAT: left; MARGIN: 0px 0.2em 0px 0px
+}
+.happy_question .questionbox .bd UL LI P {
+	MARGIN: 0px 0px 0px 20px; TEXT-ALIGN: left
+}
+.happy_question .questionbox .bd UL LI P IMG {
+	BORDER-RIGHT: #eee 3px solid; BORDER-TOP: #eee 3px solid; DISPLAY: block; BORDER-LEFT: #eee 3px solid; BORDER-BOTTOM: #eee 3px solid
+}
+.happy_question .questionbox .bd UL LI.baibao {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 40px; BACKGROUND: url(http://cn.yimg.com/i/nks/happycd/baibaobox.gif) no-repeat 0px 0px; PADDING-BOTTOM: 0px; LINE-HEIGHT: 24px; PADDING-TOP: 8px; HEIGHT: 24px
+}
+.happy_question .questionbox .bd BUTTON {
+	PADDING-RIGHT: 30px; PADDING-LEFT: 30px; PADDING-BOTTOM: 0.5em; MARGIN: 20px 0px 0px 20px; PADDING-TOP: 0.5em
+}
+.happy_question .questionbox .ft {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 14px; PADDING-BOTTOM: 0.75em; COLOR: #666; LINE-HEIGHT: 180%; PADDING-TOP: 0.75em; TEXT-ALIGN: right
+}
+.happy_question #user_question {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; WIDTH: 511px; PADDING-TOP: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+.happy_question #user_question .hd {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url(http://cn.yimg.com/i/nks/happycd/ask_hd_bg.jpg) no-repeat 0px 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 1em; PADDING-TOP: 0px; HEIGHT: 40px
+}
+.happy_question #user_question .hd H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 2em; BACKGROUND: none transparent scroll repeat 0% 0%; PADDING-BOTTOM: 0px; MARGIN: 0px; LINE-HEIGHT: 38px; PADDING-TOP: 0px
+}
+.happy_question #user_question .bd UL LI SPAN {
+	DISPLAY: block; FLOAT: left; MARGIN: 0em 0.3em 0px 0px; WIDTH: 100px; TEXT-ALIGN: right
+}
+.happy_question #user_question .bd UL LI SPAN EM {
+	FONT-SIZE: 16px; MARGIN: 0px 0.5em 0px 0px; COLOR: #f00
+}
+.happy_question #user_question .bd UL LI SPAN.red {
+	PADDING-RIGHT: 0.5em; DISPLAY: inline; PADDING-LEFT: 0.5em; FONT-WEIGHT: 400; FONT-SIZE: 12px; FLOAT: none; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: auto; COLOR: #f00; PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+.happy_question #user_question .bd UL LI INPUT {
+	FLOAT: none; MARGIN: 0px
+}
+.happy_question #user_question .bd UL LI .inp1 {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 0.2em; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 0.2em; PADDING-BOTTOM: 0.2em; BORDER-LEFT: #ccc 1px solid; WIDTH: 380px; PADDING-TOP: 0.2em; BORDER-BOTTOM: #ccc 1px solid
+}
+.happy_question #user_question .bd UL LI .inp2 {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 0.2em; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 0.2em; PADDING-BOTTOM: 0.2em; BORDER-LEFT: #ccc 1px solid; WIDTH: 280px; PADDING-TOP: 0.2em; BORDER-BOTTOM: #ccc 1px solid
+}
+.happy_question #user_question .bd UL LI P {
+	CLEAR: both; PADDING-RIGHT: 1em; PADDING-LEFT: 1em; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; COLOR: #999; LINE-HEIGHT: 160%; PADDING-TOP: 0px; TEXT-ALIGN: right
+}
+.happy_question #user_question .bd UL LI P.p2 {
+	PADDING-RIGHT: 10em; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.happy_question #user_question .bd UL LI TEXTAREA {
+	BORDER-RIGHT: #ccc 1px solid; BORDER-TOP: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; WIDTH: 380px; BORDER-BOTTOM: #ccc 1px solid; HEIGHT: 150px
+}
+.happy_question #error_report {
+	BORDER-RIGHT: #bae3df 1px solid; PADDING-RIGHT: 2em; BORDER-TOP: #bae3df 1px solid; PADDING-LEFT: 412px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/pass_result_bg.jpg) no-repeat left bottom; PADDING-BOTTOM: 0px; BORDER-LEFT: #bae3df 1px solid; PADDING-TOP: 2em; BORDER-BOTTOM: #bae3df 1px solid; POSITION: relative
+}
+.happy_question #error_report .result_state {
+	LEFT: -210px; WIDTH: 63px; BOTTOM: 130px; POSITION: absolute; HEIGHT: 47px
+}
+.happy_question #error_report UL {
+	LIST-STYLE-TYPE: none
+}
+.happy_question #error_report UL LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 14px; PADDING-BOTTOM: 0.3em; COLOR: #666; LINE-HEIGHT: 160%; PADDING-TOP: 0.3em
+}
+.happy_question #error_report UL LI EM {
+	COLOR: #f00; FONT-STYLE: normal
+}
+.happy_question #error_report UL LI.answer {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 5em; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.happy_question #error_report UL LI TEXTAREA {
+	BORDER-RIGHT: #ccc 1px solid; BORDER-TOP: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; WIDTH: 500px; BORDER-BOTTOM: #ccc 1px solid; HEIGHT: 95px
+}
+.happy_question #error_report UL LI P {
+	FONT-SIZE: 12px; COLOR: #999; TEXT-ALIGN: right
+}
+.happy_question #error_report .ft {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 1em; PADDING-TOP: 0px
+}
+.happy_question #error_report .ft BUTTON {
+	PADDING-RIGHT: 30px; PADDING-LEFT: 30px; FONT-WEIGHT: 800; FONT-SIZE: 14px; PADDING-BOTTOM: 0.5em; PADDING-TOP: 0.5em
+}
+.happy_question #error_report_end .hd P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 2.4em; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; COLOR: #000; TEXT-INDENT: 28px; LINE-HEIGHT: 160%; PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+.happy_question #error_report_end .bd {
+	PADDING-RIGHT: 1em; PADDING-LEFT: 0px; PADDING-BOTTOM: 1em; PADDING-TOP: 1em; ZOOM: 1
+}
+.happy_question #error_report_end .bd A {
+	DISPLAY: block; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/result_button.jpg) no-repeat -305px 0px; FLOAT: right; WIDTH: 146px; TEXT-INDENT: -9999px; HEIGHT: 54px
+}
+.happy_question #error_report_end .ft {
+	FONT-SIZE: 12px
+}
+.ft A.to_ask {
+	PADDING-RIGHT: 0px; DISPLAY: inline-block; PADDING-LEFT: 1.5em; FONT-SIZE: 12px; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/right_answer_ico.gif); PADDING-BOTTOM: 0px; MARGIN: 0px 2em 0px 0px; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat
+}
+.ft A.report {
+	PADDING-RIGHT: 0px; DISPLAY: inline-block; PADDING-LEFT: 1.5em; FONT-SIZE: 12px; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/right_answer_ico.gif); PADDING-BOTTOM: 0px; MARGIN: 0px 2em 0px 0px; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat
+}
+.ft A.rank {
+	PADDING-RIGHT: 0px; DISPLAY: inline-block; PADDING-LEFT: 1.5em; FONT-SIZE: 12px; BACKGROUND-IMAGE: url(http://cn.yimg.com/i/nks/right_answer_ico.gif); PADDING-BOTTOM: 0px; MARGIN: 0px 2em 0px 0px; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat
+}
+.ft A.to_ask {
+	BACKGROUND-POSITION: 0px 0.2em
+}
+.ft A.report {
+	BACKGROUND-POSITION: 0px -61px
+}
+.ft A.rank {
+	BACKGROUND-POSITION: 0px -123px
+}
+.happy_rule {
+	MARGIN: 30px auto 50px; WIDTH: 757px
+}
+.happy_rule .main_co {
+	BORDER-RIGHT: #7cbfc7 1px solid; BORDER-TOP: #7cbfc7 1px solid; MARGIN: 0px 0px 20px; BORDER-LEFT: #7cbfc7 1px solid; BORDER-BOTTOM: #7cbfc7 1px solid
+}
+.happy_rule .main_co .hd {
+	BACKGROUND: url(http://cn.yimg.com/i/nks/happy/rule_bg.jpg) #e9f7f7 no-repeat left 0px; BORDER-BOTTOM: #7cbfc7 1px solid; HEIGHT: 38px
+}
+.happy_rule .main_co .hd H2 {
+	FONT-SIZE: 16px; BACKGROUND: url(http://cn.yimg.com/i/nks/happy/rule_bg.jpg) no-repeat right -38px; COLOR: #000; LINE-HEIGHT: 38px; TEXT-ALIGN: center
+}
+.happy_rule .main_co .bd {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 20px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px
+}
+.happy_rule .main_co .bd P {
+	FONT-SIZE: 14px; MARGIN: 0px 0px 20px; COLOR: #666; LINE-HEIGHT: 160%
+}
+.happy_rule .main_co .bd H3 {
+	FONT-SIZE: 14px; MARGIN: 0px 0px 20px; LINE-HEIGHT: 180%
+}
+.happy_rule .bottom {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 20px; TEXT-ALIGN: center
+}
+.sms_mod {
+	ZOOM: 1
+}
+.sms_mod .leftbar {
+	FLOAT: left; WIDTH: 644px
+}
+.sms_mod .leftbar #sms_intro .hd H2 {
+	COLOR: #000; TEXT-ALIGN: center
+}
+.sms_mod .leftbar #sms_intro .bd P {
+	FONT-SIZE: 12px; COLOR: #000; LINE-HEIGHT: 160%
+}
+.sms_mod .leftbar #sms_function .bd {
+	PADDING-BOTTOM: 6px
+}
+.sms_mod .leftbar #sms_function .bd P {
+	FONT-SIZE: 12px; COLOR: #000; TEXT-INDENT: 30px
+}
+.sms_mod .leftbar #sms_function .ft {
+	PADDING-RIGHT: 13px; PADDING-LEFT: 13px; FONT-SIZE: 12px; BACKGROUND: #fff; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+.sms_mod .rightbar {
+	FLOAT: right; WIDTH: 294px
+}
+.sms_mod .rightbar #send_sms .bd {
+	BACKGROUND: #f5fbfb; PADDING-BOTTOM: 1.2em; PADDING-TOP: 1em
+}
+.sms_mod .rightbar #send_sms .bd P {
+	FONT-SIZE: 12px; MARGIN: 0px 0px 0.6em; COLOR: #000; ZOOM: 1
+}
+.sms_mod .rightbar #send_sms .bd BUTTON {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BACKGROUND: url(http://cn.yimg.com/i/nks/ks_sms_subscribe.gif) no-repeat 0px 0px; BORDER-BOTTOM-WIDTH: 0px; WIDTH: 96px; CURSOR: hand; HEIGHT: 24px; BORDER-RIGHT-WIDTH: 0px
+}
+.sms_mod .rightbar #send_sms .bd IMG {
+	FLOAT: right; MARGIN: 19px 33px 0px 0px
+}
+.sms_mod .rightbar #send_sms .bd INPUT {
+	BORDER-RIGHT: #5e5e5e 1px solid; PADDING-RIGHT: 0.2em; BORDER-TOP: #5e5e5e 1px solid; PADDING-LEFT: 0.2em; PADDING-BOTTOM: 0.2em; BORDER-LEFT: #5e5e5e 1px solid; PADDING-TOP: 0.2em; BORDER-BOTTOM: #5e5e5e 1px solid
+}
+.sms_mod .rightbar #sms_today .hd H2 EM {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0.5em; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; COLOR: #666; PADDING-TOP: 0px; FONT-STYLE: normal
+}
+.sms_mod .rightbar #sms_today .bd P {
+	FONT-SIZE: 12px; COLOR: #000; TEXT-INDENT: 30px
+}
+.tag_commend {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 14px; PADDING-BOTTOM: 0.75em; LINE-HEIGHT: 150%; PADDING-TOP: 0.75em
+}
+.fixfloat {
+	ZOOM: 1
+}
+.fixfloat:unknown {
+	CLEAR: both; DISPLAY: block; VISIBILITY: hidden; HEIGHT: 0px; content: "."
+}
+.yn-news-listbg LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0.6em; BACKGROUND: url(http://cn.yimg.com/i/news2008/img/dot01.gif) no-repeat 0px 50%; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.yn-news-list {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px
+}
+.yn-news-list LI SPAN {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; COLOR: #666; PADDING-TOP: 0px
+}
+.yn-news-list LI.important {
+	COLOR: #cf0133
+}
+.yn-news-list LI.important A {
+	COLOR: #cf0133
+}
+.yn-float-list {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 6px; PADDING-TOP: 0px
+}
+.yn-float-list LI {
+	FLOAT: left; WIDTH: 49.9%
+}
+.yn-list-fix {
+	PADDING-TOP: 5px
+}
+.yn-subject {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 8px; PADDING-TOP: 8px
+}
+.yn-subject H3 {
+	FONT-WEIGHT: 800; MARGIN: 0px 0px 0.3em
+}
+.yn-pic-text {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 4px; MARGIN: 0px 0px 6px; PADDING-TOP: 4px
+}
+.yn-pic-text A.yn-picture {
+	PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 0px; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px 0.8em 0px 0px; LINE-HEIGHT: 1.22em; PADDING-TOP: 0.2em; TEXT-ALIGN: center
+}
+.yn-pic-text A.yn-picture IMG {
+	BORDER-RIGHT: #dcdcdc 1px solid; BORDER-TOP: #dcdcdc 1px solid; BORDER-LEFT: #dcdcdc 1px solid; BORDER-BOTTOM: #dcdcdc 1px solid
+}
+.yn-pic-text H4.yn-pt-titl {
+	FONT-WEIGHT: 800
+}
+.yn-pic-text P.yn-pt-link A {
+	MARGIN: 0px 0.8em 0px 0px
+}
+.yn-pic-text P STRONG {
+	FONT-WEIGHT: 800
+}
+.yn-fz14 {
+	FONT-SIZE: 14px; LINE-HEIGHT: 24px
+}
+.yn-fz14 LI {
+	FONT-SIZE: 14px; LINE-HEIGHT: 24px
+}
+.yn-fz14 P {
+	FONT-SIZE: 14px; LINE-HEIGHT: 24px
+}
+.yn-fz12 {
+	FONT-SIZE: 12px; LINE-HEIGHT: 20px
+}
+.yn-fz12 LI {
+	FONT-SIZE: 12px; LINE-HEIGHT: 20px
+}
+.yn-fz12 P {
+	FONT-SIZE: 12px; LINE-HEIGHT: 20px
+}
+.yn-fz13 {
+	FONT-SIZE: 13px; LINE-HEIGHT: 20px
+}
+.yn-fz13 LI {
+	FONT-SIZE: 13px; LINE-HEIGHT: 20px
+}
+.yn-fz13 P {
+	FONT-SIZE: 13px; LINE-HEIGHT: 20px
+}
+.yn-fz16 {
+	FONT-SIZE: 16px; LINE-HEIGHT: 22px
+}
+A.red {
+	COLOR: #cf1033
+}
+.red {
+	COLOR: #cf1033
+}
+A.purple {
+	COLOR: #824eb3
+}
+#related-info {
+	COLOR: #000
+}
+#related-info .yn-mod {
+	BORDER-RIGHT: #ddd 1px solid; BORDER-TOP: #ddd 0px solid; FLOAT: left; BORDER-LEFT: #ddd 0px solid; WIDTH: 235px; BORDER-BOTTOM: #ddd 0px solid; ZOOM: 1; HEIGHT: 190px
+}
+#related-info .yn-mod-fix {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+#related-info .yn-mod .hd {
+	POSITION: static; TEXT-ALIGN: center
+}
+#related-info .yn-mod-side .hd {
+	POSITION: static; TEXT-ALIGN: center
+}
+#related-info .yn-mod-m .hd {
+	POSITION: static; TEXT-ALIGN: center
+}
+#related-info .yn-mod-side {
+	FLOAT: left; WIDTH: 183px
+}
+#related-info .yn-mod-m {
+	BORDER-RIGHT: #ddd 1px solid; BORDER-TOP: #ddd 0px solid; FLOAT: left; BORDER-LEFT: #ddd 1px solid; WIDTH: 576px; BORDER-BOTTOM: #ddd 0px solid; HEIGHT: 190px
+}
+#related-info .gmodule .yn-mod-m .bd {
+	
+}
+#related-info .gmodule {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; FLOAT: left; PADDING-BOTTOM: 1px; WIDTH: 944px; PADDING-TOP: 1px
+}
+#related-info #scroll-wrap {
+	OVERFLOW: hidden; WIDTH: 944px; HEIGHT: 192px
+}
+#related-info .slide {
+	FLOAT: left; WIDTH: 944px
+}
+#related-info .related-groups .yn-pic-text H4 {
+	FONT-SIZE: 12px
+}
+#related-info .related-groups .yn-pic-text H4.yn-pt-titl SPAN {
+	PADDING-LEFT: 10px; FONT-WEIGHT: 400; COLOR: #999
+}
+#related-info .yn-subject {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#related-info .yn-news-list {
+	PADDING-TOP: 0px
+}
+#related-info .related-blogs .yn-fz14 {
+	LINE-HEIGHT: 18px
+}
+#related-info .related-blogs .yn-pic-text {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; MARGIN-BOTTOM: 4px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#related-info .related-answerman LI {
+	FLOAT: left; OVERFLOW: hidden; WIDTH: 25%; TEXT-ALIGN: center
+}
+#related-info .related-answerman P.paopao {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 8px; BACKGROUND: url(http://cn.yimg.com/i/nks/paopao.gif) no-repeat 0px 0px; PADDING-BOTTOM: 8px; WIDTH: 130px; PADDING-TOP: 8px; HEIGHT: 50px; TEXT-ALIGN: left
+}
+#related-info .related-answerman A.pics {
+	DISPLAY: block; PADDING-BOTTOM: 5px
+}
+#related-info .related-focus .yn-pic-text {
+	PADDING-TOP: 15px
+}
+#related-info .related-focus .yn-pic-text A.pics {
+	DISPLAY: block
+}
+#related-info .related-focus .yn-pic-text A.pics IMG {
+	DISPLAY: block; MARGIN: 0px auto
+}
+#related-info .related-focus .yn-pic-text P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 8px; LINE-HEIGHT: 1; PADDING-TOP: 8px; TEXT-ALIGN: center
+}
+#related-info .yn-title H4 {
+	COLOR: #676767
+}
+#related-info .yn-title SPAN.more {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 0px; FONT-WEIGHT: 800; FLOAT: right; PADDING-BOTTOM: 0px; CURSOR: pointer; PADDING-TOP: 0px; TEXT-ALIGN: right; TEXT-DECORATION: underline
+}

@@ -1,0 +1,81 @@
+Oracle 查看资源占用及死锁的处理思路及SQL 
+查看当前在用DB的用户 
+查看用户正在执行的语句 
+查看锁住的语句 
+查看用户在那个机器链接进来 
+查看哪个Session的CPU占用率最高 
+查看数据库的最大并发链接 
+查看历史最大并发数 
+查看当前并发数 
+查看某个用户所具备的角色和权限 
+查看数据库版本 
+查看patch情况 
+查看服务器端的parameter 
+杀Session 
+看某个Session对应的操作系统PID 
+。。。 
+
+--------------------------------------------------------------------------------
+
+select username,default_tablespace from user_users;
+select * from user_role_privs;
+select * from user_sys_privs;
+select * from user_tab_privs;
+select * from user_tables;
+select object_name,object_id from user_objects
+                where instr(object_name,'LOG')>0;
+select object_name,created from user_objects where object_name=upper 
+('&table_name');
+select * from user_sequences;
+select view_name from user_views;
+select member from v$logfile;
+Select version FROM Product_component_version
+    Where SUBSTR(PRODUCT,1,6)='Oracle';
+用系统管理员，查看当前数据库有几个用户连接：
+
+SQL> select username,sid,serial# from v$session;
+
+如果要停某个连接用
+
+SQL> alter system kill session 'sid,serial#';
+
+如果这命令不行,找它UNIX的进程数
+
+SQL> select pro.spid from v$session ses,v$process pro where ses.sid=21 
+
+and ses.paddr=pro.addr;
+
+说明：21是某个连接的sid数
+
+然后用 kill 命令杀此进程号。
+
+
+select column_name,comments from dict_columns where 
+
+table_name='USER_INDEXES';
+
+select column_name,comments from dict_columns where upper(table_name)
+
+='v$session';
+如何查看最大会话数？
+SELECT * FROM V$PARAMETER WHERE NAME LIKE 'proc%'； 
+Select * from v$license;
+SELECT *  FROM  USER_ERRORS;
+SELECT * FROM V$INSTANCE;
+select a.sid,spid,status,substr(a.program,1,40) 
+
+prog,a.terminal,osuser,value/60/100 value 
+     from v$session a,v$process b,v$sesstat c 
+     where c.statistic#=11 and c.sid=a.sid and a.paddr=b.addr order by 
+
+value desc;
+
+select * from v$sqltext where address = 'C0000001E0B4A160';
+select sql_text, piece, hash_value 
+from v$sqltext 
+where  address = 'C0000001E0B4A160'
+order by hash_value, piece;
+
+select * from v$sqlarea where address = (select sql_address from 
+
+v$session where sid = :1);

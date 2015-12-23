@@ -1,0 +1,429 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0057)http://blog.csdn.net/nshk/archive/2008/03/21/2202088.aspx -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>@Oracle聚合函数/分析函数 - 大头 - CSDNBlog</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="" name=author>
+<META content=Csdn name=Copyright>
+<META content=Oracle聚合函数 name=description>
+<META content=,oracle,函数,表达式,数组, name=keywords><LINK 
+href="http://profile.csdn.net/nshk/picture/1.ico" rel="Shortcut Icon"><LINK 
+media=all href="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/Cogitation_1.css" 
+type=text/css rel=stylesheet><LINK title=RSS 
+href="http://blog.csdn.net/nshk/rss.aspx" type=application/rss+xml 
+rel=alternate>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY id=defaultuser>
+<DIV id=csdnblog_allwrap>
+<FORM language=javascript id=Form1 name=Form1 
+onsubmit="javascript:return WebForm_OnSubmit();" action=2202088.aspx 
+method=post><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE>
+<SCRIPT type=text/javascript>
+<!--
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Anthem_FormID = "Form1";
+//]]>
+</SCRIPT>
+
+<SCRIPT src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="D:\@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files\WebResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+// -->
+</SCRIPT>
+ 
+<DIV id=csdnblog_midwrap>
+<DIV id=csdnblog_header>
+<H1><A id=Header1_HeaderTitle href="http://blog.csdn.net/nshk/">大头</A></H1>
+<H2>桃李春风一杯酒，江湖夜雨十年灯。</H2>
+<UL id=personalnav>
+  <LI><A href="http://passport.csdn.net/UserLogin.aspx">登录</A></LI>
+  <LI><A href="http://passport.csdn.net/CSDNUserRegister.aspx">注册</A></LI></UL>
+<UL id=blogsearchsty>
+  <LI><INPUT class=bolgsearch id=inputSearch 
+onkeydown="return keyb(event)"></LI>
+  <LI class=selectsty><SELECT id=Search_ddlSearchScope 
+  name=Search:ddlSearchScope><OPTION value=all selected>全站</OPTION><OPTION 
+    value=nshk>当前博客</OPTION></SELECT></LI>
+  <LI><INPUT class=bolggobtn onclick=checkNull() type=button value=搜索></LI></UL>
+<UL id=menu>
+  <LI><A href="http://hi.csdn.net/nshk">空间</A></LI>
+  <LI><A class=on href="http://blog.csdn.net/nshk">博客</A></LI>
+  <LI><A href="http://hi.csdn.net/nshk/profile/contactlist/1.html">好友</A></LI>
+  <LI><A href="http://blog.csdn.net/nshk/Gallery.aspx">相册</A></LI>
+  <LI><A href="http://bbs.csdn.net/" target=_blank>论坛</A></LI>
+  <LI><A class=last 
+  href="http://hi.csdn.net/nshk/profile/notebook/1.html">留言</A></LI></UL></DIV>
+<DIV id=csdnblog_sidebar>
+<DIV class=gutter>
+<DIV class=aboutauthor>
+<DL>
+  <DT>用户操作
+  <DD class=middle><A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://webim.csdn.net/Messages/nshk.ashx" 
+  target=_blank>[即时聊天]</A> <A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://hi.csdn.net/Admin/WriteMessage.aspx?Receiver=nshk" 
+  target=_blank>[发私信]</A> <A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://webim.csdn.net/AddFriends/nshk.ashx" 
+  target=_blank>[加为好友]</A>
+  <DT>张振国<SPAN>ID：nshk</SPAN>
+  <DD class=middle><IMG alt="" 
+  src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/1_nshk.jpg">
+  <DD class=middle><A href="http://profile.csdn.net/8/E4/edit.html"></A>
+  <DD>共<EM>4151</EM>次访问，排名<EM>2万外</EM>，好友<EM>0</EM>人，关注者<EM>0</EM>人。<BR>大头
+  <DD>
+  <DT>nshk的文章
+  <DD>原创 15 篇
+  <DD>翻译 0 篇
+  <DD>转载 11 篇
+  <DD>评论 1 篇 
+  <DT>的公告
+  <DD>mailto: 110show@163.com 
+  <DT>最近评论
+  <DD>hdnero：<A title=点击查看《回复:----标准差》 
+  href="http://blog.csdn.net/nshk/archive/2008/03/17/2190809.aspx#841702"><A 
+  href="http://www.wowgoldcc.com/">wow power leveling</A></A> 
+  <DT>文章分类
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL></UL></DIV>
+  <DT>收藏
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL></UL></DIV>
+  <DT>相册
+  <DT>e文网站
+  <DT>存档
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A 
+href="http://blog.csdn.net/nshk/archive/2008/04.aspx">2008年04月(12)</A>
+    <LI><A 
+    href="http://blog.csdn.net/nshk/archive/2008/03.aspx">2008年03月(14)</A></LI></UL></DIV><SPAN 
+  id=RecentVisitors></SPAN><SPAN id=SubscriptionList>
+  <DT>订阅我的博客
+  <DD><A href="http://blog.csdn.net/nshk/Rss.aspx"><IMG alt=XML聚合 
+  src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/xml.gif" 
+  border=0></A>&nbsp;&nbsp;<A href="http://feeds.feedsky.com/csdn.net/nshk" 
+  target=_blank><IMG alt=FeedSky 
+  src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/feedsky.gif" border=0></A>
+  <DD><A 
+  href="http://www.xianguo.com/subscribe.php?url=http://blog.csdn.net/nshk/Rss.aspx" 
+  target=_blank><IMG alt=订阅到鲜果 
+  src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/rss_xianguo.jpg" border=0></A>
+  <DD><A 
+  href="http://fusion.google.com/add?feedurl=http://blog.csdn.net/nshk/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Google 
+  src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/rss_google.gif" border=0></A>
+  <DD><A 
+  href="http://www.zhuaxia.com/add_channel.php?url=http://blog.csdn.net/nshk/Rss.aspx" 
+  target=_blank><IMG alt=订阅到抓虾 
+  src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/rss_zhuaxia.gif" border=0></A>
+  <DD><A href="http://www.bloglines.com/sub/http://blog.csdn.net/nshk/Rss.aspx" 
+  target=_blank><IMG alt=订阅到BlogLines 
+  src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/rss_bloglines.gif" border=0></A>
+  <DD><A 
+  href="http://add.my.yahoo.com/rss?url=http://blog.csdn.net/nshk/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Yahoo 
+  src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/rss_yahoo.gif" border=0></A>
+  <DD><A 
+  href="http://rss.gougou.com/find_rss.jsp?url=http://blog.csdn.net/nshk/Rss.aspx" 
+  target=_blank><IMG alt=订阅到GouGou 
+  src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/rss_gougou.gif" border=0></A>
+  <DD><A 
+  href="http://www.pageflakes.com/subscribe.aspx?url=http://blog.csdn.net/nshk/Rss.aspx" 
+  target=_blank><IMG alt=订阅到飞鸽 
+  src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/rss_pageflakes.gif" border=0></A>
+  <DD><A 
+  href="http://www.rojo.com/add-subscription?resource=http://blog.csdn.net/nshk/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Rojo 
+  src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/rss_rojo.gif" border=0></A>
+  <DD><A 
+  href="http://www.newsgator.com/ngs/subscriber/subfext.aspx?url=http://blog.csdn.net/nshk/Rss.aspx" 
+  target=_blank><IMG alt=订阅到newsgator 
+  src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/rss_newsgator.gif" border=0></A>
+  <DD><A 
+  href="http://www.netvibes.com/subscribe.php?url=http://blog.csdn.net/nshk/Rss.aspx" 
+  target=_blank><IMG alt=订阅到netvibes 
+  src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/rss_netvibes.gif" 
+  border=0></A></SPAN> </DD></DL></DIV></DIV></DIV>
+<DIV id=csdnblog_content>
+<DIV class=gutter>
+<DIV class=default_contents>
+<DIV class=user_article>
+<SCRIPT src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/LoadFeedbackCount.js" 
+type=text/javascript></SCRIPT>
+
+<H1><IMG height=16 alt=原创 
+src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/authorship.gif" width=15 
+border=0>&nbsp;<A 
+href="http://blog.csdn.net/nshk/archive/2008/03/21/2202088.aspx">@Oracle聚合函数/分析函数</A><CITE 
+class=fav_csdnstylebykimi><A class=fav_csdnstylebykimi title=收藏到我的网摘中，并分享给我的朋友 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();">收藏</A></CITE></H1>
+<DIV class=blogstory><SPAN id=Post.ascx_ViewPost_PreviousAndNextEntriesUp>
+<H3><A 
+href="http://blog.csdn.net/nshk/archive/2008/03/21/2202246.aspx">http://blog.csdn.net/nshk/archive/2008/03/21/2202246.aspx</A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/nshk/archive/2008/03/21/2202080.aspx">旧一篇:&nbsp;----Getting 
+Started With Jboss 4.0 Release 4</A></H3></SPAN>
+<SCRIPT>function StorePage(){d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(keyit=window.open('http://www.365key.com/storeit.aspx?t='+escape(d.title)+'&u='+escape(d.location.href)+'&c='+escape(t),'keyit','scrollbars=no,width=475,height=575,left=75,top=20,status=no,resizable=yes'));keyit.focus();}</SCRIPT>
+<SPAN style="FONT-FAMILY: Courier New">参考文献： 《expert one-on-one》、《Oracle 9i 
+reference》</SPAN><BR style="FONT-FAMILY: Courier New"><BR 
+style="FONT-FAMILY: Courier New"><SPAN 
+style="FONT-FAMILY: Courier New">oracle函数分两类：单行函数、多行函数 
+。多行函数也成为聚合函数、组合函数，参数为数组，数据大小为记录数，这种数组不是普通高级语言的数组，是一种虚拟数组，当记录数大时，会将数据写入硬盘，内存中放的只是影像。</SPAN><BR 
+style="FONT-FAMILY: Courier New"><BR style="FONT-FAMILY: Courier New"><SPAN 
+style="FONT-FAMILY: Courier New">oracle从8.1.6开始提供分析函数，用于计算基于组的某种聚合值。它和聚合函数的不同之处在于每个组返回多行，聚合函数每个组只返回一行。</SPAN><BR 
+style="FONT-FAMILY: Courier New"><SPAN 
+style="FONT-FAMILY: Courier New">开窗函数：指定了分析函数工作的数据窗口大小，这个数据大小会随数据行数变化而变化，示例如下：</SPAN><BR 
+style="FONT-FAMILY: Courier New"><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51); FONT-FAMILY: Courier New">over（order 
+by salary） 按照salary排序进行累计，order by是个默认的开窗函数<BR>over（partition by 
+deptno）按照部门分区<BR>over（order by salary range between 50 preceding and 150 
+following）每行对应的数据窗口是之前行</SPAN><SPAN 
+style="FONT-SIZE: 9pt; COLOR: red; FONT-FAMILY: Courier New">幅度值</SPAN><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51); FONT-FAMILY: Courier New">不超过50，之后行幅度值不超过150<BR>over（order 
+by salary rows between 50 preceding and 150 
+following）每行对应的数据窗口是之前50行，之后150行<BR>over（order by salary rows between unbounded 
+preceding and unbounded following）每行对应的数据窗口是从第一行到最后一行，等效：over（order by salary 
+range between unbounded preceding and unbounded 
+following）<BR><BR>AVG功能描述，用于计算一个组和数据窗口内表达式的平均值。<BR>&nbsp;sample:select 
+avg(salary) over(partition by manager_id order by hire_date rows between 1 
+preceding and 1 following) as avg_salary from 
+employee.<BR><BR>CORR，返回一对表达式的相关系数。缩写如下：<BR></SPAN><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>COVAR_POP(expr1,expr2)/STDDEV_POP(expr1)*STDDEV_POP(expr2))，从统计上讲，相关性是变量之间关联的强度，变量之间的关联意味着一定程度上一个变量的值可以由其他变量值进行预测，返回一个-1~1的数，相关系数给出了关联的强度，0表示不相关。</FONT><BR 
+style="FONT-FAMILY: Courier New"><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51); FONT-FAMILY: Courier New"><BR><FONT 
+size=2>COVAR_POP，返回一对表达式的总体协方差。<BR><BR></FONT></SPAN><FONT 
+style="FONT-FAMILY: Courier New" size=2><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51)">COVAR_SAMP，返回一对表达式的样本协方差。<BR><BR>COUNT，对组内发生的事情进行累计。</SPAN></FONT><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>如果指定*或一些非空常数，count将对所有行计数，如果指定一个表达式，count返回表达式非空赋值的计数，当有相同值出现时，这些相等的值都会被纳入被计算的值；可以使用DISTINCT来记录去掉一组中完全相同的数据后出现的行数。<BR><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51)"><BR>CUME_DIST，计算一行在组内的相对位置。</SPAN></FONT><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>CUME_DIST总是返回大于0、小于或等于1的数，该数表示该行在N行中的位置。<BR><BR><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51)">DENSE_RANK，</SPAN></FONT><FONT 
+style="FONT-FAMILY: Courier New" size=2>根据ORDER 
+BY子句中表达式的值，从查询返回的每一行，计算它们与其它行的相对位置。组内的数据按ORDER 
+BY子句排序，然后给每一行赋一个号，从而形成一个序列，该序列从1开始，往后累加。每次ORDER 
+BY表达式的值发生变化时，该序列也随之增加。有同样值的行得到同样的数字序号（认为null时相等的）。密集的序列返回的时没有间隔的数。<BR><BR><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51)">FIRST，</SPAN></FONT><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>从DENSE_RANK返回的集合中取出排在最前面的一个值的行（可能多行，因为值可能相等），因此完整的语法需要在开始处加上一个集合函数以从中取出记录。<BR><BR></FONT><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51); FONT-FAMILY: Courier New">FIRST_VALUE，返回组中数据窗口的第一个值。<BR><BR>LAG，</SPAN><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>可以访问结果集中的其它行而不用进行自连接。它允许去处理游标，就好像游标是一个数组一样。在给定组中可参考当前行之前的 
+行，这样就可以从组中与当前行一起选择以前的行。Offset是一个正整数，其默认值为1，若索引超出窗口的范围，就返回默认值（默认返回的是组中第一 
+行），其相反的函数是LEAD</FONT><BR style="FONT-FAMILY: Courier New"><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51); FONT-FAMILY: Courier New"><BR>LAST，</SPAN><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>从DENSE_RANK返回的集合中取出排在最后面的一个值的行（可能多行，因为值可能相等），因此完整的语法需要在开始处加上一个集合函数以从中取出记录。<BR><BR></FONT><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51); FONT-FAMILY: Courier New">LAST_VALUE，</SPAN><FONT 
+style="FONT-FAMILY: Courier New" size=2>返回组中数据窗口的最后一个值。<BR><BR></FONT><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51); FONT-FAMILY: Courier New">LEAD，</SPAN><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>LEAD与LAG相反，LEAD可以访问组中当前行之后的行。Offset是一个正整数，其默认值为1，若索引超出窗口的范围，就返回默认值（默认返回的是组中第一行）。<BR><BR></FONT><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51); FONT-FAMILY: Courier New">MAX，</SPAN><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>在一个组中的数据窗口中查找表达式的最大值。<BR><BR></FONT><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51); FONT-FAMILY: Courier New">MIN，</SPAN><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>在一个组中的数据窗口中查找表达式的最小值。<BR><BR></FONT><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51); FONT-FAMILY: Courier New">NTILE，</SPAN><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>将一个组分为"表达式"的散列表示，例如，如果表达式=4，则给组中的每一行分配一个数（从1到4），如果组中有20行， 
+则给前5行分配1，给下5行分配2等等。如果组的基数不能由表达式值平均分开，则对这些行进行分配时，组中就没有任何percentile的行数比其它 
+percentile的行数超过一行，最低的percentile是那些拥有额外行的percentile。例如，若表达式=4，行数=21，则 
+percentile=1的有5行，percentile=2的有5行等等。<BR><BR></FONT><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51); FONT-FAMILY: Courier New">PERCENT_RANK，</SPAN><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>和CUME_DIST（累积分配）函数类似，对于一个组中给定的行来说，在计算那行的序号时，先减1，然后除以n-1（n为组中所有的行数）。该函数总是返回0～1（包括1）之间的数。<BR><BR><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51)">PERCENTILE_RANK，</SPAN></FONT><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>返回一个与输入的分布百分比值相对应的数据值，分布百分比的计算方法见函数PERCENT_RANK，如果没有正好对应的数据值，就通过下面算法来得到值：<BR>RN 
+= 1+ (P*(N-1)) 其中P是输入的分布百分比值，N是组内的行数<BR>CRN = CEIL(RN) FRN = FLOOR(RN)<BR>if 
+(CRN = FRN = RN) then <BR>(value of expression from row at RN)<BR>else<BR>(CRN - 
+RN) * (value of expression for row at FRN) +<BR>(RN - FRN) * (value of 
+expression for row at 
+CRN)<BR>注意：本函数与PERCENTILE_DISC的区别在找不到对应的分布值时返回的替代值的计算方法不同。<BR><BR></FONT><FONT 
+style="FONT-FAMILY: Courier New" size=2><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51)">PERCENTILE_DISC，</SPAN></FONT><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>返回一个与输入的分布百分比值相对应的数据值，分布百分比的计算方法见函数CUME_DIST，如果没有正好对应的数据值，就取大于该分布值的下一个值。<BR>注意：本函数与PERCENTILE_CONT的区别在找不到对应的分布值时返回的替代值的计算方法不同。<BR><BR><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51)">RANK，</SPAN></FONT><FONT 
+style="FONT-FAMILY: Courier New" size=2>根据ORDER 
+BY子句中表达式的值，从查询返回的每一行，计算它们与其它行的相对位置。组内的数据按ORDER 
+BY子句排序，然后给每一行赋一个号，从而形成一个序列，该序列从1开始，往后累加。每次ORDER 
+BY表达式的值发生变化时，该序列也随之增加。有同样值的行得到同样的数字序号（认为null时相等的）。然而，如果两行的确得到同样的排序，则序数将随 
+后跳跃。若两行序数为1，则没有序数2，序列将给组中的下一行分配值3，DENSE_RANK则没有任何跳跃。<BR><BR><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51)">RATIO_TO_REPORT，</SPAN></FONT><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>该函数计算expression/(sum(expression))的值，它给出相对于总数的百分比，即当前行对sum(expression)的贡献。<BR><BR></FONT><FONT 
+style="FONT-FAMILY: Courier New" size=2>REGR_ (Linear Regression) Functions 
+<BR>功能描述：这些线性回归函数适合最小二乘法回归线，有9个不同的回归函数可使用。<BR>REGR_SLOPE：返回斜率，等于COVAR_POP(expr1, 
+expr2) / VAR_POP(expr2)<BR>REGR_INTERCEPT：返回回归线的y截距，等于<BR>AVG(expr1) - 
+REGR_SLOPE(expr1, expr2) * 
+AVG(expr2)<BR>REGR_COUNT：返回用于填充回归线的非空数字对的数目<BR>REGR_R2：返回回归线的决定系数，计算式为：<BR>If 
+VAR_POP(expr2) = 0 then return NULL<BR>If VAR_POP(expr1) = 0 and VAR_POP(expr2) 
+!= 0 then return 1<BR>If VAR_POP(expr1) &gt; 0 and VAR_POP(expr2 != 0 then 
+<BR>return 
+POWER(CORR(expr1,expr),2)<BR>REGR_AVGX：计算回归线的自变量(expr2)的平均值，去掉了空对(expr1, 
+expr2)后，等于AVG(expr2)<BR>REGR_AVGY：计算回归线的应变量(expr1)的平均值，去掉了空对(expr1, 
+expr2)后，等于AVG(expr1)<BR>REGR_SXX： 返回值等于REGR_COUNT(expr1, expr2) * 
+VAR_POP(expr2)<BR>REGR_SYY： 返回值等于REGR_COUNT(expr1, expr2) * 
+VAR_POP(expr1)<BR>REGR_SXY: 返回值等于REGR_COUNT(expr1, expr2) * COVAR_POP(expr1, 
+expr2)<BR><BR></FONT><FONT style="FONT-FAMILY: Courier New" 
+size=2>ROW_NUMBER，</FONT><FONT style="FONT-FAMILY: Courier New" 
+size=2>返回有序组中一行的偏移量，从而可用于按特定标准排序的行号。<BR><BR></FONT><FONT 
+style="FONT-FAMILY: Courier New" size=2>STDDEV ，计算当前行关于组的标准偏离（Standard 
+Deviation）。<BR><BR></FONT><FONT style="FONT-FAMILY: Courier New" 
+size=2>STDDEV_POP，该函数计算总体标准偏离，并返回总体变量的平方根，其返回值与VAR_POP函数的平方根相同（Standard 
+Deviation－Population）</FONT><FONT style="FONT-FAMILY: Courier New" 
+size=2>。</FONT><BR style="FONT-FAMILY: Courier New"><SPAN 
+style="FONT-SIZE: 9pt; COLOR: rgb(51,51,51); FONT-FAMILY: Courier New"><BR></SPAN><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>STDDEV_SAMP，该函数计算累积样本标准偏离，并返回总体变量的平方根，其返回值与VAR_POP函数的平方根相同（Standard 
+Deviation－Sample）</FONT><FONT style="FONT-FAMILY: Courier New" 
+size=2>。<BR><BR></FONT><FONT style="FONT-FAMILY: Courier New" 
+size=2>SUM，该函数计算组中表达式的累积和。<BR><BR></FONT><FONT style="FONT-FAMILY: Courier New" 
+size=2>VAR_POP，（Variance 
+Population）该函数返回非空集合的总体变量（忽略null），VAR_POP进行如下计算：<BR>(SUM(expr2) - 
+SUM(expr</FONT><FONT style="FONT-FAMILY: Courier New" size=2>2</FONT><FONT 
+style="FONT-FAMILY: Courier New" size=2>) / COUNT(expr)) / 
+COUNT(expr)。<BR><BR></FONT><FONT style="FONT-FAMILY: Courier New" 
+size=2>VAR_SAMP，（Variance 
+Sample）该函数返回非空集合的样本变量（忽略null），VAR_POP进行如下计算：<BR>(SUM(expr*expr)-SUM(expr)*SUM(expr)/COUNT(expr))/(COUNT(expr)-1)。<BR><BR></FONT><FONT 
+style="FONT-FAMILY: Courier New" 
+size=2>VARIANCE，该函数返回表达式的变量，Oracle计算该变量如下：<BR>如果表达式中行数为1，则返回0<BR>如果表达式中行数大于1，则返回VAR_SAMP</FONT><BR 
+style="FONT-FAMILY: Courier New"><FONT style="FONT-FAMILY: Courier New" 
+size=2><BR></FONT>
+<HR style="WIDTH: 100%; HEIGHT: 2px">
+<FONT size=2><SPAN style="FONT-FAMILY: Courier New">3月28日补充，关于rollup 和 
+cube：</SPAN><BR style="FONT-FAMILY: Courier New"><SPAN 
+style="FONT-FAMILY: Courier New">group by 语句在基本语法外，还支持rollup 和 cube语句。</SPAN><BR 
+style="FONT-FAMILY: Courier New"></FONT><FONT style="FONT-FAMILY: Courier New" 
+size=2>ROLLUP(A, B, C)，首先会对(A、B、C)进行GROUP BY，然后对(A、B)进行GROUP BY，然后是(A)进行GROUP 
+BY，最后对全表进行GROUP BY操作。<BR></FONT><FONT style="FONT-FAMILY: Courier New" 
+size=2>GROUP BY CUBE(A, B, C)，则首先会对(A、B、C)进行GROUP 
+BY，然后依次是(A、B)，(A、C)，(A)，(B、C)，(B)，(C)，最后对全表进行GROUP 
+BY操作。<BR>GROUPING_ID()可以美化一下效果。<BR></FONT>
+<P class="right articalinfo">发表于 @ <A title=permalink 
+href="http://blog.csdn.net/nshk/archive/2008/03/21/2202088.aspx">2008年03月21日 
+10:44:00</A>|<A title=评论 
+href="http://blog.csdn.net/nshk/archive/2008/03/21/2202088.aspx#FeedBack">评论(<SPAN 
+id=FeedbackCount_2202088>loading...</SPAN>
+<SCRIPT type=text/javascript>AddFeedbackCountStack("2202088")</SCRIPT>
+)</A>|<A title=编辑 
+href="http://writeblog.csdn.net/PostEdit.aspx?entryId=2202088">编辑</A></P><SPAN 
+id=Post.ascx_ViewPost_PreviousAndNextEntriesDown>
+<H3><A 
+href="http://blog.csdn.net/nshk/archive/2008/03/21/2202246.aspx">http://blog.csdn.net/nshk/archive/2008/03/21/2202246.aspx</A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/nshk/archive/2008/03/21/2202080.aspx">旧一篇:&nbsp;----Getting 
+Started With Jboss 4.0 Release 4</A></H3></SPAN></DIV></DIV>
+<DIV class=commentslist><SPAN id=Anthem_Post.ascx_Comments_ltlComments__><SPAN 
+id=Post.ascx_Comments_ltlComments>
+<DIV id=commentslist>
+<H3>评论：没有评论。</H3></DIV></SPAN></SPAN></DIV>
+<DIV class=spacecommment>
+<DIV id=Anthem_Post.ascx_PostComment_CommentUpdatePanel__>
+<DIV id=Post.ascx_PostComment_CommentUpdatePanel>
+<FIELDSET><LEGEND>发表评论</LEGEND>
+<UL>
+  <LI>姓&nbsp;&nbsp;&nbsp;名：<INPUT id=Post.ascx_PostComment_tbName disabled 
+  maxLength=32 size=40 name=Post.ascx:PostComment:tbName><SPAN 
+  id=Post.ascx_PostComment_RequiredFieldValidator2 
+  style="VISIBILITY: hidden; COLOR: red" initialvalue="" 
+  evaluationfunction="RequiredFieldValidatorEvaluateIsValid" 
+  errormessage="请输入名字" 
+  controltovalidate="Post.ascx_PostComment_tbName">请输入名字</SPAN> 
+  <LI>主&nbsp;&nbsp;&nbsp;页：<INPUT id=Post.ascx_PostComment_tbUrl disabled 
+  maxLength=256 size=40 name=Post.ascx:PostComment:tbUrl> 
+  <LI>
+  <DIV id=Post.ascx_PostComment_AntiBotImageRegion>校验码： <INPUT 
+  id=Post.ascx_PostComment_tbAntiBotImage style="WIDTH: 75px" 
+  name=Post.ascx:PostComment:tbAntiBotImage> <SPAN 
+  id=Post.ascx_PostComment_valAntiBotImage style="DISPLAY: none; COLOR: red" 
+  evaluationfunction="CustomValidatorEvaluateIsValid" 
+  display="Dynamic">检验码无效!</SPAN> <SPAN 
+  id=Anthem_Post.ascx_PostComment_imgAntiBotImage__><IMG 
+  id=Post.ascx_PostComment_imgAntiBotImage alt="" 
+  src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/AntiBotImage.jpg" align=absMiddle 
+  border=0></SPAN> <SPAN 
+  id=Anthem_Post.ascx_PostComment_lbCreateAntiBotImage__><A 
+  id=Post.ascx_PostComment_lbCreateAntiBotImage 
+  onclick="javascript:Anthem_FireCallBackEvent(this,event,'Post.ascx:PostComment:lbCreateAntiBotImage','',false,'','','',true,null,null,null,true,true);return false;" 
+  href="javascript:__doPostBack('Post.ascx$PostComment$lbCreateAntiBotImage','')">看不清,换一张</A></SPAN> 
+  </DIV></LI></UL><SPAN id=Post.ascx_PostComment_RequiredFieldValidator3 
+style="VISIBILITY: hidden; COLOR: red" initialvalue="" 
+evaluationfunction="RequiredFieldValidatorEvaluateIsValid" errormessage="请输入评论" 
+controltovalidate="Post.ascx_PostComment_tbComment">请输入评论</SPAN><BR><TEXTAREA id=Post.ascx_PostComment_tbComment disabled name=Post.ascx:PostComment:tbComment rows=10 cols=50></TEXTAREA><BR><SPAN 
+id=Anthem_Post.ascx_PostComment_btnSubmit__></SPAN><BR><SPAN 
+id=Post.ascx_PostComment_Message 
+style="COLOR: red">当前用户设置只有注册用户才能发表评论。如果你没有登录，请点击<A 
+href="http://passport.csdn.net/member/UserLogin.aspx?from=http://blog.csdn.net/nshk/archive/2008/03/21/2202088.aspx">登录</A></SPAN> 
+</FIELDSET> </DIV></DIV></DIV>
+<SCRIPT type=text/javascript>
+    LoadFeedbackCount();//加载评论
+    document.write("<img src='http://counter.csdn.net/pv.aspx?id=24' border=0 width=0 height=0>");// 计数器
+    </SCRIPT>
+
+<SCRIPT src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/HighLighter.js" 
+type=text/javascript></SCRIPT>
+</DIV></DIV></DIV>
+<DIV id=pubfooter>
+<DL>
+  <DT>
+  <DD>Csdn Blog version 3.1a 
+  <DD>Copyright © </DD></DL></DIV></DIV>
+<SCRIPT type=text/javascript>
+<!--
+var Page_Validators =  new Array(document.getElementById("Post.ascx_PostComment_RequiredFieldValidator2"), document.getElementById("Post.ascx_PostComment_valAntiBotImage"), document.getElementById("Post.ascx_PostComment_RequiredFieldValidator3"));
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+</FORM>
+<SCRIPT src="@Oracle聚合函数-分析函数 - 大头 - CSDNBlog.files/counter.js" 
+type=text/javascript></SCRIPT>
+</DIV></BODY></HTML>

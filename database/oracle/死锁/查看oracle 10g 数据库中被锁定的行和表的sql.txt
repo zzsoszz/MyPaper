@@ -1,0 +1,37 @@
+查看oracle 10g 数据库中被锁定的行和表的sql[转]2007-09-26 12:55我们在操作数据库的时候，有时候会由于操作不当引起数据库表被锁定，这么我们经常不知所措，不知怎么给这些表解锁，在pl/sql Developer工具的的菜单“tools”里面的“sessions”可以查询现在存在的会话，但是我们很难找到那个会话被锁定了，想找到所以被锁的会话就更难了，下面这叫查询语句可以查询出所以被锁的会话。如下：
+
+SELECT    sn.username, m.SID,sn.SERIAL#, m.TYPE,
+          DECODE (m.lmode,
+                  0, 'None',
+                  1, 'Null',
+                  2, 'Row Share',
+                  3, 'Row Excl.',
+                  4, 'Share',
+                  5, 'S/Row Excl.',
+                  6, 'Exclusive',
+                  lmode, LTRIM (TO_CHAR (lmode, '990'))
+                 ) lmode,
+          DECODE (m.request,
+                  0, 'None',
+                  1, 'Null',
+                  2, 'Row Share',
+                  3, 'Row Excl.',
+                  4, 'Share',
+                  5, 'S/Row Excl.',
+                  6, 'Exclusive',
+                  request, LTRIM (TO_CHAR (m.request, '990'))
+                 ) request,
+          m.id1, m.id2
+     FROM v$session sn, v$lock m
+    WHERE (sn.SID = m.SID AND m.request != 0)         
+       OR (     sn.SID = m.SID                        
+           AND m.request = 0
+           AND lmode != 4
+           AND (id1, id2) IN (
+                         SELECT s.id1, s.id2
+                           FROM v$lock s
+                          WHERE request != 0 AND s.id1 = m.id1
+                                AND s.id2 = m.id2)
+          )ORDER BY id1, id2, m.request;
+通过以上查询知道了sid和 SERIAL#就可以开杀了
+    alter system kill session 'sid,SERIAL#'; 

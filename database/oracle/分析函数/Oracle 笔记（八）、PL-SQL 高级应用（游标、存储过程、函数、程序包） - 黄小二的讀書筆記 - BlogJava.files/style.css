@@ -1,0 +1,243 @@
+A:link {
+	COLOR: #3468a4
+}
+A:active {
+	COLOR: #3468a4
+}
+A:visited {
+	COLOR: #3468a4
+}
+A:hover {
+	COLOR: gray
+}
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 13px; BACKGROUND: url(images/bg.gif) #fff fixed left top; PADDING-BOTTOM: 0px; MARGIN: 0px; WORD-BREAK: break-all; LINE-HEIGHT: 160%; PADDING-TOP: 0px; FONT-FAMILY: verdana,Arial,helvetica,sans-seriff
+}
+TD {
+	FONT-SIZE: 12px; WORD-BREAK: break-all; LINE-HEIGHT: 150%; FONT-FAMILY: Verdana,Helvetica,Arial
+}
+.header {
+	PADDING-LEFT: 30px; BACKGROUND: url(images/banner.jpg) #fff fixed center top; COLOR: #ffffff; PADDING-TOP: 30px; BORDER-BOTTOM: #000000 0px solid; HEIGHT: 120px
+}
+A.headermaintitle:visited {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: #ffffff; TEXT-DECORATION: none
+}
+A.headermaintitle:active {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: #ffffff; TEXT-DECORATION: none
+}
+A.headermaintitle:link {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: #ffffff; TEXT-DECORATION: none
+}
+A.headermaintitle:hover {
+	COLOR: gray
+}
+#leftcontent {
+	BORDER-RIGHT: #dddddd 1px solid; BORDER-TOP: #000000 0px solid; FONT-SIZE: 12px; LEFT: 10px; BORDER-LEFT: #000000 0px solid; WIDTH: 200px; BORDER-BOTTOM: #000000 0px solid; FONT-FAMILY: Arial; POSITION: absolute; TOP: 160px
+}
+#leftcontentcontainer {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; BACKGROUND-IMAGE: url(images/bg_leftcontent.jpg); PADDING-BOTTOM: 10px; PADDING-TOP: 10px; BACKGROUND-REPEAT: no-repeat
+}
+LI {
+	FONT-SIZE: 12px
+}
+#centercontent {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 240px; PADDING-TOP: 20px
+}
+#mytopmenu {
+	BORDER-RIGHT: #5e5e5e 0px solid; PADDING-RIGHT: 10px; BORDER-TOP: #5e5e5e 0px solid; MARGIN-TOP: 5px; PADDING-LEFT: 10px; FONT-SIZE: 12px; BACKGROUND-IMAGE: url(images/bg_menu.jpg); PADDING-BOTTOM: 0px; MARGIN-LEFT: 0px; BORDER-LEFT: #5e5e5e 0px solid; MARGIN-RIGHT: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: #5e5e5e 0px solid; TEXT-ALIGN: right
+}
+#mystats {
+	MARGIN-TOP: 24px
+}
+A.menu:link {
+	COLOR: #3468a4
+}
+A.menu:visited {
+	COLOR: #3468a4
+}
+A.menu:active {
+	COLOR: #3468a4
+}
+A.menu:hover {
+	COLOR: gray
+}
+#rightcontent {
+	RIGHT: 10px; BACKGROUND: #ffffff; WIDTH: 200px; POSITION: absolute; TOP: 70px
+}
+#mylinks {
+	PADDING-RIGHT: 12px; PADDING-LEFT: 12px; FONT-SIZE: 12px; LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 5px; POSITION: absolute
+}
+.footer {
+	PADDING-RIGHT: 12px; MARGIN-TOP: 0px; PADDING-LEFT: 10px; BACKGROUND-IMAGE: url(images/bg_footer.gif); PADDING-BOTTOM: 12px; MARGIN-LEFT: 0px; COLOR: #ffffff; LINE-HEIGHT: 40px; MARGIN-RIGHT: 10px; PADDING-TOP: 12px; BACKGROUND-REPEAT: repeat; TEXT-ALIGN: center
+}
+A.footerlink:link {
+	COLOR: white
+}
+A.footerlink:visited {
+	COLOR: white
+}
+A.footerlink:active {
+	COLOR: white
+}
+A.footerlink:hover {
+	COLOR: #dddddd
+}
+.day {
+	PADDING-RIGHT: 20px; BACKGROUND-POSITION: right top; PADDING-LEFT: 20px; BACKGROUND-IMAGE: url(images/day_bg.gif); MARGIN-BOTTOM: 20px; PADDING-BOTTOM: 20px; MARGIN-LEFT: 2px; COLOR: #4b4b4b; PADDING-TOP: 20px; BORDER-BOTTOM: #dddddd 1px solid; BACKGROUND-REPEAT: no-repeat
+}
+.dayTitle {
+	PADDING-LEFT: 25px; BACKGROUND-POSITION-X: left; FONT-WEIGHT: bold; FONT-SIZE: 13px; BACKGROUND-IMAGE: url(images/day.gif); MARGIN-BOTTOM: 20px; TEXT-TRANSFORM: uppercase; BACKGROUND-REPEAT: no-repeat; HEIGHT: 20px
+}
+.postSeparator {
+	BORDER-TOP: #000000 0px dotted; MARGIN-TOP: 20px; BACKGROUND: url(images/line.gif) no-repeat center top; MARGIN-BOTTOM: 20px; HEIGHT: 15px
+}
+.news {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; FONT-FAMILY: Verdana
+}
+.newsItem {
+	MARGIN-TOP: 2px; MARGIN-BOTTOM: 20px; TEXT-ALIGN: center
+}
+.blogstats {
+	FONT-SIZE: 11px; PADDING-TOP: 5px
+}
+.entrylist {
+	BORDER-RIGHT: #000000 1px dotted; PADDING-RIGHT: 20px; BORDER-TOP: #000000 1px dotted; PADDING-LEFT: 20px; PADDING-BOTTOM: 8px; BORDER-LEFT: #000000 1px dotted; COLOR: #7b7d62; PADDING-TOP: 20px; BORDER-BOTTOM: #000000 1px dotted; BACKGROUND-COLOR: white
+}
+.listtitle {
+	PADDING-LEFT: 30px; FONT-WEIGHT: bold; FONT-SIZE: 14px; BACKGROUND: url(images/title.gif) fixed no-repeat left top; MARGIN-BOTTOM: 10px; COLOR: #666666; PADDING-TOP: 12px; FONT-FAMILY: verdana; HEIGHT: 40px
+}
+.entrylistTitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: black; FONT-FAMILY: verdana
+}
+.entrylistDescription {
+	MARGIN-BOTTOM: 20px
+}
+.entrylistItemTitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 13px; TEXT-DECORATION: none
+}
+.entrylistItemPostDesc {
+	FONT-SIZE: 12px
+}
+.gallery {
+	BORDER-RIGHT: #000000 1px dotted; PADDING-RIGHT: 20px; BORDER-TOP: #000000 1px dotted; PADDING-LEFT: 20px; PADDING-BOTTOM: 20px; BORDER-LEFT: #000000 1px dotted; COLOR: #7b7d62; PADDING-TOP: 20px; BORDER-BOTTOM: #000000 1px dotted; BACKGROUND-COLOR: white
+}
+.galleryTitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: black; FONT-FAMILY: verdana
+}
+.galleryDescription {
+	MARGIN-BOTTOM: 20px
+}
+.galleryThumbnail {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 0px; PADDING-BOTTOM: 20px; PADDING-TOP: 20px
+}
+.post {
+	BORDER-RIGHT: #dddddd 1px solid; PADDING-RIGHT: 20px; BACKGROUND-POSITION: right top; BORDER-TOP: #dddddd 1px solid; PADDING-LEFT: 20px; FONT-SIZE: 13px; BACKGROUND-IMAGE: url(images/day_bg.gif); PADDING-BOTTOM: 20px; BORDER-LEFT: #dddddd 1px solid; COLOR: #4b4b4b; PADDING-TOP: 20px; BORDER-BOTTOM: #dddddd 1px solid; BACKGROUND-REPEAT: no-repeat
+}
+.postTitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; MARGIN-BOTTOM: 10px
+}
+.postTitle2 {
+	TEXT-DECORATION: none
+}
+.postDesc {
+	MARGIN-TOP: 10px; COLOR: #303030; TEXT-ALIGN: right
+}
+.contact {
+	BORDER-RIGHT: #000000 1px dotted; PADDING-RIGHT: 20px; BORDER-TOP: #000000 1px dotted; PADDING-LEFT: 22px; FONT-WEIGHT: bold; FONT-SIZE: 11px; PADDING-BOTTOM: 20px; BORDER-LEFT: #000000 1px dotted; PADDING-TOP: 20px; BORDER-BOTTOM: #000000 1px dotted; FONT-FAMILY: Verdana; BACKGROUND-COLOR: white
+}
+.comments {
+	BORDER-RIGHT: #dddddd 1px solid; PADDING-RIGHT: 20px; BORDER-TOP: 0px; PADDING-LEFT: 22px; FONT-WEIGHT: bold; FONT-SIZE: 11px; PADDING-BOTTOM: 20px; BORDER-LEFT: #dddddd 1px solid; PADDING-TOP: 0px; BORDER-BOTTOM: #dddddd 1px solid; FONT-FAMILY: Verdana
+}
+.commentsTable {
+	MARGIN-TOP: 15px; FONT-SIZE: 11px; FONT-FAMILY: Verdana
+}
+.feedback {
+	BORDER-RIGHT: #dddddd 1px solid; PADDING-RIGHT: 20px; BORDER-TOP: 0px; MARGIN-TOP: 20px; PADDING-LEFT: 20px; MARGIN-BOTTOM: 0px; PADDING-BOTTOM: 30px; BORDER-LEFT: #dddddd 1px solid; PADDING-TOP: 20px; BORDER-BOTTOM: #dddddd 1px solid
+}
+.feedbackTitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; FONT-FAMILY: Verdana
+}
+.feedbackItem {
+	MARGIN-TOP: 20px; MARGIN-BOTTOM: 0px; LINE-HEIGHT: 200%
+}
+.feedbackNoItems {
+	MARGIN-TOP: 20px; MARGIN-BOTTOM: 0px; LINE-HEIGHT: 200%
+}
+.feedbackList {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; MARGIN-LEFT: 0px; MARGIN-RIGHT: 0px; LIST-STYLE-TYPE: none
+}
+.feedbacktitle {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; BORDER-BOTTOM: #dddddd 1px solid
+}
+.feedbackListTitle {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 7px; FONT-SIZE: 9px; PADDING-BOTTOM: 5px; COLOR: #000000; PADDING-TOP: 5px
+}
+.feedbackListSubtitle {
+	BORDER-RIGHT: #dddddd 1px solid; PADDING-RIGHT: 7px; BORDER-TOP: #dddddd 1px solid; PADDING-LEFT: 5px; FONT-SIZE: 9px; MARGIN-BOTTOM: 8px; PADDING-BOTTOM: 5px; BORDER-LEFT: #dddddd 1px solid; COLOR: #000000; PADDING-TOP: 5px; BORDER-BOTTOM: #dddddd 1px solid
+}
+.catListTitle {
+	PADDING-LEFT: 30px; FONT-WEIGHT: bold; FONT-SIZE: 14px; BACKGROUND: url(images/title.gif) fixed no-repeat left top; MARGIN-BOTTOM: 10px; COLOR: #666666; PADDING-TOP: 12px; FONT-FAMILY: verdana; HEIGHT: 40px
+}
+H3 {
+	PADDING-LEFT: 30px; FONT-WEIGHT: bold; FONT-SIZE: 14px; BACKGROUND: url(images/title.gif) fixed no-repeat left top; MARGIN-BOTTOM: 10px; COLOR: #666666; PADDING-TOP: 12px; FONT-FAMILY: verdana; HEIGHT: 40px
+}
+.catList {
+	BORDER-TOP: 0px; PADDING-LEFT: 10px; MARGIN: 0px 0px 20px; LIST-STYLE-TYPE: none
+}
+catListItem {
+	MARGIN-LEFT: 5px; TEXT-ALIGN: left
+}
+UL {
+	PADDING-LEFT: 5px; FONT-SIZE: 11px; MARGIN: 0px 0px 10px 5px; LIST-STYLE-TYPE: none
+}
+.Cal {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN-TOP: 10px; FONT-SIZE: 12px; MARGIN-BOTTOM: 10px; BORDER-LEFT: 0px; WIDTH: 95%; BORDER-BOTTOM: 0px; FONT-FAMILY: Arial; HEIGHT: 180px
+}
+.CalTitle {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; MARGIN-LEFT: 0px; COLOR: #747474; PADDING-TOP: 0px; FONT-FAMILY: verdana; HEIGHT: 100%; BACKGROUND-COLOR: transparent
+}
+.CalOtherMonthDay {
+	COLOR: #808080
+}
+.CalSelector {
+	BACKGROUND-COLOR: #ffffff
+}
+A.CalNextPrev {
+	COLOR: #fff
+}
+A.CalNextPrev:link {
+	COLOR: #fff
+}
+A.CalNextPrev:visited {
+	COLOR: #fff
+}
+A.CalNextPrev:active {
+	COLOR: #fff
+}
+.CalNextPrev {
+	COLOR: #fff
+}
+.CalDayHeader {
+	FONT-WEIGHT: bold; COLOR: #747474; BACKGROUND-COLOR: transparent
+}
+.CalSelectedDay {
+	BACKGROUND-COLOR: #cccccc
+}
+.CalWeekendDay {
+	BACKGROUND-COLOR: transparent
+}
+.CalTodayDay {
+	COLOR: white; BACKGROUND-COLOR: #555555
+}
+H1 {
+	FONT-SIZE: 14px; MARGIN: 10px 0px 5px; COLOR: #666666; TEXT-ALIGN: left
+}
+.feedbackListTitle {
+	FONT-SIZE: 12px; COLOR: black
+}
+.feedbackListSubtitle {
+	FONT-SIZE: 12px; COLOR: black
+}
+HTML  {
+	moz-box-sizing: border-box; box-sizing: border-box
+}

@@ -1,0 +1,173 @@
+/etc/rc.d/rc.local
+/etc/init.d/oracle  start
+
+
+1、编辑rc.local文件
+#vi /etc/rc.d/rc.local
+2、加入如下启动命令
+/usr/sbin/apachectl start
+/etc/rc.d/init.d/mysqld start
+/etc/rc.d/init.d/smb start
+/usr/local/subversion/bin/svnserve -d
+/etc/init.d/vncserver start
+
+
+
+目标：在CentOS 6.4下让Oracle开机启动
+
+方案：首先添加 启动，关闭，重启Oracle的服务和实例的服务；然后把这个服务添加到系统服务的运行级别。
+
+设置CentOS下开机自动启动Oracle  http://www.linuxidc.com/Linux/2011-07/38827p2.htm
+
+步骤：
+
+1，新增service
+
+执行命令：
+
+# vi /etc/rc.d/init.d/oracle
+
+Oracle文件的内容为：
+
+#! /bin/bash
+# chkconfig: 234 61 61
+# description: Oracle 11g AutoRun Service
+# /etc/rc.d/init.d/oracle
+ 
+case "$1" in
+    start)
+        # starts oracle listener and instance
+        echo "Starting Oracle Database:"
+        su - oracle -lc "lsnrctl start"
+        su - oracle -lc dbstartup
+        ;;
+    stop)
+        # shutdown oracle listner and instance
+        echo "Shuting down Oracle Database:"
+        su - oracle -lc "lsnrctl stop"
+        su - oracle -lc dbshutdown
+        ;;
+    reload|restart)
+        $0 stop
+        $0 start
+        ;;
+    *)
+    echo "Usage: {start|stop|reload|restart}"
+    exit 1
+esac
+exit 0
+
+注意：脚本中添加至少两行注释行（第3步中），第一行告诉chkconfig该服务的运行级别；第二行添加关于服务的简要说明。
+
+以上脚本中涉及到的两个脚本：dbstart和dbshut
+
+2，编辑dbstartup和dbshutdown
+执行命令
+$ vi $ORACLE_HOME/bin/dbstartup
+内容为：
+#dbstartup
+#/opt/oracle/102/bin
+sqlplus / as sysdba <<EOF
+startup
+exit
+EOF
+vi$ORACLE_HOME/bin/dbshutdown
+内容为：
+#dbshutdown
+#/home/oracle/102/bin
+sqlplus / as sysdba <<EOF
+shutdown immediate
+exit
+EOF
+
+3，检查启动脚本是否正确
+
+# cd /etc/rc.d/init.d
+# ./oracle start
+# ./oracle stop
+ 
+4，把建立好的oracle服务添加到系统级别
+执行如下命令：
+# chmod 750 /etc/rc.d/init.d/oracle
+# chkconfig --level 234 oracle on
+# chkconfig --add oracle
+
+更多CentOS相关信息见CentOS 专题页面 http://www.linuxidc.com/topicnews.aspx?tid=14
+
+更多Oracle相关信息见Oracle 专题页面 http://www.linuxidc.com/topicnews.aspx?tid=12
+
+本文永久更新链接地址：http://www.linuxidc.com/Linux/2014-10/108469.htm
+
+
+
+
+
+------------------------------------------
+
+ CentOS6.0_X86_64 oracle 11g R2 开机自动启动（linux） 2011-12-04 04:58:24
+分类： Oracle
+CentOS6.0_X86_64 racle 11g R2 开机自动启动（linux）
+
+oracle 在 linux 下的开机自动启动脚本，设置如下:  
+ 
+ 1.user root 下面修改：
+[root@ora11gr2 ~]# vi /etc/oratab  
+mytest:/apps/oracle/product/11.2.0.1/db_1:Y
+ 
+将N该为Y
+ 
+2.user oracle 下面修改：
+[root@ora11gr2 ~]# su - oracle
+[oracle@ora11gr2 ~]$cd $ORACLE_HOME/bin
+[oracle@ora11gr2 bin]$ vi dbstart
+找到 ORACLE_HOME_LISTNER=$1  这行， 修改成:
+ORACLE_HOME_LISTNER=/apps/oracle/product/11.2.0.1/ 
+或者直接修改成：
+ORACLE_HOME_LISTNER=$ORACLE_HOME
+ 
+同样道理修改 dbshut
+[oracle@ora11gr2 bin]$ vi dbshut
+ 
+测试运行 dbshut, dbstart 看能否启动oracle 服务及listener服务
+[oracle@ora11gr2 bin]$ ps -efw | grep ora_
+[oracle@ora11gr2 bin]$ lsnrctl status
+[oracle@ora11gr2 bin]$ ps -efw | grep LISTEN | grep -v grep
+  
+在切换回 user root:
+[root@ora11gr2 ~]# cd /etc/rc.d/init.d/
+ 
+[root@ora11gr2 init.d]# vi oracle11g
+代码如下:  
+#!/bin/bash
+# chkconfig: 345 99 10
+# description: Startup Script for Oracle Databases
+# /etc/init.d/oracle11g
+export ORACLE_SID=mytest
+# export ORACLE_HOME_LISTNER=/apps/oracle/product/11.2.0.1/db_1/bin/
+export ORACLE_BASE=/apps/oracle
+export ORACLE_HOME=/apps/oracle/product/11.2.0.1/db_1
+export PATH=$PATH:$ORACLE_HOME/bin
+case "$1" in
+start)
+su oracle -c $ORACLE_HOME/bin/dbstart
+touch /var/lock/oracle
+echo "OK"
+;;
+stop)
+echo -n "Shutdown Oracle: "
+su oracle -c $ORACLE_HOME/bin/dbshut
+rm -f /var/lock/oracle
+echo "OK"
+;;
+*)
+echo "Usage: 'basename $0' start|stop"
+exit 1
+esac
+exit 0
+ 
+保存
+
+[root@ora11gr2 ~]# chkconfig --add oracle11g
+[root@ora11gr2 ~]# chkconfig oracle11g on
+
+这样,当系统重启开机时,oracle11g服务就会启动.

@@ -1,0 +1,428 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0062)http://blog.csdn.net/hrb133yqq/archive/2007/07/09/1683848.aspx -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content=hrb133yqq name=author>
+<META content=Csdn name=Copyright>
+<META content="在SqlServer中 统计用户表中数据的行数" name=description>
+<META content=hrb133yqq,sqlserver,统计表中数据行数 name=keywords><LINK 
+href="http://profile.csdn.net/hrb133yqq/picture/1.ico" rel="Shortcut Icon"><LINK 
+media=all 
+href="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/Cogitation_1.css" 
+type=text/css rel=stylesheet><LINK media=all 
+href="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/customcss.css" 
+type=text/css rel=stylesheet><LINK title=RSS 
+href="http://blog.csdn.net/hrb133yqq/rss.aspx" type=application/rss+xml 
+rel=alternate>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY id=defaultuser>
+<DIV id=csdnblog_allwrap>
+<FORM language=javascript id=Form1 name=Form1 
+onsubmit="javascript:return WebForm_OnSubmit();" action=1683848.aspx 
+method=post><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE>
+<SCRIPT type=text/javascript>
+<!--
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Anthem_FormID = "Form1";
+//]]>
+</SCRIPT>
+
+<SCRIPT 
+src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="C:\Documents and Settings\Administrator\My Documents\在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files\WebResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+// -->
+</SCRIPT>
+ 
+<DIV id=csdnblog_midwrap>
+<DIV id=csdnblog_header>
+<H1><A id=Header1_HeaderTitle 
+href="http://blog.csdn.net/hrb133yqq/">hrb133yqq的专栏</A></H1>
+<H2></H2>
+<UL id=personalnav>
+  <LI><A href="http://passport.csdn.net/UserLogin.aspx">登录</A></LI>
+  <LI><A href="http://passport.csdn.net/CSDNUserRegister.aspx">注册</A></LI></UL>
+<UL id=blogsearchsty>
+  <LI><INPUT class=bolgsearch id=inputSearch 
+onkeydown="return keyb(event)"></LI>
+  <LI class=selectsty><SELECT id=Search_ddlSearchScope 
+  name=Search:ddlSearchScope><OPTION value=all selected>全站</OPTION><OPTION 
+    value=hrb133yqq>当前博客</OPTION></SELECT></LI>
+  <LI><INPUT class=bolggobtn onclick=checkNull() type=button value=搜索></LI></UL>
+<UL id=menu>
+  <LI><A href="http://hi.csdn.net/hrb133yqq">空间</A></LI>
+  <LI><A class=on href="http://blog.csdn.net/hrb133yqq">博客</A></LI>
+  <LI><A 
+  href="http://hi.csdn.net/hrb133yqq/profile/contactlist/1.html">好友</A></LI>
+  <LI><A href="http://blog.csdn.net/hrb133yqq/Gallery.aspx">相册</A></LI>
+  <LI><A href="http://bbs.csdn.net/" target=_blank>论坛</A></LI>
+  <LI><A class=last 
+  href="http://hi.csdn.net/hrb133yqq/profile/notebook/1.html">留言</A></LI></UL></DIV>
+<DIV id=csdnblog_sidebar>
+<DIV class=gutter>
+<DIV class=aboutauthor>
+<DL>
+  <DT>用户操作
+  <DD class=middle><A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://webim.csdn.net/Messages/hrb133yqq.ashx" 
+  target=_blank>[即时聊天]</A> <A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://hi.csdn.net/Admin/WriteMessage.aspx?Receiver=hrb133yqq" 
+  target=_blank>[发私信]</A> <A 
+  href="http://passport.csdn.net/UserLogin.aspx?from=http://webim.csdn.net/AddFriends/hrb133yqq.ashx" 
+  target=_blank>[加为好友]</A>
+  <DT>hrb133yqq
+  <DD class=middle><IMG 
+  src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/1_hrb133yqq.jpg"> 
+
+  <DT>hrb133yqq的公告
+  <DD>Beijing<BR>
+  <OBJECT 
+  codeBase=http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0 
+  height=150 width=150 align=middle 
+  classid=clsid:D27CDB6E-AE6D-11cf-96B8-444553540000><PARAM NAME="movie" VALUE="http://www.clocklink.com/Clocks/0001-Blue.swf?TimeZone=EST"><PARAM NAME="quality" VALUE="high"><PARAM NAME="WMODE" VALUE="transparent">
+                   <embed src="http://bbs.smgbb.cn/Skins/Default/clock.swf" 
+  width="150" height="150" align="middle" quality="high" 
+  pluginspage="http://www.macromedia.com/go/getflashplayer" 
+  type="application/x-shockwave-flash" scale="noborder" 
+  bgcolor="#E4E8EF"></embed>  </OBJECT><BR>Radmond<BR>
+  <OBJECT 
+  codeBase=http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0 
+  height=150 width=150 align=middle 
+  classid=clsid:D27CDB6E-AE6D-11cf-96B8-444553540000><PARAM NAME="movie" VALUE="http://www.clocklink.com/Clocks/0001-Blue.swf?TimeZone=PST"><PARAM NAME="quality" VALUE="high"><PARAM NAME="WMODE" VALUE="transparent">
+                   <embed src="http://bbs.smgbb.cn/Skins/Default/clock.swf" 
+  width="150" height="150" align="middle" quality="high" 
+  pluginspage="http://www.macromedia.com/go/getflashplayer" 
+  type="application/x-shockwave-flash" scale="noborder" 
+  bgcolor="#E4E8EF"></embed>  </OBJECT>
+  <OBJECT>
+  <OBJECT id=nstv 
+  codeBase=http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701standby=Loading 
+  type=application/x-oleobject height=170 width=180 
+  classid=CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6 components... Player Media? 
+  Windows Microsoft?><PARAM NAME="URL" VALUE="http://www.samwo.com/oabbs/download/music/Cry-on-my-Should.mp3"><PARAM NAME="PlayCount" VALUE="5"><PARAM NAME="UIMode" VALUE="full"><PARAM NAME="AutoStart" VALUE="true"><PARAM NAME="Enabled" VALUE="true"><PARAM NAME="enableContextMenu" VALUE="false"><PARAM NAME="WindowlessVideo" VALUE="true"></OBJECT></OBJECT>
+  <DT>最近评论
+  <DD>hrb133yqq：<A 
+  title="点击查看《回复:解决问题：Concurrency violation: the UpdateCommand affected 0 of the expected 1 records（UpdateCommand 影响了预期1 条记录中的0 条 ）》" 
+  href="http://blog.csdn.net/hrb133yqq/archive/2008/03/24/2212158.aspx#954428">谢谢，如果你能给出解决方法更加感谢。</A>
+  <DD>fangmanhua8888：<A 
+  title="点击查看《回复:解决问题：Concurrency violation: the UpdateCommand affected 0 of the expected 1 records（UpdateCommand 影响了预期1 条记录中的0 条 ）》" 
+  href="http://blog.csdn.net/hrb133yqq/archive/2008/03/24/2212158.aspx#943043">這種方法解決不了問題的，朋友</A> 
+
+  <DT>文章分类
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL></UL></DIV>
+  <DT>收藏
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL></UL></DIV>
+  <DT>相册
+  <DD><A href="http://blog.csdn.net/hrb133yqq/Gallery/350457.aspx">picture</A>
+  <DT>技术专题
+  <DD><A href="http://blog.csdn.net/mengyao/archive/2007/08/06/1727857.aspx" 
+  target=_self>asp.net页面间数据传递方法</A>
+  <DD><A href="http://www.onlea.com/blog/article.asp?id=34" 
+  target=_self>asp性能优化</A>
+  <DD><A href="http://blog.csdn.net/msjqd/archive/2007/01/08/1477236.aspx" 
+  target=_self>Castle</A>
+  <DD><A href="http://www.25hoursaday.com/" target=_self>Dare Obasanjo</A>
+  <DD><A href="http://blog.csdn.net/uframer" target=_blank>D语言</A>
+  <DD><A href="http://blog.csdn.net/21aspnet/archive/2007/03/25/1540301.aspx" 
+  target=_self>GridView</A>
+  <DD><A href="http://dev.csdn.net/develop/article/20/20098.shtm" 
+  target=_self>makefile</A>
+  <DD><A 
+  href="http://wcf.netfx3.com/files/folders/administration_tools/entry5725.aspx" 
+  target=_self>netfx3</A>
+  <DD><A href="http://wiki.perlchina.org/index.php/Perl学习指南" 
+  target=_self>perl</A>
+  <DD><A 
+  href="http://ppm.activestate.com/PPMPackages/zips/10xx-builds-only/Windows/" 
+  target=_self>perl modules on windows</A>
+  <DD><A href="http://book.xker.com/others/web/web/cgi/index1/12.htm" 
+  target=_self>Perl中文book</A>
+  <DD><A href="http://www.asp.net/learn/whitepapers/request-validation/" 
+  target=_self>Preventing Script Attacks</A>
+  <DD><A href="http://www.pgsqldb.org/mwiki/index.php/ProgrammingPerl" 
+  target=_self>ProgrammingPerl</A>
+  <DD><A 
+  href="http://www.softdevarticles.com/modules/weblinks/viewcat.php?cid=46" 
+  target=_self>Scrum</A>
+  <DD><A 
+  href="http://blogs.technet.com/swi/archive/2008/05/29/sql-injection-attack.aspx" 
+  target=_self>SQL Injection Attack</A>
+  <DD><A href="http://blog.csdn.net/ILOVEMSDN/archive/2007/11/11/1879286.aspx" 
+  target=_self>vs2005与vs2003比较</A>
+  <DD><A href="http://www.openwbem.org/" target=_self>Web Base Enterprise 
+  Management</A>
+  <DD><A href="http://blog.csdn.net/lishidong/archive/2006/07/18/935852.aspx" 
+  target=_self>web im (ajax)</A>
+  <DD><A href="http://blog.csdn.net/daoquan/archive/2006/06/10/787039.aspx" 
+  target=_self>web im(comet)</A>
+  <DD><A href="http://www.adp-gmbh.ch/win/misc/writing_devicedriver.html" 
+  target=_self>writingdevicedriver</A>
+  <DD><A href="http://www.w3school.com.cn/xpath/xpath_intro.asp" 
+  target=_self>XPath</A>
+  <DD><A href="http://blog.csdn.net/atomic_age/archive/2006/05/10/721118.aspx" 
+  target=_self>算法</A>
+  <DD><A href="http://msdn2.microsoft.com/en-us/library/Bb250448.aspx" 
+  target=_self>网页内存泄露</A>
+  <DT>其他
+  <DD><A href="http://blog.james-carr.org/" target=_self>James Carr's 
+  blog(Design Pattern)</A>
+  <DD><A href="http://topic.csdn.net/t/20031007/20/2331105.html" 
+  target=_self>temp for always link to search</A>
+  <DT>存档
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A 
+    href="http://blog.csdn.net/hrb133yqq/archive/2008/08.aspx">2008年08月(3)</A>
+    <LI><A 
+    href="http://blog.csdn.net/hrb133yqq/archive/2008/07.aspx">2008年07月(3)</A>
+    <LI><A 
+    href="http://blog.csdn.net/hrb133yqq/archive/2008/05.aspx">2008年05月(2)</A>
+    <LI><A 
+    href="http://blog.csdn.net/hrb133yqq/archive/2008/04.aspx">2008年04月(1)</A>
+    <LI><A 
+    href="http://blog.csdn.net/hrb133yqq/archive/2008/03.aspx">2008年03月(1)</A>
+    <LI><A 
+    href="http://blog.csdn.net/hrb133yqq/archive/2008/02.aspx">2008年02月(4)</A>
+    <LI><A 
+    href="http://blog.csdn.net/hrb133yqq/archive/2007/12.aspx">2007年12月(4)</A>
+    <LI><A 
+    href="http://blog.csdn.net/hrb133yqq/archive/2007/11.aspx">2007年11月(4)</A>
+    <LI><A 
+    href="http://blog.csdn.net/hrb133yqq/archive/2007/09.aspx">2007年09月(2)</A>
+    <LI><A 
+    href="http://blog.csdn.net/hrb133yqq/archive/2007/07.aspx">2007年07月(3)</A>
+    <LI><A 
+    href="http://blog.csdn.net/hrb133yqq/archive/2007/06.aspx">2007年06月(3)</A>
+    <LI><A 
+    href="http://blog.csdn.net/hrb133yqq/archive/2007/05.aspx">2007年05月(2)</A>
+    <LI><A 
+    href="http://blog.csdn.net/hrb133yqq/archive/2006/12.aspx">2006年12月(3)</A>
+    <LI><A 
+    href="http://blog.csdn.net/hrb133yqq/archive/2006/11.aspx">2006年11月(1)</A></LI></UL></DIV><SPAN 
+  id=RecentVisitors></SPAN>
+  <DT>软件项目交易
+  <DD><IFRAME 
+  style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 180px; PADDING-TOP: 0px; HEIGHT: 32px" 
+  src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/CsdnBlogPage.htm" 
+  frameBorder=0 scrolling=no></IFRAME><SPAN id=SubscriptionList>
+  <DT>订阅我的博客
+  <DD><A href="http://blog.csdn.net/hrb133yqq/Rss.aspx"><IMG alt=XML聚合 
+  src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/xml.gif" 
+  border=0></A>&nbsp;&nbsp;<A href="http://feeds.feedsky.com/csdn.net/hrb133yqq" 
+  target=_blank><IMG alt=FeedSky 
+  src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/feedsky.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.xianguo.com/subscribe.php?url=http://blog.csdn.net/hrb133yqq/Rss.aspx" 
+  target=_blank><IMG alt=订阅到鲜果 
+  src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/rss_xianguo.jpg" 
+  border=0></A>
+  <DD><A 
+  href="http://fusion.google.com/add?feedurl=http://blog.csdn.net/hrb133yqq/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Google 
+  src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/rss_google.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.zhuaxia.com/add_channel.php?url=http://blog.csdn.net/hrb133yqq/Rss.aspx" 
+  target=_blank><IMG alt=订阅到抓虾 
+  src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/rss_zhuaxia.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.bloglines.com/sub/http://blog.csdn.net/hrb133yqq/Rss.aspx" 
+  target=_blank><IMG alt=订阅到BlogLines 
+  src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/rss_bloglines.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://add.my.yahoo.com/rss?url=http://blog.csdn.net/hrb133yqq/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Yahoo 
+  src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/rss_yahoo.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://rss.gougou.com/find_rss.jsp?url=http://blog.csdn.net/hrb133yqq/Rss.aspx" 
+  target=_blank><IMG alt=订阅到GouGou 
+  src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/rss_gougou.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.pageflakes.com/subscribe.aspx?url=http://blog.csdn.net/hrb133yqq/Rss.aspx" 
+  target=_blank><IMG alt=订阅到飞鸽 
+  src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/rss_pageflakes.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.rojo.com/add-subscription?resource=http://blog.csdn.net/hrb133yqq/Rss.aspx" 
+  target=_blank><IMG alt=订阅到Rojo 
+  src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/rss_rojo.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.newsgator.com/ngs/subscriber/subfext.aspx?url=http://blog.csdn.net/hrb133yqq/Rss.aspx" 
+  target=_blank><IMG alt=订阅到newsgator 
+  src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/rss_newsgator.gif" 
+  border=0></A>
+  <DD><A 
+  href="http://www.netvibes.com/subscribe.php?url=http://blog.csdn.net/hrb133yqq/Rss.aspx" 
+  target=_blank><IMG alt=订阅到netvibes 
+  src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/rss_netvibes.gif" 
+  border=0></A></SPAN> </DD></DL></DIV></DIV></DIV>
+<DIV id=csdnblog_content>
+<DIV class=gutter>
+<DIV class=default_contents>
+<DIV class=user_article>
+<SCRIPT 
+src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/LoadFeedbackCount.js" 
+type=text/javascript></SCRIPT>
+
+<H1><IMG height=16 alt=原创 
+src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/authorship.gif" 
+width=15 border=0>&nbsp;<A 
+href="http://blog.csdn.net/hrb133yqq/archive/2007/07/09/1683848.aspx">在SqlServer中 
+统计用户表中数据的行数</A><CITE class=fav_csdnstylebykimi><A class=fav_csdnstylebykimi 
+title=收藏到我的网摘中，并分享给我的朋友 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();">收藏</A></CITE></H1>
+<DIV class=blogstory><SPAN id=Post.ascx_ViewPost_PreviousAndNextEntriesUp>
+<H3><A 
+href="http://blog.csdn.net/hrb133yqq/archive/2007/09/18/1790293.aspx">新一篇:&nbsp;引发堆栈异常的一种情况：无界递归 
+(续)</A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/hrb133yqq/archive/2007/07/09/1683847.aspx">旧一篇:&nbsp;在SqlServer中将所有表的smalldatetime类型的字段改成datetime类型</A></H3></SPAN>
+<SCRIPT>function StorePage(){d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(keyit=window.open('http://www.365key.com/storeit.aspx?t='+escape(d.title)+'&u='+escape(d.location.href)+'&c='+escape(t),'keyit','scrollbars=no,width=475,height=575,left=75,top=20,status=no,resizable=yes'));keyit.focus();}</SCRIPT>
+
+<P><BR>declare @tableName nvarchar(50)<BR>declare @sql nvarchar(4000)<BR>declare 
+@count int<BR>set @count=0<BR>set @tableName=''<BR>set @sql = ''</P>
+<P>declare cur cursor for<BR>select name from sysobjects <BR>where 
+xtype='U'&nbsp;&nbsp;&nbsp;&nbsp;--用户表</P>
+<P>open cur</P>
+<P>fetch next from cur into @tableName</P>
+<P>while @@fetch_status=0<BR>begin<BR>&nbsp;&nbsp;&nbsp; set @sql = N'select 
+@count=count(1) from '+@tableName<BR>&nbsp;&nbsp;&nbsp; exec sp_executesql 
+@sql,N'@count int output',@count output<BR>--&nbsp;&nbsp;&nbsp; 
+if(@count&gt;0)<BR>--&nbsp;&nbsp;&nbsp; 
+begin<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print '表名称：'+@tableName+' 
+行数：'+cast(@count as varchar)<BR>--&nbsp;&nbsp;&nbsp; end<BR>&nbsp;&nbsp;&nbsp; 
+fetch next from cur into @tableName<BR>end</P>
+<P>close cur<BR>deallocate cur</P>
+<P class="right articalinfo">发表于 @ <A title=permalink 
+href="http://blog.csdn.net/hrb133yqq/archive/2007/07/09/1683848.aspx">2007年07月09日 
+18:38:00</A>|<A title=评论 
+href="http://blog.csdn.net/hrb133yqq/archive/2007/07/09/1683848.aspx#FeedBack">评论(<SPAN 
+id=FeedbackCount_1683848>loading...</SPAN>
+<SCRIPT type=text/javascript>AddFeedbackCountStack("1683848")</SCRIPT>
+)</A>|<A title=编辑 
+href="http://writeblog.csdn.net/PostEdit.aspx?entryId=1683848">编辑</A></P><SPAN 
+id=Post.ascx_ViewPost_PreviousAndNextEntriesDown>
+<H3><A 
+href="http://blog.csdn.net/hrb133yqq/archive/2007/09/18/1790293.aspx">新一篇:&nbsp;引发堆栈异常的一种情况：无界递归 
+(续)</A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/hrb133yqq/archive/2007/07/09/1683847.aspx">旧一篇:&nbsp;在SqlServer中将所有表的smalldatetime类型的字段改成datetime类型</A></H3></SPAN></DIV></DIV>
+<DIV class=commentslist><SPAN id=Anthem_Post.ascx_Comments_ltlComments__><SPAN 
+id=Post.ascx_Comments_ltlComments>
+<DIV id=commentslist>
+<H3>评论：没有评论。</H3></DIV></SPAN></SPAN></DIV>
+<DIV class=spacecommment>
+<DIV id=Anthem_Post.ascx_PostComment_CommentUpdatePanel__>
+<DIV id=Post.ascx_PostComment_CommentUpdatePanel>
+<FIELDSET><LEGEND>发表评论</LEGEND>
+<UL>
+  <LI>姓&nbsp;&nbsp;&nbsp;名：<INPUT id=Post.ascx_PostComment_tbName disabled 
+  maxLength=32 size=40 name=Post.ascx:PostComment:tbName><SPAN 
+  id=Post.ascx_PostComment_RequiredFieldValidator2 
+  style="VISIBILITY: hidden; COLOR: red" initialvalue="" 
+  evaluationfunction="RequiredFieldValidatorEvaluateIsValid" 
+  errormessage="请输入名字" 
+  controltovalidate="Post.ascx_PostComment_tbName">请输入名字</SPAN> 
+  <LI>主&nbsp;&nbsp;&nbsp;页：<INPUT id=Post.ascx_PostComment_tbUrl disabled 
+  maxLength=256 size=40 name=Post.ascx:PostComment:tbUrl> 
+  <LI>
+  <DIV id=Post.ascx_PostComment_AntiBotImageRegion>校验码： <INPUT 
+  id=Post.ascx_PostComment_tbAntiBotImage style="WIDTH: 75px" 
+  name=Post.ascx:PostComment:tbAntiBotImage> <SPAN 
+  id=Post.ascx_PostComment_valAntiBotImage style="DISPLAY: none; COLOR: red" 
+  evaluationfunction="CustomValidatorEvaluateIsValid" 
+  display="Dynamic">检验码无效!</SPAN> <SPAN 
+  id=Anthem_Post.ascx_PostComment_imgAntiBotImage__><IMG 
+  id=Post.ascx_PostComment_imgAntiBotImage alt="" 
+  src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/AntiBotImage.jpg" 
+  align=absMiddle border=0></SPAN> <SPAN 
+  id=Anthem_Post.ascx_PostComment_lbCreateAntiBotImage__><A 
+  id=Post.ascx_PostComment_lbCreateAntiBotImage 
+  onclick="javascript:Anthem_FireCallBackEvent(this,event,'Post.ascx:PostComment:lbCreateAntiBotImage','',false,'','','',true,null,null,null,true,true);return false;" 
+  href="javascript:__doPostBack('Post.ascx$PostComment$lbCreateAntiBotImage','')">看不清,换一张</A></SPAN> 
+  </DIV></LI></UL><SPAN id=Post.ascx_PostComment_RequiredFieldValidator3 
+style="VISIBILITY: hidden; COLOR: red" initialvalue="" 
+evaluationfunction="RequiredFieldValidatorEvaluateIsValid" errormessage="请输入评论" 
+controltovalidate="Post.ascx_PostComment_tbComment">请输入评论</SPAN><BR><TEXTAREA id=Post.ascx_PostComment_tbComment disabled name=Post.ascx:PostComment:tbComment rows=10 cols=50></TEXTAREA><BR><SPAN 
+id=Anthem_Post.ascx_PostComment_btnSubmit__></SPAN><BR><SPAN 
+id=Post.ascx_PostComment_Message 
+style="COLOR: red">当前用户设置只有注册用户才能发表评论。如果你没有登录，请点击<A 
+href="http://passport.csdn.net/member/UserLogin.aspx?from=http://blog.csdn.net/hrb133yqq/archive/2007/07/09/1683848.aspx">登录</A></SPAN> 
+</FIELDSET> </DIV></DIV></DIV>
+<SCRIPT type=text/javascript>
+    LoadFeedbackCount();//加载评论
+    document.write("<img src='http://counter.csdn.net/pv.aspx?id=24' border=0 width=0 height=0>");// 计数器
+    </SCRIPT>
+
+<SCRIPT 
+src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/HighLighter.js" 
+type=text/javascript></SCRIPT>
+</DIV></DIV></DIV>
+<DIV id=pubfooter>
+<DL>
+  <DT>
+  <DD>Csdn Blog version 3.1a 
+  <DD>Copyright © hrb133yqq </DD></DL></DIV></DIV>
+<SCRIPT type=text/javascript>
+<!--
+var Page_Validators =  new Array(document.getElementById("Post.ascx_PostComment_RequiredFieldValidator2"), document.getElementById("Post.ascx_PostComment_valAntiBotImage"), document.getElementById("Post.ascx_PostComment_RequiredFieldValidator3"));
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+</FORM>
+<SCRIPT src="在SqlServer中 统计用户表中数据的行数 - hrb133yqq的专栏 - CSDNBlog.files/counter.js" 
+type=text/javascript></SCRIPT>
+</DIV></BODY></HTML>

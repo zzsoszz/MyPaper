@@ -1,0 +1,102 @@
+select regexp_substr('adf,sadfas,fd','[^,]+',1,rownum)
+ from dual connect by rownum<= length(regexp_replace('adf,sadfas,fd','[^,]',null))+1
+ 
+select regexp_substr('2222,333,4444','[^,]+',1,1) from  dual;
+ 
+ 
+ 
+ 
+Script:oracle拆分逗号分隔字符串 实现split
+Script:oracle拆分逗号分隔字符串 实现split2010/12/30 ORACLE 8,233 views 评论关闭 如果一个字符串中有像逗号或其它符号分隔，你想把它折分成列，如’first field, second field , third field’,
+拆成
+
+first field
+second field
+third field
+
+第一种 用10G开始支持的正则表达式
+
+anbob@ANBOB>SELECT REGEXP_SUBSTR ('first field, second field , third field', '[^,]+', 1,rownum)
+  2  FROM DUAL
+  3  CONNECT BY ROWNUM <=
+  4  LENGTH ('first field, second field , third field') - LENGTH (REPLACE ('first field, second field , third field', ',', ''))+1;
+
+REGEXP_SUBSTR('FIRSTFIELD,SECONDFIELD,THIRDFIELD','[^,]+',1,ROWNUM)
+------------------------------------------------------------------------------
+first field
+second field
+third fieldTIP:
+REGEXP_SUBSTR 函数是把那个串以正则不是以,（逗号）开头的截取，第二个参数是取第几组，rownum伪列序号，connect 循环 ，循环次数为串总长度-去除分隔符后=几个分隔符 +1
+
+第二种用type,function
+
+第一，先创建一个Type
+
+CREATE OR REPLACE TYPE type_split IS TABLE OF VARCHAR2 (4000)第二，创建函数
+
+create or replace function split(p_list varchar2,p_sep varchar2 := ’,’)
+return type_split pipelined
+IS
+l_idx pls_integer;
+v_list varchar2(50) := p_list;
+begin
+ loop
+   l_idx := instr(v_list,p_sep);
+   if l_idx = 0 then
+     pipe row(substr(v_list,1,l_idx-1));
+     v_list := substr(v_list,l_idx+length(p_sep));
+   else
+     pipe row(v_list);
+    exit;
+   end if;
+  end loop;
+end split;第三，调试
+
+select * from table(split(‘aaa,bbb,ccc’,',’));
+
+拆分列字段
+
+anbob@ANBOB>select * from test11;
+
+                  ID NAME
+-------------------- ----------
+                   1 a,b,c
+                   2 e,d
+
+nbob@ANBOB>with temp0 as (select LEVEL lv from dual CONNECT BY LEVEL <= 100)  
+  2       select id,substr(t.vals,instr(t.vals, ',', 1, tv.lv) + 1,  
+  3                          instr(t.vals, ',', 1, tv.lv + 1) -(  
+  4                          instr(t.vals, ',', 1, tv.lv) + 1)  
+  5                   ) AS name  
+  6       from (select id,',' || name || ',' AS vals,  
+  7                  length(name || ',') - nvl(length(REPLACE(name, ',')), 0) AS cnt  
+  8             from test11) t join temp0 tv  
+  9                       on  tv.lv <= t.cnt  order by 1;
+
+                  ID NAME
+-------------------- ------------------------
+                   1 a
+                   1 b
+                   1 c
+                   2 d
+                   2 e扩展 regexp_replace
+
+V字段中每个值中字符串以，分隔，如果不是以9开头那组串加‘00’
+
+anbob@NCME>create table testreg(v varchar2(80));
+Table created.
+anbob@NCME>insert into testreg values(’911,000,12,31′);
+1 row created.
+
+anbob@NCME>insert into testreg values(’11911,554000,312,931′);
+1 row created.
+
+anbob@NCME>commit;
+Commit complete.
+
+anbob@NCME>select ltrim(regexp_replace(‘,’||v,’([,])’,'\100′),’,') newv,v from testreg;
+
+NEWV V
+—————————— ——————————
+00911,00000,0012,0031 911,000,12,31
+0011911,00554000,00312,00931 11911,554000,312,931

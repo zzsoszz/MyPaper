@@ -1,0 +1,1134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0035)http://xsb.itpub.net/post/419/33028 -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>xsb Oracle Blog | Oracle分析函数参考手册</TITLE><!-- 
+   ow_ms Templete for pLog
+   
+   Author:        oldwain
+   Author's blog: http://blog.itpub.net/oldwain
+   Date:          2005
+
+	history:   
+       2005.06.05 - Version 1
+       2005.06.07 - add recentXX/topXXX plugin support
+                    function to show/hide recentXX/topXXX information
+       2005.06.26 - adjust css to avoid issues when select text in IE
+                    add invisible post info to post (can be visible when copy from page)  
+
+       2005.07.11 - Version 2
+                    dynamic change style
+                    use cookies store comment user's info
+
+       2005.07.23 - Rename to ow_ms version 1
+                    dynamic change layout
+                    use cookies store page layout
+
+       2005.07.24 - fix bug when page scroll.
+
+ -->
+<META http-equiv=Content-Type content="text/html; charset=GB2312">
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR>
+<META http-equiv=Content-Language content=zh-CN><LINK title="RSS 2.0" 
+href="http://xsb.itpub.net/rss/rss20/419" type=application/xml 
+rel=alternate><LINK title="RSS 1.0" href="http://xsb.itpub.net/rss/rss10/419" 
+type=application/xml rel=alternate><LINK title="RSS 0.90" 
+href="http://xsb.itpub.net/rss/rss090/419" type=application/xml 
+rel=alternate><LINK title="Atom 0.3" href="http://xsb.itpub.net/rss/atom/419" 
+type=application/atom+xml rel=alternate><!-- 椤甸潰甯冨眬css --><LINK title=a 
+href="xsb Oracle Blog  Oracle分析函数参考手册.files/style0a.css" type=text/css 
+rel=stylesheet><LINK title=b 
+href="xsb Oracle Blog  Oracle分析函数参考手册.files/style0b.css" type=text/css 
+rel=stylesheet><LINK title=c 
+href="xsb Oracle Blog  Oracle分析函数参考手册.files/style0c.css" type=text/css 
+rel=stylesheet><!-- 閰嶈壊鏂规css --><LINK title=1 
+href="xsb Oracle Blog  Oracle分析函数参考手册.files/style1.css" type=text/css 
+rel=stylesheet><LINK title=2 
+href="xsb Oracle Blog  Oracle分析函数参考手册.files/style2.css" type=text/css 
+rel=stylesheet><LINK title=3 
+href="xsb Oracle Blog  Oracle分析函数参考手册.files/style3.css" type=text/css 
+rel=stylesheet><LINK title=4 
+href="xsb Oracle Blog  Oracle分析函数参考手册.files/style4.css" type=text/css 
+rel=stylesheet><LINK title=5 
+href="xsb Oracle Blog  Oracle分析函数参考手册.files/style5.css" type=text/css 
+rel=stylesheet>
+<SCRIPT language=JavaScript1.1 
+src="xsb Oracle Blog  Oracle分析函数参考手册.files/treemenu.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 
+src="xsb Oracle Blog  Oracle分析函数参考手册.files/chgstyle.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=javascript type=text/javascript>
+var HOST = 'http://xsb.itpub.net';
+</SCRIPT>
+</HEAD>
+<BODY>
+<DIV id=masthead>
+<DIV id=siteName><A href="http://xsb.itpub.net/">xsb Oracle Blog</A></DIV>
+<DIV id=globalNav>
+<DIV id=globalLink><A href="http://weblog.itpub.net/">首页</A> | <A 
+href="http://xsb.itpub.net/admin.php">管理控制台</A> | <A 
+href="http://xsb.itpub.net/album/419/0">资源中心</A> <!--| <a title="Link to the RSS 1.0 feed." href="http://xsb.itpub.net/rss/rss10/419">RSS feed</a>  
+| <a title="Link to the Atom feed." href="http://xsb.itpub.net/rss/atom/419">Atom feed</a> -->| 
+= | <A title=8? href="http://xsb.itpub.net/category/419/48491">SQLserver</A> | 
+<A title=0? href="http://xsb.itpub.net/category/419/1166">others</A> | <A 
+title=26? href="http://xsb.itpub.net/category/419/20044">DW&amp;BI</A> | <A 
+title=273? href="http://xsb.itpub.net/category/419/1165">Oracle</A> | <A 
+title=23? href="http://xsb.itpub.net/category/419/1161">OS</A> </DIV>
+<FORM id=search action=http://xsb.itpub.net/index.php method=post><INPUT size=14 
+name=searchTerms> <INPUT type=hidden value=Search name=op> <INPUT type=hidden 
+value=419 name=blogId> <INPUT type=submit value=搜索 name=Search> </FORM></DIV><!--end globalNav--></DIV><!-- end masthead -->
+<DIV id=pagecell><!--pagecell-->
+<DIV id=leftNav>
+<DIV class=relatedLinksTitle>自我介绍</DIV>
+<DIV class=relatedLinks>Welcome to you! Mail: 78840687#163.com <BR></DIV>
+<DIV class=relatedLinksTitle>切换风格</DIV>
+<DIV class=relatedLinks>
+<FORM>
+<CENTER>布局：<SELECT style="WIDTH: 70%" 
+onchange="setActiveLayout(value); &#10;return false;" size=1> <OPTION value=a 
+  selected>选择页面布局</OPTION> <OPTION value=a>两栏左侧导航（缺省）</OPTION> <OPTION 
+  value=b>两栏右侧导航</OPTION> <OPTION value=c>三栏</OPTION></SELECT> </CENTER></FORM>
+<FORM>
+<CENTER>配色：<SELECT style="WIDTH: 70%" 
+onchange="setActiveColorSchema(value); &#10;return false;" size=1> <OPTION 
+  value=1 selected>选择配色方案</OPTION> <OPTION value=1>纯净蓝灰（缺省）</OPTION> <OPTION 
+  value=2>浪漫紫</OPTION> <OPTION value=3>清爽绿</OPTION> <OPTION value=4>海蓝</OPTION> 
+  <OPTION value=5>粉红</OPTION></SELECT> </CENTER></FORM><BR>
+<CENTER>提示</CENTER>点击带有"..."标记的栏目可以展开/收拢相应的栏目 
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD class=button onmousedown=turnonall() style="CURSOR: pointer">展开所有</TD>
+    <TD class=button onmousedown=turnoffall() 
+  style="CURSOR: pointer">收拢所有</TD></TR></TBODY></TABLE></DIV>
+<DIV class=relatedLinksTitle>订阅我的Blog</DIV>
+<DIV class=relatedLinks align=center><A class=nodecoration 
+title="Link to the RSS 0.90 feed." 
+href="http://xsb.itpub.net/rss/rss090/419"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="RSS 0.90" 
+src="xsb Oracle Blog  Oracle分析函数参考手册.files/rss090_logo.gif"></A><BR><A 
+class=nodecoration title="Link to the RSS 1.0 feed." 
+href="http://xsb.itpub.net/rss/rss10/419"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="RSS 1.0" 
+src="xsb Oracle Blog  Oracle分析函数参考手册.files/rss10_logo.gif"></A><BR><A 
+class=nodecoration title="Link to the RSS 2.0 feed." 
+href="http://xsb.itpub.net/rss/rss20/419"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="RSS 2.0" 
+src="xsb Oracle Blog  Oracle分析函数参考手册.files/rss20_logo.gif"></A><BR><A 
+class=nodecoration title="Link to the Atom 0.3 feed." 
+href="http://xsb.itpub.net/rss/atom/419"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="Atom 0.3" 
+src="xsb Oracle Blog  Oracle分析函数参考手册.files/atom_logo.png"></A><BR></DIV>
+<DIV class=relatedLinksTitle>博客日历</DIV>
+<DIV class=relatedLinks>
+<CENTER>
+<TABLE class=calMonth>
+  <THEAD>
+  <TR class=calMonthNav>
+    <TH class=calMonthBackward><A title="十月 2008" 
+      href="http://xsb.itpub.net/archives/419/200810">&laquo;</A></TH>
+    <TH class=calMonthCurrent colSpan=5>十一月 2008</TH>
+    <TH class=calMonthForward><A title="十二月 2008" 
+      href="http://xsb.itpub.net/archives/419/200812">&raquo;</A></TH></TR>
+  <TR class=calMonthHeader>
+    <TH scope=col abbr=星期一>一</TH>
+    <TH scope=col abbr=星期二>二</TH>
+    <TH scope=col abbr=星期三>三</TH>
+    <TH scope=col abbr=星期四>四</TH>
+    <TH scope=col abbr=星期五>五</TH>
+    <TH scope=col abbr=星期六>六</TH>
+    <TH scope=col abbr=星期日>日</TH></TR></THEAD>
+  <TBODY>
+  <TR>
+    <TD class=calMonthDay>&nbsp;</TD>
+    <TD class=calMonthDay>&nbsp;</TD>
+    <TD class=calMonthDay>&nbsp;</TD>
+    <TD class=calMonthDay>&nbsp;</TD>
+    <TD class=calMonthDay>&nbsp;</TD>
+    <TD class=calMonthDay>1</TD>
+    <TD class=calMonthDay>2</TD></TR>
+  <TR>
+    <TD class=calMonthDay>3</TD>
+    <TD class=calMonthDay>4</TD>
+    <TD class=calMonthDay>5</TD>
+    <TD class=calMonthDay>6</TD>
+    <TD class=calMonthDay>7</TD>
+    <TD class=calMonthDay>8</TD>
+    <TD class=calMonthDay>9</TD></TR>
+  <TR>
+    <TD class=calMonthDay>10</TD>
+    <TD class=calMonthDay>11</TD>
+    <TD class=calMonthDay>12</TD>
+    <TD class=calMonthDay>13</TD>
+    <TD class=calMonthDay>14</TD>
+    <TD class=calMonthDay>15</TD>
+    <TD class=calMonthDay>16</TD></TR>
+  <TR>
+    <TD class=calMonthDay>17</TD>
+    <TD class=calMonthDay>18</TD>
+    <TD class=calMonthDay>19</TD>
+    <TD class=calMonthDay>20</TD>
+    <TD class=calMonthDay>21</TD>
+    <TD class=calMonthDay>22</TD>
+    <TD class=calMonthDay>23</TD></TR>
+  <TR>
+    <TD class=calMonthDay>24</TD>
+    <TD class=calMonthDay>25</TD>
+    <TD class=calMonthDay>26</TD>
+    <TD class=calMonthDay>27</TD>
+    <TD class=calMonthDay>28</TD>
+    <TD class=calMonthToday>29</TD>
+    <TD class=calMonthDay>30</TD></TR></TBODY></TABLE></CENTER></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('archives')" 
+style="CURSOR: pointer">文章归档...</DIV>
+<DIV class=relatedLinks id=archives style="DISPLAY: none">
+<CENTER><A href="http://xsb.itpub.net/archives/419/200809">九月 2008(1篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200808">八月 2008(2篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200807">七月 2008(11篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200804">四月 2008(7篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200803">三月 2008(2篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200801">一月 2008(2篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200712">十二月 2007(3篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200711">十一月 2007(3篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200710">十月 2007(3篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200709">九月 2007(3篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200707">七月 2007(4篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200706">六月 2007(1篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200705">五月 2007(1篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200704">四月 2007(3篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200702">二月 2007(4篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200701">一月 2007(3篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200612">十二月 2006(1篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200611">十一月 2006(6篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200610">十月 2006(7篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200609">九月 2006(6篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200608">八月 2006(6篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200607">七月 2006(8篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200606">六月 2006(11篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200605">五月 2006(15篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200604">四月 2006(18篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200603">三月 2006(68篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200602">二月 2006(29篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200601">一月 2006(11篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200512">十二月 2005(10篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200511">十一月 2005(7篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200510">十月 2005(5篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200509">九月 2005(3篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200508">八月 2005(37篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200507">七月 2005(2篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200506">六月 2005(5篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200505">五月 2005(9篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200504">四月 2005(3篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200502">二月 2005(1篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200411">十一月 2004(8篇)</A><BR><A 
+href="http://xsb.itpub.net/archives/419/200410">十月 
+2004(1篇)</A><BR></CENTER></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('recentposts')" 
+style="CURSOR: pointer">最新发表...</DIV>
+<DIV class=relatedLinks id=recentposts><A 
+href="http://xsb.itpub.net/post/419/470218">sqlplus中利用spool生成带日期的文件名</A><BR><A 
+href="http://xsb.itpub.net/post/419/469390">10g中表监控与statistics_level</A><BR><A 
+href="http://xsb.itpub.net/post/419/469226">awk 手册[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/467351">关闭及开启oracle10g统计信息自动收集功能</A><BR><A 
+href="http://xsb.itpub.net/post/419/466857">Oracle10G EM dbcontrol </A><BR><A 
+href="http://xsb.itpub.net/post/419/466854">Logical Volume 
+Manager(LVM)[zt]</A><BR><A href="http://xsb.itpub.net/post/419/466850">ora11g 
+install on ora_eLinux5u2</A><BR><A 
+href="http://xsb.itpub.net/post/419/466849">ora10g install on RHAS4</A><BR><A 
+href="http://xsb.itpub.net/post/419/466549">Sql Server 2005新增T-sql特性</A><BR><A 
+href="http://xsb.itpub.net/post/419/466548">SQL Server 管理常用的SQL和T-SQL </A><BR><A 
+href="http://xsb.itpub.net/post/419/466455">SQL Server 2005 Beta 2 
+快照隔离</A><BR><A href="http://xsb.itpub.net/post/419/466452">升级至SQL Server 
+2005的理由[zt]</A><BR><A href="http://xsb.itpub.net/post/419/466454">SQL Server 
+2005 管理并发数据访问[zt]</A><BR><A href="http://xsb.itpub.net/post/419/466451">SQL 
+Server 2005的read committed snapshot隔离级别</A><BR><A 
+href="http://xsb.itpub.net/post/419/460807">oracle 
+10gR2中streams的配置[zt]</A><BR><A href="http://xsb.itpub.net/post/419/460719">Linux 
+shell I/O重定向详解(zt)</A><BR><A 
+href="http://xsb.itpub.net/post/419/460706">在Oracle中进行大小写不敏感的查询[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/460491">Oracle RAC 10g集群节点增加</A><BR><A 
+href="http://xsb.itpub.net/post/419/460489">Oracle RAC 10g集群节点删除[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/460488">数据库从文件系统转移至ASM实验记录[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/459798">把字符串(1,2,3,4,5)转换为内存表形式</A><BR><A 
+href="http://xsb.itpub.net/post/419/456615">oracle10g ASM 
+transport_tablespace</A><BR><A href="http://xsb.itpub.net/post/419/456614">read 
+only tablespace backup restore </A><BR><A 
+href="http://xsb.itpub.net/post/419/453401">Oracle 9i &amp; 
+10g编程艺术数据库体系结构</A><BR><A 
+href="http://xsb.itpub.net/post/419/449064">高级复制中mlog$表的HWM过高 </A><BR><A 
+href="http://xsb.itpub.net/post/419/446800">update restart </A><BR><A 
+href="http://xsb.itpub.net/post/419/446246">commit_write</A><BR><A 
+href="http://xsb.itpub.net/post/419/424802">analyze table </A><BR><A 
+href="http://xsb.itpub.net/post/419/418752">True Session Wait Activity in Oracle 
+10g[zt]</A><BR><A href="http://xsb.itpub.net/post/419/414462">Oracle10g RAC 
+ASM磁盘组[zt]</A><BR><A href="http://xsb.itpub.net/post/419/413365">DATA 
+GUARD物理STANDBY的 SWITCHOVER切换[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/406662">在远端和本地存储过程间传递数组[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/404848">first_rows_n和all_rows[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/404829">Oracle 数据库 11g：重要新特性[zt] </A><BR><A 
+href="http://xsb.itpub.net/post/419/400066">Oracle10g的Flashback version 
+Query</A><BR><A href="http://xsb.itpub.net/post/419/398562">Oracle 
+11g新特性--闪回数据归档(flashback data archive)[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/394806">Oracle11g新特性-PLSQL函数缓存结果（一）[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/312383">Oracle11g Data Guard[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/312382">Oracle 11g十大精彩特性[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/308745">ALTER SYSTEM RESET</A><BR><A 
+href="http://xsb.itpub.net/post/419/308733">oracle10g AWR[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/297941">expdp</A><BR><A 
+href="http://xsb.itpub.net/post/419/286503">Retrieve rows in order inserted 
+updated (ora_rowscn)</A><BR><A 
+href="http://xsb.itpub.net/post/419/284508">Transact_SQL小手册[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/283265">Start Study MSSQL 2005</A><BR><A 
+href="http://xsb.itpub.net/post/419/279721">层次查询和分析函数在号段选取中的应用[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/263845">Implementing Data 
+Guard[zt]</A><BR><A href="http://xsb.itpub.net/post/419/260491">Oracle 9i 
+整体性能优化[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/260482">OUTLINE</A><BR><A 
+href="http://xsb.itpub.net/post/419/265262">oracle10g初始化参数说明</A><BR><A 
+href="http://xsb.itpub.net/post/419/282161">Oracle 动态SQL</A><BR><A 
+href="http://xsb.itpub.net/post/419/269662">这样也能连接数据库[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/260488">oracle性能调整笔记[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/242363">oracle10g Data 
+Guard新特性：物理备库也可以read/write[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/230902">group by的应用误区和10gR2里的BUG</A><BR><A 
+href="http://xsb.itpub.net/post/419/241858">ORACLE中的等待事件[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/227957">Oracle 10.2.0.3修复的一些Bug</A><BR><A 
+href="http://xsb.itpub.net/post/419/227779">处理Oracle数据库中的坏块[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/226251">Oracle的Enterprise Linux</A><BR><A 
+href="http://xsb.itpub.net/post/419/242402">冷备份+归档日志的恢复[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/223722">包含复制环境的数据库迁移[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/222227">使用RMAN复制数据库[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/222213">Linux Find命令</A><BR><A 
+href="http://xsb.itpub.net/post/419/222212">获取异常的具体出处dbms_utility.format_error_backtrace</A><BR><A 
+href="http://xsb.itpub.net/post/419/220651">获取ROWID信息get_rowid</A><BR><A 
+href="http://xsb.itpub.net/post/419/38582">Oracle实时通信:UTL_SMTP包(zt)</A><BR><A 
+href="http://xsb.itpub.net/post/419/224934">修改global_name</A><BR><A 
+href="http://xsb.itpub.net/post/419/213293">一个“latch free”问题</A><BR><A 
+href="http://xsb.itpub.net/post/419/213292">oracle10g新特性：闪回恢复区(Flash recovery 
+area) </A><BR><A 
+href="http://xsb.itpub.net/post/419/213286">RMAN-06026错误[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/213291">rman不完全恢复一例</A><BR><A 
+href="http://xsb.itpub.net/post/419/205658">stream流复制创建脚本</A><BR><A 
+href="http://xsb.itpub.net/post/419/227770">Oracle 10g闪回恢复区 (Flash Recovery 
+Area)</A><BR><A 
+href="http://xsb.itpub.net/post/419/198650">DB2与Oracle的体系结构</A><BR><A 
+href="http://xsb.itpub.net/post/419/198191">DB2和Oracle的锁比较[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/192601">oracle10g CURRENT_SCN</A><BR><A 
+href="http://xsb.itpub.net/post/419/192372">Oracle Streams [zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/188643">INSERT ALL语句的一点研究 </A><BR><A 
+href="http://xsb.itpub.net/post/419/192409">Oracle分页查询 [zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/152629">oracle10g批量绑定forall bulk 
+collect</A><BR><A 
+href="http://xsb.itpub.net/post/419/152623">OCI简易编译环境VC6[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/152621">.bat文件处理技巧</A><BR><A 
+href="http://xsb.itpub.net/post/419/152620">telnet 批处理</A><BR><A 
+href="http://xsb.itpub.net/post/419/138425">ascii table</A><BR><A 
+href="http://xsb.itpub.net/post/419/137359">Oracle字符集问题总结</A><BR><A 
+href="http://xsb.itpub.net/post/419/130926">主键与唯一索引的区别</A><BR><A 
+href="http://xsb.itpub.net/post/419/130574">DML RETURNING INTO </A><BR><A 
+href="http://xsb.itpub.net/post/419/127830">Drop A Table With Many 
+Extents</A><BR><A href="http://xsb.itpub.net/post/419/127624">10g v$session wait 
+sql</A><BR><A href="http://xsb.itpub.net/post/419/127294">安全保护Oracle</A><BR><A 
+href="http://xsb.itpub.net/post/419/126823">insert into remote table using 
+db_link,session hangs</A><BR><A 
+href="http://xsb.itpub.net/post/419/125589">数据库当前状况orcl_info_简化版.sql</A><BR><A 
+href="http://xsb.itpub.net/post/419/124801">Oracle诊断SQL</A><BR><A 
+href="http://xsb.itpub.net/post/419/113947">Move表、索引、LOB/Long</A><BR><A 
+href="http://xsb.itpub.net/post/419/107627">PL/SQL复合数据类型(集合与记录)</A><BR><A 
+href="http://xsb.itpub.net/post/419/107621">PL/SQL入门[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/107606">关于存在性的判断</A><BR><A 
+href="http://xsb.itpub.net/post/419/107585">SQLServer和Oracle常用函数对比</A><BR><A 
+href="http://xsb.itpub.net/post/419/106757">to_char(),to_date()</A><BR><A 
+href="http://xsb.itpub.net/post/419/106740">正则表达式</A><BR><A 
+href="http://xsb.itpub.net/post/419/106290">Oracle测试库改用户名</A><BR><A 
+href="http://xsb.itpub.net/post/419/106230">SQL Server 2005</A><BR><A 
+href="http://xsb.itpub.net/post/419/106226">SQL Server、Oracle纵横谈</A><BR><A 
+href="http://xsb.itpub.net/post/419/106225">DB2,我自岿然不动</A><BR><A 
+href="http://xsb.itpub.net/post/419/106223">“非主流”数据库巡礼</A><BR><A 
+href="http://xsb.itpub.net/post/419/106204">数据库大师的数据库情结</A><BR><A 
+href="http://xsb.itpub.net/post/419/106197">UltraEdit 使用技巧(zt)</A><BR><A 
+href="http://xsb.itpub.net/post/419/105941">监控长时间运行的查询(监控数据库性能的SQL )</A><BR><A 
+href="http://xsb.itpub.net/post/419/101774">大表or小表？</A><BR><A 
+href="http://xsb.itpub.net/post/419/90129">清内存对象及转储命令(zt)</A><BR><A 
+href="http://xsb.itpub.net/post/419/86862">TEMP表空间满(zt)</A><BR><A 
+href="http://xsb.itpub.net/post/419/86279">在裸设备和文件系统之间移动ORACLE(zt) </A><BR><A 
+href="http://xsb.itpub.net/post/419/107571">Windows系统运行命令</A><BR><A 
+href="http://xsb.itpub.net/post/419/76369">Oracle RAC 10g安装</A><BR><A 
+href="http://xsb.itpub.net/post/419/74168">Oracle Table总结(zt) </A><BR><A 
+href="http://xsb.itpub.net/post/419/74154">SELECT... FOR UPDATE</A><BR><A 
+href="http://xsb.itpub.net/post/419/73174">PGA_AGGREGATE_TARGET</A><BR><A 
+href="http://xsb.itpub.net/post/419/71486">Using the Large Pool</A><BR><A 
+href="http://xsb.itpub.net/post/419/71415">Oracle汉字排序nls_sort</A><BR><A 
+href="http://xsb.itpub.net/post/419/70362">Oracle 不同版本之区别</A><BR><A 
+href="http://xsb.itpub.net/post/419/70357">_disable_logging</A><BR><A 
+href="http://xsb.itpub.net/post/419/70324">PARALLEL UPDATE</A><BR><A 
+href="http://xsb.itpub.net/post/419/69570">DW and OLTP</A><BR><A 
+href="http://xsb.itpub.net/post/419/69236">找出全表(索引)扫描</A><BR><A 
+href="http://xsb.itpub.net/post/419/68212">SPOOL内容追加至文件</A><BR><A 
+href="http://xsb.itpub.net/post/419/67148">商业智能BI真正能智能(zt)</A><BR><A 
+href="http://xsb.itpub.net/post/419/67129">数据仓库(DW)与数据集市</A><BR><A 
+href="http://xsb.itpub.net/post/419/67124">商业智能(BI)架构</A><BR><A 
+href="http://xsb.itpub.net/post/419/67065">漫谈 ODS</A><BR><A 
+href="http://xsb.itpub.net/post/419/67060">商务智能(BI)？</A><BR><A 
+href="http://xsb.itpub.net/post/419/65833">物化视图MV快速刷新之限制</A><BR><A 
+href="http://xsb.itpub.net/post/419/5088">使用查询改写提高查询性能</A><BR><A 
+href="http://xsb.itpub.net/post/419/63564">ora_sql_txt()</A><BR><A 
+href="http://xsb.itpub.net/post/419/52334">将天数转换成天时分秒</A><BR><A 
+href="http://xsb.itpub.net/post/419/62354">Oracle Hints List</A><BR><A 
+href="http://xsb.itpub.net/post/419/61736">RAID10 and RAID01</A><BR><A 
+href="http://xsb.itpub.net/post/419/61724">v$bh(获取Buffer_cache对象信息)</A><BR><A 
+href="http://xsb.itpub.net/post/419/61684">STAR_TRANSFORMATION</A><BR><A 
+href="http://xsb.itpub.net/post/419/61683">_allow_read_only_corruption</A><BR><A 
+href="http://xsb.itpub.net/post/419/61082">警惕Oracle DB操作高压线(zt)</A><BR><A 
+href="http://xsb.itpub.net/post/419/60494">日志文件使用小结(zt)</A><BR><A 
+href="http://xsb.itpub.net/post/419/60493">丢失数据文件和控制文件的恢复案例(zt)</A><BR><A 
+href="http://xsb.itpub.net/post/419/60492">B-tree INDEX索引的维护</A><BR><A 
+href="http://xsb.itpub.net/post/419/60490">跳跃式索引</A><BR><A 
+href="http://xsb.itpub.net/post/419/60489">statspack report分析[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/60488">statspack的一些使用技巧[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/60487">HWM(hight water mark)</A><BR><A 
+href="http://xsb.itpub.net/post/419/60486">从procedure返回結果集</A><BR><A 
+href="http://xsb.itpub.net/post/419/60484">ora faq_网络与安全</A><BR><A 
+href="http://xsb.itpub.net/post/419/60483">ora faq_性能调整</A><BR><A 
+href="http://xsb.itpub.net/post/419/60481">ora faq_备份与恢复</A><BR><A 
+href="http://xsb.itpub.net/post/419/60480">ora faq_SQL&amp;PL/SQL</A><BR><A 
+href="http://xsb.itpub.net/post/419/60479">ora faq_构架</A><BR><A 
+href="http://xsb.itpub.net/post/419/60476">wait中的p1，p2，p3</A><BR><A 
+href="http://xsb.itpub.net/post/419/60474">基于等待事件的性能诊断</A><BR><A 
+href="http://xsb.itpub.net/post/419/60470">truncate,delete,drop</A><BR><A 
+href="http://xsb.itpub.net/post/419/60442">一份DBA面试题及解答(zt)</A><BR><A 
+href="http://xsb.itpub.net/post/419/60423">soft parse and hard parse</A><BR><A 
+href="http://xsb.itpub.net/post/419/60023">物化视图MV分区跟踪PCT</A><BR><A 
+href="http://xsb.itpub.net/post/419/60019">Oracle位图索引之2</A><BR><A 
+href="http://xsb.itpub.net/post/419/59520">Oracle VPD</A><BR><A 
+href="http://xsb.itpub.net/post/419/58589">物化视图MV综合技术应用</A><BR><A 
+href="http://xsb.itpub.net/post/419/58503">List-List分区策略</A><BR><A 
+href="http://xsb.itpub.net/post/419/58475">List-Range-List分区策略</A><BR><A 
+href="http://xsb.itpub.net/post/419/58373">MV Rewrite ORA-600</A><BR><A 
+href="http://xsb.itpub.net/post/419/58359">多列range分区</A><BR><A 
+href="http://xsb.itpub.net/post/419/57871">数据库当前状况脚本</A><BR><A 
+href="http://xsb.itpub.net/post/419/57634">Oracle位图索引之1</A><BR><A 
+href="http://xsb.itpub.net/post/419/57618">分区的压缩的物化视图MV</A><BR><A 
+href="http://xsb.itpub.net/post/419/57617">shutdown imm...时间太长</A><BR><A 
+href="http://xsb.itpub.net/post/419/57613">MSSQL,Oracle,DB2的比选</A><BR><A 
+href="http://xsb.itpub.net/post/419/57542">数据仓库星型连接</A><BR><A 
+href="http://xsb.itpub.net/post/419/57540">not in &lt;&gt;not exists</A><BR><A 
+href="http://xsb.itpub.net/post/419/57549">完全卸载Win平台下的oracle </A><BR><A 
+href="http://xsb.itpub.net/post/419/55279">监控WIN平台Oracle的运行</A><BR><A 
+href="http://xsb.itpub.net/post/419/57064">压缩已分区表</A><BR><A 
+href="http://xsb.itpub.net/post/419/57024">有条件的唯一性索引</A><BR><A 
+href="http://xsb.itpub.net/post/419/59261">用bbed进行恢复。</A><BR><A 
+href="http://xsb.itpub.net/post/419/59256">ora-00600 [4194] </A><BR><A 
+href="http://xsb.itpub.net/post/419/59255">UNDO 表空间损坏，如何恢复</A><BR><A 
+href="http://xsb.itpub.net/post/419/56950">DBA的技术素养</A><BR><A 
+href="http://xsb.itpub.net/post/419/56684">从Oracle到DB2</A><BR><A 
+href="http://xsb.itpub.net/post/419/56600">10046 SQL_TRACE[zt] </A><BR><A 
+href="http://xsb.itpub.net/post/419/56556">ordered hints</A><BR><A 
+href="http://xsb.itpub.net/post/419/40691">Oracle性能调整</A><BR><A 
+href="http://xsb.itpub.net/post/419/29690">oracle高可靠性的讨论和看法:RAC/DataGuard/Stream/Standby/Rep 
+[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/5684">ORA-04031(ora-04030)</A><BR><A 
+href="http://xsb.itpub.net/post/419/30766">MERGE语法</A><BR><A 
+href="http://xsb.itpub.net/post/419/5144">立即杀掉session的方法</A><BR><A 
+href="http://xsb.itpub.net/post/419/33028">Oracle分析函数参考手册</A><BR><A 
+href="http://xsb.itpub.net/post/419/44634">Oracle 分析函数的使用(zt)</A><BR><A 
+href="http://xsb.itpub.net/post/419/29159">ROLLUP和CUBE语句。</A><BR><A 
+href="http://xsb.itpub.net/post/419/64472">DBMS_OUTPUT</A><BR><A 
+href="http://xsb.itpub.net/post/419/38495">找出不同schema之异同</A><BR><A 
+href="http://xsb.itpub.net/post/419/38494">从Oracle中获得毫秒</A><BR><A 
+href="http://xsb.itpub.net/post/419/38490">关于游标</A><BR><A 
+href="http://xsb.itpub.net/post/419/38713">statspack 必看的十项内容</A><BR><A 
+href="http://xsb.itpub.net/post/419/38712">常见等待事件说明</A><BR><A 
+href="http://xsb.itpub.net/post/419/38710">statspack应用指南</A><BR><A 
+href="http://xsb.itpub.net/post/419/3977">ORACLE数据库简介</A><BR><A 
+href="http://xsb.itpub.net/post/419/3976">Oracle 基本知识及问题解决</A><BR><A 
+href="http://xsb.itpub.net/post/419/56087">Oracle DB XE 推出正式版</A><BR><A 
+href="http://xsb.itpub.net/post/419/55193">关于身份证号码</A><BR><A 
+href="http://xsb.itpub.net/post/419/54818">scn_to_timestamp(ora_rowscn)</A><BR><A 
+href="http://xsb.itpub.net/post/419/54722">MV快速刷新故障Ora-32314</A><BR><A 
+href="http://xsb.itpub.net/post/419/54716">Oracle with语句示例</A><BR><A 
+href="http://xsb.itpub.net/post/419/60250">启动telnet服务</A><BR><A 
+href="http://xsb.itpub.net/post/419/54555">Oracle 体系结构简介</A><BR><A 
+href="http://xsb.itpub.net/post/419/54540">oracle高级复制脚本示例[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/54491">Oracle表连接方式</A><BR><A 
+href="http://xsb.itpub.net/post/419/54330">Oracle10g物化视图新特性</A><BR><A 
+href="http://xsb.itpub.net/post/419/38581">UNIX(AIX)系统常用命令</A><BR><A 
+href="http://xsb.itpub.net/post/419/38835">找出高CPU利用率的SQL：</A><BR><A 
+href="http://xsb.itpub.net/post/419/39167">Unix系列shell程序编写(上)</A><BR><A 
+href="http://xsb.itpub.net/post/419/53755">何时触发LGWR写进程</A><BR><A 
+href="http://xsb.itpub.net/post/419/53688">Oracle Internal </A><BR><A 
+href="http://xsb.itpub.net/post/419/53650">use RMAN Write to Shared 
+Driver</A><BR><A 
+href="http://xsb.itpub.net/post/419/53585">去掉db_link中的.com</A><BR><A 
+href="http://xsb.itpub.net/post/419/46366">Oracle Database Internals </A><BR><A 
+href="http://xsb.itpub.net/post/419/30511">Rman命令示例</A><BR><A 
+href="http://xsb.itpub.net/post/419/53338">年度日历(Oracle 
+SQLPLUS版)的html脚本</A><BR><A 
+href="http://xsb.itpub.net/post/419/53322">求str2在str1中出现的次数</A><BR><A 
+href="http://xsb.itpub.net/post/419/5395">层次选择（CONNECT BY）</A><BR><A 
+href="http://xsb.itpub.net/post/419/30962">把数字转换成大写金额</A><BR><A 
+href="http://xsb.itpub.net/post/419/52161">触发器生成触发器</A><BR><A 
+href="http://xsb.itpub.net/post/419/52110">last_oper信息脚本生成器</A><BR><A 
+href="http://xsb.itpub.net/post/419/51702">日志表及触发器脚本生成器 </A><BR><A 
+href="http://xsb.itpub.net/post/419/51694">Oracle SYS_CONTEXT</A><BR><A 
+href="http://xsb.itpub.net/post/419/51256">Native Datatypes</A><BR><A 
+href="http://xsb.itpub.net/post/419/51081">索引使用跟踪</A><BR><A 
+href="http://xsb.itpub.net/post/419/50929">生成表与字段列表的html文档</A><BR><A 
+href="http://xsb.itpub.net/post/419/50849">datapump API示例</A><BR><A 
+href="http://xsb.itpub.net/post/419/50848">10g内幕</A><BR><A 
+href="http://xsb.itpub.net/post/419/50847">Oracle Data Pump </A><BR><A 
+href="http://xsb.itpub.net/post/419/197723">about 
+db_name、instance_name、oracle_sid、service_name</A><BR><A 
+href="http://xsb.itpub.net/post/419/50467">snapshot log grows</A><BR><A 
+href="http://xsb.itpub.net/post/419/50466">truncate MLOG$</A><BR><A 
+href="http://xsb.itpub.net/post/419/50358">tnsping与TCP/IP的ping</A><BR><A 
+href="http://xsb.itpub.net/post/419/111979">网络经典命令(zt) </A><BR><A 
+href="http://xsb.itpub.net/post/419/49515">物化视图</A><BR><A 
+href="http://xsb.itpub.net/post/419/49511">SQLPLUS命令的使用大全 </A><BR><A 
+href="http://xsb.itpub.net/post/419/49476">一些常用的表,视图,索引查询的SQL</A><BR><A 
+href="http://xsb.itpub.net/post/419/49475">9个重要的视图</A><BR><A 
+href="http://xsb.itpub.net/post/419/49473">脚本插入CLOB字段</A><BR><A 
+href="http://xsb.itpub.net/post/419/49447">NULL 小议 </A><BR><A 
+href="http://xsb.itpub.net/post/419/48783">Oracle10g的SQL正则表达式</A><BR><A 
+href="http://xsb.itpub.net/post/419/48406">执行计划中card的含义</A><BR><A 
+href="http://xsb.itpub.net/post/419/48405">bbed的心得 </A><BR><A 
+href="http://xsb.itpub.net/post/419/48395">exists 和 in </A><BR><A 
+href="http://xsb.itpub.net/post/419/47158">算法示例</A><BR><A 
+href="http://xsb.itpub.net/post/419/46364">oracle紧急故障处理方法</A><BR><A 
+href="http://xsb.itpub.net/post/419/46347">跳过坏块导出数据</A><BR><A 
+href="http://xsb.itpub.net/post/419/46079">数据库设计中的反规范</A><BR><A 
+href="http://xsb.itpub.net/post/419/45503">MTS and the Large Pool </A><BR><A 
+href="http://xsb.itpub.net/post/419/45339">vi使用手册及详解(zt) </A><BR><A 
+href="http://xsb.itpub.net/post/419/44779">order by 1 desc nulls last</A><BR><A 
+href="http://xsb.itpub.net/post/419/43985">oracle 一个表中有block错误后如何恢复</A><BR><A 
+href="http://xsb.itpub.net/post/419/43273">用裸设备扩数据库表空间专题_完整版(zt)</A><BR><A 
+href="http://xsb.itpub.net/post/419/43252">undo表空间丢失，数据库打不开</A><BR><A 
+href="http://xsb.itpub.net/post/419/43267">Oracle数据库联机日志文件丢失处理方法 </A><BR><A 
+href="http://xsb.itpub.net/post/419/43077">oracle市场份额</A><BR><A 
+href="http://xsb.itpub.net/post/419/41599">find_big_sql</A><BR><A 
+href="http://xsb.itpub.net/post/419/106189">install oracle 10gR2 on RHAS3 
+</A><BR><A href="http://xsb.itpub.net/post/419/88304">install oracle 9iR2 on 
+RHAS3</A><BR><A href="http://xsb.itpub.net/post/419/38814">磁带驱动器的使用</A><BR><A 
+href="http://xsb.itpub.net/post/419/38815">在vmware的LINUX中使用本地硬盘的FAT分区</A><BR><A 
+href="http://xsb.itpub.net/post/419/38714">图表化statspack结果</A><BR><A 
+href="http://xsb.itpub.net/post/419/38580">FTP命令详解</A><BR><A 
+href="http://xsb.itpub.net/post/419/38579">AIX基础教程</A><BR><A 
+href="http://xsb.itpub.net/post/419/38578">Linux下cron服务配置祥解</A><BR><A 
+href="http://xsb.itpub.net/post/419/106827">linux下完全删除Oracle [zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/38467">Win下完全删除Oracle[zt]</A><BR><A 
+href="http://xsb.itpub.net/post/419/38511">使用SQLPLUS将输出写入文件</A><BR><A 
+href="http://xsb.itpub.net/post/419/38510">通过Oracle直接访问MSSQL</A><BR><A 
+href="http://xsb.itpub.net/post/419/38509">存储过程的调用者权限</A><BR><A 
+href="http://xsb.itpub.net/post/419/38507">参数化视图实现示例</A><BR><A 
+href="http://xsb.itpub.net/post/419/38506">移动LOB字段至新表空间</A><BR><A 
+href="http://xsb.itpub.net/post/419/38505">取(删)重复记录</A><BR><A 
+href="http://xsb.itpub.net/post/419/38504">随机取表中数据(随机函数)</A><BR><A 
+href="http://xsb.itpub.net/post/419/38503">通过sql*plus输出excel、html格式文件</A><BR><A 
+href="http://xsb.itpub.net/post/419/38502">获取IP地址</A><BR><A 
+href="http://xsb.itpub.net/post/419/38500">带query的导出</A><BR><A 
+href="http://xsb.itpub.net/post/419/38497">加密存储过程</A><BR><A 
+href="http://xsb.itpub.net/post/419/38493">Oracle中的date与timestamp</A><BR><A 
+href="http://xsb.itpub.net/post/419/38492">常用函数</A><BR><A 
+href="http://xsb.itpub.net/post/419/38488">索引</A><BR><A 
+href="http://xsb.itpub.net/post/419/38486">分区表PARTITION table</A><BR><A 
+href="http://xsb.itpub.net/post/419/38485">临时表temporary table</A><BR><A 
+href="http://xsb.itpub.net/post/419/38484">外部表External table</A><BR><A 
+href="http://xsb.itpub.net/post/419/38483">索引组织表IOT</A><BR><A 
+href="http://xsb.itpub.net/post/419/38481">关于表约束constraint</A><BR><A 
+href="http://xsb.itpub.net/post/419/38479">整理表碎片</A><BR><A 
+href="http://xsb.itpub.net/post/419/38477">ORACLE的基本操作</A><BR><A 
+href="http://xsb.itpub.net/post/419/38476">Oracle的特殊事务：自治事务与序列化事务</A><BR><A 
+href="http://xsb.itpub.net/post/419/38475">ORACLE与MSSQL内核的差异--锁、并发</A><BR><A 
+href="http://xsb.itpub.net/post/419/38472">ORACLE与SQLSERVER的比较--应用上的差异</A><BR><A 
+href="http://xsb.itpub.net/post/419/38470">ORACLE系统的SYS和SYSTEM模式</A><BR><A 
+href="http://xsb.itpub.net/post/419/38466">Oracle9i数据库的技术参数</A><BR><A 
+href="http://xsb.itpub.net/post/419/38465">Oracle的市场占有</A><BR><A 
+href="http://xsb.itpub.net/post/419/38463">Oracle概述</A><BR></DIV></DIV>
+<DIV id=rightNav>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('topreadposts')" 
+style="CURSOR: pointer">最多阅读文章... </DIV>
+<DIV class=relatedLinks id=topreadposts style="DISPLAY: none"><A 
+href="http://xsb.itpub.net/post/419/49511">SQLPLUS命令的使用大全 </A>(20354 次)<BR><A 
+href="http://xsb.itpub.net/post/419/33028">Oracle分析函数参考手册</A> (11208 次)<BR><A 
+href="http://xsb.itpub.net/post/419/29159">ROLLUP和CUBE语句。</A> (8948 次)<BR><A 
+href="http://xsb.itpub.net/post/419/30766">MERGE语法</A> (8802 次)<BR><A 
+href="http://xsb.itpub.net/post/419/38486">分区表PARTITION table</A> (7147 次)<BR><A 
+href="http://xsb.itpub.net/post/419/60442">一份DBA面试题及解答(zt)</A> (5564 次)<BR><A 
+href="http://xsb.itpub.net/post/419/38497">加密存储过程</A> (5561 次)<BR><A 
+href="http://xsb.itpub.net/post/419/44634">Oracle 分析函数的使用(zt)</A> (5471 次)<BR><A 
+href="http://xsb.itpub.net/post/419/38481">关于表约束constraint</A> (5370 次)<BR><A 
+href="http://xsb.itpub.net/post/419/38490">关于游标</A> (5300 次)<BR></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('blog_statistics')" 
+style="CURSOR: pointer">博客统计... </DIV>
+<DIV class=relatedLinks id=blog_statistics style="DISPLAY: none">总文章数: 
+330<BR>总评论数: 88<BR>总引用数: 0<BR>总浏览数: 565425<BR></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('mylinks')" 
+style="CURSOR: pointer">网站链接...</DIV>
+<DIV class=myLinks id=mylinks>
+<DIV class=relatedLinksTitle style="TEXT-ALIGN: left">blog</DIV>
+<DIV class=relatedLinks><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" href="http://yangtingkun.itpub.net/">yangtingkun</A> 
+<BR><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" href="http://www.anysql.net/">d.c.b.a</A> <BR><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" href="http://www.dbanotes.net/">Fenng</A> <BR><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" href="http://www.eygle.com/">eygle</A> <BR><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" href="http://www.oracledba.com.cn/blog/">OracleDBA's 
+Blog</A> <BR><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" 
+href="http://space.itpub.net/756652/spacelist-blog">zhouweifeng</A> <BR><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" href="http://space6212.itpub.net/">space6212</A> 
+<BR></DIV>
+<DIV class=relatedLinksTitle style="TEXT-ALIGN: left">oracle/Unix</DIV>
+<DIV class=relatedLinks><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" href="http://tahiti.oracle.com/">oracle docs</A> <BR><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" 
+href="http://www.oracle.com/technology/global/cn/index.html">Oracle 中文技术网</A> 
+<BR><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" 
+href="https://metalink.oracle.com/metalink/plsql/ml2_gui.startup">Metalink</A> 
+<BR><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title=中国ORACLE用户讨论组 href="http://www.cnoug.org/">CNOUG</A> <BR><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" href="http://www.chinaunix.net/">chinaunix</A> <BR><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" href="http://www.eygle.com/index-dbalink.php">eygle's 
+dbalink</A> <BR><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" 
+href="http://asktom.oracle.com/pls/ask/f?p=4950:1:">AskTom</A> <BR><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" href="http://metalink.9999mb.com/">Metalink2</A> <BR><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" href="http://www.itpub.net/">http://www.itpub.net/</A> 
+<BR><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/subcat_bullet.gif"> <A 
+class=mylink title="" href="http://www.ixpub.net/">http://www.ixpub.net/</A> 
+<BR></DIV></DIV>
+<DIV class=relatedLinksTitle>资源</DIV><!-- 以下部分的内容，请保留原样， 谢谢！ -->
+<DIV class=relatedLinks>
+<TABLE border=0>
+  <TBODY>
+  <TR>
+    <TD>Powered by:</TD>
+    <TD><A href="http://www.plogworld.net/"><IMG 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      alt=pLog 
+  src="xsb Oracle Blog  Oracle分析函数参考手册.files/plog-small.gif"></A></TD></TR>
+  <TR>
+    <TD>Blog Provider:</TD>
+    <TD><A href="http://www.itpub.net/"><IMG 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      alt=Itpub src="xsb Oracle Blog  Oracle分析函数参考手册.files/itpub.gif"></A></TD></TR>
+  <TR>
+    <TD>Designed by:</TD>
+    <TD><A href="http://blog.itpub.net/oldwain"><IMG 
+      style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+      alt=oldwain 
+  src="xsb Oracle Blog  Oracle分析函数参考手册.files/oldwain.gif"></A></TD></TR><!-- 以上部分的内容，请保留原样， 谢谢！ --><!--
+  <tr>
+    <td>Modified by:</td>
+    <td><a href="http://blog.itpub.net/YOURBLOG"> 您的大名</a></td>
+  </tr>
+--></TBODY></TABLE></DIV></DIV><!-- end pagenav -->
+<DIV id=content>
+<DIV class=story><!-- <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                                   xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                   xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"><rdf:Description
+                             rdf:about="http://xsb.itpub.net/post/419/33028"
+                             dc:identifier="http://xsb.itpub.net/post/419/33028"
+                             dc:title="Oracle分析函数参考手册"
+                             trackback:ping="http://blog.itpub.net//trackback.php?id=33028"/></rdf:RDF> -->
+<DIV class=noDisplay>=========================================================== 
+</DIV>
+<DIV class=storyTitle>Oracle分析函数参考手册 </DIV>
+<DIV class=noDisplay>=========================================================== 
+</DIV>
+<DIV class=storyInfo>作者: xsb(http://xsb.itpub.net)<BR>发表于:2006.03.01 
+12:22<BR>分类: DW&amp;BI 
+<BR>出处：http://xsb.itpub.net/post/419/33028<BR>--------------------------------------------------------------- 
+<BR></DIV>
+<DIV class=storytext>
+<P><FONT size=2>22/06/2005 12:22 
+FP<BR>Oracle从8.1.6开始提供分析函数，分析函数用于计算基于组的某种聚合值，它和聚合函数的不同之处是对于每个组返回多行，而聚合函数对于每个组只返回一行。</FONT></P>
+<P><FONT size=2></FONT></P><BR>
+<P><FONT 
+size=2>下面例子中使用的表来自Oracle自带的HR用户下的表，如果没有安装该用户，可以在SYS用户下运行$ORACLE_HOME/demo/schema/human_resources/hr_main.sql来创建。</FONT></P>
+<P><FONT size=2>除本文内容外，你还可参考：<BR>ROLLUP与CUBE <A 
+href="http://xsb.itpub.net/post/419/29159">http://xsb.itpub.net/post/419/29159</A><BR><FONT 
+size=2>分析函数使用例子介绍：<A 
+href="http://xsb.itpub.net/post/419/44634">http://xsb.itpub.net/post/419/44634</A></FONT></FONT></P>
+<P><FONT 
+size=2>本文如果未指明，缺省是在HR用户下运行例子。<BR>开窗函数的的理解：<BR>开窗函数指定了分析函数工作的数据窗口大小，这个数据窗口大小可能会随着行的变化而变化，举例如下：<BR>over（order 
+by salary） 按照salary排序进行累计，order by是个默认的开窗函数<BR>over（partition by 
+deptno）按照部门分区<BR>over（order by salary range between 50 preceding and 150 
+following）<BR>每行对应的数据窗口是之前行幅度值不超过50，之后行幅度值不超过150<BR>over（order by salary rows 
+between 50 preceding and 150 following）<BR>每行对应的数据窗口是之前50行，之后150行<BR>over（order 
+by salary rows between unbounded preceding and unbounded 
+following）<BR>每行对应的数据窗口是从第一行到最后一行，等效：<BR>over（order by salary range between 
+unbounded preceding and unbounded following）</FONT></P>
+<P><FONT size=2>主要参考资料：《expert one-on-one》 Tom Kyte 《Oracle9i SQL 
+Reference》第6章</FONT></P>
+<P><BR><FONT size=2>AVG 
+<BR>功能描述：用于计算一个组和数据窗口内表达式的平均值。<BR>SAMPLE：下面的例子中列c_mavg计算员工表中每个员工的平均薪水报告，该平均值由当前员工和与之具有相同经理的前一个和后一个三者的平均数得来；</FONT></P>
+<P><FONT size=2>SELECT manager_id, last_name, hire_date, salary,<BR>AVG(salary) 
+OVER (PARTITION BY manager_id ORDER BY hire_date <BR>ROWS BETWEEN 1 PRECEDING 
+AND 1 FOLLOWING) AS c_mavg<BR>FROM employees;</FONT></P>
+<P><FONT size=2>MANAGER_ID LAST_NAME HIRE_DATE SALARY C_MAVG<BR>---------- 
+------------------------- --------- ---------- ----------<BR>100 Kochhar 
+21-SEP-89 17000 17000<BR>100 De Haan 13-JAN-93 17000 15000<BR>100 Raphaely 
+07-DEC-94 11000 11966.6667<BR>100 Kaufling 01-MAY-95 7900 10633.3333<BR>100 
+Hartstein 17-FEB-96 13000 9633.33333<BR>100 Weiss 18-JUL-96 8000 
+11666.6667<BR>100 Russell 01-OCT-96 14000 11833.3333</FONT></P>
+<P><FONT size=2>CORR 
+<BR>功能描述：返回一对表达式的相关系数，它是如下的缩写：<BR>COVAR_POP(expr1,expr2)/STDDEV_POP(expr1)*STDDEV_POP(expr2))<BR>从统计上讲，相关性是变量之间关联的强度，变量之间的关联意味着在某种程度<BR>上一个变量的值可由其它的值进行预测。通过返回一个-1~1之间的一个数, 
+相关<BR>系数给出了关联的强度，0表示不相关。<BR>SAMPLE：下例返回1998年月销售收入和月单位销售的关系的累积系数（本例在SH用户下运行）</FONT></P>
+<P><FONT size=2>SELECT t.calendar_month_number,<BR>CORR (SUM(s.amount_sold), 
+SUM(s.quantity_sold))<BR>OVER (ORDER BY t.calendar_month_number) as 
+CUM_CORR<BR>FROM sales s, times t<BR>WHERE s.time_id = t.time_id AND 
+calendar_year = 1998<BR>GROUP BY t.calendar_month_number<BR>ORDER BY 
+t.calendar_month_number;</FONT></P>
+<P><FONT size=2>CALENDAR_MONTH_NUMBER CUM_CORR<BR>--------------------- 
+----------<BR>1<BR>2 1<BR>3 .994309382<BR>4 .852040875<BR>5 .846652204<BR>6 
+.871250628<BR>7 .910029803<BR>8 .917556399<BR>9 .920154356<BR>10 .86720251<BR>11 
+.844864765<BR>12 .903542662</FONT></P>
+<P><BR><FONT size=2>COVAR_POP 
+<BR>功能描述：返回一对表达式的总体协方差。<BR>SAMPLE：下例CUM_COVP返回定价和最小产品价格的累积总体协方差</FONT></P>
+<P><FONT size=2>SELECT product_id, supplier_id,<BR>COVAR_POP(list_price, 
+min_price) <BR>OVER (ORDER BY product_id, supplier_id) AS 
+CUM_COVP,<BR>COVAR_SAMP(list_price, min_price)<BR>OVER (ORDER BY product_id, 
+supplier_id) AS CUM_COVS <BR>FROM product_information p<BR>WHERE category_id = 
+29<BR>ORDER BY product_id, supplier_id;</FONT></P>
+<P><FONT size=2>PRODUCT_ID SUPPLIER_ID CUM_COVP CUM_COVS<BR>---------- 
+----------- ---------- ----------<BR>1774 103088 0<BR>1775 103087 1473.25 
+2946.5<BR>1794 103096 1702.77778 2554.16667<BR>1825 103093 1926.25 
+2568.33333<BR>2004 103086 1591.4 1989.25<BR>2005 103086 1512.5 1815<BR>2416 
+103088 1475.97959 1721.97619<BR>.<BR>.</FONT></P>
+<P><BR><FONT size=2>COVAR_SAMP 
+<BR>功能描述：返回一对表达式的样本协方差<BR>SAMPLE：下例CUM_COVS返回定价和最小产品价格的累积样本协方差</FONT></P>
+<P><FONT size=2>SELECT product_id, supplier_id,<BR>COVAR_POP(list_price, 
+min_price) <BR>OVER (ORDER BY product_id, supplier_id) AS 
+CUM_COVP,<BR>COVAR_SAMP(list_price, min_price)<BR>OVER (ORDER BY product_id, 
+supplier_id) AS CUM_COVS <BR>FROM product_information p<BR>WHERE category_id = 
+29<BR>ORDER BY product_id, supplier_id;</FONT></P>
+<P><FONT size=2>PRODUCT_ID SUPPLIER_ID CUM_COVP CUM_COVS<BR>---------- 
+----------- ---------- ----------<BR>1774 103088 0<BR>1775 103087 1473.25 
+2946.5<BR>1794 103096 1702.77778 2554.16667<BR>1825 103093 1926.25 
+2568.33333<BR>2004 103086 1591.4 1989.25<BR>2005 103086 1512.5 1815<BR>2416 
+103088 1475.97959 1721.97619<BR>.<BR>.</FONT></P>
+<P><BR><FONT size=2>COUNT 
+<BR>功能描述：对一组内发生的事情进行累积计数，如果指定*或一些非空常数，count将对所有行计数，如果指定一个表达式，count返回表达式非空赋值的计数，当有相同值出现时，这些相等的值都会被纳入被计算的值；可以使用DISTINCT来记录去掉一组中完全相同的数据后出现的行数。<BR>SAMPLE：下面例子中计算每个员工在按薪水排序中当前行附近薪水在[n-50,n+150]之间的行数，n表示当前行的薪水<BR>例如，Philtanker的薪水2200，排在他之前的行中薪水大于等于2200-50的有1行，排在他之后的行中薪水小于等于2200＋150的行没有，所以count计数值cnt3为2（包括自己当前行）；cnt2值相当于小于等于当前行的SALARY值的所有行数</FONT></P>
+<P><FONT size=2>SELECT last_name, salary, COUNT(*) OVER () AS cnt1,<BR>COUNT(*) 
+OVER (ORDER BY salary) AS cnt2,<BR>COUNT(*) OVER (ORDER BY salary RANGE BETWEEN 
+50 PRECEDING<BR>AND 150 FOLLOWING) AS cnt3 FROM employees;</FONT></P>
+<P><FONT size=2>LAST_NAME SALARY CNT1 CNT2 CNT3<BR>------------------------- 
+---------- ---------- ---------- ----------<BR>Olson 2100 107 1 3<BR>Markle 2200 
+107 3 2<BR>Philtanker 2200 107 3 2<BR>Landry 2400 107 5 8<BR>Gee 2400 107 5 
+8<BR>Colmenares 2500 107 11 10<BR>Patel 2500 107 11 10<BR>.<BR>.</FONT></P>
+<P><BR><FONT size=2>CUME_DIST 
+<BR>功能描述：计算一行在组中的相对位置，CUME_DIST总是返回大于0、小于或等于1的数，该数表示该行在N行中的位置。例如，在一个3行的组中，返回的累计分布值为1/3、2/3、3/3<BR>SAMPLE：下例中计算每个工种的员工按薪水排序依次累积出现的分布百分比</FONT></P>
+<P><FONT size=2>SELECT job_id, last_name, salary, CUME_DIST() <BR>OVER 
+(PARTITION BY job_id ORDER BY salary) AS cume_dist<BR>FROM employees WHERE 
+job_id LIKE 'PU%';</FONT></P>
+<P><FONT size=2>JOB_ID LAST_NAME SALARY CUME_DIST<BR>---------- 
+------------------------- ---------- ----------<BR>PU_CLERK Colmenares 2500 
+.2<BR>PU_CLERK Himuro 2600 .4<BR>PU_CLERK Tobias 2800 .6<BR>PU_CLERK Baida 2900 
+.8<BR>PU_CLERK Khoo 3100 1<BR>PU_MAN Raphaely 11000 1</FONT></P>
+<P><BR><FONT size=2>DENSE_RANK <BR>功能描述：根据ORDER 
+BY子句中表达式的值，从查询返回的每一行，计算它们与其它行的相对位置。组内的数据按ORDER 
+BY子句排序，然后给每一行赋一个号，从而形成一个序列，该序列从1开始，往后累加。每次ORDER 
+BY表达式的值发生变化时，该序列也随之增加。有同样值的行得到同样的数字序号（认为null时相等的）。密集的序列返回的时没有间隔的数<BR>SAMPLE：下例中计算每个员工按部门分区再按薪水排序，依次出现的序列号（注意与RANK函数的区别）</FONT></P>
+<P><FONT size=2>SELECT d.department_id , e.last_name, e.salary, DENSE_RANK() 
+<BR>OVER (PARTITION BY e.department_id ORDER BY e.salary) as drank<BR>FROM 
+employees e, departments d<BR>WHERE e.department_id = d.department_id<BR>AND 
+d.department_id IN ('60', '90'); </FONT></P>
+<P><FONT size=2>DEPARTMENT_ID LAST_NAME SALARY DRANK<BR>------------- 
+------------------------- ---------- ----------<BR>60 Lorentz 4200 1<BR>60 
+Austin 4800 2<BR>60 Pataballa 4800 2<BR>60 Ernst 6000 3<BR>60 Hunold 9000 
+4<BR>90 Kochhar 17000 1<BR>90 De Haan 17000 1<BR>90 King 24000 2</FONT></P>
+<P><BR><FONT size=2>FIRST 
+<BR>功能描述：从DENSE_RANK返回的集合中取出排在最前面的一个值的行（可能多行，因为值可能相等），因此完整的语法需要在开始处加上一个集合函数以从中取出记录<BR>SAMPLE：下面例子中DENSE_RANK按部门分区，再按佣金commission_pct排序，FIRST取出佣金最低的对应的所有行，然后前面的MAX函数从这个集合中取出薪水最低的值；LAST取出佣金最高的对应的所有行，然后前面的MIN函数从这个集合中取出薪水最高的值<BR>SELECT 
+last_name, department_id, salary,<BR>MIN(salary) KEEP (DENSE_RANK FIRST ORDER BY 
+commission_pct)<BR>OVER (PARTITION BY department_id) "Worst",<BR>MAX(salary) 
+KEEP (DENSE_RANK LAST ORDER BY commission_pct)<BR>OVER (PARTITION BY 
+department_id) "Best"<BR>FROM employees <BR>WHERE department_id in (20,80) 
+<BR>ORDER BY department_id, salary;</FONT></P>
+<P><FONT size=2>LAST_NAME DEPARTMENT_ID SALARY Worst 
+Best<BR>------------------------- ------------- ---------- ---------- 
+----------<BR>Fay 20 6000 6000 13000<BR>Hartstein 20 13000 6000 13000<BR>Kumar 
+80 6100 6100 14000<BR>Banda 80 6200 6100 14000<BR>Johnson 80 6200 6100 
+14000<BR>Ande 80 6400 6100 14000<BR>Lee 80 6800 6100 14000<BR>Tuvault 80 7000 
+6100 14000<BR>Sewall 80 7000 6100 14000<BR>Marvins 80 7200 6100 14000<BR>Bates 
+80 7300 6100 14000<BR>.<BR>.<BR>.</FONT></P>
+<P><BR><FONT size=2>FIRST_VALUE 
+<BR>功能描述：返回组中数据窗口的第一个值。<BR>SAMPLE：下面例子计算按部门分区按薪水排序的数据窗口的第一个值对应的名字，如果薪水的第一个值有多个，则从多个对应的名字中取缺省排序的第一个名字</FONT></P>
+<P><FONT size=2>SELECT department_id, last_name, salary, 
+FIRST_VALUE(last_name)<BR>OVER (PARTITION BY department_id ORDER BY salary ASC ) 
+AS lowest_sal<BR>FROM employees <BR>WHERE department_id in(20,30);</FONT></P>
+<P><FONT size=2>DEPARTMENT_ID LAST_NAME SALARY LOWEST_SAL<BR>------------- 
+------------------------- ---------- --------------<BR>20 Fay 6000 Fay<BR>20 
+Hartstein 13000 Fay<BR>30 Colmenares 2500 Colmenares<BR>30 Himuro 2600 
+Colmenares<BR>30 Tobias 2800 Colmenares<BR>30 Baida 2900 Colmenares<BR>30 Khoo 
+3100 Colmenares<BR>30 Raphaely 11000 Colmenares</FONT></P>
+<P><BR><FONT size=2>LAG 
+<BR>功能描述：可以访问结果集中的其它行而不用进行自连接。它允许去处理游标，就好像游标是一个数组一样。在给定组中可参考当前行之前的行，这样就可以从组中与当前行一起选择以前的行。Offset是一个正整数，其默认值为1，若索引超出窗口的范围，就返回默认值（默认返回的是组中第一行），其相反的函数是LEAD<BR>SAMPLE：下面的例子中列prev_sal返回按hire_date排序的前1行的salary值</FONT></P>
+<P><FONT size=2>SELECT last_name, hire_date, salary,<BR>LAG(salary, 1, 0) OVER 
+(ORDER BY hire_date) AS prev_sal<BR>FROM employees<BR>WHERE job_id = 
+'PU_CLERK';</FONT></P>
+<P><FONT size=2>LAST_NAME HIRE_DATE SALARY PREV_SAL<BR>------------------------- 
+---------- ---------- ----------<BR>Khoo 18-5月 -95 3100 0<BR>Tobias 24-7月 -97 
+2800 3100<BR>Baida 24-12月-97 2900 2800<BR>Himuro 15-11月-98 2600 
+2900<BR>Colmenares 10-8月 -99 2500 2600</FONT></P>
+<P><BR><FONT size=2>LAST 
+<BR>功能描述：从DENSE_RANK返回的集合中取出排在最后面的一个值的行（可能多行，因为值可能相等），因此完整的语法需要在开始处加上一个集合函数以从中取出记录<BR>SAMPLE：下面例子中DENSE_RANK按部门分区，再按佣金commission_pct排序，FIRST取出佣金最低的对应的所有行，然后前面的MAX函数从这个集合中取出薪水最低的值；LAST取出佣金最高的对应的所有行，然后前面的MIN函数从这个集合中取出薪水最高的值<BR>SELECT 
+last_name, department_id, salary,<BR>MIN(salary) KEEP (DENSE_RANK FIRST ORDER BY 
+commission_pct)<BR>OVER (PARTITION BY department_id) "Worst",<BR>MAX(salary) 
+KEEP (DENSE_RANK LAST ORDER BY commission_pct)<BR>OVER (PARTITION BY 
+department_id) "Best"<BR>FROM employees <BR>WHERE department_id in (20,80) 
+<BR>ORDER BY department_id, salary;</FONT></P>
+<P><FONT size=2>LAST_NAME DEPARTMENT_ID SALARY Worst 
+Best<BR>------------------------- ------------- ---------- ---------- 
+----------<BR>Fay 20 6000 6000 13000<BR>Hartstein 20 13000 6000 13000<BR>Kumar 
+80 6100 6100 14000<BR>Banda 80 6200 6100 14000<BR>Johnson 80 6200 6100 
+14000<BR>Ande 80 6400 6100 14000<BR>Lee 80 6800 6100 14000<BR>Tuvault 80 7000 
+6100 14000<BR>Sewall 80 7000 6100 14000<BR>Marvins 80 7200 6100 14000<BR>Bates 
+80 7300 6100 14000<BR>.<BR>LAST_VALUE 
+<BR>功能描述：返回组中数据窗口的最后一个值。<BR>SAMPLE：下面例子计算按部门分区按薪水排序的数据窗口的最后一个值对应的名字，如果薪水的最后一个值有多个，则从多个对应的名字中取缺省排序的最后一个名字<BR>SELECT 
+department_id, last_name, salary, LAST_VALUE(last_name)<BR>OVER(PARTITION BY 
+department_id ORDER BY salary) AS highest_sal<BR>FROM employees <BR>WHERE 
+department_id in(20,30);</FONT></P>
+<P><FONT size=2>DEPARTMENT_ID LAST_NAME SALARY HIGHEST_SAL<BR>------------- 
+------------------------- ---------- ------------<BR>20 Fay 6000 Fay<BR>20 
+Hartstein 13000 Hartstein<BR>30 Colmenares 2500 Colmenares<BR>30 Himuro 2600 
+Himuro<BR>30 Tobias 2800 Tobias<BR>30 Baida 2900 Baida<BR>30 Khoo 3100 
+Khoo<BR>30 Raphaely 11000 Raphaely</FONT></P>
+<P><BR><FONT size=2>LEAD 
+<BR>功能描述：LEAD与LAG相反，LEAD可以访问组中当前行之后的行。Offset是一个正整数，其默认值为1，若索引超出窗口的范围，就返回默认值（默认返回的是组中第一行）<BR>SAMPLE：下面的例子中每行的"NextHired"返回按hire_date排序的下一行的hire_date值</FONT></P>
+<P><FONT size=2>SELECT last_name, hire_date, <BR>LEAD(hire_date, 1) OVER (ORDER 
+BY hire_date) AS "NextHired" <BR>FROM employees WHERE department_id = 
+30;</FONT></P>
+<P><FONT size=2>LAST_NAME HIRE_DATE NextHired<BR>------------------------- 
+--------- ---------<BR>Raphaely 07-DEC-94 18-MAY-95<BR>Khoo 18-MAY-95 
+24-JUL-97<BR>Tobias 24-JUL-97 24-DEC-97<BR>Baida 24-DEC-97 15-NOV-98<BR>Himuro 
+15-NOV-98 10-AUG-99<BR>Colmenares 10-AUG-99</FONT></P>
+<P><BR><FONT size=2>MAX 
+<BR>功能描述：在一个组中的数据窗口中查找表达式的最大值。<BR>SAMPLE：下面例子中dept_max返回当前行所在部门的最大薪水值</FONT></P>
+<P><FONT size=2>SELECT department_id, last_name, salary, <BR>MAX(salary) OVER 
+(PARTITION BY department_id) AS dept_max<BR>FROM employees WHERE department_id 
+in (10,20,30);</FONT></P>
+<P><FONT size=2>DEPARTMENT_ID LAST_NAME SALARY DEPT_MAX<BR>------------- 
+------------------------- ---------- ----------<BR>10 Whalen 4400 4400<BR>20 
+Hartstein 13000 13000<BR>20 Fay 6000 13000<BR>30 Raphaely 11000 11000<BR>30 Khoo 
+3100 11000<BR>30 Baida 2900 11000<BR>30 Tobias 2800 11000<BR>30 Himuro 2600 
+11000<BR>30 Colmenares 2500 11000</FONT></P>
+<P><BR><FONT size=2>MIN 
+<BR>功能描述：在一个组中的数据窗口中查找表达式的最小值。<BR>SAMPLE：下面例子中dept_min返回当前行所在部门的最小薪水值</FONT></P>
+<P><FONT size=2>SELECT department_id, last_name, salary, <BR>MIN(salary) OVER 
+(PARTITION BY department_id) AS dept_min<BR>FROM employees WHERE department_id 
+in (10,20,30);</FONT></P>
+<P><FONT size=2>DEPARTMENT_ID LAST_NAME SALARY DEPT_MIN<BR>------------- 
+------------------------- ---------- ----------<BR>10 Whalen 4400 4400<BR>20 
+Hartstein 13000 6000<BR>20 Fay 6000 6000<BR>30 Raphaely 11000 2500<BR>30 Khoo 
+3100 2500<BR>30 Baida 2900 2500<BR>30 Tobias 2800 2500<BR>30 Himuro 2600 
+2500<BR>30 Colmenares 2500 2500</FONT></P>
+<P><BR><FONT size=2>NTILE 
+<BR>功能描述：将一个组分为"表达式"的散列表示，例如，如果表达式=4，则给组中的每一行分配一个数（从1到4），如果组中有20行，则给前5行分配1，给下5行分配2等等。如果组的基数不能由表达式值平均分开，则对这些行进行分配时，组中就没有任何percentile的行数比其它percentile的行数超过一行，最低的percentile是那些拥有额外行的percentile。例如，若表达式=4，行数=21，则percentile=1的有5行，percentile=2的有5行等等。<BR>SAMPLE：下例中把6行数据分为4份</FONT></P>
+<P><FONT size=2>SELECT last_name, salary, <BR>NTILE(4) OVER (ORDER BY salary 
+DESC) AS quartile FROM employees<BR>WHERE department_id = 100;</FONT></P>
+<P><FONT size=2>LAST_NAME SALARY QUARTILE<BR>------------------------- 
+---------- ----------<BR>Greenberg 12000 1<BR>Faviet 9000 1<BR>Chen 8200 
+2<BR>Urman 7800 2<BR>Sciarra 7700 3<BR>Popp 6900 4</FONT></P>
+<P><BR><FONT size=2>PERCENT_RANK 
+<BR>功能描述：和CUME_DIST（累积分配）函数类似，对于一个组中给定的行来说，在计算那行的序号时，先减1，然后除以n-1（n为组中所有的行数）。该函数总是返回0～1（包括1）之间的数。<BR>SAMPLE：下例中如果Khoo的salary为2900，则pr值为0.6，因为RANK函数对于等值的返回序列值是一样的</FONT></P>
+<P><FONT size=2>SELECT department_id, last_name, salary, <BR>PERCENT_RANK() 
+<BR>OVER (PARTITION BY department_id ORDER BY salary) AS pr<BR>FROM 
+employees<BR>WHERE department_id &lt; 50<BR>ORDER BY 
+department_id,salary;</FONT></P>
+<P><FONT size=2>DEPARTMENT_ID LAST_NAME SALARY PR<BR>------------- 
+------------------------- ---------- ----------<BR>10 Whalen 4400 0<BR>20 Fay 
+6000 0<BR>20 Hartstein 13000 1<BR>30 Colmenares 2500 0<BR>30 Himuro 2600 
+0.2<BR>30 Tobias 2800 0.4<BR>30 Baida 2900 0.6<BR>30 Khoo 3100 0.8<BR>30 
+Raphaely 11000 1<BR>40 Mavris 6500 0</FONT></P>
+<P><BR><FONT size=2>PERCENTILE_CONT 
+<BR>功能描述：返回一个与输入的分布百分比值相对应的数据值，分布百分比的计算方法见函数PERCENT_RANK，如果没有正好对应的数据值，就通过下面算法来得到值：<BR>RN 
+= 1+ (P*(N-1)) 其中P是输入的分布百分比值，N是组内的行数<BR>CRN = CEIL(RN) FRN = FLOOR(RN)<BR>if 
+(CRN = FRN = RN) then <BR>(value of expression from row at RN)<BR>else<BR>(CRN - 
+RN) * (value of expression for row at FRN) +<BR>(RN - FRN) * (value of 
+expression for row at 
+CRN)<BR>注意：本函数与PERCENTILE_DISC的区别在找不到对应的分布值时返回的替代值的计算方法不同</FONT></P>
+<P><FONT size=2>SAMPLE：在下例中，对于部门60的Percentile_Cont值计算如下：<BR>P=0.7 N=5 RN =1+ 
+(P*(N-1)=1+(0.7*(5-1))=3.8 CRN = CEIL(3.8)=4 <BR>FRN = FLOOR(3.8)=3 <BR>（4 - 
+3.8）* 4800 + (3.8 - 3) * 6000 = 5760</FONT></P>
+<P><FONT size=2>SELECT last_name, salary, department_id,<BR>PERCENTILE_CONT(0.7) 
+WITHIN GROUP (ORDER BY salary) <BR>OVER (PARTITION BY department_id) 
+"Percentile_Cont",<BR>PERCENT_RANK() <BR>OVER (PARTITION BY department_id ORDER 
+BY salary) "Percent_Rank"<BR>FROM employees WHERE department_id IN (30, 
+60);</FONT></P>
+<P><FONT size=2>LAST_NAME SALARY DEPARTMENT_ID Percentile_Cont 
+Percent_Rank<BR>------------------------- ---------- ------------- 
+--------------- ------------<BR>Colmenares 2500 30 3000 0<BR>Himuro 2600 30 3000 
+0.2<BR>Tobias 2800 30 3000 0.4<BR>Baida 2900 30 3000 0.6<BR>Khoo 3100 30 3000 
+0.8<BR>Raphaely 11000 30 3000 1<BR>Lorentz 4200 60 5760 0<BR>Austin 4800 60 5760 
+0.25<BR>Pataballa 4800 60 5760 0.25<BR>Ernst 6000 60 5760 0.75<BR>Hunold 9000 60 
+5760 1</FONT></P>
+<P><BR><FONT size=2>PERCENTILE_DISC 
+<BR>功能描述：返回一个与输入的分布百分比值相对应的数据值，分布百分比的计算方法见函数CUME_DIST，如果没有正好对应的数据值，就取大于该分布值的下一个值。<BR>注意：本函数与PERCENTILE_CONT的区别在找不到对应的分布值时返回的替代值的计算方法不同</FONT></P>
+<P><FONT 
+size=2>SAMPLE：下例中0.7的分布值在部门30中没有对应的Cume_Dist值，所以就取下一个分布值0.83333333所对应的SALARY来替代</FONT></P>
+<P><FONT size=2>SELECT last_name, salary, department_id,<BR>PERCENTILE_DISC(0.7) 
+WITHIN GROUP (ORDER BY salary )<BR>OVER (PARTITION BY department_id) 
+"Percentile_Disc",<BR>CUME_DIST() OVER (PARTITION BY department_id ORDER BY 
+salary) "Cume_Dist"<BR>FROM employees <BR>WHERE department_id in (30, 
+60);</FONT></P>
+<P><FONT size=2>LAST_NAME SALARY DEPARTMENT_ID Percentile_Disc 
+Cume_Dist<BR>------------------------- ---------- ------------- --------------- 
+----------<BR>Colmenares 2500 30 3100 .166666667<BR>Himuro 2600 30 3100 
+.333333333<BR>Tobias 2800 30 3100 .5<BR>Baida 2900 30 3100 .666666667<BR>Khoo 
+3100 30 3100 .833333333<BR>Raphaely 11000 30 3100 1<BR>Lorentz 4200 60 6000 
+.2<BR>Austin 4800 60 6000 .6<BR>Pataballa 4800 60 6000 .6<BR>Ernst 6000 60 6000 
+.8<BR>Hunold 9000 60 6000 1</FONT></P>
+<P><BR><FONT size=2>RANK <BR>功能描述：根据ORDER 
+BY子句中表达式的值，从查询返回的每一行，计算它们与其它行的相对位置。组内的数据按ORDER 
+BY子句排序，然后给每一行赋一个号，从而形成一个序列，该序列从1开始，往后累加。每次ORDER 
+BY表达式的值发生变化时，该序列也随之增加。有同样值的行得到同样的数字序号（认为null时相等的）。然而，如果两行的确得到同样的排序，则序数将随后跳跃。若两行序数为1，则没有序数2，序列将给组中的下一行分配值3，DENSE_RANK则没有任何跳跃。<BR>SAMPLE：下例中计算每个员工按部门分区再按薪水排序，依次出现的序列号（注意与DENSE_RANK函数的区别）</FONT></P>
+<P><FONT size=2>SELECT d.department_id , e.last_name, e.salary, RANK() <BR>OVER 
+(PARTITION BY e.department_id ORDER BY e.salary) as drank<BR>FROM employees e, 
+departments d<BR>WHERE e.department_id = d.department_id<BR>AND d.department_id 
+IN ('60', '90');</FONT></P>
+<P><FONT size=2>DEPARTMENT_ID LAST_NAME SALARY DRANK<BR>------------- 
+------------------------- ---------- ----------<BR>60 Lorentz 4200 1<BR>60 
+Austin 4800 2<BR>60 Pataballa 4800 2<BR>60 Ernst 6000 4<BR>60 Hunold 9000 
+5<BR>90 Kochhar 17000 1<BR>90 De Haan 17000 1<BR>90 King 24000 3</FONT></P>
+<P><BR><FONT size=2>RATIO_TO_REPORT 
+<BR>功能描述：该函数计算expression/(sum(expression))的值，它给出相对于总数的百分比，即当前行对sum(expression)的贡献。<BR>SAMPLE：下例计算每个员工的工资占该类员工总工资的百分比</FONT></P>
+<P><FONT size=2>SELECT last_name, salary, RATIO_TO_REPORT(salary) OVER () AS 
+rr<BR>FROM employees<BR>WHERE job_id = 'PU_CLERK';</FONT></P>
+<P><FONT size=2>LAST_NAME SALARY RR<BR>------------------------- ---------- 
+----------<BR>Khoo 3100 .223021583<BR>Baida 2900 .208633094<BR>Tobias 2800 
+.201438849<BR>Himuro 2600 .18705036<BR>Colmenares 2500 .179856115</FONT></P>
+<P><BR><FONT size=2>REGR_ (Linear Regression) Functions 
+<BR>功能描述：这些线性回归函数适合最小二乘法回归线，有9个不同的回归函数可使用。<BR>REGR_SLOPE：返回斜率，等于COVAR_POP(expr1, 
+expr2) / VAR_POP(expr2)<BR>REGR_INTERCEPT：返回回归线的y截距，等于<BR>AVG(expr1) - 
+REGR_SLOPE(expr1, expr2) * 
+AVG(expr2)<BR>REGR_COUNT：返回用于填充回归线的非空数字对的数目<BR>REGR_R2：返回回归线的决定系数，计算式为：<BR>If 
+VAR_POP(expr2) = 0 then return NULL<BR>If VAR_POP(expr1) = 0 and VAR_POP(expr2) 
+!= 0 then return 1<BR>If VAR_POP(expr1) &gt; 0 and VAR_POP(expr2 != 0 then 
+<BR>return 
+POWER(CORR(expr1,expr),2)<BR>REGR_AVGX：计算回归线的自变量(expr2)的平均值，去掉了空对(expr1, 
+expr2)后，等于AVG(expr2)<BR>REGR_AVGY：计算回归线的应变量(expr1)的平均值，去掉了空对(expr1, 
+expr2)后，等于AVG(expr1)<BR>REGR_SXX： 返回值等于REGR_COUNT(expr1, expr2) * 
+VAR_POP(expr2)<BR>REGR_SYY： 返回值等于REGR_COUNT(expr1, expr2) * 
+VAR_POP(expr1)<BR>REGR_SXY: 返回值等于REGR_COUNT(expr1, expr2) * COVAR_POP(expr1, 
+expr2)</FONT></P>
+<P><FONT size=2>（下面的例子都是在SH用户下完成的）<BR>SAMPLE 
+1：下例计算1998年最后三个星期中两种产品（260和270）在周末的销售量中已开发票数量和总数量的累积斜率和回归线的截距</FONT></P>
+<P><FONT size=2>SELECT t.fiscal_month_number "Month", t.day_number_in_month 
+"Day", <BR>REGR_SLOPE(s.amount_sold, s.quantity_sold) <BR>OVER (ORDER BY 
+t.fiscal_month_desc, t.day_number_in_month) AS 
+CUM_SLOPE,<BR>REGR_INTERCEPT(s.amount_sold, s.quantity_sold) <BR>OVER (ORDER BY 
+t.fiscal_month_desc, t.day_number_in_month) AS CUM_ICPT <BR>FROM sales s, times 
+t<BR>WHERE s.time_id = t.time_id <BR>AND s.prod_id IN (270, 260)<BR>AND 
+t.fiscal_year=1998 <BR>AND t.fiscal_week_number IN (50, 51, 52)<BR>AND 
+t.day_number_in_week IN (6,7)<BR>ORDER BY t.fiscal_month_desc, 
+t.day_number_in_month;</FONT></P>
+<P><FONT size=2>Month Day CUM_SLOPE CUM_ICPT<BR>---------- ---------- ---------- 
+----------<BR>12 12 -68 1872<BR>12 12 -68 1872<BR>12 13 -20.244898 
+1254.36735<BR>12 13 -20.244898 1254.36735<BR>12 19 -18.826087 1287<BR>12 20 
+62.4561404 125.28655<BR>12 20 62.4561404 125.28655<BR>12 20 62.4561404 
+125.28655<BR>12 20 62.4561404 125.28655<BR>12 26 67.2658228 58.9712313<BR>12 26 
+67.2658228 58.9712313<BR>12 27 37.5245541 284.958221<BR>12 27 37.5245541 
+284.958221<BR>12 27 37.5245541 284.958221</FONT></P>
+<P><FONT size=2>SAMPLE 2：下例计算1998年4月每天的累积交易数量</FONT></P>
+<P><FONT size=2>SELECT UNIQUE 
+t.day_number_in_month,<BR>REGR_COUNT(s.amount_sold, s.quantity_sold) <BR>OVER 
+(PARTITION BY t.fiscal_month_number ORDER BY 
+t.day_number_in_month)<BR>"Regr_Count"<BR>FROM sales s, times t<BR>WHERE 
+s.time_id = t.time_id <BR>AND t.fiscal_year = 1998 AND t.fiscal_month_number = 
+4;</FONT></P>
+<P><FONT size=2>DAY_NUMBER_IN_MONTH Regr_Count<BR>------------------- 
+----------<BR>1 825<BR>2 1650<BR>3 2475<BR>4 3300<BR>.<BR>.<BR>.<BR>26 
+21450<BR>30 22200</FONT></P>
+<P><FONT size=2>SAMPLE 3：下例计算1998年每月销售量中已开发票数量和总数量的累积回归线决定系数</FONT></P>
+<P><FONT size=2>SELECT t.fiscal_month_number,<BR>REGR_R2(SUM(s.amount_sold), 
+SUM(s.quantity_sold))<BR>OVER (ORDER BY t.fiscal_month_number) "Regr_R2"<BR>FROM 
+sales s, times t<BR>WHERE s.time_id = t.time_id<BR>AND t.fiscal_year = 
+1998<BR>GROUP BY t.fiscal_month_number<BR>ORDER BY 
+t.fiscal_month_number;</FONT></P>
+<P><FONT size=2>FISCAL_MONTH_NUMBER Regr_R2<BR>------------------- 
+----------<BR>1<BR>2 1<BR>3 .927372984<BR>4 .807019972<BR>5 .932745567<BR>6 
+.94682861<BR>7 .965342011<BR>8 .955768075<BR>9 .959542618<BR>10 .938618575<BR>11 
+.880931415<BR>12 .882769189</FONT></P>
+<P><FONT size=2>SAMPLE 4：下例计算1998年12月最后两周产品260的销售量中已开发票数量和总数量的累积平均值</FONT></P>
+<P><FONT size=2>SELECT t.day_number_in_month,<BR>REGR_AVGY(s.amount_sold, 
+s.quantity_sold)<BR>OVER (ORDER BY t.fiscal_month_desc, 
+t.day_number_in_month)<BR>"Regr_AvgY",<BR>REGR_AVGX(s.amount_sold, 
+s.quantity_sold)<BR>OVER (ORDER BY t.fiscal_month_desc, 
+t.day_number_in_month)<BR>"Regr_AvgX"<BR>FROM sales s, times t<BR>WHERE 
+s.time_id = t.time_id <BR>AND s.prod_id = 260<BR>AND t.fiscal_month_desc = 
+'1998-12'<BR>AND t.fiscal_week_number IN (51, 52)<BR>ORDER BY 
+t.day_number_in_month;</FONT></P>
+<P><FONT size=2>DAY_NUMBER_IN_MONTH Regr_AvgY Regr_AvgX<BR>------------------- 
+---------- ----------<BR>14 882 24.5<BR>14 882 24.5<BR>15 801 22.25<BR>15 801 
+22.25<BR>16 777.6 21.6<BR>18 642.857143 17.8571429<BR>18 642.857143 
+17.8571429<BR>20 589.5 16.375<BR>21 544 15.1111111<BR>22 592.363636 
+16.4545455<BR>22 592.363636 16.4545455<BR>24 553.846154 15.3846154<BR>24 
+553.846154 15.3846154<BR>26 522 14.5<BR>27 578.4 16.0666667</FONT></P>
+<P><FONT size=2>SAMPLE 5：下例计算产品260和270在1998年2月周末销售量中已开发票数量和总数量的累积REGR_SXY, 
+REGR_SXX, and REGR_SYY统计值</FONT></P>
+<P><FONT size=2>SELECT t.day_number_in_month,<BR>REGR_SXY(s.amount_sold, 
+s.quantity_sold)<BR>OVER (ORDER BY t.fiscal_year, t.fiscal_month_desc) 
+"Regr_sxy",<BR>REGR_SYY(s.amount_sold, s.quantity_sold)<BR>OVER (ORDER BY 
+t.fiscal_year, t.fiscal_month_desc) "Regr_syy",<BR>REGR_SXX(s.amount_sold, 
+s.quantity_sold)<BR>OVER (ORDER BY t.fiscal_year, t.fiscal_month_desc) 
+"Regr_sxx"<BR>FROM sales s, times t<BR>WHERE s.time_id = t.time_id <BR>AND 
+prod_id IN (270, 260)<BR>AND t.fiscal_month_desc = '1998-02'<BR>AND 
+t.day_number_in_week IN (6,7)<BR>ORDER BY t.day_number_in_month;</FONT></P>
+<P><FONT size=2>DAY_NUMBER_IN_MONTH Regr_sxy Regr_syy 
+Regr_sxx<BR>------------------- ---------- ---------- ----------<BR>1 18870.4 
+2116198.4 258.4<BR>1 18870.4 2116198.4 258.4<BR>1 18870.4 2116198.4 258.4<BR>1 
+18870.4 2116198.4 258.4<BR>7 18870.4 2116198.4 258.4<BR>8 18870.4 2116198.4 
+258.4<BR>14 18870.4 2116198.4 258.4<BR>15 18870.4 2116198.4 258.4<BR>21 18870.4 
+2116198.4 258.4<BR>22 18870.4 2116198.4 258.4</FONT></P>
+<P><BR><FONT size=2>ROW_NUMBER 
+<BR>功能描述：返回有序组中一行的偏移量，从而可用于按特定标准排序的行号。<BR>SAMPLE：下例返回每个员工再在每个部门中按员工号排序后的顺序号</FONT></P>
+<P><FONT size=2>SELECT department_id, last_name, employee_id, 
+ROW_NUMBER()<BR>OVER (PARTITION BY department_id ORDER BY employee_id) AS 
+emp_id<BR>FROM employees<BR>WHERE department_id &lt; 50;</FONT></P>
+<P><FONT size=2>DEPARTMENT_ID LAST_NAME EMPLOYEE_ID EMP_ID<BR>------------- 
+------------------------- ----------- ----------<BR>10 Whalen 200 1<BR>20 
+Hartstein 201 1<BR>20 Fay 202 2<BR>30 Raphaely 114 1<BR>30 Khoo 115 2<BR>30 
+Baida 116 3<BR>30 Tobias 117 4<BR>30 Himuro 118 5<BR>30 Colmenares 119 6<BR>40 
+Mavris 203 1</FONT></P>
+<P><BR><FONT size=2>STDDEV <BR>功能描述：计算当前行关于组的标准偏离。（Standard 
+Deviation）<BR>SAMPLE：下例返回部门30按雇佣日期排序的薪水值的累积标准偏离</FONT></P>
+<P><FONT size=2>SELECT last_name, hire_date,salary, <BR>STDDEV(salary) OVER 
+(ORDER BY hire_date) "StdDev"<BR>FROM employees <BR>WHERE department_id = 
+30;</FONT></P>
+<P><FONT size=2>LAST_NAME HIRE_DATE SALARY StdDev<BR>------------------------- 
+---------- ---------- ----------<BR>Raphaely 07-12月-94 11000 0<BR>Khoo 18-5月 -95 
+3100 5586.14357<BR>Tobias 24-7月 -97 2800 4650.0896<BR>Baida 24-12月-97 2900 
+4035.26125<BR>Himuro 15-11月-98 2600 3649.2465<BR>Colmenares 10-8月 -99 2500 
+3362.58829</FONT></P>
+<P><BR><FONT size=2>STDDEV_POP 
+<BR>功能描述：该函数计算总体标准偏离，并返回总体变量的平方根，其返回值与VAR_POP函数的平方根相同。（Standard 
+Deviation－Population）<BR>SAMPLE：下例返回部门20、30、60的薪水值的总体标准偏差</FONT></P>
+<P><FONT size=2>SELECT department_id, last_name, salary, <BR>STDDEV_POP(salary) 
+OVER (PARTITION BY department_id) AS pop_std<BR>FROM employees<BR>WHERE 
+department_id in (20,30,60);</FONT></P>
+<P><FONT size=2>DEPARTMENT_ID LAST_NAME SALARY POP_STD<BR>------------- 
+------------------------- ---------- ----------<BR>20 Hartstein 13000 3500<BR>20 
+Fay 6000 3500<BR>30 Raphaely 11000 3069.6091<BR>30 Khoo 3100 3069.6091<BR>30 
+Baida 2900 3069.6091<BR>30 Colmenares 2500 3069.6091<BR>30 Himuro 2600 
+3069.6091<BR>30 Tobias 2800 3069.6091<BR>60 Hunold 9000 1722.32401<BR>60 Ernst 
+6000 1722.32401<BR>60 Austin 4800 1722.32401<BR>60 Pataballa 4800 
+1722.32401<BR>60 Lorentz 4200 1722.32401</FONT></P>
+<P><BR><FONT size=2>STDDEV_SAMP <BR>功能描述： 
+该函数计算累积样本标准偏离，并返回总体变量的平方根，其返回值与VAR_POP函数的平方根相同。（Standard 
+Deviation－Sample）<BR>SAMPLE：下例返回部门20、30、60的薪水值的样本标准偏差</FONT></P>
+<P><FONT size=2>SELECT department_id, last_name, hire_date, salary, 
+<BR>STDDEV_SAMP(salary) OVER <BR>(PARTITION BY department_id ORDER BY hire_date 
+<BR>ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cum_sdev <BR>FROM 
+employees<BR>WHERE department_id in (20,30,60);</FONT></P>
+<P><FONT size=2>DEPARTMENT_ID LAST_NAME HIRE_DATE SALARY 
+CUM_SDEV<BR>------------- ------------------------- ---------- ---------- 
+----------<BR>20 Hartstein 17-2月 -96 13000<BR>20 Fay 17-8月 -97 6000 
+4949.74747<BR>30 Raphaely 07-12月-94 11000<BR>30 Khoo 18-5月 -95 3100 
+5586.14357<BR>30 Tobias 24-7月 -97 2800 4650.0896<BR>30 Baida 24-12月-97 2900 
+4035.26125<BR>30 Himuro 15-11月-98 2600 3649.2465<BR>30 Colmenares 10-8月 -99 2500 
+3362.58829<BR>60 Hunold 03-1月 -90 9000<BR>60 Ernst 21-5月 -91 6000 
+2121.32034<BR>60 Austin 25-6月 -97 4800 2163.33077<BR>60 Pataballa 05-2月 -98 4800 
+1982.42276<BR>60 Lorentz 07-2月 -99 4200 1925.61678</FONT></P>
+<P><BR><FONT size=2>SUM 
+<BR>功能描述：该函数计算组中表达式的累积和。<BR>SAMPLE：下例计算同一经理下员工的薪水累积值</FONT></P>
+<P><FONT size=2>SELECT manager_id, last_name, salary,<BR>SUM (salary) OVER 
+(PARTITION BY manager_id ORDER BY salary<BR>RANGE UNBOUNDED PRECEDING) 
+l_csum<BR>FROM employees<BR>WHERE manager_id in (101,103,108);</FONT></P>
+<P><FONT size=2>MANAGER_ID LAST_NAME SALARY L_CSUM<BR>---------- 
+------------------------- ---------- ----------<BR>101 Whalen 4400 4400<BR>101 
+Mavris 6500 10900<BR>101 Baer 10000 20900<BR>101 Greenberg 12000 44900<BR>101 
+Higgins 12000 44900<BR>103 Lorentz 4200 4200<BR>103 Austin 4800 13800<BR>103 
+Pataballa 4800 13800<BR>103 Ernst 6000 19800<BR>108 Popp 6900 6900<BR>108 
+Sciarra 7700 14600<BR>108 Urman 7800 22400<BR>108 Chen 8200 30600<BR>108 Faviet 
+9000 39600<BR><BR><BR>VAR_POP<BR>功能描述：（Variance 
+Population）该函数返回非空集合的总体变量（忽略null），VAR_POP进行如下计算：<BR>(SUM(expr2) - SUM(expr)2 / 
+COUNT(expr)) / 
+COUNT(expr)<BR>SAMPLE：下例计算1998年每月销售的累积总体和样本变量（本例在SH用户下运行）</FONT></P>
+<P><FONT size=2>SELECT t.calendar_month_desc,<BR>VAR_POP(SUM(s.amount_sold)) 
+<BR>OVER (ORDER BY t.calendar_month_desc) 
+"Var_Pop",<BR>VAR_SAMP(SUM(s.amount_sold)) <BR>OVER (ORDER BY 
+t.calendar_month_desc) "Var_Samp" <BR>FROM sales s, times t<BR>WHERE s.time_id = 
+t.time_id AND t.calendar_year = 1998<BR>GROUP BY 
+t.calendar_month_desc;</FONT></P>
+<P><FONT size=2>CALENDAR Var_Pop Var_Samp<BR>-------- ---------- 
+----------<BR>1998-01 0<BR>1998-02 6.1321E+11 1.2264E+12<BR>1998-03 4.7058E+11 
+7.0587E+11<BR>1998-04 4.6929E+11 6.2572E+11<BR>1998-05 1.5524E+12 
+1.9405E+12<BR>1998-06 2.3711E+12 2.8453E+12<BR>1998-07 3.7464E+12 
+4.3708E+12<BR>1998-08 3.7852E+12 4.3260E+12<BR>1998-09 3.5753E+12 
+4.0222E+12<BR>1998-10 3.4343E+12 3.8159E+12<BR>1998-11 3.4245E+12 
+3.7669E+12<BR>1998-12 4.8937E+12 5.3386E+12</FONT></P>
+<P><BR><FONT size=2>VAR_SAMP <BR>功能描述：（Variance 
+Sample）该函数返回非空集合的样本变量（忽略null），VAR_POP进行如下计算：<BR>(SUM(expr*expr)-SUM(expr)*SUM(expr)/COUNT(expr))/(COUNT(expr)-1)<BR>SAMPLE：下例计算1998年每月销售的累积总体和样本变量</FONT></P>
+<P><FONT size=2>SELECT t.calendar_month_desc,<BR>VAR_POP(SUM(s.amount_sold)) 
+<BR>OVER (ORDER BY t.calendar_month_desc) 
+"Var_Pop",<BR>VAR_SAMP(SUM(s.amount_sold)) <BR>OVER (ORDER BY 
+t.calendar_month_desc) "Var_Samp" <BR>FROM sales s, times t<BR>WHERE s.time_id = 
+t.time_id AND t.calendar_year = 1998<BR>GROUP BY 
+t.calendar_month_desc;</FONT></P>
+<P><FONT size=2>CALENDAR Var_Pop Var_Samp<BR>-------- ---------- 
+----------<BR>1998-01 0<BR>1998-02 6.1321E+11 1.2264E+12<BR>1998-03 4.7058E+11 
+7.0587E+11<BR>1998-04 4.6929E+11 6.2572E+11<BR>1998-05 1.5524E+12 
+1.9405E+12<BR>1998-06 2.3711E+12 2.8453E+12<BR>1998-07 3.7464E+12 
+4.3708E+12<BR>1998-08 3.7852E+12 4.3260E+12<BR>1998-09 3.5753E+12 
+4.0222E+12<BR>1998-10 3.4343E+12 3.8159E+12<BR>1998-11 3.4245E+12 
+3.7669E+12<BR>1998-12 4.8937E+12 5.3386E+12</FONT></P>
+<P><BR><FONT size=2>VARIANCE 
+<BR>功能描述：该函数返回表达式的变量，Oracle计算该变量如下：<BR>如果表达式中行数为1，则返回0<BR>如果表达式中行数大于1，则返回VAR_SAMP<BR>SAMPLE：下例返回部门30按雇佣日期排序的薪水值的累积变化</FONT></P>
+<P><FONT size=2>SELECT last_name, salary, VARIANCE(salary) <BR>OVER (ORDER BY 
+hire_date) "Variance"<BR>FROM employees <BR>WHERE department_id = 30;</FONT></P>
+<P><FONT size=2>LAST_NAME SALARY Variance<BR>------------------------- 
+---------- ----------<BR>Raphaely 11000 0<BR>Khoo 3100 31205000<BR>Tobias 2800 
+21623333.3<BR>Baida 2900 16283333.3<BR>Himuro 2600 13317000<BR>Colmenares 2500 
+11307000</FONT></P>
+<P><FONT size=2>=====================================<BR>连续求和问题：<BR>select 
+name,sum(cnt) over(order by rownum) from t1;</FONT></P>
+<P></P></DIV>
+<DIV class=storyposted>xsb 发表于:2006.03.01 12:22 ::分类: ( <A 
+href="http://xsb.itpub.net/category/419/20044">DW&amp;BI</A> ) ::阅读:(11207次) :: 
+<A href="http://xsb.itpub.net/post/419/33028">Permanent link</A> :: <A 
+href="http://xsb.itpub.net/trackbacks/419/33028">引用 (0)</A> </DIV></DIV></DIV><!--end content-->
+<DIV id=pagefoot> </DIV></DIV><!--end pagecell--><IMG height=1 alt="" 
+src="xsb Oracle Blog  Oracle分析函数参考手册.files/itpub.png" width=1 border=0><IMG 
+height=1 alt="" src="xsb Oracle Blog  Oracle分析函数参考手册.files/itpubblog.gif" 
+width=1 border=0> </BODY></HTML>

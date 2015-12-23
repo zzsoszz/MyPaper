@@ -1,0 +1,510 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0056)http://www.tzwhx.com/newOperate/html/3/32/321/15299.html -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD id=ctl00_ctl00_head1><TITLE>Oracle聚合函数RANK和dense_rank的使用</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=GB2312">
+<SCRIPT src="Oracle聚合函数RANK和dense_rank的使用.files/HtmlCount.htm" 
+type=text/javascript></SCRIPT>
+
+<META content=dense_rank,RANK,聚合函数 name=keywords>
+<META content=独上高楼网站是网站建设,网页制作编程人员的学习园地，本页容涉及：dense_rank,RANK,聚合函数 
+name=description><LINK href="Oracle聚合函数RANK和dense_rank的使用.files/Mytheme.css" 
+type=text/css rel=Stylesheet><LINK 
+href="Oracle聚合函数RANK和dense_rank的使用.files/css.css" type=text/css rel=Stylesheet>
+<SCRIPT type=text/javascript>
+    function doPrint() 
+    {    
+        bdhtml=window.document.body.innerHTML;    
+        sprnstr="<!--startprint-->";    
+        eprnstr="<!--endprint-->";    
+        prnhtml=bdhtml.substr(bdhtml.indexOf(sprnstr)+17);    
+        prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));    
+        window.document.body.innerHTML=prnhtml;    
+        window.print();    
+    }    
+    </SCRIPT>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY style="MARGIN-TOP: 0px; PADDING-TOP: 0px">
+<SCRIPT src="Oracle聚合函数RANK和dense_rank的使用.files/urchin.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+    _uacct = "UA-1934995-1";
+    urchinTracker();
+    </SCRIPT>
+<NOSCRIPT>以上为google检测网页</NOSCRIPT> <LABEL style="DISPLAY: none" 
+for=Header>独上高楼网站</LABEL> 
+<DIV id=container>
+<FIELDSET><LEGEND>独上高楼网站</LEGEND>
+<DIV id=head>
+<OBJECT style="MARGIN: 0px; WIDTH: 1008px; HEIGHT: 166px" 
+codeBase=http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0 
+classid=clsid:D27CDB6E-AE6D-11cf-96B8-444553540000><PARAM NAME="movie" VALUE="/swf/flash.swf"><PARAM NAME="quality" VALUE="high"></OBJECT></DIV>
+<DIV id=Header>
+<DIV id=menu>
+<UL class=ul_A>
+  <LI><A class=header1 href="http://www.tzwhx.com/" target=_blank>首页</A> </LI>
+  <LI class=menuDiv_A></LI>
+  <LI><A class=header1 href="http://www.tzwhx.com/TZGTWHXClass_12.aspx" 
+  target=_blank>网站建设 </A></LI>
+  <LI class=menuDiv_A></LI>
+  <LI><A class=header1 href="http://www.tzwhx.com/TZGTWHXClass_1.aspx" 
+  target=_blank>VS.net </A></LI>
+  <LI class=menuDiv_A></LI>
+  <LI><A class=header1 href="http://www.tzwhx.com/TZGTWHXClass_2.aspx" 
+  target=_blank>JavaScript </A></LI>
+  <LI class=menuDiv_A></LI>
+  <LI><A class=header1 href="http://www.tzwhx.com/TZGTWHXClass_9.aspx" 
+  target=_blank>DreamWeaver</A> </LI>
+  <LI class=menuDiv_A></LI>
+  <LI><A class=header1 href="http://www.tzwhx.com/TZGTWHXClass_3.aspx" 
+  target=_blank>数据库</A> </LI>
+  <LI class=menuDiv_A></LI>
+  <LI><A class=header1 href="http://www.tzwhx.com/TZGTWHXClass_4.aspx" 
+  target=_blank>图形处理</A> </LI>
+  <LI class=menuDiv_A></LI>
+  <LI><A class=header1 href="http://www.tzwhx.com/TZGTWHXClass_6.aspx" 
+  target=_blank>Flash</A> </LI>
+  <LI class=menuDiv_A></LI>
+  <LI><A class=header1 href="http://www.tzwhx.com/TZGTWHXClass_7.aspx" 
+  target=_blank>Windows</A> </LI>
+  <LI class=menuDiv_A></LI>
+  <LI><A class=header1 href="http://www.tzwhx.com/TZGTWHXClass_5.aspx" 
+  target=_blank>3S </A></LI>
+  <LI class=menuDiv_A></LI>
+  <LI><A class=header1 href="http://www.tzwhx.com/TZGTWHXClass_8.aspx" 
+  target=_blank>国土资源 </A></LI>
+  <LI class=menuDiv_A></LI>
+  <LI><A class=header1 href="http://www.tzwhx.com/TZGTWHXClass_11.aspx" 
+  target=_blank>万花筒 </A></LI>
+  <LI class=menuDiv_A></LI>
+  <LI><A class=header1 href="http://www.tzwhx.com/TZGTWHXClass_13.aspx" 
+  target=_blank>休闲娱乐 </A></LI>
+  <LI class=menuDiv_A></LI>
+  <LI><A class=header1 href="http://www.tzwhx.com/TZGTWHXClass_133.aspx" 
+  target=_blank>图库 </A></LI></UL></DIV>
+<DIV class=header_B>
+<UL class=ul_B>
+  <LI><A class=header2 href="http://www.tzwhx.com/TZGTWHXClass_12_1.aspx" 
+  target=_blank>网站设计</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 href="http://www.tzwhx.com/TZGTWHXClass_12_2.aspx" 
+  target=_blank>网页设计</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 
+  href="http://www.tzwhx.com/newshow/newClassCshow.aspx?classID_C=1213" 
+  target=_blank>网站推广</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 
+  href="http://www.tzwhx.com/newshow/newClassCshow.aspx?classID_C=1215" 
+  target=_blank>SEO </A></LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 
+  href="http://www.tzwhx.com/newshow/newClassCshow.aspx?classID_C=1214" 
+  target=_blank>网站安全</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 
+  href="http://www.tzwhx.com/newshow/newClassCshow.aspx?classID_C=1212" 
+  target=_blank>建站经验</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 href="http://www.tzwhx.com/TZGTWHXClass_1_1.aspx" 
+  target=_blank>ASP.net </A></LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 href="http://www.tzwhx.com/TZGTWHXClass_1_2.aspx" 
+  target=_blank>C# </A></LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 href="http://www.tzwhx.com/TZGTWHXClass_1_3.aspx" 
+  target=_blank>XML </A></LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 href="http://www.tzwhx.com/TZGTWHXClass_1_4.aspx" 
+  target=_blank>UML </A></LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 href="http://www.tzwhx.com/TZGTWHXClass_2_1.aspx" 
+  target=_blank>HTML </A></LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 href="http://www.tzwhx.com/TZGTWHXClass_2_2.aspx" 
+  target=_blank>java </A></LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 href="http://www.tzwhx.com/TZGTWHXClass_9_1.aspx" 
+  target=_blank>DreamWeaver</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 href="http://www.tzwhx.com/TZGTWHXClass_3_1.aspx" 
+  target=_blank>SQL Server</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 href="http://www.tzwhx.com/TZGTWHXClass_3_2.aspx" 
+  target=_blank>Oracle </A></LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 href="http://www.tzwhx.com/TZGTWHXClass_3_4.aspx" 
+  target=_blank>数据标准</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 href="http://www.tzwhx.com/TZGTWHXClass_4_1.aspx" 
+  target=_blank>Photoshop</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 href="http://www.tzwhx.com/TZGTWHXClass_6_1.aspx" 
+  target=_blank>Flash </A></LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header2 href="http://www.tzwhx.com/TZGTWHXClass_131.aspx" 
+  target=_blank>视频 </A></LI></UL></DIV>
+<DIV class=header_B>
+<UL class=ul_C>
+  <LI><A class=header3 href="http://www.tzwhx.com/WebSPJX.aspx" 
+  target=_blank>网页制作视频教程</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header3 href="http://www.tzwhx.com/photoshop.aspx" 
+  target=_blank>Photoshop视频教程</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header3 href="http://www.tzwhx.com/FlashMx.aspx" 
+  target=_blank>Flash视频教程</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header3 href="http://www.tzwhx.com/FlashExampleSPJX.aspx" 
+  target=_blank>Flash实例视频</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header3 href="http://www.tzwhx.com/Dreamweaver8SP.aspx" 
+  target=_blank>Dreamweaver视频教程</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header3 href="http://www.tzwhx.com/VSnetSP.aspx" 
+  target=_blank>VS.net视频教程</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header3 href="http://www.tzwhx.com/CSharp.aspx" 
+  target=_blank>C#视频教程</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header3 href="http://www.tzwhx.com/Spjx_SEO1.aspx" 
+  target=_blank>SEO视频教程</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header3 href="http://www.tzwhx.com/Spjx_CSS.aspx" 
+  target=_blank>CSS视频教程</A> </LI></UL></DIV>
+<DIV class=header_B>
+<UL class=ul_D>
+  <LI><A class=header4 href="http://www.tzwhx.com/CSharpHighProgramme.aspx" 
+  target=_blank>C#高级编程教程</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header4 
+  href="http://www.tzwhx.com/JavascriptExampleProgramme.aspx" 
+  target=_blank>JavaScript实例教程</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header4 href="http://www.tzwhx.com/UmlBaseProgramme.aspx" 
+  target=_blank>UML基础教程</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header4 href="http://www.tzwhx.com/XMLBaseProgramme.aspx" 
+  target=_blank>XML基础教程</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header4 href="http://www.tzwhx.com/TZGTWHXClass_5_1.aspx" 
+  target=_blank>GIS</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header4 href="http://www.tzwhx.com/TZGTWHXClass_5_2.aspx" 
+  target=_blank>RS</A> </LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A class=header4 href="http://www.tzwhx.com/TZGTWHXClass_5_3.aspx" 
+  target=_blank>GPS</A> <%-- |<a class="header4" href="/TZGTWHXClass_8_1.aspx" target="_blank">规章制度</a>
+                       |<a class="header4" href="/TZGTWHXClass_8_2.aspx" target="_blank">政策法规</a>
+                       |<a class="header4" href="/TZGTWHXClass_8_5.aspx" target="_blank">书苑杂谈</a>
+                       |<a class="header4" href="/TZGTWHXClass_11_1.aspx" target="_blank">杂七杂八</a>
+                       |<a class="header4" href="/TZGTWHXClass_11_2.aspx" target="_blank">男人女人</a>
+                       |<a class="header4" href="/TZGTWHXClass_11_3.aspx" target="_blank"> 笑话 </a>
+                       |<a class="header4" href="/TZGTWHXClass_11_4.aspx" target="_blank"> 人生 </a>
+                       |<a class="header4" href="/TZGTWHXClass_11_5.aspx" target="_blank"> 文学 </a>
+                       |<a class="header4" href="/TZGTWHXClass_11_6.aspx" target="_blank"> 健康 </a>
+                       |<a class="header4" href="/TZGTWHXClass_11_7.aspx" target="_blank"> 美容 </a>
+                       |<a class="header4" href="/TZGTWHXClass_132.aspx" target="_blank"> 音乐 </a> --%></LI></UL></DIV>
+<DIV id=banner></DIV></DIV></FIELDSET> 
+<DIV id=pagebody>
+<DIV id=sidebar>
+<UL>
+  <LI 
+  style="FONT-WEIGHT: bold; FONT-SIZE: 14px; WIDTH: 200px; COLOR: #ffffff; LINE-HEIGHT: 32px; HEIGHT: 32px; BACKGROUND-COLOR: #827064">本类热点文章 
+  </LI></UL>
+<UL style="MARGIN-TOP: 0px">
+  <LI style="FONT-SIZE: 12px; WIDTH: 200px; COLOR: #4f4f4f">[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/5101.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">SQL语句的DECODE和NVL()函数</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">2082</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/9142.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">Oracle中常用的to_Char用法详解（有FMT的详细列表）</SPAN> 
+  <SPAN style="FONT-SIZE: 12px; COLOR: #999966">1319</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/3094.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">解决ora-01861文字与格式字符串不匹配</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">1139</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/8395.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">细说Oracle Session</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">1049</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/6063.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">Oracle 10g的统计信息工具AWR</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">762</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/5776.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">Oracle最新免费版SQL Developer添加移植工具</SPAN> 
+  <SPAN style="FONT-SIZE: 12px; COLOR: #999966">703</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/3097.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">Oracle服务器的安装</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">570</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/13604.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">Oracle数据库维护常用SQL语句集合(3)</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">570</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/1273.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">Oracle系统实用工具介绍</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">564</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/1875.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">Oracle 的入门心得</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">538</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/1267.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">Oracle 9i初始化参数文件</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">512</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/3095.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">ORACLE的客户端如何连接到数据库</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">511</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/5758.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">Oracle常用数据字典</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">486</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/1664.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">入侵oracle数据库时常用的操作命令整理</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">480</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/4513.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">怎样在Oracle数据库中如何直接运行OS命令</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">471</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/1266.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">Oracle SQL 内置函数大全 （一）</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">467</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/4897.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">Oracle数据库不同版本用exp来导数据</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">453</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/1876.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">中国十二大类标准齐亮相 平板标准首次“解密”</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">448</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/5775.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">掌握Oracle数据库中的物理结构</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">443</SPAN></A><BR>[<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html" target=_blank 
+  ;><SPAN style="FONT-SIZE: 12px; COLOR: #0099cc">Oracle</SPAN></A>]<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/5097.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">轻松接触Oracle数据库中的Kill session</SPAN> 
+  <SPAN style="FONT-SIZE: 12px; COLOR: #999966">440</SPAN></A><BR></LI></UL>
+<UL>
+  <LI 
+  style="FONT-WEIGHT: bold; FONT-SIZE: 14px; WIDTH: 200px; COLOR: #ffffff; LINE-HEIGHT: 32px; HEIGHT: 32px; BACKGROUND-COLOR: #827064">本月热点文章 
+  </LI></UL>
+<UL>
+  <LI><IMG alt=1 src="Oracle聚合函数RANK和dense_rank的使用.files/arrow.gif"><A 
+  href="http://www.tzwhx.com/newOperate/html/3/31/311/15217.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">SQLServer：EXEC和sp_executesql的区别</SPAN> 
+  <SPAN style="FONT-SIZE: 12px; COLOR: #999966">29</SPAN></A><BR><IMG alt=1 
+  src="Oracle聚合函数RANK和dense_rank的使用.files/arrow.gif"><A 
+  href="http://www.tzwhx.com/newOperate/html/3/31/313/15218.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">SQL中系统临时表的使用和禁忌 及 Exec(SQLScript) 
+  的使用</SPAN> <SPAN style="FONT-SIZE: 12px; COLOR: #999966">19</SPAN></A><BR><IMG 
+  alt=1 src="Oracle聚合函数RANK和dense_rank的使用.files/arrow.gif"><A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/15299.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">Oracle聚合函数RANK和dense_rank的使用</SPAN> 
+  <SPAN style="FONT-SIZE: 12px; COLOR: #999966">9</SPAN></A><BR><IMG alt=1 
+  src="Oracle聚合函数RANK和dense_rank的使用.files/arrow.gif"><A 
+  href="http://www.tzwhx.com/newOperate/html/3/31/313/15336.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">不要拼接Sql，而要使用参数的好处</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">5</SPAN></A><BR><IMG alt=1 
+  src="Oracle聚合函数RANK和dense_rank的使用.files/arrow.gif"><A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/321/15335.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">Oracle里DUAL表 序列建立</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">3</SPAN></A><BR><IMG alt=1 
+  src="Oracle聚合函数RANK和dense_rank的使用.files/arrow.gif"><A 
+  href="http://www.tzwhx.com/newOperate/html/3/31/313/15358.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">通过日志恢复SQL Server的历史数据</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">3</SPAN></A><BR><IMG alt=1 
+  src="Oracle聚合函数RANK和dense_rank的使用.files/arrow.gif"><A 
+  href="http://www.tzwhx.com/newOperate/html/3/31/313/15361.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">物化视图在物流系统中的应用</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">2</SPAN></A><BR><IMG alt=1 
+  src="Oracle聚合函数RANK和dense_rank的使用.files/arrow.gif"><A 
+  href="http://www.tzwhx.com/newOperate/html/3/31/311/15360.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">对于n个条件中有大于等于或小于m个条件成立时符合要求的sql 
+  条件语句的写法</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">2</SPAN></A><BR><IMG alt=1 
+  src="Oracle聚合函数RANK和dense_rank的使用.files/arrow.gif"><A 
+  href="http://www.tzwhx.com/newOperate/html/3/31/311/15352.html"><SPAN 
+  style="FONT-SIZE: 12px; COLOR: #333366">SQL Server死锁总结</SPAN> <SPAN 
+  style="FONT-SIZE: 12px; COLOR: #999966">2</SPAN></A><BR></LI></UL>
+<UL>
+  <LI>
+  <MARQUEE id=affiche onmouseover=this.stop() 
+  style="COLOR: #ff0066; BACKGROUND-COLOR: lightskyblue" onmouseout=this.start() 
+  scrollAmount=3 vspace=10 scrollDelay=8 direction=up width=190 
+  height=150>昨夜西风凋碧树,<BR><BR>独上高楼，望见天涯路;<BR><BR>衣带渐宽终不悔，<BR><BR>为伊消得人憔悴;<BR><BR>纵里寻她千百度,<BR><BR>蓦然回首，<BR><BR>那人却在灯火阑珊处.</MARQUEE></LI></UL></DIV>
+<DIV id=mainbody>
+<UL class=body808>
+  <LI class=body808><IFRAME id=Iframe3 border=0 marginWidth=0 frameSpacing=0 
+  marginHeight=0 src="Oracle聚合函数RANK和dense_rank的使用.files/style1305.htm" 
+  frameBorder=0 width=180 scrolling=no height=110></IFRAME><IFRAME id=Iframe2 
+  border=0 marginWidth=0 frameSpacing=0 marginHeight=0 
+  src="Oracle聚合函数RANK和dense_rank的使用.files/style1626.htm" frameBorder=0 width=125 
+  scrolling=no height=125></IFRAME><IFRAME id=baiduframe marginWidth=0 
+  frameSpacing=0 marginHeight=0 
+  src="Oracle聚合函数RANK和dense_rank的使用.files/bdun.htm" frameBorder=0 width=400 
+  scrolling=no height=90>
+</IFRAME></LI></UL>
+<UL class=body808>
+  <LI 
+  style="WIDTH: 808px; LINE-HEIGHT: 36px; BORDER-BOTTOM: #999966 1px solid; HEIGHT: 36px; BACKGROUND-COLOR: #c8bda9"><SPAN 
+  style="FONT-SIZE: 14px; BACKGROUND-IMAGE: url(../../../../../images/GIF/whx0000.gif); COLOR: #336666; BACKGROUND-REPEAT: no-repeat">&nbsp;&nbsp;&nbsp;你所在位置：<A 
+  style="COLOR: #663300" href="http://www.tzwhx.com/"><SPAN 
+  style="FONT-SIZE: 10pt; COLOR: #ff0066"><STRONG>首页</STRONG></SPAN> </A>〉<A 
+  href="http://www.tzwhx.com/newOperate/html/class_3.html">数据库</A>〉<A 
+  href="http://www.tzwhx.com/newOperate/html/3/class_32.html">Oracle</A>〉<A 
+  href="http://www.tzwhx.com/newOperate/html/3/32/class_321.html">基础知识</A>〉Oracle聚合函数RANK和dense_rank的使用</SPAN> 
+  </LI>
+  <LI 
+  style="FONT-WEIGHT: bold; FONT-SIZE: 18px; VERTICAL-ALIGN: middle; WIDTH: 808px; COLOR: #ffffff; LINE-HEIGHT: 46px; BORDER-BOTTOM: #999966 1px solid; HEIGHT: 46px; BACKGROUND-COLOR: #827064; TEXT-ALIGN: center">Oracle聚合函数RANK和dense_rank的使用 
+  </LI>
+  <LI 
+  style="FONT-SIZE: 14px; WIDTH: 808px; COLOR: #ffffff; LINE-HEIGHT: 42px; BORDER-BOTTOM: #999966 1px solid; HEIGHT: 42px; BACKGROUND-COLOR: #c8bda9; TEXT-ALIGN: center">作者：佚名&nbsp; 
+  文章来源：程序员博客&nbsp; 发布日期：2008-11-10&nbsp; 浏览次数：9 </LI>
+  <LI style="WIDTH: 808px; HEIGHT: 100%; BACKGROUND-COLOR: #ffffff">
+  <DIV style="WIDTH: 808px; HEIGHT: 90px">
+  <UL 
+  style="PADDING-LEFT: 0px; MARGIN-LEFT: 0px; WIDTH: 808px; HEIGHT: 90px; BACKGROUND-COLOR: #ffffff">
+    <LI 
+    style="PADDING-RIGHT: 0px; WIDTH: 808px; MARGIN-RIGHT: 0px; HEIGHT: 90px"><IFRAME 
+    id=baiduSpFrame border=0 marginWidth=0 frameSpacing=0 marginHeight=0 
+    src="Oracle聚合函数RANK和dense_rank的使用.files/style1950.htm" frameBorder=0 
+    width=728 scrolling=no height=90></IFRAME></LI></UL></DIV></LI>
+  <LI 
+  style="FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #99cc66; HEIGHT: 24px; TEXT-ALIGN: right"><A 
+  style="COLOR: #808000" onclick=doPrint() href="javascript:;">打印这篇文章</A> </LI>
+  <LI style="FONT-SIZE: 14px; WIDTH: 808px; COLOR: #4f4f4f; LINE-HEIGHT: 16pt"><!--startprint-->
+  <P>聚合函数RANK 和 dense_rank 主要的功能是计算一组数值中的排序值。 <BR>　　 
+  <BR>　　在9i版本之前，只有分析功能（analytic 
+  ），即从一个查询结果中计算每一行的排序值，是基于order_by_clause子句中的value_exprs指定字段的。 <BR>　　 
+  <BR>　　其语法为： <BR>　　 <BR>　　RANK ( ) OVER ( [query_partition_clause] 
+  order_by_clause ) <BR>　　 
+  <BR>　　在9i版本新增加了合计功能（aggregate），即对给定的参数值在设定的排序查询中计算出其排序值。这些参数必须是常数或常值表达式，且必须和ORDER 
+  BY子句中的字段个数、位置、类型完全一致。 <BR>　　 <BR>　　其语法为： <BR>　　 <BR>　　RANK ( expr [, expr]... 
+  ) WITHIN GROUP <BR>　　( ORDER BY <BR>　　expr [ DESC | ASC ] [NULLS { FIRST | 
+  LAST }] <BR>　　[, expr [ DESC | ASC ] [NULLS { FIRST | LAST }]]... <BR>　　) 
+  <BR>　　 <BR>　　例子1： <BR>　　 <BR>　　有表Table内容如下 <BR>　　 <BR>　　COL1　COL2 <BR>　　　 1　1 
+  <BR>　　　 2　1 <BR>　　　 3　2 <BR>　　　 3　1 <BR>　　　 4　1 <BR>　　　 4　2 <BR>　　　 5　2 
+  <BR>　　　 5　2 <BR>　　　 6　2 <BR>　　 
+  <BR>　　分析功能：列出Col2分组后根据Col1排序,并生成数字列。比较实用于在成绩表中查出各科前几名的信息。 <BR>　　 <BR>　　SELECT 
+  a.*,RANK() OVER(PARTITION BY col2 ORDER BY col1) "Rank" FROM table a; <BR>　　 
+  <BR>　　结果如下： <BR>　　 <BR>　　COL1　COL2　Rank <BR>　　　 1　1　　 1 <BR>　　　 2　1　　 2 
+  <BR>　　　 3　1　　 3 <BR>　　　 4　1　　 4 <BR>　　　 3　2　　 1 <BR>　　　 4　2　　 2 <BR>　　　 5　2　　 
+  3 <BR>　　　 5　2　　 3 <BR>　　　 6　2　　 5 <BR>　　 <BR>　　例子2： <BR>　　 <BR>　　TABLE：A 
+  （科目，分数） <BR>　　 <BR>　　数学，80 <BR>　　语文，70 <BR>　　数学，90 <BR>　　数学，60 <BR>　　数学，100 
+  <BR>　　语文，88 <BR>　　语文，65 <BR>　　语文，77 <BR>　　 <BR>　　现在我想要的结果是：（即想要每门科目的前3名的分数） 
+  <BR>　　 <BR>　　数学，100 <BR>　　数学，90 <BR>　　数学，80 <BR>　　语文，88 <BR>　　语文，77 
+  <BR>　　语文，70 <BR>　　 <BR>　　那么语句就这么写： <BR>　　 <BR>　　select * from (select rank() 
+  over(partition by 科目 order by 分数 desc) rk,a.* from a) t <BR>　　where 
+  t.rk&lt;=3; <BR>　　 <BR>　　例子3： <BR>　　 <BR>　　合计功能：计算出数值(4,1)在Orade By 
+  Col1,Col2排序下的排序值，也就是col1=4,col2=1在排序以后的位置 <BR>　　 <BR>　　SELECT RANK(4,3) WITHIN 
+  GROUP (ORDER BY col1,col2) "Rank" FROM table; <BR>　　 <BR>　　结果如下： <BR>　　Rank 
+  <BR>　　4 <BR>　　 
+  <BR>　　dense_rank与rank()用法相当，但是有一个区别：dence_rank在并列关系是，相关等级不会跳过。rank则跳过 <BR>　　 
+  <BR>　　例如：表 <BR>　　 <BR>　　A　　　　　　B　　　　　　C <BR>　　a　　　　　liu　　　　　wang 
+  <BR>　　a　　　　　jin　　　　　shu <BR>　　a　　　　　cai　　　　　kai <BR>　　b　　　　　yang　　　　 du 
+  <BR>　　b　　　　　lin　　　　　ying <BR>　　b　　　　　yao　　　　　cai <BR>　　b　　　　　yang　　　　 99 
+  <BR>　　 <BR>　　例如：当rank时为： <BR>　　 <BR>　　select m.a,m.b,m.c,rank() over(partition 
+  by a order by b) liu from test3 m <BR>　　 <BR>　　 A　　　　　B　　　　　　 C　　　　　LIU <BR>　　 
+  a　　　　　cai　　　　　 kai　　　　　1 <BR>　　 a　　　　　jin　　　　　 shu　　　　　2 <BR>　　 a　　　　　liu　　　　　 
+  wang　　　　 3 <BR>　　 b　　　　　lin　　　　　 ying　　　　 1 <BR>　　 b　　　　　yang　　　　　du　　　　　 2 
+  <BR>　　 b　　　　　yang　　　　　99　　　　　 2 <BR>　　 b　　　　　yao　　　　　 cai　　　　　4 <BR>　　 
+  <BR>　　而如果用dense_rank时为： <BR>　　 <BR>　　select m.a,m.b,m.c,dense_rank() 
+  over(partition by a order by b) liu from test3 m <BR>　　 <BR>　　 A　　　　　B　　　　　　 
+  C　　　　　LIU <BR>　　 a　　　　　cai　　　　　kai　　　　　1 <BR>　　 a　　　　　jin　　　　　shu　　　　　2 <BR>　　 
+  a　　　　　liu　　　　　wang　　　　 3 <BR>　　 b　　　　　lin　　　　　ying　　　　 1 <BR>　　 b　　　　　yang　　　　 
+  du　　　　　 2 <BR>　　 b　　　　　yang　　　　 99　　　　　 2 <BR>　　 b　　　　　yao　　　　　cai　　　　　3</P><!--endprint--></LI>
+  <LI 
+  style="FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #993366; HEIGHT: 24px; TEXT-ALIGN: right"><A 
+  style="COLOR: #808000" onclick=doPrint() href="javascript:;">打印这篇文章</A> </LI>
+  <LI 
+  style="FONT-WEIGHT: bold; FONT-SIZE: 14px; WIDTH: 808px; COLOR: #ffffff; LINE-HEIGHT: 24px; BORDER-BOTTOM: #999966 1px solid; HEIGHT: 24px; BACKGROUND-COLOR: #c8bda9">与本文主题相关的文章 
+  </LI>
+  <LI>
+  <DIV style="WIDTH: 808px">
+  <UL style="WIDTH: 808px">
+    <LI style="WIDTH: 402px"><A class=onetilte 
+    href="http://www.tzwhx.com/newOperate/html/12/121/1215/7690.html">如何提高网站的PageRank值?</LI>
+    <LI style="WIDTH: 402px"><A class=onetilte 
+    href="http://www.tzwhx.com/newOperate/html/12/121/1215/7689.html">Google 
+    PageRank查询</LI></UL>
+  <UL style="WIDTH: 808px">
+    <LI style="WIDTH: 402px"><A class=onetilte 
+    href="http://www.tzwhx.com/newOperate/html/12/121/1215/5456.html">教你预测自己新的Google 
+    PageRank</LI>
+    <LI style="WIDTH: 402px"><A class=onetilte 
+    href="http://www.tzwhx.com/newOperate/html/1/11/113/1011.html">Google 的秘密- 
+    PageRank 彻底解说 中文版</LI></UL></DIV></LI>
+  <LI style="WIDTH: 808px; HEIGHT: 24px; BACKGROUND-COLOR: #c8bda9"><A dir=ltr 
+  style="COLOR: #663300" href="http://www.tzwhx.com/" target=_blank 
+  shape=rect><SPAN 
+  style="FONT-SIZE: 10pt; COLOR: #ff0066"><STRONG>返回首页</STRONG></SPAN> </A></LI>
+  <LI style="WIDTH: 808px"><IFRAME id=Iframe1 border=0 marginWidth=0 
+  frameSpacing=0 marginHeight=0 
+  src="Oracle聚合函数RANK和dense_rank的使用.files/style1918.htm" frameBorder=0 width=728 
+  scrolling=no height=90></IFRAME></LI></UL></DIV></DIV>
+<DIV 
+style="FONT-SIZE: 16px; WIDTH: 1008px; COLOR: #ffffff; LINE-HEIGHT: 32px; BACKGROUND-COLOR: #9d8d7d">
+<UL>
+  <LI style="FONT-WEIGHT: bold">友情链接 </LI></UL></DIV>
+<DIV class=banner></DIV>
+<DIV 
+style="FONT-SIZE: 16px; WIDTH: 1008px; COLOR: #ffffff; LINE-HEIGHT: 24px; BACKGROUND-COLOR: #9d8d7d">
+<UL class=ul_B style="MARGIN-LEFT: 350px; LINE-HEIGHT: 24px">
+  <LI><A style="COLOR: #ffffff" href="http://www.hao3gp.com/" 
+  target=_blank>3GP手机电影 </A></LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A style="COLOR: #ffffff" href="http://vane.name/" target=_blank>风向标 
+  </A></LI>
+  <LI class=menuDiv_B></LI>
+  <LI><A style="COLOR: #ffffff" href="http://www.mlr.gov.cn/" 
+  target=_blank>国土资源部 </A></LI>
+  <LI class=menuDiv_A></LI>
+  <LI><A style="COLOR: #ffffff" href="http://www.sbsm.gov.cn/" 
+  target=_blank>国家测绘局 </A></LI></UL></DIV>
+<DIV>
+<UL>
+  <LI style="WIDTH: 1008px; TEXT-ALIGN: center"><SPAN 
+  style="COLOR: #003366">泰州市国土资源局</SPAN> <SPAN 
+  style="COLOR: #ff0066">王宏喜</SPAN><BR><SPAN 
+  style="COLOR: #660033">地址</SPAN>：<SPAN 
+  style="COLOR: #000066">泰州市凤凰东路81号</SPAN> <SPAN 
+  style="COLOR: #990066">邮编</SPAN>：225300<BR><SPAN 
+  style="BORDER-TOP: #999966 1px solid; COLOR: #990066">手机</SPAN>：<SPAN 
+  style="COLOR: #000066">13182272999 电子邮件</SPAN>： <SPAN 
+  style="COLOR: #0000ff">Tzgtwhx@163.com&nbsp; <SPAN 
+  style="COLOR: #ff0066">QQ：70712371</SPAN></SPAN><BR><A 
+  style="FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: #003366" 
+  href="http://www.miibeian.gov.cn/" target=_blank><SPAN 
+  style="FONT-WEIGHT: bold; COLOR: #333333">苏ICP备07039034号</SPAN> 
+</A></LI></UL></DIV></DIV></BODY></HTML>

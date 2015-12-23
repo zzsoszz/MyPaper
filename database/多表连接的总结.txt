@@ -1,0 +1,5 @@
+全部连接都居于cross join的筛选
+inner join 只检索出匹配条件的结果，相当于cross join 加where t1.id=t2.id
+left join  保证左表的每个元素必须在结果集出现一次, 相当于cross join 加不满足结果的左边元素出现一次
+right join 保证右表的每个元素必须在结果集出现一次，相当于cross join加不满足结果的右边元素出现一次
+full join 保证左右表的每个元素必须在结果集出现一次，相当于cross join，左右都出现一次

@@ -1,0 +1,225 @@
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: #ffffff fixed; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: 12px/120% Tahoma,'trebuchet ms',verdana,sans-serif; COLOR: #333333; PADDING-TOP: 0px
+}
+A {
+	COLOR: #0082ff; TEXT-DECORATION: none
+}
+A IMG {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+A:link {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; COLOR: #0082ff; PADDING-TOP: 0px; TEXT-DECORATION: none
+}
+A:visited {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; COLOR: #0082ff; PADDING-TOP: 0px; TEXT-DECORATION: none
+}
+A:hover {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: #bbd0f9; PADDING-BOTTOM: 0px; COLOR: #000; BORDER-TOP-STYLE: none; PADDING-TOP: 0px; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; TEXT-DECORATION: none; BORDER-BOTTOM-STYLE: none
+}
+A:active {
+	BACKGROUND: #6495ed; COLOR: #000; BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; TEXT-DECORATION: none; BORDER-BOTTOM-STYLE: none
+}
+H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: normal; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; MARGIN: 0px; LINE-HEIGHT: 100%; PADDING-TOP: 0px
+}
+H3 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: normal; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; MARGIN: 0px; LINE-HEIGHT: 100%; PADDING-TOP: 0px
+}
+H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: 12px Verdana,sans-serif,Arial,Helvetica; COLOR: #0000cc; PADDING-TOP: 0px
+}
+#container {
+	BORDER-RIGHT: #ffffff 0px dotted; PADDING-RIGHT: 0px; BORDER-TOP: #ffffff 0px dotted; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN-LEFT: auto; BORDER-LEFT: #ffffff 0px dotted; WIDTH: 850px; LINE-HEIGHT: 140%; MARGIN-RIGHT: auto; PADDING-TOP: 0px; BORDER-BOTTOM: #ffffff 0px dotted; BACKGROUND-COLOR: #ffffff; TEXT-ALIGN: left
+}
+#banner {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 15px; PADDING-TOP: 15px; FONT-FAMILY: Verdana, Arial, sans-serif; BACKGROUND-COLOR: #ffffff; TEXT-ALIGN: left
+}
+#banner-img {
+	DISPLAY: none
+}
+#banner A {
+	TEXT-DECORATION: none
+}
+#banner H1 {
+	FONT: bold 12px/120% Verdana,sans-serif,Arial,Helvetica
+}
+#banner H2 {
+	FONT-SIZE: 12px; LINE-HEIGHT: 120%
+}
+#center {
+	FLOAT: left; OVERFLOW: hidden; WIDTH: 630px
+}
+.content {
+	BORDER-RIGHT: #8faebe 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: #8faebe 0px solid; PADDING-LEFT: 0px; FONT-SIZE: 12px; MARGIN-BOTTOM: 15px; PADDING-BOTTOM: 5px; BORDER-LEFT: #8faebe 0px solid; COLOR: #333333; PADDING-TOP: 15px; BORDER-BOTTOM: #8faebe 0px solid; FONT-FAMILY: Verdana,Sans-serif, arial, Helvetica, Tahoma; BACKGROUND-COLOR: white
+}
+#right {
+	FLOAT: left; OVERFLOW: hidden; WIDTH: 220px; BACKGROUND-COLOR: #ffffff
+}
+.content P {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-BOTTOM: 10px; LINE-HEIGHT: 150%; FONT-FAMILY: Optima,Verdana, Arial, sans-serif, Tahoma, Helvetica; TEXT-ALIGN: left
+}
+.content BLOCKQUOTE {
+	LINE-HEIGHT: 150%; FONT-FAMILY: "Courier New", Courier, mono; BACKGROUND-COLOR: #dddddd
+}
+.content LI {
+	LINE-HEIGHT: 150%
+}
+.content H2 {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 12px; PADDING-BOTTOM: 5px; MARGIN: 0px; COLOR: #666666; PADDING-TOP: 5px; FONT-FAMILY: Optima,Verdana, Arial, sans-serif; LETTER-SPACING: 0.1em; BACKGROUND-COLOR: #ffffff; TEXT-ALIGN: left
+}
+.content H3 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN-BOTTOM: 10px; COLOR: #666666; FONT-FAMILY: Optima,Verdana, Arial, sans-serif; TEXT-ALIGN: left
+}
+.content H4 {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-BOTTOM: 10px; COLOR: #666666; FONT-FAMILY: Optima,Verdana, Arial, sans-serif; TEXT-ALIGN: left
+}
+.content H5 {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-BOTTOM: 5px; COLOR: #666666; FONT-FAMILY: Optima,Verdana, Arial, sans-serif; TEXT-ALIGN: left
+}
+.content P.posted {
+	PADDING-RIGHT: 3px; BORDER-TOP: #8faebe 1px solid; PADDING-LEFT: 3px; FONT-SIZE: 12px; MARGIN-BOTTOM: 25px; PADDING-BOTTOM: 3px; COLOR: #999999; LINE-HEIGHT: normal; PADDING-TOP: 3px; FONT-FAMILY: Optima,Verdana, Tahoma, Arial, sans-serif; TEXT-ALIGN: left
+}
+.sidebar {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px
+}
+#calendar {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; FONT-SIZE: x-small; MARGIN-BOTTOM: 30px; PADDING-BOTTOM: 2px; COLOR: #666666; LINE-HEIGHT: 140%; PADDING-TOP: 2px; FONT-FAMILY: Optima,Verdana, Arial, sans-serif; TEXT-ALIGN: center
+}
+#calendar TABLE {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 2px; PADDING-LEFT: 2px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 2px; WIDTH: 100%; PADDING-TOP: 2px; BORDER-COLLAPSE: collapse; BORDER-RIGHT-WIDTH: 0px
+}
+#calendar CAPTION {
+	FONT-WEIGHT: bold; FONT-SIZE: x-small; TEXT-TRANSFORM: uppercase; COLOR: #666666; FONT-FAMILY: Optima,Verdana, Arial, sans-serif; LETTER-SPACING: 0.3em; TEXT-ALIGN: center
+}
+#calendar TH {
+	FONT-WEIGHT: normal; TEXT-ALIGN: center
+}
+#calendar TD {
+	TEXT-ALIGN: center
+}
+.sidebar H2 {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-WEIGHT: normal; FONT-SIZE: 12px; PADDING-BOTTOM: 5px; MARGIN: 0px; TEXT-TRANSFORM: uppercase; COLOR: #000000; PADDING-TOP: 5px; FONT-FAMILY: Optima,Verdana, Arial, sans-serif; LETTER-SPACING: 0.1em; BACKGROUND-COLOR: #efefef; TEXT-ALIGN: center
+}
+.box {
+	BORDER-RIGHT: #efefef 1px solid; BORDER-TOP: #efefef 1px solid; MARGIN: 5px 0px 5px 5px; BORDER-LEFT: #efefef 1px solid; BORDER-BOTTOM: #efefef 1px solid
+}
+.sidebar .inner {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.sidebar UL {
+	PADDING-LEFT: 0px; MARGIN: 0px 0px 10px
+}
+.sidebar UL UL {
+	MARGIN-BOTTOM: 0px
+}
+.sidebar #categories UL {
+	PADDING-LEFT: 15px
+}
+.sidebar LI {
+	MARGIN-TOP: 8px; FONT-SIZE: 12px; COLOR: #666666; LINE-HEIGHT: 12px; FONT-FAMILY: Optima,Verdana, Arial, sans-serif; LIST-STYLE-TYPE: none; TEXT-ALIGN: left
+}
+.sidebar #categories LI {
+	LIST-STYLE-TYPE: none
+}
+.sidebar IMG {
+	BORDER-RIGHT: #ffffff 3px solid; BORDER-TOP: #ffffff 3px solid; BORDER-LEFT: #ffffff 3px solid; BORDER-BOTTOM: #ffffff 3px solid
+}
+.photo {
+	MARGIN-BOTTOM: 20px; TEXT-ALIGN: left
+}
+.link-note {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; FONT-SIZE: 12px; MARGIN-BOTTOM: 15px; PADDING-BOTTOM: 2px; LINE-HEIGHT: 150%; PADDING-TOP: 2px; FONT-FAMILY: Optima,Verdana, Arial, sans-serif; TEXT-ALIGN: left
+}
+.search {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 12px; MARGIN-BOTTOM: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; FONT-FAMILY: Optima,Verdana, Arial, sans-serif; TEXT-ALIGN: left
+}
+#powered {
+	MARGIN-TOP: 50px; FONT-SIZE: 12px; COLOR: #666666; LINE-HEIGHT: 150%; FONT-FAMILY: Optima,Verdana, Arial, sans-serif; TEXT-ALIGN: left
+}
+#comment-data {
+	BORDER-RIGHT: #bbb 1px dotted; PADDING-RIGHT: 15px; FLOAT: left; WIDTH: 180px; MARGIN-RIGHT: 15px; TEXT-ALIGN: left
+}
+UNKNOWN {
+	WIDTH: 80%
+}
+.commenter-profile IMG {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; VERTICAL-ALIGN: middle; BORDER-RIGHT-WIDTH: 0px
+}
+PRE {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; WORD-SPACING: normal; WIDTH: 70%; FONT-FAMILY: "Courier New", Courier, mono; WHITE-SPACE: pre; LETTER-SPACING: normal
+}
+HR {
+	BORDER-LEFT-COLOR: #8faebe; VISIBILITY: visible; BORDER-BOTTOM-COLOR: #8faebe; WIDTH: 100%; BORDER-TOP-STYLE: solid; BORDER-TOP-COLOR: #8faebe; BORDER-RIGHT-STYLE: solid; BORDER-LEFT-STYLE: solid; POSITION: relative; HEIGHT: 1px; BORDER-RIGHT-COLOR: #8faebe; BORDER-BOTTOM-STYLE: solid
+}
+ACRONYM {
+	CURSOR: help; BORDER-BOTTOM: black 1px dotted
+}
+.myunderline {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 0px; BACKGROUND: url(http://www.eygle.com/images/blog/1.jpg) white repeat-x 50% bottom; PADDING-BOTTOM: 2px; LINE-HEIGHT: 22px; PADDING-TOP: 4px; LETTER-SPACING: 6px
+}
+.myunderlineHL {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 0px; BACKGROUND: url(http://www.eygle.com/images/blog/2.jpg) white repeat-x 50% bottom; PADDING-BOTTOM: 2px; LINE-HEIGHT: 22px; PADDING-TOP: 4px; LETTER-SPACING: 6px
+}
+.entry-tags {
+	MARGIN: 0px 0px 5px 5px
+}
+.entry-tags-header {
+	DISPLAY: inline
+}
+.entry-tags-list {
+	DISPLAY: inline
+}
+.entry-tag {
+	DISPLAY: inline
+}
+.entry-tags-list {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+.tag1 {
+	FONT-SIZE: xx-large; COLOR: #6588c7
+}
+.tag2 {
+	FONT-SIZE: x-large; COLOR: #5578a7
+}
+.tag3 {
+	FONT-SIZE: large; COLOR: #4568a7
+}
+.tag4 {
+	FONT-SIZE: medium; COLOR: #406097
+}
+.tag5 {
+	FONT-SIZE: small; COLOR: #355897
+}
+.tag6 {
+	FONT-SIZE: x-small; COLOR: #305087
+}
+.tag7 {
+	FONT-SIZE: xx-small; COLOR: #254887
+}
+.relatedtopic {
+	PADDING-LEFT: 20px; FLOAT: right; PADDING-BOTTOM: 20px; BACKGROUND-COLOR: #fff
+}
+.relatedhead {
+	PADDING-RIGHT: 9px; PADDING-LEFT: 9px; BACKGROUND: #bbd0f9; PADDING-BOTTOM: 4px; MARGIN: 0px; PADDING-TOP: 3px; HEIGHT: 1.2em
+}
+.relatedcontent {
+	BORDER-RIGHT: #bbd0f9 1px solid; BORDER-TOP: #bbd0f9 1px solid; MARGIN-TOP: 5px; BORDER-LEFT: #bbd0f9 1px solid; BORDER-BOTTOM: #bbd0f9 1px solid
+}
+.relatedlist {
+	PADDING-RIGHT: 9px; PADDING-LEFT: 9px; PADDING-BOTTOM: 9px; PADDING-TOP: 9px
+}
+.colheader {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana, Tahoma, "Courier New"
+}
+#banner-header {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: 700; FONT-SIZE: 16pt; PADDING-BOTTOM: 0px; MARGIN: 5px 0px 0px 10px; LINE-HEIGHT: 1.3; PADDING-TOP: 0px; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,sans-serif; TEXT-DECORATION: none
+}
+#banner H1 {
+	FONT-WEIGHT: 700; FONT-SIZE: 2.5em; PADDING-TOP: 3px; FONT-FAMILY: Garamond,verdana,Tahoma,helvetica,arial,sans-serif
+}
+#banner A {
+	COLOR: #000; TEXT-DECORATION: none
+}
+#banner A:hover {
+	BACKGROUND: none transparent scroll repeat 0% 0%; COLOR: #000
+}

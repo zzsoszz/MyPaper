@@ -1,0 +1,479 @@
+
+自定义聚合函数以及字符串连接超长的解决
+博客分类： 数据库
+ 
+oracle数据库自定义聚合函数字符缓冲区太小.
+
+
+Oracle的定制功能十分强大。前几天在碰到一个问题的时候，查询文档发现，oracle不但允许用户定制自己的函数，还可以定制自己的聚集函数和分析函数。
+ 
+下面是我使用自定义聚集函数建立一个字符串“sum”的小例子。
+ 
+类型声明：
+CREATE OR REPLACE TYPE SUM_LINK AS OBJECT (
+  STR VARCHAR2(30000),
+  STATIC FUNCTION ODCIAGGREGATEINITIALIZE(SCTX IN OUT SUM_LINK) RETURN NUMBER,
+  MEMBER FUNCTION ODCIAGGREGATEITERATE(SELF IN OUT SUM_LINK, VALUE IN VARCHAR2) RETURN NUMBER,
+  MEMBER FUNCTION ODCIAGGREGATETERMINATE(SELF IN SUM_LINK, RETURNVALUE OUT VARCHAR2, FLAGS IN NUMBER) RETURN NUMBER,
+  MEMBER FUNCTION ODCIAGGREGATEMERGE(SELF IN OUT SUM_LINK, CTX2 IN SUM_LINK) RETURN NUMBER
+  )
+ 
+类型主体：
+ CREATE OR REPLACE TYPE BODY SUM_LINK IS
+  STATIC FUNCTION ODCIAGGREGATEINITIALIZE(SCTX IN OUT SUM_LINK) RETURN NUMBER IS
+  BEGIN
+  SCTX := SUM_LINK(NULL);
+  RETURN ODCICONST.SUCCESS;
+  END;
+ 
+  MEMBER FUNCTION ODCIAGGREGATEITERATE(SELF IN OUT SUM_LINK, VALUE IN VARCHAR2) RETURN NUMBER IS
+  BEGIN
+ SELF.STR := SELF.STR || VALUE||';';
+ RETURN ODCICONST.SUCCESS;
+ END;
+ 
+ MEMBER FUNCTION ODCIAGGREGATETERMINATE(SELF IN SUM_LINK, RETURNVALUE OUT VARCHAR2, FLAGS IN NUMBER) RETURN NUMBER IS
+ BEGIN
+  RETURNVALUE := SELF.STR;
+ RETURN ODCICONST.SUCCESS;
+ END;
+ 
+ MEMBER FUNCTION ODCIAGGREGATEMERGE(SELF IN OUT SUM_LINK, CTX2 IN SUM_LINK) RETURN NUMBER IS
+ BEGIN
+  NULL;
+  RETURN ODCICONST.SUCCESS;
+  END;
+  END;
+ 
+ 方法创建：
+ CREATE OR REPLACE FUNCTION SUM_LINK(P_STR VARCHAR2) RETURN VARCHAR2
+  AGGREGATE USING SUM_LINK;
+ 
+ 
+ 
+  建表、插入数据，用来测试：
+   CREATE TABLE TEST (ID NUMBER, NAME VARCHAR2(20));
+   INSERT INTO TEST VALUES (1, 'AAA');
+   INSERT INTO TEST VALUES (2, 'BBB');
+   INSERT INTO TEST VALUES (1, 'ABC');
+   INSERT INTO TEST VALUES (3, 'CCC');
+   INSERT INTO TEST VALUES (2, 'DDD');
+   COMMIT;
+ 
+ 
+ 
+测试自定义函数和类型：
+SQL> SELECT ID, SUM_LINK(NAME) NAME FROM TEST GROUP BY ID;
+ 
+        ID NAME
+---------- ----------------------------
+ 
+         1      AAA;ABC;
+ 
+         2      BBB;DDD;
+ 
+         3      CCC;
+ 
+这里介绍一下通过SQL的方法来解决同样的问题。
+ 
+对于下面这个利用自定义聚集函数的例子，将其改写为直接用SQL实现：
+SQL> SELECT * FROM TAB;
+TNAME  TABTYPE  CLUSTERID
+------ -------- ------------------------------------ ------- ----------
+SY_NAME SYNONYM
+T      TABLE
+TEST   TABLE
+TEST1  TABLE
+SUM_BLOB TABLE
+SUM_CLOB TABLE
+V_T    VIEW
+V_TEST VIEW
+已选择8行。
+SQL> SELECT TABTYPE, SUM_LINK(TNAME) TNAME FROM TAB GROUP BY TABTYPE;
+TABTYPE TNAME
+------- --------------------------------------------------
+SYNONYM SY_NAME
+TABLE T,TEST1,SUM_CLOB,SUM_BLOB,TEST
+VIEW V_T,V_TEST
+ 
+    除了利用自定义聚集函数外，SQL函数中能将多个字符串合并在一起的只有SYS_CONNECSUM_BY_PATH了。
+而这个函数只能应用在树型查询中，为了能使用这个函数，必须人为的构造出树来。
+    也就是说，必须可以构造出一个CONNECT BY列使得相同的TABTYPE的TNAME可以用SYS_CONNECSUM_BY_PATH连接起来。
+连接列可以使用ROW_NUMBER() OVER()来构造，在CONNECT BY的时候指定当前列的等于父列的值加1。
+并在START WITH时指定起始值为1。
+    最后对TABTYPE进行分组，取得最大值就是最终需要的结果：
+ 
+SQL> SELECT TABTYPE, MAX(LTRIM(SYS_CONNECSUM_BY_PATH(TNAME, ','), ',')) TNAME
+2 FROM 
+3 (
+4 SELECT TABTYPE, TNAME, ROW_NUMBER() OVER(PARTITION BY TABTYPE ORDER BY TNAME) RN
+5 FROM TAB
+6 ) 
+7 START WITH RN = 1
+8 CONNECT BY PRIOR RN + 1 = RN
+9 AND PRIOR TABTYPE = TABTYPE
+10 GROUP BY TABTYPE;
+TABTYPE TNAME
+------- --------------------------------------------------
+SYNONYM SY_NAME
+TABLE T,TEST,TEST1,SUM_BLOB,SUM_CLOB
+VIEW V_T,V_TEST
+ 
+
+      不过上面两种方法都会面临一个问题，就是如果聚集连接的字符串长度如果超过了VARCHAR2类型所允许的最大长度，就会导致字符串超长的错误。
+ 
+
+自定义聚集函数这里就不重复了，可以参考上面的介绍：
+SQL> SELECT SUM_LINK(TNAME) FROM TAB;
+SUM_LINK(TNAME)
+-------------------------------------------------------------------------------------------
+BAK_SHGOV_ORDER,BAK_SHGOV_ORDER_BAK,PLAN_TABLE,SHGOV_ORDER,SHGOV_ORDER_BAK,T,T1,TEST,SUM_SQL
+SQL> SELECT SUM_LINK(SEQUENCE_NAME) FROM ALL_SEQUENCES;
+SELECT SUM_LINK(SEQUENCE_NAME) FROM ALL_SEQUENCES
+*
+ERROR 位于第 1 行:
+ORA-06502: PL/SQL: 数字或值错误 : 字符串缓冲区太小
+ORA-06512: 在"TEST.SUM_LINK", line 16
+ORA-06512: 在line 1
+SQL> SELECT MAX(LTRIM(SYS_CONNECSUM_BY_PATH(SEQUENCE_NAME, ','), ',')) NAME
+2 FROM 
+3 (
+4 SELECT SEQUENCE_NAME, ROW_NUMBER() OVER(ORDER BY SEQUENCE_NAME) RN
+5 FROM ALL_SEQUENCES
+6 ) 
+7 START WITH RN = 1
+8 CONNECT BY PRIOR RN + 1 = RN
+9 ;
+FROM ALL_SEQUENCES
+*
+ERROR 位于第 5 行:
+ORA-01489: 字符串连接的结果过长
+显然是由于要连接的字符串太长了，导致Oracle的字符串处理过程中出现了错误。上面的两种方法都没有办法避免这个问题。
+      但是ALL_SEQUENCES中的记录只有几百个，每个名称的长度不会超过30，因此最终的长度不会超过32767。
+      根据Oracle给出的错误信息，显然是在处理输出参数RETURNVALUE的时候是安装SQL类型的VARCHAR2长度4000做的限制，那么只需要修改输出参数和聚集函数的返回值类型为CLOB类型即可：
+SQL> CREATE OR REPLACE TYPE SUM_LINK AS OBJECT ( 
+2 STR VARCHAR2(32767), 
+3 STATIC FUNCTION ODCIAGGREGATEINITIALIZE(SCTX IN OUT SUM_LINK) RETURN NUMBER, 
+4 MEMBER FUNCTION ODCIAGGREGATEITERATE(SELF IN OUT SUM_LINK, VALUE IN VARCHAR2) RETURN NUMBER, 
+5 MEMBER FUNCTION ODCIAGGREGATETERMINATE(SELF IN SUM_LINK, RETURNVALUE OUT CLOB, FLAGS IN NUMBER) RETURN NUMBER, 
+6 MEMBER FUNCTION ODCIAGGREGATEMERGE(SELF IN OUT SUM_LINK, CTX2 IN SUM_LINK) RETURN NUMBER 
+7 )
+8 /
+类型已创建。
+ 
+
+SQL> CREATE OR REPLACE TYPE BODY SUM_LINK IS 
+2 STATIC FUNCTION ODCIAGGREGATEINITIALIZE(SCTX IN OUT SUM_LINK) RETURN NUMBER IS 
+3 BEGIN 
+4 SCTX := SUM_LINK(NULL); 
+5 RETURN ODCICONST.SUCCESS; 
+6 END; 
+7 
+8 MEMBER FUNCTION ODCIAGGREGATEITERATE(SELF IN OUT SUM_LINK, VALUE IN VARCHAR2) RETURN NUMBER IS 
+9 BEGIN 
+10 SELF.STR := SELF.STR || VALUE || ','; 
+11 RETURN ODCICONST.SUCCESS; 
+12 END; 
+13 
+14 MEMBER FUNCTION ODCIAGGREGATETERMINATE(SELF IN SUM_LINK, RETURNVALUE OUT CLOB, FLAGS IN NUMBER) RETURN NUMBER IS 
+15 BEGIN 
+16 RETURNVALUE := SUBSTR(SELF.STR, 1, LENGTH(SELF.STR) - 1); 
+17 RETURN ODCICONST.SUCCESS;
+18 END; 
+19 
+20 MEMBER FUNCTION ODCIAGGREGATEMERGE(SELF IN OUT SUM_LINK, CTX2 IN SUM_LINK) RETURN NUMBER IS 
+21 BEGIN 
+22 NULL;
+23 RETURN ODCICONST.SUCCESS;
+24 END;
+25 END;
+26 /
+类型主体已创建。
+ 
+ 
+ 
+SQL> CREATE OR REPLACE FUNCTION SUM_LINK(P_STR VARCHAR2) RETURN CLOB 
+2 AGGREGATE USING SUM_LINK; 
+3 /
+函数已创建。
+ 
+
+SQL> SELECT SUM_LINK(SEQUENCE_NAME) FROM ALL_SEQUENCES;
+这个检索结果截图我就不粘了 ，我的库里SEQUENCE太多了.......
+ 
+ 
+ 
+总结一下：
+  ORA-06502: PL/SQL: 数字或值错误 : 字符串缓冲区太小
+  引起这种问题的根源就是存放数据的缓冲区长度比要存的数据本身的长度小，造成的，那么知道问题的原因，解决起来也就容易多了。
+  
+  可以参看一下http://www.blogjava.net/wangbing/archive/2010/03/15/315482.html这篇文章中关于关于oracle中varchar2的最大长度的介绍。
+  观点是：varchar2有两个最大长度：一个是在字段类型4000；一个是在PL/SQL中变量类型32767。
+  也就是说schema级varchar2的长度限制都是4000，而在PL/SQL代码级的长度限制是32767。这是一个比较容易出错的地方，也很容易被忽略。
+  因为在函数中我可以声明长度超过4000的字符串变量，并且将它作为返回值，这里是不会提示编译错误的。
+  这个函数平时都可以正常执行，而且网络上的聚合函数的例子也大多都是上面那么写的，是由于作者没有考虑大数据量的问题。一旦用到项目上，遭遇大数据量，这个字符串长度超过4000，函数执行就会出错。证明这一点极容易被忽略。
+ 
+  再列举一个例子：
+  -- 准备自定义类型 strcat_type 
+ create type strcat_type as object ( 
+    cat_string varchar2(4000), 
+    static function ODCIAggregateInitialize(cs_ctx In Out strcat_type) return number, 
+    member function ODCIAggregateIterate(self In Out strcat_type,value in varchar2) return number, 
+    member function ODCIAggregateMerge(self In Out strcat_type,ctx2 In Out strcat_type) return number, 
+    member function ODCIAggregateTerminate(self In Out strcat_type,returnValue Out varchar2,flags in number) return number 
+)
+ 
+-- 准备自定义类型体 
+create type body strcat_type is 
+  static function ODCIAggregateInitialize(cs_ctx IN OUT strcat_type) return number 
+  is 
+  begin 
+      cs_ctx := strcat_type( null ); 
+      return ODCIConst.Success; 
+  end; 
+
+  member function ODCIAggregateIterate(self IN OUT strcat_type, 
+                                       value IN varchar2 ) 
+  return number 
+  is 
+  begin 
+      self.cat_string := self.cat_string || value || ';'; 
+      return ODCIConst.Success; 
+  end; 
+
+  member function ODCIAggregateTerminate(self IN Out strcat_type, 
+                                         returnValue OUT varchar2, 
+                                         flags IN number) 
+  return number 
+  is 
+  begin 
+      returnValue := ltrim(rtrim(self.cat_string,','),','); 
+      return ODCIConst.Success; 
+  end; 
+
+  member function ODCIAggregateMerge(self IN OUT strcat_type, 
+                                     ctx2 IN Out strcat_type) 
+  return number 
+  is 
+  begin 
+      self.cat_string := self.cat_string || ',' || ctx2.cat_string; 
+      return ODCIConst.Success; 
+  end; 
+
+end;
+  -- 创建字符串求和自定义函数
+ CREATE or replace FUNCTION sum_str(input varchar2 ) 
+ RETURN varchar2 
+ PARALLEL_ENABLE AGGREGATE USING strcat_type; 
+ -- 表和数据准备我就不详细介绍了.....
+ 
+ -- 测试一下自己的方法
+SQL> select sum_str(decode(id, 1, name, null)) a,
+  2         sum_str(decode(id, 2, name, null)) b,
+  3         sum_str(decode(id, 3, name, null)) c
+  4    from test
+  5  ;
+ 
+A   B   C
+--------  -------------  --------------
+AAA;ABC;  BBB;DDD;       CCC;
+ 
+这是数据少的情况下。不会报错，一但数据量过大，就会报
+ORA-06502: PL/SQL: 数字或值错误 : 字符串缓冲区太小
+ 
+修改一下数据类型；如下：
+--修改函数返回类型为CLOB
+CREATE OR REPLACE FUNCTION sum_str(input varchar2 ) RETURN
+   CLOB PARALLEL_ENABLE AGGREGATE USING strcat_type;
+--将类型声明中的varchar2(4000)改为varchar2(32767)
+CREATE OR REPLACE TYPE "STRCAT_TYPE"                                                                                                                                                                                                                            as object ( cat_string
+   varchar2(32767), 
+      static function ODCIAggregateInitialize(cs_ctx In Out strcat_type) return number, 
+      member function ODCIAggregateIterate(self In Out strcat_type,value in varchar2) return number, 
+      member function ODCIAggregateMerge(self In Out strcat_type,ctx2 In Out strcat_type) return number, 
+      member function ODCIAggregateTerminate(self In Out strcat_type,returnValue Out clob,flags in number) return number 
+      )
+--修改类型体的输出参数
+create or replace type body strcat_type is static function
+   ODCIAggregateInitialize(cs_ctx IN OUT strcat_type) return
+   number is begin cs_ctx := strcat_type( null ); return
+   ODCIConst.Success; end;
+ 
+   member function ODCIAggregateIterate(self IN OUT
+   strcat_type, value IN varchar2) return number is begin
+   self.cat_string := self.cat_string || value || ';'; return
+   ODCIConst.Success; end;
+ 
+   member function ODCIAggregateTerminate(self IN Out
+   strcat_type, returnValue OUT clob, flags IN number)
+   return number is begin returnValue :=
+   ltrim(rtrim(self.cat_string,','),','); return
+   ODCIConst.Success; end;
+ 
+   member function ODCIAggregateMerge(self IN OUT strcat_type,
+   ctx2 IN Out strcat_type) return number is begin
+   self.cat_string := self.cat_string || ',' ||
+   ctx2.cat_string; return ODCIConst.Success; end;
+ 
+   end;
+ 
+
+再次使用sum_str方法，执行sql语句的时候不会再有任何问题了.......
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------
+
+2011-07-05 03:36 关于WMSYS.WM_CONCAT函数的用法(oracle 10g)问题：
+今天新系统上线，发现一个包的函数的返回结果的一字段类型和测试环境不一样，导致应用程序上线后报错。
+WMSYS.WM_CONCAT 函数是行转列的方法，如下面不使用函数时的查询：
+SQL> Select AGENT_ID From fp_agentpolicy_dt Where POLICY_ID =140 and rownum<=5;
+AGENT_ID
+--------
+00113
+00116
+00092
+00097
+
+下面的分析中是使用WMSYS.WM_CONCAT函数的结果。
+
+分析：
+测试环境(oracle 10.2.0.4)：
+--返回结果为varchar类型
+
+
+
+SQL> desc wmsys.wm_concat
+Parameter Type     Mode Default? 
+--------- -------- ---- -------- 
+(RESULT)  VARCHAR2               
+P1        VARCHAR2 IN  
+
+
+生产环境(oracle 10.2.0.5)：
+--返回结果为clob类型
+SQL> Select wmsys.wm_concat(ap.AGENT_ID) From fp_agentpolicy_dt ap
+  2   WHERE ap.POLICY_ID =140 and rownum<=5;
+
+WMSYS.WM_CONCAT(AP.AGENT_ID)
+-----------------------------------
+00113,00116,00092,00097
+
+
+
+
+SQL> desc wmsys.wm_concat
+Parameter Type     Mode Default? 
+--------- -------- ---- -------- 
+(RESULT)  CLOB                   
+P1        VARCHAR2 IN       
+
+可以看出，明显是数据库的版本在做怪。
+
+解决：
+(1).在包的函数查询中用to_char进行转换后再输出结果
+--在生产环境中
+
+(2).破解移植wm_concat，使用自定义函数
+wm_concat出现在oracle10g版本中，不仅是加密的，而且是在一个单独的用户中，不方便使用。并且10g以前的版本也用不上。经过破解移植，可以方便大家使用
+将下边的一个type，一个函数的创建脚本执行，就可以构建自己的wm_concat（这里叫zh_concat）。
+使用方法同wm_concat：
+
+type：
+
+create or replace TYPE zh_concat_im
+AUTHID CURRENT_USER AS OBJECT
+(
+  CURR_STR VARCHAR2(32767),
+  STATIC FUNCTION ODCIAGGREGATEINITIALIZE(SCTX IN OUT zh_concat_im) RETURN NUMBER,
+  MEMBER FUNCTION ODCIAGGREGATEITERATE(SELF IN OUT zh_concat_im,
+               P1 IN VARCHAR2) RETURN NUMBER,
+  MEMBER FUNCTION ODCIAGGREGATETERMINATE(SELF IN zh_concat_im,
+                                 RETURNVALUE OUT VARCHAR2,
+                                 FLAGS IN NUMBER)
+                     RETURN NUMBER,
+  MEMBER FUNCTION ODCIAGGREGATEMERGE(SELF IN OUT zh_concat_im,
+                    SCTX2 IN  zh_concat_im) RETURN NUMBER
+);
+/
+
+create or replace TYPE BODY zh_concat_im
+IS
+  STATIC FUNCTION ODCIAGGREGATEINITIALIZE(SCTX IN OUT zh_concat_im)
+  RETURN NUMBER
+  IS
+  BEGIN
+    SCTX := zh_concat_im(NULL) ;
+    RETURN ODCICONST.SUCCESS;
+  END;
+  MEMBER FUNCTION ODCIAGGREGATEITERATE(SELF IN OUT zh_concat_im,
+          P1 IN VARCHAR2)
+  RETURN NUMBER
+  IS
+  BEGIN
+    IF(CURR_STR IS NOT NULL) THEN
+      CURR_STR := CURR_STR || ':' || P1;
+    ELSE
+      CURR_STR := P1;
+    END IF;
+    RETURN ODCICONST.SUCCESS;
+  END;
+  MEMBER FUNCTION ODCIAGGREGATETERMINATE(SELF IN zh_concat_im,
+                                 RETURNVALUE OUT VARCHAR2,
+                                 FLAGS IN NUMBER)
+    RETURN NUMBER
+  IS
+  BEGIN
+    RETURNVALUE := CURR_STR ;
+    RETURN ODCICONST.SUCCESS;
+  END;
+  MEMBER FUNCTION ODCIAGGREGATEMERGE(SELF IN OUT zh_concat_im,
+                                   SCTX2 IN zh_concat_im)
+  RETURN NUMBER
+  IS
+  BEGIN
+    IF(SCTX2.CURR_STR IS NOT NULL) THEN
+      SELF.CURR_STR := SELF.CURR_STR || ':' || SCTX2.CURR_STR ;
+    END IF;
+    RETURN ODCICONST.SUCCESS;
+  END;
+END;
+/
+
+函数：
+create or replace FUNCTION zh_concat(P1 VARCHAR2)
+RETURN VARCHAR2 AGGREGATE USING zh_concat_im ;
+/
+
+
+修改标红部门，可调整字段间分隔符
+
+注意：经过测试，使用此方法效率会明显不如第1种方法的解决。
+
+(3).在oracle 11可以使用LISTAGG 函数
+Oracle 11g Release 2介绍了LISTAGG 函数，使得聚集连接字符串变得很容易。并且允许使用我们指定连接串中的字段顺序。使用LISTAGG如下： 
+
+COLUMN employees FORMAT A50
+
+SELECT deptno, LISTAGG(ename, ',') WITHIN GROUP (ORDER BY ename) AS employees
+FROM   emp
+GROUP BY deptno;
+
+    DEPTNO EMPLOYEES
+---------- --------------------------------------------------
+        10 CLARK,KING,MILLER
+        20 ADAMS,FORD,JONES,SCOTT,SMITH
+        30 ALLEN,BLAKE,JAMES,MARTIN,TURNER,WARD
+

@@ -1,0 +1,437 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0048)http://www.phpchina.com/html/12/14112-32928.html -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gbk">
+<META content="group,rollup,grouping,cube,总结 " name=keywords>
+<META 
+content="--创建测试表use testcreate table test(id int,sort char(10),color char(10),num int constraint pk_test primary key(id,sort,color))--插入数据insert into testselect 1,book,blue,10union allselect 1,book. " 
+name=description><LINK title=猛龙过江 
+href="http://www.phpchina.com/?uid-14112-action-rss-type-blog" 
+type=application/rss+xml rel=alternate><LINK title=RSD 
+href="http://www.phpchina.com/xmlrpc.php?rsd=14112" type=application/rsd+xml 
+rel=EditURI><LINK id=commonstyle 
+href="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/space.css" 
+type=text/css rel=stylesheet><LINK id=themestyle 
+href="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/css_14112.cache.css" 
+type=text/css rel=stylesheet>
+<SCRIPT type=text/javascript>
+var siteUrl = "http://www.phpchina.com";
+</SCRIPT>
+
+<SCRIPT language=javascript 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/ajax.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=javascript 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/common.js" 
+type=text/javascript></SCRIPT>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<DIV id=wrap>
+<DIV id=header>
+<DIV id=spacename>
+<DIV id=xspace-spacename><STRONG>猛龙过江</STRONG> 
+<P><A class=xspace-copyurl title=复制地址 
+onclick="javascript:setCopy('http://tiantang.blog.phpchina.com');" 
+href="javascript:;">copy</A> <A class=xspace-add2fav title=加入收藏 
+onclick="javascript:addBookmark('猛龙过江','http://tiantang.blog.phpchina.com');return false;" 
+href="http://tiantang.blog.phpchina.com/">Bookmark</A> 
+http://tiantang.blog.phpchina.com </P></DIV></DIV>
+<DIV id=menu>
+<UL id=xspace-menu>
+  <LI><A class=xspace-friend 
+  href="http://www.phpchina.com/html/12/14112-type-friend.html">好友</A> </LI>
+  <LI><A class=xspace-mybbs 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-type-bbs">论坛</A> 
+  </LI>
+  <LI><A class=xspace-guestbook 
+  href="http://www.phpchina.com/?uid-14112-action-viewpro">留言</A> 
+</LI></UL></DIV></DIV>
+<DIV class=xspace-layout1 id=content>
+<DIV class=mainarea-side id=mainarea>
+<DIV id=xspace-guide><A class=xspace-spacecp 
+href="http://www.phpchina.com/batch.manage.php?uid=14112" target=_blank>空间管理</A> 
+您的位置: <A href="http://www.phpchina.com/" target=_blank>PHPChina 开源社区门户</A> &raquo; <A 
+href="http://www.phpchina.com/html/12/14112.html">猛龙过江</A> &raquo; <A 
+href="http://www.phpchina.com/?uid-14112-action-spacelist-type-blog">日志</A> 
+</DIV>
+<DIV 
+id=announcement>学好php,坚持自己的路，我的网店：http://shop34276988.taobao.com（对直销不信任者没必要访问）,想了解直销请访问www.wanmei100.cn 
+</DIV>
+<DIV id=show>
+<H1 class=xspace-title>group、grouping、rollup、cube的用法和区别</H1>
+<P class=xspace-smalltxt><A 
+href="http://www.phpchina.com/batch.common.php?action=viewspace&amp;op=up&amp;itemid=32928&amp;uid=14112">上一篇</A> 
+/ <A 
+href="http://www.phpchina.com/batch.common.php?action=viewspace&amp;op=next&amp;itemid=32928&amp;uid=14112">下一篇</A> 
+&nbsp;2008-04-17 16:21:39 / 个人分类：<A 
+href="http://www.phpchina.com/?uid-14112-action-spacelist-type-blog-itemtypeid-2708">数据库</A> 
+</P>
+<DIV class=xspace-itemdata><A 
+href="http://www.phpchina.com/html/12/14112-32928.html#xspace-tracks">查看( 101 
+)</A> / <A 
+href="http://www.phpchina.com/html/12/14112-32928.html#xspace-itemreply">评论( 0 
+)</A> / <A 
+href="http://www.phpchina.com/html/12/14112-32928.html#xspace-itemform">评分( 
+<SPAN class=xspace-rategood title=好评>0</SPAN> / <SPAN class=xspace-ratebad 
+title=差评>0</SPAN> )</A> </DIV>
+<DIV class=xspace-itemmessage id=xspace-showmessage><SPAN 
+style="COLOR: rgb(0,128,128)">--创建测试表<BR>use test<BR>create table test(id 
+int,sort char(10),color char(10),num int constraint pk_test primary 
+key(id,sort,color))<BR>--插入数据<BR>insert into test<BR>select 
+1,'book','blue',10<BR>union all<BR>select 1,'book','green',10<BR>union 
+all<BR>select 1,'book','red',10<BR>union all<BR>select 
+1,'car','blue',10<BR>union all<BR>select 1,'car','red',10<BR>union all<BR>select 
+2,'car','red',10<BR>--group by<BR>select sort,color,sum(num) as num from test <A 
+onclick="javascript:tagshow(event, 'group');" href="javascript:;" 
+target=_self><U><STRONG>group</STRONG></U></A> by 
+sort,color<BR>--输出结果<BR>--book&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+blue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+10<BR>--car&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+blue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+10<BR>--book&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+green&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+10<BR>--book&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+red&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+10<BR>--car&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+red&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20<BR>--group by 
+with <A onclick="javascript:tagshow(event, 'rollup');" href="javascript:;" 
+target=_self><U><STRONG>rollup</STRONG></U></A><BR>select<BR>case<BR>when <A 
+onclick="javascript:tagshow(event, 'grouping');" href="javascript:;" 
+target=_self><U><STRONG>grouping</STRONG></U></A>(sort)=1 then 'all'<BR>else 
+isnull(sort,'unknow')<BR>end as sort,<BR>case<BR>when grouping(color)=1 then 
+'all'<BR>else isnull(color,'unknow')<BR>end as color,<BR>sum(num) as num from 
+test<BR>group by sort,color with 
+rollup<BR>--输出结果<BR>--book&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+blue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+10<BR>--book&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+green&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+10<BR>--book&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+red&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+10<BR>--book&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+30<BR>--car&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+blue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+10<BR>--car&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+red&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+20<BR>--car&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+30<BR>--all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 60<BR>--group by 
+with <A onclick="javascript:tagshow(event, 'cube');" href="javascript:;" 
+target=_self><U><STRONG>cube</STRONG></U></A><BR>select<BR>case<BR>when 
+grouping(sort)=1 then 'all'<BR>else isnull(sort,'unknow')<BR>end as 
+sort,<BR>case<BR>when grouping(color)=1 then 'all'<BR>else 
+isnull(color,'unknow')<BR>end as color,<BR>sum(num) as num from test<BR>group by 
+sort,color with 
+cube<BR>--输出结果<BR>--book&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+blue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+10<BR>--book&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+green&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+10<BR>--book&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+red&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+10<BR>--book&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+30<BR>--car&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+blue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+10<BR>--car&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+red&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+20<BR>--car&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+30<BR>--all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+60<BR>--all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+blue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+20<BR>--all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+green&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+10<BR>--all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+red&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30<BR><A 
+onclick="javascript:tagshow(event, '%D7%DC%BD%E1');" href="javascript:;" 
+target=_self><U><STRONG>总结</STRONG></U></A>：<BR>1、CUBE 和 
+ROLLUP区别：<BR>?&nbsp;&nbsp;&nbsp; CUBE 
+生成的结果集显示了所选列中值的所有组合的聚合。<BR>?&nbsp;&nbsp;&nbsp; ROLLUP 
+生成的结果集显示了所选列中值的某一层次结构的聚合。<BR>2、GROUPING是一个聚合函数,它产生一个附加的列，当用 CUBE 或 ROLLUP 
+运算符添加行时，附加的列输出值为1，当所添加的行不是由 CUBE 或 ROLLUP 产生时，附加列值为0。<BR>仅在与包含 CUBE 或 ROLLUP 
+运算符的 GROUP BY 子句相联系的选择列表中才允许分组。</SPAN><BR>
+<DIV class=xspace-imginlog></DIV></DIV>
+<DIV class=xspace-msgmodule id=xspace-relatives>
+<H5>相关阅读:</H5>
+<UL class=xspace-list>
+  <LI><A href="http://www.phpchina.com/html/99/57199-24952.html" 
+  target=_blank>PHP程序访问数据库</A> <SPAN class=xspace-smalltxt>(<A 
+  href="http://www.phpchina.com/html/99/57199.html" target=_blank>bjbj</A>, 
+  2008-1-23)</SPAN> 
+  <LI><A href="http://www.phpchina.com/?uid-56010-action-viewspace-itemid-25510" 
+  target=_blank>WebLogic Server 10.3增加了HTTP Pub/Sub服务器</A> <SPAN 
+  class=xspace-smalltxt>(<A href="http://www.phpchina.com/html/10/56010.html" 
+  target=_blank>menmenyouyou</A>, 2008-1-29)</SPAN> 
+  <LI><A href="http://www.phpchina.com/html/12/14112-26708.html" 
+  target=_blank>MySQL集群配置</A> <SPAN class=xspace-smalltxt>(<A 
+  href="http://www.phpchina.com/html/12/14112.html" 
+  target=_blank>tiantang_88</A>, 2008-2-17)</SPAN> 
+  <LI><A href="http://www.phpchina.com/html/72/27672-26897.html" 
+  target=_blank>一个数据库操作类（跨MYSQL，MSSQL，PG）</A> <SPAN class=xspace-smalltxt>(<A 
+  href="http://www.phpchina.com/html/72/27672.html" target=_blank>mjhui</A>, 
+  2008-2-17)</SPAN> 
+  <LI><A href="http://www.phpchina.com/html/12/14112-27457.html" 
+  target=_blank>Firebird数据库概述</A> <SPAN class=xspace-smalltxt>(<A 
+  href="http://www.phpchina.com/html/12/14112.html" 
+  target=_blank>tiantang_88</A>, 2008-2-20)</SPAN> 
+  <LI><A href="http://www.phpchina.com/html/12/14112-27840.html" 
+  target=_blank>mysqldump具体用法</A> <SPAN class=xspace-smalltxt>(<A 
+  href="http://www.phpchina.com/html/12/14112.html" 
+  target=_blank>tiantang_88</A>, 2008-2-26)</SPAN> 
+  <LI><A href="http://www.phpchina.com/html/36/32836-28856.html" 
+  target=_blank>Access,MySQL月影数据库处理通用类(月影1.1版)</A> <SPAN 
+  class=xspace-smalltxt>(<A href="http://www.phpchina.com/html/36/32836.html" 
+  target=_blank>danyidanfei</A>, 2008-3-09)</SPAN> 
+  <LI><A href="http://www.phpchina.com/html/44/49444-29156.html" 
+  target=_blank>mysql4升级到mysql5遇到的数据问题</A> <SPAN class=xspace-smalltxt>(<A 
+  href="http://www.phpchina.com/html/44/49444.html" target=_blank>007sai</A>, 
+  2008-3-14)</SPAN> 
+  <LI><A href="http://www.phpchina.com/html/43/58243-29685.html" 
+  target=_blank>mysql常用命令</A> <SPAN class=xspace-smalltxt>(<A 
+  href="http://www.phpchina.com/html/43/58243.html" target=_blank>magicybin</A>, 
+  2008-3-19)</SPAN> 
+  <LI><A href="http://www.phpchina.com/html/23/31423-32544.html" 
+  target=_blank>刚写的数据库备份&amp;&amp;恢复类</A> <SPAN class=xspace-smalltxt>(<A 
+  href="http://www.phpchina.com/html/23/31423.html" target=_blank>04007147</A>, 
+  2008-4-14)</SPAN> </LI></UL></DIV>
+<P class=xspace-itemlinks><A 
+onclick="showajaxdiv('http://www.phpchina.com/blogpost.php?action=import&amp;itemid=32928',400);" 
+href="javascript:;">导入论坛</A> <A onclick=joinfavorite(32928); 
+href="javascript:;">收藏</A> <A 
+onclick="showajaxdiv('http://www.phpchina.com/batch.common.php?action=emailfriend&amp;itemid=32928', 400);" 
+href="javascript:;">分享给好友</A> <A 
+href="http://www.phpchina.com/batch.manage.php?itemid=32928" 
+target=_blank>管理</A> <A onclick=report(32928); href="javascript:;">举报</A> </P>
+<P class=xspace-itemtag>TAG: <A 
+href="http://www.phpchina.com/?action-tag-tagname-rollup" 
+target=_blank>rollup</A> <A 
+href="http://www.phpchina.com/?action-tag-tagname-grouping" 
+target=_blank>grouping</A> <A 
+href="http://www.phpchina.com/?action-tag-tagname-cube" target=_blank>cube</A> 
+<A href="http://www.phpchina.com/?action-tag-tagname-group" 
+target=_blank>group</A> <A 
+href="http://www.phpchina.com/?action-tag-tagname-%CA%FD%BE%DD%BF%E2" 
+target=_blank>数据库</A> </P>
+<DIV id=xspace-itemreply>
+<DIV class=xspace-multipage id=xspace-multipage-div><A 
+onclick=javascript:showcomment(1); href="javascript:;">查看全部评论</A></DIV></DIV>
+<DIV id=xspace-itemform>
+<FORM id=xspace-commentform action=http://www.phpchina.com/batch.comment.php 
+method=post target=xspace-phpframe>
+<FIELDSET id=xspace-rates>
+<DIV id=xspace-rates-bg>
+<DIV class=xspace-rates0 id=xspace-rates-star></DIV>
+<DIV id=xspace-rates-a><A onmouseover=rateHover(-5); 
+onclick="setRate('-5', '32928');" onmouseout=rateOut(); 
+href="javascript:;">-5</A> <A onmouseover=rateHover(-3); 
+onclick="setRate('-3', '32928');" onmouseout=rateOut(); 
+href="javascript:;">-3</A> <A onmouseover=rateHover(-1); 
+onclick="setRate('-1', '32928');" onmouseout=rateOut(); 
+href="javascript:;">-1</A> <A onmouseover=rateHover(0); 
+onclick="setRate('0', '32928');" onmouseout=rateOut(); href="javascript:;">-</A> 
+<A onmouseover=rateHover(1); onclick="setRate('1', '32928');" 
+onmouseout=rateOut(); href="javascript:;">+1</A> <A onmouseover=rateHover(3); 
+onclick="setRate('3', '32928');" onmouseout=rateOut(); 
+href="javascript:;">+3</A> <A onmouseover=rateHover(5); 
+onclick="setRate('5', '32928');" onmouseout=rateOut(); 
+href="javascript:;">+5</A> </DIV><INPUT id=xspace-rates-value type=hidden 
+value=0 name=rates> </DIV>
+<P>评分：<SPAN id=xspace-rates-tip>0</SPAN></P></FIELDSET> 
+<FIELDSET><LEGEND>我来说两句</LEGEND>
+<P><SPAN class=xspace-moresmilies onclick=moresmilies();>显示全部</SPAN> </P>
+<DIV id=xspace-smilies><IMG id=smilie_0 onclick=insertSmilies(0) 
+alt=:loveliness: 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/loveliness.gif" 
+border=0> <IMG id=smilie_1 onclick=insertSmilies(1) alt=:handshake 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/handshake.gif" 
+border=0> <IMG id=smilie_2 onclick=insertSmilies(2) alt=:victory: 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/victory.gif" 
+border=0> <IMG id=smilie_3 onclick=insertSmilies(3) alt=:funk: 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/funk.gif" 
+border=0> <IMG id=smilie_4 onclick=insertSmilies(4) alt=:time: 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/time.gif" 
+border=0> <IMG id=smilie_5 onclick=insertSmilies(5) alt=:kiss: 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/kiss.gif" 
+border=0> <IMG id=smilie_6 onclick=insertSmilies(6) alt=:call: 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/call.gif" 
+border=0> <IMG id=smilie_7 onclick=insertSmilies(7) alt=:hug: 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/hug.gif" 
+border=0> <IMG id=smilie_8 onclick=insertSmilies(8) alt=:lol 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/lol.gif" 
+border=0> <IMG id=smilie_9 onclick=insertSmilies(9) alt=":'(" 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/cry.gif" 
+border=0> <IMG id=smilie_10 onclick=insertSmilies(10) alt=:Q 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/mad.gif" 
+border=0> <IMG id=smilie_11 onclick=insertSmilies(11) alt=:L 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/sweat.gif" 
+border=0> <IMG id=smilie_12 onclick=insertSmilies(12) alt=;P 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/titter.gif" 
+border=0> <IMG id=smilie_13 onclick=insertSmilies(13) alt=:$ 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/shy.gif" 
+border=0> <IMG id=smilie_14 onclick=insertSmilies(14) alt=:P 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/tongue.gif" 
+border=0> <IMG id=smilie_15 onclick=insertSmilies(15) alt=:o 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/shocked.gif" 
+border=0> <IMG id=smilie_16 onclick=insertSmilies(16) alt=:@ 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/huffy.gif" 
+border=0> <IMG id=smilie_17 onclick=insertSmilies(17) alt=:D 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/biggrin.gif" 
+border=0> <IMG id=smilie_18 onclick=insertSmilies(18) alt=:( 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/sad.gif" 
+border=0> <IMG id=smilie_19 onclick=insertSmilies(19) alt=:) 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/smile.gif" 
+border=0> </DIV>
+<P></P>
+<P><LABEL for=xspace-commentmsg>内容</LABEL> <TEXTAREA id=xspace-commentmsg name=message></TEXTAREA> </P>
+<P><LABEL for=xspace-nickname>昵称</LABEL> <INPUT id=xspace-nickname 
+name=nickname> </P>
+<P><LABEL>加入事件</LABEL> <INPUT type=checkbox CHECKED name=addfeed> </P>
+<P><INPUT type=hidden value=32928 name=itemid><BUTTON id=xspace-btncomment 
+name=submitcomment type=submit value="true">提交评论</BUTTON> </P></FIELDSET> 
+</FORM></DIV>
+<SCRIPT language=javascript type=text/javascript>
+<!--
+function showcomment(page) {
+var x = new Ajax('statusid', 'XML');
+x.get('http://www.phpchina.com/batch.comment.php?action=view&itemid=32928&page='+page, function(s) {
+getbyid("xspace-itemreply").innerHTML = s.lastChild.firstChild.nodeValue;
+});
+}
+function deletecomment(cid) {
+var x = new Ajax('statusid', 'XML');
+x.get('http://www.phpchina.com/batch.comment.php?action=delete&cid='+cid, function(s) {
+alert(s.lastChild.firstChild.nodeValue);
+});
+}
+
+function moresmilies() {
+var smilies = document.getElementById('xspace-smilies');
+if (smilies.style.height=='auto') {
+smilies.style.height = '';
+} else {
+smilies.style.height = 'auto';
+}
+}
+addImgLink("xspace-showmessage");
+addMediaAction('xspace-showmessage');
+//-->
+</SCRIPT>
+<IFRAME id=xspace-phpframe name=xspace-phpframe marginWidth=0 src="about:blank" 
+frameBorder=0 width=0 height=0></IFRAME></DIV></DIV>
+<DIV class=sidearea id=sideleft>
+<DIV class=xspace-sideblock id=avatar>
+<DIV id=xspace-avatar><IMG class=xspace-imgstyle alt=tiantang_88 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/noavatar_middle.gif">
+<P><A 
+href="http://www.phpchina.com/?uid-14112-action-viewpro-showpro-1">tiantang_88</A></P>
+<P class=xspace-selfintro></P></DIV></DIV>
+<DIV class=xspace-sideblock id=action>
+<H3 class=xspace-blocktitle>用户菜单</H3>
+<UL id=xspace-action>
+  <LI><A class=xspace-message 
+  href="http://www.phpchina.com/?uid-14112-action-viewpro">给我留言</A> </LI>
+  <LI><A class=xspace-addfriend onclick="javascript:joinfriend('14112');" 
+  href="javascript:;">加入好友</A> </LI>
+  <LI><A class=xspace-sendpm 
+  href="http://bbs.phpchina.com/pm.php?action=send&amp;uid=14112" 
+  target=_blank>发短消息</A> </LI>
+  <LI><A class=xspace-profile 
+  href="http://www.phpchina.com/?uid-14112-action-viewpro-showpro-1">我的介绍</A> 
+  </LI>
+  <LI><A class=xspace-profile 
+  href="http://bbs.phpchina.com/viewpro.php?uid=14112">论坛资料</A> </LI>
+  <LI><A class=xspace-ctrlpannel 
+  href="http://www.phpchina.com/batch.manage.php?uid=14112">空间管理</A> 
+</LI></UL></DIV>
+<DIV class=xspace-sideblock id=search>
+<H3 class=xspace-blocktitle>标题搜索</H3>
+<FORM id=xspace-search 
+action=http://www.phpchina.com/index.php?uid/14112/action/spacelist/php/1 
+method=post><INPUT id=xspace-searchkey name=searchkey> <INPUT type=hidden 
+value=yes name=searchsubmit> <INPUT id=xspace-dosearch type=submit value=搜索 name=xspace-dosearch> 
+</FORM></DIV>
+<DIV class=xspace-sideblock id=archive>
+<H3 class=xspace-blocktitle>我的存档</H3>
+<UL class=xspace-list>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1206979200-endtime-1209571200">2008年04月</A>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1204300800-endtime-1206979200">2008年03月</A>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1201795200-endtime-1204300800">2008年02月</A>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1199116800-endtime-1201795200">2008年01月</A>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1196438400-endtime-1199116800">2007年12月</A>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1193846400-endtime-1196438400">2007年11月</A>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1191168000-endtime-1193846400">2007年10月</A>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1188576000-endtime-1191168000">2007年09月</A>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1185897600-endtime-1188576000">2007年08月</A>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1183219200-endtime-1185897600">2007年07月</A>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1180627200-endtime-1183219200">2007年06月</A>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1177948800-endtime-1180627200">2007年05月</A>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1175356800-endtime-1177948800">2007年04月</A>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1172678400-endtime-1175356800">2007年03月</A>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1170259200-endtime-1172678400">2007年02月</A>
+  <LI><A 
+  href="http://www.phpchina.com/?uid-14112-action-spacelist-starttime-1167580800-endtime-1170259200">2007年01月</A></LI></UL></DIV>
+<DIV class=xspace-sideblock id=infomation>
+<H3 class=xspace-blocktitle>数据统计</H3>
+<UL class=xspace-list>
+  <LI>访问量: 25376
+  <LI>日志数: 153
+  <LI>图片数: 2
+  <LI>建立时间: 2007-01-19 
+  <LI>更新时间: 2008-04-17 </LI></UL></DIV>
+<DIV class=xspace-sideblock id=rss>
+<H3 class=xspace-blocktitle>RSS订阅</H3>
+<UL class=xspace-list>
+  <LI class=xspace-logo><A 
+  href="http://www.phpchina.com/?uid-14112-action-rss-type-blog"><IMG alt=RSS订阅 
+  src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/rss.gif" 
+  border=0></A> </LI></UL></DIV></DIV></DIV></DIV>
+<DIV id=xspace-footer>
+<P id=xspace-footer-ad></P>
+<P id=xspace-footer_menu><A 
+href="http://www.phpchina.com/batch.login.php?action=logout">清空Cookie</A> - <A 
+href="mailto:PHPChina#comsenz.com">联系我们</A> - <A href="http://www.phpchina.com/" 
+target=_blank>PHPChina 开源社区门户</A> - <A href="http://bbs.phpchina.com/" 
+target=_blank>交流论坛</A> - <A 
+href="http://www.phpchina.com/?action/spaces">空间列表</A> - <A 
+href="http://www.phpchina.com/archiver/" target=_blank>站点存档</A> - <A 
+href="http://www.phpchina.com/?action/register" target=_blank>升级自己的空间</A> </P>
+<P id=xspace-copyright>Powered by <A href="http://www.supesite.com/" 
+target=_blank><STRONG>X-Space</STRONG></A> <EM>4.0 UC</EM> &copy; 2001-2008 <A 
+href="http://www.comsenz.com/" target=_blank>Comsenz Inc.</A> <BR><A 
+href="http://www.miibeian.gov.cn/" 
+target=_blank>京ICP备07504665号</A><BR></P></DIV>
+<DIV id=toolbarshowbtn><A onmouseover=showtoolbar(); href="javascript:;">Open 
+Toolbar</A></DIV>
+<DIV id=toolbarframe><IFRAME 
+src="group、grouping、rollup、cube的用法和区别 - 猛龙过江 - PHPChina 开源社区门户 - Powered by X-Space.files/batch.toolbar.htm" 
+frameBorder=0 width="100%" scrolling=no></IFRAME></DIV>
+<SCRIPT language=javascript>
+			<!--
+			var Modified = new Date(document.lastModified);
+			var copyright = document.getElementById("xspace-copyright");
+			if(copyright) {
+				copyright.innerHTML += "Last update: <a href=\"http://www.phpchina.com/index.php?uid/14112/action/viewspace/itemid/32928/php/1\" title=\"点击可以立即更新本页面\">"+(Modified.getYear()<200?(Modified.getYear()+1900):Modified.getYear())+"-"+(Modified.getMonth()+1)+"-"+Modified.getDate()+" "+Modified.getHours()+":"+Modified.getMinutes()+":"+Modified.getSeconds() + "</a><br>";
+			}
+			document.write('<script src="http://www.phpchina.com/batch.html.php?code=http%253A%252F%252Fwww.phpchina.com%252Findex.php%253Fuid%252F14112%252Faction%252Fviewspace%252Fitemid%252F32928%2F1227856226%2F300%2F14112%2F32928%2Fviewspace&amp;lastmodified=' + Modified.getTime() + '" type="text\/javascript" language="javascript"><\/script>');
+			//-->
+			</SCRIPT>
+</BODY></HTML>

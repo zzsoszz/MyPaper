@@ -1,0 +1,30 @@
+create or replace function bx_getCategorynames_f(
+  is_categoryids   varchar2,
+  in_rescityid     number
+) return varchar2 as
+--根据id串获取名称串
+  vs_categoryNames         varchar2(4000);
+  vs_categoryName          varchar2(1000);
+  cursor cur_categoryids is
+     with tt as(select is_categoryids a from dual)
+     select substr(a,instr(' '||a,' ',1,level),instr(a||' ',' ',1,level)-instr(' '||a,' ',1,level)) categoryids
+     from tt
+     connect by level <=length(a)-length(replace(a,' '))+1;
+begin
+  for i in cur_categoryids loop
+    begin
+      select c.categoryname into vs_categoryName
+        from bx_dc_category c
+       where c.categoryfirstid = i.categoryids
+         and c.cityid = in_rescityid;
+    exception when others then
+      vs_categoryName := null;
+    end;
+    
+    if vs_categoryName is not null then
+      vs_categoryNames := vs_categoryNames || vs_categoryName || ' ';
+    end if;
+  end loop;
+  
+  return vs_categoryNames;
+end bx_getCategorynames_f;

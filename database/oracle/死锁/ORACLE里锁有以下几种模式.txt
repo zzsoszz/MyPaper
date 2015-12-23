@@ -1,0 +1,202 @@
+ORACLE里锁有以下几种模式: 
+　　 
+　　0：none 
+　　1：null 空 
+　　2：Row-S 行共享(RS)：共享表锁 
+　　3：Row-X 行专用(RX)：用于行的修改 
+　　4：Share 共享锁(S)：阻止其他DML操作 
+　　5：S/Row-X 共享行专用(SRX)：阻止其他事务操作 
+　　6：exclusive 专用(X)：独立访问使用 
+　　 
+　　数字越大锁级别越高, 影响的操作越多。 
+　　一般的查询语句如select ... from ... ;是小于2的锁, 有时会在v$locked_object出现。 
+　　 
+　　select ... from ... for update; 是2的锁。 
+　　 
+　　当对话使用for update子串打开一个游标时， 
+　　所有返回集中的数据行都将处于行级(Row-X)独占式锁定， 
+　　其他对象只能查询这些数据行，不能进行update、delete或select...for update操作。 
+　　 
+　　insert / update / delete ... ; 是3的锁。 
+　　 
+　　没有commit之前插入同样的一条记录会没有反应, 
+　　因为后一个3的锁会一直等待上一个3的锁, 我们必须释放掉上一个才能继续工作。 
+　　 
+　　创建索引的时候也会产生3,4级别的锁。 
+　　 
+　　locked_mode为2,3,4不影响DML(insert,delete,update,select)操作, 
+　　但DDL(alter,drop等)操作会提示ora-00054错误。 
+　　 
+　　有主外键约束时 update / delete ... ; 可能会产生4,5的锁。 
+　　 
+　　DDL语句时是6的锁。 
+　　 
+　　以DBA角色, 查看当前数据库里锁的情况可以用如下SQL语句： 
+
+　　select object_id,session_id,locked_mode from v$locked_object; 
+
+　　select t2.username,t2.sid,t2.serial#,t2.logon_time 
+　　from v$locked_object t1,v$session t2 
+　　where t1.session_id=t2.sid order by t2.logon_time; 
+
+　　如果有长期出现的一列，可能是没有释放的锁。 
+　　 
+　　我们可以用下面SQL语句杀掉长期没有释放非正常的锁： 
+
+　　alter system kill session 'sid,serial#'; 
+
+　　如果出现了锁的问题, 某个DML操作可能等待很久没有反应。 
+　　 
+　　当你采用的是直接连接数据库的方式， 
+　　也不要用OS系统命令 $kill process_num 或者 $kill -9 process_num来终止用户连接， 
+　　因为一个用户进程可能产生一个以上的锁, 杀OS进程并不能彻底清除锁的问题。 
+　　 
+　　记得在数据库级别用alter system kill session 'sid,serial#';杀掉不正常的锁。 
+
+声明：JavaEye文章版权属于作者，受法律保护。没有作者书面许可不得转载。 
+推荐链接
+限时报名参加Oracle技术大会
+
+ 
+
+
+
+返回顶楼            
+ 
+buaawhl 等级:  
+ 
+性别:  
+文章: 3390 
+积分: 5214 
+来自: china 
+ 
+    发表时间：2008-03-12   
+很有用的内容. 
+
+1, 2 级别锁都有了 例子. 
+
+　　4：Share 共享锁(S)：阻止其他DML操作 
+　　5：S/Row-X 共享行专用(SRX)：阻止其他事务操作 
+　　6：exclusive 专用(X)：独立访问使用 
+
+有没有具体例子呢? 
+
+不知道 Oracle 有没有表级别的锁. 即,锁住整个数据表. 
+
+----------------- 
+
+测试过一些数据库, 
+发现 SQL Server 的锁模式和 Oracle是不同的. 
+从 Transaction Isolation Level (事务隔离级别)的表现可以看出来. 
+
+Oracle 比较喜欢 Copy On Write (version control, 乐观锁). 
+SQL Server 比较喜欢 Exclusive Access (悲观锁). 
+
+好象是这样. 
+
+
+ 
+返回顶楼           回帖地址 0 0 请登录后投票 
+ 
+kelph 等级: 初级会员 
+ 
+性别:  
+文章: 4 
+积分: 30 
+来自: 大连 
+ 
+    发表时间：2008-03-13   更喜欢ORACLE的锁  
+返回顶楼           回帖地址 0 0 请登录后投票 
+ 
+morris 等级:  
+ 
+性别:  
+文章: 127 
+积分: 120 
+来自: 深圳 
+ 
+    发表时间：2008-03-26   buaawhl 写道
+
+很有用的内容. 
+
+1, 2 级别锁都有了 例子. 
+
+　　4：Share 共享锁(S)：阻止其他DML操作 
+　　5：S/Row-X 共享行专用(SRX)：阻止其他事务操作 
+　　6：exclusive 专用(X)：独立访问使用 
+
+有没有具体例子呢? 
+
+不知道 Oracle 有没有表级别的锁. 即,锁住整个数据表. 
+
+----------------- 
+
+测试过一些数据库, 
+发现 SQL Server 的锁模式和 Oracle是不同的. 
+从 Transaction Isolation Level (事务隔离级别)的表现可以看出来. 
+
+Oracle 比较喜欢 Copy On Write (version control, 乐观锁). 
+SQL Server 比较喜欢 Exclusive Access (悲观锁). 
+
+好象是这样. 
+
+
+
+
+
+
+当事务获得行锁后，此事务也将自动获得该行的表锁(共享锁),以防止其它事务进行DDL语句影响记录行的更新。事务也可以在进行过程中获得共享锁或排它锁，只有当事务显示使用LOCK TABLE语句显示的定义一个排它锁时，事务才会获得表上的排它锁,也可使用LOCK TABLE显示的定义一个表级的共享锁 
+ 
+返回顶楼           回帖地址 0 0 请登录后投票 
+ 
+morris 等级:  
+ 
+性别:  
+文章: 127 
+积分: 120 
+来自: 深圳 
+ 
+    发表时间：2008-03-26   如果想鎖住整個表的話 可以顯示聲明 
+
+lock table *** in exclusive mode 
+ 
+返回顶楼           回帖地址 0 0 请登录后投票 
+ 
+morris 等级:  
+ 
+性别:  
+文章: 127 
+积分: 120 
+来自: 深圳 
+ 
+    发表时间：2008-04-26   buaawhl 写道
+
+很有用的内容. 
+
+1, 2 级别锁都有了 例子. 
+
+　　4：Share 共享锁(S)：阻止其他DML操作 
+　　5：S/Row-X 共享行专用(SRX)：阻止其他事务操作 
+　　6：exclusive 专用(X)：独立访问使用 
+
+有没有具体例子呢? 
+
+不知道 Oracle 有没有表级别的锁. 即,锁住整个数据表. 
+
+----------------- 
+
+测试过一些数据库, 
+发现 SQL Server 的锁模式和 Oracle是不同的. 
+从 Transaction Isolation Level (事务隔离级别)的表现可以看出来. 
+
+Oracle 比较喜欢 Copy On Write (version control, 乐观锁). 
+SQL Server 比较喜欢 Exclusive Access (悲观锁). 
+
+好象是这样. 
+
+
+
+
+
+Oracle 支持的 2 种事务隔离级别 Read committed 和 Serializable 
+ 

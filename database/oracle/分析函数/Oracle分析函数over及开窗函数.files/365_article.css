@@ -1,0 +1,162 @@
+.pbox_2 {
+	FONT-SIZE: 12px; MARGIN: auto; WIDTH: auto; COLOR: #535353; LINE-HEIGHT: 30px; BORDER-BOTTOM: #cccccc 1px solid; HEIGHT: 30px; BACKGROUND-COLOR: #fff
+}
+.pbox_2 A {
+	COLOR: #535353; TEXT-DECORATION: none
+}
+.pbox_2 A:hover {
+	COLOR: #000; TEXT-DECORATION: underline
+}
+.pbox_3 {
+	MARGIN: auto; WIDTH: 900px; HEIGHT: auto
+}
+.pbox_4 {
+	MARGIN: 8px auto auto; WIDTH: 900px; HEIGHT: auto
+}
+.main {
+	BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; FLOAT: left; BORDER-LEFT: #cccccc 1px solid; WIDTH: 658px; BORDER-BOTTOM: #cccccc 1px solid; HEIGHT: auto; BACKGROUND-COLOR: #f4fbf4
+}
+.main1 {
+	FLOAT: left; WIDTH: 658px; HEIGHT: auto
+}
+.main IMG {
+	HEIGHT: auto; max-width: 660px
+}
+.ch_title {
+	MARGIN-TOP: 20px; FONT-WEIGHT: bold; FONT-SIZE: 26px; WIDTH: auto; COLOR: #333; LINE-HEIGHT: 60px; FONT-FAMILY: "宋体"; HEIGHT: 60px; TEXT-ALIGN: center
+}
+.author {
+	FONT-SIZE: 12px; MARGIN-LEFT: 10px; WIDTH: auto; COLOR: #666666; MARGIN-RIGHT: 10px; FONT-FAMILY: "宋体"; TEXT-ALIGN: center; TEXT-DECORATION: none
+}
+.mainBody {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-SIZE: 14px; PADDING-BOTTOM: 10px; COLOR: #535353; LINE-HEIGHT: 20px; PADDING-TOP: 10px; FONT-FAMILY: "宋体"; TEXT-ALIGN: justify
+}
+.mainBody A {
+	COLOR: #1e629e; TEXT-DECORATION: none
+}
+.mainBody A:hover {
+	COLOR: #000; TEXT-DECORATION: underline
+}
+.editor {
+	FONT-SIZE: 10pt; WIDTH: auto; COLOR: #535353; MARGIN-RIGHT: 10px; FONT-FAMILY: "宋体"; TEXT-ALIGN: right
+}
+.pg {
+	FONT-SIZE: 12px; MARGIN-LEFT: 5px; COLOR: #333; LINE-HEIGHT: 25px; TEXT-DECORATION: none
+}
+.pg A {
+	COLOR: #336699; TEXT-DECORATION: none
+}
+.pg A:hover {
+	COLOR: #ff0000; TEXT-DECORATION: underline
+}
+.pg_list {
+	FONT-SIZE: 12px; FLOAT: right; MARGIN: 5px 10px auto 5px; COLOR: #666; TEXT-DECORATION: none
+}
+.pg_list A {
+	FONT-SIZE: 10pt; COLOR: #336699; LINE-HEIGHT: 22px; TEXT-DECORATION: none
+}
+.pg_list A:hover {
+	TEXT-DECORATION: underline
+}
+.sub_title1 {
+	CLEAR: both; BACKGROUND-POSITION: 5px 7px; MARGIN-TOP: 5px; PADDING-LEFT: 15px; FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND-IMAGE: url(/images/tdot.gif); MARGIN-LEFT: 5px; COLOR: #333; LINE-HEIGHT: 25px; BORDER-BOTTOM: #cccccc 1px solid; BACKGROUND-REPEAT: no-repeat; HEIGHT: 25px
+}
+.sub_title1 A {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; FLOAT: left; COLOR: #333; LINE-HEIGHT: 25px; TEXT-DECORATION: none
+}
+.sub_title1 A:hover {
+	TEXT-DECORATION: underline
+}
+.comment {
+	FONT-SIZE: 12px; FLOAT: left; MARGIN: 5px auto auto 5px; COLOR: #848484; LINE-HEIGHT: 22px; TEXT-DECORATION: none
+}
+.comment A {
+	FONT-SIZE: 12px; COLOR: #336699; TEXT-DECORATION: none
+}
+.comment A:hover {
+	COLOR: #ff0000; TEXT-DECORATION: underline
+}
+.box_240 {
+	FLOAT: right; WIDTH: 240px; HEIGHT: auto
+}
+.box_r2 {
+	BORDER-RIGHT: #cbcbcb 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #cbcbcb 1px solid; MARGIN-TOP: 8px; PADDING-LEFT: 1px; BACKGROUND: #f9fceb; FLOAT: right; PADDING-BOTTOM: 1px; BORDER-LEFT: #cbcbcb 1px solid; WIDTH: 230px; PADDING-TOP: 1px; BORDER-BOTTOM: #cbcbcb 1px solid; HEIGHT: auto
+}
+.box_r1_t1 {
+	BORDER-RIGHT: #78a5ce 1px solid; BORDER-TOP: #78a5ce 1px solid; BACKGROUND-IMAGE: url(/templates/img/365/bg4.gif); MARGIN-BOTTOM: 5px; BORDER-LEFT: #78a5ce 1px solid; WIDTH: auto; BORDER-BOTTOM: #78a5ce 1px solid; BACKGROUND-REPEAT: repeat-x; HEIGHT: 19px
+}
+.box_r1_tt2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN-LEFT: 5px; COLOR: #ffffff; LINE-HEIGHT: 22px
+}
+.box_r1_tt2 A {
+	COLOR: #ffffff; TEXT-DECORATION: none
+}
+.box_r1_tt2 A:hover {
+	COLOR: #000; TEXT-DECORATION: underline
+}
+.box_r1_tc {
+	FONT-SIZE: 12px; MARGIN-LEFT: 5px; COLOR: #535353; LINE-HEIGHT: 20px
+}
+.box_r1_tc A {
+	COLOR: #535353; TEXT-DECORATION: none
+}
+.box_r1_tc A:hover {
+	COLOR: #000; TEXT-DECORATION: underline
+}
+.sebox {
+	BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; FLOAT: right; BORDER-LEFT: #cccccc 1px solid; WIDTH: 232px; BORDER-BOTTOM: #cccccc 1px solid; HEIGHT: 80px
+}
+.sebox .seimg {
+	FLOAT: left; MARGIN: 20px auto auto; WIDTH: 60px; TEXT-ALIGN: center
+}
+.sebox .seText1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; FLOAT: left; COLOR: #585858; LINE-HEIGHT: 24px; TEXT-DECORATION: none
+}
+.sebox .seForm {
+	FONT-SIZE: 12px; FLOAT: left; COLOR: #585858
+}
+.sebox .seForm INPUT {
+	BORDER-RIGHT: #666666 1px solid; BORDER-TOP: #666666 1px solid; BORDER-LEFT: #666666 1px solid; BORDER-BOTTOM: #666666 1px solid
+}
+.sebox .seForm SELECT {
+	BORDER-RIGHT: #666666 1px solid; BORDER-TOP: #666666 1px solid; MARGIN-TOP: 2px; BORDER-LEFT: #666666 1px solid; BORDER-BOTTOM: #666666 1px solid
+}
+.sebox .seFormOK {
+	MARGIN-TOP: 2px; FLOAT: left
+}
+.Bottom {
+	CLEAR: both; BORDER-TOP: #ccc 2px solid; MARGIN-TOP: 10px; FONT-SIZE: 12px; MARGIN-LEFT: auto; WIDTH: 900px; COLOR: #666666; MARGIN-RIGHT: auto; FONT-FAMILY: "宋体"
+}
+.foot {
+	CLEAR: both; FONT-SIZE: 12px; MARGIN: auto; WIDTH: 900px; COLOR: #666666; LINE-HEIGHT: 25px; PADDING-TOP: 5px; FONT-FAMILY: "宋体"; TEXT-ALIGN: center
+}
+.foot A {
+	COLOR: #0059a2; TEXT-DECORATION: none
+}
+.foot A:hover {
+	COLOR: #ff0000; TEXT-DECORATION: underline
+}
+.menu2 {
+	FONT-SIZE: 12px; COLOR: #666; LINE-HEIGHT: 22px; FONT-FAMILY: "宋体"
+}
+.menu2 A {
+	COLOR: #cc0000; LINE-HEIGHT: 22px; TEXT-DECORATION: none
+}
+.menu2 A:hover {
+	COLOR: #000; TEXT-DECORATION: underline
+}
+.ad_234_90 {
+	MARGIN-TOP: 8px; FLOAT: right; WIDTH: 234px; HEIGHT: 90px
+}
+.ad_655_90 {
+	CLEAR: both; MARGIN-TOP: 8px; FLOAT: left; WIDTH: 655px; HEIGHT: auto
+}
+.ad_900_90 {
+	CLEAR: both; MARGIN: 8px auto; WIDTH: 900px; HEIGHT: auto
+}
+.ad_227_60 {
+	MARGIN-TOP: 8px; WIDTH: 227px; HEIGHT: auto
+}
+.ad_234_60 {
+	MARGIN-TOP: 8px; FLOAT: right; WIDTH: 234px; HEIGHT: auto
+}

@@ -1,0 +1,66 @@
+#ftp登陆
+ftp -i -n 10.101.16.199<<eof
+user tousuzu tsz123 不能加分号
+get network_blind_20090311不能加分号
+put tousuzj`date +%Y%m%d`.txt不能加分号
+eof
+
+#数据库导出
+echo "start spool in shell.."
+sqlplus -s vbossusr/23Dk8s_34Dk@smaccess<<EOF 
+set heading off;
+set echo off;
+set feedback off;
+set trims on;
+set lines 2000;
+set termout off;
+set verify off ;
+set pagesize 0;
+spool ./tousuzj`date +%Y%m%d`.txt;
+select trim(phone)||'*'||trim(to_char(submittime,'YYYYMMDD'))||'*'||to_char(submittime,'HH:mm:ss')||'*'||trim(city)||'*'||trim(belongwhere)||'*'||trim(county)||'*'|| trim(village)||'*'||trim(othersign)||'*'||trim(problem) from tousuzj;
+spool off;
+EOF
+echo "end.."
+
+
+#求时间前一天
+diff_date()
+{
+                TDAY=$1
+                yy=`date +%Y`
+                mm=`date +%m`
+                dd=`date +%d`
+                
+                cni=`expr $dd - $TDAY`
+                if [ $cni -lt 1 ]
+                then
+                        mm=`expr $mm - 1`
+                        if [ $mm -lt 1 ]
+                        then
+                                mm=12
+                                yy=`expr $yy - 1`
+                        fi
+                        aaa=`cal $mm $yy`
+                        lastday=`echo $aaa|awk '{print $NF}'`
+                        zd=`expr $lastday + $cni`
+                else
+                  zd=$cni 
+                fi 
+                echo "0${mm}"|awk '{printf substr($0,length($0)-1,2)}'|read mm
+                echo "0${zd}"|awk '{printf substr($0,length($0)-1,2)}'|read zd
+                datestr=$yy$mm$zd       
+}
+diff_date 1
+echo "开始下载MCBBJ_00_SP_OPER_${datestr}.txt"
+ftp -niv 10.105.2.38<<!
+user billing_lf 280Ibill
+bin
+prompt
+cd /work_lf/check/jsj/data
+get MCBBJ_00_SP_OPER_${datestr}.txt
+bye
+!
+echo "正在下载MCBBJ_00_SP_OPER_${datestr}.txt"
+cat MCBBJ_00_SP_OPER_${datestr}.txt|awk -F";" '{print ($1";"$2";"$3";"$4";;;"$5";"$6";"$7";"$8";85:0:0;0;G;0;1;1")}'>Batch_OPER_ALL.txt
+echo "正在分离Batch_OPER_ALL.txt"
+cat B* | awk -F";" -f myawk.awk time=${datestr}

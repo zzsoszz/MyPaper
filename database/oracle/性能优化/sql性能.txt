@@ -1,0 +1,39 @@
+2012-12-03 23:34921人阅读评论(0)收藏举报
+
+
+---正在执行的
+ select a.username, a.sid,b.SQL_TEXT, b.SQL_FULLTEXT
+   from v$session a, v$sqlarea b 
+ where a.sql_address = b.address 
+ 
+
+---执行过的
+ select b.SQL_TEXT,b.FIRST_LOAD_TIME,b.SQL_FULLTEXT
+   from v$sqlarea b
+ where b.FIRST_LOAD_TIME between '2009-10-15/09:24:47' and
+        '2009-10-15/09:24:47' order by b.FIRST_LOAD_TIME 
+ （此方法好处可以查看某一时间段执行过的sql，并且 SQL_FULLTEXT 包含了完整的 sql 语句）
+ 
+其他
+ select OSUSER,PROGRAM,USERNAME,SCHEMANAME,B.Cpu_Time,STATUS,B.SQL_TEXT 
+ from V$SESSION A LEFT JOIN V$SQL B ON A.SQL_ADDRESS=B.ADDRESS AND A.SQL_HASH_VALUE=B.HASH_VALUE order by b.cpu_time desc 
+ 
+select address, sql_text, piece 
+   from v$session, v$sqltext 
+ where address = sql_address 
+   -- and machine = < you machine name > 
+ order by address, piece 
+ 
+查找前十条性能差的sql. 
+ SELECT * FROM (select PARSING_USER_ID,EXECUTIONS,SORTS, 
+ COMMAND_TYPE,DISK_READS,sql_text FROM v$sqlarea 
+ order BY disk_reads DESC )where ROWNUM<10 ; 
+ 
+查看占io较大的正在运行的session 
+ SELECT se.sid,se.serial#,pr.SPID,se.username,se.status, 
+ se.terminal,se.program,se.MODULE,、se.sql_address,st.event,st. 
+ p1text,si.physical_reads, 
+ si.block_changes FROM v$session se,v$session_wait st, 
+ v$sess_io si,v$process pr WHERE st.sid=se.sid AND st. 
+ sid=si.sid AND se.PADDR=pr.ADDR AND se.sid>6 AND st. 
+ wait_time=0 AND st.event NOT LIKE '%SQL%' ORDER BY physical_reads DESC

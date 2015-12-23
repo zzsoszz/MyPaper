@@ -1,0 +1,612 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0043)http://junsansi.itpub.net/post/29894/292558 -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>三思笔记 : 学习动态性能表(七)--V$PROCESS</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=GB2312">
+<META content="MSHTML 6.00.2900.3698" name=GENERATOR>
+<META http-equiv=Content-Language content=zh-CN><LINK title="RSS 2.0" 
+href="http://junsansi.itpub.net/rss/rss20/29894" type=application/xml 
+rel=alternate><LINK title="RSS 1.0" 
+href="http://junsansi.itpub.net/rss/rss10/29894" type=application/xml 
+rel=alternate><LINK title="RSS 0.90" 
+href="http://junsansi.itpub.net/rss/rss090/29894" type=application/xml 
+rel=alternate><LINK title="Atom 0.3" 
+href="http://junsansi.itpub.net/rss/atom/29894" type=application/atom+xml 
+rel=alternate><LINK media=screen 
+href="三思笔记  学习动态性能表(七)--V$PROCESS.files/default.css" type=text/css 
+rel=stylesheet>
+<SCRIPT language=javascript type=text/javascript>
+var HOST = 'http://junsansi.itpub.net';
+</SCRIPT>
+
+<SCRIPT language=JavaScript1.1 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/treemenu.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/chgstyle.js" 
+type=text/javascript></SCRIPT>
+<!-- 页面布局css --><LINK title=a 
+href="三思笔记  学习动态性能表(七)--V$PROCESS.files/style0a.css" type=text/css 
+rel=stylesheet><LINK title=b 
+href="三思笔记  学习动态性能表(七)--V$PROCESS.files/style0b.css" type=text/css 
+rel=stylesheet><LINK title=c 
+href="三思笔记  学习动态性能表(七)--V$PROCESS.files/style0c.css" type=text/css 
+rel=stylesheet>
+<SCRIPT language=javascript type=text/javascript>
+	  var cookielayout = readCookie("layout");
+	  var layouttitle = cookielayout ? cookielayout : getPreferredLayout();
+	  setActiveLayout(layouttitle);
+	</SCRIPT>
+<!-- 配色方案css --><LINK title=1 
+href="三思笔记  学习动态性能表(七)--V$PROCESS.files/style1.css" type=text/css 
+rel=stylesheet><LINK title=2 href="三思笔记  学习动态性能表(七)--V$PROCESS.files/style2.css" 
+type=text/css rel=stylesheet><LINK title=3 
+href="三思笔记  学习动态性能表(七)--V$PROCESS.files/style3.css" type=text/css 
+rel=stylesheet><LINK title=4 href="三思笔记  学习动态性能表(七)--V$PROCESS.files/style4.css" 
+type=text/css rel=stylesheet><LINK title=5 
+href="三思笔记  学习动态性能表(七)--V$PROCESS.files/style5.css" type=text/css 
+rel=stylesheet><LINK title=6 href="三思笔记  学习动态性能表(七)--V$PROCESS.files/style6.css" 
+type=text/css rel=stylesheet>
+<SCRIPT language=javascript type=text/javascript>
+	  var cookiecolor = readCookie("color");
+	  var colortitle = cookiecolor ? cookiecolor : getPreferredColorSchema();
+	  setActiveColorSchema(colortitle);
+	</SCRIPT>
+<LINK title=Home href="http://junsansi.itpub.net" rel=start><LINK 
+title=学习动态性能表(六)-(2)-V$SESSION_EVENT 
+href="http://junsansi.itpub.net/post/29894/292375" rel=prev><LINK 
+title=学习动态性能表(八)-(1)-v$lock href="http://junsansi.itpub.net/post/29894/292816" 
+rel=next></HEAD>
+<BODY>
+<DIV id=masthead>
+<DIV id=siteName><A href="http://junsansi.itpub.net/">三思笔记</A></DIV>
+<DIV id=globalNav>
+<DIV id=globalLink><A href="http://junsansi.itpub.net/">首页</A> | <A 
+href="http://junsansi.itpub.net/admin.php">管理控制台</A> | <A 
+href="http://junsansi.itpub.net/album/29894/0">资源中心</A> | = | <A title=15? 
+href="http://junsansi.itpub.net/category/29894/48265">纯粹口水</A> | <A title=30? 
+href="http://junsansi.itpub.net/category/29894/47766">杂文转贴</A> | <A title=293? 
+href="http://junsansi.itpub.net/category/29894/47308">三思笔记</A> | <A title=1? 
+href="http://junsansi.itpub.net/category/29894/47191">一般分类</A> </DIV>
+<FORM id=search action=http://junsansi.itpub.net/index.php method=post><INPUT 
+size=14 name=searchTerms> <INPUT type=hidden value=Search name=op> <INPUT 
+type=hidden value=29894 name=blogId> <INPUT type=submit value=搜索 name=Search> 
+</FORM></DIV><!--end globalNav--></DIV><!-- end masthead -->
+<DIV id=pagecell><!--pagecell-->
+<DIV id=content>
+<DIV class=story><!-- <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                                   xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                   xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"><rdf:Description
+                             rdf:about="http://junsansi.itpub.net/post/29894/292558"
+                             dc:identifier="http://junsansi.itpub.net/post/29894/292558"
+                             dc:title="学习动态性能表(七)--V$PROCESS"
+                             trackback:ping="http://blog.itpub.net//trackback.php?id=292558"/></rdf:RDF> -->
+<DIV class=noDisplay>=========================================================== 
+</DIV>
+<DIV class=storyTitle><A 
+href="http://junsansi.itpub.net/post/29894/292558">学习动态性能表(七)--V$PROCESS</A> 
+</DIV>
+<DIV class=noDisplay>=========================================================== 
+</DIV>
+<DIV class=storyInfo>
+<H1>学习动态性能表(七)--V$PROCESS</H1>作者: junsansi(http://junsansi.itpub.net)<BR>发表于: 
+2007.06.05 15:49<BR>分类: 三思笔记 <BR>出处: 
+http://junsansi.itpub.net/post/29894/292558<BR>--------------------------------------------------------------- 
+<BR></DIV>
+<DIV class=storytext>
+<P>学习动态性能表(一)--v$sysstat<BR><A 
+href="http://junsansi.itpub.net/post/29894/291051"><FONT 
+color=#007799>http://junsansi.itpub.net/post/29894/291051</FONT></A></P>
+<P>学习动态性能表(二)--v$sesstat<BR><A 
+href="http://junsansi.itpub.net/post/29894/291243"><FONT 
+color=#007799>http://junsansi.itpub.net/post/29894/291243</FONT></A><BR><BR>学习动态性能表(三)--v$sql&amp;v$sql_plan<BR>1.<A 
+href="http://junsansi.itpub.net/post/29894/291651" target=_blank><FONT 
+color=#007799>http://junsansi.itpub.net/post/29894/291651</FONT></A><BR>2.<A 
+href="http://junsansi.itpub.net/post/29894/291652" target=_blank><FONT 
+color=#007799>http://junsansi.itpub.net/post/29894/291652</FONT></A><BR><BR>学习动态性能表(四)--v$sqltext&amp;v$sqlarea<BR>1.<A 
+href="http://junsansi.itpub.net/post/29894/291654" target=_blank><FONT 
+color=#007799>http://junsansi.itpub.net/post/29894/291654</FONT></A><BR>2.<A 
+href="http://junsansi.itpub.net/post/29894/291656" target=_blank><FONT 
+color=#007799>http://junsansi.itpub.net/post/29894/291656</FONT></A><BR><BR>学习动态性能表(五)--v$session<BR><A 
+href="http://junsansi.itpub.net/post/29894/292372"><FONT 
+color=#007799>http://junsansi.itpub.net/post/29894/292372</FONT></A><BR><BR>学习动态性能表(六)--v$session_wait&amp;v$session_event<BR>1.<A 
+href="http://junsansi.itpub.net/post/29894/292373" target=_blank><FONT 
+color=#007799>http://junsansi.itpub.net/post/29894/292373</FONT></A><BR>2.<A 
+href="http://junsansi.itpub.net/post/29894/292375" 
+target=_blank>http://junsansi.itpub.net/post/29894/292375</A><BR>学习动态性能表(七)--v$process<BR>学习动态性能表(八)--v$lock<BR>学习动态性能表(九)--v$filestat</P><BR>
+<P>　　本视图包含当前系统oracle运行的所有进程信息。常被用于将oracle或服务进程的操作系统进程ID与数据库session之间建立联系。在某些情况下非常有用：</P>
+<P>1.如果数据库瓶颈是系统资源(如：cpu,内存)，并且占用资源最多的用户总是停留在某几个服务进程，那么进行如下诸项：</P>
+<P>1&gt;.找出资源进程<BR>2&gt;.找出它们的session,你必须将进程与会话联系起来。<BR>3&gt;.找出为什么session占用了如此多的资源</P>
+<P>2.SQL跟踪文件名是基于服务进程的操作系统进程ID。要找出session的跟踪文件，你必须将session与服务进程联系起来。<BR>3.某些事件，如rdbms 
+ipc 
+reply，鉴别session进程的Oracle进程ID在等什么。要发现这些进程在做什么，你必须找出它们的session。<BR>4.你所看到的服务器上的后台进程(DBWR,LGWR,PMON等)都是服务进程。要想知道他们在做什么，你必须找到他们的session。</P>
+<P><STRONG>V$PROCESS中的常用列</STRONG><BR>ADDR：进程对象地址<BR>PID：oracle进程ID<BR>SPID：操作系统进程ID</P>
+<P><STRONG>V$PROCESS中的连接列</STRONG><BR>Column View Joined Column(s) <BR>ADDR 
+V$SESSION PADDR</P>
+<P><STRONG>示例：</STRONG><BR>1.查找指定系统用户在oracle中的session信息及进程id，假设操作系统用户为：junsansi<BR>select 
+s.sid,s.SERIAL#, s.username,p.spid<BR>from v$session s, v$process p<BR>where 
+s.osuser = 'junsansi'<BR>and s.PADDR = p.ADDR</P>
+<P>2.查看锁和等待<BR>SELECT /*+ rule */<BR>lpad(' ', decode(l.xidusn, 0, 3, 0)) || 
+l.oracle_username 
+User_name,<BR>o.owner,o.object_name,o.object_type,s.sid,s.serial#,p.spid<BR>FROM 
+v$locked_object l, dba_objects o, v$session s, v$process p<BR>WHERE l.object_id 
+= o.object_id<BR>AND l.session_id = s.sid and s.paddr = p.addr<BR>ORDER BY 
+o.object_id, xidusn DESC</P>
+<P><STRONG>附注：</STRONG><BR>　　在linux环境可以通过ps查看进程信息包括pid,windows中任务管理器的PID与v$process中pid不能一一对应，这块在oracleDocument中也没有找到介绍，后来google了一下，有资料介绍说是由于windows是多线程服务器,每个进程包含一系列线程。这点于unix等不同，Unix每个Oralce进程独立存在，在Nt上所有线程由Oralce进程衍生。<BR>　　要在windows中显示oracle相关进程pid，我们可以通过一个简单的sql语句来实现。<BR>SELECT 
+s.SID, p.pid, p.spid signaled, s.osuser, s.program<BR>FROM v$process p, 
+v$session s<BR>WHERE p.addr = s.paddr;</P>
+<P>SID PID SIGNALED OSUSER PROGRAM <BR>1 2 2452 SYSTEM ORACLE.EXE <BR>2 3 2460 
+SYSTEM ORACLE.EXE <BR>3 4 2472 SYSTEM ORACLE.EXE <BR>4 5 2492 SYSTEM ORACLE.EXE 
+<BR>5 6 2496 SYSTEM ORACLE.EXE <BR>6 7 2508 SYSTEM ORACLE.EXE <BR>7 8 2520 
+SYSTEM ORACLE.EXE <BR>8 9 2524 SYSTEM ORACLE.EXE <BR>10 12 1316 JSSjunsansi 
+PlSqlDev.exe <BR>9 13 3420 JSSjunsansi PlSqlDev.exe <BR>13 14 660 JSSjunsansi 
+PlSqlDev.exe </P>
+<P>还可以通过和 v$bgprocess 连接查询到后台进程的名字： <BR>SELECT s.SID SID, p.spid threadid, 
+p.program processname, bg.NAME NAME<BR>FROM v$process p, v$session s, 
+v$bgprocess bg<BR>WHERE p.addr = s.paddr<BR>AND p.addr = bg.paddr<BR>AND 
+bg.paddr &lt;&gt; '00';</P>
+<P>SID THREADID PROCESSNAME NAME <BR>1 2452 ORACLE.EXE PMON <BR>2 2460 
+ORACLE.EXE DBW0 <BR>3 2472 ORACLE.EXE LGWR <BR>4 2492 ORACLE.EXE CKPT <BR>5 2496 
+ORACLE.EXE SMON <BR>6 2508 ORACLE.EXE RECO <BR>7 2520 ORACLE.EXE CJQ0 <BR>8 2524 
+ORACLE.EXE QMN0 </P>
+<P>Eygle大师写了一段sql脚本getsql.sql，用来获取指定pid正在执行的sql语句，在此也附注上来。<BR>REM 
+getsql.sql<BR>REM author eygle<BR>REM 在windows上,已知进程ID,得到当前正在执行的语句<BR>REM 
+在windows上,进程ID为16进制,需要转换,在UNIX直接为10进制<BR>SELECT /*+ ORDERED 
+*/<BR>sql_text<BR>FROM v$sqltext a<BR>WHERE (a.hash_value, a.address) IN 
+(<BR>SELECT DECODE (sql_hash_value,<BR>0, 
+prev_hash_value,<BR>sql_hash_value<BR>),<BR>DECODE (sql_hash_value, 0, 
+prev_sql_addr, sql_address)<BR>FROM v$session b<BR>WHERE b.paddr = (SELECT 
+addr<BR>FROM v$process c<BR>WHERE c.spid = TO_NUMBER ('&amp;pid', 
+'xxxx')))<BR>ORDER BY piece ASC<BR>/</P>
+<P></P></DIV>
+<DIV class=storyposted>junsansi 发表于:2007.06.05 15:49 ::分类: ( <A 
+href="http://junsansi.itpub.net/category/29894/47308">三思笔记</A> ) ::阅读:(3211次) :: 
+<A href="http://junsansi.itpub.net/post/29894/292558">评论 (1)</A> </DIV></DIV>
+<DIV class=story>
+<DIV class=storyTitle><IMG alt="" 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/comment_icon1.gif"> re: 
+学习动态性能表(七)--V$PROCESS <SPAN class=categoryinfo>[<A 
+href="http://junsansi.itpub.net/index.php?op=Comment&amp;articleId=292558&amp;parentId=41310653&amp;blogId=29894">回复</A>]</SPAN> 
+</DIV>
+<DIV class=storytext>
+<P>地球很危险你还是回酸梅星球吧，<IMG height=18 alt=laughing 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/laughing.gif" width=18 align=middle><IMG 
+height=18 alt=smile src="三思笔记  学习动态性能表(七)--V$PROCESS.files/smile.gif" width=18 
+align=middle></P></DIV>
+<DIV class=storyposted>liulangren 评论于: 2009.03.17 14:01 </DIV></DIV>
+<P>
+<DIV class=story>
+<DIV class=storyTitle>发表评论</DIV>
+<DIV class=storytext>
+<SCRIPT language=javascript type=text/javascript>
+<!--
+function writeImgTag(code)
+{
+var cache = document.NewComment.commentText.value;
+this.code = code;
+document.NewComment.commentText.value = cache + code;
+document.NewComment.commentText.focus();
+}
+//-->
+</SCRIPT>
+
+<FORM id=comments_form name=NewComment 
+onsubmit="if (this.bakecookie.checked) rememberMe(this)" 
+action=http://junsansi.itpub.net/index.php method=post>标题<BR><INPUT size=60 
+value="re: 学习动态性能表(七)--V$PROCESS" name=commentTopic><BR>在此添加评论 <BR>表情符号: <IMG 
+onclick="writeImgTag(':)')" height=18 alt=smile 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/smile.gif" width=18 align=middle 
+border=0> <IMG onclick="writeImgTag(':D')" height=18 alt=laughing 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/laughing.gif" width=18 align=middle 
+border=0> <IMG onclick="writeImgTag(':p')" height=18 alt=tongue 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/tongue.gif" width=18 align=middle 
+border=0> <IMG onclick="writeImgTag(':(')" height=18 alt=angry 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/angry.gif" width=18 align=middle 
+border=0> <IMG onclick="writeImgTag(':cry')" height=18 alt=crying 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/crying.gif" width=18 align=middle 
+border=0> <IMG onclick="writeImgTag(':sad')" height=18 alt=sad 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/sad.gif" width=18 align=middle border=0> 
+<IMG onclick="writeImgTag(':what')" height=18 alt=wassat 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/wassat.gif" width=18 align=middle 
+border=0> <IMG onclick="writeImgTag(':wink')" height=18 alt=wink 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/wink.gif" width=18 align=middle border=0> 
+<BR><INPUT type=hidden value=none name=author> <INPUT type=hidden value=none 
+name=email> <INPUT type=hidden value=none name=text> <TEXTAREA name=commentText rows=10 cols=54 onchange="findObj('text').value = this.value"></TEXTAREA><BR>称呼<BR><INPUT 
+onchange="findObj('author').value = this.value" 
+name=userName><BR>邮箱地址（可选）<BR><INPUT 
+onchange="findObj('email').value = this.value" 
+name=userEmail><BR>个人主页（可选）<BR><INPUT size=60 name=userUrl><BR><INPUT 
+id=bakecookie type=checkbox name=bakecookie><LABEL for=bakecookie>记住我？</LABEL> 
+<LABEL for=authImage>验证码: </LABEL><INPUT id=authImage size=6 
+name=authImage>&nbsp;<IMG style="VERTICAL-ALIGN: middle" height=20 alt=authimage 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/index.gif" width=70> <BR><INPUT type=submit value=发表 name=post><BR><BR><INPUT type=hidden 
+value=AddComment name=op> <INPUT type=hidden value=292558 name=articleId> <INPUT 
+type=hidden value=29894 name=blogId> <INPUT type=hidden name=parentId> </FORM>
+<SCRIPT language=javascript type=text/javascript>
+<!--
+document.NewComment.userName.value = getCookie("mtcmtauth");
+document.NewComment.userEmail.value = getCookie("mtcmtmail");
+document.NewComment.userUrl.value = getCookie("mtcmthome");
+document.NewComment.author.value = getCookie("mtcmtauth");
+document.NewComment.email.value = getCookie("mtcmtmail");
+//-->
+</SCRIPT>
+</DIV></DIV></DIV><!--end content-->
+<DIV id=leftNav>
+<DIV class=relatedLinksTitle>自我介绍</DIV>
+<DIV class=relatedLinks>
+<DIV align=center><IMG alt=junsansi 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/31190_3.jpg"></DIV>作者:君三思<BR>我的名字叫正义超人，我住在遥远的酸梅星球，为了保护地球的和平，我千里迢迢而来！怎么样，赶紧请我吃饭吧~~~~<BR>
+<DIV align=center><A href="http://www.china-pub.com/196252" target=_blank><IMG 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/7607759_201003180932371.jpg" width=180 
+border=0></A></DIV>
+<UL class=xspace-list>
+  <LI><A href="http://www.5ienet.com/books/" target=_blank>前往"<FONT 
+  color=red>涂抹ORACLE</FONT>"专区</A>
+  <LI><A href="http://www.5ienet.com/books/" target=_blank>下载书中源码</A> | <A 
+  href="http://www.douban.com/subject/4196676/" target=_blank>豆瓣评论</A>
+  <LI>购买 | <A href="http://www.china-pub.com/196252" target=_blank>CB</A> | <A 
+  href="http://product.dangdang.com/product.aspx?product_id=20753483" 
+  target=_blank>当当</A> | <A 
+  href="http://www.amazon.cn/mn/detailApp/ref=sr_1_28?_encoding=UTF8&amp;s=books&amp;qid=1261553010&amp;asin=B00313ITNI&amp;sr=1-28" 
+  target=_blank>卓越</A> | <A 
+  href="http://search1.taobao.com/browse/0/n-g,zw74jkdpojqwg3df-------2-------b--40--commend-0-all-0.htm?ssid=e-s1&amp;at_topsearch=1" 
+  target=_blank>淘宝</A></LI></UL>
+<DIV align=center><BR><A href="http://www.5ienet.com/" target=_blank><IMG 
+title=我爱我佳 src="三思笔记  学习动态性能表(七)--V$PROCESS.files/7607759_200911220906423.gif" 
+width=180 border=0></A><IMG height=1 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/tongji.gif" width=1></DIV>
+<UL class=xspace-list>
+  <LI><A href="http://www.5ienet.com/note/" target=_blank>ORACLE三思笔记专区</A> <A 
+  href="http://www.5ienet.com/mydesign/list.asp" target=_blank>作品集</A>
+  <LI><A href="http://www.5ienet.com/html/aboutss.asp" target=_blank>关于三思</A> | 
+  <A href="http://www.douban.com/people/junsansi/" target=_blank>豆瓣</A> | <A 
+  href="http://t.sina.com.cn/junsansi" target=_blank><FONT 
+  color=red>新浪围脖</FONT></A> 
+  <LI>QQ:5454589 CLUB:77830934 
+  <LI>MSN:junsansi@hotmail.com 
+  <LI><A href="http://junsansi.itpub.net/7607759/viewspace-606595" 
+  target=_blank>Mobile:动动脑筋吧</A></LI></UL><BR></DIV>
+<DIV class=relatedLinksTitle>切换风格</DIV>
+<DIV class=relatedLinks>
+<FORM action="">
+<P align=center>布局:<SELECT onchange="setActiveLayout(value); return false;" 
+size=1 name=SelectActiveLayout> <OPTION value=a selected>选择页面布局</OPTION> 
+  <OPTION value=a>两栏左侧导航</OPTION> <OPTION value=b>两栏右侧导航</OPTION> <OPTION 
+  value=c>三栏</OPTION></SELECT> </P></FORM>
+<FORM action="">
+<P align=center>配色:<SELECT onchange="setActiveColorSchema(value); return false;" 
+size=1 name=SelectActiveColorSchema> <OPTION value=1 selected>选择配色方案</OPTION> 
+  <OPTION value=1>纯净蓝灰</OPTION> <OPTION value=2>浪漫紫</OPTION> <OPTION 
+  value=3>清爽绿</OPTION> <OPTION value=4>海蓝</OPTION> <OPTION value=5>粉红</OPTION> 
+  <OPTION value=6>黑白</OPTION></SELECT> </P></FORM>
+<CENTER>提示</CENTER>点击带有[...]标记的栏目可以展开/收拢相应的栏目 
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD class=button onmousedown=turnonall() style="CURSOR: pointer">展开所有</TD>
+    <TD class=button onmousedown=turnoffall() 
+  style="CURSOR: pointer">收拢所有</TD></TR></TBODY></TABLE></DIV>
+<DIV class=relatedLinksTitle>新闻聚合</DIV>
+<DIV class=relatedLinks align=right><A class=nodecoration 
+title="Link to the RSS 0.90 feed." 
+href="http://junsansi.itpub.net/rss/rss090/29894"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+height=15 alt="RSS 0.90" src="三思笔记  学习动态性能表(七)--V$PROCESS.files/rss090_logo.gif" 
+width=80></A><BR><A class=nodecoration title="Link to the RSS 1.0 feed." 
+href="http://junsansi.itpub.net/rss/rss10/29894"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+height=15 alt="RSS 1.0" src="三思笔记  学习动态性能表(七)--V$PROCESS.files/rss10_logo.gif" 
+width=80></A><BR><A class=nodecoration title="Link to the RSS 2.0 feed." 
+href="http://junsansi.itpub.net/rss/rss20/29894"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+height=15 alt="RSS 2.0" src="三思笔记  学习动态性能表(七)--V$PROCESS.files/rss20_logo.gif" 
+width=80></A><BR><A class=nodecoration title="Link to the Atom 0.3 feed." 
+href="http://junsansi.itpub.net/rss/atom/29894"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+height=15 alt="Atom 0.3" src="三思笔记  学习动态性能表(七)--V$PROCESS.files/atom_logo.png" 
+width=80></A><BR><BR><A 
+href="http://www.bloglines.com/sub/http://junsansi.itpub.net/rss/rss20/29894"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+height=15 alt="Subscribe with Bloglines" 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/sub_bloglines.gif" width=80></A><BR><A 
+href="http://www.rojo.com/add-subscription?resource=http://junsansi.itpub.net/rss/rss20/29894"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+height=17 alt="Subscribe in Rojo" 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/add-to-rojo.gif" width=52></A> <BR><A 
+title="Subscribe in NewsGator Online" 
+href="http://www.newsgator.com/ngs/subscriber/subext.aspx?url=http://junsansi.itpub.net/rss/rss20/29894"><IMG 
+height=17 alt="Subscribe in NewsGator Online" 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/ngsub1.gif" width=91></A><BR><A 
+title="Subscribe in My Yahoo!" 
+href="http://add.my.yahoo.com/rss?url=http://junsansi.itpub.net/rss/rss20/29894"><IMG 
+height=17 alt="Subscribe in My Yahoo!" 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/addtomyyahoo4.gif" width=91></A><BR><A 
+title="Add to Google" 
+href="http://fusion.google.com/add?feedurl=http://junsansi.itpub.net/rss/rss20/29894"><IMG 
+height=17 alt="Add to Google" 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/add-to-google-plus.gif" 
+width=104></A><BR></DIV>
+<DIV class=relatedLinksTitle>博客日历</DIV>
+<DIV class=relatedLinks align=center>
+<TABLE class=calMonth>
+  <THEAD>
+  <TR class=calMonthNav>
+    <TH class=calMonthBackward><A title="八月 2010" 
+      href="http://junsansi.itpub.net/archives/29894/201008">&laquo;</A></TH>
+    <TH class=calMonthCurrent colSpan=5>九月 2010</TH>
+    <TH class=calMonthForward><A title="十月 2010" 
+      href="http://junsansi.itpub.net/archives/29894/201010">&raquo;</A></TH></TR>
+  <TR class=calMonthHeader>
+    <TH scope=col abbr=星期一>一</TH>
+    <TH scope=col abbr=星期二>二</TH>
+    <TH scope=col abbr=星期三>三</TH>
+    <TH scope=col abbr=星期四>四</TH>
+    <TH scope=col abbr=星期五>五</TH>
+    <TH scope=col abbr=星期六>六</TH>
+    <TH scope=col abbr=星期日>日</TH></TR></THEAD>
+  <TBODY>
+  <TR>
+    <TD class=calMonthDay>&nbsp;</TD>
+    <TD class=calMonthDay>&nbsp;</TD>
+    <TD class=calMonthDay>1</TD>
+    <TD class=calMonthDay>2</TD>
+    <TD class=calMonthDay>3</TD>
+    <TD class=calMonthDay>4</TD>
+    <TD class=calMonthDay>5</TD></TR>
+  <TR>
+    <TD class=calMonthDay>6</TD>
+    <TD class=calMonthDay>7</TD>
+    <TD class=calMonthDay>8</TD>
+    <TD class=calMonthDay>9</TD>
+    <TD class=calMonthDay>10</TD>
+    <TD class=calMonthDay>11</TD>
+    <TD class=calMonthDay>12</TD></TR>
+  <TR>
+    <TD class=calMonthDay>13</TD>
+    <TD class=calMonthDay>14</TD>
+    <TD class=calMonthDay>15</TD>
+    <TD class=calMonthDay><A 
+      href="http://junsansi.itpub.net/archives/29894/20100916">16</A></TD>
+    <TD class=calMonthDay>17</TD>
+    <TD class=calMonthDay>18</TD>
+    <TD class=calMonthDay>19</TD></TR>
+  <TR>
+    <TD class=calMonthDay>20</TD>
+    <TD class=calMonthDay>21</TD>
+    <TD class=calMonthDay>22</TD>
+    <TD class=calMonthDay>23</TD>
+    <TD class=calMonthDay>24</TD>
+    <TD class=calMonthDay>25</TD>
+    <TD class=calMonthDay>26</TD></TR>
+  <TR>
+    <TD class=calMonthDay>27</TD>
+    <TD class=calMonthDay>28</TD>
+    <TD class=calMonthToday><A 
+      href="http://junsansi.itpub.net/archives/29894/20100929">29</A></TD>
+    <TD class=calMonthDay>30</TD>
+    <TD class=calMonthDay>&nbsp;</TD>
+    <TD class=calMonthDay>&nbsp;</TD>
+    <TD class=calMonthDay>&nbsp;</TD></TR></TBODY></TABLE></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('archives')" 
+style="CURSOR: pointer">文章归档...</DIV>
+<DIV class=relatedLinks id=archives style="DISPLAY: none">
+<P align=center><A href="http://junsansi.itpub.net/archives/29894/201009">九月 
+2010(2篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/201008">八月 
+2010(3篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/201007">七月 
+2010(2篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/201006">六月 
+2010(3篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/201005">五月 
+2010(1篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/201004">四月 
+2010(6篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/201003">三月 
+2010(11篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/201002">二月 
+2010(6篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/201001">一月 
+2010(10篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200912">十二月 
+2009(15篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200911">十一月 
+2009(11篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200910">十月 
+2009(4篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200909">九月 
+2009(7篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200908">八月 
+2009(7篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200907">七月 
+2009(1篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200906">六月 
+2009(2篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200905">五月 
+2009(2篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200904">四月 
+2009(4篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200903">三月 
+2009(9篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200902">二月 
+2009(22篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200901">一月 
+2009(2篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200812">十二月 
+2008(5篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200810">十月 
+2008(2篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200809">九月 
+2008(5篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200808">八月 
+2008(3篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200807">七月 
+2008(7篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200806">六月 
+2008(15篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200805">五月 
+2008(17篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200804">四月 
+2008(11篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200803">三月 
+2008(21篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200802">二月 
+2008(2篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200801">一月 
+2008(14篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200712">十二月 
+2007(12篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200711">十一月 
+2007(5篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200710">十月 
+2007(2篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200709">九月 
+2007(5篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200708">八月 
+2007(17篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200707">七月 
+2007(15篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200706">六月 
+2007(27篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200705">五月 
+2007(4篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200704">四月 
+2007(21篇)</A><BR><A href="http://junsansi.itpub.net/archives/29894/200703">三月 
+2007(1篇)</A><BR></P></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('recentposts')" 
+style="CURSOR: pointer">最新发表...</DIV>
+<DIV class=relatedLinks id=recentposts><A 
+href="http://junsansi.itpub.net/post/29894/506213">MySQL数据库权限体系入门(3)---管理用户权限</A><BR><A 
+href="http://junsansi.itpub.net/post/29894/505512">MySQL数据库权限体系入门(2)---创建用户</A><BR><A 
+href="http://junsansi.itpub.net/post/29894/504643">MySQL数据库权限体系入门(1)---工作原理</A><BR><A 
+href="http://junsansi.itpub.net/post/29894/503656">Winxp下安装蓝牙设备BCM2045A</A><BR><A 
+href="http://junsansi.itpub.net/post/29894/503596">CentOS5.5下安装vmware2管理控制台报HTTP 
+12029的故障解决方案~</A><BR><A 
+href="http://junsansi.itpub.net/post/29894/501730">全面学习和应用ORACLE 
+ASM特性--(5)管理asm磁盘中的文件</A><BR><A 
+href="http://junsansi.itpub.net/post/29894/501722">全面学习和应用ORACLE 
+ASM特性--(4)管理asm磁盘组中目录和文件</A><BR><A 
+href="http://junsansi.itpub.net/post/29894/501309">全面学习和应用ORACLE 
+ASM特性--(3)添加和修改asm磁盘组</A><BR><A 
+href="http://junsansi.itpub.net/post/29894/501180">全面学习和应用ORACLE 
+ASM特性--(2)管理asm磁盘</A><BR><A 
+href="http://junsansi.itpub.net/post/29894/500655">全面学习和应用ORACLE 
+ASM特性--(1)关于asm实例</A><BR></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('recentcomments')" 
+style="CURSOR: pointer">最新评论... </DIV>
+<DIV class=relatedLinks id=recentcomments style="DISPLAY: block"><A 
+title=" 最后一步。。出现好多错误提示。。我都ignore..还是失败啊 " 
+href="http://junsansi.itpub.net/post/29894/465012">s:手把手教你用VMware安装oracle10g 
+RAC(9)-创建数据库和asm实例</A><BR><A title=... 
+href="http://junsansi.itpub.net/post/29894/501180">v+:全面学习和应用ORACLE 
+ASM特性--(2)管理asm磁盘</A><BR><A title=" 因为没加node2和指定了db_1为crs安装目录，这里取消了crs的安装。..." 
+href="http://junsansi.itpub.net/post/29894/464881">Corey:手把手教你用VMware安装oracle10g 
+RAC(7.3)-安装Clusterware</A><BR><A 
+title=" 这遇到了错误A跟错误C，安装文中的方法解决了 终于把clusterware装好了。。。 " 
+href="http://junsansi.itpub.net/post/29894/464881">Corey:手把手教你用VMware安装oracle10g 
+RAC(7.3)-安装Clusterware</A><BR><A 
+title=" 还有个问题，在第5步 5、指定节点 这里默认只有node1一个节点，一定要把node2加进去 " 
+href="http://junsansi.itpub.net/post/29894/464880">Corey:手把手教你用VMware安装oracle10g 
+RAC(7.2)-安装Clusterware</A><BR><A title=" 这里楼主指定的crs安装目录是..." 
+href="http://junsansi.itpub.net/post/29894/464880">Corey:手把手教你用VMware安装oracle10g 
+RAC(7.2)-安装Clusterware</A><BR><A title=" 上面的列的几个错误都遇到了，忽略之 " 
+href="http://junsansi.itpub.net/post/29894/464879">Corey:手把手教你用VMware安装oracle10g 
+RAC(7.1)-安装Clusterware</A><BR><A 
+title=" 这里我执行 [root@node2 ~]# /etc/init.d/oracleasm listdisks..." 
+href="http://junsansi.itpub.net/post/29894/464699">Corey:手把手教你用VMware在linux下安装oracle10g 
+RAC(6)-配置Clusterware安装环境</A><BR><A title=... 
+href="http://junsansi.itpub.net/post/29894/464630">Corey:手把手教你用VMware在linux下安装oracle10g 
+RAC(5)-配置第2台节点</A><BR><A title=" 这一步安装上面列举的rpm时，一堆依赖关系rpm也要装。在rhel光盘Server目录下 " 
+href="http://junsansi.itpub.net/post/29894/464591">Corey:手把手教你用VMware在linux下安装oracle10g 
+RAC(4)-配置linux环境</A><BR></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('topreadposts')" 
+style="CURSOR: pointer">最多阅读文章... </DIV>
+<DIV class=relatedLinks id=topreadposts style="DISPLAY: none"><A 
+href="http://junsansi.itpub.net/post/29894/277889">初级行转列示例</A> (28282 次)<BR><A 
+href="http://junsansi.itpub.net/post/29894/277522">动态游标的操作~~~</A> (27992 
+次)<BR><A href="http://junsansi.itpub.net/post/29894/309889">发水啦~~~~</A> (27822 
+次)<BR><A href="http://junsansi.itpub.net/post/29894/455918">数据写过程中各项触发条件及逻辑</A> 
+(26935 次)<BR><A 
+href="http://junsansi.itpub.net/post/29894/292373">学习动态性能表(六)-(1)-V$SESSION_WAIT</A> 
+(6478 次)<BR><A 
+href="http://junsansi.itpub.net/post/29894/292372">学习动态性能表(五)--V$SESSION</A> 
+(5973 次)<BR><A 
+href="http://junsansi.itpub.net/post/29894/291051">学习动态性能表(一)--v$sysstat</A> 
+(5899 次)<BR><A 
+href="http://junsansi.itpub.net/post/29894/291243">学习动态性能表(二)--v$sesstat</A> 
+(3763 次)<BR><A 
+href="http://junsansi.itpub.net/post/29894/292825">学习动态性能表(八)-(3)-V$LOCKED_OBJECT</A> 
+(3396 次)<BR><A 
+href="http://junsansi.itpub.net/post/29894/292819">学习动态性能表(八)-(2)-v$lock 
+</A>(3229 次)<BR></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('topcommentposts')" 
+style="CURSOR: pointer">最多评论文章... </DIV>
+<DIV class=relatedLinks id=topcommentposts style="DISPLAY: none"><A 
+href="http://junsansi.itpub.net/post/29894/291051">学习动态性能表(一)--v$sysstat</A> (4 
+次)<BR><A href="http://junsansi.itpub.net/post/29894/308749">一步一步学RMAN第二篇 
+RMAN命令知多少</A> (2 次)<BR><A 
+href="http://junsansi.itpub.net/post/29894/464881">手把手教你用VMware安装oracle10g 
+RAC(7.3)-安装Clusterware</A> (2 次)<BR><A 
+href="http://junsansi.itpub.net/post/29894/466127">全面学习oracle 
+flashback特性(3.2)--Flashback Database操作示例</A> (2 次)<BR><A 
+href="http://junsansi.itpub.net/post/29894/456913">遇到了ora-01002,fetch out of 
+sequence</A> (2 次)<BR><A 
+href="http://junsansi.itpub.net/post/29894/477719">修改Oracle数据库字符集</A> (2 
+次)<BR><A 
+href="http://junsansi.itpub.net/post/29894/279694">oracle中jdbc驱动包的说明</A> (2 
+次)<BR><A 
+href="http://junsansi.itpub.net/post/29894/461319">全面学习分区表及分区索引(2)--创建range分区</A> 
+(2 次)<BR><A 
+href="http://junsansi.itpub.net/post/29894/464630">手把手教你用VMware在linux下安装oracle10g 
+RAC(5)-配置第2台节点</A> (2 次)<BR><A 
+href="http://junsansi.itpub.net/post/29894/464880">手把手教你用VMware安装oracle10g 
+RAC(7.2)-安装Clusterware</A> (2 次)<BR></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('blog_statistics')" 
+style="CURSOR: pointer">博客统计... </DIV>
+<DIV class=relatedLinks id=blog_statistics style="DISPLAY: none">总文章数: 
+341<BR>总评论数: 48<BR>总引用数: 0<BR>总浏览数: 337112<BR></DIV></DIV>
+<DIV id=rightNav>
+<DIV class=relatedLinksTitle>Blog信息</DIV>
+<DIV class=relatedLinks>String myLife;<BR>boolean isLife = true;<BR>if 
+(isLife){<BR>　　myLife = '吃喝拉撒睡~~';<BR>} <BR></DIV>
+<DIV class=relatedLinksTitle onmousedown="turnswitch('mylinks')" 
+style="CURSOR: pointer">网站链接...</DIV>
+<DIV class=myLinks id=mylinks>
+<DIV class=relatedLinksTitle style="TEXT-ALIGN: left">链接</DIV>
+<DIV class=relatedLinks><IMG 
+style="BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 25px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+height=8 alt="" src="三思笔记  学习动态性能表(七)--V$PROCESS.files/subcat_bullet.gif" 
+widht="6"> <A class=mylink title="" href="http://www.5ienet.com/">我爱我佳</A> 
+<BR></DIV></DIV></DIV><!-- end pagenav -->
+<DIV id=pagefoot>&nbsp; <!-- 以下部分的内容，请保留原样， 谢谢！ -->
+<TABLE align=center border=0>
+  <TBODY>
+  <TR>
+    <TD>OW_MS模板,版本:1.30beta </TD>
+    <TD>模板设计:</TD>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0>
+        <TBODY>
+        <TR>
+          <TD><A href="http://oldwain.itpub.net/"><IMG 
+            style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+            alt=oldwain 
+          src="三思笔记  学习动态性能表(七)--V$PROCESS.files/oldwain.gif"></A></TD></TR>
+        <TR>
+          <TD style="FONT-SIZE: xx-small"><A 
+            href="http://oldwain.itpub.net/">oldwain</A></TD></TR></TBODY></TABLE></TD>
+    <TD>, 2006.02</TD>
+    <TD>Powered by</TD>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0>
+        <TBODY>
+        <TR>
+          <TD><A href="http://www.lifetype.net/"><IMG 
+            style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+            alt=LifeType 
+            src="三思笔记  学习动态性能表(七)--V$PROCESS.files/lt_button42.png"></A></TD></TR>
+        <TR>
+          <TD style="FONT-SIZE: xx-small"><A 
+            href="http://www.lifetype.net/">LifeType</A></TD></TR></TBODY></TABLE></TD><!-- 以上部分的内容，请保留原样， 谢谢！ -->
+    <TD>Blog提供:</TD>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0>
+        <TBODY>
+        <TR>
+          <TD><A href="http://weblog.itpub.net/"><IMG 
+            style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+            alt=Itpub 
+        src="三思笔记  学习动态性能表(七)--V$PROCESS.files/itpub.gif"></A></TD></TR>
+        <TR>
+          <TD style="FONT-SIZE: xx-small"><A 
+            href="http://weblog.itpub.net/">ITPUB</A></TD></TR></TBODY></TABLE></TD><!--
+    <td>Modified by:</td>
+    <td><a href="http://blog.itpub.net/YOURBLOG"> 您的大名</a></td>
+--></TR></TBODY></TABLE></DIV></DIV><!--end pagecell-->
+<SCRIPT language=javascript type=text/javascript>
+	  var cookielayout = readCookie("layout");
+	  var layouttitle = cookielayout ? cookielayout : getPreferredLayout();
+	  setActiveLayout(layouttitle);
+	</SCRIPT>
+
+<SCRIPT language=javascript type=text/javascript>
+	  var cookiecolor = readCookie("color");
+	  var colortitle = cookiecolor ? cookiecolor : getPreferredColorSchema();
+	  setActiveColorSchema(colortitle);
+	</SCRIPT>
+
+<SCRIPT language=javascript 
+src="三思笔记  学习动态性能表(七)--V$PROCESS.files/pv.js"></SCRIPT>
+
+<SCRIPT> 
+function sendPV(){
+    var pvTrack = new PvTrack();
+    pvTrack.type = 11; // 频碌脌脿ID
+    pvTrack.channel =23; // 频碌脌D
+    pvTrack.pageType = 0;
+    pvTrack.track();
+}
+window.setTimeout("sendPV()", 3);
+</SCRIPT>
+</BODY></HTML>

@@ -1,0 +1,25 @@
+-----------------------------------------------
+create type row_type as object(a varchar2(4000));--定义行对象
+
+
+create type table_type as table of row_type; --定义表对象
+
+
+---------11111
+create or replace function test_fun(
+    str in varchar2
+)
+return table_type pipelined
+is
+    v row_type;--定义v为行对象类型
+begin
+
+
+  for thisrow in (select bx_order_hotel_t.orderid from bx_order_hotel_t ) loop
+    v := row_type(thisrow.orderid);
+    pipe row (v);
+  end loop;
+end;
+
+
+select * from table(test_fun('')) 

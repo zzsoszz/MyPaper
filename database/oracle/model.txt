@@ -1,0 +1,44 @@
+
+ def n=30
+ def max_iter=10
+ select batch_id, avail_qty, ga given_art, ra, rg, pr, ni
+ from batches
+ model
+   dimension by (batch_id)
+   measures (avail_qty,               -- number of available articles in batch
+             cast(null as number) ga, -- number of given articles
+             cast(null as number) ra, -- number of remaining articles to get
+             cast(null as number) rg, -- number of batches that didn't give articles
+             cast(null as number) pr, -- previous value of rg
+             0 as ni)                 -- number of iterations
+   rules update sequential order 
+     iterate(&max_iter) until (rg[1] = 0)
+     ( -- ra = remaining articles to get at the beginning of iteration
+       ra[AnY] = &n - nvl(sum(ga)[AnY],0),
+       -- rg = remaining batches that didn't give articles at the beginning of iter.
+       rg[AnY] = count(*)[AnY] - count(ga)[AnY],
+       -- ga = given articles
+       ga[AnY] = case
+                 when ga[cv()] is not null
+                   -- don't change what's already set
+                   then ga[cv()]
+                 when ra[cv()]/rg[cv()] >= avail_qty[cv()]
+                   -- if share does not fit take only available
+                   then avail_qty[cv()]
+                 when pr[cv()] = rg[cv()] 
+                   -- no change in the previous iteration -> fill the rest
+                   then ra[cv()]/rg[cv()]
+                 end,
+       -- memorize previous value of rg
+       pr[AnY] = rg[cv()],
+       -- ra = remaining articles in batches at the end of iteration 
+       -- (not useful for computing, just for display purpose)
+       ra[AnY] = &n - nvl(sum(ga)[AnY],0),
+       -- rg = remaining batches that didn't give articles at the end of iteration
+       -- (not useful for computing, just for display purpose)
+       rg[AnY] = count(*)[AnY] - count(ga)[AnY],
+       -- number of iterations
+       -- (not useful for computing, just for display purpose)
+       ni[AnY] = ni[cv()] + 1
+     )
+ order by 1

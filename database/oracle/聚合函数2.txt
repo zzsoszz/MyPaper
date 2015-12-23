@@ -1,0 +1,59 @@
+CREATE OR REPLACE FUNCTION sum_str(input varchar2 ) RETURN
+   CLOB PARALLEL_ENABLE AGGREGATE USING strcat_type;
+   
+   
+ CREATE OR REPLACE TYPE "STRCAT_TYPE" as object
+ (
+   cat_string varchar2(32767),
+   static function ODCIAggregateInitialize(cs_ctx In Out strcat_type)
+     return number,
+   member function ODCIAggregateIterate(self  In Out strcat_type,
+                                        value in varchar2) return number,
+   member function ODCIAggregateMerge(self In Out strcat_type,
+                                      ctx2 In Out strcat_type)
+     return number,
+   member function ODCIAggregateTerminate(self        In Out strcat_type,
+                                          returnValue Out clob,
+                                          flags       in number)
+     return number
+ )
+
+
+
+
+create or replace type body strcat_type is
+  static function ODCIAggregateInitialize(cs_ctx IN OUT strcat_type)
+    return number is
+  begin
+    cs_ctx := strcat_type(null);
+    return ODCIConst.Success;
+  end;
+
+  member function ODCIAggregateIterate(self  IN OUT strcat_type,
+                                       value IN varchar2) return number is
+  begin
+    self.cat_string := self.cat_string || value || ';';
+    return ODCIConst.Success;
+  end;
+
+  member function ODCIAggregateTerminate(self        IN Out strcat_type,
+                                         returnValue OUT clob,
+                                         flags       IN number) return number is
+  begin
+    returnValue := ltrim(rtrim(self.cat_string, ','), ',');
+    return ODCIConst.Success;
+  end;
+
+  member function ODCIAggregateMerge(self IN OUT strcat_type,
+                                     ctx2 IN Out strcat_type) return number is
+  begin
+    self.cat_string := self.cat_string || ',' || ctx2.cat_string;
+    return ODCIConst.Success;
+  end;
+
+end;
+
+
+
+select sum_str(t.hotel_name) from cim_tpc_htl_info_t t
+where rownum<5;

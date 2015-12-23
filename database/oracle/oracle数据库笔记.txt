@@ -1,0 +1,88 @@
+SGA:system global area 系统全局区
+PGA:program global area程序全局区
+shutdown immediate
+start nomount 启动例程（访问内存信息）
+alter database mount （访问控制文件）读取控制文件,不可以读写表，只可以读取数据库结构信息和内存信息
+alter database open read only（访问表，数据字典表desc dictionary）数据文件控制文件验证，可以读写表,不能为force 启动
+
+startup 装载打开数据库
+startup abort;
+startup force;
+startup restrict
+
+shuw sga;
+set wrap off;
+set linesize 200
+select * from V$bgprocess
+select * from V$controlfile
+
+show parameter shared
+show parameter dbcache
+show parameter log
+show parameter log_buffer
+show parameter db_create
+
+
+alter session set nls_language=american;
+alter system set db_cache_size=64M;
+alter system set share_pool_size=64M;
+alter system set db_cache_advice=on;
+alter system set large_pool_size=64M;
+alter system set java_pool_size=64M;
+alter system archive log start 启动日志自动存档 查看achive log list
+alter system switch logfile 日志文件循环写
+alter system checkpoint 同步
+alter system set timed_statistics=false scope=memory;
+alter system set timed_statistics=false scope=spfile;
+alter system set timed_statistics=false scope=both;(当前实例和spfile)
+alter system set db_create_file_dest=d:\;
+alter system enable restrictied session;
+alter system disable restrictied session;
+
+alter session set sql_trace =true; 用户跟踪记录C:\oracle\admin\design\udump\**
+backgroud_dump_dest 参数指定目录下，记录后台进程跟踪记录
+
+create tablespace test database 'd:\test.dbf' size 2M; 建立表空间
+
+
+drop tablespace test including contents and datafiles 删除表空间;
+
+alter database drop  logfile group 6;删除日志文件
+alter database clear logfile 'd:\*.rdo'
+alter database rename file 'd:\a.rdo' to 'd:\b.rdo'
+alter database backup controlfile to 'c:\controfile.bak'
+alter database default temporary tablespace kong4将kong4表空间设为缺省临时表空间
+c /64/20/
+
+orapwd file=D:\oracle\ora90\database\pwdfox.ora password=admin1 entries=10; 建立口令文件
+给sys用户的
+create os user id 
+create os group-ora_dba,ora_fox_dba
+create os group-ora_oper,ora_fox_oper
+add os userid to ora_dba group
+edit sqlnet.ora sqlnet.authentication_services=(nts)
+edit init paramter
+set remote_login_passwordfile to exclusive
+
+grant sysdba to username;授权
+revoke sysdba from username;撤销权限
+select * from V$pwdfile_users; DBA权限用户
+
+
+set autocommit=on 开启自动提交
+
+sysman/oem_temp 企业管理控制台帐户密码
+spfile 不能使用文本编辑器改变
+spfilesid.ora ->spfile.ora->initsid.ora（pfile） 参数配置文件加载优先级
+create spfile='d:\oracle\ora90\database\spfile.ora'(没有使用的) from pfile
+select name,issys_modifiable from V$system_parameter where issys_modifiable<>'true' Session 级别可以改的参数
+select name,issys_modifiable from V$system_parameter where issys_modifiable<>'false' 系统及可以改的参数
+pfile:C:\oracle\admin\design\pfile\init.ora.1102008222214
+spfile:C:\oracle\ora92\database\spFILEDESIGN.ORA
+
+
+start nomount 实例开启 ，写C:\oracle\admin\design\bdump\alert_design.log
+alter database mount 读取控制文件
+
+4.
+oradim 创建实例，（创建口令文件和启动服务）

@@ -1,0 +1,162 @@
+http://blog.sina.com.cn/s/blog_53c2d4c40100h56h.html
+
+ORACLE自动断开数据库连接解决办法
+
+ 
+
+最近，有客户提出在系统的应用中出现数据库频繁自动断开连接（每10分钟）的异常现象，通过查找学习，找到如下两种解决方法。供大家参考。
+
+方法一、直接修改资源配置文件
+
+分三个步骤在sqlplus环境下完成。
+
+第一步，查询资源文件，找到CONNECT_TIME所在的profile名。
+
+	select resource_name,profile from dba_profiles; 
+
+第二步，用alter命令修改profile中的值；
+
+	alter profile MONITORING_PROFILE limit connect_time unlimited;（或跟一个时间值，如1000，单位为分钟）
+
+	alter profile MONITORING_PROFILE limit idle_time unlimited; 
+
+第三步，用如下命令查看profile中的值；
+
+	select resource_name,limit from dba_profiles where profile='MONITORING_PROFILE';
+
+
+
+方法二：通过创建资源配置文件并进行用户分配来完成。
+
+分三个步骤在sqlplus环境下完成。[该方法不对其它数据库连接用户产生影响]
+
+第一步，查看并修改resource_limit的状态。
+
+SQL>show   parameter   resource_limit;   如果为FALSE，则将其修改为TRUE，否则配置不会生效：  
+
+SQL>alter system set resource_file=true;            
+
+第二步，用create profile命令创建一个新的profile文件：  
+
+SQL>create profile [profile文件名] limit connect_time unlimited idle_time unlimited;  
+
+[示例：create profile test_profile limit connect_time unlimited idle_time unlimited;]  
+
+第三步，将这个新的配置文件分配给该用户：  
+
+SQL>alter   user   [user_name，如ROOT_QY]   profile  [profile文件名];
+
+[示例：alter user root_qy profile test_profile;]
+
+
+
+
+
+
+
+Oracle中用户profile的用法--修改resource_limit
+
+
+转载自：http://www.examda.com/oracle/zhonghe/20090809/094437871.html
+ 
+可以通过使用profile文件对用户的属性进行定义，比如为product用户建立一个profile文件
+　　create profile product_profile limit SESSIONS_PER_USER 1；
+　　——设置用户只能建立一个
+　　session的profile alter user product profile product_profile；
+　　—— 让product用户使用product_profile
+　　要使上面的限制生效，需要修改初始化参数resource_limit
+ 
+
+　　show parameter resource;
+　　NAME TYPE VALUE
+　　--------------------- ----------- -------------
+　　resource_limit boolean FALSE
+　　resource_manager_plan string
+ 
+
+　　可以看到resource_limit参数是false，修改为true
+　　alter system set resource_limit=true;
+ 
+
+
+
+　　可以查看dba_profiles视图来查看用户的默认属性
+　　修改的时候可以使用下面的方法，比如修改用户失败的登陆次数，默认是10，修改为unlimited
+ 
+     alter profile PRODUCT_PROFILE limit FAILED_LOGIN_ATTEMPTS unlimited； ——修改失败登录次数的方法。
+ 
+ 
+ 
+====================liuyou的补充===============
+ 
+查看与修改资源限制状态，以oracle数据库的用户登录系统：
+ 
+[oracle@INMSC3 ~]$ sqlplus inms/xxxxxx@OINMS 
+
+SQL> show parameter resource
+ 
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+resource_limit                       boolean     FALSE
+resource_manager_plan                string
+SQL> alter system set resource_limit=true;
+ 
+
+System altered.
+ 
+SQL> show parameter resource
+ 
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+resource_limit                       boolean     TRUE
+resource_manager_plan                string
+SQL> exit
+ 
+修改成true过后，该用户再也不能登录了；
+
+
+
+
+我是在11g下做的，
+ 就是alter profile default limit failed_login_attempts 3把登陆次数改成3，
+ 然后新建一个用户grant create session to peifei identified by peifei（其Profile缺省为Default）
+ 至少resource_limit参数是False我没有改。当我在Sqlplus下用错误密码尝试登陆时三次过后
+ 
+ERROR:
+ ORA-28000: 帐户已被锁定
+ 
+
+请输入用户名:
+ ERROR:
+ ORA-01017: 用户名/口令无效; 登录被拒绝
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

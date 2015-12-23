@@ -1,0 +1,104 @@
+ora-01652无法通过128(在表空间temp中)扩展temp段
+
+
+
+
+今天提交请求后，提示ORA-01652: 无法通过 128 (在表空间 TEMP 中) 扩展 temp 段。最后通过ALTER DATABASE TEMPFILE '/*/*/db/apps_st/data/tempx01.dbf' RESIZE 7168M;扩展临时表空间来解决
+ 
+今天提交请求后，提示ORA-01652: 无法通过 128 (在表空间 TEMP 中) 扩展 temp 段。最后通过ALTER DATABASE TEMPFILE '/*/*/db/apps_st/data/tempx01.dbf' RESIZE 7168M;扩展临时表空间来解决。在网上找了些资料，重新学习下临时表空间的知识点，记录在此以免以后忘记。
+ 
+临时表空间相关知识点总结（转载）
+ 
+临时表空间的作用：
+ 
+　　临时表空间主要用途是在数据库进行排序运算[如创建索引、order by及group by、distinct、union/intersect/minus/、sort-merge及join、analyze命令]、管理索引[如创建索引、IMP进行数据导入]、访问视图等操作时提供临时的运算空间，当运算完成之后系统会自动清理。
+ 
+　　当临时表空间不足时，表现为运算速度异常的慢，并且临时表空间迅速增长到最大空间（扩展的极限），并且一般不会自动清理了。
+ 
+　　如果临时表空间没有设置为自动扩展，则临时表空间不够时事务执行将会报ora-01652无法扩展临时段的错误，当然解决方法也很简单:1、设置临时数据文件自动扩展，或者2、增大临时表空间。
+ 
+　　临时表空间的相关操作：
+ 
+　　查询默认临时表空间：
+ 
+　　SQL> select * from database_properties where property_name='DEFAULT_TEMP_TABLESPACE';
+ 
+　　PROPERTY_NAME
+ 
+　　------------------------------
+ 
+　　PROPERTY_VALUE
+ 
+　　--------------------------------------------------------------------------------
+ 
+　　DESCRIPTION
+ 
+　　--------------------------------------------------------------------------------
+ 
+　　DEFAULT_TEMP_TABLESPACE
+ 
+　　TEMP
+ 
+　　Name of default temporary tablespace
+ 
+　　查询临时表空间状态:
+ 
+　　SQL> select tablespace_name,file_name,bytes/1024/1024 file_size,autoextensible from dba_temp_files;
+ 
+　　TABLESPACE_NAME
+ 
+　　——————————
+ 
+　　FILE_NAME
+ 
+　　——————————————————————————–
+ 
+　　FILE_SIZE AUT
+ 
+　　———- —
+ 
+　　TEMP
+ 
+　　/u01/app/oracle/oradata/orcl/temp01.dbf
+ 
+　　100 YES
+ 
+　　扩展临时表空间：
+ 
+　　方法一、增大临时文件大小：
+ 
+　　SQL> alter database tempfile ‘/u01/app/oracle/oradata/orcl/temp01.dbf’ resize100m;
+ 
+　　Database altered.
+ 
+　　方法二、将临时数据文件设为自动扩展：
+ 
+　　SQL> alter database tempfile ‘/u01/app/oracle/oradata/orcl/temp01.dbf’ autoextend on next 5m maxsize unlimited;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+create table t_syn_tongcheng_hotel0917 as
+select * from t_syn_tongcheng_hotel
+
+
+select tablespace_name,file_name,bytes/1024/1024 file_size,autoextensible from dba_temp_files;
+
+alter database tempfile '/u01/app/oracle/oradata/hotel/temp01.dbf'   autoextend on next 5m maxsize unlimited;
+
+alter database tempfile '/u01/app/oracle/oradata/hotel/temp01.dbf' resize  512m;
+
+

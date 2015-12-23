@@ -1,0 +1,184 @@
+ alter database character set INTERNAL_CONVERT [此博文包含图片] (2009-01-09 16:05:51)
+转载
+▼
+标签： it 	分类： Oracle DBA
+
+alter database character set INTERNAL_CONVERT UTF8
+Updating character set in controlfile to UTF8
+ SYS.SNAP$ (REL_QUERY) - CLOB representation altered
+ SYS.METASTYLESHEET (STYLESHEET) - CLOB representation altered
+ SYS.EXTERNAL_TAB$ (PARAM_CLOB) - CLOB representation altered
+ XDB.XDB$RESOURCE (SYS_NC00027$) - CLOB representation altered
+ ODM.ODM_PMML_DTD (DTD) - CLOB representation altered
+ OE.WAREHOUSES (SYS_NC00003$) - CLOB representation altered
+ PM.ONLINE_MEDIA (SYS_NC00042$) - CLOB representation altered
+ PM.ONLINE_MEDIA (SYS_NC00062$) - CLOB representation altered
+ PM.ONLINE_MEDIA (PRODUCT_TEXT) - CLOB representation altered
+ PM.ONLINE_MEDIA (SYS_NC00080$) - CLOB representation altered
+ PM.PRINT_MEDIA (AD_SOURCETEXT) - CLOB representation altered
+ PM.PRINT_MEDIA (AD_FINALTEXT) - CLOB representation altered
+Completed: alter database character set INTERNAL_CONVERT UTF8
+Fri Nov 28 10:28:00 2008
+alter database national character set INTERNAL_CONVERT AL16UTF16
+Completed: alter database national character set INTERNAL_CON
+
+----------------------------zhuan-----------------------------------
+
+Oracle非公开的命令:
+
+ 
+alter database character set INTERNAL_CONVERT/ INTERNAL_USE ZHS16GBK
+
+ 
+
+这个命令是当你选择了使用典型方式创建了种子数据库以后，Oracle会根据你选择的字符集设置，把当前种子数据库的字符集更改为期望字符
+集，这就是这条命令的作用.
+
+在使用这个命令时，Oracle会跳过所有子集及超集的检查，在任意字符集之间进行强制转换，所以，使用这个命令时你必须十分小心，你必须
+清楚这一操作会带来的风险.
+我们之前讲过的内容仍然有效，你可以使用csscan扫描整个数据库，如果在转换的字符集之间确认没有严重的数据损坏，或者你可以使用有效
+的方式更改，你就可以使用这种方式进行转换.
+我们来看一下具体的操作过程及Oracle的内部操作:
+
+ 
+SQL> shutdown immediate
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+SQL> startup mount
+ORACLE instance started.
+
+Total System Global Area  135337420 bytes
+Fixed Size                   452044 bytes
+Variable Size             109051904 bytes
+Database Buffers           25165824 bytes
+Redo Buffers                 667648 bytes
+Database mounted.
+
+SQL> ALTER SYSTEM ENABLE RESTRICTED SESSION;
+
+System altered.
+
+SQL> ALTER SYSTEM SET JOB_QUEUE_PROCESSES=0;
+
+System altered.
+
+SQL> ALTER SYSTEM SET AQ_TM_PROCESSES=0;
+
+System altered.
+
+SQL> ALTER DATABASE OPEN;
+
+Database altered.
+
+SQL> alter session set events '10046 trace name context forever,level 12';
+
+Session altered.
+
+SQL> alter database character set INTERNAL_USE ZHS16CGB231280
+
+Database altered.
+
+SQL>
+
+ 
+
+这是alert.log文件中的记录信息:
+
+Tue Oct 19 16:26:30 2004
+Database Characterset is ZHS16GBK
+replication_dependency_tracking turned off (no async multimaster replication found)
+Completed: ALTER DATABASE OPEN
+Tue Oct 19 16:27:07 2004
+alter database character set INTERNAL_USE ZHS16CGB231280
+Updating character set in controlfile to ZHS16CGB231280
+Tue Oct 19 16:27:15 2004
+Thread 1 advanced to log sequence 118
+Current log# 2 seq# 118 mem# 0: /opt/oracle/oradata/primary/redo02.log
+Tue Oct 19 16:27:15 2004
+ARC0: Evaluating archive log 3 thread 1 sequence 117
+ARC0: Beginning to archive log 3 thread 1 sequence 117
+Creating archive destination LOG_ARCHIVE_DEST_1: '/opt/oracle/oradata/primary/archive/1_117.dbf'
+ARC0: Completed archiving log 3 t
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------
+【转换】oracle字符集转换(ZHS16GBK转AL32UTF8)
+      昨天同事叫我帮他装个数据库，是个测试环境，也没说明字符集情况，我就按习惯设置的是zhs16gbk。但后来同事说数据库里都乱码了，原来他需要导入的数据库导出文件的字符集是utf-8的，这就需要进行字符集转换，这样的文章很多，随便找了个，一测试成功。顺便记录一下。
+ 
+      来源：http://space.itpub.net/25989950/viewspace-713695     
+本想将windows 下oracle表空间传输到RAC linux上
+但windows oracle字符集是ZHS16GBK, 而linux oracle 字符信是AL32UTF8
+于时先将windows下字符集转换成AL32UTF8
+SQL> select userenv('language') from dual;
+USERENV('LANGUAGE')
+--------------------------------------------------------------------------------
+SIMPLIFIED CHINESE_CHINA.ZHS16GBK
+以下是修改过程
+SQL> startup mount
+ORACLE 例程已经启动。
+Total System Global Area  535662592 bytes
+Fixed Size                  1334380 bytes
+Variable Size             176161684 bytes
+Database Buffers          352321536 bytes
+Redo Buffers                5844992 bytes
+数据库装载完毕。
+SQL> alter system enable restricted session;
+系统已更改。
+SQL> alter system set job_queue_processes=0;
+系统已更改。
+SQL> alter system set aq_tm_processes=0;
+系统已更改。
+SQL> alter database open;
+数据库已更改。
+SQL> ALTER DATABASE character set INTERNAL_USE AL32UTF8;
+数据库已更改。
+SQL> shutdown immediate
+数据库已经关闭。
+已经卸载数据库。
+ORACLE 例程已经关闭。
+SQL> startup
+ORACLE 例程已经启动。
+--查看字符集
+SQL> select userenv('language') from dual;
+USERENV('LANGUAGE')
+--------------------------------------------------------------------------------
+SIMPLIFIED CHINESE_CHINA.AL32UTF8
+修改完之后,10g以上采用csscan工具验证字符集
+先安装
+@$ORACLE_HOME/RDBMS/admin/csminst.sql
+DOS下
+csscan system/1
+
+Character Set Scanner v2.2 : Release 11.1.0.6.0 - Production on 星期三 12月 21 14:12:50 2011
+Copyright (c) 1982, 2007, Oracle.  All rights reserved.
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.1.0.6.0 - Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+(1)Full database, (2)User, (3)Table, (4)Column: 1 > 1
+Current database character set is AL32UTF8.
+Enter new database character set name: > AL32UTF8
+Enter array fetch buffer size: 1024000 >
+Enter number of scan processes to utilize(1..32): 1 >
+是后验证成功!

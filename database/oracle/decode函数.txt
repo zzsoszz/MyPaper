@@ -1,0 +1,8 @@
+select id,month,money,greatest(month,money),DECODE
+                        (id, 1, 'Southlake', 
+                             2, 'San Francisco', 
+                             3, 'New Jersey', 
+                             4, 'Seattle',
+                                'Non-domestic')  from gongzi
+id依次匹配 1 2 3 4匹配1为'Southlake', 匹配2为'San Francisc，匹配3为'New Jersey'，匹配4为Seattle
+没有就匹配默认'Non-domestic'，没有默认则返回空

@@ -1,0 +1,52 @@
+oracle更新视图。 
+在oracle中通常如果视图的数据源来自单表则该视图可以进行更新。而如果视图数据源来自两个以上表时这个视图是不可更新的。但有时候为了操作的方便我们更希望能够对多表视图也进行更新。
+
+这时候我们可以通过建立更新触发器来替代该视图原有更新以达到多表更新的效果
+
+例如：
+
+3.1 创建测试数据表 
+--=================================================== 
+--创建测试表 
+--=================================================== 
+Drop Table t1; 
+Drop Table t2; 
+create table t1 
+( t11 numeric(28),t12 varchar2(20)); 
+create table t2 
+( t11 numeric(28),t22 varchar2(20)); 
+
+3.2 多表视图范例 
+--=================================================== 
+--创建测试视图 
+--=================================================== 
+create Or Replace view t as 
+   select T1.t11 f1 ,T1.t12 f2 ,T2.t22 f3 
+      from T1,T2  
+      Where T1.t11=T2.t11; 
+
+3.3 多表视图触发器范例       
+--=================================================== 
+--创建视图的替代触发器 
+--=================================================== 
+Create Or Replace Trigger Trg_InsUpdDel_t 
+  Instead Of Insert or update or delete 
+  on t 
+  for each row 
+Declare 
+begin 
+   If Inserting Then 
+      Insert Into t1 (t11,t12) Values (:New.f1,:New.f2); 
+      Insert Into t2 (t11,t22) Values (:New.f1,:New.f3); 
+   elsif Updating Then 
+      Update t1 set t11=:New.f1,t12=:New.f2 where t11=:New.f1; 
+      Update t2 set t11=:New.f1,t22=:New.f3 where t11=:New.f1; 
+   elsif Deleting then 
+      Delete from t1 where t11=:Old.f1; 
+      Delete from t2 where t11=:Old.f1; 
+   End if; 
+end; 
+如此即实现多表可更新视图的定义工作 。
+
+但要注意当视图进行重新编译的时候这个触发器会失效需要重建。
+

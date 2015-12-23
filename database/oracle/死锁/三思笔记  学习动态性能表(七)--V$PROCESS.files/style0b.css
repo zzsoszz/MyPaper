@@ -1,0 +1,12 @@
+#pagecell {
+	POSITION: static
+}
+#leftNav {
+	BORDER-RIGHT: 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: 1px solid; PADDING-LEFT: 0px; FLOAT: right; PADDING-BOTTOM: 0px; FONT: small Verdana,sans-serif; OVERFLOW: hidden; BORDER-LEFT: 1px solid; WIDTH: 20%; MARGIN-RIGHT: 1%; PADDING-TOP: 0px; BORDER-BOTTOM: 1px solid
+}
+#rightNav {
+	CLEAR: right; BORDER-RIGHT: 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: 1px solid; PADDING-LEFT: 0px; FLOAT: right; PADDING-BOTTOM: 0px; FONT: small Verdana,sans-serif; OVERFLOW: hidden; BORDER-LEFT: 1px solid; WIDTH: 20%; MARGIN-RIGHT: 1%; PADDING-TOP: 0px; BORDER-BOTTOM: 1px solid
+}
+#content {
+	PADDING-RIGHT: 1%; PADDING-LEFT: 1%; FLOAT: left; PADDING-BOTTOM: 5px; MARGIN-LEFT: 0.5%; OVERFLOW: hidden; WIDTH: 75%; PADDING-TOP: 0px
+}

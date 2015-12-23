@@ -1,0 +1,1 @@
+impdp hotel/hotel3@hotel directory=expdp_dir dumpfile=D:/full20140516/full20140516.dmp logfile=full20140516.log

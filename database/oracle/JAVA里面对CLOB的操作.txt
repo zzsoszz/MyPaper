@@ -1,0 +1,43 @@
+JAVA里面对CLOB的操作
+文章分类:数据库 
+JAVA里面对CLOB的操作在绝大多数情况下，使用2种方法使用CLOB 
+
+　　1 相对比较小的，可以用String进行直接操作，把CLOB看成字符串类型即可 
+
+　　2 如果比较大，可以用 getAsciiStream 或者 getUnicodeStream 以及对应的 setAsciiStream 和 setUnicodeStream 即可 
+
+　　读取数据
+
+　　ResultSet rs = stmt.executeQuery("SELECT TOP 1 * FROM Test1"); 
+
+　　rs.next(); 
+
+　　Reader reader = rs.getCharacterStream(2); 
+
+　　插入数据
+
+　　PreparedStatement pstmt = con.prepareStatement("INSERT INTO test1 (c1_id, c2_vcmax) VALUES (?, ?)"); 
+
+　　pstmt.setInt(1, 1); 
+
+　　pstmt.setString(2, htmlStr); 
+
+　　pstmt.executeUpdate(); 
+
+　　更新数据
+
+　　Statement stmt = con.createStatement(); 
+
+　　ResultSet rs = stmt.executeQuery("SELECT * FROM test1"); 
+
+　　rs.next(); 
+
+　　Clob clob = rs.getClob(2); 
+
+　　long pos = clob.position("dog", 1); 
+
+　　clob.setString(1, "cat", len, 3); 
+
+　　rs.updateClob(2, clob); 
+
+　　rs.updateRow();

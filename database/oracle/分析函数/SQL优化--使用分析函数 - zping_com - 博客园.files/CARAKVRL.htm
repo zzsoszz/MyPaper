@@ -1,0 +1,14 @@
+var data=new Array();data[0]=new Array();data[0][0]='LINQ to SQL语句入门篇';data[0][1]='http://kb.cnblogs.com/list/42463/';data[1]=new Array();data[1][0]='LINQ to SQL异步查询';data[1][1]='http://kb.cnblogs.com/page/42536/';data[2]=new Array();data[2][0]='使用Visual Studio2005入门.Net2.0系列视频教程';data[2][1]='http://www.cnblogs.com/thcjp/archive/2006/08/29/489491.html';data[3]=new Array();data[3][0]='Oracle 分析函数的使用';data[3][1]='http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.html';data[4]=new Array();data[4][0]='SQL疑难杂症';data[4][1]='http://space.cnblogs.com/question/2326/';data[5]=new Array();data[5][0]='SQL大小写习惯?';data[5][1]='http://space.cnblogs.com/question/1573/';data[6]=new Array();data[6][0]='Linq是通过生成SQL语句再执行SQL语句吗？';data[6][1]='http://space.cnblogs.com/group/topic/5932/';data[7]=new Array();data[7][0]='怎么查看Linq运行时生成的SQL语句？';data[7][1]='http://space.cnblogs.com/group/topic/5369/';
+if(data.length > 0)
+{
+    for(var i = 0; i < data.length; i++)
+    {
+        if (i > 0)
+            document.write("<br>");
+        document.write("<a href='");
+        document.write(data[i][1]);
+        document.write("' target='_blank'>");
+        document.write(data[i][0]);
+        document.write("</a>");
+    }
+}

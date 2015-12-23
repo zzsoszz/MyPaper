@@ -1,0 +1,84 @@
+create or replace package FY_Recover_Data is
+  ---------------------------------------------------------------------------
+  -- WWW.HelloDBA.COM                                                     ---
+  -- Created By: Fuyuncat                                                 ---
+  -- Created Date: 08/08/2012                                             ---
+  -- Email: Fuyuncat@gmail.com                                            ---
+  -- Copyright (c), 2014, WWW.HelloDBA.COM All rights reserved.           ---
+  -- Latest Version: http://www.HelloDBA.com/download/FY_Recover_Data.zip ---
+  --                                                                      ---
+  -- Update Logs                                                          ---
+  -- 15/08/2012, Fuyuncat:                                                ---
+  --   1. Fixed Bug in Clean_Up_Ts (Not change TS status correctly)        ---
+  --   2. Added Exception Handle when Restore Data                        ---
+  --   3. Added Parameter in recover_table,                               ---
+  --            to balance Fault Tolerance and Performance                ---
+  --                                                                      ---
+  -- 16/08/2012, Fuyuncat:                                                ---
+  --   1. Enhanced corrupted block processing, get rows as possilbe       ---
+  --                                                                      ---
+  -- 17/08/2012, Fuyuncat:                                                ---
+  --   1. Omit the LOB columns raised ORA-22922 exception                 ---
+  --                                                                      ---
+  -- 20/08/2012, Fuyuncat:                                                ---
+  --   1. Omit the LOB columns via db link                                ---
+  --                                                                      ---
+  -- 22/08/2012, Fuyuncat:                                                ---
+  --   1. Updated logging and tracing interface                           ---
+  --                                                                      ---
+  -- 19/02/2014, Fuyuncat:                                                ---
+  --   1. Temp Restore and Recover tablespace & files                     ---
+  --      will be created on temp folder                                  ---
+  --   2. Handle tablespace has files located at diff folders             ---
+  --   3. Handle tables on ASM                                            ---
+  ---------------------------------------------------------------------------
+
+  type r_cursor is REF CURSOR;
+  type o_fileprop is record (
+   file# number,
+   status$ number);
+  type t_fileprops is table of o_fileprop;
+
+  /************************************************************************
+  ** recover truncated table
+  **
+  ** tgtowner: Owner of Target Table to be recovered;
+  ** tgttable: Name of Target Table to be recovered;
+  ** datapath: Absolute path of Data Files;
+  ** fbks: block number to be filled in recovery table;
+  ************************************************************************/
+  procedure recover_truncated_table( tow varchar2 default 'DEMO',
+                                     ttb varchar2 default 'T_CHAIN',
+                                     fbks number default 1,
+                                     tmppath varchar2 default '/tmp/');
+
+  /************************************************************************
+  ** dump a block in raw, for testing
+  **
+  ** hdfile: Data file name;
+  ** srcdir: data file directory
+  ** blknb: block number to be dumped;
+  ** blksz: block size;
+  ************************************************************************/
+  procedure dump_seg_block_raw( hdfile varchar2,
+                                srcdir varchar2,
+                                blknb number,
+                                blksz number default 8192);
+/*
+  procedure test_chain(filename varchar2,
+                       blknum number,
+                       startpos number,
+                       repcont raw,
+                       srcdir varchar2 default 'FY_DATA_DIR');
+*/
+  /************************************************************************
+  ** Set Initial parameters
+  **
+  ** tracing: trace the process for debug;
+  ** logging: show logging information;
+  ** repobjid: replace the data object id wiht the recover table data object id;
+  ************************************************************************/
+  procedure init_set( tracing boolean default true,
+                      logging boolean default true,
+                      repobjid boolean default true);
+end FY_Recover_Data;

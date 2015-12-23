@@ -1,0 +1,2616 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0063)http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx -->
+<HTML><HEAD id=Head><TITLE>Oracle 分析函数的使用 - 飞茂 - 博客园</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META id=metaKeywords content=Oracle,分析函数的使用 name=keywords>
+<META 
+content=Oracle分析函数的使用Oracle分析函数使用介绍分析函数是oracle816引入的一个全新的概念,为我们分析数据提供了一种简单高效的处理方式.在分析函数出现以前,我们必须使用自联查询,子查询或者内联视图,甚至复杂的存储过程实现的语句,现在只要一条简单的sql语句就 
+name=description><LINK id=CommondCss 
+href="Oracle 分析函数的使用 - 飞茂 - 博客园.files/common.css" type=text/css 
+rel=stylesheet><LINK id=MainCss href="Oracle 分析函数的使用 - 飞茂 - 博客园.files/style.css" 
+type=text/css rel=stylesheet><LINK id=CommondCss2 
+href="Oracle 分析函数的使用 - 飞茂 - 博客园.files/common2.css" type=text/css 
+rel=stylesheet><LINK id=RSSLink title=RSS 
+href="http://www.cnblogs.com/sunsonbaby/rss" type=application/rss+xml 
+rel=alternate>
+<SCRIPT src="Oracle 分析函数的使用 - 飞茂 - 博客园.files/common.js" 
+type=text/javascript></SCRIPT>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<FORM id=Form1 name=Form1 onsubmit="javascript:return WebForm_OnSubmit();" 
+action=47876.aspx method=post>
+<DIV><INPUT id=__EVENTTARGET type=hidden name=__EVENTTARGET> <INPUT 
+id=__EVENTARGUMENT type=hidden name=__EVENTARGUMENT> <INPUT 
+id="&#13;&#10;__VIEWSTATE" type=hidden name=__VIEWSTATE> </DIV>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</SCRIPT>
+
+<SCRIPT src="Oracle 分析函数的使用 - 飞茂 - 博客园.files/WebResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=JavaScript>
+									function ctlent(evt,id)
+											{
+												if(evt.ctrlKey && evt.keyCode == 13)
+												{	
+													try
+													{
+														TempSave(id);
+													}
+													catch(ex)
+													{
+													}
+													finally
+													{
+													    __doPostBack('AjaxHolder$PostComment$btnSubmit','')
+													}
+												}
+		
+												}</SCRIPT>
+
+<SCRIPT language=JavaScript>function SetReplyAuhor(author){document.getElementById('AjaxHolder_PostComment_tbComment').value+="@"+author+"\n";document.getElementById('AjaxHolder_PostComment_tbComment').focus();return false}</SCRIPT>
+
+<SCRIPT src="Oracle 分析函数的使用 - 飞茂 - 博客园.files/ScriptResource.axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="D:\Oracle 分析函数的使用 - 飞茂 - 博客园.files\ScriptResource(1).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="D:\Oracle 分析函数的使用 - 飞茂 - 博客园.files\ScriptResource(2).axd" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="Oracle 分析函数的使用 - 飞茂 - 博客园.files/js" type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</SCRIPT>
+
+<TABLE class=Framework cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD>
+      <DIV id=top>
+      <H1><A class=headermaintitle id=Header1_HeaderTitle 
+      href="http://www.cnblogs.com/sunsonbaby/">飞茂</A></H1>
+      <DIV id=subtitle>随便记记</DIV></DIV>
+      <DIV id=sub>
+      <DIV class=BlogStats>随笔 - 636, 文章 - 0, 评论 - 691, 引用 - 
+  13</DIV></DIV></TD></TR></TBODY></TABLE>
+<TABLE class=Framework cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD class=LeftCell rowSpan=2>
+      <DIV id=leftmenu>数据加载中…… </DIV></TD>
+    <TD class=MainCell>
+      <DIV id=main>
+      <SCRIPT type=text/javascript>
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('AjaxHolder$scriptmanager1', document.getElementById('Form1'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls(['tAjaxHolder$UpdatePanel1'], [], [], 90);
+//]]>
+</SCRIPT>
+
+      <DIV class=post>
+      <H2><A id=AjaxHolder_ctl01_TitleUrl 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.html">Oracle 
+      分析函数的使用</A> </H2>
+      <DIV class=postbody><SPAN class=bold><SPAN class=smalltxt><STRONG><FONT 
+      face=Arial>Oracle 分析函数的使用<BR><BR></FONT></STRONG></SPAN></SPAN>Oracle 
+      <U><B><FONT color=#ff0000>分析函数</FONT></B></U>使用介绍<BR>&nbsp; 
+      &nbsp;<U><B><FONT 
+      color=#ff0000>分析函数</FONT></B></U>是oracle816引入的一个全新的概念,为我们分析数据提供了一种简单高效的处理方式.在<U><B><FONT 
+      color=#ff0000>分析函数</FONT></B></U>出现以前,我们必须使用自联查询,子查询或者内联视图,甚至复杂的存储过程实现的语句,现在只要一条简单的sql语句就可以实现了,而且在执行效率方面也有相当大的提高.下面我将针对<U><B><FONT 
+      color=#ff0000>分析函数</FONT></B></U>做一些具体的说明.<BR><BR>今天我主要给大家介绍一下以下几个函数的使用方法<BR>1.&nbsp;&nbsp;自动汇总函数rollup,cube,<BR>2.&nbsp;&nbsp;rank 
+      函数, rank,dense_rank,row_number<BR>3.&nbsp; &nbsp; &nbsp; &nbsp; 
+      lag,lead函数<BR>4.&nbsp; &nbsp; &nbsp; &nbsp; 
+      sum,avg,的移动增加,移动平均数<BR>5.&nbsp; &nbsp; &nbsp; &nbsp; 
+      ratio_to_report报表处理函数<BR>6.&nbsp; &nbsp; &nbsp; &nbsp; 
+      first,last取基数的<U><B><FONT 
+      color=#ff0000>分析函数</FONT></B></U><BR><BR><BR><STRONG><FONT 
+      face=Arial><SPAN class=bold><SPAN 
+      class=smalltxt>基础数据<BR><BR></SPAN></SPAN><BR><BR></FONT></STRONG>
+      <CENTER>
+      <TABLE cellSpacing=0 cellPadding=0 width="90%" border=0>
+        <TBODY>
+        <TR>
+          <TD class=smalltxt>&nbsp;&nbsp;Code:</TD>
+          <TD align=right><A class=smalltxt 
+            onclick="copycode(findobj('code0'));" 
+            href="http://www.oracle.com.cn/viewthread.php?tid=31313&amp;highlight=%B7%D6%CE%F6%BA%AF%CA%FD#"><FONT 
+            face=Arial color=#003366>[Copy to 
+          clipboard]</FONT></A>&nbsp;&nbsp;</TD></TR>
+        <TR>
+          <TD colSpan=2>
+            <TABLE cellSpacing=1 cellPadding=10 width="100%" bgColor=#efefcf 
+            border=0>
+              <TBODY>
+              <TR>
+                <TD id=code0 style="WORD-BREAK: break-all" width="100%" 
+                bgColor=#ffffff>06:34:23 SQL&gt; select * from 
+                  t;<BR><BR>BILL_MONTH&nbsp; &nbsp;&nbsp; 
+                  &nbsp;AREA_CODE&nbsp;&nbsp;NET_TYPE&nbsp; &nbsp;&nbsp; &nbsp; 
+                  LOCAL_FARE<BR>--------------- ---------- ---------- 
+                  --------------<BR>200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp; 5761&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;7393344.04<BR>200405&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5761&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;5667089.85<BR>200405&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5762&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6315075.96<BR>200405&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5762&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6328716.15<BR>200405&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5763&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;8861742.59<BR>200405&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5763&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;7788036.32<BR>200405&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5764&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6028670.45<BR>200405&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5764&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6459121.49<BR>200405&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5765&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  13156065.77<BR>200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 11901671.70<BR>200406&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5761&nbsp; &nbsp;&nbsp; 
+                  &nbsp; G&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;7614587.96<BR>200406&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5761&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;5704343.05<BR>200406&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5762&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6556992.60<BR>200406&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5762&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6238068.05<BR>200406&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5763&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;9130055.46<BR>200406&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5763&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;7990460.25<BR>200406&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5764&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6387706.01<BR>200406&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5764&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6907481.66<BR>200406&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5765&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  13562968.81<BR>200406&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 12495492.50<BR>200407&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5761&nbsp; &nbsp;&nbsp; 
+                  &nbsp; G&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;7987050.65<BR>200407&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5761&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;5723215.28<BR>200407&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5762&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6833096.68<BR>200407&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5762&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6391201.44<BR>200407&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5763&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;9410815.91<BR>200407&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5763&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;8076677.41<BR>200407&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5764&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6456433.23<BR>200407&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5764&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6987660.53<BR>200407&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5765&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  14000101.20<BR>200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 12301780.20<BR>200408&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5761&nbsp; &nbsp;&nbsp; 
+                  &nbsp; G&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;8085170.84<BR>200408&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5761&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6050611.37<BR>200408&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5762&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6854584.22<BR>200408&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5762&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6521884.50<BR>200408&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5763&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;9468707.65<BR>200408&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5763&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;8460049.43<BR>200408&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5764&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;6587559.23<BR><BR>BILL_MONTH&nbsp; 
+                  &nbsp;&nbsp; &nbsp;AREA_CODE&nbsp;&nbsp;NET_TYPE&nbsp; 
+                  &nbsp;&nbsp; &nbsp; LOCAL_FARE<BR>--------------- ---------- 
+                  ---------- --------------<BR>200408&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5764&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;7342135.86<BR>200408&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 5765&nbsp; &nbsp;&nbsp; &nbsp; G&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  14450586.63<BR>200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp; J&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 12680052.38<BR><BR>40 rows 
+                  selected.<BR><BR>Elapsed: 
+        00:00:00.00</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></CENTER><BR><BR><STRONG><FONT 
+      face=Arial><SPAN class=bold><SPAN class=smalltxt>1. 
+      使用rollup函数的介绍<BR><BR></SPAN></SPAN><BR><BR></FONT></STRONG>
+      <CENTER>
+      <TABLE cellSpacing=0 cellPadding=0 width="90%" border=0>
+        <TBODY>
+        <TR>
+          <TD>&nbsp;&nbsp;Quote:</TD></TR>
+        <TR>
+          <TD>
+            <TABLE cellSpacing=1 cellPadding=10 width="100%" bgColor=#efefcf 
+            border=0>
+              <TBODY>
+              <TR>
+                <TD width="100%" bgColor=#ffffff><FONT 
+                  color=blue>下面是直接使用普通sql语句求出各地区的汇总数据的例子</FONT><BR>06:41:36 
+                  SQL&gt; set autot on<BR>06:43:36 SQL&gt; select 
+                  area_code,sum(local_fare) local_fare<BR>06:43:50&nbsp; 
+                  &nbsp;2&nbsp;&nbsp;from t<BR>06:43:51&nbsp; 
+                  &nbsp;3&nbsp;&nbsp;group by area_code<BR>06:43:57&nbsp; 
+                  &nbsp;4&nbsp;&nbsp;union all<BR>06:44:00&nbsp; 
+                  &nbsp;5&nbsp;&nbsp;select '合计' area_code,sum(local_fare) 
+                  local_fare<BR>06:44:06&nbsp; &nbsp;6&nbsp;&nbsp;from 
+                  t<BR>06:44:08&nbsp; 
+                  &nbsp;7&nbsp;&nbsp;/<BR><BR>AREA_CODE&nbsp; &nbsp;&nbsp; 
+                  &nbsp;LOCAL_FARE<BR>---------- --------------<BR>5761&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 54225413.04<BR>5762&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 52039619.60<BR>5763&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 69186545.02<BR>5764&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 53156768.46<BR>5765&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;104548719.19<BR>合计&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;333157065.31<BR><BR>6 rows 
+                  selected.<BR><BR>Elapsed: 00:00:00.03<BR><BR>Execution 
+                  Plan<BR>----------------------------------------------------------<BR>&nbsp; 
+                  &nbsp;0&nbsp; &nbsp;&nbsp; &nbsp;SELECT STATEMENT 
+                  Optimizer=ALL_ROWS (Cost=7 Card=1310 Bytes=<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 24884)<BR><BR>&nbsp; 
+                  &nbsp;1&nbsp; &nbsp; 0&nbsp; &nbsp;UNION-ALL<BR>&nbsp; 
+                  &nbsp;2&nbsp; &nbsp; 1&nbsp; &nbsp;&nbsp;&nbsp;SORT (GROUP BY) 
+                  (Cost=5 Card=1309 Bytes=24871)<BR>&nbsp; &nbsp;3&nbsp; &nbsp; 
+                  2&nbsp; &nbsp;&nbsp; &nbsp; TABLE ACCESS (FULL) OF 'T' (Cost=2 
+                  Card=1309 Bytes=248<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  71)<BR><BR>&nbsp; &nbsp;4&nbsp; &nbsp; 1&nbsp; 
+                  &nbsp;&nbsp;&nbsp;SORT (AGGREGATE)<BR>&nbsp; &nbsp;5&nbsp; 
+                  &nbsp; 4&nbsp; &nbsp;&nbsp; &nbsp; TABLE ACCESS (FULL) OF 'T' 
+                  (Cost=2 Card=1309 Bytes=170<BR>&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 
+                  17)<BR><BR><BR><BR><BR><BR>Statistics<BR>----------------------------------------------------------<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 0&nbsp;&nbsp;recursive 
+                  calls<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  0&nbsp;&nbsp;db block gets<BR><FONT color=red>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 6&nbsp;&nbsp;consistent 
+                  gets</FONT><BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  0&nbsp;&nbsp;physical reads<BR>&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 0&nbsp;&nbsp;redo size<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;561&nbsp;&nbsp;bytes sent via 
+                  SQL*Net to client<BR>&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;503&nbsp;&nbsp;bytes received via SQL*Net 
+                  from client<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  2&nbsp;&nbsp;SQL*Net roundtrips to/from client<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 1&nbsp;&nbsp;sorts 
+                  (memory)<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  0&nbsp;&nbsp;sorts (disk)<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp; 6&nbsp;&nbsp;rows processed<BR><BR><BR><FONT 
+                  color=blue>下面是使用分析函数rollup得出的汇总数据的例子</FONT><BR>06:44:09 
+                  SQL&gt; select nvl(area_code,'合计') area_code,sum(local_fare) 
+                  local_fare<BR>06:45:26&nbsp; &nbsp;2&nbsp;&nbsp;from 
+                  t<BR>06:45:30&nbsp; &nbsp;3&nbsp;&nbsp;group by 
+                  rollup(nvl(area_code,'合计'))<BR>06:45:50&nbsp; 
+                  &nbsp;4&nbsp;&nbsp;/<BR><BR>AREA_CODE&nbsp; &nbsp;&nbsp; 
+                  &nbsp;LOCAL_FARE<BR>---------- --------------<BR>5761&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 54225413.04<BR>5762&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 52039619.60<BR>5763&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 69186545.02<BR>5764&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 53156768.46<BR>5765&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;104548719.19<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  333157065.31<BR><BR>6 rows selected.<BR><BR>Elapsed: 
+                  00:00:00.00<BR><BR>Execution 
+                  Plan<BR>----------------------------------------------------------<BR>&nbsp; 
+                  &nbsp;0&nbsp; &nbsp;&nbsp; &nbsp;SELECT STATEMENT 
+                  Optimizer=ALL_ROWS (Cost=5 Card=1309 Bytes=<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 24871)<BR><BR>&nbsp; 
+                  &nbsp;1&nbsp; &nbsp; 0&nbsp; &nbsp;SORT (GROUP BY ROLLUP) 
+                  (Cost=5 Card=1309 Bytes=24871)<BR>&nbsp; &nbsp;2&nbsp; &nbsp; 
+                  1&nbsp; &nbsp;&nbsp;&nbsp;TABLE ACCESS (FULL) OF 'T' (Cost=2 
+                  Card=1309 Bytes=24871<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp; 
+                  )<BR><BR><BR><BR><BR><BR>Statistics<BR>----------------------------------------------------------<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 0&nbsp;&nbsp;recursive 
+                  calls<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  0&nbsp;&nbsp;db block gets<BR><FONT color=red>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 4&nbsp;&nbsp;consistent 
+                  gets</FONT><BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  0&nbsp;&nbsp;physical reads<BR>&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 0&nbsp;&nbsp;redo size<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;557&nbsp;&nbsp;bytes sent via 
+                  SQL*Net to client<BR>&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;503&nbsp;&nbsp;bytes received via SQL*Net 
+                  from client<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  2&nbsp;&nbsp;SQL*Net roundtrips to/from client<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 1&nbsp;&nbsp;sorts 
+                  (memory)<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  0&nbsp;&nbsp;sorts (disk)<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp; 6&nbsp;&nbsp;rows 
+                  processed<BR><BR><BR><B>从上面的例子我们不难看出使用rollup函数,系统的sql语句更加简单,耗用的资源更少,从6个consistent 
+                  gets降到4个consistent 
+            gets,如果基表很大的话,结果就可想而知了.</B></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></CENTER><BR><BR>
+      <TABLE style="TABLE-LAYOUT: fixed; WORD-WRAP: break-word" height="100%" 
+      cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD vAlign=top><STRONG><FONT face=Arial><SPAN class=bold><SPAN 
+            class=smalltxt>1. 
+            使用cube函数的介绍<BR><BR></SPAN></SPAN><BR><BR></FONT></STRONG>
+            <CENTER>
+            <TABLE cellSpacing=0 cellPadding=0 width="90%" border=0>
+              <TBODY>
+              <TR>
+                <TD>&nbsp;&nbsp;Quote:</TD></TR>
+              <TR>
+                <TD>
+                  <TABLE cellSpacing=1 cellPadding=10 width="100%" 
+                  bgColor=#efefcf border=0>
+                    <TBODY>
+                    <TR>
+                      <TD width="100%" 
+                        bgColor=#ffffff><B>为了介绍cube函数我们再来看看另外一个使用rollup的例子</B><BR>06:53:00 
+                        SQL&gt; select area_code,bill_month,sum(local_fare) 
+                        local_fare<BR>06:53:37&nbsp; &nbsp;2&nbsp;&nbsp;from 
+                        t<BR>06:53:38&nbsp; &nbsp;3&nbsp;&nbsp;group by 
+                        rollup(area_code,bill_month)<BR>06:53:49&nbsp; 
+                        &nbsp;4&nbsp;&nbsp;/<BR><BR>AREA_CODE&nbsp;&nbsp;BILL_MONTH&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        LOCAL_FARE<BR>---------- --------------- 
+                        --------------<BR>5761&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 13060433.89<BR>5761&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200406&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 13318931.01<BR>5761&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 13710265.93<BR>5761&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 14135782.21<BR>5761&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp;&nbsp;54225413.04<BR>5762&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 12643792.11<BR>5762&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 200406&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        12795060.65<BR>5762&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 13224298.12<BR>5762&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 13376468.72<BR>5762&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp;&nbsp;52039619.60<BR>5763&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 16649778.91<BR>5763&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 200406&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        17120515.71<BR>5763&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 17487493.32<BR>5763&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 17928757.08<BR>5763&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp;&nbsp;69186545.02<BR>5764&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 12487791.94<BR>5764&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 200406&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        13295187.67<BR>5764&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 13444093.76<BR>5764&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 13929695.09<BR>5764&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp;&nbsp;53156768.46<BR>5765&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 25057737.47<BR>5765&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 200406&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        26058461.31<BR>5765&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 26301881.40<BR>5765&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 27130639.01<BR>5765&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 104548719.19<BR>&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp;&nbsp;333157065.31<BR><BR>26 rows 
+                        selected.<BR><BR>Elapsed: 
+                        00:00:00.00<BR><BR><B>系统只是根据rollup的第一个参数area_code对结果集的数据做了汇总处理,而没有对bill_month做汇总分析处理,cube函数就是为了这个而设计的.<BR>下面,让我们看看使用cube函数的结果</B><BR><BR>06:58:02 
+                        SQL&gt; select area_code,bill_month,sum(local_fare) 
+                        local_fare<BR>06:58:30&nbsp; &nbsp;2&nbsp;&nbsp;from 
+                        t<BR>06:58:32&nbsp; &nbsp;3&nbsp;&nbsp;group by 
+                        cube(area_code,bill_month)<BR>06:58:42&nbsp; 
+                        &nbsp;4&nbsp;&nbsp;order by area_code,bill_month nulls 
+                        last<BR>06:58:57&nbsp; 
+                        &nbsp;5&nbsp;&nbsp;/<BR><BR>AREA_CODE&nbsp;&nbsp;BILL_MONTH&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        LOCAL_FARE<BR>---------- --------------- 
+                        --------------<BR>5761&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 13060.43<BR>5761&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 200406&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13318.93<BR>5761&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 200407&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        13710.27<BR>5761&nbsp; &nbsp;&nbsp; &nbsp; 200408&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 14135.78<BR>5761&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp;&nbsp;54225.41<BR>5762&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 12643.79<BR>5762&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 200406&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        12795.06<BR>5762&nbsp; &nbsp;&nbsp; &nbsp; 200407&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 13224.30<BR>5762&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 13376.47<BR>5762&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp;&nbsp;52039.62<BR>5763&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 16649.78<BR>5763&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 200406&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        17120.52<BR>5763&nbsp; &nbsp;&nbsp; &nbsp; 200407&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 17487.49<BR>5763&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 17928.76<BR>5763&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp;&nbsp;69186.54<BR>5764&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 12487.79<BR>5764&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 200406&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        13295.19<BR>5764&nbsp; &nbsp;&nbsp; &nbsp; 200407&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 13444.09<BR>5764&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 13929.69<BR>5764&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp;&nbsp;53156.77<BR>5765&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 25057.74<BR>5765&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 200406&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        26058.46<BR>5765&nbsp; &nbsp;&nbsp; &nbsp; 200407&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 26301.88<BR>5765&nbsp; &nbsp;&nbsp; &nbsp; 
+                        200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 27130.64<BR>5765&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        104548.72<BR><FONT color=red><B>&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;200405&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        79899.53<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp;&nbsp;200406&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 82588.15<BR>&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;200407&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 84168.03<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp;&nbsp;200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        86501.34</B></FONT><BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp;&nbsp;333157.05<BR><BR>30 rows 
+                        selected.<BR><BR>Elapsed: 
+                        00:00:00.01<BR><BR><B>可以看到,在cube函数的输出结果比使用rollup多出了几行统计数据.这就是cube函数根据bill_month做的汇总统计结果</B></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></CENTER><BR></TD></TR></TBODY></TABLE><STRONG><FONT 
+      face=Arial><SPAN class=bold><SPAN class=smalltxt>1 rollup 和 
+      cube函数的再深入<BR><BR></SPAN></SPAN><BR><BR></FONT></STRONG>
+      <CENTER>
+      <TABLE cellSpacing=0 cellPadding=0 width="90%" border=0>
+        <TBODY>
+        <TR>
+          <TD>&nbsp;&nbsp;Quote:</TD></TR>
+        <TR>
+          <TD>
+            <TABLE cellSpacing=1 cellPadding=10 width="100%" bgColor=#efefcf 
+            border=0>
+              <TBODY>
+              <TR>
+                <TD width="100%" 
+                  bgColor=#ffffff><B>从上面的结果中我们很容易发现,每个统计数据所对应的行都会出现null,<BR>我们如何来区分到底是根据那个字段做的汇总呢,<BR>这时候,oracle的grouping函数就粉墨登场了.<BR>如果当前的汇总记录是利用该字段得出的,grouping函数就会返回1,否则返回0<BR></B><BR><BR>&nbsp;&nbsp;1&nbsp;&nbsp;select 
+                  decode(grouping(area_code),1,'all area',to_char(area_code)) 
+                  area_code,<BR>&nbsp;&nbsp;2&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;decode(grouping(bill_month),1,'all month',bill_month) 
+                  bill_month,<BR>&nbsp;&nbsp;3&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;sum(local_fare) 
+                  local_fare<BR>&nbsp;&nbsp;4&nbsp;&nbsp;from 
+                  t<BR>&nbsp;&nbsp;5&nbsp;&nbsp;group by 
+                  cube(area_code,bill_month)<BR>&nbsp;&nbsp;6* order by 
+                  area_code,bill_month nulls last<BR>07:07:29 SQL&gt; 
+                  /<BR><BR>AREA_CODE&nbsp;&nbsp;BILL_MONTH&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; LOCAL_FARE<BR>---------- --------------- 
+                  --------------<BR>5761&nbsp; &nbsp;&nbsp; &nbsp; 200405&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  13060.43<BR>5761&nbsp; &nbsp;&nbsp; &nbsp; 200406&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  13318.93<BR>5761&nbsp; &nbsp;&nbsp; &nbsp; 200407&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  13710.27<BR>5761&nbsp; &nbsp;&nbsp; &nbsp; 200408&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  14135.78<BR>5761&nbsp; &nbsp;&nbsp; &nbsp; all month&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  54225.41<BR>5762&nbsp; &nbsp;&nbsp; &nbsp; 200405&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  12643.79<BR>5762&nbsp; &nbsp;&nbsp; &nbsp; 200406&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  12795.06<BR>5762&nbsp; &nbsp;&nbsp; &nbsp; 200407&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  13224.30<BR>5762&nbsp; &nbsp;&nbsp; &nbsp; 200408&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  13376.47<BR>5762&nbsp; &nbsp;&nbsp; &nbsp; all month&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  52039.62<BR>5763&nbsp; &nbsp;&nbsp; &nbsp; 200405&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  16649.78<BR>5763&nbsp; &nbsp;&nbsp; &nbsp; 200406&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  17120.52<BR>5763&nbsp; &nbsp;&nbsp; &nbsp; 200407&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  17487.49<BR>5763&nbsp; &nbsp;&nbsp; &nbsp; 200408&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  17928.76<BR>5763&nbsp; &nbsp;&nbsp; &nbsp; all month&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  69186.54<BR>5764&nbsp; &nbsp;&nbsp; &nbsp; 200405&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  12487.79<BR>5764&nbsp; &nbsp;&nbsp; &nbsp; 200406&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  13295.19<BR>5764&nbsp; &nbsp;&nbsp; &nbsp; 200407&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  13444.09<BR>5764&nbsp; &nbsp;&nbsp; &nbsp; 200408&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  13929.69<BR>5764&nbsp; &nbsp;&nbsp; &nbsp; all month&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  53156.77<BR>5765&nbsp; &nbsp;&nbsp; &nbsp; 200405&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  25057.74<BR>5765&nbsp; &nbsp;&nbsp; &nbsp; 200406&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  26058.46<BR>5765&nbsp; &nbsp;&nbsp; &nbsp; 200407&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  26301.88<BR>5765&nbsp; &nbsp;&nbsp; &nbsp; 200408&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  27130.64<BR>5765&nbsp; &nbsp;&nbsp; &nbsp; all month&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;104548.72<BR><FONT color=red><B>all area&nbsp; 
+                  &nbsp;200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 79899.53<BR>all area&nbsp; 
+                  &nbsp;200406&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 82588.15<BR>all area&nbsp; 
+                  &nbsp;200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 84168.03<BR>all area&nbsp; 
+                  &nbsp;200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 86501.34<BR>all area&nbsp; &nbsp;all 
+                  month&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;333157.05<BR></B></FONT><BR>30 rows 
+                  selected.<BR><BR>Elapsed: 00:00:00.01<BR>07:07:31 
+                  SQL&gt;<BR><BR><B><BR>可以看到,所有的空值现在都根据grouping函数做出了很好的区分,这样利用rollup,cube和grouping函数,我们做数据统计的时候就可以轻松很多了.</B></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></CENTER><BR><BR><BR>
+      <TABLE style="TABLE-LAYOUT: fixed; WORD-WRAP: break-word" height="100%" 
+      cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD vAlign=top><STRONG><SPAN class=bold><SPAN class=smalltxt><FONT 
+            face=Arial>2. 
+            rank函数的介绍<BR><BR></FONT></SPAN></SPAN>介绍完rollup和cube函数的使用,下面我们来看看rank系列函数的使用方法.</STRONG><BR><BR><B>问题2.</B>我想查出这几个月份中各个地区的总话费的排名.<BR><BR>
+            <CENTER>
+            <TABLE cellSpacing=0 cellPadding=0 width="90%" border=0>
+              <TBODY>
+              <TR>
+                <TD>&nbsp;&nbsp;Quote:</TD></TR>
+              <TR>
+                <TD>
+                  <TABLE cellSpacing=1 cellPadding=10 width="100%" 
+                  bgColor=#efefcf border=0>
+                    <TBODY>
+                    <TR>
+                      <TD width="100%" 
+                        bgColor=#ffffff><B>为了将rank,dense_rank,row_number函数的差别显示出来,我们对已有的基础数据做一些修改,将5763的数据改成与5761的数据相同.</B><BR>&nbsp;&nbsp;1&nbsp;&nbsp;update 
+                        t t1 set local_fare = (<BR>&nbsp;&nbsp;2&nbsp; &nbsp; 
+                        select local_fare from t t2<BR>&nbsp;&nbsp;3&nbsp; 
+                        &nbsp;&nbsp;&nbsp;where t1.bill_month = 
+                        t2.bill_month<BR>&nbsp;&nbsp;4&nbsp; 
+                        &nbsp;&nbsp;&nbsp;and t1.net_type = 
+                        t2.net_type<BR>&nbsp;&nbsp;5&nbsp; &nbsp;&nbsp;&nbsp;and 
+                        t2.area_code = '5761'<BR>&nbsp;&nbsp;6* ) where 
+                        area_code = '5763'<BR>07:19:18 SQL&gt; /<BR><BR>8 rows 
+                        updated.<BR><BR>Elapsed: 
+                        00:00:00.01<BR><BR>我们先使用rank函数来计算各个地区的话费排名.<BR>07:34:19 
+                        SQL&gt; select area_code,sum(local_fare) 
+                        local_fare,<BR>07:35:25&nbsp; &nbsp;2&nbsp; &nbsp; 
+                        rank() over (order by sum(local_fare) desc) 
+                        fare_rank<BR>07:35:44&nbsp; &nbsp;3&nbsp;&nbsp;from 
+                        t<BR>07:35:45&nbsp; &nbsp;4&nbsp;&nbsp;group by 
+                        area_codee<BR>07:35:50&nbsp; &nbsp;5<BR>07:35:52 SQL&gt; 
+                        select area_code,sum(local_fare) 
+                        local_fare,<BR>07:36:02&nbsp; &nbsp;2&nbsp; &nbsp; 
+                        rank() over (order by sum(local_fare) desc) 
+                        fare_rank<BR>07:36:20&nbsp; &nbsp;3&nbsp;&nbsp;from 
+                        t<BR>07:36:21&nbsp; &nbsp;4&nbsp;&nbsp;group by 
+                        area_code<BR>07:36:25&nbsp; 
+                        &nbsp;5&nbsp;&nbsp;/<BR><BR>AREA_CODE&nbsp; &nbsp;&nbsp; 
+                        &nbsp;LOCAL_FARE&nbsp;&nbsp;FARE_RANK<BR>---------- 
+                        -------------- ----------<BR>5765&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;104548.72&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 1<BR>5761&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        54225.41&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        2<BR>5763&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 54225.41&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        <FONT color=red>2 </FONT><BR>5764&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 53156.77&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <FONT color=red>4 
+                        </FONT><BR>5762&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 52039.62&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 5<BR><BR>Elapsed: 
+                        00:00:00.01<BR><BR><B>我们可以看到红色标注的地方出现了,跳位,排名3没有出现<BR>下面我们再看看dense_rank查询的结果.<BR></B><BR><BR>07:36:26 
+                        SQL&gt; select area_code,sum(local_fare) 
+                        local_fare,<BR>07:39:16&nbsp; &nbsp;2&nbsp; &nbsp; 
+                        dense_rank() over (order by sum(local_fare) desc ) 
+                        fare_rank<BR>07:39:39&nbsp; &nbsp;3&nbsp;&nbsp;from 
+                        t<BR>07:39:42&nbsp; &nbsp;4&nbsp;&nbsp;group by 
+                        area_code<BR>07:39:46&nbsp; 
+                        &nbsp;5&nbsp;&nbsp;/<BR><BR>AREA_CODE&nbsp; &nbsp;&nbsp; 
+                        &nbsp;LOCAL_FARE&nbsp;&nbsp;FARE_RANK<BR>---------- 
+                        -------------- ----------<BR>5765&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;104548.72&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 1<BR>5761&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        54225.41&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        2<BR>5763&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 54225.41&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        2<BR>5764&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp; 53156.77&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        3&nbsp;&nbsp;<FONT 
+                        color=red>这是这里出现了第三名</FONT><BR>5762&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 52039.62&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 4<BR><BR>Elapsed: 
+                        00:00:00.00<BR><BR><B><BR>在这个例子中,出现了一个第三名,这就是rank和dense_rank的差别,<BR>rank如果出现两个相同的数据,那么后面的数据就会<FONT 
+                        color=blue>直接跳过</FONT>这个排名,而dense_rank则不会,<BR>差别更大的是,row_number哪怕是两个数据完全相同,排名也会不一样,这个特性在我们想找出对应没个条件的唯一记录的时候又很大用处<BR></B><BR><BR>&nbsp;&nbsp;1&nbsp;&nbsp;select 
+                        area_code,sum(local_fare) 
+                        local_fare,<BR>&nbsp;&nbsp;2&nbsp; 
+                        &nbsp;&nbsp;&nbsp;row_number() over (order by 
+                        sum(local_fare) desc ) 
+                        fare_rank<BR>&nbsp;&nbsp;3&nbsp;&nbsp;from 
+                        t<BR>&nbsp;&nbsp;4* group by area_code<BR>07:44:50 
+                        SQL&gt; /<BR><BR>AREA_CODE&nbsp; &nbsp;&nbsp; 
+                        &nbsp;LOCAL_FARE&nbsp;&nbsp;FARE_RANK<BR>---------- 
+                        -------------- ----------<BR>5765&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;104548.72&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 1<BR><FONT 
+                        color=red>5761&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 54225.41&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 2</FONT><BR><FONT 
+                        color=red>5763&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 54225.41&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp; 3</FONT><BR>5764&nbsp; &nbsp;&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 53156.77&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 4<BR>5762&nbsp; 
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        52039.62&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                        5<BR><BR><B>在row_nubmer函数中,我们发现,哪怕sum(local_fare)完全相同,我们还是得到了不一样排名,我们可以利用这个特性剔除数据库中的重复记录.<BR><BR>这个帖子中的几个例子是为了说明这三个函数的基本用法的. 
+                        下个帖子我们将详细介绍他们的一些用法.<BR></B></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></CENTER><BR></TD></TR></TBODY></TABLE><SPAN 
+      class=bold><SPAN class=smalltxt><STRONG><FONT face=Arial>2. 
+      rank函数的介绍<BR><BR></FONT></STRONG></SPAN></SPAN>a. 
+      取出数据库中最后入网的n个用户<BR>select 
+      user_id,tele_num,user_name,user_status,create_date <BR>from (<BR>&nbsp; 
+      &nbsp;select user_id,tele_num,user_name,user_status,create_date,<BR>&nbsp; 
+      &nbsp;&nbsp; &nbsp;rank() over (order by create_date desc) 
+      add_rank<BR>&nbsp; &nbsp;from user_info<BR>)<BR>where add_rank &lt;= 
+      :n;<BR><BR>b.根据object_name删除数据库中的重复记录<BR>create table t as select 
+      obj#,name from sys.obj$;<BR>再insert into t1 select * from t1 数次.<BR>delete 
+      from t1 where rowid in (<BR>&nbsp; &nbsp;select row_id from (<BR>&nbsp; 
+      &nbsp;&nbsp; &nbsp;select rowid row_id,row_number() over (partition by 
+      obj# order by rowid ) rn<BR>&nbsp; &nbsp;) where rn &lt;&gt; 
+      1<BR>);<BR><BR>c. 取出各地区的话费收入在各个月份排名.<BR>SQL&gt; select 
+      bill_month,area_code,sum(local_fare) local_fare,<BR>&nbsp;&nbsp;2&nbsp; 
+      &nbsp;&nbsp;&nbsp;rank() over (partition by bill_month order by 
+      sum(local_fare) desc) area_rank<BR>&nbsp;&nbsp;3&nbsp;&nbsp;from 
+      t<BR>&nbsp;&nbsp;4&nbsp;&nbsp;group by 
+      bill_month,area_code<BR>&nbsp;&nbsp;5&nbsp;&nbsp;/<BR><BR>BILL_MONTH&nbsp; 
+      &nbsp;&nbsp; &nbsp;AREA_CODE&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;LOCAL_FARE&nbsp;&nbsp;AREA_RANK<BR>--------------- 
+      --------------- -------------- ----------<BR>200405&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;25057.74&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp; 1<BR>200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5761&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;13060.43&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 2<BR>200405&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5763&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;13060.43&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 2<BR>200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+      5762&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;12643.79&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+      4<BR>200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5764&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;12487.79&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5<BR>200406&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;26058.46&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp; 1<BR>200406&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5761&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;13318.93&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 2<BR>200406&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5763&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;13318.93&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 2<BR>200406&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+      5764&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;13295.19&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+      4<BR>200406&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5762&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;12795.06&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5<BR>200407&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;26301.88&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp; 1<BR>200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5761&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;13710.27&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 2<BR>200407&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5763&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;13710.27&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 2<BR>200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+      5764&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;13444.09&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+      4<BR>200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5762&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;13224.30&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5<BR>200408&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;27130.64&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp; 1<BR>200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5761&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;14135.78&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 2<BR>200408&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5763&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;14135.78&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 2<BR>200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+      5764&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;13929.69&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+      4<BR>200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5762&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;13376.47&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 5<BR><BR>20 rows 
+      selected.<BR>SQL&gt;<BR><BR><BR><STRONG><SPAN class=bold><SPAN 
+      class=smalltxt><FONT face=Arial>3. 
+      lag和lead函数介绍<BR><BR></FONT></SPAN></SPAN>取出每个月的上个月和下个月的话费总额</STRONG><BR>&nbsp;&nbsp;1&nbsp;&nbsp;select 
+      area_code,bill_month, local_fare cur_local_fare,<BR>&nbsp;&nbsp;2&nbsp; 
+      &nbsp;&nbsp;&nbsp;lag(local_fare,2,0) over (partition by area_code order 
+      by bill_month ) pre_local_fare,<BR>&nbsp;&nbsp;3&nbsp; 
+      &nbsp;&nbsp;&nbsp;lag(local_fare,1,0) over (partition by area_code order 
+      by bill_month ) last_local_fare,<BR>&nbsp;&nbsp;4&nbsp; 
+      &nbsp;&nbsp;&nbsp;lead(local_fare,1,0) over (partition by area_code order 
+      by bill_month ) next_local_fare,<BR>&nbsp;&nbsp;5&nbsp; 
+      &nbsp;&nbsp;&nbsp;lead(local_fare,2,0) over (partition by area_code order 
+      by bill_month ) post_local_fare<BR>&nbsp;&nbsp;6&nbsp;&nbsp;from 
+      (<BR>&nbsp;&nbsp;7&nbsp; &nbsp;&nbsp;&nbsp;select 
+      area_code,bill_month,sum(local_fare) local_fare<BR>&nbsp;&nbsp;8&nbsp; 
+      &nbsp;&nbsp;&nbsp;from t<BR>&nbsp;&nbsp;9&nbsp; &nbsp;&nbsp;&nbsp;group by 
+      area_code,bill_month<BR>10* )<BR>SQL&gt; /<BR>AREA_CODE BILL_MONTH 
+      CUR_LOCAL_FARE PRE_LOCAL_FARE LAST_LOCAL_FARE NEXT_LOCAL_FARE 
+      POST_LOCAL_FARE<BR>--------- ---------- -------------- -------------- 
+      --------------- --------------- ---------------<BR>5761&nbsp; &nbsp;&nbsp; 
+      &nbsp;200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13060.433&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;0&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;13318.93&nbsp; &nbsp;&nbsp; &nbsp; 
+      13710.265<BR>5761&nbsp; &nbsp;&nbsp; &nbsp;200406&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;13318.93&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0&nbsp; &nbsp;&nbsp; &nbsp; 13060.433&nbsp; 
+      &nbsp;&nbsp; &nbsp; 13710.265&nbsp; &nbsp;&nbsp; &nbsp; 
+      14135.781<BR>5761&nbsp; &nbsp;&nbsp; &nbsp;200407&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 13710.265&nbsp; &nbsp;&nbsp; &nbsp;13060.433&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;13318.93&nbsp; &nbsp;&nbsp; &nbsp; 
+      14135.781&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;0<BR>5761&nbsp; &nbsp;&nbsp; &nbsp;200408&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 14135.781&nbsp; &nbsp;&nbsp; &nbsp; 13318.93&nbsp; 
+      &nbsp;&nbsp; &nbsp; 13710.265&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;0&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;0<BR>5762&nbsp; &nbsp;&nbsp; &nbsp;200405&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 12643.791&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;0&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;12795.06&nbsp; &nbsp;&nbsp; &nbsp; 
+      13224.297<BR>5762&nbsp; &nbsp;&nbsp; &nbsp;200406&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;12795.06&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0&nbsp; &nbsp;&nbsp; &nbsp; 12643.791&nbsp; 
+      &nbsp;&nbsp; &nbsp; 13224.297&nbsp; &nbsp;&nbsp; &nbsp; 
+      13376.468<BR>5762&nbsp; &nbsp;&nbsp; &nbsp;200407&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 13224.297&nbsp; &nbsp;&nbsp; &nbsp;12643.791&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;12795.06&nbsp; &nbsp;&nbsp; &nbsp; 
+      13376.468&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;0<BR>5762&nbsp; &nbsp;&nbsp; &nbsp;200408&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 13376.468&nbsp; &nbsp;&nbsp; &nbsp; 12795.06&nbsp; 
+      &nbsp;&nbsp; &nbsp; 13224.297&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;0&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;0<BR>5763&nbsp; &nbsp;&nbsp; &nbsp;200405&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13060.433&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;0&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;13318.93&nbsp; &nbsp;&nbsp; &nbsp; 
+      13710.265<BR>5763&nbsp; &nbsp;&nbsp; &nbsp;200406&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;13318.93&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0&nbsp; &nbsp;&nbsp; &nbsp; 13060.433&nbsp; 
+      &nbsp;&nbsp; &nbsp; 13710.265&nbsp; &nbsp;&nbsp; &nbsp; 
+      14135.781<BR>5763&nbsp; &nbsp;&nbsp; &nbsp;200407&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 13710.265&nbsp; &nbsp;&nbsp; &nbsp;13060.433&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;13318.93&nbsp; &nbsp;&nbsp; &nbsp; 
+      14135.781&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;0<BR>5763&nbsp; &nbsp;&nbsp; &nbsp;200408&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 14135.781&nbsp; &nbsp;&nbsp; &nbsp; 13318.93&nbsp; 
+      &nbsp;&nbsp; &nbsp; 13710.265&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;0&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;0<BR>5764&nbsp; &nbsp;&nbsp; &nbsp;200405&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 12487.791&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;0&nbsp; &nbsp;&nbsp; &nbsp; 
+      13295.187&nbsp; &nbsp;&nbsp; &nbsp; 13444.093<BR>5764&nbsp; &nbsp;&nbsp; 
+      &nbsp;200406&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13295.187&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0&nbsp; 
+      &nbsp;&nbsp; &nbsp; 12487.791&nbsp; &nbsp;&nbsp; &nbsp; 13444.093&nbsp; 
+      &nbsp;&nbsp; &nbsp; 13929.694<BR>5764&nbsp; &nbsp;&nbsp; 
+      &nbsp;200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13444.093&nbsp; 
+      &nbsp;&nbsp; &nbsp;12487.791&nbsp; &nbsp;&nbsp; &nbsp; 13295.187&nbsp; 
+      &nbsp;&nbsp; &nbsp; 13929.694&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;0<BR>5764&nbsp; &nbsp;&nbsp; &nbsp;200408&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13929.694&nbsp; &nbsp;&nbsp; 
+      &nbsp;13295.187&nbsp; &nbsp;&nbsp; &nbsp; 13444.093&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;0&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;0<BR>5765&nbsp; &nbsp;&nbsp; 
+      &nbsp;200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 25057.736&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;0&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;26058.46&nbsp; &nbsp;&nbsp; &nbsp; 
+      26301.881<BR>5765&nbsp; &nbsp;&nbsp; &nbsp;200406&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;26058.46&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0&nbsp; &nbsp;&nbsp; &nbsp; 25057.736&nbsp; 
+      &nbsp;&nbsp; &nbsp; 26301.881&nbsp; &nbsp;&nbsp; &nbsp; 
+      27130.638<BR>5765&nbsp; &nbsp;&nbsp; &nbsp;200407&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 26301.881&nbsp; &nbsp;&nbsp; &nbsp;25057.736&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;26058.46&nbsp; &nbsp;&nbsp; &nbsp; 
+      27130.638&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;0<BR>5765&nbsp; &nbsp;&nbsp; &nbsp;200408&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; 27130.638&nbsp; &nbsp;&nbsp; &nbsp; 26058.46&nbsp; 
+      &nbsp;&nbsp; &nbsp; 26301.881&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;0&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;0<BR>20 rows 
+      selected.<BR><BR><B>利用lag和lead函数,我们可以在同一行中显示前n行的数据,也可以显示后n行的数据.</B><BR><BR><BR><SPAN 
+      class=bold><SPAN class=smalltxt><STRONG><FONT face=Arial>4. 
+      sum,avg,max,min移动计算数据介绍<BR><BR></FONT></STRONG></SPAN></SPAN>计算出各个连续3个月的通话费用的平均数<BR>&nbsp;&nbsp;1&nbsp;&nbsp;select 
+      area_code,bill_month, local_fare,<BR>&nbsp;&nbsp;2&nbsp; 
+      &nbsp;&nbsp;&nbsp;sum(local_fare)<BR>&nbsp;&nbsp;3&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; over (&nbsp;&nbsp;partition by 
+      area_code<BR>&nbsp;&nbsp;4&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;order by 
+      to_number(bill_month)<BR>&nbsp;&nbsp;5&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;range between 1 
+      preceding and 1 following ) "3month_sum",<BR>&nbsp;&nbsp;6&nbsp; 
+      &nbsp;&nbsp;&nbsp;avg(local_fare)<BR>&nbsp;&nbsp;7&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; over (&nbsp;&nbsp;partition by 
+      area_code<BR>&nbsp;&nbsp;8&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;order by 
+      to_number(bill_month)<BR>&nbsp;&nbsp;9&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;range between 1 
+      preceding and 1 following ) "3month_avg",<BR>10&nbsp; 
+      &nbsp;&nbsp;&nbsp;max(local_fare)<BR>11&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp; over (&nbsp;&nbsp;partition by area_code<BR>12&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;order by to_number(bill_month)<BR>13&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;range between 1 preceding and 1 following ) 
+      "3month_max",<BR>14&nbsp; &nbsp;&nbsp;&nbsp;min(local_fare)<BR>15&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; over (&nbsp;&nbsp;partition 
+      by area_code<BR>16&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;order by 
+      to_number(bill_month)<BR>17&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;range between 1 preceding and 
+      1 following ) "3month_min"<BR>18&nbsp;&nbsp;from (<BR>19&nbsp; 
+      &nbsp;&nbsp;&nbsp;select area_code,bill_month,sum(local_fare) 
+      local_fare<BR>20&nbsp; &nbsp;&nbsp;&nbsp;from t<BR>21&nbsp; 
+      &nbsp;&nbsp;&nbsp;group by area_code,bill_month<BR>22* )<BR>SQL&gt; 
+      /<BR><BR>AREA_CODE BILL_MONTH&nbsp; &nbsp;&nbsp; &nbsp; LOCAL_FARE 
+      3month_sum 3month_avg 3month_max 3month_min<BR>--------- ---------- 
+      ---------------- ---------- ---------- ---------- ----------<BR>5761&nbsp; 
+      &nbsp;&nbsp; &nbsp;200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;<FONT color=blue>13060.433</FONT>&nbsp;&nbsp;26379.363 
+      13189.6815&nbsp; &nbsp;13318.93&nbsp;&nbsp;13060.433<BR>5761&nbsp; 
+      &nbsp;&nbsp; &nbsp;200406&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;<FONT color=blue>13318.930</FONT>&nbsp;&nbsp;40089.628 
+      13363.2093&nbsp;&nbsp;13710.265&nbsp;&nbsp;13060.433<BR>5761&nbsp; 
+      &nbsp;&nbsp; &nbsp;200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;<FONT color=blue>13710.265</FONT>&nbsp;&nbsp;41164.976 
+      13721.6587&nbsp;&nbsp;14135.781&nbsp; &nbsp;13318.93<BR><B>40089.628 = 
+      13060.433 + 13318.930 + 13710.265<BR>13363.2093 = (13060.433 + 13318.930 + 
+      13710.265) / 3<BR>13710.265 = max(13060.433 + 13318.930 + 
+      13710.265)<BR>13060.433 = min(13060.433 + 13318.930 + 
+      13710.265)</B><BR>5761&nbsp; &nbsp;&nbsp; &nbsp;200408&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;14135.781&nbsp;&nbsp;27846.046&nbsp;&nbsp;13923.023&nbsp;&nbsp;14135.781&nbsp;&nbsp;13710.265<BR>5762&nbsp; 
+      &nbsp;&nbsp; &nbsp;200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;12643.791&nbsp;&nbsp;25438.851 12719.4255&nbsp; 
+      &nbsp;12795.06&nbsp;&nbsp;12643.791<BR>5762&nbsp; &nbsp;&nbsp; 
+      &nbsp;200406&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;12795.060&nbsp;&nbsp;38663.148&nbsp;&nbsp;12887.716&nbsp;&nbsp;13224.297&nbsp;&nbsp;12643.791<BR>5762&nbsp; 
+      &nbsp;&nbsp; &nbsp;200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;13224.297&nbsp;&nbsp;39395.825 13131.9417&nbsp;&nbsp;13376.468&nbsp; 
+      &nbsp;12795.06<BR>5762&nbsp; &nbsp;&nbsp; &nbsp;200408&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;13376.468&nbsp;&nbsp;26600.765 
+      13300.3825&nbsp;&nbsp;13376.468&nbsp;&nbsp;13224.297<BR>5763&nbsp; 
+      &nbsp;&nbsp; &nbsp;200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;13060.433&nbsp;&nbsp;26379.363 13189.6815&nbsp; 
+      &nbsp;13318.93&nbsp;&nbsp;13060.433<BR>5763&nbsp; &nbsp;&nbsp; 
+      &nbsp;200406&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;13318.930&nbsp;&nbsp;40089.628 
+      13363.2093&nbsp;&nbsp;13710.265&nbsp;&nbsp;13060.433<BR>5763&nbsp; 
+      &nbsp;&nbsp; &nbsp;200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;13710.265&nbsp;&nbsp;41164.976 13721.6587&nbsp;&nbsp;14135.781&nbsp; 
+      &nbsp;13318.93<BR>5763&nbsp; &nbsp;&nbsp; &nbsp;200408&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;14135.781&nbsp;&nbsp;27846.046&nbsp;&nbsp;13923.023&nbsp;&nbsp;14135.781&nbsp;&nbsp;13710.265<BR>5764&nbsp; 
+      &nbsp;&nbsp; &nbsp;200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;12487.791&nbsp;&nbsp;25782.978&nbsp;&nbsp;12891.489&nbsp;&nbsp;13295.187&nbsp;&nbsp;12487.791<BR>5764&nbsp; 
+      &nbsp;&nbsp; &nbsp;200406&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;13295.187&nbsp;&nbsp;39227.071 
+      13075.6903&nbsp;&nbsp;13444.093&nbsp;&nbsp;12487.791<BR>5764&nbsp; 
+      &nbsp;&nbsp; &nbsp;200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;13444.093&nbsp;&nbsp;40668.974 
+      13556.3247&nbsp;&nbsp;13929.694&nbsp;&nbsp;13295.187<BR>5764&nbsp; 
+      &nbsp;&nbsp; &nbsp;200408&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;13929.694&nbsp;&nbsp;27373.787 
+      13686.8935&nbsp;&nbsp;13929.694&nbsp;&nbsp;13444.093<BR>5765&nbsp; 
+      &nbsp;&nbsp; &nbsp;200405&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;25057.736&nbsp;&nbsp;51116.196&nbsp;&nbsp;25558.098&nbsp; 
+      &nbsp;26058.46&nbsp;&nbsp;25057.736<BR>5765&nbsp; &nbsp;&nbsp; 
+      &nbsp;200406&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;26058.460&nbsp;&nbsp;77418.077 
+      25806.0257&nbsp;&nbsp;26301.881&nbsp;&nbsp;25057.736<BR>5765&nbsp; 
+      &nbsp;&nbsp; &nbsp;200407&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+      &nbsp;26301.881&nbsp;&nbsp;79490.979&nbsp;&nbsp;26496.993&nbsp;&nbsp;27130.638&nbsp; 
+      &nbsp;26058.46<BR>5765&nbsp; &nbsp;&nbsp; &nbsp;200408&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;27130.638&nbsp;&nbsp;53432.519 
+      26716.2595&nbsp;&nbsp;27130.638&nbsp;&nbsp;26301.881<BR><BR>20 rows 
+      selected.<BR><BR><STRONG><FONT face=Arial><SPAN class=bold><SPAN 
+      class=smalltxt>5. 
+      ratio_to_report函数的介绍<BR><BR></SPAN></SPAN><BR><BR></FONT></STRONG>
+      <CENTER>
+      <TABLE cellSpacing=0 cellPadding=0 width="90%" border=0>
+        <TBODY>
+        <TR>
+          <TD>&nbsp;&nbsp;Quote:</TD></TR>
+        <TR>
+          <TD>
+            <TABLE cellSpacing=1 cellPadding=10 width="100%" bgColor=#efefcf 
+            border=0>
+              <TBODY>
+              <TR>
+                <TD width="100%" 
+                  bgColor=#ffffff>&nbsp;&nbsp;1&nbsp;&nbsp;select 
+                  bill_month,area_code,sum(local_fare) 
+                  local_fare,<BR>&nbsp;&nbsp;2&nbsp; 
+                  &nbsp;&nbsp;&nbsp;ratio_to_report(sum(local_fare)) 
+                  over<BR>&nbsp;&nbsp;3&nbsp; &nbsp;&nbsp; &nbsp; ( partition by 
+                  bill_month ) area_pct<BR>&nbsp;&nbsp;4&nbsp;&nbsp;from 
+                  t<BR>&nbsp;&nbsp;5* group by bill_month,area_code<BR>SQL&gt; 
+                  break on bill_month skip 1<BR>SQL&gt; compute sum of 
+                  local_fare on bill_month<BR>SQL&gt; compute sum of area_pct on 
+                  bill_month<BR>SQL&gt; /<BR><BR>BILL_MONTH AREA_CODE&nbsp; 
+                  &nbsp;&nbsp; &nbsp; LOCAL_FARE&nbsp; 
+                  &nbsp;AREA_PCT<BR>---------- --------- ---------------- 
+                  ----------<BR>200405&nbsp; &nbsp;&nbsp;&nbsp;5761&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13060.433 
+                  .171149279<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;5762&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 12643.791 .165689431<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;5763&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13060.433 
+                  .171149279<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;5764&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 12487.791 .163645143<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;5765&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 25057.736 
+                  .328366866<BR>**********&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;---------------- ----------<BR>sum&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 76310.184&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 1<BR><BR>200406&nbsp; 
+                  &nbsp;&nbsp;&nbsp;5761&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 13318.930 .169050772<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;5762&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 12795.060 
+                  .162401542<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;5763&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 13318.930 .169050772<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;5764&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13295.187 
+                  .168749414<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 26058.460 .330747499<BR>**********&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;---------------- 
+                  ----------<BR>sum&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  78786.567&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  1<BR><BR>200407&nbsp; &nbsp;&nbsp;&nbsp;5761&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13710.265 
+                  .170545197<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;5762&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 13224.297 .164500127<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;5763&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13710.265 
+                  .170545197<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;5764&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 13444.093 .167234221<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;5765&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 26301.881 
+                  .327175257<BR>**********&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;---------------- ----------<BR>sum&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 80390.801&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 1<BR><BR>200408&nbsp; 
+                  &nbsp;&nbsp;&nbsp;5761&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 14135.781 .170911147<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;5762&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13376.468 
+                  .161730539<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;5763&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 14135.781 .170911147<BR>&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;5764&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13929.694 
+                  .168419416<BR>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp; 27130.638 .328027751<BR>**********&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;---------------- 
+                  ----------<BR>sum&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  82708.362&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+                  1<BR><BR><BR>20 rows 
+        selected.</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></CENTER><BR><STRONG><FONT 
+      face=Arial><SPAN class=bold><SPAN class=smalltxt>6 
+      first,last函数使用介绍<BR><BR></SPAN></SPAN><BR><BR></FONT></STRONG>
+      <CENTER>
+      <TABLE cellSpacing=0 cellPadding=0 width="90%" border=0>
+        <TBODY>
+        <TR>
+          <TD>&nbsp;&nbsp;Quote:</TD></TR>
+        <TR>
+          <TD>
+            <TABLE cellSpacing=1 cellPadding=10 width="100%" bgColor=#efefcf 
+            border=0>
+              <TBODY>
+              <TR>
+                <TD width="100%" 
+                  bgColor=#ffffff><B>取出每月通话费最高和最低的两个用户.</B><BR>1&nbsp;&nbsp;select 
+                  bill_month,area_code,sum(local_fare) 
+                  local_fare,<BR>&nbsp;&nbsp;2&nbsp; 
+                  &nbsp;&nbsp;&nbsp;first_value(area_code)<BR>&nbsp;&nbsp;3&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; over (order by 
+                  sum(local_fare) desc<BR>&nbsp;&nbsp;4&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp;rows unbounded preceding) 
+                  firstval,<BR>&nbsp;&nbsp;5&nbsp; 
+                  &nbsp;&nbsp;&nbsp;first_value(area_code)<BR>&nbsp;&nbsp;6&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; over (order by 
+                  sum(local_fare) asc<BR>&nbsp;&nbsp;7&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp; &nbsp;rows unbounded preceding) 
+                  lastval<BR>&nbsp;&nbsp;8&nbsp;&nbsp;from 
+                  t<BR>&nbsp;&nbsp;9&nbsp;&nbsp;group by 
+                  bill_month,area_code<BR>10* order by bill_month<BR>SQL&gt; 
+                  /<BR><BR>BILL_MONTH AREA_CODE&nbsp; &nbsp;&nbsp; &nbsp; 
+                  LOCAL_FARE FIRSTVAL&nbsp; &nbsp;&nbsp; 
+                  &nbsp;&nbsp;&nbsp;LASTVAL<BR>---------- --------- 
+                  ---------------- --------------- 
+                  ---------------<BR>200405&nbsp; &nbsp;&nbsp;&nbsp;5764&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 12487.791 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200405&nbsp; &nbsp;&nbsp;&nbsp;5762&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 12643.791 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200405&nbsp; &nbsp;&nbsp;&nbsp;5761&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13060.433 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200405&nbsp; &nbsp;&nbsp;&nbsp;5765&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 25057.736 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200405&nbsp; &nbsp;&nbsp;&nbsp;5763&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13060.433 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200406&nbsp; &nbsp;&nbsp;&nbsp;5762&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 12795.060 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200406&nbsp; &nbsp;&nbsp;&nbsp;5763&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13318.930 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200406&nbsp; &nbsp;&nbsp;&nbsp;5764&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13295.187 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200406&nbsp; &nbsp;&nbsp;&nbsp;5765&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 26058.460 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200406&nbsp; &nbsp;&nbsp;&nbsp;5761&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13318.930 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200407&nbsp; &nbsp;&nbsp;&nbsp;5762&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13224.297 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200407&nbsp; &nbsp;&nbsp;&nbsp;5765&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 26301.881 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200407&nbsp; &nbsp;&nbsp;&nbsp;5761&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13710.265 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200407&nbsp; &nbsp;&nbsp;&nbsp;5763&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13710.265 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200407&nbsp; &nbsp;&nbsp;&nbsp;5764&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13444.093 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200408&nbsp; &nbsp;&nbsp;&nbsp;5762&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13376.468 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200408&nbsp; &nbsp;&nbsp;&nbsp;5764&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 13929.694 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200408&nbsp; &nbsp;&nbsp;&nbsp;5761&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 14135.781 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200408&nbsp; &nbsp;&nbsp;&nbsp;5765&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 27130.638 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR>200408&nbsp; &nbsp;&nbsp;&nbsp;5763&nbsp; 
+                  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 14135.781 
+                  5765&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                  &nbsp;5764<BR><BR>20 rows 
+        selected.</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></CENTER><BR><BR><BR><BR></DIV>
+      <P class=postfoot>posted on 2004-09-29 14:49 <A 
+      href="http://www.cnblogs.com/sunsonbaby/">笨笨</A> 阅读(24911) <A 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#Post">评论(32)</A> 
+      &nbsp;<A 
+      href="http://www.cnblogs.com/sunsonbaby/admin/EditPosts.aspx?postid=47876">编辑</A> 
+      <A 
+      href="http://www.cnblogs.com/sunsonbaby/AddToFavorite.aspx?id=47876">收藏</A> 
+      <A onclick="PutInWz();return false;" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#">网摘</A> 
+      所属分类: <A 
+      href="http://www.cnblogs.com/sunsonbaby/category/8647.html">J2EE</A> 、<A 
+      href="http://www.cnblogs.com/sunsonbaby/category/8649.html">Oracle</A> 
+      </P></DIV><IMG height=1 src="Oracle 分析函数的使用 - 飞茂 - 博客园.files/47876.jpg" 
+      width=1> <!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.html"
+dc:identifier="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.html"
+dc:title="Oracle 分析函数的使用"
+trackback:ping="http://www.cnblogs.com/sunsonbaby/services/trackbacks/47876.aspx" />
+</rdf:RDF>
+-->
+      <DIV id=AjaxHolder_UpdatePanel1><A name=pagedcomment></A><A name=评论>
+      <DIV id=comments>
+      <H3>评论</H3>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#47878">#1楼</A>&nbsp;<A 
+      name=47878></A>[<SPAN class=louzhu>楼主</SPAN>] &nbsp;&nbsp;<A 
+      onclick='return SetReplyAuhor("笨笨")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(47878);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      title=查看该作者发表过的评论 
+      href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=%e7%ac%a8%e7%ac%a8" 
+      target=_blank>查看</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl00_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl00$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl00_EditLink></A> </H2><A 
+      href="http://www.akadia.com/services/ora_analytic_functions.html" 
+      target=_new>http://www.akadia.com/services/ora_analytic_functions.html</A> 
+
+      <DIV class=postfoot>2004-09-29 14:56 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl00_NameLink 
+      href="http://www.cnblogs.com/sunsonbaby/" target=_blank>笨笨</A>&nbsp;<A 
+      class=sendMsg2This title=给此人发送站内短消息 
+      href="http://space.cnblogs.com/msg/send/ç¬¨ç¬¨">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</A> 
+      </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#112154">#2楼</A>&nbsp;<A 
+      name=112154></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("周")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(112154);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl01_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl01$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl01_EditLink></A> </H2>精彩!! 
+      <DIV class=postfoot>2005-03-03 15:01 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl01_NameLink target=_blank>周 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#119117">#3楼</A>&nbsp;<A 
+      name=119117></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("vogts")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(119117);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl02_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl02$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl02_EditLink></A> </H2>不错~~~ 
+      <DIV class=postfoot>2005-03-15 14:59 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl02_NameLink target=_blank>vogts 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#119118">#4楼</A>&nbsp;<A 
+      name=119118></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("vogts")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(119118);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl03_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl03$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl03_EditLink></A> </H2>不错~~~ 
+      <DIV class=postfoot>2005-03-15 14:59 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl03_NameLink target=_blank>vogts 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#130199">#5楼</A>&nbsp;<A 
+      name=130199></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("wys")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(130199);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl04_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl04$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl04_EditLink></A> </H2>真的不错,非常感谢分享! 
+      <BR>
+      <DIV class=postfoot>2005-04-01 13:59 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl04_NameLink target=_blank>wys 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#139590">#6楼</A>&nbsp;<A 
+      name=139590></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("3x")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(139590);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl05_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl05$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl05_EditLink></A> </H2>谢谢 
+      <DIV class=postfoot>2005-04-18 11:44 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl05_NameLink target=_blank>3x 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#173579">#7楼</A>&nbsp;<A 
+      name=173579></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("郝昱斌")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(173579);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl06_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl06$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl06_EditLink></A> </H2>谢谢 
+      <DIV class=postfoot>2005-06-13 13:30 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl06_NameLink target=_blank>郝昱斌 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#175633">#8楼</A>&nbsp;<A 
+      name=175633></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("郝春鹏")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(175633);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl07_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl07$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl07_EditLink></A> </H2>好，good！ 
+      <DIV class=postfoot>2005-06-16 17:01 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl07_NameLink target=_blank>郝春鹏 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#208292">#9楼</A>&nbsp;<A 
+      name=208292></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("jesse")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(208292);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl08_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl08$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl08_EditLink></A> 
+      </H2>hao!!!!!!!!!!!!!!!!!!! <BR>
+      <DIV class=postfoot>2005-08-05 14:55 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl08_NameLink target=_blank>jesse 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#211806">#10楼</A>&nbsp;<A 
+      name=211806></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("Falcon")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(211806);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl09_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl09$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl09_EditLink></A> 
+      </H2>.根据object_name删除数据库中的重复记录 <BR>create table t as select obj#,name from 
+      sys.obj$; <BR>再insert into t1 select * from t1 数次. <BR>delete from t1 
+      where rowid in ( <BR>select row_id from ( <BR>select rowid 
+      row_id,row_number() over (partition by obj# order by rowid ) rn <BR>) 
+      where rn &lt;&gt; 1 <BR>); <BR><BR>这里有问题,应该是这样的吧! <BR><BR>delete from t1 
+      where rowid in ( <BR>select row_id from ( <BR>select rowid 
+      row_id,row_number() over (partition by obj# order by rowid ) rn <BR>from 
+      T1 <BR>) where rn &lt;&gt; 1 <BR>); 
+      <DIV class=postfoot>2005-08-10 17:39 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl09_NameLink target=_blank>Falcon 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#236850">#11楼</A>&nbsp;<A 
+      name=236850></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("李勇哲")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(236850);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl10_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl10$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl10_EditLink></A> </H2>很好.谢谢 
+      <DIV class=postfoot>2005-09-14 15:45 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl10_NameLink target=_blank>李勇哲 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#240437">#12楼</A>&nbsp;<A 
+      name=240437></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("小林")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(240437);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl11_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl11$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl11_EditLink></A> </H2>UPUP, 
+      <DIV class=postfoot>2005-09-20 14:32 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl11_NameLink target=_blank>小林 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#293954">#13楼</A>&nbsp;<A 
+      name=293954></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("過客")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(293954);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl12_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl12$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl12_EditLink></A> 
+      </H2>很好很好！非常感謝作者！！！！！ 
+      <DIV class=postfoot>2005-12-09 17:02 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl12_NameLink target=_blank>過客 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#412182">#14楼</A>&nbsp;<A 
+      name=412182></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("燕")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(412182);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl13_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl13$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl13_EditLink></A> </H2>谢谢 
+      <DIV class=postfoot>2006-05-29 16:54 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl13_NameLink target=_blank>燕 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#432712">#15楼</A>&nbsp;<A 
+      name=432712></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("real")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(432712);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl14_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl14$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl14_EditLink></A> </H2>不是一般的好 
+      <DIV class=postfoot>2006-06-22 13:25 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl14_NameLink target=_blank>real 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#432715">#16楼</A>&nbsp;<A 
+      name=432715></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("real")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(432715);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl15_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl15$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl15_EditLink></A> </H2>相当好！ 
+      <DIV class=postfoot>2006-06-22 13:30 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl15_NameLink target=_blank>real 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#433302">#17楼</A>&nbsp;<A 
+      name=433302></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("YHLIN")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(433302);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl16_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl16$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl16_EditLink></A> </H2>删除重复数据的一种高效的方法 
+      <BR>--------------------------------- 
+      <BR>表demo是重复拷贝自dba_objects，有88万左右，不重复的是27323，没有索引 <BR>方法一：delete from demo 
+      a where a.rowid &lt;&gt; (select max(rowid) from demo b where 
+      <BR>b.object_id=a.object_id); <BR>耗时：几个小时以上 <BR><BR><BR>方法二： delete from 
+      demo where rowid in <BR>(select rid from <BR>(select rowid 
+      rid,row_number() over(partition by object_id order by rowid) rn <BR>from 
+      demo) <BR>where rn &lt;&gt; 1 ); <BR>耗时：30秒 <BR><BR>方法三： create table 
+      demo2 as <BR>select object_id,owner... from <BR>(select 
+      demo.*,row_number() over(partition by object_id order by rowid) rn from 
+      demo) <BR>where rn = 1; <BR>truncate table demo; insert into demo select * 
+      from demo2; drop table demo2; <BR>共耗时： 10秒，适合大数据量的情况，产生更少回滚量； <BR><BR>
+      <DIV class=postfoot>2006-06-22 22:20 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl16_NameLink target=_blank>YHLIN 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#495308">#18楼</A>&nbsp;<A 
+      name=495308></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("dgsclerk")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(495308);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl17_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl17$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl17_EditLink></A> </H2>非常好 
+      <DIV class=postfoot>2006-09-05 14:59 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl17_NameLink target=_blank>dgsclerk 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#504294">#19楼</A>&nbsp;<A 
+      name=504294></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("fallmoon")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(504294);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl18_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl18$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl18_EditLink></A> 
+      </H2>取出每月通话费最高和最低的两个用户. <BR>1 select bill_month,area_code,sum(local_fare) 
+      local_fare, <BR>2 first_value(area_code) <BR>3 over (order by 
+      sum(local_fare) desc <BR>4 rows unbounded preceding) firstval, <BR>5 
+      first_value(area_code) <BR>6 over (order by sum(local_fare) asc <BR>7 rows 
+      unbounded preceding) lastval <BR>8 from t <BR>9 group by 
+      bill_month,area_code <BR>10* order by bill_month 
+      <BR><BR>注意：如果为每月的话，上面的语句应修改为 <BR>1 select 
+      bill_month,area_code,sum(local_fare) local_fare, <BR>2 
+      first_value(area_code) <BR>3 over (partition by bill_month order by 
+      sum(local_fare) desc <BR>4 rows unbounded preceding) firstval, <BR>5 
+      first_value(area_code) <BR>6 over (partition by bill_month order by 
+      sum(local_fare) asc <BR>7 rows unbounded preceding) lastval <BR>8 from t 
+      <BR>9 group by bill_month,area_code <BR>10* order by bill_month <BR>
+      <DIV class=postfoot>2006-09-14 16:20 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl18_NameLink target=_blank>fallmoon 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#504298">#20楼</A>&nbsp;<A 
+      name=504298></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("fallmoon")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(504298);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl19_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl19$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl19_EditLink></A> 
+      </H2>取出每月通话费最高和最低的两个用户. <BR>1 select bill_month,area_code,sum(local_fare) 
+      local_fare, <BR>2 first_value(area_code) <BR>3 over (order by 
+      sum(local_fare) desc <BR>4 rows unbounded preceding) firstval, <BR>5 
+      first_value(area_code) <BR>6 over (order by sum(local_fare) asc <BR>7 rows 
+      unbounded preceding) lastval <BR>8 from t <BR>9 group by 
+      bill_month,area_code <BR>10* order by bill_month 
+      <BR><BR>注意：如果为每月的话，上面的语句应修改为 <BR>1 select 
+      bill_month,area_code,sum(local_fare) local_fare, <BR>2 
+      first_value(area_code) <BR>3 over (partition by bill_month order by 
+      sum(local_fare) desc <BR>4 rows unbounded preceding) firstval, <BR>5 
+      first_value(area_code) <BR>6 over (partition by bill_month order by 
+      sum(local_fare) asc <BR>7 rows unbounded preceding) lastval <BR>8 from t 
+      <BR>9 group by bill_month,area_code <BR>10* order by bill_month <BR>
+      <DIV class=postfoot>2006-09-14 16:23 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl19_NameLink target=_blank>fallmoon 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#644167">#21楼</A>&nbsp;<A 
+      name=644167></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("liangzc")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(644167);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl20_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl20$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl20_EditLink></A> </H2>非常感谢，特别是rank() 
+      函数的使用，我正想找这个东东呢。 
+      <DIV class=postfoot>2007-02-08 01:35 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl20_NameLink target=_blank>liangzc 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#671776">#22楼</A>&nbsp;<A 
+      name=671776></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("kg")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(671776);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl21_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl21$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl21_EditLink></A> </H2>很好...ths 
+      <DIV class=postfoot>2007-03-12 13:14 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl21_NameLink target=_blank>kg 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#782743">#23楼</A>&nbsp;<A 
+      name=782743></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("ali")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(782743);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl22_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl22$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl22_EditLink></A> </H2>非常感谢分享 
+      <DIV class=postfoot>2007-06-13 22:20 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl22_NameLink target=_blank>ali 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#845817">#24楼</A>&nbsp;<A 
+      name=845817></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("ka")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(845817);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl23_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl23$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl23_EditLink></A> </H2>非常感谢！ 
+      <DIV class=postfoot>2007-08-07 10:37 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl23_NameLink target=_blank>ka 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#845818">#25楼</A>&nbsp;<A 
+      name=845818></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("ka")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(845818);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl24_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl24$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl24_EditLink></A> </H2>afsd 
+      <DIV class=postfoot>2007-08-07 10:38 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl24_NameLink target=_blank>ka 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#860234">#26楼</A>&nbsp;<A 
+      name=860234></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("weihua")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(860234);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl25_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl25$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl25_EditLink></A> </H2>不错，精彩 
+      <DIV class=postfoot>2007-08-17 20:04 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl25_NameLink target=_blank>weihua 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#863538">#27楼</A>&nbsp;<A 
+      name=863538></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("H-Bomb")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(863538);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl26_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl26$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl26_EditLink></A> </H2>很好，谢谢 
+      <DIV class=postfoot>2007-08-21 09:43 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl26_NameLink target=_blank>H-Bomb 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#893076">#28楼</A>&nbsp;<A 
+      name=893076></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("sexuu")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(893076);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl27_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl27$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl27_EditLink></A> </H2>真的谢谢，又学了一点东西 
+      <DIV class=postfoot>2007-09-14 15:09 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl27_NameLink target=_blank>sexuu 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#974635">#29楼</A>&nbsp;<A 
+      name=974635></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("sh.feng")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(974635);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl28_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl28$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl28_EditLink></A> 
+      </H2>分析函數在函數或過程中怎么編譯不通過呢<BR>錯誤信息如下﹕<BR>ORA-06550: 第 9 行, 第 49 
+      個欄位:<BR>PLS-00103: 發現了符號 "OVER" 當您等待下列事項之一發生時:<BR><BR>) , * &amp; | = - + 
+      &lt; / &gt; at in mod not rem =&gt; ..<BR>&lt;an exponent (**)&gt; 
+      &lt;&gt; or != or ~= &gt;= &lt;= &lt;&gt; and or like<BR>between is null 
+      is not || is dangling 
+      <DIV class=postfoot>2007-11-27 20:40 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl28_NameLink target=_blank>sh.feng 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#1026886">#30楼</A>&nbsp;<A 
+      name=1026886></A> &nbsp;&nbsp;<A 
+      onclick='return SetReplyAuhor("ZHANGWEICAI")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(1026886);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl29_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl29$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl29_EditLink></A> 
+      </H2>不错,只是ROLLUP在超过三列记录是会有重复行出现 
+      <DIV class=postfoot>2008-01-05 12:24 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl29_NameLink 
+      target=_blank>ZHANGWEICAI [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#1206875">#31楼</A>&nbsp;<A 
+      name=1206875></A> &nbsp;&nbsp;<A onclick='return SetReplyAuhor("我來也")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(1206875);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl30_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl30$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl30_EditLink></A> </H2>不錯，謝謝！ 
+      <DIV class=postfoot>2008-05-23 12:49 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl30_NameLink target=_blank>我來也 
+      [未注册用户]</A> </DIV></DIV>
+      <DIV class=post>
+      <H2><A title="permalink: re: Oracle 分析函数的使用" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#1294529">#32楼</A>&nbsp;<A 
+      name=1294529></A><A name=Post></A> &nbsp;&nbsp;<A 
+      onclick='return SetReplyAuhor("xsw")' 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">回复</A>&nbsp;&nbsp;<A 
+      onclick="GetQuote(1294529);return false" 
+      href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#post">引用</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl31_DeleteLink 
+      href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl31$DeleteLink','')"></A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_Comments_CommentList_ctl31_EditLink></A> </H2>thank you! 
+      <DIV class=postfoot>2008-08-22 11:22 | <A 
+      id=AjaxHolder_Comments_CommentList_ctl31_NameLink target=_blank>xsw 
+      [未注册用户]</A> </DIV></DIV></DIV>
+      <STYLE>TD {
+	FONT-SIZE: 12px
+}
+.commentTextBox {
+	FONT-SIZE: 13px; FONT-FAMILY: Verdana
+}
+A.blue:visited {
+	COLOR: blue
+}
+A.blue:active {
+	COLOR: blue
+}
+A.blue:link {
+	COLOR: blue
+}
+A.blue:hover {
+	COLOR: blue
+}
+</STYLE>
+<!--Beging Temp Save-->
+      <STYLE>.userData {
+	BEHAVIOR: url(#default#userdata)
+}
+</STYLE>
+
+      <DIV class=userData id=CommentsPersistDiv></DIV>
+      <SCRIPT type=text/javascript>
+function pageLoad()
+{
+    Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(handleInitializeRequest);
+    //Sys.WebForms.PageRequestManager.getInstance().add_endRequest(handleEndRequest);
+}
+
+function handleInitializeRequest(sender, args)
+{
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    var eid = args.get_postBackElement().id;
+    /*if (eid.indexOf("DeleteLink")>0) 
+    {
+       args.get_postBackElement().innerHTML = "<font color='red'>正在删除...</font>";         
+    }    
+    else */
+    if (eid.indexOf("btnSubmit")>0) 
+    {
+       document.getElementById("AjaxHolder_PostComment_ltSubmitMsg").innerHTML="正在提交...";
+       document.getElementById("AjaxHolder_PostComment_btnSubmit").disabled = true;       
+    }   
+    else if(eid.indexOf("refreshList")>0)
+    {
+        document.getElementById("AjaxHolder_PostComment_refreshList").innerHTML="<font color='red'>正在刷新...</font>";
+    }
+   
+}	
+
+function TempSave(ElementID)
+{
+	try
+	{
+	CommentsPersistDiv.setAttribute("CommentContent",document.getElementById(ElementID).value);
+	CommentsPersistDiv.save("CommentXMLStore");
+	}
+	catch(ex)
+	{
+	}
+	
+}
+function Restore(ElementID)
+{
+	CommentsPersistDiv.load("CommentXMLStore");
+	document.getElementById(ElementID).value=CommentsPersistDiv.getAttribute("CommentContent");
+}	
+			
+			
+</SCRIPT>
+<!--Ene TempSave-->
+      <DIV id=divRefreshComments 
+      style="FONT-SIZE: 12px; MARGIN-BOTTOM: 5px; MARGIN-RIGHT: 10px; TEXT-ALIGN: right"><A 
+      href="http://www.cnblogs.com/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+      id=AjaxHolder_PostComment_refreshList 
+      href="javascript:__doPostBack('AjaxHolder$PostComment$refreshList','')">刷新评论列表</A>&nbsp;&nbsp;</DIV>
+      <DIV class=commentform><SPAN id=AjaxHolder_PostComment_ltSubmitMsg 
+      style="COLOR: red"></SPAN><BR><A name=Feedback></A>
+      <TABLE style="WIDTH: 600px" cellSpacing=1 cellPadding=1 border=0>
+        <TBODY>
+        <TR>
+          <TD colSpan=3><BR>
+            <SCRIPT type=text/javascript><!--
+google_ad_client = "pub-4210569241504288";
+/* cnblogs_comment_box_top_468x60 */
+google_ad_slot = "7468723776";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</SCRIPT>
+
+            <SCRIPT src="Oracle 分析函数的使用 - 飞茂 - 博客园.files/show_ads.js" 
+            type=text/javascript>
+</SCRIPT>
+            <BR><BR></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD></TD>
+          <TD></TD></TR>
+        <TR>
+          <TD width=55>标题</TD>
+          <TD colSpan=2><INPUT class=commenttb 
+            id=AjaxHolder_PostComment_tbTitle value="re: Oracle 分析函数的使用" 
+            name=AjaxHolder$PostComment$tbTitle><SPAN 
+            id=AjaxHolder_PostComment_RequiredFieldValidator1 
+            style="VISIBILITY: hidden; COLOR: red">请输入标题</SPAN></TD></TR>
+        <TR>
+          <TD>姓名</TD>
+          <TD colSpan=2><INPUT class=commenttb 
+            id=AjaxHolder_PostComment_tbName 
+            name=AjaxHolder$PostComment$tbName><SPAN 
+            id=AjaxHolder_PostComment_RequiredFieldValidator2 
+            style="VISIBILITY: hidden; COLOR: red">请输入你的姓名</SPAN></TD></TR>
+        <TR>
+          <TD>主页</TD>
+          <TD><INPUT class=commenttb id=AjaxHolder_PostComment_tbUrl 
+            name=AjaxHolder$PostComment$tbUrl></TD>
+          <TD></TD></TR>
+        <TR id=AjaxHolder_PostComment_trEmail>
+          <TD>Email</TD>
+          <TD colSpan=2><INPUT class=commenttb 
+            id=AjaxHolder_PostComment_tbEmail 
+            name=AjaxHolder$PostComment$tbEmail>(博主才能看到)<SPAN 
+            id=AjaxHolder_PostComment_revContactMail 
+            style="VISIBILITY: hidden; COLOR: red">邮件地址无效</SPAN></TD></TR>
+        <TR>
+          <TD align=left colSpan=3>
+            <TABLE class=CommentForm id=AjaxHolder_PostComment_tbCaptchaImage 
+            cellSpacing=0 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD colSpan=3><SPAN 
+                  id=AjaxHolder_PostComment_Requiredfieldvalidator4 
+                  style="DISPLAY: none; COLOR: red">请输入验证码</SPAN> <SPAN 
+                  id=AjaxHolder_PostComment_lblImage 
+                  style="FONT-WEIGHT: bold; COLOR: red"></SPAN></TD></TR>
+              <TR>
+                <TD width=56>验证码</TD>
+                <TD colSpan=2><INPUT 
+                  id=AjaxHolder_PostComment_CodeNumberTextBox 
+                  style="WIDTH: 100px" 
+                  name=AjaxHolder$PostComment$CodeNumberTextBox>*&nbsp;&nbsp;<IMG 
+                  src="Oracle 分析函数的使用 - 飞茂 - 博客园.files/JpegImage.jpg"><A 
+                  id=AjaxHolder_PostComment_lkbChangeCode 
+                  href="javascript:__doPostBack('AjaxHolder$PostComment$lkbChangeCode','')">看不清,换一张</A> 
+                  [<A 
+                  href="http://www.cnblogs.com/login.aspx?ReturnUrl=/sunsonbaby/archive/2004/09/29/47876.aspx">登录</A>][<A 
+                  href="http://www.cnblogs.com/RequireRegister.aspx">注册</A>]</TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD style="TEXT-ALIGN: left" colSpan=3>
+            <DIV style="WIDTH: 600px">
+            <DIV class=divPostCommentBox>内容(请不要发表任何与政治相关的内容) <SPAN 
+            id=AjaxHolder_PostComment_RequiredFieldValidator3 
+            style="VISIBILITY: hidden; COLOR: red">请输入评论内容</SPAN><BR><TEXTAREA class=commentTextBox id=AjaxHolder_PostComment_tbComment onkeydown="ctlent(event,'AjaxHolder_PostComment_tbComment')" name=AjaxHolder$PostComment$tbComment></TEXTAREA> 
+            </DIV>
+            <DIV class=CommentBoxNav><A tabIndex=-1 
+            href="http://www.cnblogs.com/" target=_blank>网站首页</A><BR><BR><A 
+            tabIndex=-1 href="http://news.cnblogs.com/" 
+            target=_blank>新闻频道</A><BR><BR><A tabIndex=-1 
+            href="http://space.cnblogs.com/" target=_blank>社区</A><BR><BR><A 
+            tabIndex=-1 href="http://space.cnblogs.com/group.htm" 
+            target=_blank>小组</A><BR><BR><A tabIndex=-1 
+            href="http://space.cnblogs.com/q" target=_blank>博问</A><BR><BR><A 
+            tabIndex=-1 href="http://wz.cnblogs.com/" 
+            target=_blank>网摘</A><BR><BR><A tabIndex=-1 
+            href="http://job.cnblogs.com/" target=_blank>人才</A><BR><BR><A 
+            tabIndex=-1 href="http://zzk.cnblogs.com/" 
+            target=_blank>找找看</A><BR><BR></DIV></DIV></TD></TR>
+        <TR>
+          <TD colSpan=3><SPAN id=AjaxHolder_PostComment_Message 
+            style="COLOR: red"></SPAN></TD></TR>
+        <TR>
+          <TD colSpan=3><INPUT id=AjaxHolder_PostComment_chkRemember 
+            tabIndex=-1 type=checkbox CHECKED 
+            name=AjaxHolder$PostComment$chkRemember><LABEL 
+            for=AjaxHolder_PostComment_chkRemember>Remember Me?</LABEL></TD></TR>
+        <TR>
+          <TD height=23><INPUT class=commentButton id=AjaxHolder_PostComment_btnSubmit onclick="TempSave('AjaxHolder_PostComment_tbComment');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;AjaxHolder$PostComment$btnSubmit&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" type=submit value=提交 name=AjaxHolder$PostComment$btnSubmit> 
+          </TD>
+          <TD colSpan=2 height=23>&nbsp; <A id=AjaxHolder_PostComment_lnkLogin 
+            href="http://www.cnblogs.com/login.aspx?ReturnURL=http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx&amp;SourceURL=/sunsonbaby/archive/2004/09/29/47876.aspx">登录</A>&nbsp;&nbsp;<A 
+            id=AjaxHolder_PostComment_linkLoginComment 
+            onclick="if(document.getElementById('AjaxHolder_PostComment_tbComment').value != '') return confirm('未提交的评论内容将会丢失, 你真的要进入高级评论吗?');" 
+            href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx?login=1#Post">使用高级评论</A>&nbsp;&nbsp;<A 
+            href="http://www.cnblogs.com/RequireRegister.aspx">新用户注册</A>&nbsp;&nbsp;<A 
+            href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#Top">返回页首</A>&nbsp;&nbsp;<A 
+            id=AjaxHolder_PostComment_lbRestore 
+            onclick="Restore('AjaxHolder_PostComment_tbComment'); return false;" 
+            href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#Post">恢复上次提交</A>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+          </TD></TR>
+        <TR>
+          <TD colSpan=3><LABEL 
+        class=CtrlEnter>[使用Ctrl+Enter键可以直接提交]</LABEL></TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR>
+        <TR>
+          <TD colSpan=3><A href="http://www.cnblogs.com/search.aspx" 
+            target=_blank>Google站内搜索</A></TD></TR>
+        <TR>
+          <TD colSpan=3><A 
+            href="http://www.cnblogs.com/bookshop/archive/2008/11/27/1342446.html" 
+            target=_blank><IMG 
+            style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" 
+            src="Oracle 分析函数的使用 - 飞茂 - 博客园.files/wtjs_200_100.jpg"></A><A 
+            href="http://booksubject.cnblogs.com/DesignPatterns/" 
+            target=_blank><IMG 
+            style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" 
+            src="Oracle 分析函数的使用 - 飞茂 - 博客园.files/desing_patterns_300.jpg"></A></TD></TR>
+        <TR>
+          <TD colSpan=3><A href="http://a4.yeshj.com/rd/19973/" 
+            target=_blank><IMG 
+            style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px" 
+            src="Oracle 分析函数的使用 - 飞茂 - 博客园.files/YU-D-S1P-19973_15.gif"></A><BR><A 
+            href="http://www.china-pub.com/itbook/" target=_blank>China-pub 
+            计算机图书网上专卖店！6.5万品种 2-8折！</A><BR><A 
+            href="http://www.china-pub.com/static/zt_mb/zt_huodong_07_secondhandbook.asp?filename=jsj_hzold_081029" 
+            target=_blank>近千种 9-95 新二手计算图书火热销售中！</A><BR><A 
+            href="http://booksubject.cnblogs.com/DesignPatterns/" 
+            target=_blank>开发者征途系统新作：《设计模式——基于C#的工程化实现及扩展》</A> </TD></TR>
+        <TR>
+          <TD colSpan=3 height=5></TD></TR>
+        <TR>
+          <TD colSpan=3><BR>
+            <DIV id=relative_posts><B>相关文章:</B><BR>
+            <SCRIPT language=javascript 
+            src="Oracle 分析函数的使用 - 飞茂 - 博客园.files/RCS.htm" type=text/javascript 
+            charset=utf-8></SCRIPT>
+            </DIV></TD></TR>
+        <TR>
+          <TD colSpan=3>
+            <DIV id=div_a4_ads><BR><B>相关链接:</B>
+            <SCRIPT type=text/javascript>
+	        var title = document.title;
+	        document.write("<div id=\"a4_ads_output\">");
+	        document.write("<script type='text/javascript' src='http://a4.yeshj.com/adwords/EN017?num=7&title="+ encodeURIComponent(title) +"&tag="+ encodeURIComponent(GetMeta("keywords")) +"'></scri"+"pt>");
+	        document.write("</div>");
+	        </SCRIPT>
+             </DIV></TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR>
+        <TR>
+          <TD colSpan=3>
+            <DIV id=AjaxHolder_PostComment_RelativePosts1_divRelativePosts 
+            style="MARGIN-TOP: 2px"><BR><B>所属分类的其他文章:</B><BR><SPAN 
+            style="LIST-STYLE-TYPE: none"><A 
+            href="http://www.cnblogs.com/sunsonbaby/archive/2005/05/05/149593.html">BlogJava好像不能贴图</A><BR></SPAN><SPAN 
+            style="LIST-STYLE-TYPE: none"><A 
+            href="http://www.cnblogs.com/sunsonbaby/archive/2005/02/27/110033.html">WebWork2相关链接</A><BR></SPAN><SPAN 
+            style="LIST-STYLE-TYPE: none"><A 
+            href="http://www.cnblogs.com/sunsonbaby/archive/2005/02/22/107375.html">RenderX 
+            java的xml打印</A><BR></SPAN><SPAN style="LIST-STYLE-TYPE: none"><A 
+            href="http://www.cnblogs.com/sunsonbaby/archive/2005/02/22/107315.html">Java打印服务API</A><BR></SPAN><SPAN 
+            style="LIST-STYLE-TYPE: none"><A 
+            href="http://www.cnblogs.com/sunsonbaby/archive/2005/02/20/106442.html">用 
+            Preferences API 存储对象</A><BR></SPAN><SPAN 
+            style="LIST-STYLE-TYPE: none"><A 
+            href="http://www.cnblogs.com/sunsonbaby/archive/2005/02/02/101112.html">Eclipse 
+            运行命令行参数大全 </A><BR></SPAN><SPAN style="LIST-STYLE-TYPE: none"><A 
+            href="http://www.cnblogs.com/sunsonbaby/archive/2005/01/31/99876.html">使用jsp实现word、excel格式报表打印</A><BR></SPAN><SPAN 
+            style="LIST-STYLE-TYPE: none"><A 
+            href="http://www.cnblogs.com/sunsonbaby/archive/2005/01/31/99868.html">JSP页面查询显示常用模式</A><BR></SPAN><SPAN 
+            style="LIST-STYLE-TYPE: none"><A 
+            href="http://www.cnblogs.com/sunsonbaby/archive/2005/01/31/99859.html">使用工具类实现通用分页处理</A><BR></SPAN><SPAN 
+            style="LIST-STYLE-TYPE: none"><A 
+            href="http://www.cnblogs.com/sunsonbaby/archive/2005/01/31/99845.html">Class 
+            Loading －－－（类装载机制，开发者不得不知道的故事） </A><BR></SPAN></DIV>
+            <DIV class=itnews><BR><B>最新IT新闻:</B><BR><A 
+            href="http://news.cnblogs.com/n/43745/" 
+            target=_blank>51.com否认彩虹软件改名</A><BR><A 
+            href="http://news.cnblogs.com/n/43744/" target=_blank>彩虹QQ正式更名51彩虹 
+            称“上QQ从51彩虹开始”</A><BR><A href="http://news.cnblogs.com/n/43742/" 
+            target=_blank>Jadu: 将 PHP 编译成 .NET</A><BR><A 
+            href="http://news.cnblogs.com/n/43741/" 
+            target=_blank>开心网遭多个山寨版复制围抢用户</A><BR><A 
+            href="http://news.cnblogs.com/n/43740/" target=_blank>微软表示Windows 
+            7将直接在CPU上跑DirectX 10</A><BR></DIV></TD></TR>
+        <TR>
+          <TD colSpan=3 height=5>&nbsp;</TD></TR>
+        <TR>
+          <TD colSpan=3 height=5></TD></TR>
+        <TR>
+          <TD colSpan=3 height=1></TD></TR>
+        <TR>
+          <TD colSpan=3><BR><IFRAME 
+            style="BORDER-RIGHT: #666 0px solid; BORDER-TOP: #666 0px solid; BORDER-LEFT: #666 0px solid; BORDER-BOTTOM: #666 0px solid" 
+            marginWidth=0 marginHeight=0 
+            src="Oracle 分析函数的使用 - 飞茂 - 博客园.files/CAIJ2ZML.htm" frameBorder=0 
+            width=468 scrolling=no height=0 allowTransparency></IFRAME></TD></TR>
+        <TR>
+          <TD colSpan=3></TD></TR></TBODY></TABLE></DIV>
+      <DIV id=AjaxHolder_PostComment_ValidationSummary1 
+      style="DISPLAY: none; COLOR: red"></DIV></DIV>
+      <SCRIPT language=javascript>
+
+function GetQuote(id)
+{
+    //www.cnblogs.com.ICommentService.GetCommentText(id,SetQuote);
+    BlogServer.WebService.AjaxWS.GetComment(id,SetQuote);
+}
+
+ function SetQuote(result)
+{
+    document.getElementById('AjaxHolder_PostComment_tbComment').value+= ("--引用--------------------------------------------------\n"+result+"\n--------------------------------------------------------\n");
+    document.getElementById('AjaxHolder_PostComment_tbComment').focus(); 
+}
+
+function Favorite(entryID,title,url,element)
+{
+    document.getElementById(element.id).innerHTML = "<span style='color:red'>正在收藏...</span>";
+    BlogServer.WebService.AjaxWS.AddToFavorites(entryID,title,url,OnFavoriteSuccess);
+    document.getElementById(element.id).removeAttribute("href");
+    document.getElementById(element.id).removeAttribute("onclick");
+}
+
+function OnFavoriteSuccess(result)
+{
+    if(result == "请先登录")
+    {
+        window.location.href = "../../../../../login.aspx?ReturnUrl=" + window.location.href;
+    }
+    else
+    {
+        var returnstr = result.split(",");
+        var id = "lnkFavorite"+returnstr[0];
+        document.getElementById(id).innerHTML = "<span style='color:red'>" + returnstr[1] + "</span>";
+    }
+}
+
+function DelComment(id,element)
+{
+    if(confirm("确认要删除该评论吗?"))
+    {
+        document.getElementById(element.id).innerHTML = "<span style='color:red'>正在删除...</span>";
+        BlogServer.WebService.AjaxWS.DelComment(id,del_comment_callback);
+    }
+    return false;
+}
+
+function del_comment_callback(response)
+{
+    __doPostBack('AjaxHolder$PostComment$refreshList','');
+}
+</SCRIPT>
+      </DIV></TD></TR>
+  <TR>
+    <TD class=FooterCell>
+      <P id=footer>Powered by: <BR><A id=Footer1_Hyperlink3 
+      style="FONT-SIZE: 12px; FONT-FAMILY: Verdana" 
+      href="http://www.cnblogs.com/" name=Hyperlink1>博客园</A> <BR>Copyright © 笨笨 
+      </P></TD></TR></TBODY></TABLE>
+<DIV id=lefttemp style="DISPLAY: none">
+<H3>导航</H3>
+<UL>
+  <LI><A id=MyLinks1_HomeLink href="http://www.cnblogs.com/">博客园</A> 
+  <LI><A id=MyLinks1_MyHomeLink href="http://www.cnblogs.com/sunsonbaby/">首页</A> 
+
+  <LI><A id=MyLinks1_NewPostLink 
+  href="http://www.cnblogs.com/sunsonbaby/admin/EditPosts.aspx?opt=1">新随笔</A> 
+  <LI><A id=MyLinks1_ContactLink accessKey=9 
+  href="http://www.cnblogs.com/sunsonbaby/contact.aspx?id=1">联系</A> 
+  <LI><A id=MyLinks1_XMLLink href="http://www.cnblogs.com/sunsonbaby/rss"><IMG 
+  style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+  alt=订阅 src="Oracle 分析函数的使用 - 飞茂 - 博客园.files/xml.gif"></A><A 
+  id=MyLinks1_Syndication href="http://www.cnblogs.com/sunsonbaby/rss">订阅</A> 
+  <LI><A id=MyLinks1_Admin 
+  href="http://www.cnblogs.com/sunsonbaby/admin/EditPosts.aspx">管理</A> </LI></UL>
+<TABLE class=Cal id=Calendar1_entryCal title=Calendar 
+style="BORDER-RIGHT: 1px solid; BORDER-TOP: 1px solid; BORDER-LEFT: 1px solid; BORDER-BOTTOM: 1px solid; BORDER-COLLAPSE: collapse" 
+cellSpacing=0 cellPadding=0 border=0>
+  <TBODY>
+  <TR>
+    <TD style="BACKGROUND-COLOR: silver" colSpan=7>
+      <TABLE class=CalTitle style="WIDTH: 100%; BORDER-COLLAPSE: collapse" 
+      cellSpacing=0 border=0>
+        <TBODY>
+        <TR>
+          <TD class=CalNextPrev style="WIDTH: 15%"><A 
+            title="Go to the previous month" style="COLOR: black" 
+            href="javascript:__doPostBack('Calendar1$entryCal','V3227')">&lt;</A></TD>
+          <TD style="WIDTH: 70%" align=middle>2008年12月</TD>
+          <TD class=CalNextPrev style="WIDTH: 15%" align=right><A 
+            title="Go to the next month" style="COLOR: black" 
+            href="javascript:__doPostBack('Calendar1$entryCal','V3288')">&gt;</A></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TH class=CalDayHeader scope=col align=middle abbr=日>日</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=一>一</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=二>二</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=三>三</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=四>四</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=五>五</TH>
+    <TH class=CalDayHeader scope=col align=middle abbr=六>六</TH></TR>
+  <TR>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>30</TD>
+    <TD style="WIDTH: 14%" align=middle>1</TD>
+    <TD class=CalTodayDay style="WIDTH: 14%" align=middle>2</TD>
+    <TD style="WIDTH: 14%" align=middle>3</TD>
+    <TD style="WIDTH: 14%" align=middle>4</TD>
+    <TD style="WIDTH: 14%" align=middle>5</TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>6</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>7</TD>
+    <TD style="WIDTH: 14%" align=middle>8</TD>
+    <TD style="WIDTH: 14%" align=middle>9</TD>
+    <TD style="WIDTH: 14%" align=middle>10</TD>
+    <TD style="WIDTH: 14%" align=middle>11</TD>
+    <TD style="WIDTH: 14%" align=middle>12</TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>13</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>14</TD>
+    <TD style="WIDTH: 14%" align=middle>15</TD>
+    <TD style="WIDTH: 14%" align=middle>16</TD>
+    <TD style="WIDTH: 14%" align=middle>17</TD>
+    <TD style="WIDTH: 14%" align=middle>18</TD>
+    <TD style="WIDTH: 14%" align=middle>19</TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>20</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>21</TD>
+    <TD style="WIDTH: 14%" align=middle>22</TD>
+    <TD style="WIDTH: 14%" align=middle>23</TD>
+    <TD style="WIDTH: 14%" align=middle>24</TD>
+    <TD style="WIDTH: 14%" align=middle>25</TD>
+    <TD style="WIDTH: 14%" align=middle>26</TD>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>27</TD></TR>
+  <TR>
+    <TD class=CalWeekendDay style="WIDTH: 14%" align=middle>28</TD>
+    <TD style="WIDTH: 14%" align=middle>29</TD>
+    <TD style="WIDTH: 14%" align=middle>30</TD>
+    <TD style="WIDTH: 14%" align=middle>31</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>1</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>2</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>3</TD></TR>
+  <TR>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>4</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>5</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>6</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>7</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>8</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" align=middle>9</TD>
+    <TD class=CalOtherMonthDay style="WIDTH: 14%" 
+align=middle>10</TD></TR></TBODY></TABLE>
+<DIV class=catListInteraction>
+<H3 class=catListTitle>与我联系</H3>
+<UL>
+  <LI><A class=sendMsg id=SingleColumn1_ctl00_lnkSendMsg 
+  href="http://space.cnblogs.com/msg/send/ç¬¨ç¬¨">发短消息</A> </LI></UL></DIV>
+<SCRIPT type=text/javascript>
+function zzk_go()
+{
+	var blogapp = 'sunsonbaby';
+	var keystr = encodeURIComponent("blog:"+blogapp+" "+document.getElementById('q').value);
+    window.location = "http://zzk.cnblogs.com/s?w="+keystr;
+}
+function zzk_go_enter(event)
+{
+	if(event.keyCode == 13)
+	{
+	    zzk_go();
+	    return false;
+	}
+}
+</SCRIPT>
+
+<DIV class=mySearch>
+<H3 class=catListTitle>搜索</H3>
+<DIV class=div_my_zzk><INPUT class=input_my_zzk id=q 
+onkeydown="return zzk_go_enter(event);">&nbsp;<INPUT class=btn_my_zzk id=btnZzk onclick=zzk_go() type=button value=找找看></DIV></DIV>
+<H3>常用链接</H3>
+<UL>
+  <LI><A id=SingleColumn1_ctl02_rptMainLinks_ctl00_lnkLinkItem 
+  href="http://www.cnblogs.com/sunsonbaby/MyPosts.html">我的随笔</A> 
+  <LI><A id=SingleColumn1_ctl02_rptMainLinks_ctl01_lnkLinkItem 
+  href="http://space.cnblogs.com/sunsonbaby">我的空间</A> 
+  <LI><A id=SingleColumn1_ctl02_rptMainLinks_ctl02_lnkLinkItem 
+  href="http://space.cnblogs.com/msg/recent">我的短信</A> 
+  <LI><A id=SingleColumn1_ctl02_rptMainLinks_ctl03_lnkLinkItem 
+  href="http://www.cnblogs.com/sunsonbaby/MyComments.html">我的评论</A> 
+  <LI><A id=itemListLink 
+  onclick="this.blur();WarpClass('itemListLink', 'itemListLin_con');return false;" 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.aspx#">更多链接</A> 
+  </LI></UL>
+<DIV id=itemListLin_con style="DISPLAY: none">
+<UL>
+  <LI><A id=SingleColumn1_ctl02_repeaterLinks_ctl01_lnkLinkItem title=我发表过评论的随笔 
+  href="http://www.cnblogs.com/sunsonbaby/OtherPosts.html">我的参与</A> 
+  <LI><A id=SingleColumn1_ctl02_repeaterLinks_ctl02_lnkLinkItem 
+  href="http://www.cnblogs.com/sunsonbaby/MyNews.html">我的新闻</A> 
+  <LI><A id=SingleColumn1_ctl02_repeaterLinks_ctl03_lnkLinkItem 
+  href="http://www.cnblogs.com/sunsonbaby/RecentComments.html">最新评论</A> 
+  <LI><A id=SingleColumn1_ctl02_repeaterLinks_ctl04_lnkLinkItem 
+  href="http://www.cnblogs.com/sunsonbaby/tag/">我的标签</A> </LI></UL></DIV>
+<H3>留言簿<SPAN style="FONT-WEIGHT: normal; FONT-SIZE: 11px">(55)</SPAN></H3>
+<UL>
+  <LI><A id=SingleColumn1_ctl03_lnkMessages 
+  href="http://www.cnblogs.com/sunsonbaby/Contact.aspx?id=1">给我留言</A> <!--<li><a id="SingleColumn1_ctl03_lnkPublicMsgView" href="http://www.cnblogs.com/sunsonbaby/default.aspx?opt=msg">查看公开留言</a></li>-->
+  <LI><A id=SingleColumn1_ctl03_lnkPrivateMsgView 
+  href="http://www.cnblogs.com/sunsonbaby/admin/MyMessages.aspx">查看留言</A> 
+</LI></UL></ASP:PANEL>
+<H3>随笔分类</H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/8650.html">ASP.Net(4)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_RssLink 
+  title="Subscribe to ASP.Net(4)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/8650.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/17666.html">Design 
+  Pattern(4)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_RssLink 
+  title="Subscribe to Design Pattern(4)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/17666.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/8651.html">English(10)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_RssLink 
+  title="Subscribe to English(10)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/8651.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/14682.html">ERP(5)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_RssLink 
+  title="Subscribe to ERP(5)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/14682.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/8664.html">Favourite(4)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_RssLink 
+  title="Subscribe to Favourite(4)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/8664.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/15404.html">FOP(7)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_RssLink 
+  title="Subscribe to FOP(7)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/15404.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl07_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/8662.html">FreeBSD(26)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl07_RssLink 
+  title="Subscribe to FreeBSD(26)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/8662.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl08_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/8813.html">Hibernate(162)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl08_RssLink 
+  title="Subscribe to Hibernate(162)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/8813.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl09_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/8647.html">J2EE(414)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl09_RssLink 
+  title="Subscribe to J2EE(414)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/8647.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl10_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/10120.html">Jive(180)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl10_RssLink 
+  title="Subscribe to Jive(180)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/10120.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl11_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/14629.html">Jobs(1)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl11_RssLink 
+  title="Subscribe to Jobs(1)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/14629.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl12_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/8648.html">MySQL(8)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl12_RssLink 
+  title="Subscribe to MySQL(8)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/8648.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl13_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/8649.html">Oracle(175)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl13_RssLink 
+  title="Subscribe to Oracle(175)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/8649.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl14_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/8652.html">Others(436)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl14_RssLink 
+  title="Subscribe to Others(436)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/8652.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl15_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/23961.html">Portal</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl15_RssLink 
+  title="Subscribe to Portal" 
+  href="http://www.cnblogs.com/sunsonbaby/category/23961.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl16_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/9004.html">Script(80)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl16_RssLink 
+  title="Subscribe to Script(80)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/9004.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl17_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/8812.html">Spring(233)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl17_RssLink 
+  title="Subscribe to Spring(233)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/8812.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl18_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/8826.html">Velocity(15)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl18_RssLink 
+  title="Subscribe to Velocity(15)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/8826.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl19_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/9802.html">XML(139)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl19_RssLink 
+  title="Subscribe to XML(139)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/9802.html/rss">(rss)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl20_Link 
+  href="http://www.cnblogs.com/sunsonbaby/category/14164.html">理论研究(16)</A><A 
+  id=SingleColumn1_Categories_CatList_ctl00_LinkList_ctl20_RssLink 
+  title="Subscribe to 理论研究(16)" 
+  href="http://www.cnblogs.com/sunsonbaby/category/14164.html/rss">(rss)</A> 
+  </LI></UL>
+<H3>随笔档案</H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_Link 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2005/05.html">2005年5月 (1)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl02_Link 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2005/02.html">2005年2月 (18)</A> 
+
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl03_Link 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2005/01.html">2005年1月 (88)</A> 
+
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl04_Link 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/12.html">2004年12月 
+  (102)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl05_Link 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/11.html">2004年11月 
+  (161)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl06_Link 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/10.html">2004年10月 
+  (94)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl07_Link 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/09.html">2004年9月 
+  (103)</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl01_LinkList_ctl08_Link 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/08.html">2004年8月 (69)</A> 
+  </LI></UL>
+<H3>博友</H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl01_Link 
+  href="http://blog.csdn.net/ltf_ty" target=_blank>appuse翻译者</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl02_Link 
+  href="http://bluedavy.blogdriver.com/bluedavy/catalog_2004.html#category1" 
+  target=_blank>bluedavy</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl03_Link 
+  href="http://blog.csdn.net/chenyun2000/category/60121.aspx" 
+  target=_blank>chenyun2000</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl04_Link 
+  href="http://www.compiere-china.com/compiere/whatitdoes.htm" 
+  target=_blank>Comiere ERP</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl05_Link 
+  href="http://dev.csdn.net/user/legendinfo" target=_blank>CSDN legendinfo</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl06_Link 
+  href="http://www.dingl.com/" target=_blank>dingl</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl07_Link 
+  href="http://www.javayou.com/main.jspe" target=_blank>JavaYou</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl08_Link 
+  href="http://msdnportal.csdn.net/dotnetsamples/default.html" 
+  target=_blank>msdn sample</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl09_Link 
+  href="http://blog.itpub.net/sdujerome" target=_blank>sdujerome</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl10_Link 
+  href="http://jroller.com/page/raible" target=_blank>Spring Live</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl11_Link 
+  href="http://ckny.eatj.com/wiki/jsp/Wiki?Spring" target=_blank>Spring Wiki</A> 
+
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl12_Link 
+  href="http://bbs.rjsm.net/lofi.php?f86.html" target=_blank>WAP_Blog</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl13_Link 
+  href="http://www.oasis-open.org/cover/" target=_blank>xml-ISOents</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl14_Link 
+  href="http://www.blogbus.com/blogbus/blog/index.php?blogid=8011" 
+  target=_blank>寸心知 </A>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl02_LinkList_ctl15_Link 
+  href="http://www.cnblogs.com/tintown/archive/2004/12/14/77174.html" 
+  target=_blank>听堂</A> </LI></UL>
+<H3>友情链接</H3>
+<UL>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl01_Link 
+  href="http://www.anysql.net/" target=_blank>AnySQL</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl02_Link 
+  href="http://www.bindows.net/" target=_blank>bindows</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl03_Link 
+  href="http://www.chinaxp.org/forum/forum.jsp" target=_blank>ChinaXP</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl04_Link 
+  href="http://dev.csdn.net/user/chensheng913" 
+  target=_blank>CSDNchensheng913</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl05_Link 
+  href="http://www.exslt.org/" target=_blank>exslt</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl06_Link 
+  href="http://www.google.com/options/index.html" target=_blank>Google</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl07_Link 
+  href="http://skew.org/" target=_blank>http://skew.org/</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl08_Link 
+  href="http://www.lowagie.com/iText/tutorial/" target=_blank>iTextTutorial</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl09_Link 
+  href="http://www.ewuxi.com/" target=_blank>IT人家</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl10_Link 
+  href="http://java-source.net/" target=_blank>Java Source</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl11_Link 
+  href="http://javaalmanac.com/egs/index.html" target=_blank>JavaExamples</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl12_Link 
+  href="http://www.jcp.org/en/jsr/detail?id=114" target=_blank>JCP</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl13_Link 
+  href="http://www.jdon.com/" target=_blank>J道</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl14_Link 
+  href="http://www.lucas-lee.com/" target=_blank>Lucas Lee Soft </A>
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl15_Link 
+  href="http://www.matrix.org.cn/subjects/" target=_blank>Matrix</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl16_Link 
+  href="http://www.ofbiz.org/" target=_blank>ofbiz</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl17_Link 
+  href="http://www.oracle.com/technology/global/cn/sample_code/index.html" 
+  target=_blank>Oracle Codes</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl18_Link 
+  href="http://www.oracle.com/technology/global/cn/tech/index.html" 
+  target=_blank>oracle技术中心</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl19_Link 
+  href="http://www.oradb.net/" target=_blank>oradb</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl20_Link 
+  href="http://moxie.blogdriver.com/moxie/index.html" target=_blank>product</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl21_Link 
+  href="http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuse" 
+  target=_blank>Raible的wiki</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl22_Link 
+  href="http://www.matrix.org.cn/blog/skyhit/" target=_blank>Skyhit's Learning 
+  Road</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl23_Link 
+  href="http://gro.clinux.org/snippet/" target=_blank>Snippets</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl24_Link 
+  href="http://jroller.com/page/raible" target=_blank>SourceBeat</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl25_Link 
+  href="http://www.theserverside.com/articles/article.tss?l=SpringFramework" 
+  target=_blank>TheServerSide</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl26_Link 
+  href="http://www.topxml.com/" target=_blank>topxml</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl27_Link 
+  href="http://www.cnblogs.com/mack/" target=_blank>WebControl</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl28_Link 
+  href="http://dev2dev.bea.com.cn/download/school/workshop/WorkshopCNHelp/doc/zh/core/index.html" 
+  target=_blank>weblogic help</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl29_Link 
+  href="http://dev2dev.bea.com/technologies/xmlbeans/index.jsp" 
+  target=_blank>xmlbeans</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl30_Link 
+  href="http://www.xmlpitstop.com/" target=_blank>xmlpitstop</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl31_Link 
+  href="http://www.zvon.org/xxl/XPathTutorial/General/examples.html" 
+  target=_blank>XPathTutorial</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl32_Link 
+  href="http://blog.csdn.net/laily" target=_blank>阿赖的个性空间</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl33_Link 
+  href="http://www.cnblogs.com/dotey/" target=_blank>宝玉的web控件</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl34_Link 
+  href="http://www.opensymphony.com/" target=_blank>不错的开源项目</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl35_Link 
+  href="http://blog.csdn.net/javamxj/" target=_blank>分享Java快乐</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl36_Link 
+  href="http://hxd.blogdriver.com/hxd/" target=_blank>青鸟的一个陌生人</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl37_Link 
+  href="http://www.yourblog.org/Blogger/20044/CKXP_10308.html" 
+  target=_blank>思维导图</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl38_Link 
+  href="http://www.laoer.com/" target=_blank>天乙社区</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl39_Link 
+  href="http://zh.wikipedia.org/wiki" target=_blank>维基百科</A> 
+  <LI><A id=SingleColumn1_Categories_CatList_ctl03_LinkList_ctl40_Link 
+  href="http://www.matrix.org.cn/blog/javen/" target=_blank>一亩三分地</A> </LI></UL>
+<H3>阅读排行榜</H3>
+<DIV class=RecentComment id=TopViewPosts>
+<UL style="WORD-BREAK: break-all">
+  <LI><A id=SingleColumn1__3dd3f34_TopList_ctl01_Hyperlink1 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/10/15/52635.html">1.&nbsp;Eclipse基础－－安装eclipse及语言包(46780)</A> 
+
+  <LI><A id=SingleColumn1__3dd3f34_TopList_ctl02_Hyperlink1 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/08/26/36680.html">2.&nbsp;vi使用手册(zt)(34102)</A> 
+
+  <LI><A id=SingleColumn1__3dd3f34_TopList_ctl03_Hyperlink1 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.html">3.&nbsp;Oracle 
+  分析函数的使用(24911)</A> 
+  <LI><A id=SingleColumn1__3dd3f34_TopList_ctl04_Hyperlink1 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/10/15/52633.html">4.&nbsp;Eclipse基础－－java环境变量设置 
+  (19146)</A> 
+  <LI><A id=SingleColumn1__3dd3f34_TopList_ctl05_Hyperlink1 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/08/26/36677.html">5.&nbsp; 
+  Linux/Unix环境下的make和makefile详解(15312)</A> </LI></UL></DIV>
+<H3>评论排行榜</H3>
+<DIV class=RecentComment id=TopCommentsPosts>
+<UL style="WORD-BREAK: break-all">
+  <LI><A id=SingleColumn1__2d1e885_TopList_ctl01_Hyperlink1 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/09/29/47876.html">1.&nbsp;Oracle 
+  分析函数的使用(32)</A> 
+  <LI><A id=SingleColumn1__2d1e885_TopList_ctl02_Hyperlink1 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/10/15/52635.html">2.&nbsp;Eclipse基础－－安装eclipse及语言包(32)</A> 
+
+  <LI><A id=SingleColumn1__2d1e885_TopList_ctl03_Hyperlink1 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/11/29/70419.html">3.&nbsp;计算机专业本科毕业设计学生档案管理系统的开发(23)</A> 
+
+  <LI><A id=SingleColumn1__2d1e885_TopList_ctl04_Hyperlink1 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/08/26/36677.html">4.&nbsp; 
+  Linux/Unix环境下的make和makefile详解(19)</A> 
+  <LI><A id=SingleColumn1__2d1e885_TopList_ctl05_Hyperlink1 
+  href="http://www.cnblogs.com/sunsonbaby/archive/2004/11/29/70718.html">5.&nbsp;原创 
+  Ofbiz 入门教程(13)</A> </LI></UL></DIV></DIV>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var Page_ValidationSummaries =  new Array(document.getElementById("AjaxHolder_PostComment_ValidationSummary1"));
+var Page_Validators =  new Array(document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2"), document.getElementById("AjaxHolder_PostComment_revContactMail"), document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3"));
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+var AjaxHolder_PostComment_RequiredFieldValidator1 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator1"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1");
+AjaxHolder_PostComment_RequiredFieldValidator1.controltovalidate = "AjaxHolder_PostComment_tbTitle";
+AjaxHolder_PostComment_RequiredFieldValidator1.errormessage = "请输入标题";
+AjaxHolder_PostComment_RequiredFieldValidator1.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator1.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator2 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator2"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2");
+AjaxHolder_PostComment_RequiredFieldValidator2.controltovalidate = "AjaxHolder_PostComment_tbName";
+AjaxHolder_PostComment_RequiredFieldValidator2.errormessage = "请输入你的姓名";
+AjaxHolder_PostComment_RequiredFieldValidator2.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator2.initialvalue = "";
+var AjaxHolder_PostComment_revContactMail = document.all ? document.all["AjaxHolder_PostComment_revContactMail"] : document.getElementById("AjaxHolder_PostComment_revContactMail");
+AjaxHolder_PostComment_revContactMail.controltovalidate = "AjaxHolder_PostComment_tbEmail";
+AjaxHolder_PostComment_revContactMail.errormessage = "邮件地址无效";
+AjaxHolder_PostComment_revContactMail.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+AjaxHolder_PostComment_revContactMail.validationexpression = "^([0-9a-zA-Z+-._]([+-._\\w]*[0-9a-zA-Z+-._])*@([0-9a-zA-Z][-\\w]*\\.)+[a-zA-Z]{2,9})$";
+var AjaxHolder_PostComment_Requiredfieldvalidator4 = document.all ? document.all["AjaxHolder_PostComment_Requiredfieldvalidator4"] : document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4");
+AjaxHolder_PostComment_Requiredfieldvalidator4.controltovalidate = "AjaxHolder_PostComment_CodeNumberTextBox";
+AjaxHolder_PostComment_Requiredfieldvalidator4.errormessage = "请输入验证码";
+AjaxHolder_PostComment_Requiredfieldvalidator4.display = "Dynamic";
+AjaxHolder_PostComment_Requiredfieldvalidator4.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_Requiredfieldvalidator4.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator3 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator3"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3");
+AjaxHolder_PostComment_RequiredFieldValidator3.controltovalidate = "AjaxHolder_PostComment_tbComment";
+AjaxHolder_PostComment_RequiredFieldValidator3.errormessage = "请输入评论内容";
+AjaxHolder_PostComment_RequiredFieldValidator3.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator3.initialvalue = "";
+var AjaxHolder_PostComment_ValidationSummary1 = document.all ? document.all["AjaxHolder_PostComment_ValidationSummary1"] : document.getElementById("AjaxHolder_PostComment_ValidationSummary1");
+AjaxHolder_PostComment_ValidationSummary1.showmessagebox = "True";
+AjaxHolder_PostComment_ValidationSummary1.showsummary = "False";
+//]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//<![CDATA[
+
+document.getElementById('AjaxHolder_PostComment_ValidationSummary1').dispose = function() {
+    Array.remove(Page_ValidationSummaries, document.getElementById('AjaxHolder_PostComment_ValidationSummary1'));
+}
+Sys.Application.initialize();
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2'));
+}
+
+document.getElementById('AjaxHolder_PostComment_revContactMail').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_revContactMail'));
+}
+
+document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3'));
+}
+//]]>
+</SCRIPT>
+</FORM>
+<SCRIPT src="Oracle 分析函数的使用 - 飞茂 - 博客园.files/ShowHidden.js" 
+type=text/javascript></SCRIPT>
+</BODY></HTML>

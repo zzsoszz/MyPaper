@@ -1,0 +1,29 @@
+create table buliao
+(
+id number,
+ruler varchar(50),
+daytime date
+)
+
+create or replace procedure generateDate(starttime in  varchar,endtime in varchar) as
+daycount number;
+begin
+    delete from buliao;
+    select (ROUND(TO_NUMBER(to_date(endtime,'yyyy-mm-dd') - to_date(starttime,'yyyy-mm-dd')))+1) into daycount from dual;
+    for   i   in   1..daycount   loop 
+       -- select   dbms_random.value(0,6)   into   var_ruler   from   dual; 
+        insert   into   buliao(id,ruler,daytime)   values(i,daycount,to_date(starttime,'yyyy-mm-dd')-1+i); 
+    end   loop; 
+    commit; 
+end generateDate;
+
+
+SQL´°¿Ú: 
+call   procedure_name(parameter); 
+begin   procedure_name(parameter);   end; 
+
+COMMAND´°¿Ú: 
+exec   procedure_name(parameter); 
+execute   procedure_name(parameter); 
+call   procedure_name(parameter); 
+begin   procedure_name(parameter);   end;

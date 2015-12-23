@@ -1,0 +1,55 @@
+在SQL 查询分析器中如何将图片插入记录中？ 
+Posted on 2007-03-13 16:56 天地狂虫 阅读(87) 评论(0)  编辑 收藏 所属分类: 02. WIN32 系统编程  
+用image类型
+
+方法：
+1、建立过程
+CREATE PROCEDURE sp_textcopy ( 
+  @srvname    varchar (30), 
+  @login      varchar (30), 
+  @password    varchar (30), 
+  @dbname      varchar (30), 
+  @tbname      varchar (30), 
+  @colname    varchar (30), 
+  @filename    varchar (30), 
+  @whereclause varchar (40), 
+  @direction  char(1)) 
+AS 
+DECLARE @exec_str varchar (255) 
+SELECT @exec_str = 
+        'textcopy /S ' + @srvname + 
+        ' /U ' + @login + 
+        ' /P ' + @password + 
+        ' /D ' + @dbname + 
+        ' /T ' + @tbname + 
+        ' /C ' + @colname + 
+        ' /W " ' + @whereclause + 
+        ' " /F ' + @filename + 
+        ' /' + @direction 
+EXEC master..xp_cmdshell @exec_str  
+
+2、建表和初始化数据
+create table 表名 (编号 int,image列名 image)
+go
+insert 表名 values(1,0x)    -- 必须的，且不是null
+insert 表名 values(2,0x)    -- 必须的，且不是null
+go
+
+3、读入
+sp_textcopy '你的服务器名','sa','你的密码','库名','表名','image列名','c:\图片.bmp','where 编号=1','I' --注意条件是 编号=1
+
+sp_textcopy '你的服务器名','sa','你的密码','库名','表名','image列名','c:\bb.doc','where 编号=2','I' --注意条件是 编号=2
+
+go
+
+4、读出成文件
+sp_textcopy '你的服务器名','sa','你的密码','库名','表名','image列名','c:\图片.bmp','where 编号=1','O' --注意条件是 编号=1
+
+sp_textcopy '你的服务器名','sa','你的密码','库名','表名','image列名','c:\bb.doc','where 编号=2','O' --注意条件是 编号=2
+go
+
+如果报textcopy不是可执行文件的话，你就到
+C:\Program Files\Microsoft SQL Server\MSSQL\Binn
+目录下拷备 textcopy.exe到：
+C:\Program Files\Microsoft SQL Server\80\Tools\Binn
+

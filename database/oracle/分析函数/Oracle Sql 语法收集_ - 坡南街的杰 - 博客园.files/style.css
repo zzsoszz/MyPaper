@@ -1,0 +1,288 @@
+BODY {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 20px; FONT-SIZE: 13px; PADDING-TOP: 10px; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #d9d6cb
+}
+TABLE {
+	
+}
+IMG {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px
+}
+TD {
+	FONT-SIZE: 0.7em
+}
+A {
+	COLOR: #223355; TEXT-DECORATION: none
+}
+.postbody A {
+	COLOR: #1d58d1
+}
+A:hover {
+	TEXT-DECORATION: underline
+}
+H1 {
+	FONT-SIZE: 1.8em; MARGIN: 0px; PADDING-TOP: 5px
+}
+H2 A {
+	COLOR: #223355
+}
+.postfoot A {
+	COLOR: #223355
+}
+H1 A:visited {
+	MARGIN-TOP: 10px; COLOR: #fff; TEXT-DECORATION: none
+}
+H1 A:active {
+	MARGIN-TOP: 10px; COLOR: #fff; TEXT-DECORATION: none
+}
+H1 A:link {
+	MARGIN-TOP: 10px; COLOR: #fff; TEXT-DECORATION: none
+}
+H1 A:hover {
+	MARGIN-TOP: 10px; COLOR: #fff; TEXT-DECORATION: none
+}
+H2 {
+	MARGIN-TOP: 10px; FONT-SIZE: 1em
+}
+H5 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+#top {
+	BACKGROUND-POSITION: right 50%; BACKGROUND-IMAGE: url(Images/HeaderBg.jpg); VERTICAL-ALIGN: middle; HEIGHT: 90px; BACKGROUND-COLOR: #20375f
+}
+#top TD {
+	FILTER: shadow(color=#333333,direction=120,enabled=1,strength=5) glow(color=#2B446F,enabled=1,strength=1); COLOR: white; TEXT-ALIGN: left
+}
+#top H1 {
+	FONT-WEIGHT: normal
+}
+#sub {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; FONT-SIZE: 12px; BACKGROUND-IMAGE: url(images/SubHeaderBg.gif); PADDING-BOTTOM: 4px; COLOR: #cccccc; PADDING-TOP: 4px; BACKGROUND-COLOR: black
+}
+#sub-right {
+	FLOAT: right
+}
+#sub A:active {
+	COLOR: white; TEXT-DECORATION: none
+}
+#sub A:visited {
+	COLOR: white; TEXT-DECORATION: none
+}
+#sub A:link {
+	COLOR: white; TEXT-DECORATION: none
+}
+#sub A:hover {
+	TEXT-DECORATION: underline
+}
+.headermaintitle {
+	FONT-FAMILY: "Trebuchet MS"
+}
+#tagline {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; FONT-SIZE: 1em; PADDING-BOTTOM: 5px; MARGIN: 0px; COLOR: #ffffff; PADDING-TOP: 5px; BACKGROUND-COLOR: #0000ff
+}
+P.date IMG {
+	VERTICAL-ALIGN: middle
+}
+P.date {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 1em; MARGIN-BOTTOM: 0px; PADDING-BOTTOM: 2px; COLOR: #aaaaaa; PADDING-TOP: 2px; TEXT-ALIGN: right
+}
+P.date SPAN {
+	BACKGROUND-COLOR: #fff
+}
+P.date A {
+	COLOR: #888888
+}
+BLOCKQUOTE {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; MARGIN: 0px; PADDING-TOP: 4px; FONT-STYLE: italic
+}
+#leftmenu {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; LEFT: 0px; PADDING-BOTTOM: 5px; WIDTH: 200px; PADDING-TOP: 0px
+}
+#leftmenu H3 {
+	PADDING-RIGHT: 5px; BACKGROUND-POSITION: 50% bottom; PADDING-LEFT: 5px; FONT-SIZE: 1em; BACKGROUND-IMAGE: url(images/ColumnHeaderBg.gif); PADDING-BOTTOM: 5px; MARGIN: 0px; COLOR: #666666; PADDING-TOP: 5px; BACKGROUND-REPEAT: repeat-x; BACKGROUND-COLOR: #eeeeee
+}
+#leftmenu UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 10px 8px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+#leftmenu LI {
+	MARGIN-TOP: 6px
+}
+#leftmenu A:active {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; COLOR: #000; MARGIN-RIGHT: 0px; PADDING-TOP: 2px; TEXT-DECORATION: none
+}
+#leftmenu A:visited {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; COLOR: #000; MARGIN-RIGHT: 0px; PADDING-TOP: 2px; TEXT-DECORATION: none
+}
+#leftmenu A:link {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; COLOR: #000; MARGIN-RIGHT: 0px; PADDING-TOP: 2px; TEXT-DECORATION: none
+}
+#leftmenu A:hover {
+	COLOR: #1d58d1; TEXT-DECORATION: underline
+}
+#main {
+	MARGIN-LEFT: 5px
+}
+#footer {
+	FONT-SIZE: 0.7em; MARGIN: 0px; PADDING-TOP: 5px; TEXT-ALIGN: center
+}
+INPUT.text {
+	WIDTH: 300px
+}
+TEXTAREA {
+	WIDTH: 300px; HEIGHT: 200px
+}
+#comments H4 SPAN {
+	COLOR: #999
+}
+#comments H4 {
+	FONT-SIZE: 0.9em; MARGIN: 0px
+}
+P {
+	MARGIN: 0px 0px 14px
+}
+H3 {
+	FONT-SIZE: 1.2em
+}
+#relatedlinks UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN-LEFT: 10px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+.post {
+	BORDER-RIGHT: #cccccc 2px solid; PADDING-RIGHT: 0px; BORDER-TOP: #cccccc 1px solid; PADDING-LEFT: 0px; MARGIN-BOTTOM: 28px; PADDING-BOTTOM: 0px; BORDER-LEFT: #cccccc 1px solid; PADDING-TOP: 0px; BORDER-BOTTOM: #cccccc 2px solid
+}
+.posthead {
+	PADDING-RIGHT: 4px; BACKGROUND-POSITION: 5px center; PADDING-LEFT: 25px; FONT-SIZE: 13px; BACKGROUND-IMAGE: url(images/icon-titledoc.gif); PADDING-BOTTOM: 4px; COLOR: #444444; PADDING-TOP: 4px; BORDER-BOTTOM: #cccccc 1px solid; BACKGROUND-REPEAT: no-repeat; BACKGROUND-COLOR: #eeeeee
+}
+.postbody {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; MARGIN-BOTTOM: 14px; PADDING-BOTTOM: 4px; LINE-HEIGHT: 150%; PADDING-TOP: 4px
+}
+.posthead H2 {
+	FONT-SIZE: 12px; MARGIN: 0px
+}
+.post H5 {
+	FONT-SIZE: 14px; MARGIN: 0px 0px 4px
+}
+.postfoot {
+	PADDING-RIGHT: 4px; BORDER-TOP: #dddddd 1px solid; PADDING-LEFT: 4px; FONT-SIZE: 11px; PADDING-BOTTOM: 4px; MARGIN: 0px; COLOR: #aaaaaa; PADDING-TOP: 4px
+}
+PRE {
+	FONT-SIZE: 1em; MARGIN: 0px 0px 0px 22px
+}
+.Textbox {
+	BORDER-RIGHT: #aaaaaa 1px solid; BORDER-TOP: #aaaaaa 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #aaaaaa 1px solid; WIDTH: 160px; BORDER-BOTTOM: #aaaaaa 1px solid
+}
+TEXTAREA {
+	BORDER-RIGHT: #aaaaaa 1px solid; BORDER-TOP: #aaaaaa 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #aaaaaa 1px solid; WIDTH: 160px; BORDER-BOTTOM: #aaaaaa 1px solid
+}
+.button {
+	BORDER-RIGHT: #aaaaaa 1px solid; BORDER-TOP: #aaaaaa 1px solid; BORDER-LEFT: #aaaaaa 1px solid; BORDER-BOTTOM: #aaaaaa 1px solid; BACKGROUND-COLOR: #ccd4e0
+}
+INPUT {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana, Geneva, Arial, Sans-Serif
+}
+TEXTAREA {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana, Geneva, Arial, Sans-Serif
+}
+.Framework {
+	BORDER-RIGHT: black 1px solid; BORDER-TOP: black 1px solid; BORDER-LEFT: black 1px solid; BORDER-BOTTOM: black 1px solid; BACKGROUND-COLOR: white
+}
+.MainCell {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-SIZE: 0.8em; PADDING-BOTTOM: 10px; VERTICAL-ALIGN: top; PADDING-TOP: 10px; BACKGROUND-COLOR: white
+}
+.LeftCell {
+	VERTICAL-ALIGN: top; WIDTH: 200px
+}
+.FooterCell {
+	VERTICAL-ALIGN: top; HEIGHT: 30px
+}
+.SectionHead {
+	TEXT-ALIGN: right
+}
+.HeaderBar {
+	FONT-WEIGHT: normal; FONT-SIZE: 0.75em; BACKGROUND-IMAGE: url(images/BlueTabBack.gif); BACKGROUND-REPEAT: repeat-x; BORDER-COLLAPSE: collapse
+}
+.HeaderBarTabWindow {
+	BACKGROUND-IMAGE: url(images/BlueTabRight.gif); BACKGROUND-REPEAT: no-repeat
+}
+.HeaderBar A:visited {
+	FONT-WEIGHT: normal; COLOR: whitesmoke; TEXT-DECORATION: none
+}
+.HeaderBar A:active {
+	FONT-WEIGHT: normal; COLOR: whitesmoke; TEXT-DECORATION: none
+}
+.HeaderBar A:link {
+	FONT-WEIGHT: normal; COLOR: whitesmoke; TEXT-DECORATION: none
+}
+.HeaderBarTab {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND-IMAGE: url(images/BlueTabFace.gif); PADDING-BOTTOM: 0px; PADDING-TOP: 0px; BACKGROUND-REPEAT: repeat-x; BORDER-COLLAPSE: collapse
+}
+#rightmenu {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; LEFT: 0px; PADDING-BOTTOM: 5px; WIDTH: 180px; PADDING-TOP: 0px
+}
+#rightmenu H3 {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; FONT-SIZE: 1em; BACKGROUND-IMAGE: url(images/ColumnHeaderBg.gif); PADDING-BOTTOM: 4px; MARGIN: 0px; COLOR: #666666; PADDING-TOP: 4px; BACKGROUND-REPEAT: repeat-x
+}
+#rightmenu UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 10px 8px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+#rightmenu LI {
+	MARGIN-TOP: 6px
+}
+#rightmenu A:active {
+	BORDER-RIGHT: #aaaaaa 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #aaaaaa 1px solid; DISPLAY: block; PADDING-LEFT: 2px; FONT-WEIGHT: bold; PADDING-BOTTOM: 2px; BORDER-LEFT: #aaaaaa 1px solid; MARGIN-RIGHT: 0px; PADDING-TOP: 2px; BORDER-BOTTOM: #aaaaaa 1px solid; TEXT-DECORATION: none
+}
+#rightmenu A:visited {
+	BORDER-RIGHT: #aaaaaa 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #aaaaaa 1px solid; DISPLAY: block; PADDING-LEFT: 2px; FONT-WEIGHT: bold; PADDING-BOTTOM: 2px; BORDER-LEFT: #aaaaaa 1px solid; MARGIN-RIGHT: 0px; PADDING-TOP: 2px; BORDER-BOTTOM: #aaaaaa 1px solid; TEXT-DECORATION: none
+}
+#rightmenu A:link {
+	BORDER-RIGHT: #aaaaaa 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #aaaaaa 1px solid; DISPLAY: block; PADDING-LEFT: 2px; FONT-WEIGHT: bold; PADDING-BOTTOM: 2px; BORDER-LEFT: #aaaaaa 1px solid; MARGIN-RIGHT: 0px; PADDING-TOP: 2px; BORDER-BOTTOM: #aaaaaa 1px solid; TEXT-DECORATION: none
+}
+#rightmenu A:hover {
+	COLOR: #1d58d1; BACKGROUND-COLOR: white; TEXT-DECORATION: underline
+}
+.quote {
+	BORDER-RIGHT: #aaaaaa 1px dashed; BORDER-TOP: #aaaaaa 1px dashed; PADDING-LEFT: 10px; MARGIN: 0px 15px 10px 35px; BORDER-LEFT: #aaaaaa 10px solid; COLOR: black; BORDER-BOTTOM: #aaaaaa 1px dashed; BACKGROUND-COLOR: whitesmoke
+}
+#cell {
+	BORDER-RIGHT: #dddddd 1px solid; BORDER-TOP: #dddddd 1px solid; PADDING-BOTTOM: 5px; MARGIN: 20px 10px 10px; BORDER-LEFT: #dddddd 1px solid; BORDER-BOTTOM: #dddddd 1px solid
+}
+.file {
+	PADDING-LEFT: 20px; BACKGROUND: url(images/icon-edit.gif) no-repeat left top
+}
+.download {
+	PADDING-LEFT: 20px; BACKGROUND: url(images/icon-download.gif) no-repeat left top
+}
+.zip {
+	PADDING-LEFT: 20px; BACKGROUND: url(images/icon-zip.gif) no-repeat left top
+}
+.tip {
+	PADDING-LEFT: 20px; BACKGROUND: url(images/icon-tip.gif) no-repeat left top
+}
+.question {
+	PADDING-LEFT: 20px; BACKGROUND: url(images/icon-question.gif) no-repeat left top
+}
+.link {
+	PADDING-LEFT: 20px; BACKGROUND: url(images/icon-link.gif) no-repeat left top
+}
+.blog {
+	PADDING-LEFT: 20px; BACKGROUND: url(images/icon-blog.gif) no-repeat left top
+}
+.DayHeader {
+	MARGIN-TOP: 0px; FONT-SIZE: 1em; BACKGROUND-IMAGE: url(images/ColumnHeaderBg.gif); MARGIN-BOTTOM: 0px; PADDING-BOTTOM: 0px; COLOR: #666666; PADDING-TOP: 0px; BACKGROUND-REPEAT: repeat-x; HEIGHT: 30px; BACKGROUND-COLOR: #eeeeee
+}
+#Cal {
+	BORDER-RIGHT: #dddddd 1px solid; BORDER-TOP: #dddddd 1px solid; PADDING-BOTTOM: 0px; MARGIN: 20px 10px 10px; BORDER-LEFT: #dddddd 1px solid; BORDER-BOTTOM: #dddddd 1px solid
+}
+.border {
+	BORDER-RIGHT: #009900 1px dashed; BORDER-TOP: #009900 1px dashed; BORDER-LEFT: #009900 1px dashed; BORDER-BOTTOM: #009900 1px dashed
+}
+.RecentComment {
+	WIDTH: 180px
+}
+#news {
+	PADDING-LEFT: 5px; FONT-SIZE: 13px
+}
+.div_my_zzk {
+	TEXT-ALIGN: center
+}
+.input_my_zzk {
+	WIDTH: 100px
+}

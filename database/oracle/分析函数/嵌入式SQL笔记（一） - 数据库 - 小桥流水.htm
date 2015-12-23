@@ -1,0 +1,627 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0054)http://blog.chinaunix.net/u2/68268/showart_673590.html -->
+<HTML XMLNS:O XMLNS:V><HEAD><TITLE>嵌入式SQL笔记（一） - 数据库 - 小桥流水</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gbk"><LINK 
+href="嵌入式SQL笔记（一） - 数据库 - 小桥流水.files/index.css" rel=stylesheet></LINK><LINK 
+title="ChinaUnix Blog RSS Feed" 
+href="http://blog.chinaunix.net/u/rss.php?id=68268" type=application/rss+xml 
+rel=alternate></LINK>
+<META content="嵌入式SQL笔记（一） - 数据库 - 小桥流水" name=keywords>
+<META content="中国最大的IT技术博客-ChinaUnix博客：嵌入式SQL笔记（一） - 数据库 - 小桥流水" 
+name=description>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY style="BACKGROUND: #ffffff" leftMargin=0 topMargin=0 align="center" 
+marginheight="0" marginwidth="0">
+<TABLE style="BORDER-COLLAPSE: collapse; HEIGHT: 25px" height=25 cellSpacing=0 
+cellPadding=0 width="100%" align=center 
+background="嵌入式SQL笔记（一） - 数据库 - 小桥流水.files/tophem1.gif" border=0>
+  <TBODY>
+  <TR>
+    <TD id=tool-bar noWrap align=left>&nbsp; <A 
+      href="http://blog.chinaunix.net/" target=_blank>博客首页</A> <A 
+      href="http://blog.chinaunix.net/register.php" target=_blank>注册</A> <A 
+      href="http://bbs.chinaunix.net/forumdisplay.php?fid=51" 
+      target=_blank>建议与交流</A> <A href="http://blog.chinaunix.net/top/" 
+      target=_blank>排行榜</A> <A 
+      onclick="NewWindows('http://www.cublog.cn/addlink.php?url='+location.href+'&amp;title='+document.title);return false;" 
+      href="http://blog.chinaunix.net/u2/68268/" target=_blank>加入友情链接</A> </TD>
+    <FORM id=loginForm action=/search.php method=get target=_blank>
+    <TD noWrap align=right><IMG id=starimg height=12 alt="" 
+      src="嵌入式SQL笔记（一） - 数据库 - 小桥流水.files/userstar.gif" width=55 border=0> <A 
+      id=star title=给此博客推荐值 onclick="NewWindows(this.href);return false;" 
+      href="http://blog.chinaunix.net/u2/star.php?blogid=68268">推荐</A> <A 
+      id=complaint title=投诉此博客 onclick="NewWindows(this.href);return false;" 
+      href="http://blog.chinaunix.net/u2/complaint.php?blogid=68268">投诉</A> 
+      搜索：<INPUT name=q> <INPUT class=button1 type=submit value=搜索> <A 
+      href="http://blog.chinaunix.net/help/">帮助</A></TD></FORM></TR></TBODY></TABLE>
+<SCRIPT language=javascript>
+<!--
+
+navHover = function() {
+var lis = document.getElementById("navmenu").getElementsByTagName("LI");
+for (var i=0; i<lis.length; i++) {
+lis[i].onmouseover=function() {
+this.className+=" iehover";
+}
+lis[i].onmouseout=function() {
+this.className=this.className.replace(new RegExp(" iehover\\b"), "");
+}
+}
+}
+
+function NewWindows(shref){
+var xx=(window.screen.width-450)/2;
+var yy=(window.screen.height-200)/2;
+pp=window.open(shref,"win","menubar=no,location=no,resizable=no,scrollbars=no,status=no,left="+xx+",top="+yy+",Width=450,Height=200");
+}
+function $(s){return document.getElementById(s);}
+//-->
+</SCRIPT>
+
+<TABLE 
+style="BACKGROUND-IMAGE: url(http://www.cublog.cn/templates/newgreen/images/bg_top.gif); BACKGROUND-REPEAT: no-repeat; BORDER-COLLAPSE: collapse" 
+height=143 cellSpacing=0 cellPadding=0 width="100%" align=center bgColor=#187218 
+border=0>
+  <TBODY>
+  <TR>
+    <TD width=360></TD>
+    <TD align=middle width=500>
+      <P style="MARGIN: 5px; LINE-HEIGHT: 150%"><FONT style="FONT-SIZE: 14pt" 
+      color=#ffffff><B>
+      <P style="MARGIN: 5px; LINE-HEIGHT: 150%"><FONT style="FONT-SIZE: 14px" 
+      color=#ffffff><B>小桥流水 </B></FONT></P></B></FONT>
+      <P></P></TD>
+    <TD width=360>千里之行，始于足下</TD></TR>
+  <TR>
+    <TD colSpan=3>
+      <TABLE style="BORDER-COLLAPSE: collapse" borderColor=#111111 cellSpacing=0 
+      cellPadding=0 width=980 border=0>
+        <TBODY>
+        <TR>
+          <TD></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<TABLE style="BORDER-COLLAPSE: collapse" height=27 cellSpacing=0 cellPadding=0 
+width="100%" align=center bgColor=#ffffff 
+background="嵌入式SQL笔记（一） - 数据库 - 小桥流水.files/bg_menu.gif" border=0>
+  <TBODY>
+  <TR>
+    <TD align=middle width=30><IMG height=29 alt="" 
+      src="嵌入式SQL笔记（一） - 数据库 - 小桥流水.files/img_menu_left.gif" width=26 
+    border=0></TD>
+    <TD width=200><A class=list1 href="http://redleaf.cublog.cn/" 
+      target=_blank>redleaf.cublog.cn</A> </TD>
+    <TD style="COLOR: #2a5200" align=right width=750>
+      <UL id=navmenu>
+        <LI class=ul0><A class=list1 href="http://control.cublog.cn/" 
+        target=_blank>管理博客</A> </LI>
+        <LI class=ul0><A class=list1 
+        href="http://control.cublog.cn/article_new.php" target=_blank>发表文章</A> 
+        </LI>
+        <LI class=ul0><A class=list1 
+        href="http://blog.chinaunix.net/u2/68268/guestbook.html">留言</A> </LI>
+        <LI class=ul0><A class=list1 
+        href="http://blog.chinaunix.net/u2/68268/links.html">收藏夹</A> 
+        <UL class=ul1>
+          <LI><A href="http://blog.chinaunix.net/u2/68268/links_15996.html">· 
+          朋友博客<!-- a15996 --></A><!-- 15996 --> 
+          <LI><A href="http://blog.chinaunix.net/u2/68268/links_15993.html">· 
+          高人博客<!-- a15993 --></A><!-- 15993 --> 
+          <LI><A href="http://blog.chinaunix.net/u2/68268/links_15994.html">· 
+          资料收集<!-- a15994 --></A><!-- 15994 --> 
+          <LI><A href="http://blog.chinaunix.net/u2/68268/links_15995.html">· 
+          玩的地方<!-- a15995 --></A><!-- 15995 --> </LI></UL></LI>
+        <LI class=ul0><A class=list1 
+        href="http://blog.chinaunix.net/u2/68268/group.html">博客圈</A> </LI>
+        <LI class=ul0><A class=list1 
+        href="http://blog.chinaunix.net/u2/68268/music.html">音乐</A> 
+        <!-- 0 --></LI>
+        <LI class=ul0><A class=list1 
+        href="http://blog.chinaunix.net/u2/68268/photo.html">相册</A> 
+        <!-- 0 --></LI>
+        <LI class=ul0><A class=list1 
+        href="http://blog.chinaunix.net/u2/68268/article.html">文章</A> 
+        <UL class=ul1>
+          <LI><A href="http://blog.chinaunix.net/u2/68268/article_85041.html">· 
+          UNIX&nbsp;&nbsp;&nbsp;<FONT face="Wingdings 3">}</FONT></A>
+          <UL class=ul2>
+            <LI><A 
+            href="http://blog.chinaunix.net/u2/68268/article_85050.html">· 数据库<!-- a85050 --></A><!-- 85050 --> </LI></UL>
+          <LI><A href="http://blog.chinaunix.net/u2/68268/article_85042.html">· 
+          C/C++<!-- a85042 --></A><!-- 85042 --> 
+          <LI><A href="http://blog.chinaunix.net/u2/68268/article_85044.html">· 
+          WINDOWS<!-- a85044 --></A><!-- 85044 --> 
+          <LI><A href="http://blog.chinaunix.net/u2/68268/article_85048.html">· 
+          基础<!-- a85048 --></A><!-- 85048 --> 
+          <LI><A href="http://blog.chinaunix.net/u2/68268/article_85051.html">· 
+          数据库<!-- a85051 --></A><!-- 85051 --> 
+          <LI><A href="http://blog.chinaunix.net/u2/68268/article_85043.html">· 
+          文档<!-- a85043 --></A><!-- 85043 --> 
+          <LI><A href="http://blog.chinaunix.net/u2/68268/article_85046.html">· 
+          桃花源<!-- a85046 --></A><!-- 85046 --> </LI></UL></LI>
+        <LI class=ul0><A class=list1 
+        href="http://blog.chinaunix.net/u2/68268/index.html">首页</A> </LI></UL></TD>
+    <TD width=10></TD></TR>
+  <TR>
+    <TD colSpan=4>
+      <TABLE style="BORDER-COLLAPSE: collapse" borderColor=#111111 cellSpacing=0 
+      cellPadding=0 width=980 border=0>
+        <TBODY>
+        <TR>
+          <TD></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<SCRIPT language=javascript>
+function $(s){return document.getElementById(s);}
+function ShowHideDiv(divid,iImg){
+if($(divid).style.display == "none"){
+iImg.src="../../templates/newgreen/images/dot2.gif";
+$(divid).style.display = "block";
+iImg.title="收起";
+}else{
+iImg.src="../../templates/newgreen/images/dot4.gif";
+$(divid).style.display = "none";
+iImg.title="展开";
+}
+}
+navHover();
+</SCRIPT>
+
+<TABLE style="BORDER-COLLAPSE: collapse" borderColor=#111111 cellSpacing=0 
+cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD height=3></TD></TR></TBODY></TABLE><BR>
+<TABLE style="BORDER-COLLAPSE: collapse" borderColor=#111111 cellSpacing=0 
+cellPadding=0 width="90%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD width=18 height=28><IMG alt="" 
+      src="嵌入式SQL笔记（一） - 数据库 - 小桥流水.files/bg_art_left_top.gif" border=0></TD>
+    <TD background="嵌入式SQL笔记（一） - 数据库 - 小桥流水.files/bg_art_top.gif">
+      <P style="MARGIN: 5px; LINE-HEIGHT: 150%"></P></TD>
+    <TD width=18 height=28><IMG alt="" 
+      src="嵌入式SQL笔记（一） - 数据库 - 小桥流水.files/bg_art_right_top.gif" border=0></TD></TR>
+  <TR>
+    <TD width=18 
+    background="嵌入式SQL笔记（一） - 数据库 - 小桥流水.files/bg_art_left.gif"></TD>
+    <TD align=middle bgColor=#f5fdee><BR><FONT style="FONT-SIZE: 14pt" 
+      color=#295200><B>嵌入式SQL笔记（一）</B></FONT> 
+      <TABLE style="BORDER-COLLAPSE: collapse" borderColor=#a5bd6b cellSpacing=1 
+      cellPadding=0 width="100%" border=1>
+        <TBODY>
+        <TR>
+          <TD align=middle>
+            <TABLE style="BORDER-COLLAPSE: collapse; WORD-WRAP: break-word" 
+            cellSpacing=0 cellPadding=0 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD align=middle>
+                  <TABLE 
+                  style="BORDER-COLLAPSE: collapse; WORD-WRAP: break-word" 
+                  cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD>
+                        <DIV id=art style="MARGIN: 15px">
+                        <DIV>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">本文来自“如何使用</SPAN><SPAN 
+                        lang=EN-US><FONT face="Times New Roman">Adaptive Server 
+                        Anywhere</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">的嵌入式</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">编程接口”，</SPAN><SPAN 
+                        lang=EN-US><FONT face="Times New Roman">Adaptive Server 
+                        Anywhere</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">是一种数据库。由于缺少嵌入式</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">的资料，所以，从这个具体的手册探查一点端倪。</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><STRONG 
+                        style="mso-bidi-font-weight: normal"><FONT size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">简介：</SPAN><SPAN 
+                        lang=EN-US><O:P></O:P></SPAN></FONT></STRONG></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">嵌入式</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">是用于</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">C</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">和</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">C++</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">编程语言的数据库编程接口。它由混杂在（嵌入于）</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">C</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">或</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">C++</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">源代码中的</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句组成。这些</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句先由</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">预处理器转换为</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">C</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">或</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">C++</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">源代码，然后再进行编译。</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">在运行时，嵌入式</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">应用程序是用数据库的接口库与数据库服务器进行通信。在大多数平台上，接口库是一个动态连接库（</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">DLL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">）或共享库。</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">在</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">Windows</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">操作系统上，接口库是</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">dblib9.dll</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">。</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">在</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">UNIX</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">操作系统上，接口库会是</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">libdblib9.so</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">、</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">libdblib9.sl</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">、或</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">libdblib9.a</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">（视操作系统而定）。</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><SPAN 
+                        lang=EN-US><O:P><FONT face="Times New Roman" 
+                        size=2>&nbsp;</FONT></O:P></SPAN></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><STRONG 
+                        style="mso-bidi-font-weight: normal"><FONT size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">开发过程概述：</SPAN><SPAN 
+                        lang=EN-US><O:P></O:P></SPAN></FONT></STRONG></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; TEXT-ALIGN: center; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd" 
+                        align=center><SPAN lang=EN-US><FONT size=2><V:SHAPETYPE 
+                        id=_x0000_t75 coordsize="21600,21600" o:spt="75" 
+                        o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" 
+                        filled="f" stroked="f"><V:STROKE 
+                        joinstyle="miter"></V:STROKE><V:FORMULAS><V:F 
+                        eqn="if lineDrawn pixelLineWidth 0"></V:F><V:F 
+                        eqn="sum @0 1 0"></V:F><V:F eqn="sum 0 0 @1"></V:F><V:F 
+                        eqn="prod @2 1 2"></V:F><V:F 
+                        eqn="prod @3 21600 pixelWidth"></V:F><V:F 
+                        eqn="prod @3 21600 pixelHeight"></V:F><V:F 
+                        eqn="sum @0 0 1"></V:F><V:F eqn="prod @6 1 2"></V:F><V:F 
+                        eqn="prod @7 21600 pixelWidth"></V:F><V:F 
+                        eqn="sum @8 21600 0"></V:F><V:F 
+                        eqn="prod @7 21600 pixelHeight"></V:F><V:F 
+                        eqn="sum @10 21600 0"></V:F></V:FORMULAS><V:PATH 
+                        o:extrusionok="f" gradientshapeok="t" 
+                        o:connecttype="rect"></V:PATH><O:LOCK v:ext="edit" 
+                        aspectratio="t"></O:LOCK></V:SHAPETYPE><V:SHAPE 
+                        id=_x0000_i1025 
+                        style="WIDTH: 332.25pt; HEIGHT: 330.75pt" 
+                        type="#_x0000_t75"><V:IMAGEDATA o:title="" 
+                        src="file:///C:\DOCUME~1\liuna\LOCALS~1\Temp\msohtml1\01\clip_image001.emz"></V:IMAGEDATA></V:SHAPE></FONT></SPAN></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">在对程序成功地进行预处理和编译后，就可以将它与</SPAN><SPAN 
+                        lang=EN-US><FONT face="Times New Roman">Adaptive Server 
+                        Anywhere</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">接口库的<STRONG 
+                        style="mso-bidi-font-weight: normal">导入库</STRONG>链接在一起，以形成可执行文件。在运行数据库时，这个可执行文件使用</SPAN><SPAN 
+                        lang=EN-US><FONT face="Times New Roman">Adaptive Server 
+                        Anywhere DLL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">与数据库交互作用。在对程序进行预处理时，不必运行数据库。</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">对于</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">Windows</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">、</SPAN><SPAN 
+                        lang=EN-US><FONT face="Times New Roman">Watcom C/C++ 
+                        </FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">、</SPAN><SPAN 
+                        lang=EN-US><FONT face="Times New Roman">Microsoft Visual 
+                        C++</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">和</SPAN><SPAN 
+                        lang=EN-US><FONT face="Times New Roman">Borland 
+                        C++</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">各自有单独的导入库。</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">使用导入库是开发调用</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">DLL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">中函数的应用程序的标准方法。</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><STRONG 
+                        style="mso-bidi-font-weight: normal"><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">嵌入式</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN></STRONG><STRONG 
+                        style="mso-bidi-font-weight: normal"><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">程序的结构：</SPAN><SPAN 
+                        lang=EN-US><O:P></O:P></SPAN></STRONG></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句置于（嵌入）常规</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">C</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">或</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">C++</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">代码内。所有嵌入式</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句都以</SPAN><SPAN 
+                        lang=EN-US><FONT face="Times New Roman">EXEC 
+                        SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">开头，并以分号（；）结尾。在嵌入式</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句的中间允许使用常规</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">C</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语言注释。</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">使用嵌入式</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">的每个</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">C</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">程序都必须在源文件中任何其它嵌入式</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句之前包含以下语句：</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><SPAN 
+                        lang=EN-US><FONT face="Times New Roman"><FONT 
+                        size=2><SPAN 
+                        style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; 
+                        </SPAN>EXEC<SPAN style="mso-spacerun: yes">&nbsp; 
+                        </SPAN>SQL <SPAN 
+                        style="mso-spacerun: yes">&nbsp;</SPAN>INCLUDE<SPAN 
+                        style="mso-spacerun: yes">&nbsp; 
+                        </SPAN>SQLCA;</FONT></FONT></SPAN></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">由</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">C</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">程序执行的第一个嵌入式</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句必须是</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">CONNECT</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句。</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">CONNECT</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句用于建立与数据库服务器的连接，以及指定连接期间用于授权执行的所有语句的用户</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">ID</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">。</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN lang=EN-US><FONT 
+                        face="Times New Roman">CONNECT</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句必须是执行的第一个嵌入式</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句。有些嵌入式</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">命令不生成任何</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">C</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">代码，或者不会涉及与数据库通信。因此，允许在</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">CONNECT</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句之前使用这些命令。最主要的是</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">INCLUDE</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句和指定错误处理方法的</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">WHENEVER</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句。</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><STRONG 
+                        style="mso-bidi-font-weight: normal"><FONT size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">使用主机变量：</SPAN><SPAN 
+                        lang=EN-US><O:P></O:P></SPAN></FONT></STRONG></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">主机变量是供</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">预处理器识别的</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">C</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语言变量。主机变量可用于将值发送到数据库服务器或从数据库服务器接受值。</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">主机变量非常易于使用，但是它们具有一些限制。动态</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">是一种向数据库服务器和从数据库服务器中传递信息的更常用的方法，它使用被称为</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">[SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">描述符区域</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">]</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">（</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQLDA</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">）的结构。</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">预处理器为使用主机变量的每个语句自动生成</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQLDA</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">。</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><STRONG 
+                        style="mso-bidi-font-weight: normal"><FONT size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">声明主机变量：</SPAN><SPAN 
+                        lang=EN-US><O:P></O:P></SPAN></FONT></STRONG></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">主机变量是通过将它们放入<STRONG 
+                        style="mso-bidi-font-weight: normal">声明部分</STRONG>来定义的。按照</SPAN><SPAN 
+                        lang=EN-US><FONT face="Times New Roman">IBM 
+                        SAA</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">和</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">ANSI</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">嵌入式</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">标准，主机变量是通过用一下内容围绕常规</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">C</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">变量声明定义的：</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><SPAN 
+                        lang=EN-US><FONT face="Times New Roman"><FONT 
+                        size=2><SPAN 
+                        style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; 
+                        </SPAN>EXEC<SPAN style="mso-spacerun: yes">&nbsp; 
+                        </SPAN>SQL<SPAN style="mso-spacerun: yes">&nbsp; 
+                        </SPAN>BEGIN<SPAN style="mso-spacerun: yes">&nbsp; 
+                        </SPAN>DECLARE<SPAN style="mso-spacerun: yes">&nbsp; 
+                        </SPAN>SECTION;</FONT></FONT></SPAN></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><SPAN 
+                        lang=EN-US><FONT face="Times New Roman"><FONT 
+                        size=2><SPAN 
+                        style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; 
+                        </SPAN>/*C<SPAN style="mso-spacerun: yes">&nbsp; 
+                        </SPAN>variable declarations*/</FONT></FONT></SPAN></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><SPAN 
+                        lang=EN-US><FONT face="Times New Roman"><FONT 
+                        size=2><SPAN 
+                        style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; 
+                        </SPAN>EXEC<SPAN style="mso-spacerun: yes">&nbsp; 
+                        </SPAN>SQL<SPAN style="mso-spacerun: yes">&nbsp; 
+                        </SPAN>END<SPAN style="mso-spacerun: yes">&nbsp; 
+                        </SPAN>DECLARE<SPAN style="mso-spacerun: yes">&nbsp; 
+                        </SPAN>SECTION;</FONT></FONT></SPAN></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">然后，可以使用这些主机变量代替任意</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句中的值常量。在数据库服务器执行命令时，会使用主机变量的值。注意，不能使用主机变量代替表名或列名：这需要使用动态</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">。在</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语句中，变量名以冒号（：）为前缀，以便与语句中使用的其它表示服区别开。</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><FONT 
+                        size=2><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">标准</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">SQL</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">预处理器不扫描位于</SPAN><SPAN 
+                        lang=EN-US><FONT face="Times New Roman">DECLARE<SPAN 
+                        style="mso-spacerun: yes">&nbsp; 
+                        </SPAN>SECTION</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">之外的</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">C</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">语言代码。因此，不允许使用</SPAN><SPAN 
+                        lang=EN-US><FONT 
+                        face="Times New Roman">TYPEDEF</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">类型和结构。在</SPAN><SPAN 
+                        lang=EN-US><FONT face="Times New Roman">DECLARE<SPAN 
+                        style="mso-spacerun: yes">&nbsp; 
+                        </SPAN>SECTION</FONT></SPAN><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'">之内允许使用变量中的初始化程序。</SPAN></FONT></P>
+                        <P class=MsoNormal 
+                        style="MARGIN: 15.6pt 0cm; LAYOUT-GRID-MODE: char; mso-para-margin-left: 0cm; mso-para-margin-top: 1.0gd; mso-para-margin-right: 0cm; mso-para-margin-bottom: 1.0gd"><SPAN 
+                        style="FONT-FAMILY: 宋体; mso-ascii-font-family: 'Times New Roman'; mso-hansi-font-family: 'Times New Roman'"><FONT 
+                        size=2>———待续————</FONT></SPAN></P></DIV></DIV></TD></TR></TBODY></TABLE>
+                  <P style="MARGIN: 5px; LINE-HEIGHT: 150%"></P></TD></TR>
+              <TR>
+                <TD align=middle height=25><FONT color=#295200>发表于： 2008-05-05 
+                  ，修改于： 2008-05-05 13:18，已浏览238次，有评论0条</FONT> <A id=star 
+                  title=推荐这篇文章 onclick="NewWindows(this.href);return false;" 
+                  href="http://blog.chinaunix.net/u2/star.php?blogid=68268&amp;artid=673590">推荐</A> 
+                  <A id=complaint title=投诉这篇文章 
+                  onclick="NewWindows(this.href);return false;" 
+                  href="http://blog.chinaunix.net/u2/complaint.php?blogid=68268&amp;artid=673590">投诉</A> 
+                </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD>
+    <TD width=18 
+    background="嵌入式SQL笔记（一） - 数据库 - 小桥流水.files/bg_art_right.gif"></TD></TR>
+  <TR>
+    <TD width=18 height=28><IMG alt="" 
+      src="嵌入式SQL笔记（一） - 数据库 - 小桥流水.files/bg_art_left_bottom.gif" border=0></TD>
+    <TD background="嵌入式SQL笔记（一） - 数据库 - 小桥流水.files/bg_art_bottom.gif">
+      <P style="MARGIN: 5px; LINE-HEIGHT: 150%"></P></TD>
+    <TD width=18 height=28><IMG alt="" 
+      src="嵌入式SQL笔记（一） - 数据库 - 小桥流水.files/bg_art_right_bottom.gif" 
+  border=0></TD></TR></TBODY></TABLE><BR>
+<TABLE style="BORDER-COLLAPSE: collapse" borderColor=#a5bd6b cellSpacing=1 
+cellPadding=0 width="90%" align=center border=1>
+  <TBODY>
+  <TR>
+    <TD style="COLOR: #295200" bgColor=#eff7de height=25><B>网友评论</B></TD></TR>
+  <TR>
+    <TD bgColor=#ffffff height=1></TD></TR>
+  <TR>
+    <TD align=middle bgColor=#f9f5e7>
+      <TABLE 
+      style="COLOR: #295200; BORDER-COLLAPSE: collapse; WORD-WRAP: break-word" 
+      cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+        <TBODY></TBODY></TABLE></TD></TR></TBODY></TABLE><BR>
+<TABLE style="BORDER-COLLAPSE: collapse" borderColor=#a5bd6b cellSpacing=1 
+cellPadding=0 width="90%" align=center border=1>
+  <TBODY>
+  <TR>
+    <TD style="COLOR: #295200" bgColor=#eff7de height=25><B>发表评论</B></TD></TR>
+  <TR>
+    <TD bgColor=#ffffff height=1></TD></TR>
+  <TR>
+    <TD align=middle bgColor=#f9f5e7><IFRAME name=comment 
+      src="嵌入式SQL笔记（一） - 数据库 - 小桥流水.files/comment.htm" frameBorder=0 
+      width="100%" height=160></IFRAME></TD></TR></TBODY></TABLE></BODY></HTML>

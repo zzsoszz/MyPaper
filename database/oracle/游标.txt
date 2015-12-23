@@ -1,0 +1,74 @@
+show parameter open_cursors;
+
+解决方法：
+ step 1:
+    查看数据库当前的游标数配置
+    show parameter open_cursors;
+ 
+
+step 2:
+    查看游标使用情况：
+ select o.sid, oSUSEr, machine, count(*) num_curs
+ from v$open_cursor o, v$session s
+ where user_name = 'user' and o.sid=s.sid
+ group by o.sid, osuser, machine
+ order by  num_curs desc;
+ 
+此处的user_name='user'中,user代表占用数据库资源的数据库用户名.
+ 
+
+step 3:
+    查看游标执行的sql情况：
+ select o.sid q.sql_text
+ from v$open_cursor o, v$sql q
+ where q.hash_value=o.hash_value and o.sid = 123;
+ 
+
+
+step 4:
+    根据游标占用情况分析访问数据库的程序在资源释放上是否正常,如果程序释放资源没有问题，则加大游标数。
+    alter system set open_cursors=2000 scope=both;
+   
+ 以上为cursors数确实不够的情况下的处理方法。
+ 但在有的时候，就算是加大了open_cursor 。譬如，我将游标大小改到了300，还是出现错误，改到1000以后开始出现了ORA-01001:invalid cursors。再怎么加大
+ open_cursors的数量都无济于事。碰到这种情况极可能就是表结构的问题了。
+ 
+
+ 
+
+那么如何来验证呢？
+ 案例来自itpub，yangtingkun：
+ “我们系统的数据量比较大，近200张表，有些表一天要插入1000000条左右的数据。表是使用ER/STDIO设计的，然后直接生成建表的脚本，由于没有设置physical_attributes_clause语句中的建表参数，因此使用了默认的参数。好像是INITIAL 10K NEXT 10K PCTFREE 20 PCTUSED 50由于表的存储空间太小，在
+ 很短的时间内就会装满，因此Oracle就需要不停为30多张表（数据量较大的）申请空间。于是在程序运行了一段时间后，开始出现ORA-01000: maximum open
+ cursors exceeded的错误。 我将游标大小改到了300，还是出现错误，改到1000以后开始出现了ORA-01001:invalid cursors。再怎么加大open_cursors的数量都
+ 无济于事。 使用select * from v$open_cursors查询，发现有几百条的INSERT语句游标没有释放。
+ 
+开始怀疑是程序调用的问题，仔细检查程序没有发现问题。但是发现对某张表进行TRUNCATE操作后，对此表进行插入的游标全部释放，于是开始怀疑是表结构本
+ 身的问题。重新设置了建表参数，将数据量最大的表的INITIAL和NEXT均设置为50M。至今未再出现同样的错误。”
+ 
+
+FYI：
+ 首先通过v$open_cursor中的SQL_TEXT字段可以查出没有释放的SQL是大致是什么语句。
+ 由于建表参数设置不当，会有很多的INSERT语句无法释放。
+ 
+
+ 
+
+SELECT * FROM V$OPEN_CURSOR WHERE SQL_TEXT LIKE 'INSERT％‘
+ 
+找一找哪些表的INSERT语句没有释放的游标比较多。从ALL_TABLES里查看该表的建表参数是否合适。
+ 
+
+yangtingkun的分析：
+ “开始时表参数
+ PCT FREE 10
+ PCT USED 40
+ STORAGE(INITIAL 10K
+        NEXT 10K
+        MINEXTENTS 1
+        MAXEXTENTS 121
+        PCTINCREASE 0
+        )
+ 9K的空间，以我们的系统几秒钟就塞满了，下一条插入语句来的时候ORACLE要去自动申请空间，该语句所占用的游标暂时无法释放。ORACLE申请的空间马上又被
+ 塞满，又要去申请新的空间。如果二、三十多张表在几个钟头内都不停要求ORACLE去进行上述的操作，估计会造成大量的游标来不及释放。以上只是我的估计。”
+

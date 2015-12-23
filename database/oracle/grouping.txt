@@ -1,0 +1,337 @@
+oracle 中grouping函数的应用 
+select * from test
+
+1 00 001 大 5 15
+2 00 001 中 25 75
+3 00 001 小 85 25
+4 00 002 大 65 35
+5 00 002 中 95 85
+6 00 002 小 85 25
+7 01 001 大 16 14
+8 01 001 中 290 75
+9 01 001 小 83 22
+
+ 
+
+ 
+
+
+SELECT num
+      ,flg
+      ,(CASE WHEN GROUPING(num)=1 THEN 'TOTAL' 
+             WHEN GROUPING(type)=1 THEN 'SUBTOTAL' 
+             ELSE type 
+        END)
+      ,sum(number1)
+      ,sum(number2)
+  FROM test 
+GROUP BY ROLLUP(num,flg,type)
+ORDER BY num NULLS LAST,flg,DECODE(type,'大',1,'中',2,'小',3,4);
+
+ 
+
+ 
+
+1 00 001 大 5 15
+2 00 001 中 25 75
+3 00 001 小 85 25
+4 00 001 SUBTOTAL 115 115
+5 00 002 大 65 35
+6 00 002 中 95 85
+7 00 002 小 85 25
+8 00 002 SUBTOTAL 245 145
+9 00  SUBTOTAL 360 260
+10 01 001 大 16 14
+11 01 001 中 290 75
+12 01 001 小 83 22
+13 01 001 SUBTOTAL 389 111
+14 01  SUBTOTAL 389 111
+15   TOTAL 749 371
+
+Oracle
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rollup、cube、grouping函数的使用心得 收藏 
+----1.ROLLUP 和 CUBE函数
+----在生成包含小计和合计的报表时，ROLLUP 运算符很有用
+----如果是ROLLUP(A, B, C)的话，首先会对(A、B、C)进行GROUP BY，然后对(A、B)进行GROUP BY，然后是(A)进行GROUP BY，最后对全表进行GROUP BY操作。
+
+---rollup例子（1）
+select t.area_name,t.stat_month,sum(t.money) 
+from linzf_test t
+group by rollup(t.area_name,t.stat_month);
+
+---结果
+AREA_NAME  STAT_MONTH SUM(T.MONEY)
+---------- ---------- ------------
+佛山       1月                 200
+佛山       2月                 100
+佛山       3月                 600
+佛山                           900
+广州       1月                 500
+广州       2月                 300
+广州       3月                 500
+广州                          1300
+深圳       1月                 200
+深圳       2月                 600
+深圳       3月                 500
+深圳                          1300
+                              3500
+
+13 rows selected
+
+
+---rollup例子（2）
+select t.area_name,t.stat_month,sum(t.money) 
+from linzf_test t
+group by rollup(t.stat_month,t.area_name);
+
+---结果
+AREA_NAME  STAT_MONTH SUM(T.MONEY)
+---------- ---------- ------------
+佛山       1月                 200
+广州       1月                 500
+深圳       1月                 200
+           1月                 900
+佛山       2月                 100
+广州       2月                 300
+深圳       2月                 600
+           2月                1000
+佛山       3月                 600
+广州       3月                 500
+深圳       3月                 500
+           3月                1600
+                              3500
+
+13 rows selected
+
+---如果是GROUP BY CUBE(A, B, C)，则首先会对(A、B、C)进行GROUP BY，然后依次是(A、B)，(A、C)，(A)，(B、C)，(B)，(C)，最后对全表进行GROUP BY操作。
+
+---cube例子（1）
+select t.area_name,t.stat_month,sum(t.money) 
+from linzf_test t
+group by cube(t.area_name,t.stat_month);
+
+---结果
+AREA_NAME  STAT_MONTH SUM(T.MONEY)
+---------- ---------- ------------
+                              3500
+           1月                 900
+           2月                1000
+           3月                1600
+佛山                           900
+佛山       1月                 200
+佛山       2月                 100
+佛山       3月                 600
+广州                          1300
+广州       1月                 500
+广州       2月                 300
+广州       3月                 500
+深圳                          1300
+深圳       1月                 200
+深圳       2月                 600
+深圳       3月                 500
+
+16 rows selected
+
+---cube例子（2）
+select t.area_name,t.stat_month,sum(t.money) 
+from linzf_test t
+group by cube(t.stat_month,t.area_name);
+
+---结果
+AREA_NAME  STAT_MONTH SUM(T.MONEY)
+---------- ---------- ------------
+                              3500
+佛山                           900
+广州                          1300
+深圳                          1300
+           1月                 900
+佛山       1月                 200
+广州       1月                 500
+深圳       1月                 200
+           2月                1000
+佛山       2月                 100
+广州       2月                 300
+深圳       2月                 600
+           3月                1600
+佛山       3月                 600
+广州       3月                 500
+深圳       3月                 500
+
+16 rows selected
+
+
+
+----2.GROUPING函数
+GROUPING 是一个聚合函数,它产生一个附加的列，当用 CUBE 或 ROLLUP 运算符添加行时，附加的列输出值为1，当所添加的行不是由 CUBE 或 ROLLUP 产生时，附加列值为0。
+仅在与包含 CUBE 或 ROLLUP 运算符的 GROUP BY 子句相联系的选择列表中才允许分组。
+
+语法:
+GROUPING ( column_name )
+
+是 GROUP BY 子句中用于检查 CUBE 或 ROLLUP 空值的列。
+
+返回类型:
+int
+
+注释:
+分组用于区分由 CUBE 和 ROLLUP 返回的空值和标准的空值。作为CUBE 或 ROLLUP 操作结果返回的 NULL 是 NULL 的特殊应用。它在结果集内作为列的占位符，意思是"全体"。
+
+---grouping函数例子
+select grouping(t.area_name),grouping(t.stat_month),t.area_name,t.stat_month,sum(t.money) 
+from linzf_test t
+group by rollup(t.area_name,t.stat_month);
+
+---结果
+GROUPING(T.AREA_NAME) GROUPING(T.STAT_MONTH) AREA_NAME  STAT_MONTH SUM(T.MONEY)
+--------------------- ---------------------- ---------- ---------- ------------
+                    0                      0 佛山       1月                 200
+                    0                      0 佛山       2月                 100
+                    0                      0 佛山       3月                 600
+                    0                      1 佛山                           900
+                    0                      0 广州       1月                 500
+                    0                      0 广州       2月                 300
+                    0                      0 广州       3月                 500
+                    0                      1 广州                          1300
+                    0                      0 深圳       1月                 200
+                    0                      0 深圳       2月                 600
+                    0                      0 深圳       3月                 500
+                    0                      1 深圳                          1300
+                    1                      1                               3500
+
+13 rows selected
+
+
+select case when grouping(t.stat_month)=1 and grouping(t.area_name)=0 then t.area_name||'小计' 
+            when grouping(t.stat_month)=1 and grouping(t.area_name)=1 then '总计'
+       else t.area_name 
+       end,
+       t.stat_month,sum(t.money) 
+from linzf_test t
+group by rollup(t.area_name,t.stat_month);
+
+---结果
+CASEWHENGROUPING(T.STAT_MONTH) STAT_MONTH SUM(T.MONEY)
+------------------------------ ---------- ------------
+佛山                           1月                 200
+佛山                           2月                 100
+佛山                           3月                 600
+佛山小计                                           900
+广州                           1月                 500
+广州                           2月                 300
+广州                           3月                 500
+广州小计                                          1300
+深圳                           1月                 200
+深圳                           2月                 600
+深圳                           3月                 500
+深圳小计                                          1300
+总计                                              3500
+
+13 rows selected
+
+或者：
+select decode(grouping(t.stat_month),0,t.area_name,t.area_name||'总计'),
+       t.stat_month,sum(t.money) 
+from linzf_test t
+group by rollup(t.area_name,t.stat_month);
+
+---结果
+DECODE(GROUPING(T.STAT_MONTH), STAT_MONTH SUM(T.MONEY)
+------------------------------ ---------- ------------
+佛山                           1月                 200
+佛山                           2月                 100
+佛山                           3月                 600
+佛山总计                                           900
+广州                           1月                 500
+广州                           2月                 300
+广州                           3月                 500
+广州总计                                          1300
+深圳                           1月                 200
+深圳                           2月                 600
+深圳                           3月                 500
+深圳总计                                          1300
+总计                                              3500
+
+13 rows selected
+
+
+
+----如何去掉最后的总计?
+select decode(grouping(t.stat_month),0,t.area_name,t.area_name||'小计'),
+       t.stat_month,sum(t.money) 
+from linzf_test t
+group by t.area_name,rollup(t.stat_month);
+
+---结果
+DECODE(GROUPING(T.STAT_MONTH), STAT_MONTH SUM(T.MONEY)
+------------------------------ ---------- ------------
+佛山                           1月                 200
+佛山                           2月                 100
+佛山                           3月                 600
+佛山小计                                           900
+广州                           1月                 500
+广州                           2月                 300
+广州                           3月                 500
+广州小计                                          1300
+深圳                           1月                 200
+深圳                           2月                 600
+深圳                           3月                 500
+深圳小计                                          1300
+
+12 rows selected
+
+ps:更多oracle分析函数的信息
+
+Oracle 分析函数的使用(zt):http://xsb.itpub.net/post/419/44634
+
+Oracle分析函数参考手册:http://xsb.itpub.net/post/419/33028
+
+---建表语句
+
+/*create table linzf_test(
+   area_name varchar2(10),
+   stat_month varchar2(10),
+   money number(8,2)
+)
+
+insert into linzf_test values('广州','1月',500);
+insert into linzf_test values('广州','2月',300);
+insert into linzf_test values('广州','3月',500);
+
+
+
+insert into linzf_test values('深圳','1月',200);
+insert into linzf_test values('深圳','2月',600);
+insert into linzf_test values('深圳','3月',500);
+
+
+insert into linzf_test values('佛山','1月',200);
+insert into linzf_test values('佛山','2月',100);
+insert into linzf_test values('佛山','3月',600);
+
+commit;
+
+delete from linzf_test;*/
+select * from linzf_test;
+
+
+本文来自CSDN博客，转载请标明出处：http://blog.csdn.net/arsenal_NO1/archive/2009/08/06/4418147.aspx

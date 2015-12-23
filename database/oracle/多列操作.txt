@@ -1,0 +1,9 @@
+多列操作函数
+
+coalesce、decode greatest least
+select least(1,2,3) from dual
+
+
+oracle model 
+http://wenku.baidu.com/view/c94a4ec35fbfc77da269b1ac.html
+http://www.cnblogs.com/Azhu/archive/2012/04/09/2438351.html

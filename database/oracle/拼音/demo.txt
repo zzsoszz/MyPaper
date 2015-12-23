@@ -1,0 +1,1 @@
+select gethzpy.GetHzFullPY(t.hotel_name),t.hotel_name,f_pinyin(t.hotel_name) from cim_tpc_htl_info_t t

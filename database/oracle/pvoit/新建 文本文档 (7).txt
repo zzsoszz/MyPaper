@@ -1,0 +1,306 @@
+关天ORACLE分析函数和行列转换通用包程序 收藏 
+关天ORACLE分析函数和行列转换通用包程序
+
+1:介绍关于行列转换前的通用知识
+
+Pivot查询是这样的，当你想要取出一些如下的数据时：
+
+C1        C2        C3
+
+――――――――――――
+
+a1         b1        x1
+
+a1         b1        x2
+
+a1         b1        x3
+
+ 
+
+想按如下格式显示：
+
+C1      C2     C3(1)     C3(2)     C3(3)
+
+A1     b1      x1          x2       x3
+
+这样就将行转变成了列。
+
+2：
+
+   在我们的日常开发中，经常会遇到这样的情况，就是分类汇总，而用一般的SQL写出的程序，数据是向行的方向展开的，但大部分报表的设计是希望向列的方向展开，这样的话，行列转换是非常必要和有用的！
+
+ 
+
+3:通用转换包的实现
+
+ 
+
+首先看一段代码
+
+
+
+这段代码是将部门的收入前3名选择出来并用列的形式显示出来。（关于partiton by ,order by,
+
+row_number over请参考相关分析函数的说明
+
+http://www.emagister.cn/cursos-oracle%E7%AC%94%E8%AE%B0-%E5%88%86%E6%9E%90%E5%87%BD%E6%95%B0-simcour-2201109.htm）
+
+下边是关于通包的包头说明：
+
+create or replace package r_c_pkg
+
+as
+
+type refcursor is ref cursor;  --定义一个结果信类型，用来返回结果集
+
+type array is table of varchar2(30);--定义表结构类型。
+
+procedure dbpivot(p_class_code_array in array ,
+
+ 
+
+                   p_query in varchar2,
+
+                   p_row_value   in array,
+
+                   p_class_value in array,
+
+                   p_sum_row in varchar2,
+
+                   p_cursor in out refcursor);
+
+                   end ;
+
+――――――――――――――
+
+包体：
+
+create or replace package body r_c_pkg
+
+as
+
+procedure dbpivot(p_class_code_array in array ,--存储类编号的值              
+
+                   p_query in varchar2,--必须有一项为CLASS_code,别名也可以
+
+                   p_row_value   in array,--需要做为列的值
+
+                   p_class_value in array,--需要根据分类取的值
+
+                    p_sum_row in varchar2,--如果还要在进行SUM的一些值
+
+                   p_cursor in out refcursor)
+
+         as
+
+         ------------------------------------------------
+
+         /*参数示例
+
+          p_class_code=> r_c_pkg.array('001','002','005') -其中001,002为需要分列显示的分类值
+
+          p_query =>'select a.pdep_code,c.class_code,sum(a.c_pay) as c_pay,sum(a.base_qty) as b_qty,
+
+                 row_number()over
+
+                     (partition by a.pdep_code
+
+                       order by c.class_code nulls last) seq
+
+                 from user_charge_tbl a,user_tbl c
+
+                 where a.pdep_code='18' and a.user_id=c.user_id
+
+                 group by a.pdep_code,c.class_code
+
+                 '
+
+         p_row_value => r_c_pkg.array('pdep_code')      所有查询最前边那个GROUP BY 对像
+
+         p_class_value => r_c_pkg.arry('c_pay','b_qty') 是那个CLASS——CODE后边需要显示的值
+
+         p_cursor =>r_c_pkg.refcursor 目的是将得到的结果返回出来
+
+         p_sum_row=>’sum(base_cost),sum(f_cost)
+
+          
+
+         */
+
+         -------------------------------------------------
+
+         v_ncol_count number;
+
+         l_query long ;
+
+         v_class LONG; 
+
+         l_row_value  varchar2(500);  
+
+          v_test_string varchar2(500);    
+
+         begin 
+
+          l_query:='select'||' ' ;
+
+         for j in 1..p_row_value.count -1
+
+           loop
+
+         l_row_value:=l_row_value||' '||p_row_value(j)||',';   
+
+         
+
+        end loop;  
+
+        l_query:=l_query||l_row_value     ;
+
+        --------------mxfhhh20060330
+
+        --l_query:=rtrim(l_query,',');
+
+        --------------mxfhhh20060330
+
+         for i in 1..p_class_code_array.count 
+
+         loop
+
+             for k in 1..p_class_value.count-1
+
+             loop
+
+             --max(decode(class_code,'005',c_pay,0))f005
+
+               v_class:=v_class||' '||'max(decode(class_code,'||p_class_code_array(i)||
+
+                          ','||p_class_value(k)||',0))'|| 
+
+                          ' f'||p_class_code_array(i)||p_class_value(k)||',';
+
+             end loop;
+
+        
+
+                    
+
+       end loop;
+
+       l_query:=l_query||v_class;
+
+       if p_sum_row='' then
+
+       l_query:=rtrim(l_query,',')||' from('||p_query||') group by ';
+
+       else
+
+       l_query:=l_query||p_sum_row||' from('||p_query||') group by ';
+
+       
+
+        end if;
+
+        
+
+        for j in 1..p_row_value.count
+
+           loop
+
+        l_query:=l_query||p_row_value(j);
+
+         v_test_string :=p_row_value(j)||v_test_string;
+
+        end loop; 
+
+        
+
+        l_query:=rtrim(l_query,',');
+
+        execute immediate 'alter session set cursor_sharing=force';
+
+        open p_cursor for l_query;
+
+        execute immediate 'alter session set cursor_sharing=exact';
+
+         
+
+         ---select user_id  into l_query from user_tbl;
+
+        
+
+         
+
+         end;
+
+         end;
+
+整个包的目的是动态生成您需要的行列转换内容，并返回结果集.
+
+动态生成的SQL语句如下所示：
+
+ 
+
+select  sarea_code, 
+
+max(decode(class_code,004,c_pay,0)) f004c_pay,
+
+ max(decode(class_code,004,b_qty,0)) f004b_qty,
+
+ max(decode(class_code,005,c_pay,0)) f005c_pay,
+
+ max(decode(class_code,005,b_qty,0)) f005b_qty, 
+
+max(decode(class_code,006,c_pay,0)) f006c_pay, 
+
+max(decode(class_code,006,b_qty,0)) f006b_qty, 
+
+max(decode(class_code,007,c_pay,0)) f007c_pay, 
+
+max(decode(class_code,007,b_qty,0)) f007b_qty, 
+
+max(decode(class_code,008,c_pay,0)) f008c_pay, 
+
+max(decode(class_code,008,b_qty,0)) f008b_qty,
+
+sum(base_cost),
+
+sum(f_cost)
+
+   
+
+   from
+
+   (
+
+    select a.sarea_code,c.class_code,sum(a.c_pay) as c_pay,
+
+         sum(a.base_qty+a.closs_qty+a.ex_qty+a.ad_qty) as b_qty,sum(a.base_cost) as base_cost,
+
+         sum(a.fadjust_cost) as f_cost,
+
+                 row_number()over
+
+                     (partition by a.sarea_code
+
+                       order by c.class_code nulls last) seq
+
+                 from user_charge_tbl a,user_tbl c
+
+                 where a.sarea_code>='18001' and a.sarea_code<='18002' and a.user_id=c.user_id
+
+                 group by a.sarea_code,c.class_code   
+
+                 
+
+                 )
+
+                 group by sarea_code
+
+以上程序根据工作需要而完成的，希望对那些报表设计有需要的同行有帮助。
+
+ 参考书：oracle-one-on-one
+
+  
+
+
+
+本文来自CSDN博客，转载请标明出处：http://blog.csdn.net/mxfhhh/archive/2006/04/03/649406.aspx

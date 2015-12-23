@@ -1,0 +1,410 @@
+oracle临时表空间
+2011-07-20 16:49:22     我来说两句       收藏     我要投稿
+以下是在学习中学到的一些关于临时表空间的语句：
+--1、查看临时表空间 （dba_temp_files视图）（v_$tempfile视图）
+  select tablespace_name,file_name,bytes/1024/1024 "file_size(M)",autoextensible from dba_temp_files;
+  select status,enabled, name, bytes/1024/1024 file_size from v_$tempfile;--sys用户查看
+
+--2、改变临时表空间大小
+  alter database tempfile 'C:\ORADATA\ORCL\TEMP01.DBF' resize 21M;
+
+--3、扩展临时表空间：
+  --方法一、增大临时文件大小：
+  SQL> alter database tempfile ‘/u01/app/oracle/oradata/orcl/temp01.dbf’ resize 100m;
+  --方法二、将临时数据文件设为自动扩展：
+  SQL> alter database tempfile ‘/u01/app/oracle/oradata/orcl/temp01.dbf’ autoextend on next 5m maxsize unlimited;
+  --方法三、向临时表空间中添加数据文件：
+  SQL> alter tablespace temp add tempfile ‘/u01/app/oracle/oradata/orcl/temp02.dbf’ size 100m;
+
+--4、创建临时表空间：
+  create temporary tablespace temp01 tempfile 'C:\ORADATA\ORCL\TEMP01.DBF' size 10M;
+
+--5、更改系统的默认临时表空间：
+  --查询默认临时表空间
+  select * from database_properties where property_name='DEFAULT_TEMP_TABLESPACE';
+  --修改默认临时表空间
+  alter database default temporary tablespace temp02;
+  --所有用户的默认临时表空间都将切换为新的临时表空间：
+  select username,temporary_tablespace,default_tablespace from dba_users;
+  --更改某一用户的临时表空间：
+  alter user scott temporary tablespace temp02;
+
+--6、删除临时表空间
+  --删除临时表空间的一个数据文件：
+  alter database tempfile 'C:\ORADATA\ORCL\TEMP03.DBF' drop;
+  --删除临时表空间(彻底删除)：
+  drop tablespace temp including contents and datafiles cascade constraints;
+
+--7、查看临时表空间的使用情况（GV_$TEMP_SPACE_HEADER视图必须在sys用户下才能查询）
+    --GV_$TEMP_SPACE_HEADER视图记录了临时表空间的使用大小与未使用的大小
+    --dba_temp_files视图的bytes字段记录的是临时表空间的总大小
+    SELECT temp_used.tablespace_name,
+           total - used as "Free",
+           total as "Total",
+           round(nvl(total - used, 0) * 100 / total, 3) "Free percent"
+      FROM (SELECT tablespace_name, SUM(bytes_used) / 1024 / 1024 used
+              FROM GV_$TEMP_SPACE_HEADER
+             GROUP BY tablespace_name) temp_used,
+           (SELECT tablespace_name, SUM(bytes) / 1024 / 1024 total
+              FROM dba_temp_files
+             GROUP BY tablespace_name) temp_total
+     WHERE temp_used.tablespace_name = temp_total.tablespace_name
+
+--8、查找消耗资源比较的sql语句
+  Select se.username,
+         se.sid,
+         su.extents,
+         su.blocks * to_number(rtrim(p.value)) as Space,
+         tablespace,
+         segtype,
+         sql_text
+    from v$sort_usage su, v$parameter p, v$session se, v$sql s
+   where p.name = 'db_block_size'
+     and su.session_addr = se.saddr
+     and s.hash_value = su.sqlhash
+     and s.address = su.sqladdr
+   order by se.username, se.sid
+  
+--9、查看当前临时表空间使用大小与正在占用临时表空间的sql语句
+  select sess.SID, segtype, blocks * 8 / 1000 "MB", sql_text
+    from v$sort_usage sort, v$session sess, v$sql sql
+   where sort.SESSION_ADDR = sess.SADDR
+     and sql.ADDRESS = sess.SQL_ADDRESS
+   order by blocks desc;
+
+--10、临时表空间组介绍
+    --1）创建临时表空间组：
+    create temporary tablespace tempts1 tempfile 'C:\ORADATA\ORCL\TEMP1_01.DBF' size 2M tablespace group group1;
+    create temporary tablespace tempts2 tempfile 'C:\ORADATA\ORCL\TEMP1_02.DBF' size 2M tablespace group group2;
+    
+    --2）查询临时表空间组：dba_tablespace_groups视图
+    select * from dba_tablespace_groups;
+    GROUP_NAME                     TABLESPACE_NAME
+    ------------------------------ ------------------------------
+    GROUP1                         TEMPTS1
+    GROUP2                         TEMPTS2
+    --3）将表空间从一个临时表空间组移动到另外一个临时表空间组：
+    alter tablespace tempts1 tablespace group GROUP2 ;
+    select * from dba_tablespace_groups;
+
+    GROUP_NAME                     TABLESPACE_NAME
+    ------------------------------ ------------------------------
+    GROUP2                         TEMPTS1
+    GROUP2                         TEMPTS2
+
+     --4）把临时表空间组指定给用户
+    alter user scott temporary tablespace GROUP2;
+
+     --5）在数据库级设置临时表空间
+    --alter database <db_name> default temporary tablespace GROUP2;
+    alter database orcl default temporary tablespace GROUP2;
+
+     --6）删除临时表空间组 (删除组成临时表空间组的所有临时表空间)
+    drop tablespace tempts1 including contents and datafiles;
+    select * from dba_tablespace_groups;
+    GROUP_NAME                     TABLESPACE_NAME
+    ------------------------------ ------------------------------
+    GROUP2                         TEMPTS2
+
+    drop tablespace tempts2 including contents and datafiles;
+    select * from dba_tablespace_groups;
+    GROUP_NAME                     TABLESPACE_NAME
+
+--11、对临时表空间进行shrink（11g新增的功能）
+    --将temp表空间收缩为20M
+    alter tablespace temp02 shrink space keep 20M;
+    --自动将表空间的临时文件缩小到最小可能的大小
+    ALTER TABLESPACE temp SHRINK TEMPFILE ’/u02/oracle/data/lmtemp02.dbf’;
+
+临时表空间作用
+Oracle临时表空间主要用来做查询和存放一些缓冲区数据。临时表空间消耗的主要原因是需要对查询的中间结果进行排序。
+重启数据库可以释放临时表空间，如果不能重启实例，而一直保持问题sql语句的执行，temp表空间会一直增长。直到耗尽硬盘空间。
+网上有人猜测在磁盘空间的分配上，oracle使用的是贪心算法，如果上次磁盘空间消耗达到1GB，那么临时表空间就是1GB。
+也就是说当前临时表空间文件的大小是历史上使用临时表空间最大的大小。
+
+临时表空间的主要作用：
+  索引create或rebuild；
+  Order by 或 group by；
+  Distinct 操作；
+  Union 或 intersect 或 minus；
+  Sort-merge joins；
+  analyze。
+  
+  
+  
+  
+  
+  
+  
+  
+
+Oracle查询表空间使用情况
+　--查询表空间使用情况
+　　SELECT UPPER(F.TABLESPACE_NAME) "表空间名",
+　　D.TOT_GROOTTE_MB "表空间大小(M)",
+　　D.TOT_GROOTTE_MB - F.TOTAL_BYTES "已使用空间(M)",
+　　TO_CHAR(ROUND((D.TOT_GROOTTE_MB - F.TOTAL_BYTES) / D.TOT_GROOTTE_MB * 100,2),'990.99') || '%' "使用比",
+　　F.TOTAL_BYTES "空闲空间(M)",
+　　F.MAX_BYTES "最大块(M)"
+　　FROM (SELECT TABLESPACE_NAME,
+　　ROUND(SUM(BYTES) / (1024 * 1024), 2) TOTAL_BYTES,
+　　ROUND(MAX(BYTES) / (1024 * 1024), 2) MAX_BYTES
+　　FROM SYS.DBA_FREE_SPACE
+　　GROUP BY TABLESPACE_NAME) F,
+　　(SELECT DD.TABLESPACE_NAME,
+　　 ROUND(SUM(DD.BYTES) / (1024 * 1024), 2) TOT_GROOTTE_MB
+　　FROM SYS.DBA_DATA_FILES DD
+　　GROUP BY DD.TABLESPACE_NAME) D
+　　WHERE D.TABLESPACE_NAME = F.TABLESPACE_NAME
+　　ORDER BY 1;
+
+
+　　--查询表空间的free space
+　　select tablespace_name,
+　　count(*) as extends,
+　　round(sum(bytes) / 1024 / 1024, 2) as MB,
+　　sum(blocks) as blocks
+　　from dba_free_space
+　　group by tablespace_name;
+
+
+
+
+　　--查询表空间的总容量
+　　select tablespace_name, sum(bytes) / 1024 / 1024 as MB
+　　from dba_data_files
+　　group by tablespace_name;
+
+
+
+
+　　--查询表空间使用率
+　　select total.tablespace_name,
+　　round(total.MB, 2) as Total_MB,考试大论坛
+　　round(total.MB - free.MB, 2) as Used_MB,
+　　round((1 - free.MB / total.MB) * 100, 2) || '%' as Used_Pct
+　　from (select tablespace_name, sum(bytes) / 1024 / 1024 as MB
+　　from dba_free_space
+　　group by tablespace_name) free,
+　　(select tablespace_name, sum(bytes) / 1024 / 1024 as MB
+　　from dba_data_files
+　　group by tablespace_name) total
+　　where free.tablespace_name = total.tablespace_name;
+ 
+ 
+ 
+ 
+1.查找当前表级锁的SQL如下：
+select sess.sid, 
+    sess.serial#, 
+    lo.oracle_username, 
+    lo.os_user_name, 
+    ao.object_name, 
+    lo.locked_mode 
+    from v$locked_object lo, 
+    dba_objects ao, 
+    v$session sess 
+where ao.object_id = lo.object_id and lo.session_id = sess.sid;
+
+2.杀掉锁表进程：
+alter system kill session '436,35123';
+
+3.RAC环境中锁查找：
+SELECT inst_id,DECODE(request,0,'Holder: ','Waiter: ')||sid sess, 
+        id1, id2, lmode, request, type,block,ctime
+FROM GV$LOCK
+WHERE (id1, id2, type) IN
+       (SELECT id1, id2, type FROM GV$LOCK WHERE request>0)
+ORDER BY id1, request;
+  
+
+
+4.监控当前数据库谁在运行什么SQL语句 
+select osuser, username, sql_text  
+from  v$session a, v$sqltext b 
+where  a.sql_address =b.address order by address, piece;
+
+ 
+
+5.找使用CPU多的用户session 
+select a.sid,spid,status,substr(a.program,1,40) prog, a.terminal,osuser,value/60/100 value 
+from  v$session a,v$process b,v$sesstat c 
+where  c.statistic#=12 and  
+       c.sid=a.sid and  
+       a.paddr=b.addr  
+       order by value desc;
+
+
+6.查看死锁信息
+SELECT (SELECT username
+          FROM v$session
+         WHERE SID = a.SID) blocker, a.SID, 'is blocking',
+       (SELECT username
+          FROM v$session
+         WHERE SID = b.SID) blockee, b.SID
+  FROM v$lock a, v$lock b
+ WHERE a.BLOCK = 1 AND b.request > 0 AND a.id1 = b.id1 AND a.id2 = b.id2;
+
+
+7.具有最高等待的对象
+SELECT   o.OWNER,o.object_name, o.object_type, a.event,
+         SUM (a.wait_time + a.time_waited) total_wait_time
+    FROM v$active_session_history a, dba_objects o
+   WHERE a.sample_time BETWEEN SYSDATE - 30 / 2880 AND SYSDATE
+     AND a.current_obj# = o.object_id
+GROUP BY o.OWNER,o.object_name, o.object_type, a.event
+ORDER BY total_wait_time DESC;
+
+
+SELECT   a.session_id, s.osuser, s.machine, s.program, o.owner, o.object_name,
+         o.object_type, a.event,
+         SUM (a.wait_time + a.time_waited) total_wait_time
+    FROM v$active_session_history a, dba_objects o, v$session s
+   WHERE a.sample_time BETWEEN SYSDATE - 30 / 2880 AND SYSDATE
+     AND a.current_obj# = o.object_id
+     AND a.session_id = s.SID
+GROUP BY o.owner,
+         o.object_name,
+         o.object_type,
+         a.event,
+         a.session_id,
+         s.program,
+         s.machine,
+         s.osuser
+ORDER BY total_wait_time DESC;
+
+ 
+
+8.查询当前连接会话数
+select s.value,s.sid,a.username
+from 
+v$sesstat S,v$statname N,v$session A
+where 
+n.statistic#=s.statistic# and
+name='session pga memory'
+and s.sid=a.sid
+order by s.value;
+
+ 
+
+9.等待最多的用户
+SELECT   s.SID, s.username, SUM (a.wait_time + a.time_waited) total_wait_time
+    FROM v$active_session_history a, v$session s
+   WHERE a.sample_time BETWEEN SYSDATE - 30 / 2880 AND SYSDATE
+GROUP BY s.SID, s.username
+ORDER BY total_wait_time DESC;
+
+ 
+
+10.等待最多的SQL
+SELECT   a.program, a.session_id, a.user_id, d.username, s.sql_text,
+         SUM (a.wait_time + a.time_waited) total_wait_time
+    FROM v$active_session_history a, v$sqlarea s, dba_users d
+   WHERE a.sample_time BETWEEN SYSDATE - 30 / 2880 AND SYSDATE
+     AND a.sql_id = s.sql_id
+     AND a.user_id = d.user_id
+GROUP BY a.program, a.session_id, a.user_id, s.sql_text, d.username;
+
+ 
+
+11.查看消耗资源最多的SQL
+SELECT hash_value, executions, buffer_gets, disk_reads, parse_calls
+FROM V$SQLAREA
+WHERE buffer_gets > 10000000 OR disk_reads > 1000000
+ORDER BY buffer_gets + 100 * disk_reads DESC;
+
+ 
+
+12.查看某条SQL语句的资源消耗
+SELECT hash_value, buffer_gets, disk_reads, executions, parse_calls
+FROM V$SQLAREA
+WHERE hash_Value = 228801498 AND address = hextoraw('CBD8E4B0');
+
+
+13.查询会话执行的实际SQL
+SELECT   a.SID, a.username, s.sql_text
+    FROM v$session a, v$sqltext s
+   WHERE a.sql_address = s.address
+     AND a.sql_hash_value = s.hash_value
+     AND a.status = 'ACTIVE'
+ORDER BY a.username, a.SID, s.piece;
+
+
+14.显示正在等待锁的所有会话
+SELECT * FROM DBA_WAITERS;
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+oracle查看系统资源占用情况  
+
+2011-07-26 11:37:45|  分类： 业内人士 |  标签：oracle   |举报|字号 订阅
+1，连上服务器，使用top命令，可以查看cpu使用率以及内存的使用情况等等，还有当前各用户的使用情况
+
+2，用pl/sql developper，tool里面选sessions，就可以看到当前session的情况，包括卡住的SQL语句
+
+3，查看各用户的各种资源占用，可以运行下面的SQL
+
+select se.SID, ses.username, ses.osuser, n.NAME, se.VALUE
+  from v$statname n, v$sesstat se, v$session ses
+  where n.statistic# = se.statistic# and
+        se.sid = ses.sid and
+        ses.username is not null and
+        n.name in ('CPU used by this session',
+                   'db block gets',
+                   'consistent gets',
+                   'physical reads',
+                   'free buffer requested',
+                   'table scans (long tables)',
+                   'table scan rows gotten',
+                   'sorts (memory)',
+                   'sorts (disk)',
+                   'sorts (rows)', 
+                   'session uga memory max' ,
+                   'session pga memory max')
+  order by sid, n.statistic#;
+
+4，要想看占用资源的SQL top10之类的数据，有下面的SQL哦：
+
+从V$SQLAREA中查询最占用资源的查询
+select b.username username,a.disk_reads reads,
+    a.executions exec,a.disk_reads/decode(a.executions,0,1,a.executions) rds_exec_ratio,
+    a.sql_text Statement
+from  v$sqlarea a,dba_users b
+where a.parsing_user_id=b.user_id
+ and a.disk_reads > 100000
+order by a.disk_reads desc;
+用buffer_gets列来替换disk_reads列可以得到占用最多内存的sql语句的相关信息。
+ 
+V$SQL是内存共享SQL区域中已经解析的SQL语句。
+
+列出使用频率最高的5个查询：
+select sql_text,executions
+from (select sql_text,executions,
+   rank() over
+    (order by executions desc) exec_rank
+   from v$sql)
+where exec_rank <=5;
+消耗磁盘读取最多的sql top5：
+select disk_reads,sql_text
+from (select sql_text,disk_reads,
+   dense_rank() over
+     (order by disk_reads desc) disk_reads_rank
+   from v$sql)
+where disk_reads_rank <=5;
+
+找出需要大量缓冲读取（逻辑读）操作的查询：
+select buffer_gets,sql_text
+from (select sql_text,buffer_gets,
+   dense_rank() over
+     (order by buffer_gets desc) buffer_gets_rank
+   from v$sql)
+where buffer_gets_rank<=5;
+ 
+
+我不是DBA，我只是一个无证的程序员，我真想知道为什么我的系统跑的那么慢oracle查看系统资源占用情况 - NANA - NANA

@@ -1,0 +1,632 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0048)http://topic.csdn.net/t/20060628/13/4848078.html -->
+<HTML lang=zh-CN xml:lang="zh-CN" 
+xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>rollup和cube区别及grouping用法??? Oracle / 基础和管理 - CSDN社区 community.csdn.net</TITLE>
+<META content=all name=robots>
+<META http-equiv=Content-Language content=zh-CN>
+<META http-equiv=Content-Type content="text/html; charset=utf-8"><LINK 
+href="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/topic.css" 
+type=text/css rel=stylesheet>
+<SCRIPT 
+src="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/Topic.js" 
+type=text/javascript></SCRIPT>
+
+<META content=" Oracle 基础和管理" name=Keywords>
+<META content=问题同上.....谢谢 name=description>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR></HEAD>
+<BODY>
+<DIV id=wrapper>
+<DIV id=innerWrapper>
+<DIV id=logo>
+<SCRIPT 
+src="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/csdn_ggmm.js"></SCRIPT>
+
+<SCRIPT type=text/javascript>show_ads_zone(230);</SCRIPT>
+<IMG style="DISPLAY: none" alt="" 
+src="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/pv.htm"> 
+
+<DIV>
+<TABLE class=CSDN-PHF id=CSDNPHL cellSpacing=1 cellPadding=0 border=0>
+  <TBODY>
+  <TR>
+    <TD><A href="http://www.csdn.net/" rel=external>CSDN首页</A></TD>
+    <TD><A href="http://hi.csdn.net/" rel=external>空间</A></TD>
+    <TD><A href="http://news.csdn.net/" rel=external>新闻</A></TD>
+    <TD><A href="http://bbs.csdn.net/" rel=external>论坛</A></TD>
+    <TD><A href="http://blog.csdn.net/" rel=external>Blog</A></TD>
+    <TD><A href="http://download.csdn.net/" rel=external>下载</A></TD>
+    <TD><A href="http://book.csdn.net/" rel=external>读书</A></TD>
+    <TD><A href="http://wz.csdn.net/" rel=external>网摘</A></TD>
+    <TD><A href="http://search.csdn.net/" rel=external>搜索</A></TD>
+    <TD><A href="http://dotnet.csdn.net/" rel=external>.NET</A></TD>
+    <TD><A href="http://java.csdn.net/" rel=external>Java</A></TD>
+    <TD><A href="http://live.csdn.net/" rel=external>视频</A></TD>
+    <TD><A href="http://prj.csdn.net/" rel=external>接项目</A></TD>
+    <TD><A href="http://job.csdn.net/" rel=external>求职</A></TD>
+    <TD><A href="http://www.itcast.net/" rel=external>在线学习</A></TD>
+    <TD><A href="http://www.dearbook.com.cn/" rel=external>买书</A></TD>
+    <TD><A href="http://www.programmer.com.cn/" rel=external>程序员</A></TD>
+    <TD><A href="http://hi.csdn.net/Admin/NotifyList.aspx"><SPAN 
+      id=notifyPrompt>通知</SPAN></A></TD></TR></TBODY></TABLE>
+<DIV id=logo>
+<TABLE cellSpacing=0 cellPadding=0 width=760 border=0>
+  <TBODY>
+  <TR style="TEXT-ALIGN: center">
+    <TD style="MARGIN: auto; VERTICAL-ALIGN: middle; BACKGROUND-COLOR: #026994" 
+    align=middle width=380 height=36><!--a href="http://community.csdn.net/Games/GamesList.aspx/" target="_blank"><font size="3px" color="white"><strong>可用分押宝游戏火热进行中...</strong></font></a--><A 
+      href="http://g.csdn.net/5071212" target=_blank><FONT color=white 
+      size=3><STRONG>（图）邪恶的韩国UMPC </STRONG></FONT></A></TD>
+    <TD style="MARGIN: auto; VERTICAL-ALIGN: middle; BACKGROUND-COLOR: #026994" 
+    align=middle width=380 height=36><A 
+      href="http://www.ibm.com/developerworks/cn/offers/lp/demos/summary/purequery.html?S_TACT=105AGX52&amp;S_CMP=tec-csdn" 
+      target=_blank><FONT color=white size=3><STRONG>使用 Java 
+      编写数据库应用新规范</STRONG></FONT></A> </TD></TR>
+  <TR id=bigFlash style="TEXT-ALIGN: center"><!--td colspan="2"><a href="http://community.csdn.net/" target="_blank"><img src="/t/img/topicAD.jpg" width="760" height="300" border="0" /></a></td-->
+    <TD colSpan=2><A href="http://g.csdn.net/5071868" target=_blank><IMG 
+      height=300 
+      src="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/20081124.jpg" 
+      width=760 border=0></A></TD></TR></TBODY></TABLE>
+<SCRIPT type=text/javascript>setTimeout("document.getElementById('bigFlash').style.display='none'", 5000);</SCRIPT>
+</DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD><A href="http://community.csdn.net/" rel=external><IMG alt=CSDN社区 
+      src="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/logo_csdn.gif"></A></TD>
+    <TD>
+      <SCRIPT type=text/javascript>show_ads_zone(228);</SCRIPT>
+<!--<iframe frameborder="0" width="475" height="60" scrolling="no" src="/t/img/centerAd.htm">
+    </iframe>--></TD>
+    <TD>
+      <SCRIPT type=text/javascript>show_ads_zone(229);</SCRIPT>
+    </TD></TR></TBODY></TABLE><!-- script src="http://notify.hi.csdn.net/PromptInfo.ashx?ForWhat=FullJs"></script --><LINK 
+media=all 
+href="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/csdn_favbykimi.css" 
+type=text/css rel=stylesheet>
+<DIV id=navigation>
+<DIV id=search>
+<DIV id=innerSearch><INPUT id=key onfocus="value=''"><A 
+onclick="return Search()" 
+href="http://topic.csdn.net/t/20060628/13/4848078.html#">搜索</A>&nbsp;<CITE 
+class=fav_csdnstylebykimi><A title=收藏到我的网摘中，并分享给我的朋友 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();">收藏</A></CITE>&nbsp;<A 
+onclick="return Print()" 
+href="http://topic.csdn.net/t/20060628/13/4848078.html#">打印</A>&nbsp;<A 
+onclick="return Close()" 
+href="http://topic.csdn.net/t/20060628/13/4848078.html#">关闭</A> </DIV></DIV>
+<DIV><A class=CSDNRoom href="http://community.csdn.net/" 
+rel=external>CSDN社区</A>&nbsp;&gt;&nbsp; <A 
+href="http://community.csdn.net/Expert/ForumsList.asp?typenum=1&amp;roomid=61" 
+rel=external>Oracle</A>&nbsp;&gt;&nbsp; <A 
+href="http://community.csdn.net/Expert/ForumList.asp?typenum=1&amp;roomid=6101" 
+rel=external>基础和管理</A> </DIV></DIV>
+<DIV id=mainWrapper>
+<DIV id=pageContent>
+<DIV id=innerContent>
+<H1>rollup和cube区别及grouping用法???</H1>
+<DIV class=author><A class=anchor name=Top>楼主</A>jsjboss（沉珂）<INPUT class=user1 title="一级用户 该版得分小于等于100分" type=button>2006-06-28 
+13:42:41 在 Oracle / 基础和管理 提问</DIV>
+<P>问题同上..... &nbsp; <BR>&nbsp; 谢谢 <SPAN>问题点数：20、回复次数：8</SPAN><A 
+href="http://topic.csdn.net/t/20060628/13/4848078.html#">Top</A> </P>
+<DIV class=tagad><IFRAME 
+src="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/Board.htm" 
+frameBorder=0 scrolling=no></IFRAME></DIV>
+<H3><STRONG><A class=anchor name=r_35353508>1 楼</A>leah（）<INPUT class=user2 title="二级用户 该版得分小于等于500分，大于100分" type=button></STRONG><SPAN>回复于 
+2006-06-28 14:43:45 得分 0 </SPAN></H3>
+<P>CREATE &nbsp; TEST &nbsp; TABLE &nbsp; AND &nbsp; INSERT &nbsp; TEST &nbsp; 
+DATA. &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; create &nbsp; table 
+&nbsp; students &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (id &nbsp; 
+number(15,0), &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; area &nbsp; 
+varchar2(10), &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; stu_type &nbsp; 
+varchar2(2), &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; score &nbsp; 
+number(20,2)); &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; insert &nbsp; into &nbsp; students 
+&nbsp; values(1, &nbsp; '111', &nbsp; 'g', &nbsp; 80 &nbsp; ); &nbsp; <BR>&nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; insert &nbsp; into &nbsp; students &nbsp; 
+values(1, &nbsp; '111', &nbsp; 'j', &nbsp; 80 &nbsp; ); &nbsp; <BR>&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; insert &nbsp; into &nbsp; students &nbsp; values(1, 
+&nbsp; '222', &nbsp; 'g', &nbsp; 89 &nbsp; ); &nbsp; <BR>&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; insert &nbsp; into &nbsp; students &nbsp; values(1, &nbsp; 
+'222', &nbsp; 'g', &nbsp; 68 &nbsp; ); &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; insert &nbsp; into &nbsp; students &nbsp; values(2, &nbsp; '111', 
+&nbsp; 'g', &nbsp; 80 &nbsp; ); &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; insert &nbsp; into &nbsp; students &nbsp; values(2, &nbsp; '111', &nbsp; 
+'j', &nbsp; 70 &nbsp; ); &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+insert &nbsp; into &nbsp; students &nbsp; values(2, &nbsp; '222', &nbsp; 'g', 
+&nbsp; 60 &nbsp; ); &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; insert 
+&nbsp; into &nbsp; students &nbsp; values(2, &nbsp; '222', &nbsp; 'j', &nbsp; 65 
+&nbsp; ); &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; insert &nbsp; 
+into &nbsp; students &nbsp; values(3, &nbsp; '111', &nbsp; 'g', &nbsp; 75 &nbsp; 
+); &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; insert &nbsp; into 
+&nbsp; students &nbsp; values(3, &nbsp; '111', &nbsp; 'j', &nbsp; 58 &nbsp; ); 
+&nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; insert &nbsp; into &nbsp; 
+students &nbsp; values(3, &nbsp; '222', &nbsp; 'g', &nbsp; 58 &nbsp; ); &nbsp; 
+<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; insert &nbsp; into &nbsp; students 
+&nbsp; values(3, &nbsp; '222', &nbsp; 'j', &nbsp; 90 &nbsp; ); &nbsp; <BR>&nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; insert &nbsp; into &nbsp; students &nbsp; 
+values(4, &nbsp; '111', &nbsp; 'g', &nbsp; 89 &nbsp; ); &nbsp; <BR>&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; insert &nbsp; into &nbsp; students &nbsp; values(4, 
+&nbsp; '111', &nbsp; 'j', &nbsp; 90 &nbsp; ); &nbsp; <BR>&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; insert &nbsp; into &nbsp; students &nbsp; values(4, &nbsp; 
+'222', &nbsp; 'g', &nbsp; 90 &nbsp; ); &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; insert &nbsp; into &nbsp; students &nbsp; values(4, &nbsp; '222', 
+&nbsp; 'j', &nbsp; 89 &nbsp; ); &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; commit; &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; col &nbsp; score 
+&nbsp; format &nbsp; 999999999999.99 &nbsp; <BR>&nbsp; ROLLUP &nbsp; <BR>&nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <BR>&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; select &nbsp; id,area,stu_type,sum(score) &nbsp; 
+score &nbsp; &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; from &nbsp; 
+students &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; group &nbsp; by 
+&nbsp; rollup(id,area,stu_type) &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; order &nbsp; by &nbsp; id,area,stu_type; &nbsp; <BR>&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+/*--------理解rollup &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; select 
+&nbsp; a, &nbsp; b, &nbsp; c, &nbsp; sum( &nbsp; d &nbsp; ) &nbsp; <BR>&nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; from &nbsp; t &nbsp; <BR>&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; group &nbsp; by &nbsp; rollup(a, &nbsp; b, &nbsp; c); 
+&nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <BR>&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; 等效于 &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; select &nbsp; * &nbsp; from 
+&nbsp; ( &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; select 
+&nbsp; a, &nbsp; b, &nbsp; c, &nbsp; sum( &nbsp; d &nbsp; ) &nbsp; from &nbsp; t 
+&nbsp; group &nbsp; by &nbsp; a, &nbsp; b, &nbsp; c &nbsp; &nbsp; <BR>&nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; union &nbsp; all &nbsp; <BR>&nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; select &nbsp; a, &nbsp; b, &nbsp; 
+null, &nbsp; sum( &nbsp; d &nbsp; ) &nbsp; from &nbsp; t &nbsp; group &nbsp; by 
+&nbsp; a, &nbsp; b &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+union &nbsp; all &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+select &nbsp; a, &nbsp; null, &nbsp; null, &nbsp; sum( &nbsp; d &nbsp; ) &nbsp; 
+from &nbsp; t &nbsp; group &nbsp; by &nbsp; a &nbsp; <BR>&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; union &nbsp; all &nbsp; <BR>&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; select &nbsp; null, &nbsp; null, &nbsp; null, &nbsp; 
+sum( &nbsp; d &nbsp; ) &nbsp; from &nbsp; t &nbsp; <BR>&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; ) &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */ 
+&nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<BR>&nbsp; CUBE &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; select &nbsp; 
+id,area,stu_type,sum(score) &nbsp; score &nbsp; &nbsp; <BR>&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; from &nbsp; students &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; group &nbsp; by &nbsp; cube(id,area,stu_type) &nbsp; <BR>&nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; order &nbsp; by &nbsp; id,area,stu_type; 
+&nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <BR>&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; /*--------理解cube &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; select &nbsp; a, &nbsp; b, &nbsp; c, &nbsp; sum( &nbsp; d &nbsp; ) 
+&nbsp; from &nbsp; t &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; group 
+&nbsp; by &nbsp; cube( &nbsp; a, &nbsp; b, &nbsp; c) &nbsp; <BR>&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 等效于 
+&nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <BR>&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; select &nbsp; a, &nbsp; b, &nbsp; c, &nbsp; sum( &nbsp; d 
+&nbsp; ) &nbsp; from &nbsp; t &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; group &nbsp; by &nbsp; grouping &nbsp; sets( &nbsp; &nbsp; <BR>&nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ( &nbsp; 
+a, &nbsp; b, &nbsp; c &nbsp; ), &nbsp; &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ( &nbsp; a, &nbsp; b &nbsp; ), 
+&nbsp; ( &nbsp; a &nbsp; ), &nbsp; ( &nbsp; b, &nbsp; c &nbsp; ), &nbsp; &nbsp; 
+<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ( 
+&nbsp; b &nbsp; ), &nbsp; ( &nbsp; a, &nbsp; c &nbsp; ), &nbsp; ( &nbsp; c 
+&nbsp; ), &nbsp; &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; () &nbsp; ) &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; ) &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */ &nbsp; 
+<BR>&nbsp; &nbsp; <BR>&nbsp; &nbsp; GROUPING &nbsp; <BR>&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; 从上面的结果中我们很容易发现,每个统计数据所对应的行都会出现null, &nbsp; <BR>&nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; 如何来区分到底是根据那个字段做的汇总呢,grouping函数判断是否合计列! &nbsp; 
+<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; select &nbsp; decode(grouping(id),1,'all &nbsp; id',id) &nbsp; id, 
+&nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; decode(grouping(area),1,'all &nbsp; 
+area',to_char(area)) &nbsp; area, &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+decode(grouping(stu_type),1,'all_stu_type',stu_type) &nbsp; stu_type, &nbsp; 
+<BR>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; sum(score) &nbsp; score &nbsp; <BR>&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; from &nbsp; students &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; group &nbsp; by &nbsp; cube(id,area,stu_type) &nbsp; <BR>&nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; order &nbsp; by &nbsp; id,area,stu_type;<A 
+href="http://topic.csdn.net/t/20060628/13/4848078.html#">Top</A></P>
+<H3><STRONG><A class=anchor name=r_35353648>2 楼</A>stone1126（刘妈妈的宝宝）<INPUT class=user3 title="三级用户 该版得分小于等于1000分，大于500分" type=button></STRONG><SPAN>回复于 
+2006-06-28 14:49:02 得分 0 </SPAN></H3>
+<P>rollup(参数1)，ROLLUP的参数只应该有1个，就算你写了3个参数，起作用的也只有一个，CUBE（参数1，参数2），允许有3个参数，至于楼上的3个参数，从来没用过。<A 
+href="http://topic.csdn.net/t/20060628/13/4848078.html#">Top</A></P>
+<H3><STRONG><A class=anchor name=r_35354285>3 楼</A>duanzilin（寻）<INPUT class=star2 title="二星用户 该版得分小于等于30000分，大于10000分" type=button></STRONG><SPAN>回复于 
+2006-06-28 15:11:21 得分 0 </SPAN></H3>
+<P>呵呵，楼上没真正弄明白rollup的用法，括号里字段个数跟分组字段个数和需求有关，没有具体限制，leah(芳) &nbsp; 
+说的比较明白了，grouping方法比较适合用在单个字段分组的情况，对于多个字段分组用grouping_id(col1,col2..)会方便很多，另外与rollup和cube相关的用法还有group_id(),在这里我之前也解决过很多这方面的例子，可以搜索下，或者网上搜，相关资料很多的<A 
+href="http://topic.csdn.net/t/20060628/13/4848078.html#">Top</A></P>
+<H3><STRONG><A class=anchor name=r_35355508>4 楼</A>xiaoxiao1984（笨猫儿）<INPUT class=star2 title="二星用户 该版得分小于等于30000分，大于10000分" type=button></STRONG><SPAN>回复于 
+2006-06-28 15:55:39 得分 0 </SPAN></H3>
+<P>rollup(col1, &nbsp; col2,...) &nbsp; 和 &nbsp; cube(col1, &nbsp; col2,...) 
+&nbsp; 用法区别在 &nbsp; cube &nbsp; 在 &nbsp; rollup &nbsp; 汇总的记录集上，还会增加对 &nbsp; col2 
+&nbsp; 等字段的汇总； &nbsp; <BR>&nbsp; grouping() &nbsp; 是用来判断是对那个字段进行的汇总 &nbsp; 
+<BR>&nbsp; <A 
+href="http://topic.csdn.net/t/20060628/13/4848078.html#">Top</A></P>
+<H3><STRONG><A class=anchor name=r_35357684>5 楼</A>stone1126（刘妈妈的宝宝）<INPUT class=user3 title="三级用户 该版得分小于等于1000分，大于500分" type=button></STRONG><SPAN>回复于 
+2006-06-28 17:11:21 得分 0 </SPAN></H3>
+<P>呵呵，XIAOXIAO的说法是正确的，我的意思也是那样，ROLLUP只对第一个参数进行汇总，CUBE可以依次汇总，所以ROLLUP中参数个数只有一个会起作用，写在多也是枉然。不知道我的理解对吗？<A 
+href="http://topic.csdn.net/t/20060628/13/4848078.html#">Top</A></P>
+<H3><STRONG><A class=anchor name=r_35357988>6 楼</A>stone1126（刘妈妈的宝宝）<INPUT class=user3 title="三级用户 该版得分小于等于1000分，大于500分" type=button></STRONG><SPAN>回复于 
+2006-06-28 17:21:27 得分 0 </SPAN></H3>
+<P>刚才看了下书，才明白自己的多么的无知。<A 
+href="http://topic.csdn.net/t/20060628/13/4848078.html#">Top</A></P>
+<H3><STRONG><A class=anchor name=r_35359150>7 楼</A>duanzilin（寻）<INPUT class=star2 title="二星用户 该版得分小于等于30000分，大于10000分" type=button></STRONG><SPAN>回复于 
+2006-06-28 18:08:13 得分 0 </SPAN></H3>
+<P>rollup只有第一个参数起作用也是理解不正确的，先看看例子吧： &nbsp; <BR>&nbsp; &nbsp; <BR>&nbsp; SQL&gt; 
+&nbsp; select &nbsp; grade,id,num &nbsp; from &nbsp; a; &nbsp; <BR>&nbsp; &nbsp; 
+<BR>&nbsp; GRADE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ID &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; NUM &nbsp; <BR>&nbsp; ---------- &nbsp; ---------- &nbsp; 
+---------- &nbsp; <BR>&nbsp; a &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1 
+&nbsp; <BR>&nbsp; a &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; 2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2 &nbsp; 
+<BR>&nbsp; b &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; 3 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4 &nbsp; 
+<BR>&nbsp; b &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; 4 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4 &nbsp; 
+<BR>&nbsp; &nbsp; <BR>&nbsp; 对grade字段进行rollup： &nbsp; <BR>&nbsp; &nbsp; 
+<BR>&nbsp; SQL&gt; &nbsp; select &nbsp; grade,sum(num) &nbsp; from &nbsp; a 
+&nbsp; group &nbsp; by &nbsp; rollup(grade); &nbsp; <BR>&nbsp; &nbsp; <BR>&nbsp; 
+GRADE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SUM(NUM) &nbsp; 
+<BR>&nbsp; ---------- &nbsp; ---------- &nbsp; <BR>&nbsp; a &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3 &nbsp; <BR>&nbsp; b &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8 &nbsp; <BR>&nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 11 &nbsp; <BR>&nbsp; 同时对grade和id字段进行rollup 
+&nbsp; <BR>&nbsp; SQL&gt; &nbsp; SELECT &nbsp; 
+decode(grouping_id(grade,ID),2,'小计',3,'合计',grade) &nbsp; grade, &nbsp; 
+<BR>&nbsp; &nbsp; &nbsp; 2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; decode(grouping_id(grade,ID),1,'小计',3,'合计',ID) &nbsp; ID, &nbsp; 
+<BR>&nbsp; &nbsp; &nbsp; 3 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; SUM(num) &nbsp; <BR>&nbsp; &nbsp; &nbsp; 4 &nbsp; &nbsp; FROM 
+&nbsp; a &nbsp; GROUP &nbsp; BY &nbsp; ROLLUP(grade,ID) &nbsp; <BR>&nbsp; &nbsp; 
+&nbsp; 5 &nbsp; &nbsp; / &nbsp; <BR>&nbsp; &nbsp; <BR>&nbsp; GRADE &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; ID &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; SUM(NUM) &nbsp; <BR>&nbsp; ---------- &nbsp; 
+---------- &nbsp; ---------- &nbsp; <BR>&nbsp; a &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; 1 &nbsp; <BR>&nbsp; a &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; 2 &nbsp; <BR>&nbsp; a &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; 小计 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3 &nbsp; 
+<BR>&nbsp; b &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; 3 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4 &nbsp; 
+<BR>&nbsp; b &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; 4 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4 &nbsp; 
+<BR>&nbsp; b &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; 小计 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8 &nbsp; <BR>&nbsp; 合计 &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 合计 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 11 &nbsp; 
+<BR>&nbsp; &nbsp; <BR>&nbsp; 7 &nbsp; rows &nbsp; selected &nbsp; <BR>&nbsp; 
+&nbsp; <BR>&nbsp; 再看看先对grade分组，再对id进行rollup的情况： &nbsp; <BR>&nbsp; &nbsp; 
+<BR>&nbsp; SQL&gt; &nbsp; SELECT &nbsp; grade, &nbsp; <BR>&nbsp; &nbsp; &nbsp; 2 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+decode(GROUPING(ID),1,'合计',ID) &nbsp; ID, &nbsp; <BR>&nbsp; &nbsp; &nbsp; 3 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SUM(num) &nbsp; 
+<BR>&nbsp; &nbsp; &nbsp; 4 &nbsp; &nbsp; FROM &nbsp; a &nbsp; GROUP &nbsp; BY 
+&nbsp; grade,rollup(ID) &nbsp; <BR>&nbsp; &nbsp; &nbsp; 5 &nbsp; &nbsp; / &nbsp; 
+<BR>&nbsp; &nbsp; <BR>&nbsp; GRADE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ID 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+SUM(NUM) &nbsp; <BR>&nbsp; ---------- &nbsp; ---------- &nbsp; ---------- &nbsp; 
+<BR>&nbsp; a &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1 &nbsp; 
+<BR>&nbsp; a &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; 2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2 &nbsp; 
+<BR>&nbsp; a &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; 合计 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3 &nbsp; <BR>&nbsp; b &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3 &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4 &nbsp; <BR>&nbsp; b &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4 &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; 4 &nbsp; <BR>&nbsp; b &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 合计 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8 
+&nbsp; <BR>&nbsp; &nbsp; <BR>&nbsp; 6 &nbsp; rows &nbsp; selected &nbsp; 
+<BR>&nbsp; &nbsp; <BR>&nbsp; 这里GROUP &nbsp; BY &nbsp; 
+grade,rollup(ID)跟你的理解应该很相近了，而且可以看出GROUP &nbsp; BY &nbsp; 
+grade,rollup(ID)结果跟ROLLUP(grade,ID)很类似，只是少了最后1行总合计，但是也可以就看出rollup多个字段时并不是只有1个字段起作用的 
+&nbsp; <BR>&nbsp; &nbsp; <BR>&nbsp; 可以认为你理解的是只对第一个字段的累计，跟GROUP &nbsp; BY &nbsp; 
+grade,rollup(ID)的结果很接近，再看rollup3个字段的情况： &nbsp; <BR>&nbsp; SQL&gt; &nbsp; select 
+&nbsp; part,grade,id,num &nbsp; from &nbsp; a; &nbsp; <BR>&nbsp; &nbsp; 
+<BR>&nbsp; PART &nbsp; GRADE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ID &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; NUM &nbsp; <BR>&nbsp; ---- &nbsp; ---------- &nbsp; 
+---------- &nbsp; ---------- &nbsp; <BR>&nbsp; p1 &nbsp; &nbsp; &nbsp; a &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1 &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1 &nbsp; <BR>&nbsp; p1 &nbsp; &nbsp; 
+&nbsp; a &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2 &nbsp; <BR>&nbsp; p1 
+&nbsp; &nbsp; &nbsp; b &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; 3 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3 &nbsp; 
+<BR>&nbsp; p1 &nbsp; &nbsp; &nbsp; b &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; 4 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; 4 &nbsp; <BR>&nbsp; p2 &nbsp; &nbsp; &nbsp; c &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; 5 &nbsp; <BR>&nbsp; p2 &nbsp; &nbsp; &nbsp; d &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6 &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6 &nbsp; <BR>&nbsp; &nbsp; <BR>&nbsp; 6 
+&nbsp; rows &nbsp; selected &nbsp; <BR>&nbsp; &nbsp; <BR>&nbsp; SQL&gt; &nbsp; 
+&nbsp; <BR>&nbsp; SQL&gt; &nbsp; SELECT &nbsp; 
+decode(grouping_id(part,grade,ID),7,'总计',part) &nbsp; part, &nbsp; <BR>&nbsp; 
+&nbsp; &nbsp; 2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+decode(grouping_id(part,grade,ID),3,'小计',7,'总计',grade) &nbsp; grade, &nbsp; 
+<BR>&nbsp; &nbsp; &nbsp; 3 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; decode(grouping_id(part,grade,ID),1,'小计',3,'小计',7,'总计',ID) &nbsp; 
+ID, &nbsp; <BR>&nbsp; &nbsp; &nbsp; 4 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; SUM(num) &nbsp; <BR>&nbsp; &nbsp; &nbsp; 5 &nbsp; &nbsp; 
+FROM &nbsp; a &nbsp; GROUP &nbsp; BY &nbsp; ROLLUP(part,grade,ID) &nbsp; 
+<BR>&nbsp; &nbsp; &nbsp; 6 &nbsp; &nbsp; / &nbsp; <BR>&nbsp; &nbsp; <BR>&nbsp; 
+PART &nbsp; GRADE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ID &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SUM(NUM) &nbsp; 
+<BR>&nbsp; ---- &nbsp; ---------- &nbsp; ---------- &nbsp; ---------- &nbsp; 
+<BR>&nbsp; p1 &nbsp; &nbsp; &nbsp; a &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; 1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; 1 &nbsp; <BR>&nbsp; p1 &nbsp; &nbsp; &nbsp; a &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; 2 &nbsp; <BR>&nbsp; p1 &nbsp; &nbsp; &nbsp; a &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 小计 &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; 3 &nbsp; <BR>&nbsp; p1 &nbsp; &nbsp; &nbsp; b &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3 &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; 3 &nbsp; <BR>&nbsp; p1 &nbsp; &nbsp; &nbsp; b &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4 &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4 &nbsp; <BR>&nbsp; p1 &nbsp; &nbsp; 
+&nbsp; b &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+小计 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 7 &nbsp; <BR>&nbsp; p1 &nbsp; &nbsp; &nbsp; 
+小计 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 小计 &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; 10 &nbsp; <BR>&nbsp; p2 &nbsp; &nbsp; &nbsp; c &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5 &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; 5 &nbsp; <BR>&nbsp; p2 &nbsp; &nbsp; &nbsp; c &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 小计 &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; 5 &nbsp; <BR>&nbsp; p2 &nbsp; &nbsp; &nbsp; d &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6 &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6 &nbsp; <BR>&nbsp; p2 &nbsp; &nbsp; &nbsp; d 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 小计 &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; 6 &nbsp; <BR>&nbsp; p2 &nbsp; &nbsp; &nbsp; 小计 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 小计 &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 11 
+&nbsp; <BR>&nbsp; 总计 &nbsp; 总计 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+总计 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; 21 &nbsp; <BR>&nbsp; &nbsp; <BR>&nbsp; 13 &nbsp; 
+rows &nbsp; selected &nbsp; <BR>&nbsp; &nbsp; <BR>&nbsp; 
+这里不光只对第一个字段做了累计，先按(part,grade,ID)分组累计,然后按(part,grade)分组累计，再按(part)分组累计，最后累计全部 
+&nbsp; <BR>&nbsp; 再看看rollup &nbsp; 和 &nbsp; cube的区别： &nbsp; <BR>&nbsp; 
+对于ROLLUP(part,grade,ID),grouping_id(part,grade,ID)的值范围在（0，1，3，7）间即 &nbsp; 
+<BR>&nbsp; part,grade,ID（作为合计时计为1） &nbsp; <BR>&nbsp; 0，0，0 &nbsp; <BR>&nbsp; 
+0，0，1 &nbsp; <BR>&nbsp; 0，1，1 &nbsp; <BR>&nbsp; 1，1，1 &nbsp; <BR>&nbsp; 
+而对于cube(part,grade,ID),grouping_id(part,grade,ID)的值范围在0-7之间即 &nbsp; <BR>&nbsp; 
+part,grade,ID（作为合计时计为1） &nbsp; <BR>&nbsp; 0，0，0 &nbsp; <BR>&nbsp; 0，0，1 &nbsp; 
+<BR>&nbsp; 0，1，0 &nbsp; <BR>&nbsp; 0，1，1 &nbsp; <BR>&nbsp; 1，0，0 &nbsp; 
+<BR>&nbsp; 1，0，1 &nbsp; <BR>&nbsp; 1，1，0 &nbsp; <BR>&nbsp; 1，1，1 &nbsp; 
+<BR>&nbsp; &nbsp; <BR>&nbsp; &nbsp; <BR>&nbsp; <A 
+href="http://topic.csdn.net/t/20060628/13/4848078.html#">Top</A></P>
+<H3><STRONG><A class=anchor name=r_35365299>8 楼</A>stone1126（刘妈妈的宝宝）<INPUT class=user3 title="三级用户 该版得分小于等于1000分，大于500分" type=button></STRONG><SPAN>回复于 
+2006-06-29 09:53:51 得分 0 </SPAN></H3>
+<P>小子知错了，谢谢提醒<A 
+href="http://topic.csdn.net/t/20060628/13/4848078.html#">Top</A></P>
+<H4><STRONG>相关问题</STRONG></H4>
+<DIV class=relation></DIV></DIV></DIV>
+<DIV id=sidebar>
+<H3>关键词</H3>
+<DIV></DIV>
+<H3>得分解答快速导航</H3>
+<DIV>
+<UL>
+  <LI>帖主：<A 
+  href="http://topic.csdn.net/t/20060628/13/4848078.html#Top">jsjboss</A> 
+</LI></UL></DIV>
+<H3>相关链接</H3>
+<DIV>
+<UL>
+  <LI><A 
+  href="http://www.dearbook.com.cn/Book/SearchBook.aspx?sortid=22&amp;sorttype=smallsort" 
+  target=_blank>Oracle类图书</A> </LI></UL></DIV>
+<H3>广告也精彩</H3>
+<DIV>
+<SCRIPT 
+src="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/show_ads.js" 
+type=text/javascript></SCRIPT>
+</DIV>
+<H3>反馈</H3>
+<DIV>请通过下述方式给我们反馈<BR><IMG alt=反馈 
+src="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/feedback.gif"></DIV></DIV>
+<DIV class=clear></DIV></DIV>
+<DIV style="TEXT-ALIGN: center">
+<DIV id=pubfooter style="WIDTH: 770px">
+<DIV id=Float21789 
+style="Z-INDEX: 9; RIGHT: 3px; WIDTH: 190px; POSITION: absolute; TOP: 200px">
+<CENTER>
+<DIV id=AD21789 
+style="FLOAT: none; WIDTH: 190px; HEIGHT: 90px; TEXT-ALIGN: center"><A 
+href="http://g.csdn.net/5060169" target=_blank><IMG 
+style="PADDING-RIGHT: 3px; WIDTH: 180px; HEIGHT: 50px" alt=提问 
+src="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/questions.gif"></A> 
+</DIV></CENTER></DIV>
+<SCRIPT language=JavaScript type=text/javascript>
+    var csdnScrollTop=function(){
+        return document.documentElement.scrollTop?document.documentElement.scrollTop:document.body.scrollTop;
+        };
+        function mymove21789(){
+        document.getElementById("Float21789").style.top=csdnScrollTop()+300+'px';document.getElementById("Float21789").style.right=3+'px';setTimeout("mymove21789();",50);
+        }
+        mymove21789();
+    </SCRIPT>
+<LINK 
+href="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/public_header_footer.css" 
+type=text/css rel=stylesheet>
+<DL>
+  <DT>
+  <DD><A href="http://www.csdn.net/help/intro.htm" target=_blank>网站简介</A>|<A 
+  href="http://www.csdn.net/help/ads.htm" target=_blank>广告服务</A>|<A 
+  href="http://www.csdn.net/help/vip.htm" target=_blank>VIP资费标准</A>|<A 
+  href="http://www.csdn.net/help/bankaccount.htm" target=_blank>银行汇款帐号</A>|<A 
+  href="http://www.csdn.net/help/sitemap.htm" target=_blank>网站地图</A>|<A 
+  href="http://www.csdn.net/help/help.htm" target=_blank>帮助</A>|<A 
+  href="http://www.csdn.net/help/contact.htm" target=_blank>联系方式</A>|<A 
+  href="http://job.csdn.net/Jobs/f9c75c9f2ad14404a604669b757b9ed0/viewcompany.aspx" 
+  target=_blank>诚聘英才</A>|<A href="http://www.csdn.net/help/english.htm" 
+  target=_blank>English</A>|<A 
+  onclick="window.location.href='mai'+'lto:'+'webm'+'aster@c'+'sdn.n'+'et?subject=Report To CSDN';return false" 
+  href="http://topic.csdn.net/t/20060628/13/4848078.html#">问题报告</A> 
+  <DD>北京创新乐知广告有限公司 版权所有,&nbsp;京&nbsp;ICP&nbsp;证&nbsp;070598&nbsp;号 
+  <DD>世纪乐知(北京)网络技术有限公司 提供技术支持 
+  <DD class=small>Copyright © 2000-2008, CSDN.NET, All Rights Reserved 
+  <DD><A 
+  href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" 
+  target=_blank><IMG alt=GongshangLogo 
+  src="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/gongshang_logos.gif"></A> 
+  </DD></DL></DIV></DIV><!--google   Analytics begin -->
+<SCRIPT 
+src="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/urchin.js" 
+type=text/javascript>
+        </SCRIPT>
+
+<SCRIPT type=text/javascript>
+_uacct = "UA-2688088-7";
+urchinTracker();
+        </SCRIPT>
+<!--google   Analytics end -->
+<SCRIPT 
+src="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/counter.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="rollup和cube区别及grouping用法 Oracle - 基础和管理 - CSDN社区 community_csdn_net.files/clickeye.js"></SCRIPT>
+<!-- Control Code/Caption.Yo-Focus-->
+<SCRIPT language=JavaScript1.1>
+var afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8 = "";
+var afp_ad_count = 0;
+var afp_keyword_lenth = 200;
+
+var _YOYI_CONTROL_ = false;
+
+if ((navigator.userAgent.indexOf("MSIE 7.0") != -1) && (navigator.userAgent.indexOf("Windows") != -1))
+{
+	afp_keyword_lenth = 273;
+}
+
+if (document.title != "")
+	afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8 = document.title;
+if (window.keywords)
+	afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8 += window.keywords.content;
+if (window.description)
+	afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8 += window.description.content;
+
+if (document.innerTEXT)
+	afp_all_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8 = document.innerTEXT;
+
+if(afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8.length > afp_keyword_lenth) 
+{
+	afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8 = afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8.substring(0,afp_keyword_lenth);
+}
+
+document.write("<scr"+"ipt src='http://server.yoyi.com.cn/afp/get/;pl_id=BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8;tp=js;sk=0;ck=0;ext_key="+afp_keyword_BDA9CBA6_5658_A4DB_7E1D_1B781AF3DEE8+";u_id=afu;ex_id=;/?'></scr"+"ipt>");
+</SCRIPT>
+<!-- Control Code End/No.csdn--></DIV></DIV></DIV></DIV></BODY></HTML>

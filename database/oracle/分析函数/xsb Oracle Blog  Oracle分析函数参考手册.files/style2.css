@@ -1,0 +1,75 @@
+BODY {
+	COLOR: #333333; BACKGROUND-COLOR: #c8adfe
+}
+A:link {
+	COLOR: #4a007b
+}
+A:visited {
+	COLOR: #4a007b
+}
+LABEL {
+	COLOR: #334d55
+}
+#pagecell {
+	BACKGROUND-COLOR: #ffffff
+}
+#pageNav {
+	BORDER-RIGHT: #c8adfe 1px solid; BORDER-TOP: #c8adfe 1px solid; BORDER-LEFT: #c8adfe 1px solid; BORDER-BOTTOM: #c8adfe 1px solid; BACKGROUND-COLOR: #f0e8ff
+}
+#leftNav {
+	BORDER-RIGHT: #c8adfe 1px solid; BORDER-TOP: #c8adfe 1px solid; BORDER-LEFT: #c8adfe 1px solid; BORDER-BOTTOM: #c8adfe 1px solid; BACKGROUND-COLOR: #f0e8ff
+}
+#rightNav {
+	BORDER-RIGHT: #c8adfe 1px solid; BORDER-TOP: #c8adfe 1px solid; BORDER-LEFT: #c8adfe 1px solid; BORDER-BOTTOM: #c8adfe 1px solid; BACKGROUND-COLOR: #f0e8ff
+}
+#content {
+	BACKGROUND-COLOR: #ffffff
+}
+.contentTitle {
+	BORDER-RIGHT: #c8adfe 1px solid; BORDER-TOP: #c8adfe 1px solid; BORDER-LEFT: #c8adfe 1px solid; COLOR: black; BORDER-BOTTOM: #c8adfe 1px solid; BACKGROUND-COLOR: #e4d7ff
+}
+#siteName {
+	BACKGROUND-IMAGE: url(img2/top.jpg); COLOR: #ccccdd; BACKGROUND-COLOR: #b997ff
+}
+#siteName A {
+	COLOR: #ccccdd
+}
+#globalNav {
+	BORDER-RIGHT: #c8adfe 1px outset; BORDER-TOP: #c8adfe 1px outset; BACKGROUND-IMAGE: url(img2/glbnav_background.gif); BORDER-LEFT: #c8adfe 1px outset; COLOR: #cccccc; BORDER-BOTTOM: #c8adfe 1px outset; BACKGROUND-COLOR: #e4d7ff
+}
+A.glink {
+	BORDER-RIGHT: #8fb8bc 1px solid; COLOR: #000000
+}
+A.glink:visited {
+	BORDER-RIGHT: #8fb8bc 1px solid; COLOR: #000000
+}
+A.glink:hover {
+	BACKGROUND-IMAGE: url(img2/glblnav_selected.gif)
+}
+.relatedLinks {
+	BORDER-BOTTOM: #c8adfe 1px solid
+}
+.relatedLinksTitle {
+	BORDER-TOP: #ffffff 1px solid; COLOR: #4a007b; BORDER-BOTTOM: #c8adfe 1px solid; BACKGROUND-COLOR: #e4d7ff
+}
+.button {
+	BORDER-RIGHT: #c8adfe 1px solid; BORDER-TOP: #c8adfe 1px solid; BACKGROUND-IMAGE: url(img2/bg_nav.jpg); BORDER-LEFT: #c8adfe 1px solid; COLOR: #4a007b; BORDER-BOTTOM: #c8adfe 1px solid
+}
+.calMonthToday {
+	COLOR: red
+}
+.story {
+	BORDER-RIGHT: #c8adfe 1px solid; BORDER-TOP: #c8adfe 1px solid; BORDER-LEFT: #c8adfe 1px solid; BORDER-BOTTOM: #c8adfe 1px solid; BACKGROUND-COLOR: #f0e8ff
+}
+.storyTitle {
+	COLOR: #4a007b; BORDER-BOTTOM: #c8adfe 1px solid; BACKGROUND-COLOR: #e4d7ff
+}
+.storyposted {
+	
+}
+.storytext blockquotexxx {
+	BORDER-TOP-COLOR: #c671ff; BORDER-BOTTOM: #c8adfe 1px solid
+}
+.code {
+	BORDER-RIGHT: #c8adfe 1px solid; BORDER-TOP: #c8adfe 1px solid; BORDER-LEFT: #c8adfe 1px solid; BORDER-BOTTOM: #c8adfe 1px solid; BACKGROUND-COLOR: #dbc8ff
+}

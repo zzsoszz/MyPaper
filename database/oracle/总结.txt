@@ -1,0 +1,11 @@
+select *
+  from testa a
+ where 
+ exists (select * from testb b where b.one = a.one)
+ or 
+ exists
+ (
+        select 1 from dual  
+        where null=all(select * from testb b)
+ )
+ 

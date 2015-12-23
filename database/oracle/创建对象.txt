@@ -1,0 +1,340 @@
+
+Oracle中过程/函数返回结果集
+http://blog.csdn.net/feiliu010/article/details/1538822
+
+
+Oracle中函数/过程返回结果集的几种方式:
+    以函数return为例,存储过程只需改为out参数即可,在oracle 10g测试通过.
+    (1) 返回游标:
+        return的类型为:SYS_REFCURSOR
+        之后在IS里面定义变量:curr SYS_REFCURSOR;
+        最后在函数体中写:
+         open cur for
+            select ......;
+         return cur;
+        例:
+       
+CREATE OR REPLACE FUNCTION A_Test(
+                orType varchar2
+        )RETURN SYS_REFCURSOR
+        is
+               type_cur SYS_REFCURSOR;
+        BEGIN
+            OPEN type_cur FOR
+                    select col1,col2,col3 from testTable ;
+                  RETURN  type_cur;
+        END;
+
+    (2)返回table类型的结果集:
+        首先定义一个行类型:
+           
+CREATE OR REPLACE TYPE "SPLIT_ARR"  AS OBJECT(nowStr varchar2(18))
+
+        其次以此行类型定义一个表类型:
+         
+  CREATE OR REPLACE TYPE "SPLIT_TAB" AS TABLE of split_arr;
+
+        定义函数(此函数完成字符串拆分功能):
+           
+CREATE OR REPLACE FUNCTION GetSubStr(
+                   str in varchar2, --待分割的字符串
+                   splitchar in varchar2 --分割标志
+            )
+            return split_tab
+            IS
+              restStr varchar2(2000) default GetSubStr.str;--剩余的字符串
+              thisStr varchar2(18);--取得的当前字符串
+              indexStr int;--临时存放分隔符在字符串中的位置
+             
+              v split_tab := split_tab(); --返回结果
+
+            begin
+                 dbms_output.put_line(restStr);
+                 while length(restStr) != 0
+                   LOOP
+                     <<top>>
+                     indexStr := instr(restStr,splitchar); --从子串中取分隔符的第一个位置
+
+                     if indexStr = 0 and length(restStr) != 0  then--在剩余的串中找不到分隔符
+                        begin
+                          v.extend;
+                          v(v.count) := split_arr(Reststr);
+                          return v;
+                        end;
+                     end if;
+                    
+                     if indexStr = 1 then---第一个字符便为分隔符,此时去掉分隔符
+                        begin
+                             restStr := substr(restStr,2);
+                             goto   top;
+                        end;
+                     end if;
+                    
+                     if length(restStr) = 0 or restStr is null then
+                        return v;
+                     end if;
+                   
+                     v.extend;
+                     thisStr := substr(restStr,1,indexStr - 1); --取得当前的字符串
+                     restStr := substr(restStr,indexStr + 1);---取剩余的字符串
+
+                     v(v.count) := split_arr(thisStr);
+                   END LOOP;
+                 return v;
+            end;
+
+        在PL/SQL developer中可以直接调用
+          
+cursor strcur is
+                         select nowStr from Table(GetSubStr('111,222,333,,,',','));
+
+    (3)以管道形式输出:
+       
+create type row_type as object(a varchar2(10), v varchar2(10));--定义行对象
+        create type table_type as table of row_type; --定义表对象
+        create or replace function test_fun(
+            a in varchar2,b in varchar2
+        )
+        return table_type pipelined
+        is
+            v row_type;--定义v为行对象类型
+        begin
+          for thisrow in (select a, b from mytable where col1=a and col2 = b) loop
+            v := row_type(thisrow.a, thisrow.b);
+            pipe row (v);
+          end loop;
+          return;
+        end;
+        select * from table(test_fun('123','456'));
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+--function返回记录集的例子，原理和上面相同，而是用function的return值来返回记录集。
+
+函数返回记录集:
+建立带ref cursor定义的包和包体及函数：
+CREATE OR REPLACE
+package pkg_test as
+type myrctype is ref cursor;
+function get_r(intID number) return myrctype;
+end pkg_test;
+/
+
+CREATE OR REPLACE
+package body pkg_test as
+--函数体
+function get_r(intID number) return myrctype is
+rc myrctype; --定义ref cursor变量
+sqlstr varchar2(500);
+begin
+if intID=0 then
+--静态测试，直接用select语句直接返回结果
+open rc for select id,name,sex,address,postcode,birthday from student;
+else
+--动态sql赋值，用:w_id来申明该变量从外部获得
+sqlstr := 'select id,name,sex,address,postcode,birthday from student where id=:w_id';
+--动态测试，用sqlstr字符串返回结果，用using关键词传递参数
+open rc for sqlstr using intid;
+end if;
+
+return rc;
+end get;
+
+end pkg_test;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------
+create type row_type as object(a varchar2(4000));--定义行对象
+
+
+create type table_type as table of row_type; --定义表对象
+
+
+
+---------11111
+create or replace function test_fun(
+    str in varchar2
+)
+return table_type pipelined
+is
+    v row_type;--定义v为行对象类型
+begin
+
+
+  for thisrow in (select bx_order_hotel_t.orderid from bx_order_hotel_t ) loop
+    v := row_type(thisrow.orderid);
+    pipe row (v);
+  end loop;
+end;
+
+
+select * from table(test_fun('')) 
+
+---22222
+
+CREATE OR REPLACE
+package pkg_test as
+type myrctype is ref cursor;
+function test_fun(str varchar) return myrctype;
+end pkg_test;
+
+
+CREATE OR REPLACE
+package body pkg_test as
+--函数体
+function test_fun(str varchar) return myrctype is
+rc myrctype; --定义ref cursor变量
+sqlstr varchar2(500);
+begin
+
+open rc for select bx_order_hotel_t.orderid from bx_order_hotel_t ;
+return rc;
+
+end test_fun;
+end pkg_test;
+
+
+
+
+
+select pkg_test.test_fun('') from dual;
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------
+在Oracle的函数中,返回表类型
+ 在Oracle的函数中,返回表类型
+
+在SQL Server中有表变量,可以在function中方便地返回,习惯SQL Server或者需要把脚本从SQL Server转到Oracle中的朋友可以都会碰到这个问题.
+
+Oracle的function中怎么返回表变量?
+
+太晚了,过多的理论知识就不说了,下面简单地说实现吧!..
+
+1、创建表对象类型。
+
+在Oracle中想要返回表对象，必须自定义一个表类型，如下所示：
+create or replace type t_table is table of number;
+
+上面的类型定义好后，在function使用可用返回一列的表，如果需要多列的话，需要先定义一个对象类型。然后把对象类型替换上面语句中的number；
+
+定义对象类型：
+create or replace type obj_table as object
+(
+  id int,
+  name varchar2(50)
+)
+
+修改表对象类型的定义语句如下：
+create or replace type t_table is table of obj_table;
+
+ 
+
+2、 创建演示函数
+
+在函数的定义中,可以使用管道化表函数和普通的方式,下面提供两种使用方式的代码:
+
+1)、管道化表函数方式：
+复制代码
+create or replace function f_pipe(s number)
+return t_table pipelined
+as
+    v_obj_table obj_table;   
+begin    
+for i in 1..s loop 
+    v_obj_table :=  obj_table(i,to_char(i*i));
+    pipe   row(v_obj_table);   
+end loop;
+return;
+end f_pipe;
+复制代码
+
+注意:管道的方式必须使用空的return表示结束.
+
+调用函数的方式如下：
+select * from table(f_pipe(5));
+
+ 
+
+2)、 普通的方式:
+复制代码
+create or replace function f_normal(s number)
+return t_table
+as
+    rs t_table:= t_table();
+begin
+    for i in 1..s loop
+        rs.extend;
+        rs(rs.count) := obj_table(rs.count,'name'||to_char(rs.count));
+        --rs(rs.count).name := rs(rs.count).name || 'xxxx';
+    end loop;
+return rs;
+end f_normal;
+复制代码
+
+初始化值后还可以想注视行那样进行修改.
+
+调用方式如下:
+select * from table(f_normal(5));

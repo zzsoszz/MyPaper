@@ -1,0 +1,535 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0041)http://www.ixdba.net/article/9b/1447.html -->
+<HTML><HEAD><TITLE>oracle高级复制需要注意的几点问题 - 性能优化</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META 
+content=oracle高级复制需要注意的几点问题,oracle数据库,oracle视频,oracle调优,linux资料,linux教程,linux视频 
+name=Keywords>
+<META content=oracle高级复制需要注意的几点问题,oracle+linux专业技术门户!分享技术,传播知识! 
+name=Description><LINK href="oracle高级复制需要注意的几点问题 - 性能优化.files/default.css" 
+type=text/css rel=stylesheet>
+<SCRIPT src="oracle高级复制需要注意的几点问题 - 性能优化.files/category_0.js"></SCRIPT>
+
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR>
+<SCRIPT language=JavaScript> 
+bg = new Array(2); //设定图片数量2 
+bg[0] = '/hbcms/template/image/singedu_red.tpl_55/02.gif' //显示的图片路径 
+bg[1] = '/hbcms/template/image/singedu_red.tpl_55/31.gif' 
+index = Math.floor(Math.random()*bg.length); 
+document.write("<BODY BACKGROUND="+bg[index]+">"); 
+</SCRIPT>
+</HEAD>
+<BODY leftMargin=0 topMargin=0>
+<TABLE cellSpacing=0 cellPadding=0 width=1000 align=center border=0>
+  <TBODY>
+  <TR>
+    <TD><IMG height=1 alt="" src="oracle高级复制需要注意的几点问题 - 性能优化.files/spacer.gif" 
+      width=10 border=0></TD>
+    <TD><IMG height=1 alt="" src="oracle高级复制需要注意的几点问题 - 性能优化.files/spacer.gif" 
+      width=96 border=0></TD>
+    <TD><IMG height=1 alt="" src="oracle高级复制需要注意的几点问题 - 性能优化.files/spacer.gif" 
+      width=884 border=0></TD>
+    <TD><IMG height=1 alt="" src="oracle高级复制需要注意的几点问题 - 性能优化.files/spacer.gif" 
+      width=10 border=0></TD>
+    <TD><IMG height=1 alt="" src="oracle高级复制需要注意的几点问题 - 性能优化.files/spacer.gif" 
+      width=1 border=0></TD></TR>
+  <TR>
+    <TD><IMG id=top11 height=24 alt="" 
+      src="oracle高级复制需要注意的几点问题 - 性能优化.files/top11.jpg" width=10 border=0 
+      name=top11></TD>
+    <TD align=right background="oracle高级复制需要注意的几点问题 - 性能优化.files/top22.jpg" 
+    colSpan=2>
+      <TABLE class=topmenu cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD class=topmenu align=left width=500><SPAN id=time>
+            <SCRIPT type=text/javascript>document.getElementById('time').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());setInterval("document.getElementById('time').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);</SCRIPT>
+            </SPAN></TD>
+          <TD class=topmenu align=right>
+            <SCRIPT>my_tag("my_text_001",1);</SCRIPT>
+          </TD></TR></TBODY></TABLE></TD>
+    <TD><IMG id=top33 height=24 alt="" 
+      src="oracle高级复制需要注意的几点问题 - 性能优化.files/top33.jpg" width=10 border=0 
+      name=top33></TD>
+    <TD><IMG height=24 alt="" 
+      src="oracle高级复制需要注意的几点问题 - 性能优化.files/spacer.gif" width=1 border=0></TD></TR>
+  <TR>
+    <TD></TD>
+    <TD align=middle colSpan=2>
+      <TABLE height=0 cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD vAlign=center align=middle>
+            <SCRIPT>my_tag("web_logo",1);</SCRIPT>
+          </TD>
+          <TD vAlign=center align=middle>
+            <SCRIPT>my_tag("top_text",1);</SCRIPT>
+          </TD>
+          <TD vAlign=center align=middle>
+            <SCRIPT>my_tag("top_text",2);</SCRIPT>
+          </TD></TR></TBODY></TABLE></TD>
+    <TD></TD>
+    <TD><IMG height=80 alt="" 
+      src="oracle高级复制需要注意的几点问题 - 性能优化.files/spacer.gif" width=1 border=0></TD></TR>
+  <TR>
+    <TD vAlign=top 
+      background="oracle高级复制需要注意的几点问题 - 性能优化.files/top88.jpg"><IMG id=top77 
+      alt="" src="oracle高级复制需要注意的几点问题 - 性能优化.files/top77.jpg" width=10 border=0 
+      name=top77></TD>
+    <TD class=menu vAlign=center align=middle 
+    background="oracle高级复制需要注意的几点问题 - 性能优化.files/top88.jpg" colSpan=2><A 
+      href="http://www.ixdba.net/" target=_blank>首页</A><SPAN class=menu> 
+      |</SPAN> <A href="http://www.ixdba.net/article/ZaiXianXueXiShiPin/" 
+      target=_self>学习视频</A><SPAN class=menu> |</SPAN> <A 
+      href="http://www.ixdba.net/article/oracleShuJuKu/" 
+      target=_self>配置管理</A><SPAN class=menu> |</SPAN> <A 
+      href="http://www.ixdba.net/article/ITXinWen/" target=_self>备份恢复</A><SPAN 
+      class=menu> |</SPAN> <A href="http://www.ixdba.net/article/ZaWenQuTan/" 
+      target=_self>性能优化</A><SPAN class=menu> |</SPAN> <A 
+      href="http://www.ixdba.net/article/JiQunJiShu/" target=_self>集群技术</A><SPAN 
+      class=menu> |</SPAN> <A href="http://www.ixdba.net/article/Category13/" 
+      target=_self>操作系统</A><SPAN class=menu> |</SPAN> <A 
+      href="http://www.ixdba.net/article/ITyejie/" target=_self>IT新闻</A><SPAN 
+      class=menu> |</SPAN> <A href="http://www.ixdba.net/article/JiChuZhiShi/" 
+      target=_self>基础知识</A><SPAN class=menu> |</SPAN> <A 
+      href="http://www.ixdba.net/article/Bulletin/" target=_self>站内公告</A><SPAN 
+      class=menu> |</SPAN> <A href="http://www.ixdba.net/article/CunChuZhiShi/" 
+      target=_self>存储技术</A><SPAN class=menu> |</SPAN> <A 
+      href="http://www.ixdba.net/article/BLOG/" target=_self>问题集锦</A> </TD>
+    <TD vAlign=top 
+      background="oracle高级复制需要注意的几点问题 - 性能优化.files/top88.jpg"><IMG id=top99 
+      alt="" src="oracle高级复制需要注意的几点问题 - 性能优化.files/top99.jpg" width=10 border=0 
+      name=top99></TD>
+    <TD><IMG alt="" src="oracle高级复制需要注意的几点问题 - 性能优化.files/spacer.gif" width=1 
+      border=0></TD></TR>
+  <TR>
+    <TD><IMG id=top1010 height=49 alt="" 
+      src="oracle高级复制需要注意的几点问题 - 性能优化.files/top1010.jpg" width=10 border=0 
+      name=top1010></TD>
+    <TD><IMG id=top1111 height=49 alt="" 
+      src="oracle高级复制需要注意的几点问题 - 性能优化.files/top1111.jpg" width=96 border=0 
+      name=top1111></TD>
+    <TD vAlign=center 
+      background="oracle高级复制需要注意的几点问题 - 性能优化.files/top1212.jpg"><TABLE 
+      cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <FORM action=/hbcms/php/search.php method=get>
+        <TR>
+          <TD width=220><INPUT onfocus=this.select(); maxLength=50 size=30 
+            value=关键字 name=search_word> </TD>
+          <TD align=middle width=100><INPUT type=image height=22 width=66 
+            src="oracle高级复制需要注意的几点问题 - 性能优化.files/search.jpg" align=absMiddle 
+            value=Submit border=0 name=Submit> </TD>
+          <TD width=550>
+            <SCRIPT>my_tag("hot_search",1);</SCRIPT>
+          </TD>
+          <TD width=14>　</TD></TR></FORM></TBODY></TABLE></TD>
+    <TD><IMG id=top1313 height=49 alt="" 
+      src="oracle高级复制需要注意的几点问题 - 性能优化.files/top1313.jpg" width=10 border=0 
+      name=top1313></TD>
+    <TD><IMG height=49 alt="" 
+      src="oracle高级复制需要注意的几点问题 - 性能优化.files/spacer.gif" width=1 border=0></TD>
+  <TR>
+    <TD align=middle colSpan=5>
+      <SCRIPT>my_tag("topbanner",1);</SCRIPT>
+    </TD></TR></TR></TBODY></TABLE>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD><IMG height=5 alt=li src="oracle高级复制需要注意的几点问题 - 性能优化.files/ali.jpg" 
+      width=5></TD></TR></TBODY></TABLE>
+<TABLE class=tbspan cellSpacing=0 cellPadding=0 width=1000 align=center 
+border=0>
+  <TBODY>
+  <TR>
+    <TD vAlign=top width=776 height=587>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD width="1%"><IMG id=x_r1_c1 height=34 alt="" 
+            src="oracle高级复制需要注意的几点问题 - 性能优化.files/x_r1_c1.jpg" width=10 border=0 
+            name=x_r1_c1></TD>
+          <TD width="98%" 
+          background="oracle高级复制需要注意的几点问题 - 性能优化.files/x_r1_c2.jpg">
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD width="2%">　</TD>
+                <TD style="PADDING-LEFT: 5px; PADDING-TOP: 4px" 
+                  width="98%">当前位置：<A href="http://www.ixdba.net/">主页</A> &gt; 
+                  <A href="http://www.ixdba.net/article/ZaWenQuTan/">性能优化</A> 
+                  &gt; 文章内容</TD></TR></TBODY></TABLE></TD>
+          <TD width="1%"><IMG id=x_r1_c3 height=34 alt="" 
+            src="oracle高级复制需要注意的几点问题 - 性能优化.files/x_r1_c3.jpg" width=10 border=0 
+            name=x_r1_c3></TD></TR></TBODY></TABLE>
+      <TABLE height=412 cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD align=middle colSpan=5>
+            <SCRIPT>my_tag("banner",1);</SCRIPT>
+          </TD>
+        <TR>
+          <TD vAlign=top height=220>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" align=center 
+            border=0>
+              <TBODY>
+              <TR>
+                <TD><IMG height=5 alt=li 
+                  src="oracle高级复制需要注意的几点问题 - 性能优化.files/ali.jpg" 
+              width=5></TD></TR></TBODY></TABLE>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD style="FONT-SIZE: 12pt; PADDING-TOP: 10px" align=middle 
+                width="99%" bgColor=#d1e1f4 
+                  height=40><B>oracle高级复制需要注意的几点问题</B></TD></TR>
+              <TR>
+                <TD style="BORDER-BOTTOM: #cccccc 1px solid" align=middle 
+                bgColor=#d1e1f4 height=30><FONT color=#666666>来源： 
+                  www.ixdba.net&nbsp; 作者： IXDBA.NET官方&nbsp; &nbsp; 时间：2008-03-27 
+                  &nbsp; 阅读：20&nbsp;&nbsp; <A 
+                  title=收藏的网页将被永久地保存到新浪ViVi收藏夹http://vivi.sina.com.cn 
+                  href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(vivi=window.open('http://vivi.sina.com.cn/collect/icollect.php?pid=http://www.ixdba.net/&amp;title='+escape(d.title)+'&amp;url='+escape(d.location.href)+'&amp;desc='+escape(t),'vivi','scrollbars=no,width=480,height=480,left=75,top=20,status=no,resizable=yes'));vivi.focus();"><IMG 
+                  src="oracle高级复制需要注意的几点问题 - 性能优化.files/vivi.gif" border=0></A> 
+                  </FONT></TD></TR>
+              <TR>
+                <TD vAlign=top height=300>
+                  <TABLE cellSpacing=1 cellPadding=1 width="100%" 
+                  bgColor=#ecf4f5 border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=#ecf4f5>
+                        <TABLE style="MARGIN-TOP: 8px" cellSpacing=0 
+                        cellPadding=0 width="100%" border=0>
+                          <TBODY>
+                          <TR>
+                            <TD width=6 height=52></TD>
+                            <TD>
+                              <TABLE width="100%">
+                                <TBODY>
+                                <TR>
+                                <TD align=right></TD></TR></TBODY></TABLE>
+                              <TABLE width="100%"><!-- 长篇文章分页下拉菜单显示 -->
+                                <TBODY>
+                                <TR>
+                                <TD align=right>本文章共2374字，分2页，当前第1页，快速翻页：<SELECT 
+                                onchange=location.href=this.value><OPTION 
+                                value=/article/9b/1447.html 
+                                selected>1</OPTION><OPTION 
+                                value=/article/9b/1447$2.html>2</OPTION></SELECT><BR>&nbsp;<BR></TD></TR>
+                                <TR>
+                                <TD>
+                                <TABLE width="100%" border=0>
+                                <TBODY>
+                                <TR>
+                                <TD align=middle>
+                                <SCRIPT>my_tag("gg_468_60",1);</SCRIPT>
+                                </TD></TR></TBODY></TABLE>
+                                <DIV>
+                                <P><FONT face=Verdana 
+                                size=2>高级复制需要注意的几点问题，谈谈自己的看法！</FONT></P>
+                                <P><FONT face=Verdana 
+                                size=2>　　<BR>　　高级复制是</FONT><FONT face=Verdana 
+                                color=#333333 size=2>oracle</FONT><FONT 
+                                face=Verdana 
+                                size=2>数据库的高级功能，它的维护比普通数据库复杂，下面是在已有高级复制数据库维护过程中出现过一些问题和解决办法。<BR>　　<BR>　　1、稳定的物理链路：连接</FONT><FONT 
+                                face=Verdana color=#333333 
+                                size=2>服务器</FONT><FONT face=Verdana 
+                                size=2>的网络由于故障断开，</FONT><FONT face=Verdana 
+                                color=#333333 size=2>服务器</FONT><FONT 
+                                face=Verdana 
+                                size=2>彼此之间数据就不能访问，数据无法传输；网络不稳定，数据就会发生丢包，不完整。<BR>　　<BR>　　2、传输速度方面要求较高：否则还不如单级版本。<BR>　　<BR>　　3、参与的</FONT><FONT 
+                                face=Verdana color=#333333 
+                                size=2>服务器</FONT><FONT face=Verdana 
+                                size=2>不能长期不开机：这样会积压大量的延迟任务，导致数据无法进行发布。<BR>　　<BR>　　4、参与复制的表，不能在它上面直接执行任何DDL语句：因为ORACLE自动在参与复制的表上建立了内部的支持复制的TRIGGER和PACKAGE，在它上面直接执行任何DDL语句都会破坏这些复制支持。应该先SUSPEND要修改表所在的复制组，在REPICATION 
+                                MANAGER中或调用REPCAT 
+                                API执行DDL语句，然后重新GENERATE该表的复制支持，最后将复制组状态恢复为NORMAL。注意修改表结构的DDL语句中表名前一定要带上属主，并且最后没有分号。如果不小心直接执行了DDL语句，应该将该表移出复制环境，删掉，重新建立或从其它节点复制过来。<BR>　　<BR>　　5、修改一张表加一个字段，并设置缺省值，如 
+                                ALTER TABLE OWNER.TABLE_NAME ADD(FIELD_NAME 
+                                VARCHAR2(20) DEFAULT 
+                                'AAA');在9i之前不能一次执行，要分成两部分执行：<BR>　　1、ALTER TABLE 
+                                OWNER.TABLE_NAME ADD FIELD_NAME <BR>　　2、ALTER 
+                                TABLE OWNER.TABLE_NAME MODIFY FIELD_NAME DEFAULT 
+                                'AAA'<BR>　　这是因为执行任何DDL语句，需要SUSPEND复制组，此时复制表只能查询，不能执行其它DML语句。如果直接加上一个字段同时赋予缺省值，此时的处理是加上一个字段，并立刻给该字段赋上给定的缺省值，这后面的DML语句是不能执行的，所以会报错。而分成两部分执行，第一部分先加一个字段，第二部分再修改该字段的定义，不会发生插入缺省值的DML操作，因此可以执行。<BR>　　<BR>　　6、执行任何ADMIN 
+                                REQUEST（对复制环境的管理命令）前，都要保证此时没有堆积的DEFERRED 
+                                TRANS。<BR>　　<BR>　　7、执行任何ADMIN 
+                                REQUEST，必须一步一步执行。因为ADMIN 
+                                REQUEST的工作原理，是用一个REPCATLOG表保存ADMIN 
+                                REQUEST语句，执行完一条消失一条，后面的再继续执行。如果前面一条没执行完，后面的ADMIN 
+                                REQUEST就无法执行，而REPCATLOG表如果不为空，复制组就无法恢复为NORMAL。因此每次发出ADMIN 
+                                REQUEST后，都要检查REPCATLOG表，当所有节点上的REPCATLOG表都为空后，才能发出下一条命令。<BR>　　<BR>　　8、如果发现REPCATLOG表中有无法执行的命令，可以重新APPLY或PURGE掉再重新发出命令执行。如果只是某一个节点上有遗留命令，可以在该节点上多APPLY几次执行。<BR>　　<BR>　　9、如果发出命令后一直没有响应，而ADMIN 
+                                REQUEST又无法PURGE掉，现象类似死锁。可以试着BROKEN掉该ADMIN 
+                                REQUEST对应的JOB，重新刷新命令。如果命令能继续执行，恢复JOB的状态。如果还不行，从V$SESSION 
+                                和V$LOCK中查出死锁，用ALTER SYSTEM KILL SESSION 
+                                杀掉死锁的进程，如果还是杀不掉。就需要查出类型为'RQ'的分布式死锁，用SID再从V$PROCESS、V$BGPROCESS查出对应的后台进程，从操作系统级杀掉后台进程的方式来解锁，可能还需要重启数据库。最后再恢复JOB的状态和其他涉及的复制环境状态。<BR>　　<BR>　　10、可以通过REPLICATION 
+                                MANAGER或相关系统表查询复制环境情况，以REPADMIN用户登陆：<BR>　　查看复制组和复制对象：<BR>　　select 
+                                gname,status from dba_repgroup;<BR>　　--其中gname 
+                                即为复制组名,status 表示状态<BR>　　select 
+                                gname,oname,status from dba_repobject where type 
+                                =’TABLE’ and oname 
+                                =<BR>　　‘table_name’;<BR>　　--要查询某张表在哪个复制组中，将table_name 
+                                替换成表名，注意表名一定要大写。 </P></DIV><BR><BR>
+                                <CENTER><FONT 
+                                color=red><B>阅读更多内容</B></FONT>：<FONT color=red 
+                                ·><B>1</B></FONT> · <A 
+                                href="http://www.ixdba.net/article/9b/1447$2.html" 
+                                ·>2</A> · <A 
+                                href="http://www.ixdba.net/article/9b/1447$2.html" 
+                                ·>下一页&gt;&gt;</A></CENTER><BR></FONT></TD></TR></TBODY></TABLE><BR>
+                          <TR align=middle>
+                            <TD colSpan=2 height=40>
+                              <SCRIPT>my_tag("gg_468_60",2);</SCRIPT>
+                            </TD></TR>
+                          <CENTER></CENTER></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD vAlign=top height=10>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD width="1%"><IMG id=x_r1_c1 height=34 alt="" 
+                        src="oracle高级复制需要注意的几点问题 - 性能优化.files/x_r1_c1.jpg" 
+                        width=10 border=0 name=x_r1_c1></TD>
+                      <TD width="98%" 
+                      background="oracle高级复制需要注意的几点问题 - 性能优化.files/x_r1_c2.jpg">
+                        <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD width="2%">　</TD>
+                            <TD style="PADDING-LEFT: 5px; PADDING-TOP: 4px" 
+                            align=right width="98%">上一篇： <A 
+                              href="http://www.ixdba.net/article/4d/1446.html">ORACLE的高级复制实现内外网数据...</A> 
+                              &nbsp; 下一篇： <A 
+                              href="http://www.ixdba.net/article/e8/1448.html">Oracle9i与Oracle10g之间的高级复...</A> 
+                            </TD></TR></TBODY></TABLE></TD>
+                      <TD width="1%"><IMG id=x_r1_c3 height=34 alt="" 
+                        src="oracle高级复制需要注意的几点问题 - 性能优化.files/x_r1_c3.jpg" 
+                        width=10 border=0 
+name=x_r1_c3></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD align=middle height=26>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" align=center 
+                  border=0>
+                    <TBODY>
+                    <TR>
+                      <TD><IMG height=5 alt=li 
+                        src="oracle高级复制需要注意的几点问题 - 性能优化.files/ali.jpg" 
+                      width=5></TD></TR></TBODY></TABLE>
+                  <TABLE cellSpacing=1 cellPadding=1 width="100%" 
+                  bgColor=#cccccc border=0>
+                    <TBODY>
+                    <TR>
+                      <TD bgColor=#f6f6f6 height=23>
+                        <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD align=left 
+                              width="70%">&nbsp;<B>§</B>相关评论<B>：</B></TD>
+                            <TD align=right 
+                      width="30%">　</TD></TR></TBODY></TABLE></TD></TR>
+                    <TR>
+                      <TD bgColor=#ffffff height=20>
+                        <SCRIPT src=""></SCRIPT>
+                      </TD></TR></TBODY></TABLE>
+                  <TABLE cellSpacing=1 cellPadding=1 width="100%" 
+                  bgColor=#f7f7f7 border=0>
+                    <TBODY></TBODY></TABLE>
+                  <SCRIPT language=JavaScript>
+						comment_author = '评论人';
+						comment_content = '评&Acirc;勰谌&Yacute;';
+					</SCRIPT>
+                  <SPAN 
+      id=comment_form></SPAN></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD>
+    <TD vAlign=top align=right width=227>
+      <TABLE cellSpacing=0 cellPadding=0 width=220 bgColor=#ffffff border=0>
+        <TBODY>
+        <TR>
+          <TD align=middle width=236>
+            <TABLE cellSpacing=0 cellPadding=0 width=220 border=0>
+              <TBODY>
+              <TR>
+                <TD background="oracle高级复制需要注意的几点问题 - 性能优化.files/r.jpg" 
+                height=30>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD vAlign=center align=right width="10%"><IMG height=13 
+                        src="oracle高级复制需要注意的几点问题 - 性能优化.files/i.gif" 
+width=10></TD>
+                      <TD class=wzright vAlign=bottom width="86%" 
+                        height=25>&nbsp;热点文章</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+            <TABLE cellSpacing=1 cellPadding=1 width=220 bgColor=#cc0000 
+            border=0>
+              <TBODY>
+              <TR>
+                <TD class=guideb bgColor=#ecf4f5 height=230>
+                  <SCRIPT>my_tag("right_banner",1);</SCRIPT>
+                  <BR>·<A 
+                  href="http://www.ixdba.net/article/68/1165.html">Resize 
+                  datafile导致ASM Crash</A><BR>·<A 
+                  href="http://www.ixdba.net/article/10/1000.html">在Oracle10g 
+                  RAC下新增ASM磁盘</A><BR>·<A 
+                  href="http://www.ixdba.net/article/b4/293.html">ORACLE 
+                  SQL性能优化系列 (一)</A><BR>·<A 
+                  href="http://www.ixdba.net/article/13/1707.html">oracle性能调优:管理oracle日志</A><BR>·<A 
+                  href="http://www.ixdba.net/article/0b/1001.html">oracle 
+                  RAC环境中系统时钟的调</A><BR>·<A 
+                  href="http://www.ixdba.net/article/c6/1002.html">why:Rac的心跳线不支持交叉线?</A><BR>·<A 
+                  href="http://www.ixdba.net/article/65/1003.html">RAC的VIP及实例依赖关系:版本O</A><BR>·<A 
+                  href="http://www.ixdba.net/article/3d/1005.html">如何启动DataGuard的备用数据库</A><BR>·<A 
+                  href="http://www.ixdba.net/article/8e/1006.html">系统表空间IO错误 
+                  数据损坏处理</A><BR>·<A 
+                  href="http://www.ixdba.net/article/d4/1169.html">不幸中的万幸:遭遇ORA-00600 
+                  [</A><BR>·<A 
+                  href="http://www.ixdba.net/article/25/1180.html">用ORACLE的高级复制实现内外网</A><BR></TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD align=middle><IMG height=5 alt=li 
+            src="oracle高级复制需要注意的几点问题 - 性能优化.files/ali.jpg" width=5></TD></TR>
+        <TR>
+          <TD align=middle>
+            <TABLE cellSpacing=0 cellPadding=0 width=220 border=0>
+              <TBODY>
+              <TR>
+                <TD background="oracle高级复制需要注意的几点问题 - 性能优化.files/r.jpg" 
+                height=30>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD vAlign=center align=right width="10%"><IMG height=13 
+                        src="oracle高级复制需要注意的几点问题 - 性能优化.files/i.gif" 
+width=10></TD>
+                      <TD class=wzright vAlign=bottom width="86%" 
+                        height=25>&nbsp;编辑推荐</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+            <TABLE cellSpacing=1 cellPadding=1 width=220 bgColor=#cc0000 
+            border=0>
+              <TBODY>
+              <TR>
+                <TD class=guideb bgColor=#ecf4f5 height=230>·<A 
+                  href="http://www.ixdba.net/article/68/1165.html">Resize 
+                  datafile导致ASM Crash</A><BR>·<A 
+                  href="http://www.ixdba.net/article/10/1000.html">在Oracle10g 
+                  RAC下新增ASM磁盘</A><BR>·<A 
+                  href="http://www.ixdba.net/article/b4/293.html">ORACLE 
+                  SQL性能优化系列 (一)</A><BR>·<A 
+                  href="http://www.ixdba.net/article/13/1707.html">oracle性能调优:管理oracle日志</A><BR>·<A 
+                  href="http://www.ixdba.net/article/0b/1001.html">oracle 
+                  RAC环境中系统时钟的调</A><BR>·<A 
+                  href="http://www.ixdba.net/article/c6/1002.html">why:Rac的心跳线不支持交叉线?</A><BR>·<A 
+                  href="http://www.ixdba.net/article/65/1003.html">RAC的VIP及实例依赖关系:版本O</A><BR>·<A 
+                  href="http://www.ixdba.net/article/3d/1005.html">如何启动DataGuard的备用数据库</A><BR>·<A 
+                  href="http://www.ixdba.net/article/8e/1006.html">系统表空间IO错误 
+                  数据损坏处理</A><BR>·<A 
+                  href="http://www.ixdba.net/article/d4/1169.html">不幸中的万幸:遭遇ORA-00600 
+                  [</A><BR>·<A 
+                  href="http://www.ixdba.net/article/25/1180.html">用ORACLE的高级复制实现内外网</A><BR></TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD align=middle><IMG height=5 alt=li 
+            src="oracle高级复制需要注意的几点问题 - 性能优化.files/ali.jpg" width=5></TD></TR>
+        <TR>
+          <TD align=middle>
+            <TABLE cellSpacing=0 cellPadding=0 width=220 border=0>
+              <TBODY>
+              <TR>
+                <TD background="oracle高级复制需要注意的几点问题 - 性能优化.files/r.jpg" 
+                height=30>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD vAlign=center align=right width="10%"><IMG height=13 
+                        src="oracle高级复制需要注意的几点问题 - 性能优化.files/i.gif" 
+width=10></TD>
+                      <TD class=wzright vAlign=bottom width="86%" 
+                        height=25>&nbsp;相关篇章</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+            <TABLE cellSpacing=1 cellPadding=1 width=220 bgColor=#cc0000 
+            border=0>
+              <TBODY>
+              <TR>
+                <TD class=guideb vAlign=top bgColor=#ecf4f5 height=230>·<A 
+                  href="http://www.ixdba.net/article/4d/1446.html">ORACLE的高级复制实现内外网数据...</A><BR>·<A 
+                  href="http://www.ixdba.net/article/e3/1445.html">物化视图高级复制中ORA-23313错误...</A><BR>·<A 
+                  href="http://www.ixdba.net/article/d2/1444.html">Oracle高级复制配置文档</A><BR>·<A 
+                  href="http://www.ixdba.net/article/de/1354.html">ORA-07445: 
+                  exception encounter...</A><BR>·<A 
+                  href="http://www.ixdba.net/article/05/1353.html">ORA-1122错误的解决办法</A><BR>·<A 
+                  href="http://www.ixdba.net/article/e3/1346.html">ORA-04031错误解决方法(unable 
+                  t...</A><BR>·<A 
+                  href="http://www.ixdba.net/article/90/1345.html">清除Oracle中无用索引,改善DML性...</A><BR>·<A 
+                  href="http://www.ixdba.net/article/15/1330.html">ORA-00604 
+                  error occurred at re...</A><BR>·<A 
+                  href="http://www.ixdba.net/article/e1/1329.html">Oracle 
+                  ORA-00257故障解决办法</A><BR>·<A 
+                  href="http://www.ixdba.net/article/27/1328.html">ORA-00903 
+                  invalid table name</A><BR>·<A 
+                  href="http://www.ixdba.net/article/e8/1448.html">Oracle9i与Oracle10g之间的高级复...</A><BR>·<A 
+                  href="http://www.ixdba.net/article/c4/1449.html">高级复制下如何强制删除复制组</A><BR>·<A 
+                  href="http://www.ixdba.net/article/38/1450.html">Oracle数据库中高级复制的功能介...</A><BR>·<A 
+                  href="http://www.ixdba.net/article/8e/1451.html">高级复制下如何强制删除废弃复制...</A><BR>·<A 
+                  href="http://www.ixdba.net/article/35/1458.html">oracle 
+                  ORA-01555错误完全解析</A><BR>·<A 
+                  href="http://www.ixdba.net/article/e7/1459.html">oracle创建逻辑standby数据库</A><BR>·<A 
+                  href="http://www.ixdba.net/article/88/1460.html">根据statspack来获取生成环境中t...</A><BR>·<A 
+                  href="http://www.ixdba.net/article/b4/1461.html">oracle 
+                  ORA-01555错误完全解析之...</A><BR>·<A 
+                  href="http://www.ixdba.net/article/73/1465.html">oracle 
+                  高级复制中ORA-25207错误...</A><BR>·<A 
+                  href="http://www.ixdba.net/article/ef/1466.html">高级复制的整体规划策略</A><BR></TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD align=middle>　</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<TABLE cellSpacing=0 cellPadding=0 width=1000 align=center border=0>
+  <TBODY>
+  <TR>
+    <TD><IMG height=5 alt=li src="oracle高级复制需要注意的几点问题 - 性能优化.files/ali.jpg" 
+      width=5></TD></TR>
+  <TR>
+    <TD class=topmenu vAlign=center align=middle 
+    background="oracle高级复制需要注意的几点问题 - 性能优化.files/foot.jpg" height=25>
+      <SCRIPT>my_tag("copyright",1);</SCRIPT>
+      <A 
+      onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.ixdba.net/');" 
+      href="http://www.ixdba.net//#" target=_blank>设为首页</A> | <A 
+      href="http://www.ixdba.net/hbcms/article/23/273.html" 
+      target=_blank>关于我们</A> | <A 
+      href="http://www.ixdba.net/hbcms/article/23/273.html" 
+      target=_blank>技术服务</A> | <A 
+      onclick="javascript:window.external.AddFavorite('http://www.ixdba.net/','oracle+linux专业技术门户!分享技术,传播知识!');" 
+      href="http://www.ixdba.net//#" target=_blank>收藏本站</A> | <A 
+      href="http://www.ixdba.net/hbcms/sitemap.php" target=_blank>网站地图</A> | <A 
+      href="http://www.ixdba.net/hbcms/article/23/273.html" 
+      target=_blank>联系方式</A> | <A 
+      href="http://www.ixdba.net/article/FriendLink/" target=_blank>本站友情连接</A> 
+      <A href="http://www.ixdba.net/article/9b/" target=_blank></A></TD></TR>
+  <TR>
+    <TD align=middle height=75>
+      <TABLE cellSpacing=4 cellPadding=0 width=1000 border=0>
+        <TBODY>
+        <TR>
+          <TD align=middle>
+            <SCRIPT>my_tag("copyright",2);</SCRIPT>
+          </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<SCRIPT type=text/javascript>
+qs_pid = 99002480;
+qs_cid = 2487;
+qs_link_color = "#FF3300";
+qs_max_ads_num = 12;
+qs_frame = "4";
+qs_link_style = 3;
+qs_title_text = "ixdba社区";
+qs_ads_area_list = [];
+qs_allow_popup = 1;
+qs_widget = "";
+qs_srv = "6";
+</SCRIPT>
+
+<SCRIPT src="oracle高级复制需要注意的几点问题 - 性能优化.files/intext.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT>
+			hbcms_dir	= "/hbcms";
+			hbcms_tpl	= "article_detail.tpl.html";
+			hbcms_ctime = 1227836992;
+			hbcms_p2h_url = "";
+		</SCRIPT>
+
+<CENTER>
+<SCRIPT src="oracle高级复制需要注意的几点问题 - 性能优化.files/hbcms_bottom_js.js"></SCRIPT>
+</CENTER></BODY></HTML>

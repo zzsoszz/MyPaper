@@ -1,0 +1,37 @@
+dba_objects中有object_id和dba_object_id，那V$LOCKED_OBJECT中的object_Id到底应该和哪个对应呢？做个实验来验证下
+
+SQL> show user
+USER is "SYS"
+SQL> create table test as select * from tab where 1=2;
+
+Table created.
+
+select object_id,object_type,OWNER,DATA_OBJECT_ID from dba_objects where object_name='TEST'
+
+83966|TABLE|SYS|83966
+
+SQL> ALTER TABLE TEST MOVE TABLESPACE USERTEMP;
+
+Table altered.
+
+select object_id,object_type,OWNER,DATA_OBJECT_ID from dba_objects where object_name='TEST'
+
+83966|TABLE|SYS|83967
+
+SQL> LOCK TABLE TEST IN EXCLUSIVE MODE;
+
+Table(s) Locked.
+
+select * from v$locked_object where object_id=83966；
+
+0|0|0|83966|768|SYS|oracle|3190950|6
+
+
+select * from v$locked_object where object_id=83967
+
+结果为空
+
+ 
+
+可见V$LOCKED_OBJECT中的object_Id和dba_objects中的object_id对应,其实想想也是，lock只是在逻辑上的概念当然不会在物理上对应
+

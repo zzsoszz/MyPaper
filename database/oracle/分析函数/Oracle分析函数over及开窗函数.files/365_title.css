@@ -1,0 +1,105 @@
+BODY {
+	MARGIN: 0px
+}
+.box_1 {
+	MARGIN: auto; WIDTH: 900px; HEIGHT: 105px
+}
+.title_top_box {
+	WIDTH: 900px; HEIGHT: 25px; BACKGROUND-COLOR: #eeeeee
+}
+.title_top_box_l {
+	FLOAT: left; BACKGROUND-IMAGE: url(/templates/img/365/title_box_l.gif); WIDTH: 5px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 25px
+}
+.title_top_box_m1 {
+	FONT-SIZE: 12px; FLOAT: left; WIDTH: 650px; COLOR: #990000; LINE-HEIGHT: 25px; HEIGHT: 25px
+}
+.title_top_box_m1 A {
+	COLOR: #990000; TEXT-DECORATION: none
+}
+.title_top_box_m1 A:hover {
+	COLOR: #000; TEXT-DECORATION: underline
+}
+.title_top_box_m2 {
+	FONT-SIZE: 12px; FLOAT: left; WIDTH: 240px; LINE-HEIGHT: 25px; HEIGHT: 25px; TEXT-ALIGN: right
+}
+.title_top_box_m2 A {
+	COLOR: #666666; TEXT-DECORATION: none
+}
+.title_top_box_m2 A:hover {
+	COLOR: #000; TEXT-DECORATION: underline
+}
+.title_top_box_r {
+	FLOAT: left; BACKGROUND-IMAGE: url(/templates/img/365/title_box_r.gif); WIDTH: 5px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 25px
+}
+.logo {
+	MARGIN-TOP: 15px; FLOAT: left; WIDTH: 200px; HEIGHT: 50px; BACKGROUND-COLOR: #ffffff
+}
+.banner {
+	MARGIN-TOP: 10px; FLOAT: left; WIDTH: auto; HEIGHT: 60px; BACKGROUND-COLOR: #ffffff
+}
+.banner1 {
+	MARGIN-TOP: 10px; FLOAT: left; WIDTH: 468px; HEIGHT: 60px; BACKGROUND-COLOR: #ffffff
+}
+.banner2 {
+	MARGIN-TOP: 10px; FLOAT: left; MARGIN-LEFT: 2px; WIDTH: 230px; HEIGHT: 60px; BACKGROUND-COLOR: #ffffff
+}
+.box_2 {
+	BACKGROUND-IMAGE: url(/templates/img/365/t_bg01.jpg); MARGIN: auto; WIDTH: 900px; HEIGHT: 54px
+}
+.box_2l {
+	FLOAT: left; BACKGROUND-IMAGE: url(/templates/img/365/t_bg01_l.jpg); WIDTH: 2px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 54px
+}
+.box_2r {
+	FLOAT: left; BACKGROUND-IMAGE: url(/templates/img/365/t_bg01_r.jpg); WIDTH: 2px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 54px
+}
+.box_2m {
+	FLOAT: left; WIDTH: 896px; HEIGHT: 29px
+}
+.box_3 {
+	FLOAT: left; WIDTH: 896px; HEIGHT: 54px
+}
+.ac1 {
+	PADDING-LEFT: 10px; FONT-WEIGHT: bold; FONT-SIZE: 12px; FLOAT: left; WIDTH: auto; COLOR: #f1fafe; LINE-HEIGHT: 29px; FONT-FAMILY: "宋体"; TEXT-ALIGN: center
+}
+.ac1 A {
+	FONT-WEIGHT: bold; COLOR: #f1fafe; TEXT-DECORATION: none
+}
+.ac1 A:hover {
+	COLOR: #ffff00; TEXT-DECORATION: underline
+}
+.ac1 A:hover {
+	COLOR: #000; TEXT-DECORATION: underline
+}
+.ac1_1 A {
+	FONT-SIZE: 11pt; FLOAT: left; BACKGROUND-IMAGE: url(/templates/img/365/ac1.gif); COLOR: #383f84; LINE-HEIGHT: 37px; FONT-FAMILY: "宋体"; TEXT-ALIGN: center; TEXT-DECORATION: none
+}
+.ac1_1 A:hover {
+	COLOR: #000; TEXT-DECORATION: underline
+}
+.ac2 {
+	BACKGROUND-POSITION: 5px center; PADDING-LEFT: 12px; FONT-WEIGHT: bold; FONT-SIZE: 12px; FLOAT: left; BACKGROUND-IMAGE: url(/templates/img/365/t_bg_02.jpg); WIDTH: auto; COLOR: #f1fafe; LINE-HEIGHT: 29px; BACKGROUND-REPEAT: no-repeat; FONT-FAMILY: "宋体"; TEXT-ALIGN: right
+}
+.ac2 A {
+	FONT-WEIGHT: bold; COLOR: #f1fafe; TEXT-DECORATION: none
+}
+.ac2 A:hover {
+	COLOR: #ffff00; TEXT-DECORATION: underline
+}
+.ac2_1 A {
+	FONT-SIZE: 12px; FLOAT: left; MARGIN-LEFT: 5px; COLOR: #e9f8fe; LINE-HEIGHT: 29px
+}
+.ac2_1 A {
+	COLOR: #e9f8fe; TEXT-DECORATION: none
+}
+.ac2_1 A:hover {
+	COLOR: #ffff00; TEXT-DECORATION: underline
+}
+.box_5 {
+	FONT-SIZE: 12px; FLOAT: left; WIDTH: 896px; COLOR: #666666; LINE-HEIGHT: 23px; FONT-FAMILY: "宋体"; HEIGHT: 23px; TEXT-ALIGN: center
+}
+.box_5 A {
+	FONT-SIZE: 12px; COLOR: #666666; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+.box_5 A:hover {
+	COLOR: #000; TEXT-DECORATION: underline
+}

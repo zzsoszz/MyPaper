@@ -1,0 +1,23 @@
+create table if it does not exist
+Asked by: mbevilacqua I am attempting to write a SQL script that will create a table if it does not exist already. THE TABLE CANNOT BE DROPPED AS PART OF THIS SCRIPT.
+
+I coded this and it ALWAYS trys to create the table. How do I fix this?
+
+IF NOT EXISTS (select * from dbo.sysobjects where id = object_id(N'COMPONENT_EVENT') and type = 'U')
+BEGIN
+      CREATE TABLE COMPONENT_EVENT (
+             COMPONENT_EVENT_ID   integer IDENTITY,
+             COMPONENT_CD         nvarchar(50) NOT NULL,
+             COMPONENT_DESC       nvarchar(50) NULL,
+             COMPONENT_EVENT      nvarchar(30) NULL,
+             COMPONENT_LEVEL      nvarchar(30) NULL,
+             EVENT_DT             datetime DEFAULT getdate() NOT NULL,
+             CTRL_INSERT_DT       datetime DEFAULT getdate() NOT NULL,  
+             CTRL_UPDATE_DT       datetime DEFAULT getdate() NOT NULL
+      )
+      
+      ALTER TABLE COMPONENT_EVENT
+             ADD CONSTRAINT CMPNNTVNT_PK PRIMARY KEY (COMPONENT_EVENT_ID ASC)
+END
+go
+

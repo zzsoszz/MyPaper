@@ -1,0 +1,189 @@
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+.p1 {
+	MARGIN: 7px 10px; TEXT-INDENT: 26px; LINE-HEIGHT: 150%; TEXT-ALIGN: left
+}
+.p2 {
+	MARGIN: 7px 26px; TEXT-INDENT: 26px; LINE-HEIGHT: 150%; TEXT-ALIGN: right
+}
+.p3 {
+	MARGIN: 1px 10px; LINE-HEIGHT: 150%; TEXT-ALIGN: left
+}
+BODY {
+	FONT-SIZE: 10pt; COLOR: #000000; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+TD {
+	FONT-SIZE: 10pt; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+TR {
+	FONT-SIZE: 10pt; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+P {
+	FONT-SIZE: 10pt; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+FORM {
+	FONT-SIZE: 10pt; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+BR {
+	FONT-SIZE: 10pt; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+INPUT {
+	FONT-SIZE: 9pt
+}
+SELECT {
+	FONT-SIZE: 9pt
+}
+.mytd {
+	FONT-SIZE: 10pt; LINE-HEIGHT: 160%; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.tableheader {
+	BORDER-TOP-WIDTH: 1px; BORDER-RIGHT: #80c5e9 1px solid; BACKGROUND-IMAGE: url(/images/tablehd.gif); BORDER-BOTTOM-WIDTH: 1px; BORDER-BOTTOM-COLOR: #80c5e9; BORDER-LEFT: #80c5e9 1px solid; COLOR: #000000; BORDER-TOP-COLOR: #80c5e9; BACKGROUND-REPEAT: repeat-x; HEIGHT: 24px
+}
+.tableborder {
+	BORDER-RIGHT: #80c5e9 1px solid; BORDER-TOP: #80c5e9 1px solid; BORDER-LEFT: #80c5e9 1px solid; BORDER-BOTTOM: #80c5e9 1px solid; BORDER-COLLAPSE: collapse
+}
+.tablebody {
+	COLOR: #333366; BACKGROUND-COLOR: #f0f0f0; TEXT-DECORATION: none
+}
+.tablebody2 {
+	COLOR: #333366; BACKGROUND-COLOR: #f9f9f9
+}
+.windows {
+	BORDER-LEFT-COLOR: #d4ecf9; BORDER-BOTTOM-COLOR: #00679d; BORDER-TOP-STYLE: solid; BORDER-TOP-COLOR: #d4ecf9; BORDER-RIGHT-STYLE: solid; BORDER-LEFT-STYLE: solid; BACKGROUND-COLOR: #199ce1; BORDER-RIGHT-COLOR: #00679d; BORDER-BOTTOM-STYLE: solid
+}
+A:link {
+	COLOR: #0044b6; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #0044b6; TEXT-DECORATION: none
+}
+A:active {
+	COLOR: #0044b6; TEXT-DECORATION: underline
+}
+A:hover {
+	COLOR: #ff0000; TEXT-DECORATION: underline
+}
+.mya:link {
+	COLOR: #0044b6; TEXT-DECORATION: underline
+}
+.mya:visited {
+	COLOR: #0044b6; TEXT-DECORATION: underline
+}
+.mya:active {
+	COLOR: #0044b6; TEXT-DECORATION: underline
+}
+.mya:hover {
+	COLOR: #ff0000; TEXT-DECORATION: underline
+}
+.list1:link {
+	COLOR: #000000; TEXT-DECORATION: none
+}
+.list1:visited {
+	COLOR: #000000; TEXT-DECORATION: none
+}
+.list1:active {
+	COLOR: #ff0000; TEXT-DECORATION: none
+}
+.list1:hover {
+	COLOR: #ff0000; TEXT-DECORATION: underline
+}
+.list2:link {
+	COLOR: #ffffff; TEXT-DECORATION: none
+}
+.list2:visited {
+	COLOR: #ffffff; TEXT-DECORATION: none
+}
+.list2:active {
+	COLOR: #ff0000; TEXT-DECORATION: none
+}
+.list2:hover {
+	COLOR: #ff0000; TEXT-DECORATION: underline
+}
+.list3:link {
+	COLOR: #15428b; TEXT-DECORATION: none
+}
+.list3:visited {
+	COLOR: #15428b; TEXT-DECORATION: none
+}
+.list3:active {
+	COLOR: #ff0000; TEXT-DECORATION: none
+}
+.list3:hover {
+	COLOR: #ff0000; TEXT-DECORATION: none
+}
+.listtree:link {
+	COLOR: #6895c2; TEXT-DECORATION: none
+}
+.listtree:visited {
+	COLOR: #6895c2; TEXT-DECORATION: none
+}
+.listtree:active {
+	COLOR: #6895c2; TEXT-DECORATION: none
+}
+.listtree:hover {
+	COLOR: #ff0000; TEXT-DECORATION: underline
+}
+A.title1:link {
+	FONT-WEIGHT: bold; FONT-SIZE: 17px; COLOR: #ffffff; FONT-FAMILY: arial; TEXT-DECORATION: none
+}
+A.title1:visited {
+	FONT-WEIGHT: bold; FONT-SIZE: 17px; COLOR: #ffffff; FONT-FAMILY: arial; TEXT-DECORATION: none
+}
+A.title1:active {
+	FONT-WEIGHT: bold; FONT-SIZE: 17px; COLOR: #ffffff; FONT-FAMILY: arial; TEXT-DECORATION: none
+}
+A.title1:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 17px; COLOR: #ffffff; FONT-FAMILY: arial; TEXT-DECORATION: none
+}
+A.title2:link {
+	FONT-SIZE: 12px; COLOR: #000000; TEXT-DECORATION: none
+}
+A.title2:visited {
+	FONT-SIZE: 12px; COLOR: #000000; TEXT-DECORATION: none
+}
+A.title2:active {
+	FONT-SIZE: 12px; COLOR: #ff0000; TEXT-DECORATION: none
+}
+A.title2:hover {
+	FONT-SIZE: 12px; COLOR: #ff0000; TEXT-DECORATION: none
+}
+.text1 {
+	BORDER-RIGHT: #80c5e9 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #80c5e9 1px solid; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; BORDER-LEFT: #80c5e9 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: #80c5e9 1px solid
+}
+.text2 {
+	BORDER-RIGHT: #666666 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #666666 1px solid; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; BORDER-LEFT: #666666 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: #666666 1px solid
+}
+.button1 {
+	BORDER-RIGHT: #80c5e9 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #80c5e9 1px solid; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; BORDER-LEFT: #80c5e9 1px solid; CURSOR: hand; COLOR: #0066cc; PADDING-TOP: 1px; BORDER-BOTTOM: #80c5e9 1px solid; HEIGHT: 18px; BACKGROUND-COLOR: #c5e8fa
+}
+.button2 {
+	BORDER-RIGHT: #f9a859 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #f9a859 1px solid; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; BORDER-LEFT: #f9a859 1px solid; CURSOR: hand; COLOR: #0066cc; PADDING-TOP: 1px; BORDER-BOTTOM: #f9a859 1px solid; HEIGHT: 18px; BACKGROUND-COLOR: #f8dfb9
+}
+.F13 {
+	FONT-WEIGHT: bold; FONT-SIZE: 13px; COLOR: #285147; TEXT-INDENT: 10px; LINE-HEIGHT: normal
+}
+.F13 A:link {
+	COLOR: #285147; TEXT-DECORATION: none
+}
+.F13 A:visited {
+	COLOR: #285147; TEXT-DECORATION: none
+}
+.F13 A:hover {
+	COLOR: #285147; TEXT-DECORATION: underline
+}
+.F13 A:active {
+	COLOR: #285147; TEXT-DECORATION: none
+}
+.Fred {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #990000
+}
+.BLKallgrey {
+	BORDER-RIGHT: #cccccc 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #cccccc 1px solid; PADDING-LEFT: 7px; PADDING-BOTTOM: 5px; BORDER-LEFT: #cccccc 1px solid; PADDING-TOP: 7px; BORDER-BOTTOM: #cccccc 1px solid
+}
+.gray {
+	BORDER-RIGHT: #cccccc 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #cccccc 1px solid; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; BORDER-LEFT: #cccccc 1px solid; WIDTH: 83px; PADDING-TOP: 1px; BORDER-BOTTOM: #cccccc 1px solid; HEIGHT: 72px
+}
+.orange {
+	FONT-WEIGHT: bold; COLOR: #ff6600
+}

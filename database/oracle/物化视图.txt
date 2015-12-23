@@ -1,0 +1,49 @@
+create table VOCATION
+(
+  PHONENUM      VARCHAR2(50),
+  VOCATION      VARCHAR2(50),
+  POSITION      VARCHAR2(50),
+  ANNUAL_INCOME VARCHAR2(50),
+  UNIT          VARCHAR2(50),
+  ADDRESS       VARCHAR2(50),
+  POSTCODE      VARCHAR2(50)
+)
+
+-- Create table
+create table CATEGORY
+(
+  CATEGORY_ID    VARCHAR2(50),
+  CATEGORY_NAME  VARCHAR2(50),
+  CATEGORY_VALUE VARCHAR2(50),
+  PARENT_ID      VARCHAR2(50)
+)
+
+
+
+insert into vocation (PHONENUM, VOCATION, POSITION, ANNUAL_INCOME, UNIT, ADDRESS, POSTCODE, ROWID)
+values ('13730666345', '1', '1', '3000', '电信', '高新区', '313100', 'AAANF3AAKAAApAdAAA');
+
+insert into vocation (PHONENUM, VOCATION, POSITION, ANNUAL_INCOME, UNIT, ADDRESS, POSTCODE, ROWID)
+values ('13730666346', '2', '1', '3000', '电信2', '高新区2', '313100', 'AAANF3AAKAAApAdAAB');
+
+
+
+insert into category (CATEGORY_ID, CATEGORY_NAME, CATEGORY_VALUE, PARENT_ID, ROWID)
+values ('1', '职业', '', '', 'AAANF0AAKAAAo6dAAA');
+
+insert into category (CATEGORY_ID, CATEGORY_NAME, CATEGORY_VALUE, PARENT_ID, ROWID)
+values ('2', 'IT24', '1', '1', 'AAANF0AAKAAAo6dAAB');
+
+insert into category (CATEGORY_ID, CATEGORY_NAME, CATEGORY_VALUE, PARENT_ID, ROWID)
+values ('3', '餐饮3', '2', '1', 'AAANF0AAKAAAo6dAAC');
+
+insert into category (CATEGORY_ID, CATEGORY_NAME, CATEGORY_VALUE, PARENT_ID, ROWID)
+values ('4', '体育4', '3', '1', 'AAANF0AAKAAAo6dAAD');
+
+
+create materialized view VOCATION_VIEW
+refresh fast on commit
+as
+select  t.rowid as arowid,t2.rowid as browid ,t.*,t2.* from vocation t, category t2
+where
+t.vocation = t2.category_value;

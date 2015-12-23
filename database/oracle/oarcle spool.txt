@@ -1,0 +1,33 @@
+ cat dmcscen.cfg|read aa bb cc
+sqlplus -s ${aa}/${bb}@${cc} <<eof!
+set heading off;
+set echo off;
+set feedback off;
+set trims on;
+set lines 2000;
+set termout off;
+set verify off ;
+set pagesize 0;
+spool $RCVDIR/boss_adc.$DATE.txt;
+select b.phone_no||'|'||b.member_id||'|'||a.user_name||'|'||a.product_code||'|'||a.run_code||'|'||to_char(a.run_time,'yyyymmddhh24miss')||'|'||c.field_value||'|'||rtrim(d.enterprice_code)||'|'||d.accessnumber||'-'||d.bizstatus||'|'||to_char(d.price,'0.9')||'-'||d.BILLINGTYPE 
+from dgrpusermsg a,dgrpusermsgadd c,sbillspcode d,dgrpmemberusermsg b  
+where a.sm_code='ad' and a.id_no=b.id_no and a.id_no=c.id_no and c.field_code='35000' and c.field_value=d.biz_code ;
+spool off;
+eof!
+
+
+echo "start spool in shell.."
+sqlplus -s vbossusr/23Dk8s_34Dk@smaccess<<EOF 
+set heading off;
+set echo off;
+set feedback off;
+set trims on;
+set lines 2000;
+set termout off;
+set verify off ;
+set pagesize 0;
+spool ./tousuzj`date +%Y%m%d`.txt;
+select trim(phone)||'*'||trim(to_char(submittime,'YYYYMMDD'))||'*'||to_char(submittime,'HH:mm:ss')||'*'||trim(city)||'*'||trim(belongwhere)||'*'||trim(county)||'*'|| trim(village)||'*'||trim(othersign)||'*'||trim(problem)||'*' from tousuzj;
+spool off;
+EOF
+echo "end.."

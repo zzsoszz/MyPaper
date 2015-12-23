@@ -1,0 +1,190 @@
+[原创]DBA 谈Oracle E-Business Suite 系统优化
+By longchun.zhu on June 19, 2009 1:04 PM 
+
+           随着企业应用管理领域的不断扩展，企业应用系统涉及的业务范围也越来越广泛，已经有原来的单纯生产制造、财务以及人力资源管理，逐步延伸到客户关系管理、供应链管理、电子商务等等领域，在这种情况下，系统之间数据的一致性和数据交换，就变得非常重要。ORACLE 11i 整个系统基于一个统一的数据库，并且共享统一的数据模型。在这种情况下，Oracle EBS 11i 系统具有的SAP在这方面所不太明显的优势逐渐发挥出来。同时，近年来，Oracle 在中国市场的大量投入，也使得不仅是Oracle 数据库在中国占去了近48%的市场份额，而Oracle 电子商务套件也在中国的市场范围也越来越大，从而在中国Oracle ERP 用户也急速的增长。在象中国移动、中国电信、伊利集团等这些大的公司中，一般有专门公司，提供专业的的Oracle ERP 服务，所以，即使出现性能问题，也有专业人员进行调整。但对于好多中小企业，本身上ERP 系统已经花费了大量的资金，出现了性能问题也无力聘请费用极高的高级顾问，进行系统的调优，并且有些企业领导本身也不太重视后台系统维护和优化的重要性，所以，好多中小企业中，并没有配备专门的ERP系统后台管理人员。虽然他们ERP 系统已经在正常运转，但在使用ORACLE ERP 过程中，出现很多性能低下的情况，频频出现，而系统的使用人员或前端维护人员，一般对后台并不了解，所以对于系统的性能问题，只能是束手无策。 
+
+为了解决这些朋友的困惑，并且让非专职的后台管理人员，也能根据本文提出的性能信息收集以及调优的原则，也能做一些必要的优化，从而使系统更好、更快的运行。
+
+本人凭借在ORACLE ERP 领域很多年的管理和项目经验，将站在DBA 的角度，从后台管理角度出发，简单谈一下ORACLE EBS ERP 系统优化的目标和要使用的基本方法。
+
+当然，对庞大的ERP 系统进行优化，并不是很简单的事， 他牵扯到很多方面，也牵扯到各个功能方面的顾问。优化一直是一个说起来简单，而做起来相当的难的事情，每个系统可能出现的性能问题，都不近相同，并且存在平台、版本以及应用的复杂程度的不同，所以，每个系统的优化也不近相同，有时候，只能根据现场环境具体问题，具体分析。
+
+一． Oracle 数据库性能优化内容、原则和建议
+
+
+1．Oracle EBS 整个系统基本系统信息收集工具
+
+RDA（Remote Diagnostic Agent）工具是Oracle 公司提供的一个收集系统基本信息的工具，在RDA的report档中包含了OS，RDBMS，Instance等比较全面的信息。Oracle support会根据这些信息来做出分析，并可以这些系统给出建义。这个工具可以到Oracle 公司的metalink上下载，根据软件包的readme 文件在系统中进行安装即可，如果数据库是RAC 的方式，需要单独针对RAC 的包安装。
+
+当然，还有很多的可以提供系统收集的工具，但作者感觉Oracle 提供的这个工具是最简单，也是最好用的工具之一。
+
+2．Oracle 数据库运行情况信息收集
+
+收集Oracle 数据库运行情况的工具很多，但大部分是有第三方软件方提供的，并且是收费的，虽然那些工具在使用中可能更简单后者更好一些，但对于中小企业ORACLE ERP 用户，购买这样的工具也将是不小的费用。
+
+-Oracle Statspack 从Oracle8.1.6开始被引入Oracle,并立刻成为DBA以及Oracle专家用来诊断数据库性能的最重要的工具之一。通过Statspack我们可以很容易的确定Oracle数据库的瓶颈所在，记录数据库性能状态，也可以使远程技术支持人员迅速了解你的数据库运行状况。此工具在Oracle 9i 的使用更是广泛，但虽然到Oracle 10g 有了新的、更强大的工具，但一些熟悉Statspack 的DBA ，还是很热忠于使用此工具
+
+-TKPROF工具是一个 用于分析Oracle 跟踪文件并且产生一个更加清晰合理的输出结果的可执行工具。如果一个系统的执行效率比较抵，一个比较好的方法是跟踪用户的会话并且使用TKPROF 工具的排序功能格式化输出。从而找出有问题的SQL 语句
+
+-使用SQL_TRACE /10046 、事件进行数据库诊断
+
+-运用logmnr /Stored Outline/ dbms_profiler 进行调优
+
+3．针对Statspack Report 的几点建议
+
+- 根据实际情况，采集数据的间隔不能太长，也不能太短，专家建议一般在15~30分钟1次
+
+- 不要意味以命中率为主衡量性能问题
+
+- 不要以偏概全，最好要产生多次报告，这样才能有助于ORACLE 专家迅速解决问题
+
+- 关于TIMED_STATISTICS 的参数设定，建议在实例级别设置。
+
+二． Oracle 数据库优化的内容
+
+
+- 利用Oracle 的等待事件检测性能瓶颈并进行相应的优化
+
+- 表空间的存储管理与优化
+
+- Oracle 数据库中行迁移/行联接问题
+
+- HVM 与数据库性能调整
+
+- 调整I/O 相关的等待
+
+- 利用Freelists/Freelist Groups 进行性能调整
+
+- SGA/PGA 的优化
+
+- 利用KEEP 池和RECYCLE 池进行优化
+
+- 分析和解决数据库的热点块问题
+
+- 分析和监控INDEX 进行性能调优
+
+- 表结构的优化
+
+- 合理运用分区表，提高系统的性能。
+
+- 2 次开发SQL 语句的优化，假如开发很多的话，这将是优化的重点和难点
+
+三． Application性能调优内容和方法
+
+
+1．Oracle E-Business Suite 系统架构
+
+
+
+2．Oracle EBS Application性能信息收集
+
+- HTTP/Jserv ：可以从Server 运行状态、错误日志、Access 日志、Dynamic service (DMS) 状态、JServ 运行状态 这个几个方面收集需要的信息，然后把这些作为以后调优的根据
+
+- Mod_plsql ：可以从Apache Access 日志、database connectios 数量以及这些连接消耗多少资源等方面收集信息，然后把这些作为以后调优的根据
+
+- Forms Server：可以从操作系统日志、Enable Forms Listener Logging、Enable Sign-On Auditing、Forms Performance Collector、Forms Network Statistics、Forms Listener Logging、Forms Latency Meter 等几个方面收集信息，并把这些信息做为以后Application 调优的依据。
+
+3． Oracle EBS Application性能优化
+
+虽然Oracle EBS 系统已经在设计产品的时候，进行了优化，但这些优化并不一定适合每个公司的实际情况。同时，由于ORACLE EBS 系统是基于WEB 方式访问的ERP 系统，因此应用程序的优劣，将对客户访问ERP 系统影响是极大的。根据实际情况，也可以用如下的方面进行应用程序的优化：
+
+- 优化http Listerner: 可以考虑从Server processes、Avaliable Memory\Cookie Domain\Hostname Lookups 等方面进行参数的优化和重新设置
+
+- 优化Jserver: 可以考虑从Class Load Times、zone.properties等方面进行参数优化和重新设置
+
+- 优化mod_plsql: 可以考虑从database connecting pooling、set response ayyay size 等方面进行参数优化和重新设置。
+
+- 优化forms server: 可以考虑从set up forms runtime process pool、load balanceing forms servers等方面进行参数优化和重新设置。
+
+- 优化TCP/IP：可以考虑从tcp_conn_hash_size、tcp_close_wait_interval、tcp_slow_start_initial、 tcp_conn_req_max_q0等方面进行参数优化和重新设置。
+
+四． Storage Disk I/0性能调优内容和方法
+
+
+1．原则上DISK 的调优有各Storage 厂家工程师来完成，DBA 只是辅助做这方面的优化。一般的性能数据收集每个厂商都有自己的工具和方法，如IBM 的nmon ,网上也有一些免费的测试I/O的小软件，如：bonnie，免费下载地址：http://www.textuality.com/bonnie/ 
+
+2． 调优的原则
+
+- 必须确定Disk Storage 所用的HBA DRIVER 是和OS 配合最好的版本
+
+- 因为数据库表现出I/O 性能问题时，确认对应控制器以及DISK 是否有故障
+
+- 通过测试DISK 的I/O ，判断是不是由于DISK Storage 老化或者业务增长太迅速，现有的DISK Storage 已经不能满足业务需要了。这种情况下，就应该考虑投资高端的设备了。
+
+五． Server HW 性能调优内容和简单方法
+
+
+1. 原则上HW OS 的调优有各厂家工程师来完成，DBA 只是辅助做这方面的优化。一般的性能数据收集每个厂商都有自己的工具和方法 数据收集的方法和工具
+
+2． 一般的调优原则
+
+- 关闭 后台进程
+
+- 关闭GUI
+
+- 修改内核参数，达到最优
+
+- 优化处理器子系统
+
+- 优化内存子系统
+
+- 优化文件系统
+
+- 优化网络子系统
+
+每个操作系统的不同，调优的方向和方法也不尽相同，因此要根据实际情况，分类提出相应的方案。
+
+六． HW Capacity 性能重新评估（tpmC值）
+
+
+1． 原则上Hardware 的性能评估有各服务器厂家工程师来完成，DBA 只是辅助做这方面的优化。
+
+2． 一般的评测方法
+
+根据TPC-C的标准，tpmC值是根据标准模型中New-Order事务的处理数目来计算的，一个New-Order事务由平均4-5个SQL语句处理完成，整个测试的执行过程中，New-Order处理占45%。
+
+3．估算方法举例：
+
+估算条件：
+
+某集团公司2007年将达到250万用户数
+
+每天每用户产生5张定单
+
+分析过程：
+
+每分钟处理：（用户数）250万*5/24/60 =9250
+
+峰值处理： 9250*1.5 =11350
+
+需执行约6个SQL语句，则估算一个定单汇总处理业务相当的TPC-C值为：
+
+6*0.45/4 = 0.67Tpmc
+
+定单汇总和分析的TPC-C 值要求满足：
+
+11350* 0.67Tpmc =9300Tpmc
+
+考虑25%的冗余（操作系统以及其它开销）：
+
+服务器性能 =9300Tpmc *1.25 =11000Tpmc
+
+
+
+七． 简单总结
+
+本文档在 如下方面进行简单的分析以及基本的调优
+
+1． Oracle Database 
+
+2． Oracle EBS Application 
+
+3． Storage Disk I/O
+
+4． 服务器 HardWare
+
+5． 服务器Capacity 性能评估(tpmC值)
+
+
+希望本文能起到“抛砖引玉”的作用，和大家一起探讨Oracle ERP 系统的优化。另外，本文只是从DBA 的角度是分析和优化Oracle EBS系统，从规划和开发的角度去分析和优化系统，将有别的其他调优内容和方法。
+

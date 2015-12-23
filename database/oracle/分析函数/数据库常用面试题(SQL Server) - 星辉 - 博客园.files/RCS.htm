@@ -1,0 +1,14 @@
+var data=new Array();data[0]=new Array();data[0][0]='[翻译]在Visual Studio 2005中调试SQL Server 2005的存储过程';data[0][1]='http://kb.cnblogs.com/page/42177/';data[1]=new Array();data[1][0]='LINQ to SQL语句入门篇';data[1][1]='http://kb.cnblogs.com/list/42463/';data[2]=new Array();data[2][0]='MS SQL Server 2000安装不成功的原因';data[2][1]='http://www.cnblogs.com/unruledboy/archive/2005/01/27/98485.html';data[3]=new Array();data[3][0]='自动安装SQL Server数据库';data[3][1]='http://www.cnblogs.com/wangsaokui/articles/9769.html';data[4]=new Array();data[4][0]='微软发布SQL技术网站SQL Server Energy';data[4][1]='http://news.cnblogs.com/n/43260/';data[5]=new Array();data[5][0]='SQL Server 2008 的新标志';data[5][1]='http://news.cnblogs.com/n/37050/';data[6]=new Array();data[6][0]='SQL Server 2000问题';data[6][1]='http://space.cnblogs.com/question/3799/';data[7]=new Array();data[7][0]='SQL Server insert 和update锁级别';data[7][1]='http://space.cnblogs.com/question/910/';data[8]=new Array();data[8][0]='Microsoft SQL Server 2005 技术内幕';data[8][1]='http://space.cnblogs.com/group/topic/1925/';data[9]=new Array();data[9][0]='SQL Server2005编程入门经典';data[9][1]='http://space.cnblogs.com/group/topic/1928/';
+if(data.length > 0)
+{
+    for(var i = 0; i < data.length; i++)
+    {
+        if (i > 0)
+            document.write("<br>");
+        document.write("<a href='");
+        document.write(data[i][1]);
+        document.write("' target='_blank'>");
+        document.write(data[i][0]);
+        document.write("</a>");
+    }
+}

@@ -1,0 +1,153 @@
+#test {
+	BACKGROUND: #123; FLOAT: left; WIDTH: 100px; HEIGHT: 100px
+}
+.overlay_dialog IMG {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none
+}
+.overlay_dialog {
+	FILTER: alpha(opacity=60); BACKGROUND-COLOR: #666666; moz-opacity: 0.6; opacity: 0.6
+}
+.dialog_nw {
+	BACKGROUND: url(default/top_left.gif) no-repeat 0px 0px; WIDTH: 9px; HEIGHT: 23px
+}
+.dialog_n {
+	BACKGROUND: url(default/top_mid.gif) repeat-x 0px 0px; WIDTH: 100%; HEIGHT: 23px
+}
+.dialog_ne {
+	BACKGROUND: url(default/top_right.gif) no-repeat 0px 0px; WIDTH: 9px; HEIGHT: 23px
+}
+.dialog_e {
+	BACKGROUND: url(default/center_right.gif) repeat-y 0px 0px; WIDTH: 2px; HEIGHT: 100%
+}
+.dialog_w {
+	BACKGROUND: url(default/center_left.gif) repeat-y 0px 0px; WIDTH: 2px; HEIGHT: 100%
+}
+.dialog_sw {
+	BACKGROUND: url(default/bottom_left.gif) no-repeat 0px 0px; WIDTH: 9px; HEIGHT: 19px
+}
+.dialog_s {
+	BACKGROUND: url(default/bottom_mid.gif) repeat-x 0px 0px; WIDTH: 100%; HEIGHT: 19px
+}
+.dialog_se {
+	BACKGROUND: url(default/bottom_right.gif) no-repeat 0px 0px; WIDTH: 9px; HEIGHT: 19px
+}
+.dialog_sizer {
+	BACKGROUND: url(default/sizer.gif) no-repeat 0px 0px; WIDTH: 9px; CURSOR: se-resize; HEIGHT: 19px
+}
+.dialog_close {
+	Z-INDEX: 2000; BACKGROUND: url(default/close.gif) no-repeat 0px 0px; LEFT: 8px; WIDTH: 14px; CURSOR: default; POSITION: absolute; TOP: 5px; HEIGHT: 14px
+}
+.dialog_minimize {
+	Z-INDEX: 2000; BACKGROUND: url(default/minimize.gif) no-repeat 0px 0px; LEFT: 28px; WIDTH: 14px; CURSOR: default; POSITION: absolute; TOP: 5px; HEIGHT: 15px
+}
+.dialog_maximize {
+	Z-INDEX: 2000; BACKGROUND: url(default/maximize.gif) no-repeat 0px 0px; LEFT: 49px; WIDTH: 14px; CURSOR: default; POSITION: absolute; TOP: 5px; HEIGHT: 15px
+}
+.dialog_title {
+	FONT-SIZE: 12px; FLOAT: left; WIDTH: 100%; HEIGHT: 14px; TEXT-ALIGN: center
+}
+.dialog_content {
+	OVERFLOW: hidden
+}
+.top_draggable {
+	CURSOR: move
+}
+.bottom_draggable {
+	CURSOR: move
+}
+.dialog {
+	DISPLAY: block; FONT-FAMILY: Tahoma, Arial, Sans Serif; POSITION: absolute
+}
+.dialog  {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+.dialog TABLE {
+	WIDTH: 100%; BORDER-COLLAPSE: collapse; border-spacing: 0
+}
+.dialog TD {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+TH {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.dialog_main {
+	WIDTH: 100%; HEIGHT: 100%; BACKGROUND-COLOR: white
+}
+.dialog_content {
+	OVERFLOW: hidden; WIDTH: 100%; BORDER-BOTTOM: #a3a3a3 1px solid
+}
+.dialog_content .dialog_logs {
+	OVERFLOW-Y: scroll; FLOAT: left; OVERFLOW-X: hidden
+}
+.dialog_content .dialog_logs #ChatLogLineName {
+	WIDTH: 95%; COLOR: #a3a3a3
+}
+.dialog_content .dialog_logs #ChatLogLineContent {
+	TABLE-LAYOUT: fixed; PADDING-LEFT: 10px; WORD-BREAK: break-all; WHITE-SPACE: normal; WORD-WRAP: break-word
+}
+.dialog_content .dialog_members {
+	OVERFLOW-Y: auto; FLOAT: right; OVERFLOW-X: hidden
+}
+.dialog_content .dialog_members #ChatMember {
+	OVERFLOW: hidden; WIDTH: 120px; CURSOR: default; LINE-HEIGHT: 28px; MARGIN-RIGHT: 20px; BORDER-BOTTOM: #a3a3a3 1px dotted; HEIGHT: 28px; TEXT-OVERFLOW: ellipsis
+}
+.dialog_toolbar {
+	CLEAR: both; BORDER-TOP: #a3a3a3 1px solid; FLOAT: none; WIDTH: 100%; BORDER-BOTTOM: #a3a3a3 1px solid; HEIGHT: 20px
+}
+.dialog_memberstool {
+	FLOAT: right; VERTICAL-ALIGN: middle; WIDTH: 100%; LINE-HEIGHT: 16px; HEIGHT: 20px; TEXT-ALIGN: center
+}
+.dialog_memberstool DIV {
+	BORDER-RIGHT: white 1px solid; BORDER-TOP: white 1px solid; FONT-SIZE: 12px; FLOAT: right; MARGIN: 1px 4px; BORDER-LEFT: white 1px solid; WIDTH: auto; CURSOR: default; BORDER-BOTTOM: white 1px solid
+}
+.dialog_memberstool .mouseover {
+	BORDER-LEFT-COLOR: #bbbbbb; BORDER-BOTTOM-COLOR: #333333; BORDER-TOP-COLOR: #dddddd; BORDER-RIGHT-COLOR: #555555
+}
+.dialog_memberstool .mouseout {
+	BORDER-LEFT-COLOR: white; BORDER-BOTTOM-COLOR: white; BORDER-TOP-COLOR: white; BORDER-RIGHT-COLOR: white
+}
+.dialog_memberstool .mousedown {
+	BORDER-LEFT-COLOR: #555555; BORDER-BOTTOM-COLOR: #dddddd; BORDER-TOP-COLOR: #333333; BORDER-RIGHT-COLOR: #bbbbbb
+}
+.dialog_memberstool .mouseup {
+	BORDER-LEFT-COLOR: #bbbbbb; BORDER-BOTTOM-COLOR: #333333; BORDER-TOP-COLOR: #dddddd; BORDER-RIGHT-COLOR: #555555
+}
+.dialog_input {
+	WIDTH: 100%; HEIGHT: 60px
+}
+.dialog_input .dialog_inputbox {
+	BORDER-RIGHT: white 0px solid; BORDER-TOP: white 0px solid; OVERFLOW-Y: scroll; OVERFLOW-X: hidden; BORDER-LEFT: white 0px solid; WIDTH: 100%; BORDER-BOTTOM: white 0px solid; HEIGHT: 60px
+}
+.dialog_alias_dialog {
+	BORDER-RIGHT: #a3a3a3 1px solid; PADDING-RIGHT: 20px; BORDER-TOP: #a3a3a3 1px solid; PADDING-LEFT: 20px; BORDER-LEFT: #a3a3a3 1px solid; PADDING-TOP: 20px; BORDER-BOTTOM: #a3a3a3 1px solid; HEIGHT: 100%; BACKGROUND-COLOR: white
+}
+.dialog_alias_dialog .dialog_label {
+	MARGIN-TOP: 20px; WIDTH: auto; TEXT-ALIGN: center
+}
+.dialog_alias_dialog .dialog_alias {
+	MARGIN-TOP: 20px; WIDTH: 100%; TEXT-ALIGN: center
+}
+.dialog_alias_dialog .dialog_alias INPUT {
+	WIDTH: 100%
+}
+.dialog_aliasButtonCntr {
+	CLEAR: both; MARGIN-TOP: 30px; FLOAT: none; WIDTH: 100%; HEIGHT: 40px
+}
+.dialog_aliasButtonCntr .dialog_aliasToolBar {
+	MARGIN-TOP: 1px; FLOAT: right; MARGIN-BOTTOM: 1px; VERTICAL-ALIGN: middle; WIDTH: 100%; LINE-HEIGHT: 18px; HEIGHT: 18px; TEXT-ALIGN: center
+}
+.dialog_aliasToolBar DIV {
+	BORDER-RIGHT: #a3a3a3 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #a3a3a3 1px solid; PADDING-LEFT: 2px; FONT-SIZE: 18px; FLOAT: left; MARGIN-LEFT: 28px; BORDER-LEFT: #a3a3a3 1px solid; WIDTH: 70px; CURSOR: default; PADDING-TOP: 2px; BORDER-BOTTOM: #a3a3a3 1px solid; BACKGROUND-COLOR: #f1f1ec
+}
+.dialog_aliasToolBar .mouseover {
+	BORDER-LEFT-COLOR: #bbbbbb; BORDER-BOTTOM-COLOR: #333333; BORDER-TOP-COLOR: #dddddd; BORDER-RIGHT-COLOR: #555555
+}
+.dialog_aliasToolBar .mouseout {
+	BORDER-LEFT-COLOR: #a3a3a3; BORDER-BOTTOM-COLOR: #a3a3a3; BORDER-TOP-COLOR: #a3a3a3; BORDER-RIGHT-COLOR: #a3a3a3
+}
+.dialog_aliasToolBar .mousedown {
+	BORDER-LEFT-COLOR: #555555; BORDER-BOTTOM-COLOR: #dddddd; BORDER-TOP-COLOR: #333333; BORDER-RIGHT-COLOR: #bbbbbb
+}
+.dialog_aliasToolBar .mouseup {
+	BORDER-LEFT-COLOR: #bbbbbb; BORDER-BOTTOM-COLOR: #333333; BORDER-TOP-COLOR: #dddddd; BORDER-RIGHT-COLOR: #555555
+}

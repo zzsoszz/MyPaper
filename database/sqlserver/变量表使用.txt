@@ -1,0 +1,60 @@
+//变量表使用
+create table mygod
+(
+	mygodid int,
+	mygodusername varchar(50)
+)
+select * from mygod
+insert mygod (mygodid,mygodusername) values(3,'苹果')
+
+
+select (mygodusername) into @mytable(godname) from mygod
+
+insert into @mytable(godname) select mygodusername from mygod
+
+
+declare @mytable table
+(
+	pkid int identity(1,1),
+	godname varchar(50)
+)
+//参数sp_executesql
+select * into mygod from mygod
+
+declare @sql nvarchar(50)
+set @sql=N'select * from sysobjects where id>@value'
+declare @param nvarchar(50)
+set @param=N'@value int'
+declare @value int
+set @value=500000000
+exec sp_executesql @sql,@param,@value=@value
+
+//表变量的实现
+create function gettable()
+returns table
+as 
+return select * from sysobjects
+
+select top 10 * from gettable()
+
+
+
+
+
+DECLARE @IntVariable INT
+DECLARE @SQLString NVARCHAR(500)
+DECLARE @ParmDefinition NVARCHAR(500)
+
+/* Build the SQL string once.*/
+SET @SQLString =
+     N'SELECT * FROM pubs.dbo.employee WHERE job_lvl = @level'
+SET @ParmDefinition = N'@level tinyint'
+/* Execute the string with the first parameter value. */
+SET @IntVariable = 35
+EXECUTE sp_executesql @SQLString, @ParmDefinition,
+                      @level = @IntVariable
+/* Execute the same string with the second parameter value. */
+SET @IntVariable = 32
+EXECUTE sp_executesql @SQLString, @ParmDefinition,
+                      @level = @IntVariable
+		

@@ -1,0 +1,132 @@
+BODY {
+	FONT-SIZE: 13px; MARGIN: 0px; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif; WORD-WRAP: break-word
+}
+P {
+	FONT-SIZE: 13px; LINE-HEIGHT: 150%
+}
+A:visited {
+	FONT-SIZE: 13px; COLOR: #00f; TEXT-DECORATION: none
+}
+A:active {
+	FONT-SIZE: 13px; COLOR: #00f; TEXT-DECORATION: none
+}
+A:link {
+	FONT-SIZE: 13px; COLOR: #00f; TEXT-DECORATION: none
+}
+A:hover {
+	FONT-SIZE: 13px; TEXT-DECORATION: underline
+}
+H1 {
+	FONT-SIZE: 1.5em; MARGIN: 0px
+}
+H1 A:visited {
+	COLOR: #000
+}
+H1 A:active {
+	COLOR: #000
+}
+H1 A:link {
+	COLOR: #000
+}
+H1 A:hover {
+	COLOR: #47f; TEXT-DECORATION: none
+}
+H2 {
+	MARGIN-TOP: 10px; FONT-SIZE: 1em
+}
+H5 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+#top {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; COLOR: #000; PADDING-TOP: 10px; BORDER-BOTTOM: #47f 4px solid; BACKGROUND-COLOR: #adf
+}
+#tagline {
+	FONT-SIZE: 13px; MARGIN: 0px
+}
+P.date IMG {
+	VERTICAL-ALIGN: middle
+}
+P.date {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 0.9em; MARGIN-BOTTOM: 0px; PADDING-BOTTOM: 2px; PADDING-TOP: 2px; BORDER-BOTTOM: #aaa 1px solid
+}
+BLOCKQUOTE {
+	FONT-STYLE: italic
+}
+P.postfoot {
+	FONT-SIZE: 0.75em
+}
+#leftmenu {
+	MARGIN-TOP: 10px; LEFT: 10px; WIDTH: 180px; POSITION: absolute
+}
+#leftmenu H3 {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; FONT-SIZE: 0.9em; PADDING-BOTTOM: 4px; MARGIN: 0px; PADDING-TOP: 4px; BORDER-BOTTOM: medium none
+}
+#rightmenu H3 {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; FONT-SIZE: 0.9em; PADDING-BOTTOM: 4px; MARGIN: 0px; PADDING-TOP: 4px; BORDER-BOTTOM: medium none
+}
+#leftmenu UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 10px 5px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+#rightmenu UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 10px 5px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+#rightmenu {
+	MARGIN-TOP: 10px; RIGHT: 0px; WIDTH: 180px; POSITION: absolute
+}
+#main {
+	BORDER-RIGHT: #555 1px solid; PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; MARGIN: 0px 200px; BORDER-LEFT: #555 1px solid; PADDING-TOP: 10px; BORDER-BOTTOM: #47f 4px solid; BACKGROUND-COLOR: #eee
+}
+.post {
+	FONT-SIZE: 13px; LINE-HEIGHT: 150%
+}
+#footer {
+	FONT-SIZE: 0.7em; MARGIN: 0px; PADDING-TOP: 5px; TEXT-ALIGN: center
+}
+INPUT.text {
+	WIDTH: 300px
+}
+TEXTAREA {
+	WIDTH: 300px; HEIGHT: 200px
+}
+#comments H4 SPAN {
+	COLOR: #999
+}
+#comments H4 {
+	FONT-SIZE: 0.9em; MARGIN: 0px
+}
+P {
+	MARGIN: 10px 0px
+}
+H3 {
+	FONT-SIZE: 1.2em; BORDER-BOTTOM: #aaa 1px solid
+}
+#relatedlinks UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN-LEFT: 10px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+.Cal {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; MARGIN-TOP: 10px; FONT-SIZE: 12px; MARGIN-BOTTOM: 10px; BORDER-LEFT: #999999 1px solid; WIDTH: 100%; BORDER-BOTTOM: #999999 1px solid; FONT-FAMILY: Arial; HEIGHT: 180px; BACKGROUND-COLOR: #eeeeee
+}
+.CalTitle {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 13px; BORDER-LEFT-COLOR: #adf; BORDER-BOTTOM-COLOR: #adf; PADDING-BOTTOM: 0px; MARGIN-LEFT: 0px; COLOR: #000; BORDER-TOP-COLOR: #adf; PADDING-TOP: 0px; FONT-FAMILY: Arial; HEIGHT: 100%; BACKGROUND-COLOR: #b6b6b6; BORDER-RIGHT-COLOR: #adf
+}
+.CalOtherMonthDay {
+	COLOR: #808080
+}
+.CalSelector {
+	
+}
+.CalNextPrev {
+	
+}
+.CalDayHeader {
+	BACKGROUND-COLOR: #cccccc
+}
+.CalSelectedDay {
+	
+}
+.CalWeekendDay {
+	
+}
+.CalTodayDay {
+	BACKGROUND-COLOR: #cccccc
+}

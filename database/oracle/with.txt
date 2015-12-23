@@ -1,0 +1,38 @@
+SELECT (WITH A AS (SELECT '1' FROM DUAL)
+          SELECT * FROM A) FROM DUAL
+
+;
+
+
+
+WITH TEMP_DATA AS
+ (SELECT (5 - MOD(COUNT(*), 5)) COUNTS FROM DUAL CONNECT BY LEVEL < 3)
+SELECT '1', '1'
+  FROM DUAL
+UNION ALL
+SELECT NULL, NULL FROM DUAL CONNECT BY LEVEL < (SELECT * FROM TEMP_DATA)
+;
+
+
+SELECT A, B
+ FROM (
+      --第1个定义t_with
+      WITH T_WITH AS (SELECT '1' A FROM DUAL)
+      --子查询使用t_with
+        SELECT X.A,
+               (
+               --内部定义了个t_with_z,并且使用t_with
+               WITH T_WITH_Z AS (SELECT '1' A FROM T_WITH)
+                 SELECT S_1.A
+                   FROM T_WITH_Z S_1, T_WITH S_2) B
+                   FROM T_WITH X,
+                        --子查询中使用t_with,并且自己也定义了t_with_y
+                        (WITH T_WITH_Y AS (SELECT '1' A FROM T_WITH)
+                          SELECT F_1.A
+                            FROM T_WITH_Y F_1, T_WITH F_2) Y
+                           WHERE X.A = Y.A
+                                --定义t_with_x
+                             AND X.A = (WITH T_WITH_X AS (SELECT '1' A
+                                                            FROM T_WITH)
+                            SELECT W_1.A
+                              FROM T_WITH_X W_1, T_WITH W_2))

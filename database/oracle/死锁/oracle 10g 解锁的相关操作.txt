@@ -1,0 +1,129 @@
+oracle 10g 解锁的相关操作 
+Posted on 2006-08-24 13:14 七匹狼 阅读(1395) 评论(2)  编辑  收藏 所属分类: oracle  
+DML会产生行锁，只有该行的锁解开后才可继续对改行进行其他的DML，若新的DML和旧的DML操作的行相同，且旧DML以把行改变，则新DML不起作用
+
+准备工作： 
+SQL>create table lck (a number, b number);
+SQL>insert into lck values (1,1);
+SQL>insert into lck values (2,2);
+SQL>insert into lck values (3,3);
+SQL>insert into lck values (4,4);
+SQL>insert into lck values (5,5);
+SQL>insert into lck values (6,6);
+SQL>insert into lck values (7,7);
+SQL>commit; 
+实验过程：
+
+步 骤 Session 14 Session 10 说明 
+1 SQL> select sid from v$session 
+where audsid=userenv('SESSIONID');
+
+SID
+----------
+14 SQL> select sid from v$session 
+where audsid=userenv('SESSIONID');
+
+SID
+----------
+10 获得当前session的SID 
+2 SQL> insert into lck values (1000,1001);
+
+1 row created. 　 未提交 
+3 SQL> select sid,type,id1,lmode,request from v$lock 
+where sid in (10,14);
+
+SID TY ID1 LMODE REQUEST
+---------- -- ---------- ---------- ----------
+14 TX 262153 6 0
+14 TM 4145 3 0 　 因为Session14的DML未提交，因此在v$lock里产生2个锁，一个为：transaction lock(TX)，另一个为:DML/table lock(TM).LMODE=3代表：行排它.LMODE=6代表：对象排它 
+4 SQL> insert into lck values (1001,1000);
+
+1 row created. 　 未提交 
+5 SQL> select sid,type,id1,lmode,request from v$lock 
+where sid in (10,14);
+
+SID TY ID1 LMODE REQUEST
+---------- -- ---------- ---------- ----------
+14 TX 262153 6 0
+14 TM 4145 3 0 SQL> select * from lck;
+
+A B
+---------- ----------
+1 2
+2 4
+3 6
+4 8
+5 3
+6 5
+7 7
+
+7 rows selected. v$lock中并不会因为对该表的再一次DML且未提交而新生成锁 
+6 　 SQL>update lck set a=2000,b=2001 
+where a=1;
+
+1 row updated. 未提交 
+7 SQL> select * from lck;
+
+A B
+---------- ----------
+1 2
+2 4
+3 6
+4 8
+5 3
+6 5
+7 7
+1000 1001
+1001 1000
+
+9 rows selected. SQL> select sid,type,id1,lmode,request from v$lock
+where sid in (10,14);
+
+SID TY ID1 LMODE REQUEST
+---------- -- ---------- ---------- ----------
+10 TX 327698 6 0
+10 TM 4145 3 0
+14 TX 262153 6 0
+14 TM 4145 3 0 v$lock中对另外session10的DML产生了锁 
+8 SQL>update lck set a=4000,b=2001 
+where a=1; 　 session10发出更新a=1行的SQL后，session14也发出更新a=1行的SQL，则后者的SQL悬在那里，无法结束 
+9 SQL> select event, seconds_in_wait, sid from v$session_wait where sid in (10,14);
+
+EVENT SECONDS_IN_WAIT SID
+---------------------------------------------------------------- --------------- ----------
+enq: TX - row lock contention 1593 14
+SQL*Net message from client 2862 10 v$session_wait中可以看到哪个session在等待，等待原因和已经等待的时间 
+10 0 rows updated.
+　 SQL>commit;
+
+Commit complete. 只有在session10提交该DML后,session14才执行完，但更新为0行 
+11 SQL> select * from lck;
+
+A B
+---------- ----------
+1 2
+2 4
+3 6
+4 8
+5 3
+6 5
+7 7
+1000 1001
+1001 1000
+
+9 rows selected. SQL> select * from lck;
+
+A B
+---------- ----------
+1 2
+2 4
+3 6
+4 8
+5 3
+6 5
+7 7
+1000 1001
+1001 1000
+
+9 rows selected. 
+

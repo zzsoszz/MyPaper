@@ -1,0 +1,1145 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0058)http://www.eygle.com/archives/2005/06/oraclessoeaeaeo.html -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Oracle高级复制的创建配置步骤-Step by Step - Oracle Life</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR><LINK 
+href="Oracle高级复制的创建配置步骤-Step by Step - Oracle Life.files/styles-site.css" 
+type=text/css rel=stylesheet><LINK title=RSS 
+href="http://www.eygle.com/blog/index.rdf" type=application/rss+xml 
+rel=alternate><LINK title=Atom href="http://www.eygle.com/blog/atom.xml" 
+type=application/atom+xml rel=alternate><LINK title=Home 
+href="http://www.eygle.com/blog/" rel=start><LINK title=《Oracle数据库性能优化》一书热销 
+href="http://www.eygle.com/archives/2005/06/oracleeaoaeueoo_2.html" 
+rel=prev><LINK title=政策的力量是无穷的 
+href="http://www.eygle.com/archives/2005/06/ossaeaaeciciae.html" rel=next>
+<SCRIPT language=javascript type=text/javascript>
+<!--
+
+var HOST = 'www.eygle.com';
+
+// Copyright (c) 1996-1997 Athenia Associates.
+// http://www.webreference.com/js/
+// License is granted if and only if this entire
+// copyright notice is included. By Tomer Shiran.
+
+function setCookie (name, value, expires, path, domain, secure) {
+    var curCookie = name + "=" + escape(value) + (expires ? "; expires=" + expires : "") + (path ? "; path=" + path : "") + (domain ? "; domain=" + domain : "") + (secure ? "secure" : "");
+    document.cookie = curCookie;
+}
+
+function getCookie (name) {
+    var prefix = name + '=';
+    var c = document.cookie;
+    var nullstring = '';
+    var cookieStartIndex = c.indexOf(prefix);
+    if (cookieStartIndex == -1)
+        return nullstring;
+    var cookieEndIndex = c.indexOf(";", cookieStartIndex + prefix.length);
+    if (cookieEndIndex == -1)
+        cookieEndIndex = c.length;
+    return unescape(c.substring(cookieStartIndex + prefix.length, cookieEndIndex));
+}
+
+function deleteCookie (name, path, domain) {
+    if (getCookie(name))
+        document.cookie = name + "=" + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+}
+
+function fixDate (date) {
+    var base = new Date(0);
+    var skew = base.getTime();
+    if (skew > 0)
+        date.setTime(date.getTime() - skew);
+}
+
+function rememberMe (f) {
+    var now = new Date();
+    fixDate(now);
+    now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+    now = now.toGMTString();
+    if (f.author != undefined)
+       setCookie('mtcmtauth', f.author.value, now, '/', '', '');
+    if (f.email != undefined)
+       setCookie('mtcmtmail', f.email.value, now, '/', '', '');
+    if (f.url != undefined)
+       setCookie('mtcmthome', f.url.value, now, '/', '', '');
+}
+
+function forgetMe (f) {
+    deleteCookie('mtcmtmail', '/', '');
+    deleteCookie('mtcmthome', '/', '');
+    deleteCookie('mtcmtauth', '/', '');
+    f.email.value = '';
+    f.author.value = '';
+    f.url.value = '';
+}
+
+//-->
+</SCRIPT>
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rdf:Description
+    rdf:about="http://www.eygle.com/archives/2005/06/oraclessoeaeaeo.html"
+    trackback:ping="http://www.eygle.com/cgi-bin/mt/mt-tbbbbbbb.fcgi/224"
+    dc:title="Oracle高级复制的创建配置步骤-Step by Step"
+    dc:identifier="http://www.eygle.com/archives/2005/06/oraclessoeaeaeo.html"
+    dc:subject="Advanced"
+    dc:description="本例涉及两个站点. 主体定义站点:AVATAR.COOLYOUNG.COM.CN 主体站点:AUTHAA.COOLYOUNG.COM.CN 注:主体定义站点指配置复制工作的站点 本例涉及的用户. 复制管理员:repadmin 应用用户:hawa 本例复制的对象:hw_test 数据表 本例的先决条件:你需要设置好相应的参数,job_queue_processes需要大于0,global_name=true,并且建立相应的db link. 这些具体可以参考:高级复制的初步研究一文. 1.在主体定义站点复制用户下创建复制对象 SQL&gt; select * from global_name; GLOBAL_NAME -..."
+    dc:creator="eygle"
+    dc:date="2005-06-27T09:34:22+08:00" />
+</rdf:RDF>
+--></HEAD>
+<BODY>
+<DIV align=center>
+<TABLE class=left-right cellSpacing=0 cellPadding=0 width="100%" border=0><!--第一行-->
+  <TBODY>
+  <TR>
+    <TD vAlign=top colSpan=3>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD vAlign=top width=3 
+          background="Oracle高级复制的创建配置步骤-Step by Step - Oracle Life.files/cell-1.gif" 
+          height=20></TD></TR></TBODY></TABLE></TD></TR><!--第二行-->
+  <TR>
+    <TD vAlign=top colSpan=3>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD width=105 rowSpan=3>&nbsp;</TD>
+          <TD vAlign=top width=103 height=31><A 
+            href="http://www.eygle.com/"><IMG height=31 alt=eygle.com 
+            src="Oracle高级复制的创建配置步骤-Step by Step - Oracle Life.files/a-1.jpg" 
+            width=103 border=0></A></TD>
+          <TD width=310 colSpan=2></TD>
+          <TD width=239 rowSpan=2>&nbsp;</TD>
+          <TD width=239 rowSpan=2><SPAN class=new><A 
+            href="http://www.eygle.com/"><IMG height=60 alt=eygle.com 
+            src="Oracle高级复制的创建配置步骤-Step by Step - Oracle Life.files/eygle.jpg" 
+            width=60 border=0></A></SPAN></TD></TR>
+        <TR>
+          <TD vAlign=top width=103 height=29><A 
+            href="http://www.eygle.com/"><IMG height=29 
+            src="Oracle高级复制的创建配置步骤-Step by Step - Oracle Life.files/a-2.jpg" 
+            width=103 border=0></A></TD>
+          <TD rowSpan=2><A href="http://www.eygle.com/">
+            <DIV id=banner>
+            <DIV class=pkg id=banner-inner>
+            <H1 id=banner-header><A accessKey=1 
+            href="http://www.eygle.com/">http://www.eygle.com/</A></H1></A></DIV></DIV></TD></TR>
+        <TR>
+          <TD vAlign=top width=103 height=44><A 
+            href="http://www.eygle.com/"><IMG height=44 alt=eygle.com 
+            src="Oracle高级复制的创建配置步骤-Step by Step - Oracle Life.files/a-3.jpg" 
+            width=103 border=0></A></TD>
+          <TD colSpan=3>&nbsp;</TD></TR></TBODY></TABLE></TD></TR><!--第三行-->
+  <TR>
+    <TD vAlign=top colSpan=3>
+      <TABLE class=topnav cellSpacing=1 cellPadding=3 width="100%" border=0>
+        <TBODY>
+        <TR align=middle bgColor=#ff0000>
+          <TD onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap width=64><A 
+            href="http://www.eygle.com/"></A></TD>
+          <TD class=colheader onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap width=46>
+            <DIV align=center><A href="http://www.eygle.com/"><FONT 
+            color=#ffffff>首页</FONT></A></DIV></TD>
+          <TD onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap width=66>
+            <DIV align=center><A class=colheader 
+            href="http://www.eygle.com/index-tech.htm"><FONT 
+            color=#ffffff>技术基础</FONT></A></DIV></TD>
+          <TD class=colheader onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap width=66>
+            <DIV align=center><A href="http://www.eygle.com/index-ha.htm"><FONT 
+            color=#ffffff>备份恢复</FONT></A></DIV></TD>
+          <TD class=colheader onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap width=66>
+            <DIV align=center><A href="http://www.eygle.com/index-sql.htm"><FONT 
+            color=#ffffff>SQL优化</FONT></A></DIV></TD>
+          <TD class=colheader onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap width=66>
+            <DIV align=center><A 
+            href="http://www.eygle.com/index-case.htm"><FONT 
+            color=#ffffff>诊断案例</FONT></A></DIV></TD>
+          <TD class=colheader onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap width=49>
+            <DIV align=center><A href="http://www.eygle.com/blog"><FONT 
+            color=#ffffff>BLOG</FONT></A></DIV></TD>
+          <TD class=colheader onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap width=49>
+            <DIV align=center><A class=colheader 
+            href="http://www.eygle.com/gbook/index.html"><FONT 
+            color=#ffffff>留言板</FONT></A></DIV></TD>
+          <TD class=colheader onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap width=39>
+            <DIV align=center><A href="http://www.eygle.com/index-sv.htm"><FONT 
+            color=#ffffff>服务</FONT></A></DIV></TD>
+          <TD class=colheader onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap width=39>
+            <DIV align=center><A 
+            href="http://www.eygle.com/index-hist.htm"><FONT 
+            color=#ffffff>生活</FONT></A></DIV></TD>
+          <TD class=colheader onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap width=39>
+            <DIV align=center><A href="http://www.eygle.com/digest"><FONT 
+            color=#ffffff>网摘</FONT></A></DIV></TD>
+          <TD class=colheader onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap width=39>
+            <DIV align=center><A 
+            href="http://www.eygle.com/index-f&amp;l.htm"><FONT 
+            color=#ffffff>阅读</FONT></A></DIV></TD>
+          <TD class=colheader onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap width=39>
+            <DIV align=center><A 
+            href="http://www.eygle.com/index-download.htm"><FONT 
+            color=#ffffff>下载</FONT></A></DIV></TD>
+          <TD class=colheader onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap width=39>
+            <DIV align=center><A href="http://www.eygle.com/rss"><FONT 
+            color=#ffffff>eRss</FONT></A></DIV></TD>
+          <TD class=colheader onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap width=66>
+            <DIV align=center><A href="http://www.eygle.com/en"><FONT 
+            color=#ffffff>English</FONT></A></DIV></TD>
+          <TD class=colheader onmouseover="this.bgColor='#B83936';" 
+          onmouseout="this.bgColor='#ff0000';" noWrap 
+        width=67>&nbsp;</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<DIV id=container>
+<DIV class=content>
+<P align=left><A 
+href="http://www.eygle.com/archives/2005/06/oracleeaoaeueoo_2.html">« 
+《Oracle数据库性能优化》一书热销</A> | <A href="http://www.eygle.com/blog/">Blog首页</A> | <A 
+href="http://www.eygle.com/archives/2005/06/ossaeaaeciciae.html">政策的力量是无穷的 »</A> 
+</P>
+<H3>Oracle高级复制的创建配置步骤-Step by Step</H3>作者：<A 
+href="http://www.eygle.com/">eygle</A> |
+<SCRIPT src="Oracle高级复制的创建配置步骤-Step by Step - Oracle Life.files/English.js" 
+type=text/javascript></SCRIPT>
+【转载时请以超链接形式标明文章<A class=permalink 
+href="http://www.eygle.com/archives/2005/06/oraclessoeaeaeo.html">出处</A>和作者信息及<A 
+href="http://www.eygle.com/archives/2006/12/eygle_copyright.html">本声明</A>】<BR>链接：<A 
+class=permalink 
+href="http://www.eygle.com/archives/2005/06/oraclessoeaeaeo.html">http://www.eygle.com/archives/2005/06/oraclessoeaeaeo.html</A> 
+
+<HR align=center noShade SIZE=1>
+
+<DIV class=relatedtopic>
+<DIV class=relatedcontent style="WIDTH: 270px">
+<DIV class=relatedhead><STRONG>站内相关文章|Related Articles</STRONG> </DIV>
+<DIV class=relatedlist>
+<LI><A 
+href="http://www.eygle.com/archives/2007/01/idl_ub1_table.html">系统对象IDL_UB1$表的含义及作用</A><BR>
+<LI><A 
+href="http://www.eygle.com/archives/2006/10/oracle9i_oracle10g_replication.html">Oracle9i与Oracle10g之间的高级复制配置</A><BR>
+<LI><A 
+href="http://www.eygle.com/archives/2006/09/move_queue_table_out_system.html">如何将复制队列表移出系统(SYSTEM)表空间</A><BR>
+<LI><A 
+href="http://www.eygle.com/archives/2006/09/delete_repcat_repcat.html">高级复制下如何强制删除废弃复制组</A><BR>
+<LI><A 
+href="http://www.eygle.com/archives/2006/09/force_drop_master_repgroup.html">高级复制下如何强制删除复制组</A><BR></LI></DIV></DIV></DIV>本例涉及两个站点.<BR>主体定义站点:AVATAR.COOLYOUNG.COM.CN<BR>主体站点:AUTHAA.COOLYOUNG.COM.CN<BR>注:主体定义站点指配置复制工作的站点<BR><BR>本例涉及的用户.<BR>复制管理员:repadmin<BR>应用用户:hawa<BR>本例复制的对象:hw_test 
+数据表<BR>本例的先决条件:你需要设置好相应的参数,job_queue_processes需要大于0,global_name=true,并且建立相应的db 
+link.<BR>这些具体可以参考:<A 
+href="http://www.eygle.com/pdf/Advanced.Replication.Research.by.Kamus.pdf">高级复制的初步研究</A>一文.<BR><BR>1.在主体定义站点复制用户下创建复制对象<BR>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=500 bgColor=#999999><PRE>SQL&gt; select * from global_name;
+
+GLOBAL_NAME
+-----------------------------------------------------------
+AVATAR.COOLYOUNG.COM.CN
+
+SQL&gt; connect hawa/password
+Connected.
+SQL&gt; create table hw_test as select * from hw_online;
+
+Table created.
+
+SQL&gt;  select count(*) from hw_test;
+
+  COUNT(*)
+----------
+       464
+
+SQL&gt; alter table hw_test add (constraint pk_userid primary key (numuserid));
+
+Table altered.
+</PRE></TD></TR></TBODY></TABLE><BR>2.在主体站点同样创建复制对象<BR>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=500 bgColor=#999999><PRE>SQL&gt; select * from global_name;
+
+GLOBAL_NAME
+------------------------------------------------------------------------
+AUTHAA.COOLYOUNG.COM.CN
+
+SQL&gt; connect hawa/password
+Connected.
+SQL&gt; create table hw_test as select * from hw_online;
+
+Table created.
+
+SQL&gt; select count(*) from hw_test;
+
+  COUNT(*)
+----------
+         0
+</PRE></TD></TR></TBODY></TABLE><BR>3.在主体站点手工同步数据<BR>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=500 bgColor=#999999><PRE>SQL&gt; connect repadmin/password
+
+Connected.
+SQL&gt; insert into hawa.hw_test select * from hawa.hw_test@avatar;
+
+464 rows created.
+
+SQL&gt; commit;
+
+Commit complete.
+</PRE></TD></TR></TBODY></TABLE><BR>4.在主体定义站点开始操作<BR>登陆主体定义站点<BR>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=500 bgColor=#999999><PRE>$ sqlplus repadmin/password
+
+SQL*Plus: Release 9.2.0.4.0 - Production on Mon Jun 27 09:32:36 2005
+
+Copyright (c) 1982, 2002, Oracle Corporation.  All rights reserved.
+
+
+Connected to:
+Oracle9i Enterprise Edition Release 9.2.0.4.0 - 64bit Production
+With the Partitioning, OLAP and Oracle Data Mining options
+JServer Release 9.2.0.4.0 - Production
+
+SQL&gt; select * from global_name;
+
+GLOBAL_NAME
+----------------------------------------------------------------------------
+AVATAR.COOLYOUNG.COM.CN
+</PRE></TD></TR></TBODY></TABLE><BR>创建复制组:<BR>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=500 bgColor=#999999><PRE>SQL&gt; execute dbms_repcat.create_master_repgroup('rep_hh');
+
+PL/SQL procedure successfully completed.
+
+SQL&gt; select gname,master,status from dba_repgroup where gname='REP_HH';
+
+GNAME                          M STATUS
+------------------------------ - ---------
+REP_HH                         Y QUIESCED
+
+</PRE></TD></TR></TBODY></TABLE><BR>
+<DIV id=a000319more>
+<DIV id=more>在复制组里加入复制对象<BR>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=500 bgColor=#999999><PRE>SQL&gt; execute dbms_repcat.create_master_repobject
+(sname=&gt;'hawa',oname=&gt;'hw_test', 
+type=&gt;'table',use_existing_object=&gt;true,gname=&gt;'rep_hh',copy_rows=&gt;false);
+
+PL/SQL procedure successfully completed.
+
+SQL&gt; select sname,oname,status,gname from dba_repobject where gname='REP_HH';
+
+SNAME                          ONAME                          STATUS     GNAME
+------------------------------ ------------------------------ ---------- ------------------------------
+HAWA                           HW_TEST                        VALID      REP_HH
+
+</PRE></TD></TR></TBODY></TABLE><BR>对复制对象产生复制支持<BR>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=500 bgColor=#999999><PRE>SQL&gt; execute dbms_repcat.generate_replication_support('hawa','hw_test','table');
+
+PL/SQL procedure successfully completed.
+
+SQL&gt; select gname, master, status from dba_repgroup where gname='REP_HH';
+
+GNAME                          M STATUS
+------------------------------ - ---------
+REP_HH                         Y QUIESCED
+
+SQL&gt; select sname,oname,status,gname from dba_repobject where gname='REP_HH';
+
+SNAME                          ONAME                          STATUS     GNAME
+------------------------------ ------------------------------ ---------- ------------------------------
+HAWA                           HW_TEST                        VALID      REP_HH
+HAWA                           HW_TEST$RP                     VALID      REP_HH
+HAWA                           HW_TEST$RP                     VALID      REP_HH
+
+SQL&gt; 
+
+</PRE></TD></TR></TBODY></TABLE><BR>添加主体复制节点<BR>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=500 bgColor=#999999><PRE>SQL&gt; execute dbms_repcat.add_master_database
+(gname=&gt;'rep_hh',master=&gt;'AUTHAA.COOLYOUNG.COM.CN',use_existing_objects=&gt;true, 
+copy_rows=&gt;false, propagation_mode =&gt; 'synchronous');
+
+PL/SQL procedure successfully completed.
+
+SQL&gt; column masterdef format a10
+SQL&gt; column master format a10
+SQL&gt; column dblink format a25
+SQL&gt; column gname format a12
+
+SQL&gt; select gname, dblink, masterdef MASTERDEF, master MASTER from sys.dba_repsites where gname='REP_HH';
+
+GNAME        DBLINK                    MASTERDEF  MASTER
+------------ ------------------------- ---------- ----------
+REP_HH       AVATAR.COOLYOUNG.COM.CN   Y          Y
+REP_HH       AUTHAA.COOLYOUNG.COM.CN   N          Y
+</PRE></TD></TR></TBODY></TABLE><BR>登陆主体站点，检查复制对象情况:<BR>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=500 bgColor=#999999><PRE>[oracle@www167 oracle]$ sqlplus repadmin/password
+
+SQL*Plus: Release 9.2.0.4.0 - Production on Mon Jun 27 09:34:49 2005
+
+Copyright (c) 1982, 2002, Oracle Corporation.  All rights reserved.
+
+
+Connected to:
+Oracle9i Enterprise Edition Release 9.2.0.4.0 - Production
+With the Partitioning option
+JServer Release 9.2.0.4.0 - Production
+
+SQL&gt; select * from global_name;
+
+GLOBAL_NAME
+--------------------------------------------------------------------------------
+AUTHAA.COOLYOUNG.COM.CN
+
+
+SQL&gt; set linesize 120
+SQL&gt; select sname,oname,status,gname from dba_repobject where gname='REP_HH';
+
+SNAME                          ONAME                          STATUS     GNAME
+------------------------------ ------------------------------ ---------- ------------------------------
+HAWA                           HW_TEST                        VALID      REP_HH
+HAWA                           HW_TEST$RP                     VALID      REP_HH
+HAWA                           HW_TEST$RP                     VALID      REP_HH
+
+</PRE></TD></TR></TBODY></TABLE><BR>在主体定义站点启动复制:<BR>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=500 bgColor=#999999><PRE>SQL&gt; select * from global_name;
+
+GLOBAL_NAME
+-----------------------------------------------------------------------------
+AVATAR.COOLYOUNG.COM.CN
+
+SQL&gt; execute dbms_repcat.resume_master_activity('rep_hh',true);
+
+PL/SQL procedure successfully completed.
+
+</PRE></TD></TR></TBODY></TABLE><BR>在主体定义站点删除数据测试:<BR>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=500 bgColor=#999999><PRE>SQL&gt; connect hawa/password
+Connected.
+SQL&gt; select count(*) from hw_test;
+
+  COUNT(*)
+----------
+       464
+
+SQL&gt; delete from hw_test where rownum &lt;20;
+
+19 rows deleted.
+
+SQL&gt; commit;
+
+Commit complete.
+
+SQL&gt; select count(*) from hw_test;
+
+  COUNT(*)
+----------
+       445
+</PRE></TD></TR></TBODY></TABLE><BR>在主体站点观察变化:<BR>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width=500 bgColor=#999999><PRE>SQL&gt; select * from global_name;
+
+GLOBAL_NAME
+--------------------------------------------------------------------------------
+AUTHAA.COOLYOUNG.COM.CN
+
+SQL&gt; select count(*) from hw_test;
+
+  COUNT(*)
+----------
+       445
+
+SQL&gt;     
+</PRE></TD></TR></TBODY></TABLE><BR>至此，同步复制配置完毕。<BR><BR><B><FONT 
+color=#ff0000><I>历史上的今天...</I></FONT></B><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt; 
+<A href="http://www.eygle.com/archives/2007/06/27/"><B>2007-06-27</B></A>文章:<BR>
+<DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A 
+href="http://www.eygle.com/archives/2007/06/stepbs_oracle_chapter3_index.html">《循序渐进Oracle》一书第三章目录</A><BR></DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt; 
+<A href="http://www.eygle.com/archives/2006/06/27/"><B>2006-06-27</B></A>文章:<BR>
+<DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A 
+href="http://www.eygle.com/archives/2006/06/db2_logfilsiz_modify.html">DB2新手上路:修改日志文件大小</A><BR></DIV>
+<DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A 
+href="http://www.eygle.com/archives/2006/06/great_china_man.html">贴图不说话-有些名字我们不能提起</A><BR></DIV>------<BR>这篇 
+【<A 
+href="http://www.eygle.com/archives/2005/06/oraclessoeaeaeo.html">Oracle高级复制的创建配置步骤-Step 
+by Step</A>】来自 <A href="http://www.eygle.com/">http://www.eygle.com/</A> | <A 
+title=收藏到CSDN技术网摘 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'keyit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();">CSDN技术网摘</A>|<A 
+href="http://del.icio.us/post?url=http://www.eygle.com/archives/2005/06/oraclessoeaeaeo.html&amp;title=Oracle高级复制的创建配置步骤-Step by Step"> 
+del.icio.us</A>|<A title=收藏到365Key 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(keyit=window.open('http://www.365key.com/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'keyit','scrollbars=no,width=475,height=575,left=75,top=20,status=no,resizable=yes'));keyit.focus();">365Key</A><BR></DIV></DIV>
+<P class=posted>By eygle on 2005-06-27 09:34 | <A 
+href="http://www.eygle.com/archives/2005/06/oraclessoeaeaeo.html#comments">Comments 
+(80)</A> | Posted to <A 
+href="http://www.eygle.com/archives/database/advanced/">Advanced</A> | <A 
+href="http://www.eygle.com/cgi-bin/mt/mt.fcgi?__mode=view&amp;_type=entry&amp;id=319&amp;blog_id=1">Edit</A> 
+|Pageviews:
+<SCRIPT language=Javascript 
+src="Oracle高级复制的创建配置步骤-Step by Step - Oracle Life.files/cntall.htm" 
+type=text/javascript></SCRIPT>
+ </P>
+<SCRIPT type=text/JavaScript> 
+var alimama_pid="mm_10034177_127237_115811"; 
+var alimama_titlecolor="0000FF"; 
+var alimama_descolor ="000000"; 
+var alimama_bgcolor="FFFFFF"; 
+var alimama_bordercolor="E6E6E6"; 
+var alimama_linkcolor="008000"; 
+var alimama_sizecode="11"; 
+var alimama_width=760; 
+var alimama_height=90; 
+var alimama_type=2; 
+</SCRIPT>
+
+<SCRIPT src="Oracle高级复制的创建配置步骤-Step by Step - Oracle Life.files/inf.js" 
+type=text/javascript> 
+</SCRIPT>
+
+<TABLE 
+style="BORDER-RIGHT: rgb(221,221,221) 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: rgb(221,221,221) 1px solid; PADDING-LEFT: 5px; FONT-SIZE: 12px; PADDING-BOTTOM: 5px; BORDER-LEFT: rgb(221,221,221) 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: rgb(221,221,221) 1px solid" 
+width="100%">
+  <TBODY>
+  <TR colspan="2">
+    <TD width="50%"><B>相关文章</B> </TD>
+    <TD width="50%"><B>随机文章</B> </TD></TR>
+  <TR colspan="2">
+    <TD vAlign=top>
+      <LI><A 
+      href="http://www.eygle.com/archives/2007/01/idl_ub1_table.html">系统对象IDL_UB1$表的含义及作用</A><BR>
+      <LI><A 
+      href="http://www.eygle.com/archives/2006/10/oracle9i_oracle10g_replication.html">Oracle9i与Oracle10g之间的高级复制配置</A><BR>
+      <LI><A 
+      href="http://www.eygle.com/archives/2006/09/move_queue_table_out_system.html">如何将复制队列表移出系统(SYSTEM)表空间</A><BR>
+      <LI><A 
+      href="http://www.eygle.com/archives/2006/09/delete_repcat_repcat.html">高级复制下如何强制删除废弃复制组</A><BR>
+      <LI><A 
+      href="http://www.eygle.com/archives/2006/09/force_drop_master_repgroup.html">高级复制下如何强制删除复制组</A><BR></LI></TD>
+    <TD vAlign=top><A 
+      href="http://www.eygle.com/archives/2007/01/eygle_observe.html">Eygle观察-关注实事技术动态</A><BR><A 
+      href="http://www.eygle.com/archives/2005/11/bulk_binds_forall.html">批量绑定(bulk 
+      binds):FOR循环与FORALL的性能比较</A><BR><A 
+      href="http://www.eygle.com/archives/2005/03/ceecieaoaeieeeu.html">小技巧-如何让页面上所有的链接都在新窗口打开</A><BR><A 
+      href="http://www.eygle.com/archives/2008/05/buglist_patchnote.html">Oracle 
+      Patch Set Note And Bug List 参考</A><BR><A 
+      href="http://www.eygle.com/archives/2006/09/duku0604.html">《读库》第五期 
+      阅读的乐趣</A><BR></TD></TR></TBODY></TABLE>
+<DIV class=container>搜索本站: </DIV><BR>
+<FORM id=cse-search-box action=http://www.eygle.com/searchmysite.html>
+<DIV><INPUT type=hidden value=002915065654995899397:kiu2mphhcck name=cx> <INPUT 
+type=hidden value=FORID:11 name=cof> <INPUT type=hidden value=UTF-8 name=ie> 
+<INPUT size=60 name=q> <INPUT type=submit value=搜索本站内容 name=sa> </DIV></FORM>
+<SCRIPT src="Oracle高级复制的创建配置步骤-Step by Step - Oracle Life.files/brand.htm" 
+type=text/javascript></SCRIPT>
+</MTENTRYIFALLOWPINGS>
+<H2 id=comments>留言 (80)</H2>
+<DIV id=c917>
+<P>eygle：<BR>你的这个是实时同步的吗？<BR>并且是双向的吗？</P></DIV>
+<P class=posted>Posted by: dai_zhy at July 28, 2005 2:31 PM</P>
+<DIV id=c918>
+<P>是同步复制，双向。</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at July 28, 2005 3:07 PM</P>
+<DIV id=c919>
+<P>eygle:<BR>这个之前是不是要建立db link呢？</P></DIV>
+<P class=posted>Posted by: dai_zhy at July 28, 2005 10:24 PM</P>
+<DIV id=c920>
+<P>db link肯定是要先建立好的，我这个是给一个朋友做的范例，省略了一些步骤。</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at July 28, 2005 10:45 
+PM</P>
+<DIV id=c921>
+<P>eygle;<BR>两个站点都需要repadmin这个用户吗？</P></DIV>
+<P class=posted>Posted by: dai_zhy at July 29, 2005 9:22 AM</P>
+<DIV id=c922>
+<P>参考这里的文章:<BR>http://www.eygle.com/index-download.php</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at July 29, 2005 9:37 AM</P>
+<DIV id=c923>
+<P>在添加主复制节点是出现如下错误：</P>
+<P>ORA-23357: the propagator does not exist<BR>ORA-06512: at 
+"SYS.DBMS_REPCAT_CACHE", line 76<BR>ORA-06512: at "SYS.DBMS_REPCAT_MAS", line 
+1863<BR>ORA-06512: at "SYS.DBMS_REPCAT", line 121</P></DIV>
+<P class=posted>Posted by: minjiayan at July 29, 2005 6:13 PM</P>
+<DIV id=c924>
+<P>minjiayan,你参考<BR>http://www.eygle.com/index-download.php</P>
+<P>不要漏掉需要的步骤，不会出问题的。</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at July 29, 2005 6:29 PM</P>
+<DIV id=c925>
+<P>我想在增加一个表到复制组里，但是出现了下面的问题：<BR>ERROR at line 1:<BR>ORA-23310: object group 
+"PUBLIC"."REP_HH" is not quiesced<BR>ORA-06512: at "SYS.DBMS_SYS_ERROR", line 
+95<BR>ORA-06512: at "SYS.DBMS_REPCAT_UTL", line 6176<BR>ORA-06512: at 
+"SYS.DBMS_REPCAT_MAS", line 2546<BR>ORA-06512: at "SYS.DBMS_REPCAT", line 
+562<BR>ORA-06512: at line 1<BR>我该怎么把这个复制组的status改为quiesc呢？</P></DIV>
+<P class=posted>Posted by: dai_zhy at August 1, 2005 9:42 AM</P>
+<DIV id=c926>
+<P>呵呵，谢谢</P></DIV>
+<P class=posted>Posted by: minjiayan at August 1, 2005 9:43 AM</P>
+<DIV id=c927>
+<P>呵呵，谢谢</P></DIV>
+<P class=posted>Posted by: minjiayan at August 1, 2005 9:43 AM</P>
+<DIV id=c928>
+<P>请问，能否建立一个基于多主体表的实体化视图？</P></DIV>
+<P class=posted>Posted by: xzh at September 18, 2005 3:40 PM</P>
+<DIV id=c929>
+<P>eygle;<BR>为什么我在进行到‘登陆主体站点，检查复制对象情况:’这一步时执行select sname,oname,status,gname 
+from dba_repobject where gname='REP_HH';<BR>却是这样的信息：sname:hava oname:hw_test 
+status:error gname:rep_hh</P></DIV>
+<P class=posted>Posted by: qiuleizhen at October 11, 2005 2:26 PM</P>
+<DIV id=c930>
+<P>状态不对啊，你的某个步骤肯定有问题！</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at October 11, 2005 4:50 
+PM</P>
+<DIV id=c931>
+<P>谢谢eygle!问题已经解决了，是我在建在主体站点上的那张表没有设置主关键字，对了，再问你一下，如果主体站点是分区表，也可以吗？</P></DIV>
+<P class=posted>Posted by: qiuleizhen at October 12, 2005 12:59 PM</P>
+<DIV id=c932>
+<P>在添加主体复制节点时,报错,错误信息如下:<BR>ERROR 位于第 1 行:<BR>ORA-23375: 
+特性与数据库版本NEWSIS.US.ORACLE.COM不兼容<BR>ORA-06512: 在"SYS.DBMS_SYS_ERROR", line 
+86<BR>ORA-06512: 在"SYS.DBMS_REPCAT_MAS", line 2159<BR>ORA-06512: 
+在"SYS.DBMS_REPCAT", line 146<BR>ORA-06512: 在line 1<BR>经检查,两个服务器的版本均为Oracle9i 
+Enterprise Edition Release 9.2.0.1.0 - Production</P></DIV>
+<P class=posted>Posted by: ghx at December 15, 2005 2:30 PM</P>
+<DIV id=c933>
+<P>show parameter compatible</P>
+<P>比较compatible参数设置!</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at December 15, 2005 2:33 
+PM</P>
+<DIV id=c934>
+<P>两个服务器的compatible均为9.2.0.0.0</P></DIV>
+<P class=posted>Posted by: ghx at December 16, 2005 9:51 AM</P>
+<DIV id=c935>
+<P>确认repadmin具有足够权限:</P>
+<P>execute dbms_repcat_admin.grant_admin_any_repschema ('REPADMIN')</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at December 16, 2005 10:55 
+AM</P>
+<DIV id=c936>
+<P>多谢你的回复,不过好象还是不行,一样的地方一样的错误</P></DIV>
+<P class=posted>Posted by: ghx at December 16, 2005 11:44 AM</P>
+<DIV id=c937>
+<P>那可能是你的什么步骤配置出了问题，仔细检查一下。</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at December 16, 2005 8:04 
+PM</P>
+<DIV id=c938>
+<P>把状态改为quiesced<BR>execute dbms_repcat.suspend_master_activity (gname 
+=&gt;'REP_HH')</P></DIV>
+<P class=posted>Posted by: xzh2001 at December 23, 2005 2:27 PM</P>
+<DIV id=c939>
+<P>在登陆主体站点，检查复制对象情况时，dba_repobject表里没有记录，而且两个站点数据发生变化时，没有相互反映出来，为什么？我使用的版本是8.1.7.0.0</P></DIV>
+<P class=posted>Posted by: ljs_888 at December 28, 2005 5:30 PM</P>
+<DIV id=c940>
+<P>在登陆主体站点，检查复制对象情况时，dba_repobject表里没有记录，按照上面的步骤，最后向主体定义站点插入数据时提示：<BR>ERROR at 
+line 1:<BR>ORA-04067: 没有执行，stored <BR>procedure "hawa.hw_test$RP" 
+不存在<BR>ORA-01085: 延迟 rpc 到 "hawa.hw_test$RP.REP_INSERT" 之前的错误<BR>ORA-02063: 
+preceding 2 lines from HLRDBBAK</P></DIV>
+<P class=posted>Posted by: ljs_888 at December 29, 2005 1:22 PM</P>
+<DIV id=c941>
+<P>检查dba_repcatlog看记录了什么错误.</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at December 29, 2005 3:42 
+PM</P>
+<DIV id=c942>
+<P>dba_repcatlog的记录如下：</P>
+<P>Id Source Status Userid Timestamp Role Master Sname Request Oname Type 
+Message Errnum Gname <BR>35 ORA.DATANG.COM AWAIT_CALLBACK REPADMIN 2005-12-28 
+14:52:06 MASTERDEF HLRDBBAK.DATANG.COM RESUME_MASTER_ACTIVITY UNDEFINED SCOTT_MG 
+<BR>29 ORA.DATANG.COM AWAIT_CALLBACK REPADMIN 2005-12-28 14:51:21 MASTERDEF 
+HLRDBBAK.DATANG.COM COPY_FLAVOR_DEFINITIONS UNDEFINED SCOTT_MG <BR>61 
+ORA.DATANG.COM@PERDAY AWAIT_CALLBACK REPADMIN 2005-12-29 18:08:09 MASTERDEF 
+HLRDBBAK.DATANG.COM@PERDAY COPY_FLAVOR_DEFINITIONS UNDEFINED REP_GP_DAY <BR>67 
+ORA.DATANG.COM@PERDAY AWAIT_CALLBACK REPADMIN 2005-12-29 18:09:30 MASTERDEF 
+HLRDBBAK.DATANG.COM@PERDAY RESUME_MASTER_ACTIVITY UNDEFINED REP_GP_DAY <BR>62 
+ORA.DATANG.COM@PERDAY AWAIT_CALLBACK REPADMIN 2005-12-29 18:08:09 MASTERDEF 
+HLRDBBAK.DATANG.COM@PERDAY SCOTT CREATE_MASTER_REPOBJECT DEPT TABLE REP_GP_DAY 
+<BR>33 ORA.DATANG.COM AWAIT_CALLBACK REPADMIN 2005-12-28 14:51:22 MASTERDEF 
+HLRDBBAK.DATANG.COM SCOTT_MG ADD_MASTER_DATABASE -1 UNDEFINED SCOTT_MG <BR>34 
+ORA.DATANG.COM READY REPADMIN 2005-12-28 14:51:22 MASTERDEF HLRDBBAK.DATANG.COM 
+SCOTT_MG ADD_MASTER_DATABASE -1 UNDEFINED SCOTT_MG <BR>35 ORA.DATANG.COM READY 
+REPADMIN 2005-12-28 14:52:06 MASTERDEF ORA.DATANG.COM RESUME_MASTER_ACTIVITY 
+UNDEFINED SCOTT_MG <BR>36 ORA.DATANG.COM AWAIT_CALLBACK REPADMIN 2005-12-28 
+14:53:05 MASTERDEF HLRDBBAK.DATANG.COM RESUME_MASTER_ACTIVITY UNDEFINED SCOTT_MG 
+<BR>63 ORA.DATANG.COM@PERDAY AWAIT_CALLBACK REPADMIN 2005-12-29 18:08:10 
+MASTERDEF HLRDBBAK.DATANG.COM@PERDAY SCOTT GENERATE_INTERNAL_PKG_SUPPORT DEPT 
+TABLE REP_GP_DAY <BR>64 ORA.DATANG.COM@PERDAY READY REPADMIN 2005-12-29 18:08:10 
+MASTERDEF ORA.DATANG.COM@PERDAY SCOTT END_GEN_INTERNAL_PKG_SUPPORT DEPT TABLE 
+REP_GP_DAY <BR>65 ORA.DATANG.COM@PERDAY AWAIT_CALLBACK REPADMIN 2005-12-29 
+18:08:10 MASTERDEF HLRDBBAK.DATANG.COM@PERDAY REP_GP_DAY ADD_MASTER_DATABASE -1 
+UNDEFINED REP_GP_DAY <BR>66 ORA.DATANG.COM@PERDAY READY REPADMIN 2005-12-29 
+18:08:10 MASTERDEF HLRDBBAK.DATANG.COM@PERDAY REP_GP_DAY ADD_MASTER_DATABASE -1 
+UNDEFINED REP_GP_DAY <BR>67 ORA.DATANG.COM@PERDAY READY REPADMIN 2005-12-29 
+18:09:30 MASTERDEF ORA.DATANG.COM@PERDAY RESUME_MASTER_ACTIVITY UNDEFINED 
+REP_GP_DAY <BR>68 ORA.DATANG.COM@PERDAY AWAIT_CALLBACK REPADMIN 2005-12-29 
+18:09:51 MASTERDEF HLRDBBAK.DATANG.COM@PERDAY RESUME_MASTER_ACTIVITY UNDEFINED 
+REP_GP_DAY</P></DIV>
+<P class=posted>Posted by: ljs_888 at December 29, 2005 4:48 PM</P>
+<DIV id=c943>
+<P>我按照步骤前面都一切顺利，但在登陆主体站点，检查复制对象情况:这一步时有问题了<BR>SQL&gt; select 
+sname,oname,status,gname from dba_repobject where gname='REP_OOO';</P>
+<P>SNAME ONAME STATUS GNAME<BR>------------------------------ 
+------------------------------ ---------- ------------<BR>game GAMEINFOTEST5 
+ERROR REP_OOO</P>
+<P>oname的STATUS为ERROR，请问该怎么解决？</P></DIV>
+<P class=posted>Posted by: lues at December 29, 2005 5:11 PM</P>
+<DIV id=c944>
+<P>根据您写的advanced replication初步研究.pdf文档，按照“附录一。多主体复制站点的配置步骤”去执行，<BR>在运行grant 
+select any dictionary to repadmin;时，提示<BR>ERROR at line 1:ORA-00990: missing or 
+invalid privilege</P>
+<P>其他别的步骤没有发生什么异常，在master数据库的dba_repobject中有三行记录，但在snap 
+数据库的dba_repobject中没有记录，最后分别更新两个数据库的记录时，在对方的数据库中没有任何变化。</P></DIV>
+<P class=posted>Posted by: bjljs at December 29, 2005 5:28 PM</P>
+<DIV id=c945>
+<P>你的数据库什么版本啊?</P>
+<P>以上各位朋友请检查一下你的job_queue_processes参数是否&gt;0.</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at December 29, 2005 5:52 
+PM</P>
+<DIV id=c946>
+<P>数据库是8.1.7.0.0，而且job_queue_processes设置为10了。</P></DIV>
+<P class=posted>Posted by: bjljs at December 29, 2005 6:30 PM</P>
+<DIV id=c947>
+<P>SELECT ANY DICTIONARY 是9i中引入的.</P>
+<P>Oracle8i和9i不同!</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at December 29, 2005 9:17 
+PM</P>
+<DIV id=c948>
+<P>那为什么复制不成功呢？难道8.1.7.0.0不能复制吗？</P></DIV>
+<P class=posted>Posted by: bjljs at December 30, 2005 9:19 AM</P>
+<DIV id=c949>
+<P>Oracle8i支持复制,一定是你的配置存在问题.</P>
+<P>检查一下日志/dba_repcatlog,看有什么错误.</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at December 30, 2005 9:55 
+AM</P>
+<DIV id=c950>
+<P>我是按照您的文档上的要求进行配置的，还需要配置别的什么吗？dba_repcatlog的信息如下，我也看不出有什么错误.能帮我分析一下吗，谢谢eygle了！</P>
+<P>Id Source Status Userid Timestamp Role Master Sname Request Oname Type 
+Message Errnum Gname <BR>61 ORA.DATANG.COM@PERDAY AWAIT_CALLBACK REPADMIN 
+2005-12-29 18:08:09 MASTERDEF HLRDBBAK.DATANG.COM@PERDAY COPY_FLAVOR_DEFINITIONS 
+UNDEFINED REP_GP_DAY <BR>67 ORA.DATANG.COM@PERDAY AWAIT_CALLBACK REPADMIN 
+2005-12-29 18:09:30 MASTERDEF HLRDBBAK.DATANG.COM@PERDAY RESUME_MASTER_ACTIVITY 
+UNDEFINED REP_GP_DAY <BR>62 ORA.DATANG.COM@PERDAY AWAIT_CALLBACK REPADMIN 
+2005-12-29 18:08:09 MASTERDEF HLRDBBAK.DATANG.COM@PERDAY SCOTT 
+CREATE_MASTER_REPOBJECT DEPT TABLE REP_GP_DAY <BR>63 ORA.DATANG.COM@PERDAY 
+AWAIT_CALLBACK REPADMIN 2005-12-29 18:08:10 MASTERDEF HLRDBBAK.DATANG.COM@PERDAY 
+SCOTT GENERATE_INTERNAL_PKG_SUPPORT DEPT TABLE REP_GP_DAY <BR>64 
+ORA.DATANG.COM@PERDAY READY REPADMIN 2005-12-29 18:08:10 MASTERDEF 
+ORA.DATANG.COM@PERDAY SCOTT END_GEN_INTERNAL_PKG_SUPPORT DEPT TABLE REP_GP_DAY 
+<BR>65 ORA.DATANG.COM@PERDAY AWAIT_CALLBACK REPADMIN 2005-12-29 18:08:10 
+MASTERDEF HLRDBBAK.DATANG.COM@PERDAY REP_GP_DAY ADD_MASTER_DATABASE -1 UNDEFINED 
+REP_GP_DAY <BR>66 ORA.DATANG.COM@PERDAY READY REPADMIN 2005-12-29 18:08:10 
+MASTERDEF HLRDBBAK.DATANG.COM@PERDAY REP_GP_DAY ADD_MASTER_DATABASE -1 UNDEFINED 
+REP_GP_DAY <BR>67 ORA.DATANG.COM@PERDAY READY REPADMIN 2005-12-29 18:09:30 
+MASTERDEF ORA.DATANG.COM@PERDAY RESUME_MASTER_ACTIVITY UNDEFINED REP_GP_DAY 
+<BR>68 ORA.DATANG.COM@PERDAY AWAIT_CALLBACK REPADMIN 2005-12-29 18:09:51 
+MASTERDEF HLRDBBAK.DATANG.COM@PERDAY RESUME_MASTER_ACTIVITY UNDEFINED 
+REP_GP_DAY</P></DIV>
+<P class=posted>Posted by: bjljs at December 31, 2005 9:51 AM</P>
+<DIV id=c951>
+<P>AWAIT_CALLBACK这种状态是不正常的.</P>
+<P>AWAIT_CALLBACK状态表示管理请求已经从主体定义站点上正常发出，并且已经被其他的主体站点接收，但是其他的主体站点却没有返回消息表明管理请求是否执行成功。</P>
+<P>所以你需要检查你的db link是否正常.<BR>主体站点是否配置正确.</P>
+<P>如果没问题,可以使用:<BR>DBMS_REPCAT.DO_DEFERRED_REPCAT_ADMIN ( gname=&gt;'rep_gp_day', 
+all_sites=&gt;true);<BR>重新提交任务.</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at December 31, 2005 9:58 
+AM</P>
+<DIV id=c952>
+<P>在主体站点使用sql命令可以直接向主体定义站点插入数据，从主体定义站点也可以使用sql命令直接向主体站点插入数据，都没有问题，运行DBMS_REPCAT.DO_DEFERRED_REPCAT_ADMIN 
+也没问题，但就是不互相更新对方的数据。</P>
+<P>在主体站点中的dba_repobject里，没有任何记录。</P></DIV>
+<P class=posted>Posted by: bjljs at December 31, 2005 3:42 PM</P>
+<DIV id=c953>
+<P>配置完后，在主体站点中的dba_repobject里，是否应该有记录。如果有，在运行哪个程序包才能有记录呢，我的问题一直没有解决，很急切，热切的盼望着各位好心人的指点，谢谢！！！！</P></DIV>
+<P class=posted>Posted by: bjljs at January 5, 2006 2:28 PM</P>
+<DIV id=c954>
+<P>我手头已经没有Oracle8i的环境了.</P>
+<P>你的db link正常么?</P>
+<P>使用repadmin能否操作远程表?</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at January 5, 2006 2:41 
+PM</P>
+<DIV id=c955>
+<P>db link正常，使用repadmin可以操作远程表。</P></DIV>
+<P class=posted>Posted by: bjljs at January 5, 2006 3:43 PM</P>
+<DIV id=c956>
+<P>你可以试试看同步复制,出错了就能发现了.</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at January 5, 2006 6:47 
+PM</P>
+<DIV id=c957>
+<P>使用同步复制,最后向主体定义站点插入数据时提示：<BR>ERROR at line 1:<BR>ORA-04067: 没有执行，stored 
+<BR>procedure "hawa.hw_test$RP" 不存在<BR>ORA-01085: 延迟 rpc 到 
+"hawa.hw_test$RP.REP_INSERT" 之前的错误<BR>ORA-02063: preceding 2 lines from 
+HLRDBBAK</P></DIV>
+<P class=posted>Posted by: bjljs at January 9, 2006 1:55 PM</P>
+<DIV id=c958>
+<P>&gt;&gt;登陆主体站点，检查复制对象情况:</P>
+<P>这一步,你的肯定有问题,复制生成存在问题,没有在主体站点生成复制支持对象.</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at January 9, 2006 2:33 
+PM</P>
+<DIV id=c959>
+<P>你说的很对，没有在主体站点生成复制支持对象，登陆主体站点，检查复制对象情况，在dba_repobject 
+里没有记录，但为什么没有呢？在此之前没有任何异常情况呀。</P></DIV>
+<P class=posted>Posted by: bjljs at January 9, 2006 3:52 PM</P>
+<DIV id=c960>
+<P>我现在也遇到了这个错误ORA-04067，建立过程都提示正常的，比较苦闷，现在正在实施一个项目中</P></DIV>
+<P class=posted>Posted by: ppiao at January 12, 2006 10:32 PM</P>
+<DIV id=c961>
+<P>以上使用8.1.7.0.0的朋友,我建议你们升级一下.</P>
+<P>我看到8.1.7.0.0有一些相关Bug会使得高级复制出现问题,特别是由8.1.5升级上来的.</P>
+<P>建议使用9iR2或以上版本.</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at January 12, 2006 11:13 
+PM</P>
+<DIV id=c962>
+<P>我的数据库是oracle9i for 2003企业版本的,并且升级到9206,配置好后,在登陆主体站点，检查复制对象情况，在dba_repobject 
+里没有记录,<BR>使用同步复制,最后向主体定义站点插入数据时提示：<BR>ERROR at line 1:<BR>ORA-04067: 没有执行，stored 
+<BR>procedure "gz.s_cust$RP" 不存在</P>
+<P>不知道如何解决</P></DIV>
+<P class=posted>Posted by: ppiao at January 14, 2006 1:35 PM</P>
+<DIV id=c963>
+<P>检查dba_repcatlog里面的错误信息!</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at January 14, 2006 2:35 
+PM</P>
+<DIV id=c964>
+<P>那8.1.7.0.0版本就不能做高级复制吗？因为项目进行中，能可能在重新购置新的版本软件，有什么办法可以实现在8.1.7.0.0版本下的高级复制呢</P></DIV>
+<P class=posted>Posted by: bjljs at January 16, 2006 9:26 AM</P>
+<DIV id=c965>
+<P>我也遇到了ORA-04067的问题，在oracle8i、oracle9i 都不行，我是严格按照上面的步骤进行的，不知道为什么？</P></DIV>
+<P class=posted>Posted by: renlei at January 16, 2006 9:32 AM</P>
+<DIV id=c966>
+<P>ORA-04067错误通常是你的db link有问题或者是job有问题,无法把本地的任务push到主体站点.</P>
+<P>所以请确认你的用户权限正确,db link正常,相关初始化参数已经正确设置.</P>
+<P>本文开头给出一个文档,请参考.</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at January 16, 2006 3:36 
+PM</P>
+<DIV id=c967>
+<P>请问eygle，在多主复制中一个主站点从复制组中用dbms_repcat.remove_master_databases删除后，可以重新加入到该复制组中去么，如何加？</P></DIV>
+<P class=posted>Posted by: yang at February 22, 2006 3:48 PM</P>
+<DIV id=c968>
+<P>请问如果需要以一个物化视图来实现对多个主体站点得数据复制，并且查询性能较高应该如何来设置和部署呢？希望能够得到您得帮助,最好有个实例</P></DIV>
+<P class=posted>Posted by: Anonymous at February 24, 2006 6:33 PM</P>
+<DIV id=c969>
+<P>我的上个问题已经知道如何解决了，可是又出现一个新问题，请eygle帮帮忙看看<BR>在多主复制中，我在主定义站点执行<BR>execute 
+dbms_repcat.suspend_master_activity(gname =&gt; 'rep1');后 
+，主定义站点已经是QUIESCING了，可等了很久其他主站点的复制组状态并没有随之改变，依然时normal，请问这是什么（急）？</P></DIV>
+<P class=posted>Posted by: yang at February 28, 2006 12:55 PM</P>
+<DIV id=c970>
+<P>你查看:dba_repcatlog</P>
+<P>看这个动作是否没有被传播出去.</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at February 28, 2006 1:16 
+PM</P>
+<DIV id=c971>
+<P>好的，解决了，谢谢eygle 
+<BR>我现在在实施一个项目，不知道可否多主复制方式，来实现单向复制，即A台机器做中心只接收数据，B,C机器做源发送数据，在A上不建push任务，B，C上只建到A的push任务，我现在已经搭建好这种环境了，看上去运行的还行，请问eygle，这种方式会不会有什么不妥？另外我偶尔发现B会发送数据给C的情况（不过极少出现），不知为何</P></DIV>
+<P class=posted>Posted by: yang at February 28, 2006 2:40 PM</P>
+<DIV id=c972>
+<P>请问eygle一个紧急的问题<BR>，在多主复制中为什么一个站点的在执行dbms_repcat.do_deferred_repcat_admin('"REP1"', 
+FALSE);job时，一直执行不结束，等了几天还是这样，它不执行任何从主定义站点发来的命令<BR>我用exeucte 
+dbms_defer_sys.delete_tran(deferred_tran_id =&gt; '',destination =&gt; 
+'');后，它依然不结束，请问这是怎么回事，do_deferred_repcat_admin是具体做什么，十分着急！！！请帮忙，谢谢！</P></DIV>
+<P class=posted>Posted by: yang at March 2, 2006 8:16 PM</P>
+<DIV id=c973>
+<P>Quote from Oracle document:</P>
+<P>Whenever you use the Replication Management tool to create an administrative 
+request for a replication group, Oracle automatically inserts a job into the 
+local job queue, if one does not already exist for the group. This job 
+periodically executes the <BR>DBMS_REPCAT.DO_DEFERRED_REPCAT_ADMIN procedure. 
+Whenever you<BR>synchronously broadcast a request, Oracle attempts to start this 
+job immediately in<BR>order to apply the replicated changes at each master 
+site.</P>
+<P>Assuming that Oracle does not encounter any errors,DO_DEFERRED_REPCAT_ADMIN 
+is run whenever a background process is available to execute the job. Oracle 
+automatically determines how often the background process wakes up. You may 
+experience a delay if you do not have enough background processes available to 
+execute the outstanding jobs.</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at March 2, 2006 8:53 PM</P>
+<DIV id=c974>
+<P>谢谢！<BR>您的意思是说这个站点的oracle后台进程有问题，造成background processes 
+unavailable，所以一直不停执行这个job是吗？那怎么修复这个问题呢？另外我从session里面sql语句，看到它在执行这个job的时候，并没有死掉啊，一直在不停执行一些看不大懂的语句，比如lock 
+table xxx in shared mode;什么的<BR>请eygle多关注一下小弟的这个问题，因为较急，谢谢！</P></DIV>
+<P class=posted>Posted by: yang at March 3, 2006 2:28 PM</P>
+<DIV id=c975>
+<P>你需要看一下Job为什么没有结束</P>
+<P>还要看Deffer任务是否有错误或失败.</P>
+<P>select * from DEFERROR;</P>
+<P>select * from DEFTRAN;</P>
+<P>select * from dba_jobs_running;</P>
+<P>还有,我怀疑你删除Tran的方法有问题.</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at March 3, 2006 3:02 PM</P>
+<DIV id=c976>
+<P>select * from DEFERROR; 里面确实有错误，但是是一般的主键冲突、或者not 
+found之类的，这个应该是正常的吧。<BR>select * from DEFTRAN; 
+里面有未发送出去的事务，原因是我只建立了到中心站点的数据库链，因为我不想它发送给其他站点，自然另外几条事务因为找不到数据库链，因此一直保留在那里。</P>
+<P>一般情况下，我用exeucte dbms_defer_sys.delete_tran(deferred_tran_id =&gt; 
+'',destination =&gt; 
+'');清除滞留的事务后，job就很快执行完毕了，但是这次即使清空了，它还是在不停跑，不知道原因在哪里<BR>另外我想问一下复制里面，可以不一定要将global_names设置为true吗，false也可以的吧</P></DIV>
+<P class=posted>Posted by: yang at March 3, 2006 4:44 PM</P>
+<DIV id=c977>
+<P>select * from DEFERROR; 里面确实有错误，但是是一般的主键冲突、或者not 
+found之类的，这个应该是正常的吧。<BR>select * from DEFTRANDEST; 
+里面有未发送出去的事务，原因是我只建立了到中心站点的数据库链，因为我不想它发送给其他站点，自然另外几条事务因为找不到数据库链，因此一直保留在那里。</P>
+<P>一般情况下，我用exeucte dbms_defer_sys.delete_tran(deferred_tran_id =&gt; 
+'',destination =&gt; 
+'');清除滞留的事务后，job就很快执行完毕了，但是这次即使清空了，它还是在不停跑，不知道原因在哪里<BR>另外我想请问一下数据复制里面，不一定要将global_names设置为true吗，false也可以的吧</P></DIV>
+<P class=posted>Posted by: yang at March 3, 2006 4:46 PM</P>
+<DIV id=c978>
+<P>理论上global_names要设置为True,但是如果你的DB Link以及域名等设置没有问题,这个不会有实质影响.</P>
+<P>如果实在找不到原因,我建议你sql_trace一下相关job进程,看看在执行什么操作.</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at March 3, 2006 4:50 PM</P>
+<DIV id=c979>
+<P>好的，多谢！<BR>以后还请eygle常常光顾这个帖子，偶以后可能还会遇到些棘手的问题，需要请教 谢啦 ：）</P></DIV>
+<P class=posted>Posted by: yang at March 3, 2006 5:11 PM</P>
+<DIV id=c980>
+<P>又冒出一个问题，<BR>我想删除一个非主定义站点的复制组，然后重新把它加进去，为什么会出现这个错误，怎么都删除不掉：</P>
+<P>SQL&gt; execute dbms_repcat.drop_master_repgroup(gname =&gt; 'rep',all_sites 
+=&gt; false);</P>
+<P>begin dbms_repcat.drop_master_repgroup(gname =&gt; 'rep',all_sites =&gt; 
+false); end;</P>
+<P>ORA-23313: object group "PUBLIC"."REP" is not mastered at 
+MASTER.DRAGONSOFT.COM.CN<BR>ORA-06512: at "SYS.DBMS_SYS_ERROR", line 
+105<BR>ORA-06512: at "SYS.DBMS_REPCAT_UTL4", line 2860<BR>ORA-06512: at 
+"SYS.DBMS_REPCAT_MAS", line 2660<BR>ORA-06512: at "SYS.DBMS_REPCAT", line 
+635<BR>ORA-06512: at line 1</P></DIV>
+<P class=posted>Posted by: yang at March 3, 2006 5:58 PM</P>
+<DIV id=c981>
+<P>在上面这种情况下，有什么办法可以强制删除非主定义站点上的复制组吗？不然就再也不能使用这个组名称了</P></DIV>
+<P class=posted>Posted by: yang at March 3, 2006 7:46 PM</P>
+<DIV id=c982>
+<P>yang,<BR>遇到一样的问题跟你累似。<BR>1。我不能删除复制组：在主体定义站点上已经删掉了，但在主体站点上的管理请求是：drop_master_repschema，却一直不执行，导致主体站点上的复制组一直不能被删除。我本想删除复制组后再重新建一个的。这是为什么呢〉？<BR>2。主体站点以及主体定义站点上的复制组都删除掉了，可是为什么我在主体站点上编辑跟复制组相关用户下的表数据时，出现ora-23474错误。复制组删掉的话，应该是两个数据库之间没有关系的阿，这是怎么回事呢？？</P>
+<P>以上所讲的操作都是通过 OEM Console完成的。</P>
+<P>该问题请教 yang, and eygle ..<BR>我时刻关注 ！！！！<BR>Thanks,</P></DIV>
+<P class=posted>Posted by: kalvin at March 12, 2006 1:32 PM</P>
+<DIV id=c983>
+<P>谢谢啊，终于搞定了，将准备工作不充如下,请指正：（其中ora9fron&amp;ora9back是数据库的名字，请按照自己的实际情况改动）<BR>-- 
+create user scott for test /as sysdba both @ora9fron and @ora9back<BR>CREATE 
+USER scott IDENTIFIED BY tiger;<BR>ALTER USER scott DEFAULT TABLESPACE users 
+QUOTA UNLIMITED ON users;<BR>ALTER USER scott TEMPORARY TABLESPACE 
+temp;<BR>GRANT<BR>CREATE SESSION,<BR>CREATE TABLE,<BR>CREATE 
+PROCEDURE,<BR>CREATE SEQUENCE,<BR>CREATE TRIGGER,<BR>CREATE VIEW,<BR>CREATE 
+SYNONYM,<BR>ALTER SESSION,<BR>CREATE MATERIALIZED VIEW,<BR>ALTER ANY 
+MATERIALIZED VIEW,<BR>CREATE DATABASE LINK<BR>TO scott;</P>
+<P>-- create table in scott for test /as soctt/tiger both @ora9fron and 
+@ora9back<BR>create table test_rep (num number not null, idname 
+varchar2(100));<BR>alter table test_rep add constraint pk_test_rep primary key 
+(num);<BR>create index ind_test_rep_name on test_rep (idname);<BR>insert into 
+test_rep values (1, 'ytk');<BR>insert into test_rep values (2, 
+'zhly');<BR>commit;</P>
+<P>------------------------------------------------------------------------------------------------------------------------<BR>-- 
+create public database link /as sysdba@ora9fron<BR>drop public database link 
+ora9back;<BR>create public database link ora9back using 'ora9back';<BR>select * 
+from global_name@ora9back;</P>
+<P>-- create repadmin /as sysdba@ora9fron<BR>drop user repadmin 
+cascade;<BR>create user repadmin identified by repadmin;<BR>execute 
+dbms_repcat_admin.grant_admin_any_schema(username =&gt; 'repadmin');<BR>execute 
+dbms_defer_sys.register_propagator('repadmin'); <BR>execute 
+dbms_repcat_admin.register_user_repgroup(username =&gt; 
+'repadmin',privilege_type =&gt; 'receiver',list_of_gnames =&gt; NULL); <BR>grant 
+execute any procedure to repadmin; <BR>execute 
+dbms_repcat_admin.grant_admin_any_repgroup('repadmin'); <BR>grant comment any 
+table to repadmin; <BR>grant lock any table to repadmin; <BR>grant select any 
+dictionary to repadmin;<BR>grant create session to repadmin;</P>
+<P>-- create database link repadmin/repadmin@ora9fron<BR>drop database link 
+ora9back;<BR>create database link ora9back connect to repadmin identified by 
+repadmin;<BR>select * from global_name@ora9back;<BR>-- time schedule create 
+repadmin/repadmin@ora9fron<BR>execute dbms_defer_sys.schedule_push ( destination 
+=&gt; 'ora9back', interval =&gt; 'sysdate + 2/1440', next_date =&gt; sysdate); 
+<BR>-- execute dbms_defer_sys.unschedule_push(dblink =&gt; 
+'ora9back');<BR>execute dbms_defer_sys.schedule_purge ( next_date =&gt; sysdate, 
+interval =&gt; 'sysdate + 10/1440', delay_seconds =&gt; 0, rollback_segment 
+=&gt; NULL); <BR>-- execute dbms_defer_sys.unschedule_purge();</P>
+<P></P>
+<P>-- create public database link /as sysdba@ora9back<BR>drop public database 
+link ora9fron;<BR>create public database link ora9fron using 
+'ora9fron';<BR>select * from global_name@ora9back;</P>
+<P>-- create repadmin /as sysdba@ora9back<BR>drop user repadmin 
+cascade;<BR>create user repadmin identified by repadmin;<BR>execute 
+dbms_repcat_admin.grant_admin_any_schema(username =&gt; 'repadmin');<BR>execute 
+dbms_defer_sys.register_propagator('repadmin'); <BR>execute 
+dbms_repcat_admin.register_user_repgroup(username =&gt; 
+'repadmin',privilege_type =&gt; 'receiver',list_of_gnames =&gt; NULL); <BR>grant 
+execute any procedure to repadmin; <BR>execute 
+dbms_repcat_admin.grant_admin_any_repgroup('repadmin'); <BR>grant comment any 
+table to repadmin; <BR>grant lock any table to repadmin; <BR>grant select any 
+dictionary to repadmin;<BR>grant create session to repadmin;</P>
+<P>-- create database link repadmin/repadmin@ora9back<BR>drop database link 
+ora9fron;<BR>create database link ora9fron connect to repadmin identified by 
+repadmin;<BR>select * from global_name@ora9back;<BR>-- time schedule create 
+repadmin/repadmin@ora9back<BR>execute dbms_defer_sys.schedule_push ( destination 
+=&gt; 'ora9fron', interval =&gt; 'sysdate + 5/1440', next_date =&gt; sysdate); 
+<BR>-- execute dbms_defer_sys.unschedule_push(dblink =&gt; 
+'ora9fron');<BR>execute dbms_defer_sys.schedule_purge ( next_date =&gt; sysdate, 
+interval =&gt; 'sysdate + 10/1440', delay_seconds =&gt; 0, rollback_segment 
+=&gt; NULL); <BR>-- execute dbms_defer_sys.unschedule_purge();</P></DIV>
+<P class=posted>Posted by: zhangych at August 8, 2006 1:21 PM</P>
+<DIV id=c984>
+<P>在添加主体复制节点时,报错,错误信息如下:<BR>ERROR 位于第 1 行:<BR>ORA-23375: 
+特性与数据库版本NEWSIS.US.ORACLE.COM不兼容<BR>ORA-06512: 在"SYS.DBMS_SYS_ERROR", line 
+86<BR>ORA-06512: 在"SYS.DBMS_REPCAT_MAS", line 2159<BR>ORA-06512: 
+在"SYS.DBMS_REPCAT", line 146<BR>ORA-06512: 在line 1<BR>经检查,两个服务器的版本均为Oracle9i 
+Enterprise Edition Release 9.2.0.1.0 - Production</P>
+<P>这是什么原因啊，这个问题已经好久没解决了，请大家帮忙解答一下好吗，谢谢了！</P></DIV>
+<P class=posted>Posted by: eimi at August 11, 2006 9:37 AM</P>
+<DIV id=c985>
+<P>看的好头大啊</P></DIV>
+<P class=posted>Posted by: 数据恢复 at August 11, 2006 3:36 PM</P>
+<DIV id=c986>
+<P>ORA-23375: 特性与数据库版本NEWSIS.US.ORACLE.COM不兼容</P>
+<P>这个错误是由于global_name设置问题引起的。请检查global_name值。</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at September 14, 2006 2:35 
+PM</P>
+<DIV id=c987>
+<P>不知道eygle 还是否关注这个讨论。<BR>我现在配置完成了多主复制。但是我想知道，最开始的数据初始化工作有没有储存过程支持？<BR>我现在是使用exp 
+imp 的方式来初始化两端的数据。<BR>是否有强制B 表刷新A 表的办法？<BR>非常感谢！</P></DIV>
+<P class=posted>Posted by: ssonu at November 9, 2006 3:05 AM</P>
+<DIV id=c988>
+<P>execute 
+dbms_repcat.create_master_repobject<BR>(sname=&gt;'hawa',oname=&gt;'hw_test', 
+<BR>type=&gt;'table',use_existing_object=&gt;true,gname=&gt;'rep_hh',copy_rows=&gt;false);</P>
+<P>这里的use_existing_object 和 copy_rows就是控制这个的。</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at November 9, 2006 8:35 
+AM</P>
+<DIV id=c989>
+<P>非常感谢。<BR>不知道您是否有时间可以简单介绍一下应该如何控制么？<BR>我现在master 已经创建完成了，是否把copy_rows 修改成true 
+就可以了？如果两边的表都有数据，但是不一致，那么在push job 启动的时候就会根据主键规则来同步两边的数据？<BR>待同步结束，我还需要把true 
+改成false？这样就是增量复制了？<BR>另外还有一个问题就是，这种模式是否支持分区表呢？<BR>再次感谢您的答复。</P></DIV>
+<P class=posted>Posted by: ssonu at November 13, 2006 4:53 PM</P>
+<DIV id=c990>
+<P>刚才查了一下文档。<BR>eygle 
+版主帮忙看看是否有问题！<BR>BEGIN<BR>DBMS_REPCAT.SUSPEND_MASTER_ACTIVITY (gname =&gt; 
+'xxx');<BR>END;<BR>/</P>
+<P>begin<BR>DBMS_REPCAT.DROP_MASTER_REPOBJECT 
+(<BR>sname=&gt;'SCOTT',<BR>oname=&gt;'DEPT',<BR>type=&gt;'TABLE');<BR>end;<BR>/</P>
+<P>BEGIN<BR>DBMS_REPCAT.CREATE_MASTER_REPOBJECT(<BR>gname =&gt; '"xxx"',<BR>type 
+=&gt; 'TABLE',<BR>oname =&gt; '"DEPT"',<BR>sname =&gt; '"SCOTT"',<BR>copy_rows 
+=&gt; TRUE,<BR>use_existing_object =&gt; TRUE);<BR>END;<BR>/</P>
+<P>BEGIN<BR>DBMS_REPCAT.GENERATE_REPLICATION_SUPPORT (<BR>sname =&gt; 
+'SCOTT',<BR>oname =&gt; 'SCOTT',<BR>type =&gt; 'TABLE',<BR>min_communication 
+=&gt; TRUE,<BR>generate_80_compatible =&gt; FALSE);<BR>END;<BR>/</P>
+<P>BEGIN<BR>DBMS_REPCAT.RESUME_MASTER_ACTIVITY (gname =&gt; 
+'xxx');<BR>END;<BR>/</P>
+<P>这个过程中主站是不能允许有数据插入的吧？然后在create 的过程中，副站的数据会被强制清空，然后与主站同步？</P></DIV>
+<P class=posted>Posted by: ssonu at November 13, 2006 5:12 PM</P>
+<DIV id=c991>
+<P>execute 
+dbms_repcat.create_master_repobject<BR>(sname=&gt;'hawa',oname=&gt;'hw_test', 
+<BR>type=&gt;'table',use_existing_object=&gt;true,gname=&gt;'rep_hh',copy_rows=&gt;false);</P>
+<P>这是初始化的过程，之后的复制和这个无关，同步还是异步复制需要后续指定，其实你自己测试一下就清楚了。</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at November 13, 2006 11:28 
+PM</P>
+<DIV id=c992>
+<P>非常感谢eygle 版主帮助。<BR>不过我的多主复制，再增加复制表后，重新启动复制组。结果发现两边数据库的复制状态不一致。一个为normal 一个为 
+静默状态。这种问题出现的很奇怪。因为在测试过程中，一直都很正常。希望eygle 版主指点一二。</P></DIV>
+<P class=posted>Posted by: ssonu at November 16, 2006 3:21 AM</P>
+<DIV id=c993>
+<P>你可以看dba_repcatlog里面有没有记录什么错误。</P></DIV>
+<P class=posted>Posted by: <A title=http://www.eygle.com 
+href="http://www.eygle.com/" rel=nofollow>eygle</A> at November 16, 2006 8:47 
+AM</P>
+<DIV id=c994>
+<P>恩，看了dba_repcatlog。里面提示一张带有外键的表，缺少父向关键字。这个错误很奇怪啊。我在跟新的时候，全部选择了copy_rows = true 
+按道理说 两边数据应该完全一致才对头。<BR>会是这个错误影响的么？</P></DIV>
+<P class=posted>Posted by: ssonu at November 16, 2006 1:59 PM</P>
+<DIV id=c995>
+<P>我想请教一下，原则上在Oracle9i环境下的可不可以对<BR>Oraccle8i中的表建立实体化视图，因为对方系统的数据库是8i，而我们自己用的是9i，现在还自己不能试，非常急切想知道是否可行，请知道的大虾多多指教，先谢谢了！</P></DIV>
+<P class=posted>Posted by: mumufly at December 11, 2006 9:19 AM</P>
+<DIV id=c23308>
+<P>有沒有Oracle高級複製的文檔或者教程呢?</P></DIV>
+<P class=posted>Posted by: user at September 29, 2007 5:41 PM</P>
+<H2>发表留言:</H2>
+<FORM name=comments_form 
+onsubmit="if (this.bakecookie[0].checked) rememberMe(this)" 
+action=http://www.eygle.com/cgi-bin/mt/mt-mycomments.fcgi method=post><INPUT 
+type=hidden value=1 name=static> <INPUT type=hidden value=319 name=entry_id> 
+<DIV id=name_email><LABEL for=author>Name(*):</LABEL> <INPUT id=author 
+tabIndex=1 name=author><BR><LABEL for=email>Email(*):</LABEL> <INPUT id=email 
+tabIndex=2 name=email><BR></DIV><LABEL for=url>You Link:</LABEL> <INPUT id=url 
+tabIndex=3 size=30 name=url> Remember Me? <INPUT id=remember 
+onclick=rememberMe(this.form) type=radio name=bakecookie><LABEL 
+for=remember>Yes</LABEL><INPUT id=forget style="MARGIN-LEFT: 15px" 
+onclick=forgetMe(this.form) type=radio value="Forget Info" 
+name=bakecookie><LABEL for=forget>No</LABEL><BR style="CLEAR: both"><LABEL 
+for=scode>验证码(*):</LABEL> <INPUT id=code type=hidden value=59 name=code> <INPUT 
+id=scode tabIndex=4 size=10 name=scode> <IMG 
+src="Oracle高级复制的创建配置步骤-Step by Step - Oracle Life.files/mt-scode.png" 
+border=0>(输入验证码后方可评论,谢谢支持)<BR><LABEL for=text>Comments:</LABEL> <BR><TEXTAREA id=text tabIndex=5 name=text rows=10 cols=50></TEXTAREA><BR>
+<DIV align=left><INPUT style="FONT-WEIGHT: bold" tabIndex=7 type=submit value=&nbsp;提交留言&nbsp; name=post> 
+</DIV></FORM>
+<SCRIPT language=javascript type=text/javascript>
+<!--
+if (document.comments_form.email != undefined)
+    document.comments_form.email.value = getCookie("mtcmtmail");
+if (document.comments_form.author != undefined)
+    document.comments_form.author.value = getCookie("mtcmtauth");
+if (document.comments_form.url != undefined)
+    document.comments_form.url.value = getCookie("mtcmthome");
+if (getCookie("mtcmtauth") || getCookie("mtcmthome")) {
+    document.comments_form.bakecookie[0].checked = true;
+} else {
+    document.comments_form.bakecookie[1].checked = true;
+}
+//-->
+</SCRIPT>
+</DIV></DIV>
+<HR align=center noShade SIZE=1>
+
+<P class=style57 align=center>CopyRight © 2004 <A 
+href="http://www.eygle.com/">eygle.com</A>, All rights reserved. </P><IMG 
+height=1 src="Oracle高级复制的创建配置步骤-Step by Step - Oracle Life.files/itpub.png" 
+width=1 border=0><IMG height=1 
+src="Oracle高级复制的创建配置步骤-Step by Step - Oracle Life.files/itpub.gif" width=1 
+border=0> </DIV></BODY></HTML>

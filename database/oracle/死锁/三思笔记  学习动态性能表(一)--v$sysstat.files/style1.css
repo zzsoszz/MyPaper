@@ -1,0 +1,87 @@
+BODY {
+	COLOR: #333333; BACKGROUND-COLOR: #7b869a
+}
+A:link {
+	COLOR: #007799
+}
+A:visited {
+	COLOR: #007799
+}
+LABEL {
+	COLOR: #334d55
+}
+#pagecell {
+	BACKGROUND-COLOR: #ffffff
+}
+#pageNav {
+	BORDER-LEFT-COLOR: #ccd2d2; BORDER-BOTTOM-COLOR: #ccd2d2; BORDER-TOP-COLOR: #ccd2d2; BACKGROUND-COLOR: #f5f7f7; BORDER-RIGHT-COLOR: #ccd2d2
+}
+#leftNav {
+	BORDER-LEFT-COLOR: #ccd2d2; BORDER-BOTTOM-COLOR: #ccd2d2; BORDER-TOP-COLOR: #ccd2d2; BACKGROUND-COLOR: #f5f7f7; BORDER-RIGHT-COLOR: #ccd2d2
+}
+#rightNav {
+	BORDER-LEFT-COLOR: #ccd2d2; BORDER-BOTTOM-COLOR: #ccd2d2; BORDER-TOP-COLOR: #ccd2d2; BACKGROUND-COLOR: #f5f7f7; BORDER-RIGHT-COLOR: #ccd2d2
+}
+#content {
+	BACKGROUND-COLOR: #ffffff
+}
+.contentTitle {
+	BORDER-LEFT-COLOR: #ccd2d2; BACKGROUND-IMAGE: url(img1/bg_nav.jpg); BORDER-BOTTOM-COLOR: #ccd2d2; COLOR: black; BORDER-TOP-COLOR: #ccd2d2; BORDER-RIGHT-COLOR: #ccd2d2
+}
+#siteName {
+	BACKGROUND: url(img1/top.jpg) #cccccc repeat-y; COLOR: #ccccdd
+}
+#siteName A {
+	COLOR: #ccccdd
+}
+#globalNav {
+	BACKGROUND-IMAGE: url(img1/glbnav_background.gif); COLOR: #cccccc
+}
+A.glink {
+	COLOR: #000000; BORDER-RIGHT-COLOR: #8fb8bc
+}
+A.glink:visited {
+	COLOR: #000000; BORDER-RIGHT-COLOR: #8fb8bc
+}
+A.glink:hover {
+	BACKGROUND-IMAGE: url(img1/glblnav_selected.gif)
+}
+.relatedLinks {
+	BORDER-BOTTOM-COLOR: #cccccc
+}
+.relatedLinksTitle {
+	BACKGROUND-IMAGE: url(img1/bg_nav.jpg); BORDER-BOTTOM-COLOR: #cccccc; COLOR: #21536a
+}
+.button {
+	BORDER-LEFT-COLOR: #cccccc; BACKGROUND-IMAGE: url(img1/bg_nav.jpg); BORDER-BOTTOM-COLOR: #cccccc; COLOR: #21536a; BORDER-TOP-COLOR: #cccccc; BORDER-RIGHT-COLOR: #cccccc
+}
+.calMonthToday {
+	COLOR: red
+}
+.story {
+	BORDER-LEFT-COLOR: #ccd2d2; BORDER-BOTTOM-COLOR: #ccd2d2; BORDER-TOP-COLOR: #ccd2d2; BACKGROUND-COLOR: #f5f7f7; BORDER-RIGHT-COLOR: #ccd2d2
+}
+.storyTitle {
+	BACKGROUND-IMAGE: url(img1/bg_nav.jpg); COLOR: #21536a; BORDER-BOTTOM: #cccccc 1px solid
+}
+.storyposted {
+	COLOR: #21536a
+}
+.storytext blockquotexxx {
+	BORDER-TOP: #666666 1px solid; BORDER-BOTTOM: #666666 1px solid
+}
+.code {
+	BORDER-RIGHT: #ccd2d2 1px solid; BORDER-TOP: #ccd2d2 1px solid; BORDER-LEFT: #ccd2d2 1px solid; BORDER-BOTTOM: #ccd2d2 1px solid; BACKGROUND-COLOR: #dfe1e1
+}
+.ad {
+	BACKGROUND-COLOR: #f5f7f7
+}
+.ad TABLE {
+	BACKGROUND-COLOR: #f5f7f7
+}
+.ad TABLE TR {
+	BACKGROUND-COLOR: #f5f7f7
+}
+.ad TABLE TR TD {
+	BACKGROUND-COLOR: #f5f7f7
+}

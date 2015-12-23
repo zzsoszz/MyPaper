@@ -1,0 +1,57 @@
+最近遇到一个很奇怪的问题，pl sql查询内容编码正常，但提示错误消息是乱码。
+
+这时用SELECT * FROM v$nls_parameters;查询字符集编码为
+
+NLS_LANGUAGE = SIMPLIFIED CHINESE
+
+NLS_CHARACTERSET = AL32UTF8
+
+我注册表信息为
+
+HKEY_LOCAL_MACHINE\SOFTWARE\ORACLE\HOMExx\
+NLS_LANG= SIMPLIFIED CHINESE_CHINA.AL32UTF8
+
+ 
+
+解决方法是修改注册表信息
+
+NLS_LANG=SIMPLIFIED CHINESE_CHINA.AL32UTF8
+
+
+问题即可解决。。。。
+
+ 
+
+
+
+
+SIMPLIFIED CHINESE_CHINA.AL32UTF8
+
+SIMPLIFIED CHINESE_CHINA.ZHS16GBK
+
+
+SIMPLIFIED AMERICAN_AMERICA.UTF8
+
+Database character set (AL32UTF8) and Client character set (ZHS16GBK) are different. Character set conversion may cause unexpected results.  
+
+Note: you can set the client character set through the NLS_LANG environment variable or the NLS_LANG registry key in HKEY_LOCAL_MACHINE\SOFTWARE\ORACLE\HOME0.
+
+ 
+
+ 
+
+ 
+
+解决： 
+其实上面就给你解决方案了 
+打开运行器进入注册表编辑 
+运行--》regedit 
+找到 
+HKEY_LOCAL_MACHINE\ 
+              SOFTWARE\ 
+                 ORACLE\KEY_OraDb10g_home1 
+                      的变量NLS_LANG的值 
+SIMPLIFIED CHINESE_CHINA.ZHS16GBK  
+改变成以下的值 
+SIMPLIFIED CHINESE_CHINA.AL32UTF8(服务端编码) 
+

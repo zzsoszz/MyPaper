@@ -1,0 +1,14 @@
+var data=new Array();data[0]=new Array();data[0][0]='从别人那拷下来的几点Session使用的经验（转载）';data[0][1]='http://kb.cnblogs.com/page/42641/';data[1]=new Array();data[1][0]='新东方老罗(罗永浩)语录集II';data[1][1]='http://www.cnblogs.com/birdshome/articles/227495.html';data[2]=new Array();data[2][0]='Microsoft .Net Remoting系列专题之一:.Net Remoting基础篇 ';data[2][1]='http://www.cnblogs.com/wayfarer/archive/2004/07/30/28723.html';data[3]=new Array();data[3][0]='转载，仅供一笑';data[3][1]='http://space.cnblogs.com/group/topic/6317/';data[4]=new Array();data[4][0]='欢迎大家加入技术转载小组';data[4][1]='http://space.cnblogs.com/group/topic/387/';
+if(data.length > 0)
+{
+    for(var i = 0; i < data.length; i++)
+    {
+        if (i > 0)
+            document.write("<br>");
+        document.write("<a href='");
+        document.write(data[i][1]);
+        document.write("' target='_blank'>");
+        document.write(data[i][0]);
+        document.write("</a>");
+    }
+}

@@ -1,0 +1,105 @@
+//公共代码：得到数据库连接  
+02. public Connection getConnection() throws Exception{  
+03.     Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();  
+04.     Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:dbname", "username", "password");  
+05.     return conn;  
+06. }  
+07.   
+08. //方法一  
+09. //先用select seq_t1.nextval as id from dual 取到新的sequence值。  
+10. //然后将最新的值通过变量传递给插入的语句：insert into t1(id) values(?)   
+11. //最后返回开始取到的sequence值。  
+12. //这种方法的优点代码简单直观，使用的人也最多，缺点是需要两次sql交互，性能不佳。  
+13. public int insertDataReturnKeyByGetNextVal() throws Exception {  
+14.     Connection conn = getConnection();  
+15.     String vsql = "select seq_t1.nextval as id from dual";  
+16.     PreparedStatement pstmt =(PreparedStatement)conn.prepareStatement(vsql);  
+17.     ResultSet rs=pstmt.executeQuery();  
+18.     rs.next();  
+19.     int id=rs.getInt(1);  
+20.     rs.close();  
+21.     pstmt.close();  
+22.     vsql="insert into t1(id) values(?)";  
+23.     pstmt =(PreparedStatement)conn.prepareStatement(vsql);  
+24.     pstmt.setInt(1, id);  
+25.     pstmt.executeUpdate();  
+26.     System.out.print("id:"+id);  
+27.     return id;  
+28. }  
+29.   
+30. //方法二  
+31. //先用insert into t1(id) values(seq_t1.nextval)插入数据。  
+32. //然后使用select seq_t1.currval as id from dual返回刚才插入的记录生成的sequence值。  
+33. //注：seq_t1.currval表示取出当前会话的最后生成的sequence值，由于是用会话隔离，只要保证两个SQL使用同一个Connection即可，对于采用连接池应用需要将两个SQL放在同一个事务内才可保证并发安全。  
+34. //另外如果会话没有生成过sequence值，使用seq_t1.currval语法会报错。  
+35. //这种方法的优点可以在插入记录后返回sequence，适合于数据插入业务逻辑不好改造的业务代码，缺点是需要两次sql交互，性能不佳，并且容易产生并发安全问题。  
+36. public int insertDataReturnKeyByGetCurrVal() throws Exception {  
+37.     Connection conn = getConnection();  
+38.     String vsql = "insert into t1(id) values(seq_t1.nextval)";  
+39.     PreparedStatement pstmt =(PreparedStatement)conn.prepareStatement(vsql);  
+40.     pstmt.executeUpdate();  
+41.     pstmt.close();  
+42.     vsql="select seq_t1.currval as id from dual";  
+43.     pstmt =(PreparedStatement)conn.prepareStatement(vsql);  
+44.     ResultSet rs=pstmt.executeQuery();  
+45.     rs.next();  
+46.     int id=rs.getInt(1);  
+47.     rs.close();  
+48.     pstmt.close();  
+49.     System.out.print("id:"+id);  
+50.     return id;  
+51. }  
+52.   
+53. //方法三  
+54. //采用pl/sql的returning into语法，可以用CallableStatement对象设置registerOutParameter取得输出变量的值。  
+55. //这种方法的优点是只要一次sql交互，性能较好，缺点是需要采用pl/sql语法，代码不直观，使用较少。  
+56. public int insertDataReturnKeyByPlsql() throws Exception {  
+57.     Connection conn = getConnection();  
+58.     String vsql = "begin insert into t1(id) values(seq_t1.nextval) returning id into :1;end;";  
+59.     CallableStatement cstmt =(CallableStatement)conn.prepareCall ( vsql);   
+60.     cstmt.registerOutParameter(1, Types.BIGINT);  
+61.     cstmt.execute();  
+62.     int id=cstmt.getInt(1);  
+63.     System.out.print("id:"+id);  
+64.     cstmt.close();  
+65.     return id;  
+66. }  
+67.   
+68. //方法四  
+69. //采用PreparedStatement的getGeneratedKeys方法  
+70. //conn.prepareStatement的第二个参数可以设置GeneratedKeys的字段名列表，变量类型是一个字符串数组  
+71. //注：对Oracle数据库这里不能像其它数据库那样用prepareStatement(vsql,Statement.RETURN_GENERATED_KEYS)方法，这种语法是用来取自增类型的数据。  
+72. //Oracle没有自增类型，全部采用的是sequence实现，如果传Statement.RETURN_GENERATED_KEYS则返回的是新插入记录的ROWID，并不是我们相要的sequence值。  
+73. //这种方法的优点是性能良好，只要一次sql交互，实际上内部也是将sql转换成oracle的returning into的语法，缺点是只有Oracle10g才支持，使用较少。  
+74. public int insertDataReturnKeyByGeneratedKeys() throws Exception {  
+75.     Connection conn = getConnection();  
+76.     String vsql = "insert into t1(id) values(seq_t1.nextval)";  
+77.     PreparedStatement pstmt =(PreparedStatement)conn.prepareStatement(vsql,new String[]{"ID"});  
+78.     pstmt.executeUpdate();  
+79.     ResultSet rs=pstmt.getGeneratedKeys();  
+80.     rs.next();  
+81.     int id=rs.getInt(1);  
+82.     rs.close();  
+83.     pstmt.close();  
+84.     System.out.print("id:"+id);  
+85.     return id;  
+86. }  
+87.   
+88. //方法五  
+89. //和方法三类似，采用oracle特有的returning into语法，设置输出参数，但是不同的地方是采用OraclePreparedStatement对象，因为jdbc规范里标准的PreparedStatement对象是不能设置输出类型参数。  
+90. //最后用getReturnResultSet取到新插入的sequence值，  
+91. //这种方法的优点是性能最好，因为只要一次sql交互，oracle9i也支持，缺点是只能使用Oracle jdbc特有的OraclePreparedStatement对象。  
+92. public int insertDataReturnKeyByReturnInto() throws Exception {  
+93.     Connection conn = getConnection();  
+94.     String vsql = "insert into t1(id) values(seq_t1.nextval) returning id into :1";  
+95.     OraclePreparedStatement pstmt =(OraclePreparedStatement)conn.prepareStatement(vsql);  
+96.     pstmt.registerReturnParameter(1, Types.BIGINT);  
+97.     pstmt.executeUpdate();  
+98.     ResultSet rs=pstmt.getReturnResultSet();  
+99.     rs.next();  
+100.     int id=rs.getInt(1);  
+101.     rs.close();  
+102.     pstmt.close();  
+103.     System.out.print("id:"+id);  
+104.     return id;  
+105. }  

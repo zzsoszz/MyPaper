@@ -1,0 +1,144 @@
+ 
+select trim(trailing '市' from om.f_area_name) from om_area_t om where om.f_area_name like  '%北区%' for update
+
+
+oracle 字符串替换 去空格 
+http://blog.csdn.net/netswing/article/details/6743556
+
+
+oracle 字符串替换 去空格 
+.
+ 分类： 数据库2011-09-02 16:3412098人阅读评论(2)收藏举报
+ 
+oraclecharacterstringsqlnull
+
+   
+       今天学习了一下oracle中如何对字符串进行去除空格的方法，这里总结一下。了解到的方法主要有两种：Trim函数以及Replace函数。下面我详细的介绍一下，这两种用法，不足的地方还望各位朋友补充。
+ 
+       首先便是这Trim函数。Trim 函数具有删除任意指定字符的功能，而去除字符串首尾空格则是trim函数被使用频率最高的一种。语法Trim ( string ) ，参数string：string类型，指定要删除首部和尾部空格的字符串返回值String。函数执行成功时返回删除了string字符串首部和尾部空格的字符串，发生错误时返回空字符串（""）。 如果参数值为null时，会抛出空指针异常。在oracle中，trim使用的形式多为人rtrim()与ltrim()两种，分别为去除字符串右边空格与去除字符串左边空格。
+ 
+       当然trim的功能不止如此，下面进行细致的介绍，这里我多以去除字符串空格为例。
+ 
+我们看下trim函数的语法描述：trim( [ {  {leading|trailing|both}  [trim_character]|trim_character}  from] trim_source
+ 
+1)、不使用任何参数
+ 
+SQL> select trim('   11   ') aa from dual;
+  
+ AA
+ --
+ 11
+ 
+这是最常见的一种使用方法，都使用默认的参数，默认情况下TRIM会同时删除字符串前后出现的空格。
+ 
+2)、使用both参数，效果等同于方法一不使用任何参数
+ 
+SQL> select trim(both from '   11   ') aa from dual;
+  
+ AA
+ --
+ 11
+ 
+“BOTH”参数表示同时去除字符串前后所指定的内容（默认情况下删除空格）。
+ 
+3)、使用leading与trailing参数
+ 
+SQL> select trim(leading from '   11  ') aa from dual;
+  
+ AA
+ ----
+ 11
+ 
+SQL> select trim(trailing from '   11  ') aa from dual;
+  
+ AA
+ -----
+    11
+  从结果中得分隔符'-'，可以发现使用leading参数可以去除字符串右端的空格，而trailing参数则可以去除字符串左端的空格。正如oracle提供的rtrim()与ltrim()。
+ 
+4)、使用trim_character参数
+ 
+trim_character参数改变了“删除空格”的默认行为。如果想要删除字符串'xxxxWORLDxxxx'前后出现的“x”，“trim_character”参数就派上用场了。
+ 
+SQL> select trim('x' from 'xxxxWORLDxxxx') aaaaa from dual;
+  
+ AAAAA
+ -----
+ WORLD
+ 
+trim_character配合“both”、“trailing”和“leading”三个参数使用效果如下，与之前演示类似。看结果，不赘述。
+ 
+SQL> select trim('x' from 'xxxxWORLDxxxx') aaaaa from dual;
+  
+ AAAAA
+ -----
+ WORLD
+  
+ SQL> select trim(both 'x' from 'xxxxWORLDxxxx') aaaaa from dual;
+  
+ AAAAA
+ -----
+ WORLD
+  
+ SQL> select trim(trailing 'x' from 'xxxxWORLDxxxx') aaaaa from dual;
+  
+ AAAAA
+ ---------
+ xxxxWORLD
+  
+ SQL> select trim(leading 'x' from 'xxxxWORLDxxxx') aaaaa from dual;
+  
+ AAAAA
+ ---------
+ WORLDxxxx
+ 
+       必须注意的一点是这里的“trim_character”参数只允许包含一个字符，不支持多字符。trim不能满足我们去除多字符要求，但是我们可以使用rtrim和ltrim来处理。
+ 1）使用rtrim 
+ 
+SQL> select rtrim('ORxxxxWORLDxxxxOR','OR') aaaaa from dual;
+  
+ AAAAA
+ ---------------
+ ORxxxxWORLDxxxx
+ 2）使用ltrim
+ 
+SQL> select ltrim('ORxxxxWORLDxxxxOR','OR') aaaaa from dual;
+  
+ AAAAA
+ ---------------
+ xxxxWORLDxxxxOR
+ 3）联合使用RTRIM和LTRIM函数达到我们的目的
+ SQL> select rtrim(ltrim('ORxxxxWORLDxxxxOR','OR'),'OR') aaaaa from dual;
+  
+ AAAAA
+ -------------
+ xxxxWORLDxxxx
+ 
+使用rtrim和ltrim函数时的注意事项：“OR”不表示整个“OR”字符串进行匹配，而是发现任意的字符“O”或字符“R”均做删除操作。
+ 
+       对于trim函数的应用就介绍到，下面介绍一下replace函数，个人觉得replace函数在去空格时更好用。replace 函数用第三个表达式替换第一个字符串表达式中出现的所有第二个给定字符串表达式。来看下replace函数的语法描述：replace('string_replace1','string_replace2','string_replace3')   
+ 
+'string_replace1' 待搜索的字符串表达式，string_replace1 可以是字符数据或二进制数据。
+ 
+'string_replace2' 待查找的字符串表达式，string_replace2 可以是字符数据或二进制数据。
+ 
+'string_replace3' 替换用的字符串表达式，string_replace3 可以是字符数据或二进制数据。
+ 
+返回类型，如果 string_replace（1、2 或 3）是支持的字符数据类型之一，则返回字符数据；如果 string_replace（1、2 或 3）是支持的 binary 数据类型之一，则返回二进制数据。
+ 
+       这里我们依然以去空格为例。
+ 
+SQL> select replace('   aa  kk  ',' ','') abcd from dual;
+  
+ ABCD
+ ----
+ aakk
+ 
+       与使用trim函数的结果进行对比，我们可以发现，使用replace函数不仅可以去除字符串两端的空格，也可去除字符串内部的空格。
+ 
+       当然，如果只是要去除字符串两端的空格，使用trim函数效率会更高。
+
+	   
+	   
+	   
+	   

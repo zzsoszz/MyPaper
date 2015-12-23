@@ -1,0 +1,1411 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0050)http://www.oracle.com.cn/viewthread.php?tid=107409 -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gbk">
+<META content=oracle name=keywords>
+<META 
+content=" CNOUG 我目前有11个表，其中1表是其他10个表的父表，主从关系。10个子表有一个blob字段和一个关键字段，关键字段与父表1关键字段是主从关联。&#13;&#10;&#13;&#10;我设计时：1、把11个表 ... - Discuz! Board" 
+name=description>
+<META content="MSHTML 6.00.2900.5626" name=GENERATOR>
+<META content="Discuz! Team and Comsenz UI Team" name=author>
+<META content="2001-2007 Comsenz Inc." name=copyright>
+<META content=True name=MSSmartTagsPreventParsing>
+<META http-equiv=MSThemeCompatible content=Yes><LINK title=CNOUG 
+href="http://www.oracle.com.cn/archiver/" rel=archives><LINK 
+href="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/style_1.css" 
+type=text/css rel=stylesheet><LINK href="forumdata/cache/style_1_append.css" 
+type=text/css rel=stylesheet>
+<SCRIPT type=text/javascript>var IMGDIR = 'images/default';var attackevasive = '0';var gid = 0;gid = parseInt('131');var fid = parseInt('3');var tid = parseInt('107409');</SCRIPT>
+
+<SCRIPT 
+src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/common.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/menu.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/ajax.js" 
+type=text/javascript></SCRIPT>
+</HEAD>
+<BODY onkeydown="if(event.keyCode==27) return false;">
+<DIV id=append_parent></DIV>
+<DIV id=ajaxwaitid></DIV>
+<DIV class=wrap>
+<DIV id=header>
+<H2><A title=CNOUG href="http://www.oracle.com.cn/index.php"><IMG alt=CNOUG 
+src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/cnoug.jpg" 
+border=0></A></H2>
+<DIV id=ad_headerbanner></DIV></DIV>
+<DIV id=menu><SPAN class=frameswitch>
+<SCRIPT type=text/javascript>
+			if(top == self) {
+							document.write('<a href="frame.php?frameon=yes" target="_top" class="frameon">分栏模式<\/a>');
+			} else {
+				document.write('<a href="frame.php?frameon=no" target="_top" class="frameoff">平板模式<\/a>');
+			}
+			</SCRIPT>
+</SPAN>
+<UL>
+  <LI><A class=notabs href="http://www.oracle.com.cn/register.php">注册</A> </LI>
+  <LI><A href="http://www.oracle.com.cn/logging.php?action=login">登录</A> </LI>
+  <LI><A href="http://www.oracle.com.cn/member.php?action=list">会员</A> </LI>
+  <LI><A href="http://www.oracle.com.cn/search.php?srchfid=3">搜索</A> </LI>
+  <LI><A href="http://www.oracle.com.cn/faq.php">帮助</A> </LI></UL></DIV>
+<SCRIPT 
+src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/viewthread.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>zoomstatus = parseInt(1);</SCRIPT>
+
+<DIV id=foruminfo>
+<DIV id=nav><A class=dropmenu id=forumlist onmouseover=showMenu(this.id) 
+href="http://www.oracle.com.cn/index.php">CNOUG</A> &raquo; <A 
+href="http://www.oracle.com.cn/forumdisplay.php?fid=3">Oracle调优与深入</A> &raquo; 
+请教大表设计原则？？ </DIV>
+<DIV id=headsearch></DIV></DIV>
+<DIV id=ad_text></DIV>
+<DIV class=pages_btns>
+<DIV class=threadflow><A 
+href="http://www.oracle.com.cn/redirect.php?fid=3&amp;tid=107409&amp;goto=nextoldset">&#8249;&#8249; 
+上一主题</A> | <A 
+href="http://www.oracle.com.cn/redirect.php?fid=3&amp;tid=107409&amp;goto=nextnewset">下一主题 
+&#8250;&#8250;</A></DIV><SPAN class=postbtn id=newspecial 
+onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu(this.id)"><A 
+href="http://www.oracle.com.cn/post.php?action=newthread&amp;fid=3&amp;extra="><IMG 
+title=发新话题 alt=发新话题 
+src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/newtopic.gif" 
+border=0></A></SPAN> <SPAN class=replybtn><A 
+href="http://www.oracle.com.cn/post.php?action=reply&amp;fid=3&amp;tid=107409&amp;extra="><IMG 
+alt="" 
+src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/reply.gif" 
+border=0></A></SPAN></DIV>
+<UL class="popupmenu_popup newspecialmenu" id=newspecial_menu 
+style="DISPLAY: none">
+  <LI><A 
+  href="http://www.oracle.com.cn/post.php?action=newthread&amp;fid=3&amp;extra=">发新话题</A> 
+  </LI>
+  <LI class=poll><A 
+  href="http://www.oracle.com.cn/post.php?action=newthread&amp;fid=3&amp;extra=&amp;special=1">发布投票</A> 
+  </LI>
+  <LI class=trade><A 
+  href="http://www.oracle.com.cn/post.php?action=newthread&amp;fid=3&amp;extra=&amp;special=2">发布商品</A> 
+  </LI>
+  <LI class=reward><A 
+  href="http://www.oracle.com.cn/post.php?action=newthread&amp;fid=3&amp;extra=&amp;special=3">发布悬赏</A> 
+  </LI>
+  <LI class=activity><A 
+  href="http://www.oracle.com.cn/post.php?action=newthread&amp;fid=3&amp;extra=&amp;special=4">发布活动</A> 
+  </LI>
+  <LI class=debate><A 
+  href="http://www.oracle.com.cn/post.php?action=newthread&amp;fid=3&amp;extra=&amp;special=5">发布辩论</A> 
+  </LI>
+  <LI class=video><A 
+  href="http://www.oracle.com.cn/post.php?action=newthread&amp;fid=3&amp;extra=&amp;special=6">发布视频</A> 
+  </LI></UL>
+<FORM name=modactions method=post><INPUT type=hidden value=d79dbb56 
+name=formhash> 
+<DIV class="mainbox viewthread"><SPAN class=headactions><A class=notabs 
+href="http://www.oracle.com.cn/viewthread.php?action=printable&amp;tid=107409" 
+target=_blank>打印</A> </SPAN>
+<H1>请教大表设计原则？？ </H1>
+<TABLE id=pid847161 cellSpacing=0 cellPadding=0 summary=pid847161>
+  <TBODY>
+  <TR>
+    <TD class=postauthor><CITE><A class=dropmenu id=userinfo847161 
+      onmouseover=showMenu(this.id) 
+      href="http://www.oracle.com.cn/space.php?uid=4090" 
+      target=_blank>dannis</A></CITE> 
+      <DIV class=avatar><IMG class=avatar alt="" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/noavatar.gif"></DIV>
+      <P><EM>授权用户</EM></P>
+      <P><IMG alt="Rank: 4" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level3.gif"></P>
+      <UL>
+        <LI class=space><A title=dannis的个人空间 
+        href="http://www.oracle.com.cn/space.php?uid=4090" 
+        target=_blank>个人空间</A> </LI>
+        <LI class=pm><A id=ajax_uid_847161 
+        onclick="ajaxmenu(event, this.id, 9000000, null, 0)" 
+        href="http://www.oracle.com.cn/pm.php?action=send&amp;uid=4090" 
+        target=_blank>发短消息</A> </LI>
+        <LI class=buddy><A id=ajax_buddy_0 
+        onclick="ajaxmenu(event, this.id, null, 0)" 
+        href="http://www.oracle.com.cn/my.php?item=buddylist&amp;newbuddyid=4090&amp;buddysubmit=yes" 
+        target=_blank>加为好友</A> </LI>
+        <LI class=offline>当前离线 </LI></UL></TD>
+    <TD class=postcontent>
+      <DIV class=postinfo><STRONG id=postnum_847161 title=复制帖子链接到剪贴板 
+      onclick="setcopy('http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1#pid847161', '帖子链接已经复制到剪贴板')">1楼</STRONG> 
+      <EM onclick="$('postmessage_847161').className='t_bigfont'">大</EM> <EM 
+      onclick="$('postmessage_847161').className='t_msgfont'">中</EM> <EM 
+      onclick="$('postmessage_847161').className='t_smallfont'">小</EM> 发表于 
+      2006-10-25 23:39&nbsp; <A 
+      href="http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1&amp;authorid=4090">只看该作者</A> 
+      </DIV>
+      <DIV id=ad_thread2_0></DIV>
+      <DIV class="postmessage defaultpost">
+      <DIV id=ad_thread3_0></DIV>
+      <DIV id=ad_thread4_0></DIV>
+      <H2>请教大表设计原则？？</H2>
+      <DIV class=t_msgfont 
+      id=postmessage_847161>我目前有11个表，其中1表是其他10个表的父表，主从关系。10个子表有一个blob字段和一个关键字段，关键字段与父表1关键字段是主从关联。<BR><BR>我设计时：1、把11个表合成一个大表设计。table 
+      (key,other_col,c1,c2,...c10),其中c1,c2,...c10是blob类型。<BR>&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;2、把11个表分成主从关系设计。table 
+      (key,other_col),table1(key,c1)....table10(key,c10)<BR>两中设计的优缺点是什么？<BR><BR>请赐教！</DIV></DIV>
+      <DIV></DIV></TD></TR>
+  <TR>
+    <TD class=postauthor>
+      <DIV class="popupmenu_popup userinfopanel" id=userinfo847161_menu 
+      style="DISPLAY: none">
+      <DL>
+        <DT>UID</DT>
+        <DD>4090&nbsp;</DD>
+        <DT>帖子</DT>
+        <DD>129&nbsp;</DD>
+        <DT>精华</DT>
+        <DD><A 
+        href="http://www.oracle.com.cn/digest.php?authorid=4090">0</A>&nbsp;</DD>
+        <DT>积分</DT>
+        <DD>129&nbsp;</DD>
+        <DT>流通积分</DT>
+        <DD>129 点&nbsp;</DD>
+        <DT>金钱</DT>
+        <DD>0 O元&nbsp;</DD>
+        <DT>阅读权限</DT>
+        <DD>80&nbsp;</DD>
+        <DT>在线时间</DT>
+        <DD>45 小时&nbsp;</DD>
+        <DT>注册时间</DT>
+        <DD>2004-2-9&nbsp;</DD>
+        <DT>最后登录</DT>
+        <DD>2008-11-6&nbsp;</DD></DL>
+      <P><A 
+      href="http://www.oracle.com.cn/space.php?action=viewpro&amp;uid=4090" 
+      target=_blank>查看详细资料</A></P></DIV></TD>
+    <TD class=postcontent>
+      <DIV class=postactions>
+      <P><STRONG title=顶部 onclick=scroll(0,0)>TOP</STRONG> </P>
+      <DIV id=ad_thread1_0></DIV></DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV id=ad_interthread></DIV>
+<DIV class="mainbox viewthread">
+<TABLE id=pid847726 cellSpacing=0 cellPadding=0 summary=pid847726>
+  <TBODY>
+  <TR>
+    <TD class=postauthor><CITE><A class=dropmenu id=userinfo847726 
+      onmouseover=showMenu(this.id) 
+      href="http://www.oracle.com.cn/space.php?uid=3453" 
+      target=_blank>ern</A></CITE> 
+      <P>熊猫</P>
+      <DIV class=avatar><IMG height=94 alt="" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/3453.gif" 
+      width=99 border=0></DIV>
+      <P><EM>总版主</EM></P>
+      <P><IMG alt="Rank: 11" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level3.gif"><IMG 
+      alt="Rank: 11" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level3.gif"><IMG 
+      alt="Rank: 11" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level2.gif"><IMG 
+      alt="Rank: 11" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level1.gif"></P>
+      <P class=customstatus>骑着狮子的熊猫</P>
+      <P><IMG alt=CNOUG创作贡献勋章 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/medal4.gif"> 
+      </P>
+      <UL>
+        <LI class=space><A title=ern的个人空间 
+        href="http://www.oracle.com.cn/space.php?uid=3453" 
+        target=_blank>个人空间</A> </LI>
+        <LI class=pm><A id=ajax_uid_847726 
+        onclick="ajaxmenu(event, this.id, 9000000, null, 0)" 
+        href="http://www.oracle.com.cn/pm.php?action=send&amp;uid=3453" 
+        target=_blank>发短消息</A> </LI>
+        <LI class=buddy><A id=ajax_buddy_1 
+        onclick="ajaxmenu(event, this.id, null, 0)" 
+        href="http://www.oracle.com.cn/my.php?item=buddylist&amp;newbuddyid=3453&amp;buddysubmit=yes" 
+        target=_blank>加为好友</A> </LI>
+        <LI class=offline>当前离线 </LI></UL></TD>
+    <TD class=postcontent>
+      <DIV class=postinfo><STRONG id=postnum_847726 title=复制帖子链接到剪贴板 
+      onclick="setcopy('http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1#pid847726', '帖子链接已经复制到剪贴板')">2楼</STRONG> 
+      <EM onclick="$('postmessage_847726').className='t_bigfont'">大</EM> <EM 
+      onclick="$('postmessage_847726').className='t_msgfont'">中</EM> <EM 
+      onclick="$('postmessage_847726').className='t_smallfont'">小</EM> 发表于 
+      2006-10-26 15:32&nbsp; <A 
+      href="http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1&amp;authorid=3453">只看该作者</A> 
+      </DIV>
+      <DIV id=ad_thread2_1></DIV>
+      <DIV class="postmessage defaultpost">
+      <DIV id=ad_thread3_1></DIV>
+      <DIV id=ad_thread4_1></DIV>
+      <DIV class=t_msgfont 
+      id=postmessage_847726>看你什么系统，如果是业务系统，我推荐后者，如果是分析系统、仓库类型的，第一种也不是不行。不过你这里比较复杂点，每个字段都是blob，这种我也没有用过。</DIV></DIV>
+      <DIV class=signatures style="maxHeightIE: 240px"><FONT 
+      color=blue>Reading</FONT>&nbsp; &nbsp;The Republic, the Bibile NRSV, 
+      Orwell and Politics<BR><FONT color=blue>Listening</FONT>&nbsp;&nbsp;Bach 
+      Complete from Brilliant<BR><FONT color=blue>Using</FONT>&nbsp; 
+      &nbsp;&nbsp; &nbsp; Dell 530N+Oracle 11.1.0.6+WinVistaSP1/11.1.0.6+RHEL 
+      5<BR><A href="http://yaoyp.spaces.live.com/" target=_blank><FONT 
+      color=red>MSN Blog</FONT> yaoyp.spaces.live.com/</A><BR><A 
+      href="http://yaoyp.spaces.live.com/Blog/cns!1pKMJaoxCZTUNQwolEgbMYUw!578.entry" 
+      target=_blank><FONT color=green>Ask Tom 之中文化</FONT></A> </DIV>
+      <DIV></DIV></TD></TR>
+  <TR>
+    <TD class=postauthor>
+      <DIV class="popupmenu_popup userinfopanel" id=userinfo847726_menu 
+      style="DISPLAY: none">
+      <DL>
+        <DT>UID</DT>
+        <DD>3453&nbsp;</DD>
+        <DT>帖子</DT>
+        <DD>15343&nbsp;</DD>
+        <DT>精华</DT>
+        <DD><A 
+        href="http://www.oracle.com.cn/digest.php?authorid=3453">55</A>&nbsp;</DD>
+        <DT>积分</DT>
+        <DD>16005&nbsp;</DD>
+        <DT>流通积分</DT>
+        <DD>16005 点&nbsp;</DD>
+        <DT>金钱</DT>
+        <DD>101 O元&nbsp;</DD>
+        <DT>阅读权限</DT>
+        <DD>255&nbsp;</DD>
+        <DT>在线时间</DT>
+        <DD>183 小时&nbsp;</DD>
+        <DT>注册时间</DT>
+        <DD>2003-12-19&nbsp;</DD>
+        <DT>最后登录</DT>
+        <DD>2008-11-15&nbsp;</DD></DL>
+      <P><A href="http://yaoyp.spaces.live.com/" target=_blank>查看个人网站</A></P>
+      <P><A 
+      href="http://www.oracle.com.cn/space.php?action=viewpro&amp;uid=3453" 
+      target=_blank>查看详细资料</A></P></DIV></TD>
+    <TD class=postcontent>
+      <DIV class=postactions>
+      <P><STRONG title=顶部 onclick=scroll(0,0)>TOP</STRONG> </P>
+      <DIV id=ad_thread1_1></DIV></DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV class="mainbox viewthread">
+<TABLE id=pid848979 cellSpacing=0 cellPadding=0 summary=pid848979>
+  <TBODY>
+  <TR>
+    <TD class=postauthor><CITE><A class=dropmenu id=userinfo848979 
+      onmouseover=showMenu(this.id) 
+      href="http://www.oracle.com.cn/space.php?uid=107984" 
+      target=_blank>yangyb123</A></CITE> 
+      <DIV class=avatar><IMG height=76 alt="" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/107984.jpg" 
+      width=120 border=0></DIV>
+      <P><EM>甲骨文五段</EM></P>
+      <P><IMG alt="Rank: 5" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level3.gif"><IMG 
+      alt="Rank: 5" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level1.gif"></P>
+      <UL>
+        <LI class=space><A title=yangyb123的个人空间 
+        href="http://www.oracle.com.cn/space.php?uid=107984" 
+        target=_blank>个人空间</A> </LI>
+        <LI class=pm><A id=ajax_uid_848979 
+        onclick="ajaxmenu(event, this.id, 9000000, null, 0)" 
+        href="http://www.oracle.com.cn/pm.php?action=send&amp;uid=107984" 
+        target=_blank>发短消息</A> </LI>
+        <LI class=buddy><A id=ajax_buddy_2 
+        onclick="ajaxmenu(event, this.id, null, 0)" 
+        href="http://www.oracle.com.cn/my.php?item=buddylist&amp;newbuddyid=107984&amp;buddysubmit=yes" 
+        target=_blank>加为好友</A> </LI>
+        <LI class=offline>当前离线 </LI></UL></TD>
+    <TD class=postcontent>
+      <DIV class=postinfo><STRONG id=postnum_848979 title=复制帖子链接到剪贴板 
+      onclick="setcopy('http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1#pid848979', '帖子链接已经复制到剪贴板')">3楼</STRONG> 
+      <EM onclick="$('postmessage_848979').className='t_bigfont'">大</EM> <EM 
+      onclick="$('postmessage_848979').className='t_msgfont'">中</EM> <EM 
+      onclick="$('postmessage_848979').className='t_smallfont'">小</EM> 发表于 
+      2006-10-28 16:36&nbsp; <A 
+      href="http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1&amp;authorid=107984">只看该作者</A> 
+      </DIV>
+      <DIV id=ad_thread2_2></DIV>
+      <DIV class="postmessage defaultpost">
+      <DIV id=ad_thread3_2></DIV>
+      <DIV id=ad_thread4_2></DIV>
+      <DIV class=t_msgfont 
+      id=postmessage_848979>看应用的要求了，对于大型的数据库设计，同意ERN的观点，但对于OLTP类型的设计，建议采用，同时把基础表创建为IOT表就OK了</DIV></DIV>
+      <DIV class=signatures style="maxHeightIE: 240px"><B><BR>peolple langth and 
+      peolple cry,<BR>some give up and some always try,<BR>some say hi and some 
+      say goodbye,<BR>others may forget you, but nerver i.<BR></B></DIV>
+      <DIV></DIV></TD></TR>
+  <TR>
+    <TD class=postauthor>
+      <DIV class="popupmenu_popup userinfopanel" id=userinfo848979_menu 
+      style="DISPLAY: none">
+      <DL>
+        <DT>UID</DT>
+        <DD>107984&nbsp;</DD>
+        <DT>帖子</DT>
+        <DD>728&nbsp;</DD>
+        <DT>精华</DT>
+        <DD><A 
+        href="http://www.oracle.com.cn/digest.php?authorid=107984">1</A>&nbsp;</DD>
+        <DT>积分</DT>
+        <DD>748&nbsp;</DD>
+        <DT>流通积分</DT>
+        <DD>748 点&nbsp;</DD>
+        <DT>金钱</DT>
+        <DD>0 O元&nbsp;</DD>
+        <DT>阅读权限</DT>
+        <DD>100&nbsp;</DD>
+        <DT>在线时间</DT>
+        <DD>181 小时&nbsp;</DD>
+        <DT>注册时间</DT>
+        <DD>2005-7-11&nbsp;</DD>
+        <DT>最后登录</DT>
+        <DD>2008-10-10&nbsp;</DD></DL>
+      <P><A 
+      href="http://www.oracle.com.cn/space.php?action=viewpro&amp;uid=107984" 
+      target=_blank>查看详细资料</A></P></DIV></TD>
+    <TD class=postcontent>
+      <DIV class=postactions>
+      <P><STRONG title=顶部 onclick=scroll(0,0)>TOP</STRONG> </P>
+      <DIV id=ad_thread1_2></DIV></DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV class="mainbox viewthread">
+<TABLE id=pid849687 cellSpacing=0 cellPadding=0 summary=pid849687>
+  <TBODY>
+  <TR>
+    <TD class=postauthor><CITE><A class=dropmenu id=userinfo849687 
+      onmouseover=showMenu(this.id) 
+      href="http://www.oracle.com.cn/space.php?uid=4090" 
+      target=_blank>dannis</A></CITE> 
+      <DIV class=avatar><IMG class=avatar alt="" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/noavatar.gif"></DIV>
+      <P><EM>授权用户</EM></P>
+      <P><IMG alt="Rank: 4" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level3.gif"></P>
+      <UL>
+        <LI class=space><A title=dannis的个人空间 
+        href="http://www.oracle.com.cn/space.php?uid=4090" 
+        target=_blank>个人空间</A> </LI>
+        <LI class=pm><A id=ajax_uid_849687 
+        onclick="ajaxmenu(event, this.id, 9000000, null, 0)" 
+        href="http://www.oracle.com.cn/pm.php?action=send&amp;uid=4090" 
+        target=_blank>发短消息</A> </LI>
+        <LI class=buddy><A id=ajax_buddy_3 
+        onclick="ajaxmenu(event, this.id, null, 0)" 
+        href="http://www.oracle.com.cn/my.php?item=buddylist&amp;newbuddyid=4090&amp;buddysubmit=yes" 
+        target=_blank>加为好友</A> </LI>
+        <LI class=offline>当前离线 </LI></UL></TD>
+    <TD class=postcontent>
+      <DIV class=postinfo><STRONG id=postnum_849687 title=复制帖子链接到剪贴板 
+      onclick="setcopy('http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1#pid849687', '帖子链接已经复制到剪贴板')">4楼</STRONG> 
+      <EM onclick="$('postmessage_849687').className='t_bigfont'">大</EM> <EM 
+      onclick="$('postmessage_849687').className='t_msgfont'">中</EM> <EM 
+      onclick="$('postmessage_849687').className='t_smallfont'">小</EM> 发表于 
+      2006-10-30 13:43&nbsp; <A 
+      href="http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1&amp;authorid=4090">只看该作者</A> 
+      </DIV>
+      <DIV id=ad_thread2_3></DIV>
+      <DIV class="postmessage defaultpost">
+      <DIV id=ad_thread3_3></DIV>
+      <DIV id=ad_thread4_3></DIV>
+      <DIV class=t_msgfont 
+      id=postmessage_849687>谢谢楼上两位，<BR><BR>我所做的系统是业务数据，主要存储BLOB字段，一条记录大概250k数据量，最多大1千万条记录；<BR>主要是设计成大表好，还是分多表设计，各自的优缺点。 
+      需要有一个比较权威的论断。</DIV></DIV>
+      <DIV></DIV></TD></TR>
+  <TR>
+    <TD class=postauthor>
+      <DIV class="popupmenu_popup userinfopanel" id=userinfo849687_menu 
+      style="DISPLAY: none">
+      <DL>
+        <DT>UID</DT>
+        <DD>4090&nbsp;</DD>
+        <DT>帖子</DT>
+        <DD>129&nbsp;</DD>
+        <DT>精华</DT>
+        <DD><A 
+        href="http://www.oracle.com.cn/digest.php?authorid=4090">0</A>&nbsp;</DD>
+        <DT>积分</DT>
+        <DD>129&nbsp;</DD>
+        <DT>流通积分</DT>
+        <DD>129 点&nbsp;</DD>
+        <DT>金钱</DT>
+        <DD>0 O元&nbsp;</DD>
+        <DT>阅读权限</DT>
+        <DD>80&nbsp;</DD>
+        <DT>在线时间</DT>
+        <DD>45 小时&nbsp;</DD>
+        <DT>注册时间</DT>
+        <DD>2004-2-9&nbsp;</DD>
+        <DT>最后登录</DT>
+        <DD>2008-11-6&nbsp;</DD></DL>
+      <P><A 
+      href="http://www.oracle.com.cn/space.php?action=viewpro&amp;uid=4090" 
+      target=_blank>查看详细资料</A></P></DIV></TD>
+    <TD class=postcontent>
+      <DIV class=postactions>
+      <P><STRONG title=顶部 onclick=scroll(0,0)>TOP</STRONG> </P>
+      <DIV id=ad_thread1_3></DIV></DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV class="mainbox viewthread">
+<TABLE id=pid849839 cellSpacing=0 cellPadding=0 summary=pid849839>
+  <TBODY>
+  <TR>
+    <TD class=postauthor><CITE><A class=dropmenu id=userinfo849839 
+      onmouseover=showMenu(this.id) 
+      href="http://www.oracle.com.cn/space.php?uid=4090" 
+      target=_blank>dannis</A></CITE> 
+      <DIV class=avatar><IMG class=avatar alt="" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/noavatar.gif"></DIV>
+      <P><EM>授权用户</EM></P>
+      <P><IMG alt="Rank: 4" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level3.gif"></P>
+      <UL>
+        <LI class=space><A title=dannis的个人空间 
+        href="http://www.oracle.com.cn/space.php?uid=4090" 
+        target=_blank>个人空间</A> </LI>
+        <LI class=pm><A id=ajax_uid_849839 
+        onclick="ajaxmenu(event, this.id, 9000000, null, 0)" 
+        href="http://www.oracle.com.cn/pm.php?action=send&amp;uid=4090" 
+        target=_blank>发短消息</A> </LI>
+        <LI class=buddy><A id=ajax_buddy_4 
+        onclick="ajaxmenu(event, this.id, null, 0)" 
+        href="http://www.oracle.com.cn/my.php?item=buddylist&amp;newbuddyid=4090&amp;buddysubmit=yes" 
+        target=_blank>加为好友</A> </LI>
+        <LI class=offline>当前离线 </LI></UL></TD>
+    <TD class=postcontent>
+      <DIV class=postinfo><STRONG id=postnum_849839 title=复制帖子链接到剪贴板 
+      onclick="setcopy('http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1#pid849839', '帖子链接已经复制到剪贴板')">5楼</STRONG> 
+      <EM onclick="$('postmessage_849839').className='t_bigfont'">大</EM> <EM 
+      onclick="$('postmessage_849839').className='t_msgfont'">中</EM> <EM 
+      onclick="$('postmessage_849839').className='t_smallfont'">小</EM> 发表于 
+      2006-10-30 15:28&nbsp; <A 
+      href="http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1&amp;authorid=4090">只看该作者</A> 
+      </DIV>
+      <DIV id=ad_thread2_4></DIV>
+      <DIV class="postmessage defaultpost">
+      <DIV id=ad_thread3_4></DIV>
+      <DIV id=ad_thread4_4></DIV>
+      <DIV class=t_msgfont 
+      id=postmessage_849839>补充一点：<BR>就是主表和其它10个从表都是一对一的关系，而不是一对多的关系。</DIV></DIV>
+      <DIV></DIV></TD></TR>
+  <TR>
+    <TD class=postauthor>
+      <DIV class="popupmenu_popup userinfopanel" id=userinfo849839_menu 
+      style="DISPLAY: none">
+      <DL>
+        <DT>UID</DT>
+        <DD>4090&nbsp;</DD>
+        <DT>帖子</DT>
+        <DD>129&nbsp;</DD>
+        <DT>精华</DT>
+        <DD><A 
+        href="http://www.oracle.com.cn/digest.php?authorid=4090">0</A>&nbsp;</DD>
+        <DT>积分</DT>
+        <DD>129&nbsp;</DD>
+        <DT>流通积分</DT>
+        <DD>129 点&nbsp;</DD>
+        <DT>金钱</DT>
+        <DD>0 O元&nbsp;</DD>
+        <DT>阅读权限</DT>
+        <DD>80&nbsp;</DD>
+        <DT>在线时间</DT>
+        <DD>45 小时&nbsp;</DD>
+        <DT>注册时间</DT>
+        <DD>2004-2-9&nbsp;</DD>
+        <DT>最后登录</DT>
+        <DD>2008-11-6&nbsp;</DD></DL>
+      <P><A 
+      href="http://www.oracle.com.cn/space.php?action=viewpro&amp;uid=4090" 
+      target=_blank>查看详细资料</A></P></DIV></TD>
+    <TD class=postcontent>
+      <DIV class=postactions>
+      <P><STRONG title=顶部 onclick=scroll(0,0)>TOP</STRONG> </P>
+      <DIV id=ad_thread1_4></DIV></DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV class="mainbox viewthread">
+<TABLE id=pid850110 cellSpacing=0 cellPadding=0 summary=pid850110>
+  <TBODY>
+  <TR>
+    <TD class=postauthor><CITE><A class=dropmenu id=userinfo850110 
+      onmouseover=showMenu(this.id) 
+      href="http://www.oracle.com.cn/space.php?uid=3453" 
+      target=_blank>ern</A></CITE> 
+      <P>熊猫</P>
+      <DIV class=avatar><IMG height=94 alt="" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/3453.gif" 
+      width=99 border=0></DIV>
+      <P><EM>总版主</EM></P>
+      <P><IMG alt="Rank: 11" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level3.gif"><IMG 
+      alt="Rank: 11" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level3.gif"><IMG 
+      alt="Rank: 11" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level2.gif"><IMG 
+      alt="Rank: 11" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level1.gif"></P>
+      <P class=customstatus>骑着狮子的熊猫</P>
+      <P><IMG alt=CNOUG创作贡献勋章 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/medal4.gif"> 
+      </P>
+      <UL>
+        <LI class=space><A title=ern的个人空间 
+        href="http://www.oracle.com.cn/space.php?uid=3453" 
+        target=_blank>个人空间</A> </LI>
+        <LI class=pm><A id=ajax_uid_850110 
+        onclick="ajaxmenu(event, this.id, 9000000, null, 0)" 
+        href="http://www.oracle.com.cn/pm.php?action=send&amp;uid=3453" 
+        target=_blank>发短消息</A> </LI>
+        <LI class=buddy><A id=ajax_buddy_5 
+        onclick="ajaxmenu(event, this.id, null, 0)" 
+        href="http://www.oracle.com.cn/my.php?item=buddylist&amp;newbuddyid=3453&amp;buddysubmit=yes" 
+        target=_blank>加为好友</A> </LI>
+        <LI class=offline>当前离线 </LI></UL></TD>
+    <TD class=postcontent>
+      <DIV class=postinfo><STRONG id=postnum_850110 title=复制帖子链接到剪贴板 
+      onclick="setcopy('http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1#pid850110', '帖子链接已经复制到剪贴板')">6楼</STRONG> 
+      <EM onclick="$('postmessage_850110').className='t_bigfont'">大</EM> <EM 
+      onclick="$('postmessage_850110').className='t_msgfont'">中</EM> <EM 
+      onclick="$('postmessage_850110').className='t_smallfont'">小</EM> 发表于 
+      2006-10-30 21:07&nbsp; <A 
+      href="http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1&amp;authorid=3453">只看该作者</A> 
+      </DIV>
+      <DIV id=ad_thread2_5></DIV>
+      <DIV class="postmessage defaultpost">
+      <DIV id=ad_thread3_5></DIV>
+      <DIV id=ad_thread4_5></DIV>
+      <DIV class=t_msgfont id=postmessage_850110>
+      <DIV class=quote>
+      <H5>引用:</H5>
+      <BLOCKQUOTE>原帖由 <I>dannis</I> 于 2006-10-30 13:43 
+        发表<BR>谢谢楼上两位，<BR><BR>我所做的系统是业务数据，主要存储BLOB字段，一条记录大概250k数据量，最多大1千万条记录；<BR>主要是设计成大表好，还是分多表设计，各自的优缺点。 
+        需要有一个比较权威的论断。 
+      </BLOCKQUOTE></DIV>赫赫，Oracle的很多东西是没有所谓权威论断的，最好的做法是——测试</DIV></DIV>
+      <DIV class=signatures style="maxHeightIE: 240px"><FONT 
+      color=blue>Reading</FONT>&nbsp; &nbsp;The Republic, the Bibile NRSV, 
+      Orwell and Politics<BR><FONT color=blue>Listening</FONT>&nbsp;&nbsp;Bach 
+      Complete from Brilliant<BR><FONT color=blue>Using</FONT>&nbsp; 
+      &nbsp;&nbsp; &nbsp; Dell 530N+Oracle 11.1.0.6+WinVistaSP1/11.1.0.6+RHEL 
+      5<BR><A href="http://yaoyp.spaces.live.com/" target=_blank><FONT 
+      color=red>MSN Blog</FONT> yaoyp.spaces.live.com/</A><BR><A 
+      href="http://yaoyp.spaces.live.com/Blog/cns!1pKMJaoxCZTUNQwolEgbMYUw!578.entry" 
+      target=_blank><FONT color=green>Ask Tom 之中文化</FONT></A> </DIV>
+      <DIV></DIV></TD></TR>
+  <TR>
+    <TD class=postauthor>
+      <DIV class="popupmenu_popup userinfopanel" id=userinfo850110_menu 
+      style="DISPLAY: none">
+      <DL>
+        <DT>UID</DT>
+        <DD>3453&nbsp;</DD>
+        <DT>帖子</DT>
+        <DD>15343&nbsp;</DD>
+        <DT>精华</DT>
+        <DD><A 
+        href="http://www.oracle.com.cn/digest.php?authorid=3453">55</A>&nbsp;</DD>
+        <DT>积分</DT>
+        <DD>16005&nbsp;</DD>
+        <DT>流通积分</DT>
+        <DD>16005 点&nbsp;</DD>
+        <DT>金钱</DT>
+        <DD>101 O元&nbsp;</DD>
+        <DT>阅读权限</DT>
+        <DD>255&nbsp;</DD>
+        <DT>在线时间</DT>
+        <DD>183 小时&nbsp;</DD>
+        <DT>注册时间</DT>
+        <DD>2003-12-19&nbsp;</DD>
+        <DT>最后登录</DT>
+        <DD>2008-11-15&nbsp;</DD></DL>
+      <P><A href="http://yaoyp.spaces.live.com/" target=_blank>查看个人网站</A></P>
+      <P><A 
+      href="http://www.oracle.com.cn/space.php?action=viewpro&amp;uid=3453" 
+      target=_blank>查看详细资料</A></P></DIV></TD>
+    <TD class=postcontent>
+      <DIV class=postactions>
+      <P><STRONG title=顶部 onclick=scroll(0,0)>TOP</STRONG> </P>
+      <DIV id=ad_thread1_5></DIV></DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV class="mainbox viewthread">
+<TABLE id=pid851108 cellSpacing=0 cellPadding=0 summary=pid851108>
+  <TBODY>
+  <TR>
+    <TD class=postauthor><CITE><A class=dropmenu id=userinfo851108 
+      onmouseover=showMenu(this.id) 
+      href="http://www.oracle.com.cn/space.php?uid=46705" 
+      target=_blank>babyyellow</A></CITE> 
+      <DIV class=avatar><IMG class=avatar alt="" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/noavatar.gif"></DIV>
+      <P><EM>甲骨文三段</EM></P>
+      <P><IMG alt="Rank: 3" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level2.gif"><IMG 
+      alt="Rank: 3" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level1.gif"></P>
+      <P class=customstatus>gum</P>
+      <UL>
+        <LI class=space><A title=babyyellow的个人空间 
+        href="http://www.oracle.com.cn/space.php?uid=46705" 
+        target=_blank>个人空间</A> </LI>
+        <LI class=pm><A id=ajax_uid_851108 
+        onclick="ajaxmenu(event, this.id, 9000000, null, 0)" 
+        href="http://www.oracle.com.cn/pm.php?action=send&amp;uid=46705" 
+        target=_blank>发短消息</A> </LI>
+        <LI class=buddy><A id=ajax_buddy_6 
+        onclick="ajaxmenu(event, this.id, null, 0)" 
+        href="http://www.oracle.com.cn/my.php?item=buddylist&amp;newbuddyid=46705&amp;buddysubmit=yes" 
+        target=_blank>加为好友</A> </LI>
+        <LI class=offline>当前离线 </LI></UL></TD>
+    <TD class=postcontent>
+      <DIV class=postinfo><STRONG id=postnum_851108 title=复制帖子链接到剪贴板 
+      onclick="setcopy('http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1#pid851108', '帖子链接已经复制到剪贴板')">7楼</STRONG> 
+      <EM onclick="$('postmessage_851108').className='t_bigfont'">大</EM> <EM 
+      onclick="$('postmessage_851108').className='t_msgfont'">中</EM> <EM 
+      onclick="$('postmessage_851108').className='t_smallfont'">小</EM> 发表于 
+      2006-11-1 15:24&nbsp; <A 
+      href="http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1&amp;authorid=46705">只看该作者</A> 
+      </DIV>
+      <DIV id=ad_thread2_6></DIV>
+      <DIV class="postmessage defaultpost">
+      <DIV id=ad_thread3_6></DIV>
+      <DIV id=ad_thread4_6></DIV>
+      <DIV class=t_msgfont id=postmessage_851108>表的字段,不要超过255</DIV></DIV>
+      <DIV></DIV></TD></TR>
+  <TR>
+    <TD class=postauthor>
+      <DIV class="popupmenu_popup userinfopanel" id=userinfo851108_menu 
+      style="DISPLAY: none">
+      <DL>
+        <DT>UID</DT>
+        <DD>46705&nbsp;</DD>
+        <DT>帖子</DT>
+        <DD>115&nbsp;</DD>
+        <DT>精华</DT>
+        <DD><A 
+        href="http://www.oracle.com.cn/digest.php?authorid=46705">0</A>&nbsp;</DD>
+        <DT>积分</DT>
+        <DD>115&nbsp;</DD>
+        <DT>流通积分</DT>
+        <DD>115 点&nbsp;</DD>
+        <DT>金钱</DT>
+        <DD>0 O元&nbsp;</DD>
+        <DT>阅读权限</DT>
+        <DD>60&nbsp;</DD>
+        <DT>在线时间</DT>
+        <DD>75 小时&nbsp;</DD>
+        <DT>注册时间</DT>
+        <DD>2004-8-27&nbsp;</DD>
+        <DT>最后登录</DT>
+        <DD>2008-9-16&nbsp;</DD></DL>
+      <P><A 
+      href="http://www.oracle.com.cn/space.php?action=viewpro&amp;uid=46705" 
+      target=_blank>查看详细资料</A></P></DIV></TD>
+    <TD class=postcontent>
+      <DIV class=postactions>
+      <P><STRONG title=顶部 onclick=scroll(0,0)>TOP</STRONG> </P>
+      <DIV id=ad_thread1_6></DIV></DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV class="mainbox viewthread">
+<TABLE id=pid851158 cellSpacing=0 cellPadding=0 summary=pid851158>
+  <TBODY>
+  <TR>
+    <TD class=postauthor><CITE><A class=dropmenu id=userinfo851158 
+      onmouseover=showMenu(this.id) 
+      href="http://www.oracle.com.cn/space.php?uid=3453" 
+      target=_blank>ern</A></CITE> 
+      <P>熊猫</P>
+      <DIV class=avatar><IMG height=94 alt="" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/3453.gif" 
+      width=99 border=0></DIV>
+      <P><EM>总版主</EM></P>
+      <P><IMG alt="Rank: 11" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level3.gif"><IMG 
+      alt="Rank: 11" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level3.gif"><IMG 
+      alt="Rank: 11" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level2.gif"><IMG 
+      alt="Rank: 11" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level1.gif"></P>
+      <P class=customstatus>骑着狮子的熊猫</P>
+      <P><IMG alt=CNOUG创作贡献勋章 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/medal4.gif"> 
+      </P>
+      <UL>
+        <LI class=space><A title=ern的个人空间 
+        href="http://www.oracle.com.cn/space.php?uid=3453" 
+        target=_blank>个人空间</A> </LI>
+        <LI class=pm><A id=ajax_uid_851158 
+        onclick="ajaxmenu(event, this.id, 9000000, null, 0)" 
+        href="http://www.oracle.com.cn/pm.php?action=send&amp;uid=3453" 
+        target=_blank>发短消息</A> </LI>
+        <LI class=buddy><A id=ajax_buddy_7 
+        onclick="ajaxmenu(event, this.id, null, 0)" 
+        href="http://www.oracle.com.cn/my.php?item=buddylist&amp;newbuddyid=3453&amp;buddysubmit=yes" 
+        target=_blank>加为好友</A> </LI>
+        <LI class=offline>当前离线 </LI></UL></TD>
+    <TD class=postcontent>
+      <DIV class=postinfo><STRONG id=postnum_851158 title=复制帖子链接到剪贴板 
+      onclick="setcopy('http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1#pid851158', '帖子链接已经复制到剪贴板')">8楼</STRONG> 
+      <EM onclick="$('postmessage_851158').className='t_bigfont'">大</EM> <EM 
+      onclick="$('postmessage_851158').className='t_msgfont'">中</EM> <EM 
+      onclick="$('postmessage_851158').className='t_smallfont'">小</EM> 发表于 
+      2006-11-1 16:34&nbsp; <A 
+      href="http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1&amp;authorid=3453">只看该作者</A> 
+      </DIV>
+      <DIV id=ad_thread2_7></DIV>
+      <DIV class="postmessage defaultpost">
+      <DIV id=ad_thread3_7></DIV>
+      <DIV id=ad_thread4_7></DIV>
+      <DIV class=t_msgfont id=postmessage_851158>
+      <DIV class=quote>
+      <H5>引用:</H5>
+      <BLOCKQUOTE>原帖由 <I>babyyellow</I> 于 2006-11-1 15:24 发表<BR>表的字段,不要超过255 
+      </BLOCKQUOTE></DIV>为什么？好像Oracle的限制不是255哦</DIV></DIV>
+      <DIV class=signatures style="maxHeightIE: 240px"><FONT 
+      color=blue>Reading</FONT>&nbsp; &nbsp;The Republic, the Bibile NRSV, 
+      Orwell and Politics<BR><FONT color=blue>Listening</FONT>&nbsp;&nbsp;Bach 
+      Complete from Brilliant<BR><FONT color=blue>Using</FONT>&nbsp; 
+      &nbsp;&nbsp; &nbsp; Dell 530N+Oracle 11.1.0.6+WinVistaSP1/11.1.0.6+RHEL 
+      5<BR><A href="http://yaoyp.spaces.live.com/" target=_blank><FONT 
+      color=red>MSN Blog</FONT> yaoyp.spaces.live.com/</A><BR><A 
+      href="http://yaoyp.spaces.live.com/Blog/cns!1pKMJaoxCZTUNQwolEgbMYUw!578.entry" 
+      target=_blank><FONT color=green>Ask Tom 之中文化</FONT></A> </DIV>
+      <DIV></DIV></TD></TR>
+  <TR>
+    <TD class=postauthor>
+      <DIV class="popupmenu_popup userinfopanel" id=userinfo851158_menu 
+      style="DISPLAY: none">
+      <DL>
+        <DT>UID</DT>
+        <DD>3453&nbsp;</DD>
+        <DT>帖子</DT>
+        <DD>15343&nbsp;</DD>
+        <DT>精华</DT>
+        <DD><A 
+        href="http://www.oracle.com.cn/digest.php?authorid=3453">55</A>&nbsp;</DD>
+        <DT>积分</DT>
+        <DD>16005&nbsp;</DD>
+        <DT>流通积分</DT>
+        <DD>16005 点&nbsp;</DD>
+        <DT>金钱</DT>
+        <DD>101 O元&nbsp;</DD>
+        <DT>阅读权限</DT>
+        <DD>255&nbsp;</DD>
+        <DT>在线时间</DT>
+        <DD>183 小时&nbsp;</DD>
+        <DT>注册时间</DT>
+        <DD>2003-12-19&nbsp;</DD>
+        <DT>最后登录</DT>
+        <DD>2008-11-15&nbsp;</DD></DL>
+      <P><A href="http://yaoyp.spaces.live.com/" target=_blank>查看个人网站</A></P>
+      <P><A 
+      href="http://www.oracle.com.cn/space.php?action=viewpro&amp;uid=3453" 
+      target=_blank>查看详细资料</A></P></DIV></TD>
+    <TD class=postcontent>
+      <DIV class=postactions>
+      <P><STRONG title=顶部 onclick=scroll(0,0)>TOP</STRONG> </P>
+      <DIV id=ad_thread1_7></DIV></DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV class="mainbox viewthread">
+<TABLE id=pid851169 cellSpacing=0 cellPadding=0 summary=pid851169>
+  <TBODY>
+  <TR>
+    <TD class=postauthor><CITE><A class=dropmenu id=userinfo851169 
+      onmouseover=showMenu(this.id) 
+      href="http://www.oracle.com.cn/space.php?uid=76209" 
+      target=_blank>wait4me</A></CITE> 
+      <DIV class=avatar><IMG height=111 alt="" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/76209.jpg" 
+      width=120 border=0></DIV>
+      <P><EM>甲骨文五段</EM></P>
+      <P><IMG alt="Rank: 5" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level3.gif"><IMG 
+      alt="Rank: 5" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level1.gif"></P>
+      <UL>
+        <LI class=space><A title=wait4me的个人空间 
+        href="http://www.oracle.com.cn/space.php?uid=76209" 
+        target=_blank>个人空间</A> </LI>
+        <LI class=pm><A id=ajax_uid_851169 
+        onclick="ajaxmenu(event, this.id, 9000000, null, 0)" 
+        href="http://www.oracle.com.cn/pm.php?action=send&amp;uid=76209" 
+        target=_blank>发短消息</A> </LI>
+        <LI class=buddy><A id=ajax_buddy_8 
+        onclick="ajaxmenu(event, this.id, null, 0)" 
+        href="http://www.oracle.com.cn/my.php?item=buddylist&amp;newbuddyid=76209&amp;buddysubmit=yes" 
+        target=_blank>加为好友</A> </LI>
+        <LI class=offline>当前离线 </LI></UL></TD>
+    <TD class=postcontent>
+      <DIV class=postinfo><STRONG id=postnum_851169 title=复制帖子链接到剪贴板 
+      onclick="setcopy('http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1#pid851169', '帖子链接已经复制到剪贴板')">9楼</STRONG> 
+      <EM onclick="$('postmessage_851169').className='t_bigfont'">大</EM> <EM 
+      onclick="$('postmessage_851169').className='t_msgfont'">中</EM> <EM 
+      onclick="$('postmessage_851169').className='t_smallfont'">小</EM> 发表于 
+      2006-11-1 16:47&nbsp; <A 
+      href="http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1&amp;authorid=76209">只看该作者</A> 
+      </DIV>
+      <DIV id=ad_thread2_8></DIV>
+      <DIV class="postmessage defaultpost">
+      <DIV id=ad_thread3_8></DIV>
+      <DIV id=ad_thread4_8></DIV>
+      <DIV class=t_msgfont 
+      id=postmessage_851169>oracle字段限制是1000，不超过255其实是为了避免行迁移和行链。不一定是255拉<BR><BR><BR>方案1的字子表字段可能要增加，扩展性差了点<BR>方案2中用了11个表，写sql麻烦了点。可以这样修改：<BR>================<BR>1个主表<BR>1个字表 
+      parent_id, tpye, 
+      cblog，根据pid分区<BR><BR>优点是写sql查询的时候比较简单，而且表比较少，好维护。如果多数情况根据pid查询的话，会采用分区排除，效率也不低<BR>缺点是，如果经常要单独根据type来查询，会涉及到full 
+      scan，效率低了。这中情况，建议根据type分区<BR><BR>最后说：没有权威。即使有，也不要迷信权威<BR><BR>[<I> 本帖最后由 
+      wait4me 于 2006-11-1 16:53 编辑 </I>]</DIV></DIV>
+      <DIV></DIV></TD></TR>
+  <TR>
+    <TD class=postauthor>
+      <DIV class="popupmenu_popup userinfopanel" id=userinfo851169_menu 
+      style="DISPLAY: none">
+      <DIV class=imicons><A 
+      href="http://wpa.qq.com/msgrd?V=1&amp;Uin=409724937&amp;Site=CNOUG&amp;Menu=yes" 
+      target=_blank><IMG alt=QQ 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/qq.gif"></A> 
+      </DIV>
+      <DL>
+        <DT>UID</DT>
+        <DD>76209&nbsp;</DD>
+        <DT>帖子</DT>
+        <DD>588&nbsp;</DD>
+        <DT>精华</DT>
+        <DD><A 
+        href="http://www.oracle.com.cn/digest.php?authorid=76209">0</A>&nbsp;</DD>
+        <DT>积分</DT>
+        <DD>588&nbsp;</DD>
+        <DT>流通积分</DT>
+        <DD>588 点&nbsp;</DD>
+        <DT>金钱</DT>
+        <DD>0 O元&nbsp;</DD>
+        <DT>阅读权限</DT>
+        <DD>100&nbsp;</DD>
+        <DT>来自</DT>
+        <DD>成都&nbsp;</DD>
+        <DT>在线时间</DT>
+        <DD>108 小时&nbsp;</DD>
+        <DT>注册时间</DT>
+        <DD>2005-2-18&nbsp;</DD>
+        <DT>最后登录</DT>
+        <DD>2008-11-26&nbsp;</DD></DL>
+      <P><A 
+      href="http://www.oracle.com.cn/space.php?action=viewpro&amp;uid=76209" 
+      target=_blank>查看详细资料</A></P></DIV></TD>
+    <TD class=postcontent>
+      <DIV class=postactions>
+      <P><STRONG title=顶部 onclick=scroll(0,0)>TOP</STRONG> </P>
+      <DIV id=ad_thread1_8></DIV></DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV class="mainbox viewthread">
+<TABLE id=pid853963 cellSpacing=0 cellPadding=0 summary=pid853963>
+  <TBODY>
+  <TR>
+    <TD class=postauthor><CITE><A class=dropmenu id=userinfo853963 
+      onmouseover=showMenu(this.id) 
+      href="http://www.oracle.com.cn/space.php?uid=4090" 
+      target=_blank>dannis</A></CITE> 
+      <DIV class=avatar><IMG class=avatar alt="" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/noavatar.gif"></DIV>
+      <P><EM>授权用户</EM></P>
+      <P><IMG alt="Rank: 4" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level3.gif"></P>
+      <UL>
+        <LI class=space><A title=dannis的个人空间 
+        href="http://www.oracle.com.cn/space.php?uid=4090" 
+        target=_blank>个人空间</A> </LI>
+        <LI class=pm><A id=ajax_uid_853963 
+        onclick="ajaxmenu(event, this.id, 9000000, null, 0)" 
+        href="http://www.oracle.com.cn/pm.php?action=send&amp;uid=4090" 
+        target=_blank>发短消息</A> </LI>
+        <LI class=buddy><A id=ajax_buddy_9 
+        onclick="ajaxmenu(event, this.id, null, 0)" 
+        href="http://www.oracle.com.cn/my.php?item=buddylist&amp;newbuddyid=4090&amp;buddysubmit=yes" 
+        target=_blank>加为好友</A> </LI>
+        <LI class=offline>当前离线 </LI></UL></TD>
+    <TD class=postcontent>
+      <DIV class=postinfo><STRONG id=postnum_853963 title=复制帖子链接到剪贴板 
+      onclick="setcopy('http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1#pid853963', '帖子链接已经复制到剪贴板')">10楼</STRONG> 
+      <EM onclick="$('postmessage_853963').className='t_bigfont'">大</EM> <EM 
+      onclick="$('postmessage_853963').className='t_msgfont'">中</EM> <EM 
+      onclick="$('postmessage_853963').className='t_smallfont'">小</EM> 发表于 
+      2006-11-6 13:45&nbsp; <A 
+      href="http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1&amp;authorid=4090">只看该作者</A> 
+      </DIV>
+      <DIV id=ad_thread2_9></DIV>
+      <DIV class="postmessage defaultpost">
+      <DIV id=ad_thread3_9></DIV>
+      <DIV id=ad_thread4_9></DIV>
+      <DIV class=t_msgfont id=postmessage_853963>谢谢各位赐教，<BR>我觉得根据三范式来 
+      可以分成主从两个表。</DIV></DIV>
+      <DIV></DIV></TD></TR>
+  <TR>
+    <TD class=postauthor>
+      <DIV class="popupmenu_popup userinfopanel" id=userinfo853963_menu 
+      style="DISPLAY: none">
+      <DL>
+        <DT>UID</DT>
+        <DD>4090&nbsp;</DD>
+        <DT>帖子</DT>
+        <DD>129&nbsp;</DD>
+        <DT>精华</DT>
+        <DD><A 
+        href="http://www.oracle.com.cn/digest.php?authorid=4090">0</A>&nbsp;</DD>
+        <DT>积分</DT>
+        <DD>129&nbsp;</DD>
+        <DT>流通积分</DT>
+        <DD>129 点&nbsp;</DD>
+        <DT>金钱</DT>
+        <DD>0 O元&nbsp;</DD>
+        <DT>阅读权限</DT>
+        <DD>80&nbsp;</DD>
+        <DT>在线时间</DT>
+        <DD>45 小时&nbsp;</DD>
+        <DT>注册时间</DT>
+        <DD>2004-2-9&nbsp;</DD>
+        <DT>最后登录</DT>
+        <DD>2008-11-6&nbsp;</DD></DL>
+      <P><A 
+      href="http://www.oracle.com.cn/space.php?action=viewpro&amp;uid=4090" 
+      target=_blank>查看详细资料</A></P></DIV></TD>
+    <TD class=postcontent>
+      <DIV class=postactions>
+      <P><STRONG title=顶部 onclick=scroll(0,0)>TOP</STRONG> </P>
+      <DIV id=ad_thread1_9></DIV></DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV class="mainbox viewthread">
+<TABLE id=pid971062 cellSpacing=0 cellPadding=0 summary=pid971062>
+  <TBODY>
+  <TR>
+    <TD class=postauthor><CITE><A class=dropmenu id=userinfo971062 
+      onmouseover=showMenu(this.id) 
+      href="http://www.oracle.com.cn/space.php?uid=239175" 
+      target=_blank>kelsen</A></CITE> 
+      <DIV class=avatar><IMG height=90 alt="" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/11.gif" 
+      width=74 border=0></DIV>
+      <P><EM>甲骨文初段</EM></P>
+      <P><IMG alt="Rank: 1" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level1.gif"></P>
+      <UL>
+        <LI class=space><A title=kelsen的个人空间 
+        href="http://www.oracle.com.cn/space.php?uid=239175" 
+        target=_blank>个人空间</A> </LI>
+        <LI class=pm><A id=ajax_uid_971062 
+        onclick="ajaxmenu(event, this.id, 9000000, null, 0)" 
+        href="http://www.oracle.com.cn/pm.php?action=send&amp;uid=239175" 
+        target=_blank>发短消息</A> </LI>
+        <LI class=buddy><A id=ajax_buddy_10 
+        onclick="ajaxmenu(event, this.id, null, 0)" 
+        href="http://www.oracle.com.cn/my.php?item=buddylist&amp;newbuddyid=239175&amp;buddysubmit=yes" 
+        target=_blank>加为好友</A> </LI>
+        <LI class=offline>当前离线 </LI></UL></TD>
+    <TD class=postcontent>
+      <DIV class=postinfo><STRONG id=postnum_971062 title=复制帖子链接到剪贴板 
+      onclick="setcopy('http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1#pid971062', '帖子链接已经复制到剪贴板')">11楼</STRONG> 
+      <EM onclick="$('postmessage_971062').className='t_bigfont'">大</EM> <EM 
+      onclick="$('postmessage_971062').className='t_msgfont'">中</EM> <EM 
+      onclick="$('postmessage_971062').className='t_smallfont'">小</EM> 发表于 
+      2007-8-22 09:42&nbsp; <A 
+      href="http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1&amp;authorid=239175">只看该作者</A> 
+      </DIV>
+      <DIV id=ad_thread2_10></DIV>
+      <DIV class="postmessage defaultpost">
+      <DIV id=ad_thread3_10></DIV>
+      <DIV id=ad_thread4_10></DIV>
+      <DIV class=t_msgfont id=postmessage_971062><IMG alt="" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/95.gif" 
+      border=0 smilieid="112"></DIV></DIV>
+      <DIV class=signatures style="maxHeightIE: 240px">汗 </DIV>
+      <DIV></DIV></TD></TR>
+  <TR>
+    <TD class=postauthor>
+      <DIV class="popupmenu_popup userinfopanel" id=userinfo971062_menu 
+      style="DISPLAY: none">
+      <DIV class=imicons><A title="添加 kelsen 为MSN好友" 
+      onclick="msnoperate('add', 'kai_kai_xu@hotmail.com')" 
+      href="javascript:;"><IMG alt="添加 kelsen 为MSN好友" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/msnadd.gif"></A> 
+      <A title="通过MSN和 kelsen 交谈" 
+      onclick="msnoperate('chat', 'kai_kai_xu@hotmail.com')" 
+      href="javascript:;"><IMG alt="通过MSN和 kelsen 交谈" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/msnchat.gif"></A> 
+      <A 
+      href="http://wpa.qq.com/msgrd?V=1&amp;Uin=123929868&amp;Site=CNOUG&amp;Menu=yes" 
+      target=_blank><IMG alt=QQ 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/qq.gif"></A> 
+      <A 
+      href="http://edit.yahoo.com/config/send_webmesg?.target=kelsen1985@yahoo.com.cn&amp;.src=pg" 
+      target=_blank><IMG alt=Yahoo! 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/yahoo.gif"></A> 
+      </DIV>
+      <DL>
+        <DT>UID</DT>
+        <DD>239175&nbsp;</DD>
+        <DT>帖子</DT>
+        <DD>17&nbsp;</DD>
+        <DT>精华</DT>
+        <DD><A 
+        href="http://www.oracle.com.cn/digest.php?authorid=239175">0</A>&nbsp;</DD>
+        <DT>积分</DT>
+        <DD>17&nbsp;</DD>
+        <DT>流通积分</DT>
+        <DD>17 点&nbsp;</DD>
+        <DT>金钱</DT>
+        <DD>0 O元&nbsp;</DD>
+        <DT>阅读权限</DT>
+        <DD>20&nbsp;</DD>
+        <DT>来自</DT>
+        <DD>上海&nbsp;</DD>
+        <DT>在线时间</DT>
+        <DD>3 小时&nbsp;</DD>
+        <DT>注册时间</DT>
+        <DD>2007-1-24&nbsp;</DD>
+        <DT>最后登录</DT>
+        <DD>2007-8-22&nbsp;</DD></DL>
+      <P><A href="http://kelsen.web.fc2.com/" target=_blank>查看个人网站</A></P>
+      <P><A 
+      href="http://www.oracle.com.cn/space.php?action=viewpro&amp;uid=239175" 
+      target=_blank>查看详细资料</A></P></DIV></TD>
+    <TD class=postcontent>
+      <DIV class=postactions>
+      <P><STRONG title=顶部 onclick=scroll(0,0)>TOP</STRONG> </P>
+      <DIV id=ad_thread1_10></DIV></DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV class="mainbox viewthread">
+<TABLE id=pid975357 cellSpacing=0 cellPadding=0 summary=pid975357>
+  <TBODY>
+  <TR>
+    <TD class=postauthor><CITE><A class=dropmenu id=userinfo975357 
+      onmouseover=showMenu(this.id) 
+      href="http://www.oracle.com.cn/space.php?uid=2310" 
+      target=_blank>yangqingdelphi</A></CITE> 
+      <DIV class=avatar><IMG height=120 alt="" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/2310.jpg" 
+      width=100 border=0></DIV>
+      <P><EM>甲骨文初段</EM></P>
+      <P><IMG alt="Rank: 1" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level1.gif"></P>
+      <UL>
+        <LI class=space><A title=yangqingdelphi的个人空间 
+        href="http://www.oracle.com.cn/space.php?uid=2310" 
+        target=_blank>个人空间</A> </LI>
+        <LI class=pm><A id=ajax_uid_975357 
+        onclick="ajaxmenu(event, this.id, 9000000, null, 0)" 
+        href="http://www.oracle.com.cn/pm.php?action=send&amp;uid=2310" 
+        target=_blank>发短消息</A> </LI>
+        <LI class=buddy><A id=ajax_buddy_11 
+        onclick="ajaxmenu(event, this.id, null, 0)" 
+        href="http://www.oracle.com.cn/my.php?item=buddylist&amp;newbuddyid=2310&amp;buddysubmit=yes" 
+        target=_blank>加为好友</A> </LI>
+        <LI class=offline>当前离线 </LI></UL></TD>
+    <TD class=postcontent>
+      <DIV class=postinfo><STRONG id=postnum_975357 title=复制帖子链接到剪贴板 
+      onclick="setcopy('http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1#pid975357', '帖子链接已经复制到剪贴板')">12楼</STRONG> 
+      <EM onclick="$('postmessage_975357').className='t_bigfont'">大</EM> <EM 
+      onclick="$('postmessage_975357').className='t_msgfont'">中</EM> <EM 
+      onclick="$('postmessage_975357').className='t_smallfont'">小</EM> 发表于 
+      2007-9-3 20:10&nbsp; <A 
+      href="http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1&amp;authorid=2310">只看该作者</A> 
+      </DIV>
+      <DIV id=ad_thread2_11></DIV>
+      <DIV class="postmessage defaultpost">
+      <DIV id=ad_thread3_11></DIV>
+      <DIV id=ad_thread4_11></DIV>
+      <DIV class=t_msgfont 
+      id=postmessage_975357>我目前有11个表，其中1表是其他10个表的父表，主从关系。10个子表有一个blob字段和一个关键字段，关键字段与父表1关键字段是主从关联。<BR><BR>我设计时：1、把11个表合成一个大表设计。table 
+      (key,other_col,c1,c2,...c10),其中c1,c2,...c10是blob类型。<BR>&nbsp; &nbsp;&nbsp; 
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;2、把11个表分成主从关系设计。table 
+      (key,other_col),table1(key,c1)....table10(key,c10)<BR>两中设计的优缺点是什么？<BR><BR>请赐教！<BR><BR><BR>两种方法对于设计来说都可以。但你的业务需求决定了用那一种会好一点：<BR>1，插入数据，C1-C10能一次性取到，并一次性插入，那第一种方法比较好。因为完整性简单，比较好控制。<BR>如果分散插入则第二种方法方便一点。<BR>2，修改数据，如果需要一次性修改多个c1-c10中的列数据，则第一种方法好。定位方便，KEY是唯一索引。<BR>3，删除数据同样道理。<BR>查询时，如果需要将多表进行关联，第1种方法最快。如果单独查某一个表，第2种方法简单。就是全表扫描数据也会少点。<BR>利不利用IOT表，主要不知你是读的多，还是写的多。<BR>备份恢复一个表可管理性强，多个表则差点。第二种方法看起来就像第1种方法表的分区。<BR>OLAP,还是DSS系统，单从这个角度看不出那个好点。</DIV></DIV>
+      <DIV></DIV></TD></TR>
+  <TR>
+    <TD class=postauthor>
+      <DIV class="popupmenu_popup userinfopanel" id=userinfo975357_menu 
+      style="DISPLAY: none">
+      <DL>
+        <DT>UID</DT>
+        <DD>2310&nbsp;</DD>
+        <DT>帖子</DT>
+        <DD>34&nbsp;</DD>
+        <DT>精华</DT>
+        <DD><A 
+        href="http://www.oracle.com.cn/digest.php?authorid=2310">0</A>&nbsp;</DD>
+        <DT>积分</DT>
+        <DD>34&nbsp;</DD>
+        <DT>流通积分</DT>
+        <DD>34 点&nbsp;</DD>
+        <DT>金钱</DT>
+        <DD>0 O元&nbsp;</DD>
+        <DT>阅读权限</DT>
+        <DD>20&nbsp;</DD>
+        <DT>在线时间</DT>
+        <DD>7 小时&nbsp;</DD>
+        <DT>注册时间</DT>
+        <DD>2003-9-8&nbsp;</DD>
+        <DT>最后登录</DT>
+        <DD>2007-10-23&nbsp;</DD></DL>
+      <P><A 
+      href="http://www.oracle.com.cn/space.php?action=viewpro&amp;uid=2310" 
+      target=_blank>查看详细资料</A></P></DIV></TD>
+    <TD class=postcontent>
+      <DIV class=postactions>
+      <P><STRONG title=顶部 onclick=scroll(0,0)>TOP</STRONG> </P>
+      <DIV id=ad_thread1_11></DIV></DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV class="mainbox viewthread">
+<TABLE id=pid975397 cellSpacing=0 cellPadding=0 summary=pid975397>
+  <TBODY>
+  <TR>
+    <TD class=postauthor><A name=lastpost></A><CITE><A class=dropmenu 
+      id=userinfo975397 onmouseover=showMenu(this.id) 
+      href="http://www.oracle.com.cn/space.php?uid=114547" 
+      target=_blank>binhu</A></CITE> 
+      <DIV class=avatar><IMG height=120 alt="" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/noavatar.gif" 
+      width=120 border=0></DIV>
+      <P><EM>甲骨文四段</EM></P>
+      <P><IMG alt="Rank: 4" 
+      src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/star_level3.gif"></P>
+      <UL>
+        <LI class=space><A title=binhu的个人空间 
+        href="http://www.oracle.com.cn/space.php?uid=114547" 
+        target=_blank>个人空间</A> </LI>
+        <LI class=pm><A id=ajax_uid_975397 
+        onclick="ajaxmenu(event, this.id, 9000000, null, 0)" 
+        href="http://www.oracle.com.cn/pm.php?action=send&amp;uid=114547" 
+        target=_blank>发短消息</A> </LI>
+        <LI class=buddy><A id=ajax_buddy_12 
+        onclick="ajaxmenu(event, this.id, null, 0)" 
+        href="http://www.oracle.com.cn/my.php?item=buddylist&amp;newbuddyid=114547&amp;buddysubmit=yes" 
+        target=_blank>加为好友</A> </LI>
+        <LI class=offline>当前离线 </LI></UL></TD>
+    <TD class=postcontent>
+      <DIV class=postinfo><STRONG id=postnum_975397 title=复制帖子链接到剪贴板 
+      onclick="setcopy('http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1#pid975397', '帖子链接已经复制到剪贴板')">13楼</STRONG> 
+      <EM onclick="$('postmessage_975397').className='t_bigfont'">大</EM> <EM 
+      onclick="$('postmessage_975397').className='t_msgfont'">中</EM> <EM 
+      onclick="$('postmessage_975397').className='t_smallfont'">小</EM> 发表于 
+      2007-9-4 00:02&nbsp; <A 
+      href="http://www.oracle.com.cn/viewthread.php?tid=107409&amp;page=1&amp;authorid=114547">只看该作者</A> 
+      </DIV>
+      <DIV id=ad_thread2_12></DIV>
+      <DIV class="postmessage defaultpost">
+      <DIV id=ad_thread3_12></DIV>
+      <DIV id=ad_thread4_12></DIV>
+      <DIV class=t_msgfont 
+      id=postmessage_975397>配合将来的sql来设计，如有大表常要join的话，就要考虑反规化，以免多个大表常join的话的效能不一定比一个超多字段的大表来的快<BR>还是要测试才会知道的</DIV></DIV>
+      <DIV></DIV></TD></TR>
+  <TR>
+    <TD class=postauthor>
+      <DIV class="popupmenu_popup userinfopanel" id=userinfo975397_menu 
+      style="DISPLAY: none">
+      <DL>
+        <DT>UID</DT>
+        <DD>114547&nbsp;</DD>
+        <DT>帖子</DT>
+        <DD>292&nbsp;</DD>
+        <DT>精华</DT>
+        <DD><A 
+        href="http://www.oracle.com.cn/digest.php?authorid=114547">0</A>&nbsp;</DD>
+        <DT>积分</DT>
+        <DD>292&nbsp;</DD>
+        <DT>流通积分</DT>
+        <DD>292 点&nbsp;</DD>
+        <DT>金钱</DT>
+        <DD>0 O元&nbsp;</DD>
+        <DT>阅读权限</DT>
+        <DD>80&nbsp;</DD>
+        <DT>在线时间</DT>
+        <DD>250 小时&nbsp;</DD>
+        <DT>注册时间</DT>
+        <DD>2005-8-18&nbsp;</DD>
+        <DT>最后登录</DT>
+        <DD>2008-11-29&nbsp;</DD></DL>
+      <P><A 
+      href="http://www.oracle.com.cn/space.php?action=viewpro&amp;uid=114547" 
+      target=_blank>查看详细资料</A></P></DIV></TD>
+    <TD class=postcontent>
+      <DIV class=postactions>
+      <P><STRONG title=顶部 onclick=scroll(0,0)>TOP</STRONG> </P>
+      <DIV id=ad_thread1_12></DIV></DIV></TD></TR></TBODY></TABLE></DIV></FORM>
+<DIV class=pages_btns>
+<DIV class=threadflow><A 
+href="http://www.oracle.com.cn/redirect.php?fid=3&amp;tid=107409&amp;goto=nextoldset">&#8249;&#8249; 
+上一主题</A> | <A 
+href="http://www.oracle.com.cn/redirect.php?fid=3&amp;tid=107409&amp;goto=nextnewset">下一主题 
+&#8250;&#8250;</A></DIV><SPAN class=postbtn id=newspecialtmp 
+onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu(this.id)"><A 
+href="http://www.oracle.com.cn/post.php?action=newthread&amp;fid=3&amp;extra="><IMG 
+title=发新话题 alt=发新话题 
+src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/newtopic.gif" 
+border=0></A></SPAN> <SPAN class=replybtn><A 
+href="http://www.oracle.com.cn/post.php?action=reply&amp;fid=3&amp;tid=107409&amp;extra="><IMG 
+alt="" 
+src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/reply.gif" 
+border=0></A></SPAN></DIV>
+<DIV class=popupmenu_popup id=forumlist_menu style="DISPLAY: none">
+<DL>
+  <DT><A href="http://www.oracle.com.cn/index.php?gid=128">≡≡Oracle官方信息≡≡</A>
+  <DD>
+  <UL>
+    <LI><A 
+    href="http://www.oracle.com.cn/forumdisplay.php?fid=129">ORACLE官方信息发布</A></LI></UL></DD></DL>
+<DL>
+  <DT><A href="http://www.oracle.com.cn/index.php?gid=131">≡≡Oracle数据库管理≡≡</A>
+  <DD>
+  <UL>
+    <LI><A 
+    href="http://www.oracle.com.cn/forumdisplay.php?fid=78">Oracle安装/配置/入门</A>
+    <LI><A 
+    href="http://www.oracle.com.cn/forumdisplay.php?fid=79">Oracle结构与管理</A>
+    <LI><A 
+    href="http://www.oracle.com.cn/forumdisplay.php?fid=109">Oracle备份与恢复</A>
+    <LI class=current><A 
+    href="http://www.oracle.com.cn/forumdisplay.php?fid=3">Oracle调优与深入</A>
+    <LI><A 
+    href="http://www.oracle.com.cn/forumdisplay.php?fid=81">Oracle认证的专区</A>
+    <LI><A 
+href="http://www.oracle.com.cn/forumdisplay.php?fid=1">Oracle常见问题集</A>
+    <LI><A href="http://www.oracle.com.cn/forumdisplay.php?fid=29">Oracle 
+    新特性研究学习</A></LI></UL></DD></DL>
+<DL>
+  <DT><A href="http://www.oracle.com.cn/index.php?gid=132">≡≡Oracle开发应用≡≡</A>
+  <DD>
+  <UL>
+    <LI><A 
+href="http://www.oracle.com.cn/forumdisplay.php?fid=77">Oracle开发应用</A>
+    <LI><A href="http://www.oracle.com.cn/forumdisplay.php?fid=85">Oracle 
+ERP</A>
+    <LI><A href="http://www.oracle.com.cn/forumdisplay.php?fid=14">Oracle 
+    Application Server</A>
+    <LI><A href="http://www.oracle.com.cn/forumdisplay.php?fid=9">Oracle 
+数据仓库</A>
+    <LI><A 
+    href="http://www.oracle.com.cn/forumdisplay.php?fid=28">Oracle相关第三方工具</A></LI></UL></DD></DL>
+<DL>
+  <DT><A href="http://www.oracle.com.cn/index.php?gid=133">≡≡操作系统平台和其他数据库≡≡</A>
+  <DD>
+  <UL>
+    <LI><A href="http://www.oracle.com.cn/forumdisplay.php?fid=119">操作系统平台</A>
+    <LI><A 
+    href="http://www.oracle.com.cn/forumdisplay.php?fid=120">其他数据库技术交流</A></LI></UL></DD></DL>
+<DL>
+  <DT><A href="http://www.oracle.com.cn/index.php?gid=134">≡≡CNOUG会员服务区≡≡</A>
+  <DD>
+  <UL>
+    <LI><A 
+    href="http://www.oracle.com.cn/forumdisplay.php?fid=125">CNOUG资料交流区</A>
+    <LI><A 
+    href="http://www.oracle.com.cn/forumdisplay.php?fid=124">站务管理区</A></LI></UL></DD></DL>
+<DL>
+  <DT><A href="http://www.oracle.com.cn/index.php?gid=135">≡≡会员交流专区≡≡</A>
+  <DD>
+  <UL>
+    <LI><A 
+href="http://www.oracle.com.cn/forumdisplay.php?fid=96">Oracle洋话连篇</A>
+    <LI><A href="http://www.oracle.com.cn/forumdisplay.php?fid=108">CNOUG猎头网</A>
+    <LI><A 
+    href="http://www.oracle.com.cn/forumdisplay.php?fid=89">招聘自荐和商务广告区</A></LI></UL></DD></DL>
+<DL>
+  <DT><A href="http://www.oracle.com.cn/index.php?gid=136">≡≡论坛管理专区≡≡</A>
+  <DD>
+  <UL></UL></DD></DL></DIV>
+<SCRIPT type=text/javascript>
+var maxpage = 1;
+if(maxpage > 1) {
+	document.onkeyup = function(e){
+		e = e ? e : window.event;
+		var tagname = is_ie ? e.srcElement.tagName : e.target.tagName;
+		if(tagname == 'INPUT' || tagname == 'TEXTAREA') return;
+		actualCode = e.keyCode ? e.keyCode : e.charCode;
+					}
+}
+</SCRIPT>
+</DIV>
+<DIV id=ad_footerbanner1></DIV>
+<DIV id=ad_footerbanner2></DIV>
+<DIV id=ad_footerbanner3></DIV>
+<DIV id=footer>
+<DIV class=wrap>
+<DIV id=footlinks>
+<P>当前时区 GMT+8, 现在时间是 2008-11-30 00:50 <A href="http://www.miibeian.gov.cn/" 
+target=_blank>沪ICP备06036178号</A></P>
+<P><A 
+href="http://www.oracle.com.cn/member.php?action=clearcookies&amp;formhash=d79dbb56">清除 
+Cookies</A> - <A href="mailto:admin@oracle.com.cn">联系我们</A> - <A 
+href="http://www.oracle.com.cn/" target=_blank>ORACLE中国用户组</A> - <A 
+href="http://www.oracle.com.cn/archiver/" target=_blank>Archiver</A> - <A 
+href="http://www.oracle.com.cn/wap/" target=_blank>WAP</A> - <SPAN 
+class=scrolltop onclick=window.scrollTo(0,0);>TOP</SPAN> </P></DIV><A 
+title="Powered by Discuz!" href="http://www.discuz.net/" target=_blank><IMG 
+alt=Discuz! 
+src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/discuz_icon.gif" 
+border=0></A> 
+<P id=copyright>Powered by <STRONG><A href="http://www.discuz.net/" 
+target=_blank>Discuz!</A></STRONG> <EM>6.0.0</EM> &copy; 2001-2007 <A 
+href="http://www.comsenz.com/" target=_blank>Comsenz Inc.</A> </P></DIV></DIV>
+<DIV id=ad_none style="DISPLAY: none">
+<DIV id=ad_headerbanner_none>
+<SCRIPT type=text/javascript><!--
+google_ad_client = "pub-4969034578645448";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "text_image";
+google_ad_channel = "";
+//--></SCRIPT>
+
+<SCRIPT 
+src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+</DIV>
+<DIV class=ad_textlink1 id=ad_thread1_0_none></DIV>
+<DIV class=ad_textlink2 id=ad_thread2_0_none></DIV>
+<DIV class=ad_pip id=ad_thread3_0_none></DIV>
+<DIV class=ad_column id=ad_interthread_none></DIV>
+<DIV class=ad_footerbanner id=ad_footerbanner1_none></DIV>
+<DIV class=ad_footerbanner id=ad_footerbanner2_none></DIV>
+<DIV class=ad_footerbanner id=ad_footerbanner3_none></DIV></DIV>
+<SCRIPT type=text/javascript>
+	var insenz_status = 1;
+	var insenz_availableadvs = {'headerbanner' : '1', 'thread3_0' : '2', 'thread2_0' : '3', 'thread1_0' : '4', 'interthread' : '5', 'footerbanner1' : '6', 'footerbanner2' : '7', 'footerbanner3' : '8'};
+	var insenz_adkeys = [2,3,4,5];
+	var ad_divs = $('ad_none').getElementsByTagName('div');
+	var insenz_cookie = document.cookie.indexOf('insenz_cookie') == -1 ? null : getcookie('insenz_cookie');
+	var ad_obj = null;
+
+	if(!insenz_status || insenz_cookie) {
+		for(var i = 0; i < ad_divs.length; i++) {
+			if(ad_divs[i].id.substr(0, 3) == 'ad_' && (ad_obj = $(ad_divs[i].id.substr(0, ad_divs[i].id.length - 5))) && ad_divs[i].innerHTML) {
+				if(insenz_cookie) {
+					re = new RegExp(insenz_availableadvs[ad_divs[i].id.substr(3, ad_divs[i].id.length - 8)] + "\:(0" + "|" + gid + "|" + fid + ")", "ig");
+					if(re.exec(insenz_cookie) != null) continue;
+				}
+				ad_obj.innerHTML = ad_divs[i].innerHTML;
+				ad_obj.className = ad_divs[i].className;
+			}
+		}
+	}
+</SCRIPT>
+
+<SCRIPT 
+src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/adv.htm" 
+type=text/javascript charset=UTF-8></SCRIPT>
+
+<SCRIPT type=text/javascript>
+	if(insenz_status) {
+		if(typeof insenz_usedadkeys != 'undefined' && typeof insenz_advs != 'undefined' && insenz_usedadkeys.length && insenz_advs.length) {
+			insenz_cookie = '';
+			for(var j in insenz_advs) {
+				for(var k in insenz_advs[j]) {
+					insenz_cookie += j + ':' + k + 'D';
+				}
+			}
+			setcookie('insenz_cookie', insenz_cookie, 86400);
+		} else {
+			insenz_cookie = 1;
+			setcookie('insenz_cookie', '', -86400);
+			var insenz_usedadkeys = new Array();
+		}
+		if(insenz_cookie) {
+			for(var i = 0; i < ad_divs.length; i++) {
+				if(ad_divs[i].id.substr(0, 3) == 'ad_' && (ad_obj = $(ad_divs[i].id.substr(0, ad_divs[i].id.length - 5))) && ad_divs[i].innerHTML && !in_array(insenz_availableadvs[ad_divs[i].id.substr(3, ad_divs[i].id.length - 8)], insenz_usedadkeys)) {
+					ad_obj.innerHTML = ad_divs[i].innerHTML;
+					ad_obj.className = ad_divs[i].className;
+				}
+			}
+		}
+	}
+	$('ad_none').parentNode.removeChild($('ad_none'));
+</SCRIPT>
+
+<SCRIPT src="请教大表设计原则？？ - Oracle调优与深入 - CNOUG - Powered by Discuz!.files/msn.js" 
+type=text/javascript></SCRIPT>
+</BODY></HTML>

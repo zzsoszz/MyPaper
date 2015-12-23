@@ -1,0 +1,132 @@
+#container {
+	MARGIN: 10px auto; WIDTH: 100%
+}
+#top {
+	PADDING-RIGHT: 0.5em; PADDING-LEFT: 0.5em; PADDING-BOTTOM: 0.5em; PADDING-TOP: 0.5em
+}
+#tabs {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 50px; FONT-WEIGHT: normal; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#tabs UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; WHITE-SPACE: nowrap
+}
+#tabs LI {
+	DISPLAY: inline; LIST-STYLE-TYPE: none
+}
+#tabs A {
+	BORDER-RIGHT: #000 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #000 1px solid; PADDING-LEFT: 10px; FONT-WEIGHT: normal; PADDING-BOTTOM: 0px; BORDER-LEFT: #000 1px solid; PADDING-TOP: 4px; BORDER-BOTTOM: #000 1px solid; moz-border-radius-topleft: 6px; khtml-border-top-left-radius: 6px; webkit-border-top-left-radius: 6px; border-top-left-radius: 6px; moz-border-radius-topright: 6px; khtml-border-top-right-radius: 6px; webkit-border-top-right-radius: 6px; border-top-right-radius: 6px
+}
+#tabs A:link {
+	COLOR: #000; TEXT-DECORATION: none
+}
+#tabs A:visited {
+	COLOR: #000; TEXT-DECORATION: none
+}
+#tabs A:hover {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; COLOR: #fff; PADDING-TOP: 4px; BORDER-BOTTOM: #000 1px solid; BACKGROUND-COLOR: #000; TEXT-DECORATION: none
+}
+#tabs A.active:link {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; COLOR: #fff; PADDING-TOP: 4px; BORDER-BOTTOM: #000 1px solid; BACKGROUND-COLOR: #000; TEXT-DECORATION: none
+}
+#tabs A.active:visited {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; COLOR: #fff; PADDING-TOP: 4px; BORDER-BOTTOM: #000 1px solid; BACKGROUND-COLOR: #000; TEXT-DECORATION: none
+}
+#subtabs {
+	BORDER-RIGHT: #000 1px solid; PADDING-RIGHT: 20px; BORDER-TOP: #000 1px solid; PADDING-LEFT: 20px; PADDING-BOTTOM: 2px; BORDER-LEFT: #000 1px solid; COLOR: #fff; PADDING-TOP: 2px; BORDER-BOTTOM: medium none; BACKGROUND-COLOR: #000; TEXT-ALIGN: left; moz-border-radius-topleft: 6px; khtml-border-top-left-radius: 6px; webkit-border-top-left-radius: 6px; border-top-left-radius: 6px; moz-border-radius-topright: 6px; khtml-border-top-right-radius: 6px; webkit-border-top-right-radius: 6px; border-top-right-radius: 6px
+}
+#subtabs A {
+	COLOR: #fff
+}
+.activesubtab {
+	COLOR: #fff
+}
+#breadcrumbs {
+	BORDER-RIGHT: #000 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: medium none; PADDING-LEFT: 10px; FONT-WEIGHT: normal; PADDING-BOTTOM: 0px; BORDER-LEFT: #000 1px solid; COLOR: #000; PADDING-TOP: 0px; BORDER-BOTTOM: medium none; BACKGROUND-COLOR: #fff
+}
+#breadcrumbs FORM {
+	FLOAT: right
+}
+#content {
+	BORDER-RIGHT: #000 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #000 1px dotted; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; BORDER-LEFT: #000 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: #000 1px solid; BACKGROUND-COLOR: #fff; moz-border-radius-bottomleft: 6px; khtml-border-bottom-left-radius: 6px; webkit-border-bottom-left-radius: 6px; border-bottom-left-radius: 6px; moz-border-radius-bottomright: 6px; khtml-border-bottom-right-radius: 6px; webkit-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px
+}
+#footer {
+	CLEAR: both; PADDING-RIGHT: 0.5em; PADDING-LEFT: 0.5em; PADDING-BOTTOM: 0.5em; MARGIN: 0px; PADDING-TOP: 0.5em
+}
+#footer A.subtle {
+	FONT-SIZE: 8pt
+}
+BODY {
+	MARGIN-TOP: 0px; FONT-SIZE: 10pt; COLOR: #000; FONT-FAMILY: arial,serif; BACKGROUND-COLOR: #fff
+}
+PRE {
+	BORDER-RIGHT: #000 1px solid; BORDER-TOP: #000 1px solid; BORDER-LEFT: #000 1px solid; COLOR: #000; BORDER-BOTTOM: #000 1px solid; BACKGROUND-COLOR: #fff
+}
+A {
+	COLOR: #000
+}
+A:visited {
+	COLOR: #000
+}
+A IMG {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none
+}
+TD.line {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 1px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; BACKGROUND-COLOR: #000; border-spacing: 0px
+}
+TD.border_bottom {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 1px; PADDING-BOTTOM: 0px; WIDTH: 100%; PADDING-TOP: 0px; BORDER-BOTTOM: #000 1px dotted; HEIGHT: 1px
+}
+TD.border_top {
+	PADDING-RIGHT: 0px; BORDER-TOP: #000 1px dotted; PADDING-LEFT: 0px; FONT-SIZE: 1px; PADDING-BOTTOM: 0px; WIDTH: 100%; PADDING-TOP: 0px; HEIGHT: 1px
+}
+TD.border_left {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 1px; PADDING-BOTTOM: 0px; BORDER-LEFT: #000 1px dotted; WIDTH: 100%; PADDING-TOP: 0px; HEIGHT: 1px
+}
+.title {
+	FONT-WEIGHT: bold; FONT-SIZE: 12pt; COLOR: #000; BACKGROUND-COLOR: #fff; TEXT-DECORATION: none
+}
+.title:hover {
+	FONT-WEIGHT: bold; FONT-SIZE: 12pt; COLOR: #000; BACKGROUND-COLOR: #fff; TEXT-DECORATION: none
+}
+.title:visited {
+	FONT-WEIGHT: bold; FONT-SIZE: 12pt; COLOR: #000; BACKGROUND-COLOR: #fff; TEXT-DECORATION: none
+}
+.center {
+	TEXT-ALIGN: center
+}
+INPUT.small {
+	FONT-SIZE: 8pt; BACKGROUND-COLOR: #fff
+}
+INPUT.smallbtn {
+	FONT-SIZE: 8pt; BACKGROUND-COLOR: #c0c0c0
+}
+A.small {
+	FONT-SIZE: 8pt; TEXT-DECORATION: underline
+}
+TD.small {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 8pt; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; TEXT-ALIGN: left; border-spacing: 0px
+}
+TD.colname {
+	FONT-WEIGHT: bold; COLOR: #fff; BACKGROUND-COLOR: #888
+}
+TD.collight {
+	BACKGROUND-COLOR: #f1f1f1
+}
+H1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 16pt
+}
+H2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12pt
+}
+H3 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10pt
+}
+H4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt
+}
+H5 {
+	FONT-WEIGHT: bold; FONT-SIZE: 6pt
+}
+.searchform {
+	BORDER-RIGHT: #c0c0c0 1px solid; BORDER-TOP: #c0c0c0 1px solid; BORDER-LEFT: #c0c0c0 1px solid; BORDER-BOTTOM: #c0c0c0 1px solid
+}
