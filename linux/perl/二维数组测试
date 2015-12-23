@@ -1,0 +1,41 @@
+#! /usr/bin/perl
+#two dim array test
+print "hello\n";
+@array=([44,11],[5,7,8],[99,22],[4]);
+print "\@array[0]:".@array[0]."\n";
+print "array:".array."\n";
+print "\@array:".@array."\n"; #4
+print "\$array:".$array."\n";#no value
+print "\${\@array}:".${@array}."\n";#no value
+print "\$\#array:".$#array."\n";#3
+#print "test4:".$@array;#error
+print "\$array[0]:".$array[0]."\n";#reference
+print "\$array[0][0]:".$array[0][0]."\n";#44
+print "\$\@{\$array[0]}:".$@{$array[0]}."\n";#no value
+print "the first way:\n";
+for $row (@array)
+{
+	print "@$row\n";
+}
+print "the second way:\n";
+for $i (0..$#array)
+{
+	print "i wei $i\n";
+	for $j (0..$#{$array[$i]})
+	{
+		print $array[$i][$j];
+	}
+}
+print "\nthe third way:\n";
+for $i (0..$#array)
+{
+	print "i wei :$i\n";
+	print "test".$@{array};
+	for $j (0..$@{$row})
+	{
+		print "$row->[$j]";
+	}
+}
+print "\n";
+
+

@@ -1,0 +1,27 @@
+复制文件
+find /u01/tomcat-hotel/tomcat5.0.28/webapps/hotel/ -name *.config    -print |xargs cp -t  /u01/tomcat-hotel/tomcat5.0.28/webapps/hotel/
+
+find /u01/tomcat-hotel/tomcat5.0.28/webapps/hotel/ -name *.config    -print |xargs cp -t  /u01/tomcat-hotel/tomcat5.0.28/webapps/hotel/WEB-INF/classes/
+
+fdisk 查看硬盘
+mount -t vfat /dev/hda1 /mnt 将指定的设备挂载到目录
+df -H 查看挂载到目录的设备
+
+配置网卡
+/etc/sysconfig/network-scripts/ifconfig-eth0
+bootroro=static
+ipaddr=192.168.1.10
+netmask=255.255.255.0
+service network restart
+
+rpm 安装
+rpm -ivh samba*.rpm 批量安装
+rpm -qa 查看安装好的rpm
+
+
+
+昨天发给你了啊
+然后加一个压缩的命令就可以了
+wget -P /mnt/bakdata/wwwroot/skyey -nH -m --ftp-user=b --ftp-password=a ftp://www.skyey.com.cn/htdocs/*
+rq=` date +%Y%m%d `
+tar zcvf /mnt/bakdata/wwwroot/skyey/skyey$rq.tar.gz /mnt/bakdata/wwwroot/skyey

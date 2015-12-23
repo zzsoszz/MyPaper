@@ -1,0 +1,43 @@
+需要访问的地址
+https://api.test.lohoo.com/rest?format=json&method=hotel.order.create&user=Agent1419328190&timestamp=1431588112&signature=6a4dc4a7d8b4278b5fc2db016ce59f60&data=%7B%22Local%22%3A%22zh_CN%22%2C%22Request%22%3A%7B%22AffiliateConfirmationId%22%3A%22424715236633743360%22%2C%22ArrivalDate%22%3A%222015-05-14+00%3A00%3A00%22%2C%22ConfirmationType%22%3A%22NotAllowedConfirm%22%2C%22Contact%22%3A%7B%22Mobile%22%3A%2213800000000%22%2C%22Name%22%3A%22%E6%B5%8B%E8%AF%95%E8%81%94%E7%B3%BB%E4%BA%BA%22%7D%2C%22CurrencyCode%22%3A%22RMB%22%2C%22CustomerIPAddress%22%3A%22119.254.84.180%22%2C%22CustomerType%22%3A%22All%22%2C%22DepartureDate%22%3A%222015-05-16+00%3A00%3A00%22%2C%22EarliestArrivalTime%22%3A%222015-05-14+17%3A00%3A00%22%2C%22HotelId%22%3A%2250801060%22%2C%22IsForceGuarantee%22%3Afalse%2C%22IsGuaranteeOrCharged%22%3Afalse%2C%22IsNeedInvoice%22%3Afalse%2C%22IsNewPaymentFlow%22%3Afalse%2C%22LatestArrivalTime%22%3A%222015-05-14+20%3A00%3A00%22%2C%22NoteToElong%22%3A%22%22%2C%22NumberOfCustomers%22%3A1%2C%22NumberOfRooms%22%3A1%2C%22OrderRooms%22%3A%5B%7B%22Customers%22%3A%5B%7B%22Mobile%22%3A%2213800000000%22%2C%22Name%22%3A%22%E6%B5%8B%E5%85%A5%E4%BD%8F%E4%BA%BA%E5%95%8A%22%2C%22Nationality%22%3A%22%E4%B8%AD%E5%9B%BD%22%7D%5D%7D%5D%2C%22PaymentType%22%3A%22SelfPay%22%2C%22RatePlanId%22%3A168124%2C%22RoomTypeId%22%3A%220001%22%2C%22TotalPrice%22%3A4256%7D%2C%22Version%22%3A1.1%7D
+
+
+curl -v -G  -k  -o ddd.html  https://api.test.lohoo.com/rest  -d "format=json&method=hotel.order.create&user=Agent1419328190&timestamp=1431588112&signature=6a4dc4a7d8b4278b5fc2db016ce59f60&data=%7B%22Local%22%3A%22zh_CN%22%2C%22Request%22%3A%7B%22AffiliateConfirmationId%22%3A%22424715236633743360%22%2C%22ArrivalDate%22%3A%222015-05-14+00%3A00%3A00%22%2C%22ConfirmationType%22%3A%22NotAllowedConfirm%22%2C%22Contact%22%3A%7B%22Mobile%22%3A%2213800000000%22%2C%22Name%22%3A%22%E6%B5%8B%E8%AF%95%E8%81%94%E7%B3%BB%E4%BA%BA%22%7D%2C%22CurrencyCode%22%3A%22RMB%22%2C%22CustomerIPAddress%22%3A%22119.254.84.180%22%2C%22CustomerType%22%3A%22All%22%2C%22DepartureDate%22%3A%222015-05-16+00%3A00%3A00%22%2C%22EarliestArrivalTime%22%3A%222015-05-14+17%3A00%3A00%22%2C%22HotelId%22%3A%2250801060%22%2C%22IsForceGuarantee%22%3Afalse%2C%22IsGuaranteeOrCharged%22%3Afalse%2C%22IsNeedInvoice%22%3Afalse%2C%22IsNewPaymentFlow%22%3Afalse%2C%22LatestArrivalTime%22%3A%222015-05-14+20%3A00%3A00%22%2C%22NoteToElong%22%3A%22%22%2C%22NumberOfCustomers%22%3A1%2C%22NumberOfRooms%22%3A1%2C%22OrderRooms%22%3A%5B%7B%22Customers%22%3A%5B%7B%22Mobile%22%3A%2213800000000%22%2C%22Name%22%3A%22%E6%B5%8B%E5%85%A5%E4%BD%8F%E4%BA%BA%E5%95%8A%22%2C%22Nationality%22%3A%22%E4%B8%AD%E5%9B%BD%22%7D%5D%7D%5D%2C%22PaymentType%22%3A%22SelfPay%22%2C%22RatePlanId%22%3A168124%2C%22RoomTypeId%22%3A%220001%22%2C%22TotalPrice%22%3A4256%7D%2C%22Version%22%3A1.1%7D"
+
+
+需要访问的地址
+http://api.test.lohoo.com/rest?format=json&method=hotel.detail&user=Agent1419328190&timestamp=1431588112&signature=44594032de358d647792452553b0420f&data=%7B%22Version%22%3A1.1%2C%22Local%22%3A%22zh_CN%22%2C%22Request%22%3A%7B%22ArrivalDate%22%3A%222015-05-14+00%3A00%3A00%22%2C%22DepartureDate%22%3A%222015-05-16+00%3A00%3A00%22%2C%22HotelIds%22%3A%2250801060%22%2C%22RoomTypeId%22%3Anull%2C%22RatePlanId%22%3A0%2C%22PaymentType%22%3Anull%2C%22Options%22%3A%221%2C2%2C3%2C4%22%7D%7D
+
+curl  -v -G   -o fff.html http://api.test.lohoo.com/rest -d "format=json&method=hotel.detail&user=Agent1419328190&timestamp=1431588112&signature=44594032de358d647792452553b0420f&data=%7B%22Version%22%3A1.1%2C%22Local%22%3A%22zh_CN%22%2C%22Request%22%3A%7B%22ArrivalDate%22%3A%222015-05-14+00%3A00%3A00%22%2C%22DepartureDate%22%3A%222015-05-16+00%3A00%3A00%22%2C%22HotelIds%22%3A%2250801060%22%2C%22RoomTypeId%22%3Anull%2C%22RatePlanId%22%3A0%2C%22PaymentType%22%3Anull%2C%22Options%22%3A%221%2C2%2C3%2C4%22%7D%7D"
+
+
+
+
+
+
+iftop -N -n -i  em3
+
+
+
+有时候我们客户会发现服务器或 VPS 网络慢，进一步发现大量带宽被占用，一些客户到这里为止就不知道怎么办了。有什么简单办法能找出哪个程序（或者进程）占用了带宽呢？Linux 监控流量的小工具不少，如 iftop, iptraf, ifstat, darkstat, bwm-ng, vnstat 等，大都是统计和监控网卡流量的。今天介绍的 NetHogs 有点特别，可以监控每个进程的网络带宽占用情况。
+
+在 Ubuntu/Debian 上安装 nethogs：
+
+?
+1
+$ sudo apt-get install nethogs
+在 CentOS/RHEL 上安装 nethogs：
+
+?
+1
+# yum install nethogs
+运行nethogs:
+
+?
+1
+2
+3
+# nethogs （默认监控eth0）
+# nethogs eth0 (有多个网卡时需要制定监控哪个)
+# nethogs eth0 eth1 (可以监控多个)
+

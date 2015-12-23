@@ -1,0 +1,64 @@
+使用java做web开发,因为服务器上开着多个tomcat,每次需要重复执行下面错误
+ ps aux | grep tomcat
+ 找到自己tomcat的进行号
+ 然后执行kill -9 进程号
+ 来杀死我们的tomcat
+ 
+其实我们可以使用下面的脚本kill掉我们当前目录下的tomcat
+ (大家根据实际情况,使用grep过滤自己的进程号)
+ #!/bin/bash
+#kill掉当前目录下的tomcat
+CURDIR=`pwd`
+echo "kill $CURDIR/tomcat"
+ps aux|grep $CURDIR/tomcat|grep startup|awk '{print $2}'|xargs kill -9
+
+
+ps aux|grep tomcat-hotel|grep startup|awk '{print $2}'|xargs kill -9
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+安全杀死TOMCAT进程的Linux Shell脚本
+
+安全杀死TOMCAT进程的Linux Shell脚本，由于此脚本里面用到了很多不错的脚本编程技巧，在此分享给大家；
+ 
+#
+ # Firstly find the process of the tomcat....
+ TOMCAT_PROCESS_STR=`ps aux | grep 'java.*tomcat' | grep -v grep`
+ PROCESS_ARRAY=(${TOMCAT_PROCESS_STR// / })
+ TOMCAT_PROCESS_ID=${PROCESS_ARRAY[1]}
+ echo $TOMCAT_PROCESS_ID
+ #
+ # Secondly send stop tomcat to see if we can kill it
+ stoptomcat
+ 
+sleep 12
+ #
+ # Last we'll use kill tomcat process in a looking up loop
+ for ((a=1;a<=100;a++))
+ do
+   CHECK_STR_LENGTH=0
+   TOMCAT_PROCESS_CHECK_STR=`ps aux | grep 'java.*tomcat' | grep -v grep`
+   CHECK_STR_LENGTH=${#TOMCAT_PROCESS_CHECK_STR}
+   if [ $CHECK_STR_LENGTH != 0 ]
+   then
+     kill $TOMCAT_PROCESS_ID
+     sleep 5
+     echo Try to kill tomcat once more...
+   else
+     echo Tomcat is already killed
+     break
+   fi
+ done

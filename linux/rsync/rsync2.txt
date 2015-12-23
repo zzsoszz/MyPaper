@@ -1,0 +1,129 @@
+rsync -avzP  --delete  --password-file=rsyncd.secrets   terry@192.168.1.101::terry  aaa
+
+rsync --daemon --config /etc/rsyncd.conf
+
+rm -rf /var/run/rsync*
+
+vi /etc/xinetd.d/rsync
+
+ps -ef | grep rsync
+
+
+180
+rsync -avzP  --delete  --password-file=/etc/rsyncd.secrets   terry@192.168.1.101::terry  aaa
+rsync -avzP  --delete     test@192.168.1.101::u01  aaa
+rsync -avzP  --delete     test@192.168.1.101::u01/tomcat-portal  aaa
+
+
+解决Rsync ERROR: auth failed on module【转】
+解决Rsync ERROR: auth failed on module【转】
+http://www.blogjava.net/xiaomage234/archive/2011/12/02/365365.html
+
+Rsync、Unison及DRBD的比较
+http://zhumeng8337797.blog.163.com/blog/static/10076891420119173159218/
+
+RSync实现文件备份同步 
+http://www.cnblogs.com/itech/archive/2009/08/10/1542945.html
+
+rsync -vzrtopg --progress --password-file=/etc/rsyncd.secrets /opt/software/* rsyncuser@192.168.1.34::optsoftware
+
+rsync -vazu --progress  –delete  –password-file=/etc/rsync.secret terry@192.168.1.101::terry /home
+
+centos搭建rsync服务!
+http://www.kankanews.com/ICkengine/archives/23854.shtml
+
+
+
+xinetd管理的服务和在CentOS 5.5中配置telnet服务器的实例 
+http://blog.csdn.net/flagonxia/article/details/6124082
+
+
+
+yum install xinetd
+step 1：安装telnet服务端程序
+
+[root@patrick etc]yum install telnet*
+
+ 
+[root@patrick etc] rpm -qa | grep telnet
+ 
+telnet-0.17-39.el5
+telnet-server-0.17-39.el5
+
+
+
+------------------------------------------------------------
+rsync 安装使用详解 
+http://sookk8.blog.51cto.com/455855/328076
+RSYNC软件介绍：
+ rsync是类unix系统下的数据镜像备份工具，从软件的命名上就可以看出来了——remote sync。它的特性如下：
+ 可以镜像保存整个目录树和文件系统。
+ 可以很容易做到保持原来文件的权限、时间、软硬链接等等。
+ 无须特殊权限即可安装。
+ 优化的流程，文件传输效率高。
+ 可以使用rcp、ssh等方式来传输文件，当然也可以通过直接的socket连接。
+ 支持匿名传输，以方便进行网站镜象。
+ 软件下载
+ rysnc的主页地址为：
+ http://rsync.samba.org/
+ 目前最新版本为2.4.6。可以选择从原始网站下载：
+ http://rsync.samba.org/ftp/rsync/
+ 。也可以选择从本站下载：rsync 2.4.6
+ 
+
+一、下载、安装rsync
+ #tar zxvf rsync-2.6.9.tar.gz
+ #cd rsync-2.6.9
+ #./configure --prefix=/usr/local/rsync
+ #make 
+ #make install 
+ **** 正常安装RH的时候是带RSYNC的，运行文件放在/usr/bin/rsync 
+ 二、配置rsync server
+ 
+1、启动RSYNC
+	 #vi /etc/xinetd.d/rsync
+	   把原来的YES改成NO
+	 service rsync
+	 {
+			 disable = no
+			 socket_type     = stream
+			 wait            = no
+			 user            = root
+			 server          = /usr/bin/rsync
+			 server_args     = --daemon
+			 log_on_failure  += USERID
+	 }
+	 随系统启动RSYNC
+	 #chkconfig rsync on
+	  
+	  
+	
+vi /etc/rsyncd.conf
+
+uid = root
+gid = root
+use chroot = no
+max connections = 4
+strict modes =yes 
+port = 873
+
+[backup]
+path = /home/backup/ 
+comment = This is a test 
+ignore errors
+read only = yes
+list = no
+auth users = hening
+secrets file = /etc/rsync.pas
+hosts allow = 192.168.1.1,10.10.10.10
+hosts deny = 0.0.0.0/0
+#transfer logging = yes
+
+
+
+
+
+
+
+#/usr/bin/rsync –daemon
+

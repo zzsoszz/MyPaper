@@ -1,0 +1,4 @@
+ksh为数组赋值
+set -A name value1 value2 ..
+bash为数组赋值
+name=(value1,value2..)

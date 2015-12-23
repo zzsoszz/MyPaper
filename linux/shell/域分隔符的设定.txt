@@ -1,0 +1,2 @@
+IFS变量
+set | grep IFS 可以进行查看

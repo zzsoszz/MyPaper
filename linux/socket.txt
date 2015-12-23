@@ -1,0 +1,2 @@
+write 相当于 send
+read  相当于 recv

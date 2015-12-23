@@ -1,0 +1,305 @@
+定散列
+shell:没有
+awk:没有
+perl:
+%HoA = (
+flintstones    => [ "fred", "barney" ],
+jetsons   => [ "george", "jane", "elroy" ],
+simpsons   => [ "homer", "marge", "bart" ],
+);
+访问散列
+shell:没有
+awk:没有
+perl:
+$HoA{teletubbies} = [ "tinky winky", "dipsy", "laa-laa", "po" ];
+$HoA{teletubbies}[0] = "Fred"; 
+定义变量
+shell : a=0;
+awk   : a=0;
+perl  : $a=0;
+访问变量
+shell : $a;
+awk   : a;
+perl  : $a;
+定义数组
+shell : array=(value1,value2..);
+awk   :array[1]=1;array[2]=2; //多维数组的表示法array[i,j]
+perl  : @array=(value1,value2..);
+
+访问数组
+shell : ${array[index]};//访问数组的所有项${array[*]} 和${array[@]}
+awk   :array[index];
+perl  : $array[index]; //或者@array=qw /one two three/;
+      列子：
+数组最大脚标
+shell : $#array;//访问数组的所有项${array[*]} 和${array[@]}
+awk   :array[index];
+perl  : $#array;
+
+字符串连接符号
+shell:无    echo $0$1
+awk  :无    print $0$1
+perl :点句. print $0.$1
+每句语句后面必须有分号;
+shell :可以没有分号
+awk   :可以没有分号
+perl  : 必须有
+
+可以用``执行命令
+shell:可以
+awk :不可以 使用这种方式: "date" | getline today;
+perl  : 可以: print `date`    
+
+可以用$()执行命令
+shell:可以 $(date)         例如:  mkdir $(date +%y%m%d).tgz          ---071020.tgz
+awk  :不可以
+perl :不可以
+
+脚本传参数
+awk :可以
+perl:可以
+
+使用重定向符号>>
+shell:可以
+awk  :可以 "date" | getline today;
+perl :不可以，但是可以通过文件句柄
+
+使用管道符号
+shell:可以 cat * | grep haha
+awk  :可以  "date" | getline today;  与print "myawk run..."|"cat>>1.txt" ;
+perl :不可以，但是可以通过文件句柄
+
+
+$0的含义
+shell：第一个参数，当执行一个脚本时代表脚本文件名字
+awk  ：表示被分析文件的所有字段
+perl ：表示第一个参数
+
+if控制结构
+shell:
+          第一种：
+          if [ ];
+            then
+              执行命令
+            else 
+              执行命令
+          fi
+          第二种
+          多条件测试
+          if [ ];
+            then
+              执行命令
+            elif [];
+              then 
+              执行命令
+          fi
+awk:
+      if(3>2)
+      {
+        print 3;
+      }else
+      {
+         print 2;
+      }
+      
+      if(3>2)
+      {
+        print 3;
+      }else if(2>1)
+      {
+         print 2;
+      }else
+      {
+         print 1;
+      }
+perl:
+      if(3>2)
+      {
+        print 3;
+      }else if(2>1)
+      {
+         print 2;
+      }else
+      {
+         print 1;
+      }
+case控制结构
+shell:
+          case 值 in
+          模式1)
+            命令1
+            ...
+            ;;
+          模式2)
+            命令1
+            ...
+            ;;
+          esac
+     列子：
+          read var
+          case in
+            y|yes)
+            echo "yes";;
+            n|no)
+            echo "no";;
+          esac
+
+for循环控制语句
+shell:
+    for loop in 列表
+    do 
+          for loop in 列表
+          do 
+            echo $loop
+          done
+          echo $loop
+    done
+    列子：
+      给用户发邮件
+      for user in `who -u |awk '{print $1}'`
+      do 
+        mail $user<<hello
+        see you
+      done
+awk:
+    for(i=0;i<5;i++)
+    {
+      print 1;
+    }
+    for(var in array)
+    {
+      print array[var];
+    }
+perl:
+$sum = 0; foreach $value (@array) { $sum += $value }
+
+for $count (10,9,8,7,6,5,4,3,2,1,'BOOM') {  # 倒计时
+    print "$count\en"; sleep(1);
+}
+
+for (reverse 'BOOM', 1 .. 10) {             # 一样的东西
+    print "$_\en"; sleep(1);
+}
+
+for $field (split /:/, $data) {             # 任何 LIST 表达式
+    print "Field contains: `$field'\en";
+}
+for my $i (1 .. 10) { ... }   # $i总是在词法范围
+for our $Tick ( 1.. 10) { ...}   # $Tick 总是全局
+
+until循环控制语句
+shell:
+    until [ 为真是停止 ]
+    do
+      sleep 5
+    done
+
+while循环控制语句
+shell:
+    while 命令   //如果命令成功则为0，则执行循环
+    do
+        命令1
+        命令2
+        ...
+    done
+    列子：
+    saveifs=$IFS
+    IFS=:
+    while read name dept id
+    do 
+        echo -e "$name\t $dept\t $id"
+    done < file.txt
+    IFS=$saveifs
+     
+    死循环：
+    while :
+    do 
+        echo "hello.." 
+    done 
+awk:
+    i=1;
+    while(i<4)
+    {
+      print 1;
+      ++i;
+    }
+perl:
+    $i=1;
+    while($i<4)
+    {
+      print $i;
+      $i+=1;
+    }
+do while循环控制语句  
+do{
+  print 1;
+}while(4>1)    
+    
+break与continue控制语句
+    while :
+    do 
+        echo "hello.." 
+        break
+    done 
+    while :
+    do 
+        echo "hello.." 
+        continue
+    done 
+
+foreach循环
+shell:相似于for
+awk:相似于for
+perl:
+第一种：
+foreach $var (qw/bedrok slate java/)
+{
+  print $var;
+}
+
+foreach(1..10)
+{
+  print $_
+}
+foreach $key (sort keys %hash) {
+    print "$key => $hash{$key}\en";
+}
+函数的定义
+shell:
+第一种：
+functionname()
+{
+  echo $1$2 //获取参数 
+}
+第二种：
+function functionname()
+{
+  echo $1$2 //获取参数 
+}
+awk:
+function my(arg1,arg2...)
+{
+     print "test";
+    "date" |getline today;//将命令执行的结果输入管道，再获取
+    print today;
+}
+perl:
+sub max {
+        for $item (@_) {
+                print $item;
+        }
+        $arg1=$_[0];//也可以这样访问
+        $arg1=$_[1];
+}
+
+perl 特征：
+可以用shell包装awk
+$#days 返回数组最后一个元素的脚标
+@用户定义一个数组和引用数组
+[] 用户引用赋值
+()用于数组赋值
+$_默认变量
+awk 特征：
+可以用shell包装awk
+1.awk不可以执行``,awk 可以通过脚本传参数
+awk 可以执行文件重定向，

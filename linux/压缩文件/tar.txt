@@ -1,0 +1,23 @@
+tar 用户文件归档，并不压缩
+tar -cf all.tar file1 file2 dir1 dir2
+可以采用zip压缩
+tar -zcf all.tar file1 file2 dir1 dir2 #z为压缩，c为创建新文件
+如果归档的时候进行了压缩在查看或括档的时候也必须用压缩选项
+tar -ztvf all.tar #z为压缩，t为列表，v为详细信息，f为文件
+
+压缩一般采用三种方式
+bz2
+tar -jcf all.tar file1 file2 dir1 dir2 #z为压缩，c为创建新文件,j为bz2
+gzip
+tar -zcf all.tar file1 file2 dir1 dir2 #z为压缩，c为创建新文件,z为gzip
+tar -zcf tomcat.tar.gz tomcat  #rar可以打开
+compress 
+tar -Zcf all.tar file1 file2 dir1 dir2 #z为压缩，c为创建新文件,z为compress
+解压
+bz2
+tar -jxf all.tar -C dest #z为压缩，c为创建新文件,j为bz2
+gzip
+tar -zxf all.tar -C dest #z为压缩，c为创建新文件,z为gzip
+tar -zxf tomcat2.tar.gz
+compress 
+tar -Zxf all.tar -C dest #z为压缩，c为创建新文件,z为compress

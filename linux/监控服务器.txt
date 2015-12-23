@@ -1,0 +1,537 @@
+2012CSDN博客之星火热出炉！      2013年全国百所高校巡讲讲师招募 
+
+编写Shell脚本监测服务器状态 
+.
+ 分类： LINUX2012-09-22 21:45341人阅读评论(0)收藏举报
+
+
+http://jiayf.blog.51cto.com/1659430/330316
+ 
+
+　利用Shell脚本来监控Linux系统的负载、CPU、内存、硬盘、用户登录数。
+ 
+　　这几天在学习研究shell脚本，写的一些系统负载、CPU、内存、硬盘、用户数监控脚本程序。在没有nagios监控的情况下，只要服务器能上互联网，就可通过发邮件的方式来提醒管理员系统资源的使用情况。
+ 
+一、编写linux系统告警邮件脚本
+ # vim /scripts/sys-warning.sh#!/bin/bash
+#监控系统负载与CPU、内存、硬盘、登录用户数，超出警戒值则发邮件告警。
+
+#提取本服务器的IP地址信息
+IP=`ifconfig eth0 | grep "inet addr" | cut -f 2 -d ":" | cut -f 1 -d " "`
+
+# 1、监控系统负载的变化情况，超出时发邮件告警：
+
+#抓取cpu的总核数
+cpu_num=`grep -c 'model name' /proc/cpuinfo`
+
+#抓取当前系统15分钟的平均负载值
+load_15=`uptime | awk '{print $12}'`
+
+#计算当前系统单个核心15分钟的平均负载值，结果小于1.0时前面个位数补0。
+average_load=`echo "scale=2;a=$load_15/$cpu_num;if(length(a)==scale(a)) print 0;print a" | bc`
+
+#取上面平均负载值的个位整数
+average_int=`echo $average_load | cut -f 1 -d "."`
+
+#设置系统单个核心15分钟的平均负载的告警值为0.70(即使用超过70%的时候告警)。
+load_warn=0.70
+
+#当单个核心15分钟的平均负载值大于等于1.0（即个位整数大于0） ，直接发邮件告警；如果小于1.0则进行二次比较
+if (($average_int > 0)); then
+echo "$IP服务器15分钟的系统平均负载为$average_load，超过警戒值1.0，请立即处理！！！" | mutt -s "$IP 服务器系统负载严重告警！！！" test@126.com
+else
+
+#当前系统15分钟平均负载值与告警值进行比较（当大于告警值0.70时会返回1，小于时会返回0 ）
+load_now=`expr $average_load \> $load_warn`
+
+#如果系统单个核心15分钟的平均负载值大于告警值0.70（返回值为1），则发邮件给管理员
+if (($load_now == 1)); then
+echo "$IP服务器15分钟的系统平均负载达到 $average_load，超过警戒值0.70，请及时处理。" | mutt -s "$IP 服务器系统负载告警" test@126.com
+fi
+
+fi
+
+# 2、监控系统cpu的情况，当使用超过80%的时候发告警邮件：
+
+#取当前空闲cpu百份比值（只取整数部分）
+cpu_idle=`top -b -n 1 | grep Cpu | awk '{print $5}' | cut -f 1 -d "."`
+
+#设置空闲cpu的告警值为20%，如果当前cpu使用超过80%（即剩余小于20%），立即发邮件告警
+if (($cpu_idle < 20)); then
+echo "$IP服务器cpu剩余$cpu_idle%，使用率已经超过80%，请及时处理。" | mutt -s "$IP 服务器CPU告警" test@126.com
+fi
+
+# 3、监控系统交换分区swap的情况，当使用超过80%的时候发告警邮件：
+
+#系统分配的交换分区总量
+swap_total=`free -m | grep Swap | awk '{print $2}'`
+
+#当前剩余的交换分区free大小
+swap_free=`free -m | grep Swap | awk '{print $4}'`
+
+#当前已使用的交换分区used大小
+swap_used=`free -m | grep Swap | awk '{print $3}'`
+
+if (($swap_used != 0)); then
+#如果交换分区已被使用，则计算当前剩余交换分区free所占总量的百分比，用小数来表示，要在小数点前面补一个整数位0
+swap_per=0`echo "scale=2;$swap_free/$swap_total" | bc`
+
+#设置交换分区的告警值为20%(即使用超过80%的时候告警)。
+swap_warn=0.20
+
+#当前剩余交换分区百分比与告警值进行比较（当大于告警值(即剩余20%以上)时会返回1，小于(即剩余不足20%)时会返回0 ）
+swap_now=`expr $swap_per \> $swap_warn`
+
+#如果当前交换分区使用超过80%（即剩余小于20%，上面的返回值等于0），立即发邮件告警
+if (($swap_now == 0)); then
+echo "$IP服务器swap交换分区只剩下 $swap_free M 未使用，剩余不足20%，使用率已经超过80%，请及时处理。" | mutt -s "$IP 服务器内存告警" test@126.com
+fi
+
+fi
+
+# 4、监控系统硬盘根分区使用的情况，当使用超过80%的时候发告警邮件：
+
+#取当前根分区（/dev/sda3）已用的百份比值（只取整数部分）
+disk_sda3=`df -h | grep /dev/sda3 | awk '{print $5}' | cut -f 1 -d "%"`
+
+#设置空闲硬盘容量的告警值为80%，如果当前硬盘使用超过80%，立即发邮件告警
+if (($disk_sda3 > 80)); then
+echo "$IP 服务器 /根分区 使用率已经超过80%，请及时处理。" | mutt -s "$IP 服务器硬盘告警" test@126.com
+fi
+
+#5、监控系统用户登录的情况，当用户数超过3个的时候发告警邮件：
+
+#取当前用户登录数（只取数值部分）
+users=`uptime | awk '{print $6}'`
+
+#设置登录用户数的告警值为3个，如果当前用户数超过3个，立即发邮件告警
+if (($users >= 3)); then
+echo "$IP 服务器用户数已经达到$users个，请及时处理。" | mutt -s "$IP 服务器用户数告警" test@126.com
+fi# chmod a+x /scripts/sys-warning.sh 
+二、加入任务计划：每十分钟检测一次，有告警则立即发邮件(十分钟发一次)。
+ # crontab -e
+*/10 * * * *  /scripts/sys-warning.sh 
+# service crond restart 
+三、要实现服务器能够发邮件，须开启Sendmail服务或是安装linux下面的一个邮件客户端msmtp软件(类似于一个foxmail的工具)
+ 
+1、下载安装：http://downloads.sourceforge.net/msmtp/msmtp-1.4.16.tar.bz2?modtime=1217206451&big_mirror=0
+ # tar jxvf msmtp-1.4.16.tar.bz2
+# cd msmtp-1.4.16
+# ./configure --prefix=/usr/local/msmtp
+# make
+# make install 
+2、创建msmtp配置文件和日志文件（host为邮件域名，邮件用户名test，密码123456）  
+ # vim ~/.msmtprc
+account default  
+host 126.com
+from test@126.com
+auth login
+user test
+password 123456
+logfile ~/.msmtp.log
+# chmod 600  ~/.msmtprc
+# touch ~/.msmtp.log 
+3、mutt安装配置：（一般linux下有默认安装mutt）  
+ set sendmail="/usr/local/msmtp/bin/msmtp"
+set use_from=yes
+set realname="memory"
+set from=test@126.com
+set envelope_from=yes
+set rfc2047_parameters=yes
+set charset="utf-8"  
+4、邮件发送测试（-s邮件标题）   # echo "邮件内容123456" | mutt -s "邮件标题测试邮件"   test@126.com
+ 
+
+
+
+
+
+
+
+
+
+
+首先介绍一下mutt这个软件，它是一款基于文字界面的邮件客户端，非常小巧，但功能强大，可以用它来读写，回复保存和删除你的邮件，能在linux命令行模式下收发邮件附件。
+ 
+　　我只讲它很小的一部分功能，因为我也是刚刚开始摸索这个软件。更多的用法请查阅官网：http://www.mutt.org
+ 
+　　一、mutt的安装                                           
+ 
+
+
+
+1 yum -y install sendmail
+2 #需要安装sendmail并开启防火墙的25端口，如果你需要收邮件110端口也要开
+3 yum -y install mutt 
+　　二、配置信息                                                
+ 
+　　关于配置信息，有一点需要说明的，网上很多教程都说，编辑/root/.muttrc以修改配置文件，我想说的是，我在安装完成之后， /root目录下并没有 .muttrc 这个隐藏文件，你可以从其它地方复制过来，或者自己新建一个文件。这里我是复制的。
+ 
+　　你可以通过find命令找到Muttrc这个文件，命令如下 find / -name Muttrc ，然后通过命令 cp /etc/Muttrc /root/.muttrc 复制到 /root 下后更名为 .muttrc ，然后你就可以编辑配置文件了。
+ 
+
+
+
+
+
+1 #如果你收到的邮件乱码，设置以下信息
+2 set charset="utf-8"
+3 set rfc2047_parameters=yes
+4 #如果你想自定义发件人信息，需要进行如下设置
+5 set envelope_from=yes
+6 set use_from=yes
+7 set from=root@itdhz.com
+8 set realname="itdhz" 
+
+
+　　安装完mutt后，在/usr/share/doc/mutt* 下有一份很好的手册，可以看一下。
+ 
+　　三、邮件发送                                       
+ 
+　　语　法：
+ 
+　　mutt [-hnpRvxz][-a<文件>][-b<地址>][-c<地址>][-f<邮件文 件>][-F<配置文件>][-H<邮件草稿>][-i<文件>][-m<类型>] [-s<主题>][邮件地址]
+ 　　参　数：
+ 　-a　<文件>　在邮件中加上附加文件。
+ 　-b　<地址>　指定密件副本的收信人地址。
+ 　-c　<地址>　指定副本的收信人地址。
+ 　-f　<邮件文件>　指定要载入的邮件文件。
+ 　-F　<配置文件>　指定mutt程序的设置文件，而不读取预设的.muttrc文件。
+ 　-h　显示帮助。
+ 　-H　<邮件草稿>　将指定的邮件草稿送出。
+ 　-i　<文件>　将指定文件插入邮件内文中。
+ 　-m　<类型>　指定预设的邮件信箱类型。
+ 　-n　不要去读取程序培植文件(/etc/Muttrc)。
+ 　-p　在mutt中编辑完邮件后，而不想将邮件立即送出，可将该邮件暂缓寄出。
+ 　-R　以只读的方式开启邮件文件。
+ 　-s　<主题>　指定邮件的主题。
+ 　-v　显示mutt的版本信息以及当初编译此文件时所给予的参数。
+ 　-x　模拟mailx的编辑方式。
+ 　-z　与-f参数一并使用时，若邮件文件中没有邮件即不启动mutt。
+ 
+　　四、举例                                         
+ 
+　　这里我用自己备份网站的一段代码举例加以说明
+ 
+mutt abc@mail.com -s "itdhz数据备份" -a /home/backup/itdhz.sql </root/readme.txt
+或者 
+echo "test" |　mutt abc@mail.com -s "itdhz数据备份" -a /home/backup/itdhz.sql 
+　　这段代码表示，发送邮件到abc@mail.com 这个邮箱，邮件主题是“itdhz数据备份”，邮件内容在 /root/readme.txt 中，邮件中包含附件 /home/backup/itdhz.sql。如果要发送多个附件，需要在每个附件前加 -a 参数。
+ 
+原文:http://www.itdhz.com/post-179.html
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+curl 命令使用
+
+curl --connect-timeout 8 --max-time 12 -o /dev/null -s -w %{time_total}:%{size_download}:%{http_code} http://wwww.baidu.com  >> Curl_Out.txt
+
+
+原文地址：http://blog.sina.com.cn/s/blog_4b9eab320100slyw.html
+ 
+
+可以看作命令行浏览器
+ 
+1、开启gzip请求
+curl -I http://www.sina.com.cn/ -H Accept-Encoding:gzip,defalte
+
+2、监控网页的响应时间
+curl -o /dev/null -s -w "time_connect: %{time_connect}\ntime_starttransfer: %{time_starttransfer}\ntime_total: %{time_total}\n" "http://www.kklinux.com"
+
+3. 监控站点可用性
+curl -o /dev/null -s -w %{http_code} "http://www.kklinux.com"
+
+4、以http1.0协议请求（默认为http1.1） 
+curl -0 .............. 
+      1）读取网页 
+　　$ curl linuxidc.com">http://www.linuxidc.com 
+　　2）保存网页 
+　　$ curl http://www.linuxidc.com > page.html $ curl -o page.html http://www.linuxidc.com 
+　　3）使用的proxy服务器及其端口：-x 
+　　$ curl -x 123.45.67.89：1080 -o page.html http://www.linuxidc.com 
+　　4）使用cookie来记录session信息 
+　　$ curl -x 123.45.67.89：1080 -o page.html -D cookie0001.txt http://www.linuxidc.com 
+option： -D 是把http的response里面的cookie信息存到一个特别的文件中去，这样，当页面被存到page.html的同时，cookie信息也被存到了cookie0001.txt里面了 
+    5）那么，下一次访问的时候，如何继续使用上次留下的cookie信息呢？ 
+　　使用option来把上次的cookie信息追加到http request里面去：-b 
+　　$ curl -x 123.45.67.89：1080 -o page1.html -D cookie0002.txt -b cookie0001.txt http://www.linuxidc.com 
+
+6）浏览器信息~~~~ 
+随意指定自己这次访问所宣称的自己的浏览器信息： -A
+curl -A "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)" -x 123.45.67.89:1080 -o page.html -D cookie0001.txt http://www.yahoo.com 
+这样，服务器端接到访问的要求，会认为你是一个运行在Windows 2000上的IE6.0，嘿嘿嘿，其实也许你用的是苹果机呢！ 
+而"Mozilla/4.73 [en] (X11; U; Linux 2.2; 15 i686"则可以告诉对方你是一台PC上跑着的Linux，用的是Netscape 4.73，呵呵呵 
+
+7）
+另外一个服务器端常用的限制方法，就是检查http访问的referer。比如你先访问首页，再访问里面所指定的下载页，这第二次访问的referer地址就是第一次访问成功后的页面地 
+址。这样，服务器端只要发现对下载页面某次访问的referer地址不 是首页的地址，就可以断定那是个盗连了~~~~~ 
+讨厌讨厌~~~我就是要盗连~~~~~！！
+幸好curl给我们提供了设定referer的option： -e
+curl -A "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)" -x 123.45.67.89:1080 -e "mail.yahoo.com" -o page.html -D cookie0001.txt http://www.yahoo.com 
+这样，就可以骗对方的服务器，你是从mail.yahoo.com点击某个链接过来的了，呵呵呵 
+
+8）curl 下载文件 
+刚才讲过了，下载页面到一个文件里，可以使用 -o ，下载文件也是一样。
+比如， curl -o 1.jpg http://cgi2.tky.3web.ne.jp/~zzh/screen1.JPG
+这里教大家一个新的option： -O
+大写的O，这么用： curl -O http://cgi2.tky.3web.ne.jp/~zzh/screen1.JPG
+这样，就可以按照服务器上的文件名，自动存在本地了！ 
+再来一个更好用的。
+如果screen1.JPG以外还有screen2.JPG、screen3.JPG、....、screen10.JPG需要下载，难不成还要让我们写一个script来完成这些操作？
+不干！
+在curl里面，这么写就可以了：
+curl -O http://cgi2.tky.3web.ne.jp/~zzh/screen[1-10].JPG 
+呵呵呵，厉害吧？！~~~ 
+9）
+再来，我们继续讲解下载！
+curl -O http://cgi2.tky.3web.ne.jp/~{zzh,nick}/[001-201].JPG 
+这样产生的下载，就是
+~zzh/001.JPG
+~zzh/002.JPG
+...
+~zzh/201.JPG
+~nick/001.JPG
+~nick/002.JPG
+...
+~nick/201.JPG 
+够方便的了吧？哈哈哈 
+咦？高兴得太早了。
+由于zzh/nick下的文件名都是001，002...，201，下载下来的文件重名，后面的把前面的文件都给覆盖掉了~~~ 
+没关系，我们还有更狠的！
+curl -o #2_#1.jpg http://cgi2.tky.3web.ne.jp/~{zzh,nick}/[001-201].JPG 
+--这是.....自定义文件名的下载？
+--对头，呵呵！ 
+#1是变量，指的是{zzh,nick}这部分，第一次取值zzh，第二次取值nick
+#2代表的变量，则是第二段可变部分---[001-201]，取值从001逐一加到201
+这样，自定义出来下载下来的文件名，就变成了这样：
+原来： ~zzh/001.JPG ---> 下载后： 001-zzh.JPG
+原来： ~nick/001.JPG ---> 下载后： 001-nick.JPG 
+这样一来，就不怕文件重名啦，呵呵 
+
+9）
+继续讲下载
+我们平时在windows平台上，flashget这样的工具可以帮我们分块并行下载，还可以断线续传。
+curl在这些方面也不输给谁，嘿嘿 
+比如我们下载screen1.JPG中，突然掉线了，我们就可以这样开始续传
+curl -c -O http://cgi2.tky.3wb.ne.jp/~zzh/screen1.JPG 
+当然，你不要拿个flashget下载了一半的文件来糊弄我~~~~别的下载软件的半截文件可不一定能用哦~~~ 
+分块下载，我们使用这个option就可以了： -r
+举例说明
+比如我们有一个http://cgi2.tky.3web.ne.jp/~zzh/zhao1.mp3 要下载（赵老师的电话朗诵 :D ）
+我们就可以用这样的命令：
+curl -r 0-10240 -o "zhao.part1" http:/cgi2.tky.3web.ne.jp/~zzh/zhao1.mp3 &\
+curl -r 10241-20480 -o "zhao.part1" http:/cgi2.tky.3web.ne.jp/~zzh/zhao1.mp3 &\
+curl -r 20481-40960 -o "zhao.part1" http:/cgi2.tky.3web.ne.jp/~zzh/zhao1.mp3 &\
+curl -r 40961- -o "zhao.part1" http:/cgi2.tky.3web.ne.jp/~zzh/zhao1.mp3 
+这样就可以分块下载啦。
+不过你需要自己把这些破碎的文件合并起来
+如果你用UNIX或苹果，用 cat zhao.part* > zhao.mp3就可以
+如果用的是Windows，用copy /b 来解决吧，呵呵 
+上面讲的都是http协议的下载，其实ftp也一样可以用。
+用法嘛，
+curl -u name:passwd ftp://ip:port/path/file
+或者大家熟悉的
+curl ftp://name:passwd@ip:port/path/file 
+  
+10)上传的option是 -T 
+比如我们向ftp传一个文件： curl -T localfile -u name:passwd ftp://upload_site:port/path/ 
+当然，向http服务器上传文件也可以
+比如 curl -T localfile http://cgi2.tky.3web.ne.jp/~zzh/abc.cgi
+注意，这时候，使用的协议是HTTP的PUT method 
+刚才说到PUT，嘿嘿，自然让老服想起来了其他几种methos还没讲呢！
+GET和POST都不能忘哦。 
+http提交一个表单，比较常用的是POST模式和GET模式 
+GET模式什么option都不用，只需要把变量写在url里面就可以了
+比如：
+curl http://www.yahoo.com/login.cgi?user=nickwolfe&password=12345 
+而POST模式的option则是 -d 
+比如，curl -d "user=nickwolfe&password=12345" http://www.yahoo.com/login.cgi
+就相当于向这个站点发出一次登陆申请~~~~~ 
+到底该用GET模式还是POST模式，要看对面服务器的程序设定。 
+一点需要注意的是，POST模式下的文件上的文件上传，比如
+<form method="POST" enctype="multipar/form-data" action="http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi">
+<input type=file name=upload>
+<input type=submit name=nick value="go">
+</form>
+这样一个HTTP表单，我们要用curl进行模拟，就该是这样的语法：
+curl -F upload=@localfile -F nick=go http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi 
+罗罗嗦嗦讲了这么多，其实curl还有很多很多技巧和用法
+比如 https的时候使用本地证书，就可以这样
+curl -E localcert.pem https://remote_server 
+再比如，你还可以用curl通过dict协议去查字典~~~~~
+curl dict://dict.org/d:computer 
+
+今天为了检查所有刺猬主机上所有域名是否有备案．在使用wget不爽的情况下，找到了curl这个命令行流量器命令．发现其对post的调用还是蛮好的．特别有利于对提交信息及变 
+更参数进行较验．对于我想将几十万域名到miibeian.gov.cn进行验证是否有备案信息非常有用．发现这篇文章很不错，特为转贴． 
+我的目标：
+curl -d "cxfs=1&ym=xieyy.cn" http://www.miibeian.gov.cn/baxx_cx_servlet 
+在出来的信息中进行过滤，提取备案号信息，并设置一个标识位．将域名，备案号及标识位入库 
+
+用curl命令，post提交带空格的数据 
+今天偶然遇到一个情况，我想用curl登入一个网页，无意间发现要post的数据里带空格。比如用户名为"abcdef"，密码为"abc def"，其中有一个空格，按照我以前的方式提交： 
+curl -D cookie -d "username=abcdef&password=abc def" http://login.xxx.com/提示登入失败。 
+
+于是查看curl手册man curl。找到： 
+d/--data (HTTP) Sends the speci?ed data in a POST request to the HTTP server, in a way that can emulate as if a user has ?lled in a HTML form and pressed the 
+submit button. Note that the data is sent exactly as speci?ed with no extra processing (with all newlines cut off). The data is expected to be "url-encoded". 
+This will cause curl to pass the data to the server using the content-type application/x-www-form-urlencoded. Compare to -F/--form. If this option is used 
+more than once on the same command line, the data pieces speci?ed will be merged together with a separating &-letter. Thus, using ’-d name=daniel -d 
+skill=lousy’ would generate a post chunk that looks like ’name=daniel&skill=lousy’. 
+于是改用： 
+curl -D cookie -d "username=abcdef" -d "password=abc efg" http://login.xxx.com/这样就能成功登入了。 
+ (责任编辑：飘飞的夜) 
+ 
+ 
+
+Curl是Linux下一个很强大的http命令行工具，其功能十分强大。
+ 
+1) 二话不说，先从这里开始吧！
+ 
+$ curl http://www.linuxidc.com
+ 
+回车之后，www.linuxidc.com 的html就稀里哗啦地显示在屏幕上了    ~
+ 
+2) 嗯，要想把读过来页面存下来，是不是要这样呢？
+ 
+$ curl http://www.linuxidc.com > page.html
+ 
+当然可以，但不用这么麻烦的！
+ 
+用curl的内置option就好，存下http的结果，用这个option: -o
+ 
+$ curl -o page.html http://www.linuxidc.com
+ 
+这样，你就可以看到屏幕上出现一个下载页面进度指示。等进展到100%，自然就 OK咯
+ 
+3) 什么什么？！访问不到？肯定是你的proxy没有设定了。
+ 
+使用curl的时候，用这个option可以指定http访问所使用的proxy服务器及其端口： -x
+ 
+$ curl -x 123.45.67.89:1080 -o page.html http://www.linuxidc.com
+ 
+4) 访问有些网站的时候比较讨厌，他使用cookie来记录session信息。
+ 
+像IE/NN这样的浏览器，当然可以轻易处理cookie信息，但我们的curl呢？.....
+ 
+我们来学习这个option: -D <— 这个是把http的response里面的cookie信息存到一个特别的文件中去
+ 
+$ curl -x 123.45.67.89:1080 -o page.html -D cookie0001.txt http://www.linuxidc.com
+ 
+这样，当页面被存到page.html的同时，cookie信息也被存到了cookie0001.txt里面了
+ 
+5）那么，下一次访问的时候，如何继续使用上次留下的cookie信息呢？要知道，很多网站都是靠监视你的cookie信息，来判断你是不是不按规矩访问他们的网站的。
+ 
+这次我们使用这个option来把上次的cookie信息追加到http request里面去： -b
+ 
+$ curl -x 123.45.67.89:1080 -o page1.html -D cookie0002.txt -b cookie0001.txt http://www.linuxidc.com
+ 
+这样，我们就可以几乎模拟所有的IE操作，去访问网页了！
+ 
+6）稍微等等    ~我好像忘记什么了    ~
+ 
+对了！是浏览器信息
+ 
+有些讨厌的网站总要我们使用某些特定的浏览器去访问他们，有时候更过分的是，还要使用某些特定的版本    NND，哪里有时间为了它去找这些怪异的浏览器呢！？
+ 
+好在curl给我们提供了一个有用的option，可以让我们随意指定自己这次访问所宣称的自己的浏览器信息： -A
+ 
+$ curl -A "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)" -x 123.45.67.89:1080 -o page.html -D cookie0001.txt http://www.linuxidc.com
+ 
+这样，服务器端接到访问的要求，会认为你是一个运行在Windows 2000上的 IE6.0，嘿嘿嘿，其实也许你用的是苹果机呢！
+ 
+而"Mozilla/4.73 [en] (X11; U; Linux 2.2; 15 i686"则可以告诉对方你是一台 PC上跑着的Linux，用的是Netscape 4.73，呵呵呵
+ 
+7）另外一个服务器端常用的限制方法，就是检查http访问的referer。比如你先访问首页，再访问里面所指定的下载页，这第二次访问的 referer地址就是第一次访问成功后的页面地址。这样，服务器端只要发现对下载页面某次访问的referer地址不是首页的地址，就可以断定那是个盗 连了    ~
+ 
+讨厌讨厌 ~我就是要盗连    ~！！
+ 
+幸好curl给我们提供了设定referer的option： -e
+ 
+$ curl -A "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)" -x 123.45.67.89:1080 -e "mail.linuxidc.com" -o page.html -D cookie0001.txt http://www.linuxidc.com
+ 
+这样，就可以骗对方的服务器，你是从mail.linuxidc.com点击某个链接过来的了，呵呵呵
+ 
+8）写着写着发现漏掉什么重要的东西了！——- 利用curl 下载文件
+ 
+刚才讲过了，下载页面到一个文件里，可以使用 -o ，下载文件也是一样。比如，
+ 
+$ curl -o 1.jpg http://cgi2.tky.3web.ne.jp/~zzh/screen1.JPG
+ 
+这里教大家一个新的option： -O 大写的O，这么用：
+ 
+$ curl -O http://cgi2.tky.3web.ne.jp/~zzh/screen1.JPG
+ 
+这样，就可以按照服务器上的文件名，自动存在本地了！
+ 
+再来一个更好用的。
+ 
+如果screen1.JPG以外还有screen2.JPG、screen3.JPG、....、screen10.JPG需要下载，难不成还要让我们写一个script来完成这些操作？
+ 
+不干！
+ 
+在curl里面，这么写就可以了：
+ 
+$ curl -O http://cgi2.tky.3web.ne.jp/~zzh/screen[1-10].JPG
+ 
+呵呵呵，厉害吧？！ ~
+ 
+9）再来，我们继续讲解下载！
+ 
+$ curl -O http://cgi2.tky.3web.ne.jp/~{zzh,nick}/[001-201].JPG
+ 
+这样产生的下载，就是
+ 
+~zzh/001.JPG
+ 
+~zzh/002.JPG
+ 
+...
+ 
+~zzh/201.JPG
+ 
+~nick/001.JPG
+ 
+~nick/002.JPG
+ 
+...
+ 
+~nick/201.JPG
+ 
+够方便的了吧？哈哈哈
+ 
+咦？高兴得太早了。
+ 
+由于zzh/nick下的文件名都是001，002...，201，下载下来的文件重名，后面的把前面的文件都给覆盖掉了 ~
+ 
+没关系，我们还有更狠的！
+ 
+$ curl -o #2_#1.jpg http://cgi2.tky.3web.ne.jp/~{zzh,nick}/[001-201].JPG
+ 
+—这是.....自定义文件名的下载？ —对头，呵呵！
+ 
+这样，自定义出来下载下来的文件名，就变成了这样：原来： ~zzh/001.JPG —-> 下载后： 001-zzh.JPG 原来： ~nick/001.JPG —-> 下载后： 001-nick.JPG
+ 
+这样一来，就不怕文件重名啦，呵呵
+ 
+完

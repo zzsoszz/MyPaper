@@ -1,0 +1,14 @@
+{
+	system("ls");
+	print "myawk run..."|"cat>>1.txt" ;//将打印的信息通过管道用命令重定向到文件
+	print "文件名字" | "rm -f";//断开的管道
+	print "myawk run2.." >>"2.txt";//直接重定向
+	my();	
+}
+function my()
+{
+       print "test";
+	"date" |getline today;//将命令执行的结果输入管道，再获取
+	print today;
+}
+

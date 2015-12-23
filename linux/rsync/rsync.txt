@@ -1,0 +1,19 @@
+uid = root                                  //运行RSYNC守护进程的用户
+gid = root                                  //运行RSYNC守护进程的组
+use chroot = no                 //不使用chroot
+max connections = 4             // 最大连接数为4
+strict modes =yes                //是否检查口令文件的权限
+port = 873                      //默认端口873
+           
+
+[backup]                   //这里是认证的模块名，在client端需要指定
+path = /home/backup/        //需要做镜像的目录,不可缺少！
+comment = This is a test       //这个模块的注释信息 
+ignore errors                //可以忽略一些无关的IO错误
+read only = yes              // 只读
+list = no                   //不允许列文件
+auth users = hening             //认证的用户名，如果没有这行则表明是匿名，此用户与系统无关
+secrets file = /etc/rsync.pas           //密码和用户名对比表，密码文件自己生成
+hosts allow = 192.168.1.1,10.10.10.10      //允许主机
+hosts deny = 0.0.0.0/0                   //禁止主机
+#transfer logging = yes

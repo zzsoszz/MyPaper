@@ -1,0 +1,150 @@
+linux下用tcpdump监控网络流量，导出的文件拿到windows下用wireshark分析
+linux下的命令行：
+tcpdump -i eth1 -s 0  host  10.12.129.3 -w output.txt
+
+广西电信
+tcpdump -i em3 -s 0  host  125.73.142.5 -w output.txt
+
+广西联通
+tcpdump -i em3 -s 0  host  121.31.254.149 -w output10.txt
+tcpdump -i em3 -s 0  host  121.31.254.150 -w output11.txt
+
+
+
+本机
+tcpdump -i em3 -s 0  host  222.211.137.140 -w output.txt
+
+
+
+
+tcpdump -i em3 -s 0  -w output.txt
+-i指定在eth1上监听，这个根据不同机器吧 ，默认是eth0，
+一开始没有指定这个，导致监听不到某台机器的流量。
+-s 指定包的大小，0为不限制大小，默认貌似是96。
+-w指定保存的文件地址
+生成的文件拿到wireshark下分析就ok了。
+
+
+
+
+	A想要截获所有210.27.48.1 的主机收到的和发出的所有的数据包： 
+
+　　#tcpdump host 210.27.48.1
+
+　　B想要截获主机210.27.48.1 和主机210.27.48.2 或210.27.48.3的通信，使用命令：(在命令行中使用括号时，一定要添加'\')
+
+　　#tcpdump host 210.27.48.1 and \ (210.27.48.2 or 210.27.48.3 \)
+
+　　C如果想要获取主机210.27.48.1除了和主机210.27.48.2之外所有主机通信的ip包，使用命令：
+
+　　#tcpdump ip host 210.27.48.1 and ! 210.27.48.2
+
+　　D如果想要获取主机210.27.48.1接收或发出的telnet包，使用如下命令：
+
+　　#tcpdump tcp port 23 host 210.27.48.1
+
+　　E 对本机的udp 123 端口进行监视 123 为ntp的服务端口
+
+　　# tcpdump udp port 123
+
+　　F 系统将只对名为hostname的主机的通信数据包进行监视。主机名可以是本地主机，也可以是网络上的任何一台计算机。下面的命令可以读取主机hostname发送的所有数据：
+
+　　#tcpdump -i eth0 src host hostname
+
+　　G 下面的命令可以监视所有送到主机hostname的数据包：
+
+　　#tcpdump -i eth0 dst host hostname
+
+　　H 我们还可以监视通过指定网关的数据包：
+
+　　#tcpdump -i eth0 gateway Gatewayname
+
+　　I 如果你还想监视编址到指定端口的TCP或UDP数据包，那么执行以下命令：
+
+　　#tcpdump -i eth0 host hostname and port 80
+
+　　J 如果想要获取主机210.27.48.1除了和主机210.27.48.2之外所有主机通信的ip包，使用命令：
+
+　　#tcpdump ip host 210.27.48.1 and ! 210.27.48.2
+
+　　K 想要截获主机210.27.48.1 和主机210.27.48.2 或210.27.48.3的通信，使用命令：
+
+　　#tcpdump host 210.27.48.1 and \ (210.27.48.2 or 210.27.48.3 \)
+
+　　L 如果想要获取主机210.27.48.1除了和主机210.27.48.2之外所有主机通信的ip包，使用命令：
+
+　　#tcpdump ip host 210.27.48.1 and ! 210.27.48.2
+
+　　M 如果想要获取主机210.27.48.1接收或发出的telnet包，使用如下命令：
+
+　　#tcpdump tcp port 23 host 210.27.48.1
+
+
+
+
+
+
+
+
+
+
+
+
+说是大全其实我列取得只是一些常用的命令与大家分享。
+ 
+下面的例子全是以抓取eth0接口为例，如果不加”-i eth0”是表示抓取所有的接口包括lo。
+ 
+1、抓取包含10.10.10.122的数据包 
+# tcpdump -i eth0 -vnn host 10.10.10.122
+ 
+2、抓取包含10.10.10.0/24网段的数据包
+# tcpdump -i eth0 -vnn net 10.10.10.0/24
+ 
+3、抓取包含端口22的数据包
+# tcpdump -i eth0 -vnn port 22 
+ 
+4、抓取udp协议的数据包
+# tcpdump -i eth0 -vnn  udp
+ 
+5、抓取icmp协议的数据包
+# tcpdump -i eth0 -vnn icmp
+6、抓取arp协议的数据包
+# tcpdump -i eth0 -vnn arp
+ 
+7、抓取ip协议的数据包
+# tcpdump -i eth0 -vnn ip
+ 
+8、抓取源ip是10.10.10.122数据包。
+# tcpdump -i eth0 -vnn src host 10.10.10.122
+ 
+9、抓取目的ip是10.10.10.122数据包
+# tcpdump -i eth0 -vnn dst host 10.10.10.122
+ 
+10、抓取源端口是22的数据包
+# tcpdump -i eth0 -vnn src port 22
+ 
+11、抓取源ip是10.10.10.253且目的ip是22的数据包
+# tcpdump -i eth0 -vnn src host 10.10.10.253 and dst port 22
+                 
+12、抓取源ip是10.10.10.122或者包含端口是22的数据包
+# tcpdump -i eth0 -vnn src host 10.10.10.122 or port 22
+ 
+13、抓取源ip是10.10.10.122且端口不是22的数据包
+[root@ ftp]# tcpdump -i eth0 -vnn src host 10.10.10.122 and not port 22
+
+14、抓取源ip是10.10.10.2且目的端口是22，或源ip是10.10.10.65且目的端口是80的数据包。
+# tcpdump -i eth0 -vnn \( src host 10.10.10.2 and dst port 22 \) or   \( src host 10.10.10.65 and dst port 80 \)
+ 
+15、抓取源ip是10.10.10.59且目的端口是22，或源ip是10.10.10.68且目的端口是80的数据包。
+[root@localhost ~]# tcpdump -i  eth0 -vnn 'src host 10.10.10.59 and dst port 22' or  ' src host 10.10.10.68 and dst port 80 '
+ 
+16、把抓取的数据包记录存到/tmp/fill文件中，当抓取100个数据包后就退出程序。
+# tcpdump –i eth0 -vnn -w  /tmp/fil1 -c 100
+ 
+17、从/tmp/fill记录中读取tcp协议的数据包
+# tcpdump –i eth0 -vnn -r  /tmp/fil1 tcp
+ 
+18、从/tmp/fill记录中读取包含10.10.10.58的数据包
+# tcpdump –i eth0 -vnn -r  /tmp/fil1 host  10.10.10.58
+
+

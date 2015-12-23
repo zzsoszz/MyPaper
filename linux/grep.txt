@@ -1,0 +1,27 @@
+split -C 100m  catalina.out 
+ 
+grep -n  -E  '(Exception:)|(\:s*at)'  catalina.out  
+ 
+grep "^[[:space:]]\{1,\}at"  catalina.out  
+
+
+grep "^[[:space:]]\{1,\}at"  catalina.out  
+
+grep '\(^[[:space:]]\{1,\}at\)\|\(Exception:\)'  xbh 
+
+grep -E '\(^[[:space:]]\{1,\}at\)|\(Exception:\)' xbh
+
+grep -E '(^[[:space:]]{1,}at)' xbh
+
+grep -E '(^[[:space:]]{1,}at)|(Exception:)' xbh
+
+grep -E '(^[[:space:]]{1,}at)|(Exception:)'   -n   xav
+
+
+
+交易号^退款金额^处理结果$退费账号^退费账户ID^退费金额^处理结果
+#交易号^退款金额^处理结果$退费账号^退费账户ID^退费金额^处理结果
+
+
+交易号^退款金额^处理结果
+#交易号^退款金额^处理结果

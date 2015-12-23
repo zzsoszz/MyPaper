@@ -1,0 +1,32 @@
+awk -f 脚本文件名 脚本传参 目标操作文件
+awk  '命令'(这是单引号!) data.txt
+awk -f myawkscript age=30 data.txt
+脚本文件内容
+#begin必须大写，而且右边必须紧跟左大括号
+BEGIN{
+		
+}
+{	
+	sum+=$2;
+	if(age>30)
+	{
+		print $1
+	}
+	else if(age>25)
+	{
+		print $2
+	}
+	while(age>20)
+	{
+		print $0
+		age--
+	}
+	for(age=80;age>20;age--)
+	{
+		print $0	
+	}
+}
+#begin必须大写，而且右边必须紧跟左大括号
+END{
+	print sum;//打印统计总数
+}

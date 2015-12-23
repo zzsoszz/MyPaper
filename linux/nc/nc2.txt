@@ -1,0 +1,39 @@
+qingtian@qingtian-402a99 ~
+$ nc  -v -o mm.txt  -l -p 1234
+listening on [any] 1234 ...
+connect to [192.168.204.48] from qingtian-402a99 [192.168.204.48] 12735
+nihaoaa
+wo ai ni
+
+qingtian@qingtian-402a99 ~
+$ cat mm.txt
+< 00000000 6e 69 68 61 6f 61 61 0a                         # nihaoaa.
+< 00000008 77 6f 20 61 69 20 6e 69 20 0a                   # wo ai ni .
+
+qingtian@qingtian-402a99 ~
+$ cat mm.txt
+< 00000000 6e 69 68 61 6f 61 61 0a                         # nihaoaa.
+< 00000008 77 6f 20 61 69 20 6e 69 20 0a                   # wo ai ni .
+
+qingtian@qingtian-402a99 ~
+$ nc  -v -o mm.txt  -l -p 1234
+listening on [any] 1234 ...
+connect to [192.168.204.48] from qingtian-402a99 [192.168.204.48] 12844
+wo ai ni
+ni hao aa
+aaaa
+aaaa
+
+qingtian@qingtian-402a99 ~
+$ nc  -v -o mm.txt  -l -p 1234
+listening on [any] 1234 ...
+connect to [192.168.204.48] from qingtian-402a99 [192.168.204.48] 12850
+hello aa
+hello bb
+
+qingtian@qingtian-402a99 ~
+$ cat mm.txt
+< 00000000 68 65 6c 6c 6f 20 62 62 0a                      # hello bb.
+
+qingtian@qingtian-402a99 ~
+$

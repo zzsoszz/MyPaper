@@ -1,0 +1,29 @@
+yum install lrzsz
+
+
+
+
+第二种方式
+wget http://freeware.sgi.com/source/rzsz/rzsz-3.48.tar.gz
+tar zxvf rzsz-3.48.tar.gz
+yum -y install gcc automake autoconf libtool make
+cd rzsz-3.48
+make posix
+
+为了方便使用这个工具，把相关文件复制到目录/usr/bin下面。这里只需要拷贝2个文件rz及sz,命令为：cp rz sz /usr/bin
+ 
+ 
+ 
+ 
+ ----root 登陆
+ cd /etc/vsftpd
+-----------------  
+  vi  ftpusers   
+  注释root
+------------------  
+  vi userlist   解开注释root
+  
+--------------------  
+vi vsftpd.conf  修改
+userlist_enable=NO
+userlist_deny=NO

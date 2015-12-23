@@ -1,0 +1,50 @@
+Linux下PPTPD搭建VPN服务器连接后无法上外网及619错误的解决办法
+http://www.wanghailin.cn/linux-pptpd-619-internet/
+
+
+CentOS 6.4 搭建VPN Server端
+http://os.51cto.com/art/201311/419159.htm
+
+
+8.1.1 VPN的原理
+http://book.51cto.com/art/200903/114594.htm
+http://os.51cto.com/art/201003/191707.htm
+
+http://blog.csdn.net/musiccow/article/details/22655637
+
+iptables中DNAT、SNAT和MASQUERADE的理解 
+http://blog.csdn.net/yu_xiang/article/details/9212543
+
+ PPTP穿透NAT之深入分析 
+http://blog.csdn.net/yu_xiang/article/details/9204211
+
+
+yum -y install ppp* 
+yum -y install pptp* 
+wget http://dl.fedoraproject.org/pub/epel/6/x86_64/pptpd-1.4.0-3.el6.x86_64.rpm
+rpm -Uvh pptpd-1.4.0-3.el6.x86_64.rpm
+
+
+vi /etc/ppp/options.pptpd
+vi /etc/pptpd.conf
+vi  /etc/ppp/chap-secrets
+
+
+iptables -t nat -L
+iptables -t nat -F
+iptables -t nat -A POSTROUTING -s 192.168.2.0/24  -o eth0 -j MASQUERADE
+
+
+service pptpd restart
+
+
+
+
+lsmod|grep bridge
+sysctl -p
+modprobe bridge
+
+ 
+
+ 
+

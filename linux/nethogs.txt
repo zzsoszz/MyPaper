@@ -1,0 +1,271 @@
+ CentOS6.5下使用NetHogs监控进程网络使用情况
+分类： CentOS 2014-10-27 13:54 2592人阅读 评论(1) 收藏 举报
+
+目录(?)[+]
+
+Nethogs 是一个终端下的网络流量监控工具，它的特别之处在于可以显示每个进程的带宽占用情况，这样可以更直观获取网络使用情况。它支持 IPv4 和 IPv6 协议、支持本地网卡及 PPP 链接。
+下载：
+
+从SourceForge上下载nethogs-0.8.0.tar.gz
+
+使用wget下载：
+
+wget http://sourceforge.net/projects/nethogs/files/nethogs/0.8/nethogs-0.8.0.tar.gz/download
+安装：
+
+安装之前需要先 yum install ncurses*
+[plain] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    [root@localhost Desktop]# yum install ncurses*  
+    Loaded plugins: fastestmirror, refresh-packagekit, security  
+    Loading mirror speeds from cached hostfile  
+     * base: mirrors.skyshe.cn  
+     * extras: mirrors.skyshe.cn  
+     * updates: mirrors.skyshe.cn  
+    Setting up Install Process  
+    Package ncurses-5.7-3.20090208.el6.x86_64 already installed and latest version  
+    Package ncurses-libs-5.7-3.20090208.el6.x86_64 already installed and latest version  
+    Package ncurses-base-5.7-3.20090208.el6.x86_64 already installed and latest version  
+    Resolving Dependencies  
+    --> Running transaction check  
+    ---> Package ncurses-devel.x86_64 0:5.7-3.20090208.el6 will be installed  
+    ---> Package ncurses-static.x86_64 0:5.7-3.20090208.el6 will be installed  
+    ---> Package ncurses-term.x86_64 0:5.7-3.20090208.el6 will be installed  
+    --> Finished Dependency Resolution  
+      
+    Dependencies Resolved  
+      
+    ========================================================================================================================================================================  
+     Package                                    Arch                               Version                                           Repository                        Size  
+    ========================================================================================================================================================================  
+    Installing:  
+     ncurses-devel                              x86_64                             5.7-3.20090208.el6                                base                             642 k  
+     ncurses-static                             x86_64                             5.7-3.20090208.el6                                base                             546 k  
+     ncurses-term                               x86_64                             5.7-3.20090208.el6                                base                             547 k  
+      
+    Transaction Summary  
+    ========================================================================================================================================================================  
+    Install       3 Package(s)  
+      
+    Total download size: 1.7 M  
+    Installed size: 6.8 M  
+    Is this ok [y/N]: y  
+    Downloading Packages:  
+    (1/3): ncurses-devel-5.7-3.20090208.el6.x86_64.rpm                                                                                               | 642 kB     00:01       
+    (2/3): ncurses-static-5.7-3.20090208.el6.x86_64.rpm                                                                                              | 546 kB     00:00       
+    (3/3): ncurses-term-5.7-3.20090208.el6.x86_64.rpm                                                                                                | 547 kB     00:02       
+    ------------------------------------------------------------------------------------------------------------------------------------------------------------------------  
+    Total                                                                                                                                   284 kB/s | 1.7 MB     00:06       
+    Running rpm_check_debug  
+    Running Transaction Test  
+    Transaction Test Succeeded  
+    Running Transaction  
+      Installing : ncurses-devel-5.7-3.20090208.el6.x86_64                                                                                                              1/3   
+      Installing : ncurses-static-5.7-3.20090208.el6.x86_64                                                                                                             2/3   
+      Installing : ncurses-term-5.7-3.20090208.el6.x86_64                                                                                                               3/3   
+      Verifying  : ncurses-term-5.7-3.20090208.el6.x86_64                                                                                                               1/3   
+      Verifying  : ncurses-static-5.7-3.20090208.el6.x86_64                                                                                                             2/3   
+      Verifying  : ncurses-devel-5.7-3.20090208.el6.x86_64                                                                                                              3/3   
+      
+    Installed:  
+      ncurses-devel.x86_64 0:5.7-3.20090208.el6              ncurses-static.x86_64 0:5.7-3.20090208.el6              ncurses-term.x86_64 0:5.7-3.20090208.el6               
+      
+    Complete!  
+
+解压文件：
+
+tar -zxvf nethogs-0.8.0.tar.gz
+
+切换目录：
+
+cd nethogs
+
+编译安装：
+
+make && make install
+make出错了：
+
+[plain] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    [root@localhost nethogs]# make && make install  
+    cc -g -Wall -Wextra -c decpcap.c  
+    decpcap.c:7:18: error: pcap.h: No such file or directory  
+    In file included from decpcap.c:8:  
+    decpcap.h:34: error: expected specifier-qualifier-list before ‘pcap_t’  
+    decpcap.c:14: error: expected ‘)’ before ‘*’ token  
+    decpcap.c: In function ‘dp_open_offline’:  
+    decpcap.c:48: error: ‘pcap_t’ undeclared (first use in this function)  
+    decpcap.c:48: error: (Each undeclared identifier is reported only once  
+    decpcap.c:48: error: for each function it appears in.)  
+    decpcap.c:48: error: ‘temp’ undeclared (first use in this function)  
+    decpcap.c:48: warning: implicit declaration of function ‘pcap_open_offline’  
+    decpcap.c:55: warning: implicit declaration of function ‘dp_fillhandle’  
+    decpcap.c: In function ‘dp_open_live’:  
+    decpcap.c:60: error: ‘pcap_t’ undeclared (first use in this function)  
+    decpcap.c:60: error: ‘temp’ undeclared (first use in this function)  
+    decpcap.c:60: warning: implicit declaration of function ‘pcap_open_live’  
+    decpcap.c: In function ‘dp_addcb’:  
+    decpcap.c:74: error: ‘struct dp_handle’ has no member named ‘callback’  
+    decpcap.c: In function ‘dp_parse_tcp’:  
+    decpcap.c:84: error: ‘struct dp_handle’ has no member named ‘callback’  
+    decpcap.c:86: error: ‘struct dp_handle’ has no member named ‘callback’  
+    decpcap.c:87: error: ‘struct dp_handle’ has no member named ‘userdata’  
+    decpcap.c: In function ‘dp_parse_ip’:  
+    decpcap.c:99: error: dereferencing pointer to incomplete type  
+    decpcap.c:103: error: ‘struct dp_handle’ has no member named ‘callback’  
+    decpcap.c:105: error: ‘struct dp_handle’ has no member named ‘callback’  
+    decpcap.c:106: error: ‘struct dp_handle’ has no member named ‘userdata’  
+    decpcap.c: In function ‘dp_parse_ip6’:  
+    decpcap.c:126: error: ‘struct dp_handle’ has no member named ‘callback’  
+    decpcap.c:128: error: ‘struct dp_handle’ has no member named ‘callback’  
+    decpcap.c:129: error: ‘struct dp_handle’ has no member named ‘userdata’  
+    decpcap.c: In function ‘dp_parse_ethernet’:  
+    decpcap.c:150: error: ‘struct dp_handle’ has no member named ‘callback’  
+    decpcap.c:152: error: ‘struct dp_handle’ has no member named ‘callback’  
+    decpcap.c:153: error: ‘struct dp_handle’ has no member named ‘userdata’  
+    decpcap.c: In function ‘dp_parse_ppp’:  
+    decpcap.c:196: error: ‘struct dp_handle’ has no member named ‘callback’  
+    decpcap.c:198: error: ‘struct dp_handle’ has no member named ‘callback’  
+    decpcap.c:199: error: ‘struct dp_handle’ has no member named ‘userdata’  
+    decpcap.c: In function ‘dp_parse_linux_cooked’:  
+    decpcap.c:238: error: ‘struct dp_handle’ has no member named ‘callback’  
+    decpcap.c:240: error: ‘struct dp_handle’ has no member named ‘callback’  
+    decpcap.c:241: error: ‘struct dp_handle’ has no member named ‘userdata’  
+    decpcap.c: In function ‘dp_pcap_callback’:  
+    decpcap.c:270: error: ‘struct dp_handle’ has no member named ‘userdata_size’  
+    decpcap.c:271: error: ‘struct dp_handle’ has no member named ‘userdata’  
+    decpcap.c:271: error: ‘struct dp_handle’ has no member named ‘userdata_size’  
+    decpcap.c:273: error: ‘struct dp_handle’ has no member named ‘linktype’  
+    decpcap.c:274: error: ‘DLT_EN10MB’ undeclared (first use in this function)  
+    decpcap.c:277: error: ‘DLT_PPP’ undeclared (first use in this function)  
+    decpcap.c:280: error: ‘DLT_LINUX_SLL’ undeclared (first use in this function)  
+    decpcap.c:283: error: ‘DLT_RAW’ undeclared (first use in this function)  
+    decpcap.c:284: error: ‘DLT_NULL’ undeclared (first use in this function)  
+    decpcap.c:289: error: ‘struct dp_handle’ has no member named ‘linktype’  
+    decpcap.c: In function ‘dp_dispatch’:  
+    decpcap.c:296: error: ‘struct dp_handle’ has no member named ‘userdata’  
+    decpcap.c:297: error: ‘struct dp_handle’ has no member named ‘userdata_size’  
+    decpcap.c:298: warning: implicit declaration of function ‘pcap_dispatch’  
+    decpcap.c:298: error: ‘struct dp_handle’ has no member named ‘pcap_handle’  
+    decpcap.c: In function ‘dp_setnonblock’:  
+    decpcap.c:302: warning: implicit declaration of function ‘pcap_setnonblock’  
+    decpcap.c:302: error: ‘struct dp_handle’ has no member named ‘pcap_handle’  
+    decpcap.c: In function ‘dp_geterr’:  
+    decpcap.c:307: warning: implicit declaration of function ‘pcap_geterr’  
+    decpcap.c:307: error: ‘struct dp_handle’ has no member named ‘pcap_handle’  
+    make: *** [decpcap.o] Error 1  
+
+还是缺少依赖的东西，执行以下命令安装：
+
+yum install libpcap-dev libncurses5-dev
+[plain] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    [root@localhost nethogs]# yum install libpcap-dev libncurses5-dev  
+    Loaded plugins: fastestmirror, refresh-packagekit, security  
+    Loading mirror speeds from cached hostfile  
+     * base: mirrors.skyshe.cn  
+     * extras: mirrors.skyshe.cn  
+     * updates: mirrors.skyshe.cn  
+    Setting up Install Process  
+    No package libpcap-dev available.  
+    No package libncurses5-dev available.  
+    Error: Nothing to do  
+    [root@localhost nethogs]# yum  -y install libpcap-devel  ncurses-devel  
+    Loaded plugins: fastestmirror, refresh-packagekit, security  
+    Loading mirror speeds from cached hostfile  
+     * base: mirrors.skyshe.cn  
+     * extras: mirrors.skyshe.cn  
+     * updates: mirrors.skyshe.cn  
+    Setting up Install Process  
+    Package ncurses-devel-5.7-3.20090208.el6.x86_64 already installed and latest version  
+    Resolving Dependencies  
+    --> Running transaction check  
+    ---> Package libpcap-devel.x86_64 14:1.4.0-1.20130826git2dbcaa1.el6 will be installed  
+    --> Finished Dependency Resolution  
+      
+    Dependencies Resolved  
+      
+    ===============================================================================================================================================================================================  
+     Package                                      Arch                                  Version                                                          Repository                           Size  
+    ===============================================================================================================================================================================================  
+    Installing:  
+     libpcap-devel                                x86_64                                14:1.4.0-1.20130826git2dbcaa1.el6                                base                                114 k  
+      
+    Transaction Summary  
+    ===============================================================================================================================================================================================  
+    Install       1 Package(s)  
+      
+    Total download size: 114 k  
+    Installed size: 160 k  
+    Downloading Packages:  
+    libpcap-devel-1.4.0-1.20130826git2dbcaa1.el6.x86_64.rpm                                                                                                                 | 114 kB     00:00       
+    Running rpm_check_debug  
+    Running Transaction Test  
+    Transaction Test Succeeded  
+    Running Transaction  
+      Installing : 14:libpcap-devel-1.4.0-1.20130826git2dbcaa1.el6.x86_64                                                                                                                      1/1   
+      Verifying  : 14:libpcap-devel-1.4.0-1.20130826git2dbcaa1.el6.x86_64                                                                                                                      1/1   
+      
+    Installed:  
+      libpcap-devel.x86_64 14:1.4.0-1.20130826git2dbcaa1.el6                                                                                                                         
+    Complete!  
+
+再执行：make && make install
+[plain] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    [root@localhost nethogs]# make && make install  
+    cc -g -Wall -Wextra -c decpcap.c  
+    decpcap.c: In function ‘dp_open_live’:  
+    decpcap.c:60: warning: passing argument 5 of ‘pcap_open_live’ discards qualifiers from pointer target type  
+    /usr/include/pcap/pcap.h:349: note: expected ‘char *’ but argument is of type ‘const char *’  
+    g++ -g -Wall -Wextra -c cui.cpp -DVERSION=\"0\" -DSUBVERSION=\"8\" -DMINORVERSION=\"0\"  
+    g++ -g -Wall -Wextra -c inode2prog.cpp  
+    g++ -g -Wall -Wextra -c conninode.cpp  
+    g++    -c -o devices.o devices.cpp  
+    g++ -g -Wall -Wextra nethogs.cpp packet.o connection.o process.o refresh.o decpcap.o cui.o inode2prog.o conninode.o devices.o -o nethogs -lpcap -lm -lncurses -DVERSION=\"0\" -DSUBVERSION=\"8\" -DMINORVERSION=\"0\"  
+    g++ -g -Wall -Wextra decpcap_test.cpp decpcap.o -o decpcap_test -lpcap -lm  
+    install -d -m 755 /usr/local/sbin  
+    install -m 755 nethogs /usr/local/sbin  
+    install -d -m 755 /usr/local/share/man/man8/  
+    install -m 644 nethogs.8 /usr/local/share/man/man8/  
+
+安装成功了！
+
+执行：nethogs
+
+[plain] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    [root@localhost nethogs]# nethogs  
+    Waiting for first packet to arrive (see sourceforge.net bug 1019381)  
+      
+    NetHogs version 0.8.0  
+      
+      PID USER     PROGRAM                                                                                                                                     DEV        SENT      RECEIVED         
+    3227  root     sshd: root@pts/2                                                                                                                            eth0       0.666   0.059 KB/sec  
+    ?     root     unknown TCP                                                                                                                                            0.000   0.000 KB/sec  
+      
+      TOTAL                                                                                                                                                               0.666       0.059 KB/sec   
+
+下图显示各进程当前网络使用情况：
+
+按“m”键可以切换到统计视图，显示各进程总的网络使用情况
+
+
+按“Ctrl+C”或“q”退出监控
+使用帮助：
+
+[plain] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    [root@localhost ~]# nethogs --help  
+    nethogs: invalid option -- '-'  
+    usage: nethogs [-V] [-b] [-d seconds] [-t] [-p] [device [device [device ...]]]  
+            -V : 显示版本信息，注意是大写字母V.  
+            -d : 延迟更新刷新速率，以秒为单位。默认值为 1.  
+            -t : 跟踪模式.  
+            -b : bug 狩猎模式 — — 意味着跟踪模式.  
+            -p : 混合模式（不推荐）.  
+            设备 : 要监视的设备名称. 默认为 eth0  
+      
+    当 nethogs 运行时, 按:  
+     q: 退出  
+     m: 总数和当前使用情况模式之间切换  

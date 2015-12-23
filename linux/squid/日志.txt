@@ -1,0 +1,221 @@
+cat /var/log/squid/access.log|gawk '{print $4}'|sort|uniq -c|sort -nr
+
+
+Squid中文权威指南
+http://zyan.cc/book/squid/index.html
+http://blog.csdn.net/alonesword/article/details/18521449
+
+
+Squid 日志详解    .
+
+
+
+原文地址： http://www.php-oa.com/2008/01/17/squid-log-access-store.html
+
+access.log 日志
+
+在squid中access访问日志最为重要,位于/var/log/squid/access.log,Squid把关于HTTP响应的关键信息存放在access.log里。该文件是基于行的，也就是说每行对应一个客户端请求。 squid记录客户端IP（或主机名）、请求URL、响应size、和其他信息。 
+常用的记录格式如下(包含了10个域):
+
+例如:
+
+
+
+1206507660.803  84367 192.168.1.114 TCP_MISS/502 1486 GET 
+
+http://123.138.238.114/QQ2008SpringKB1.exe - DIRECT/123.138.238.114 text/html 
+
+
+下面来看看意思
+
+
+
+logformat squid %ts.%03tu %6tr %>a %Ss/%03Hs %<st %rm %ru %un %Sh/%<A %mt 
+
+1.时间戳: 请求完成时间，以 Unix 时间来记录的（UTC 1970-01-01 00:00:00 开始的时间）它是毫秒级的。 squid使用这种格式而不是人工可读的时间格式，是为了简化某些日志处理程序的工作。
+2.响应时间: 对HTTP响应来说，该域表明squid花了多少时间来处理请求。在squid接受到HTTP请求时开始计时，在响应完全送出后计时终止。响应时间是毫秒级的。尽管时间值是毫秒级的，但是精度可能是10毫秒。在squid负载繁重时，计时变得没那么精确。
+3.客户端地址: 该域包含客户端的IP地址，或者是主机名.
+4.结果/状态码: 该域包含2个 token，以斜杠分隔。第一个token叫结果码，它把协议和响应结果（例如TCP_HIT或UDP_DENIED）进行归类。这些是squid专有的编码，以TCP_开头的编码指HTTP请求，以UDP_开头的编码指ICP查询。第2个token是HTTP响应状态码（例如200,304,404等）。状态码通常来自原始服务器。在某些情形下，squid可能有义务自己选择状态码.
+5.传输size: 该域指明传给客户端的字节数。严格的讲，它是squid告诉TCP/IP协议栈去发送给客户端的字节数。这就是说，它不包括TCP/IP头部的overhead。也请注意，传输size正常来说大于响应的Content-Length。传输size包括了HTTP响应头部，然而Content- Length不包括。
+6.请求方式: 该域包含请求方式.
+7.URI: 该域包含来自客户端请求的URI。大多数记录下来的URI实际是URL（例如，它们有主机名）。在记日志时，squid删掉了在第一个问号(?)之后的所有URI字符，除非禁用了strip_query_terms指令。
+8.客户端身份: 无
+9.对端编码/对端主机: 对端信息包含了2个token，以斜杠分隔。它仅仅与cache 不命中的请求有关。第一个token指示如何选择下一跳，第二个token是下一跳的地址。当squid发送一个请求到邻居cache时，对端主机地址是邻居的主机名。假如请求是直接送到原始服务器的，则squid会写成原始服务器的IP地址或主机名–假如禁用了log_ip_on_direct。 NONE/-这个值指明squid不转发该请求到任何其他服务器。
+10.内容类型: 原始access.log的默认的最后一个域，是HTTP响应的内容类型。 squid从响应的Content-Type头部获取内容类型值。假如该头部丢失了，squid使用一个横杠(-)代替。
+
+假如激活了 log_mime_hdrs 指令，squid在每行追加2个附加的域：
+?HTTP请求头部: Squid 编码HTTP请求头部，并且在一对方括号之??间打印它们。方括号是必须的，因为squid不编码空格字符。编码方案稍许奇怪。回车（ASCII 13）和换行（ASCII 10）分别打印成\r和\n。其他不可打印的字符以RFC 1738风格来编码，例如Tab（ASCII 9）变成了%09。
+?HTTP响应头部: Squid编码HTTP响应头部，并且在一对方括号之??间打印它们。注意这些是发往客户端的头部，可能不同于从原始服务器接受到的头部。
+
+如果日志需要给 awstats 分析和让人可读性更加好,可能需要修改日志为 combined：
+logformat combined %>a %ui %un [%tl] "%rm %ru HTTP/%rv" %Hs %<st "%{Referer}>h" "%{User-Agent}>h" %Ss:%Sh
+access_log /var/log/squid/access.log combined
+
+
+会显示为
+
+
+
+
+1 
+
+
+110.211.14.58 - - [04/Apr/2008:00:07:39 +0800] "GET http://www.php-oa.com/0.flv HTTP/1.1" 206 139732 "-" "Mozilla/4.0 (compatible; MSIE 6.0;)"TCP_HIT  13936 
+
+
+ 
+
+ 
+
+store.log
+
+在 store.log 记录上面不能从 access.log 中的一些信息,如 Squid 关于存储或删除 cache 目标的相关的一些操作和时间.对每个 Squid 中存储的文件和不能 cache 的文件,以及每个被轮换策略删除的文件,Squid 都会创建相应的日志.
+注意这个日志文件记录了所有的文件.
+信息有如下的一些信息:
+?    某个特定的 HTTP 请求是否被 cache.
+?    cache 目标的文件号.可以通过应用的 UFS 存储机制,来查到该文件号到路径名,并且检查 cache 文件的内容.
+?    响应的内容长度: 包括 Content-Length 值和实际的 body 大小.
+?    Date, Last-Modified, 和 Expires 等过期头部的值.
+?    响应的 cache 关键字（例如MD5 hash值）.
+
+例如:
+
+
+
+
+1 
+
+
+1323468268.676 RELEASE -1 FFFFFFFF 3D7E036366ECC176665F3ED635E9B058  200 1323467369 1322847727 1365003369 video/x-flv 521858017/96195 GET http://www.php-oa.com/0.flv 
+
+
+如上:每个日志条目包含如下13个域：
+1.时间戳: 事件何时发生,表现为Unix纪元以来的秒数,它是毫秒级的.
+2.动作: cache目标发生的动作.该域有3个可能值：SWAPOUT,RELEASE,和SO_FAIL. 
+ 
+?SWAPOUT在Squid成功的存储目标到磁盘时发生.某些目标例如那些消极cache的,仅保存在内存而不是磁盘,Squid不会在store.log裡记录它们.
+?SO_FAIL表明Squid不能完整的存储目标到磁盘.多半意味着存储机制拒绝以写方式打开新的磁盘文件.
+?RELEASE在Squid从cache裡删除目标,或首先就决定响应不可存储时发生.
+
+3.目录号: 目录号是十进制小数形式,它是个到cache目录的7位索引.对没有存储到磁盘的目标,该域包含-1值.
+4.文件号: 文件号是25位的标识符,内在的被squid使用.它被写成8字符的十六进制号.对UFS基础的存储机制没有存储到磁盘的目标,没有有效的文件号.对这些目标,该域的值是FFFFFFFF.仅仅在RELEASE和SO_FAIL情况下才会出现这个值.
+5.cache关键字: Squid使用MD5哈希值作为主要的索引来定位目标.该关键字基于请求方式、URI、和其他可能的信息计算得来.可以从cache关键字来查找store.log条目.
+6.状态码: 该域显示响应的HTTP状态码,跟access.log一样.表13.1是状态码列表.
+7.日期: HTTP响应的Date头部值,表现为Unix纪元以来的秒数.值-1表示Date头部不可解析,-2意味着头部完缺.
+8.最后修改时间: HTTP响应的Last-Modified头部值,表现为Unix纪元以来的秒数.值-1表示Last-Modified头部不可解析,-2意味着头部完缺.
+9.过期时间: HTTP响应的Expires头部值,表现为Unix纪元以来的秒数.值-1表示Expires头部不可解析,-2意味着头部完缺.
+10.内容类型: HTTP响应的Content-Type头部值,排除了任何media-type参数.假如Content-Type丢失了,Squid插入值unknown.
+11.内容长度/大小: 该域包含2个数字,以斜杠分开.第一个是Content-Length头部值. -1表明Content-Length头部不存在.第二个是HTTP消息 body的实际大小.你可使用这2个数字来部分的验证接受到的响应,并验证原始服务器是否不正确的计算了内容长度.大多数情形下,这2个数字相等.
+12.方式: 请求目标的HTTP方式,跟access.log里的一样.
+13.URI: 最后一个域是请求URI,跟access.log里的一样.该域也有前述章节提到的空格问题.然而,这里不必为此担忧,因为你可安全的忽略任何多余的域.
+
+
+对许多RELEASE的条目,在最后8个域出现的是疑问号(?).这是因为这些域的大部分值来自squid称为MemObject的结构.该结构仅在目标已被接受时,或目标被完整存储在内存时,才会出现. Squid cache里的大部分目标没有MemObject结构,因为它们仅存在于磁盘.对这些情况,Squid在相应域放置一个疑问号.
+ 
+
+简单分析
+
+squid的日志很重要.常常要了解的,其中最重要的就是命中率啦,不然反向代理做的用就不大.
+
+#cat access.log|gawk '{print $4}'|sort|uniq -c|sort -nr
+
+9568 TCP_IMS_HIT/304
+6313 TCP_HIT/200
+2133 TCP_MISS/200
+1568 TCP_MISS/206
+587 TCP_MEM_HIT/200
+531 TCP_MISS/304
+207 TCP_REFRESH_HIT/200
+152 TCP_REFRESH_HIT/304
+86 TCP_NEGATIVE_HIT/404
+69 TCP_MISS/404
+9 TCP_MISS/000
+4 TCP_MISS/503
+1 TCP_REFRESH_MISS/000
+1 TCP_DENIED/400
+
+可以使用上面的方法,大约的分析一下命令中比.什么意思就看下面的详解.
+
+#cat /var/log/squid/access.log |grep TCP_MEM_HIT
+
+如果看到很多的TCP_MEM_HIT ,这表明该文件是从内存缓存读取的,squid已经起作用了！你再用浏览器打开该文件,应该是快如闪电了..呵呵,大功告成了！还有其他类型的HIT,如TCP_HIT等等,这些是从磁盘读取的,我觉得加速的意义不大,只不过缓解了apache的压力而已.
+
+相应于HTTP请求,下列标签可能出现在access.log文件的第四个域.
+
+TCP_HIT
+
+Squid发现请求资源的貌似新鲜的拷贝,并将其立即发送到客户端.
+
+TCP_MISS
+
+Squid没有请求资源的cache拷贝.
+
+TCP_REFERSH_HIT
+
+Squid发现请求资源的貌似陈旧的拷贝,并发送确认请求到原始服务器.原始服务器返回304（未修改）响应,指示squid的拷贝仍旧是新鲜的.
+
+TCP_REF_FAIL_HIT
+
+Squid发现请求资源的貌似陈旧的拷贝,并发送确认请求到原始服务器.然而,原始服务器响应失败,或者返回的响应Squid不能理解.在此情形下,squid发送现有cache拷贝（很可能是陈旧的）到客户端.
+
+TCP_REFRESH_MISS
+
+Squid发现请求资源的貌似陈旧的拷贝,并发送确认请求到原始服务器.原始服务器响应新的内容,指示这个cache拷贝确实是陈旧的.
+
+TCP_CLIENT_REFRESH_MISS
+
+Squid发现了请求资源的拷贝,但客户端的请求包含了Cache-Control: no-cache指令.Squid转发客户端的请求到原始服务器,强迫cache确认.
+
+TCP_IMS_HIT
+
+客户端发送确认请求,Squid发现更近来的、貌似新鲜的请求资源的拷贝.Squid发送更新的内容到客户端,而不联系原始服务器.
+
+TCP_SWAPFAIL_MISS
+
+Squid发现请求资源的有效拷贝,但从磁盘装载它失败.这时squid发送请求到原始服务器,就如同这是个cache丢失一样.
+
+TCP_NEGATIVE_HIT
+
+在对原始服务器的请求导致HTTP错误时,Squid也会cache这个响应.在短时间内对这些资源的重复请求,导致了否命中. negative_ttl指令控制这些错误被cache的时间数量.请注意这些错误只在内存cache,不会写往磁盘.下列HTTP状态码可能导致否定 cache（也遵循于其他约束）： 204, 305, 400, 403, 404, 405, 414, 500, 501, 502, 503, 504.
+
+TCP_MEM_HIT
+
+Squid在内存cache里发现请求资源的有效拷贝,并将其立即发送到客户端.注意这点并非精确的呈现了所有从内存服务的响应.例如,某些cache在内存里,但要求确认的响应,会以TCP_REFRESH_HIT, TCP_REFRESH_MISS等形式记录.
+
+TCP_DENIED
+
+因为http_access或http_reply_access规则,客户端的请求被拒绝了.注意被http_access拒绝的请求在第9域的值是NONE/-,然而被http_reply_access拒绝的请求,在相应地方有一个有效值.
+
+TCP_OFFLINE_HIT
+
+当offline_mode激活时,Squid对任何cache响应返回cache命中,而不用考虑它的新鲜程度.
+
+TCP_REDIRECT
+
+重定向程序告诉Squid产生一个HTTP重定向到新的URI（见11.1节）.正常的,Squid不会记录这些重定向.假如要这样做,必须在编译squid前,手工定义LOG_TCP_REDIRECTS预处理指令.
+
+NONE
+
+无分类的结果用于特定错误,例如无效主机名.
+
+相应于ICP查询,下列标签可能出现在access.log文件的第四域.
+
+UDP_HIT
+
+Squid在cache里发现请求资源的貌似新鲜的拷贝.
+
+UDP_MISS
+
+Squid没有在cache里发现请求资源的貌似新鲜的拷贝.假如同一目标通过HTTP请求,就可能是个cache丢失.请对比UDP_MISS_NOFETCH.
+
+UDP_MISS_NOFETCH
+
+跟UDP_MISS类似,不同的是这里也指示了Squid不愿去处理相应的HTTP请求.假如使用了-Y命令行选项,Squid在启动并编译其内存索引时,会返回这个标签而不是UDP_MISS.
+
+UDP_DENIED
+
+因为icp_access规则,ICP查询被拒绝.假如超过95%的到某客户端的ICP响应是UDP_DENIED,并且客户端数据库激活了（见附录A）,Squid在1小时内,停止发送任何ICP响应到该客户端.若这点发生,你也可在cache.log里见到一个警告.
+
+UDP_INVALID
+
+Squid接受到无效查询（例如截断的消息、无效协议版本、URI里的空格等）.Squid发送UDP_INVALID响应到客户端.

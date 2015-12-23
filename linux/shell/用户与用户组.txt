@@ -1,0 +1,20 @@
+
+增加密码命令
+passwd
+删除用户命令
+userdel
+用户
+/etc/passwd
+root:x:0:0:root:/root:/bin/bash
+帐户：密码：uid:gid:用户全名：跟目录：shell位置
+uid 0代表超级管理员 1-499 伪用户 500-60000 普通用户
+用户和组的数量配置 /etc/login.defs 
+密码表:/etc/shadow 
+
+用户组
+/etc/group
+root:x:0:root
+用户名字：密码：组id:用户列表
+密码表：/etc/gshadow
+root:::root
+用户组：用户组密码：用户组管理员：组成员

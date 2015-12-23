@@ -1,0 +1,46 @@
+
+
+udp[8:4] contains "\x76\xa2"
+
+
+udp[8:] matches  "\x76\xa2"  只要内容中任何地方匹配都满足
+udp[8:2] matches  "\x76\xa2" 数据两个字节必须相同
+udp[8:] matches  "^\x76\xa2" 数据开头两个字节匹配
+
+
+tcp[20:10] matches "\x31\x93"
+tcp[20:2] matches "\x43\x9d"
+tcp[20:] matches "\x68\x9f"
+tcp[20:2] matches "\x68\x9f"
+tcp[20:2]==dd:dd
+tcp[20:2] contains "\xdd\xdd"
+tcp[20:2] matches "\\x45\\x35"
+
+
+
+http.host=="www.baidu.com"
+http.request.method=="POST"
+xml
+xml.attribute == "index=\"3582384\""
+http.content_type == "multipart/related; charset=utf-8; boundary=\"==KEw2gjFs7yHE0sL5g6GD+FxsZnz3ZQjjUTZ03egyQo2FUB+08E46JpmjQaap==\"; type=\"text/xml\"; start=\"<SOAP-ENV:Envelope>\""
+http.content_type matches "type=\"text/xml\""
+http.content_type matches  "application"
+
+
+mime_multipart.part == ""
+data-text-lines
+http.content_type == "application/voicexml+xml"
+http.content_type == "image/jpeg"
+http.content_type == "application/x-shockwave-flash"
+http.content_type == "application/octet-stream"
+
+xml matches  "DYNAMIC_IMAGE"
+xml.tag matches  "DYNAMIC_IMAGE"
+xml.tag == "<DYNAMIC_IMAGE template_id=\"product1MCImage\" swf_id=\"product1MC\" default=\"elegant_V7/resource/product1_150_160.png\" reposition_eligible=\"true\" resizing_eligible=\"true\">"
+
+frame[54:17] == 48:54:54:50:2f:31:2e:31:20:32:30:30:20:4f:4b:0d:0a  http200
+malformed
+
+
+google/pu
+(tcp.port==80) and (ip.dst==211.244.254.1) and (http[5:2]==7075)

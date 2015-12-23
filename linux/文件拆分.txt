@@ -1,0 +1,19 @@
+ split -C 100m  catalina.out 
+ 
+ grep -n  -E  '(Exception:)|(\:s*at)'  catalina.out  
+ 
+grep "^[[:space:]]\{1,\}at"  catalina.out  
+
+
+grep "^[[:space:]]\{1,\}at"  catalina.out  
+
+grep '\(^[[:space:]]\{1,\}at\)\|\(Exception:\)'  xbh 
+
+grep -E '\(^[[:space:]]\{1,\}at\)|\(Exception:\)' xbh
+
+grep -E '(^[[:space:]]{1,}at)' xbh
+
+grep -E '(^[[:space:]]{1,}at)|(Exception:)' xbh
+
+grep -E '(^[[:space:]]{1,}at)|(Exception:)'   -n   xav
+

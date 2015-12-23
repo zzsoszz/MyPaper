@@ -1,0 +1,1109 @@
+netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}' 
+
+
+netstat -na | grep ESTAB | grep 80 | wc -l
+netstat -na | grep ESTAB | grep 8080 | wc -l
+
+netstat -an|awk '/tcp/ {print $6}'|sort|uniq -c
+
+客户端产生CLOSE_WAIT状态的解决方案 
+http://blog.csdn.net/fenglibing/article/details/36706965
+
+
+win7
+netstat -n| findstr "CLOSE"
+netstat -an | find /i /c "CLOSE_WAIT"
+
+
+
+sysctl -w net.ipv4.tcp_timestamps=0 
+
+sysctl -w net.ipv4.tcp_tw_reuse=1 
+
+sysctl -w net.ipv4.tcp_tw_recycle=1 
+
+sysctl -w net.ipv4.tcp_fin_timeout=30 
+
+sysctl -w net.ipv4.tcp_keepalive_time=1800 
+
+sysctl -w net.ipv4.tcp_rmem="4096 87380 8388608" 
+
+sysctl -w net.ipv4.tcp_wmem="4096 87380 8388608" 
+
+sysctl -w net.ipv4.tcp_max_syn_backlog=4096 
+
+
+
+	 
+状态：描述
+CLOSED：无连接是活动的或正在进行
+LISTEN：服务器在等待进入呼叫
+SYN_RECV：一个连接请求已经到达，等待确认
+SYN_SENT：应用已经开始，打开一个连接
+ESTABLISHED：正常数据传输状态
+FIN_WAIT1：应用说它已经完成
+FIN_WAIT2：另一边已同意释放
+ITMED_WAIT：等待所有分组死掉
+CLOSING：两边同时尝试关闭
+TIME_WAIT：另一边已初始化一个释放
+LAST_ACK：等待所有分组死掉
+
+
+
+
+
+
+ TIME_WAIT和CLOSE_WAIT状态区别
+分类： 计算机原理 2013-12-29 17:15 4129人阅读 评论(0) 收藏 举报
+在服务器的日常维护过程中，会经常用到下面的命令：
+[plain] view plaincopy在CODE上查看代码片派生到我的代码片
+netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'   
+它会显示例如下面的信息：
+TIME_WAIT 814
+CLOSE_WAIT 1
+FIN_WAIT1 1
+ESTABLISHED 634
+SYN_RECV 2
+LAST_ACK 1
+常用的三个状态是：ESTABLISHED 表示正在通信，TIME_WAIT 表示主动关闭，CLOSE_WAIT 表示被动关闭。
+TCP协议规定，对于已经建立的连接，网络双方要进行四次握手才能成功断开连接，如果缺少了其中某个步骤，将会使连接处于假死状态，连接本身占用的资源不会被释放。网络服务器程序要同时管理大量连接，所以很有必要保证无用连接完全断开，否则大量僵死的连接会浪费许多服务器资源。在众多TCP状态中，最值得注意的状态有两个：CLOSE_WAIT和TIME_WAIT。  
+TIME_WAIT 
+TIME_WAIT 是主动关闭链接时形成的，等待2MSL时间，约4分钟。主要是防止最后一个ACK丢失。  由于TIME_WAIT 的时间会非常长，因此server端应尽量减少主动关闭连接
+CLOSE_WAIT
+CLOSE_WAIT是被动关闭连接是形成的。根据TCP状态机，服务器端收到客户端发送的FIN，则按照TCP实现发送ACK，因此进入CLOSE_WAIT状态。但如果服务器端不执行close()，就不能由CLOSE_WAIT迁移到LAST_ACK，则系统中会存在很多CLOSE_WAIT状态的连接。此时，可能是系统忙于处理读、写操作，而未将已收到FIN的连接，进行close。此时，recv/read已收到FIN的连接socket，会返回0。
+为什么需要 TIME_WAIT 状态？
+假设最终的ACK丢失，server将重发FIN，client必须维护TCP状态信息以便可以重发最终的ACK，否则会发送RST，结果server认为发生错误。TCP实现必须可靠地终止连接的两个方向(全双工关闭)，client必须进入 TIME_WAIT 状态，因为client可能面 临重发最终ACK的情形。
+为什么 TIME_WAIT 状态需要保持 2MSL 这么长的时间？
+如果 TIME_WAIT 状态保持时间不足够长(比如小于2MSL)，第一个连接就正常终止了。第二个拥有相同相关五元组的连接出现，而第一个连接的重复报文到达，干扰了第二个连接。TCP实现必须防止某个连接的重复报文在连接终止后出现，所以让TIME_WAIT状态保持时间足够长(2MSL)，连接相应方向上的TCP报文要么完全响应完毕，要么被 丢弃。建立第二个连接的时候，不会混淆。
+ TIME_WAIT 和CLOSE_WAIT状态socket过多
+如果服务器出了异常，百分之八九十都是下面两种情况：
+1.服务器保持了大量TIME_WAIT状态
+2.服务器保持了大量CLOSE_WAIT状态，简单来说CLOSE_WAIT数目过大是由于被动关闭连接处理不当导致的。
+
+因为linux分配给一个用户的文件句柄是有限的，而TIME_WAIT和CLOSE_WAIT两种状态如果一直被保持，那么意味着对应数目的通道就一直被占着，而且是“占着茅坑不使劲”，一旦达到句柄数上限，新的请求就无法被处理了，接着就是大量Too Many Open Files异常，Tomcat崩溃。
+
+
+
+
+
+
+---------------------------
+
+netstat命令详解
+Linux netstat命令详解
+简介
+Netstat 命令用于显示各种网络相关信息，如网络连接，路由表，接口状态 (Interface Statistics)，masquerade 连接，多播成员 (Multicast Memberships) 等等。
+
+输出信息含义
+执行netstat后，其输出结果为
+
+复制代码
+Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address Foreign Address State
+tcp 0 2 210.34.6.89:telnet 210.34.6.96:2873 ESTABLISHED
+tcp 296 0 210.34.6.89:1165 210.34.6.84:netbios-ssn ESTABLISHED
+tcp 0 0 localhost.localdom:9001 localhost.localdom:1162 ESTABLISHED
+tcp 0 0 localhost.localdom:1162 localhost.localdom:9001 ESTABLISHED
+tcp 0 80 210.34.6.89:1161 210.34.6.10:netbios-ssn CLOSE
+
+Active UNIX domain sockets (w/o servers)
+Proto RefCnt Flags Type State I-Node Path
+unix 1 [ ] STREAM CONNECTED 16178 @000000dd
+unix 1 [ ] STREAM CONNECTED 16176 @000000dc
+unix 9 [ ] DGRAM 5292 /dev/log
+unix 1 [ ] STREAM CONNECTED 16182 @000000df
+复制代码
+
+从整体上看，netstat的输出结果可以分为两个部分：
+
+一个是Active Internet connections，称为有源TCP连接，其中"Recv-Q"和"Send-Q"指%0A的是接收队列和发送队列。这些数字一般都应该是0。如果不是则表示软件包正在队列中堆积。这种情况只能在非常少的情况见到。
+
+另一个是Active UNIX domain sockets，称为有源Unix域套接口(和网络套接字一样，但是只能用于本机通信，性能可以提高一倍)。
+Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程号,Types显示套接口的类型,State显示套接口当前的状态,Path表示连接到套接口的其它进程使用的路径名。
+
+常见参数
+-a (all)显示所有选项，默认不显示LISTEN相关
+-t (tcp)仅显示tcp相关选项
+-u (udp)仅显示udp相关选项
+-n 拒绝显示别名，能显示数字的全部转化成数字。
+-l 仅列出有在 Listen (监听) 的服務状态
+
+-p 显示建立相关链接的程序名
+-r 显示路由信息，路由表
+-e 显示扩展信息，例如uid等
+-s 按各个协议进行统计
+-c 每隔一个固定时间，执行该netstat命令。
+
+提示：LISTEN和LISTENING的状态只有用-a或者-l才能看到
+
+ 
+
+实用命令实例
+ 
+1. 列出所有端口 (包括监听和未监听的)
+  列出所有端口 netstat -a
+
+复制代码
+# netstat -a | more
+ Active Internet connections (servers and established)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ tcp        0      0 localhost:30037         *:*                     LISTEN
+ udp        0      0 *:bootpc                *:*
+ 
+Active UNIX domain sockets (servers and established)
+ Proto RefCnt Flags       Type       State         I-Node   Path
+ unix  2      [ ACC ]     STREAM     LISTENING     6135     /tmp/.X11-unix/X0
+ unix  2      [ ACC ]     STREAM     LISTENING     5140     /var/run/acpid.socket
+复制代码
+  列出所有 tcp 端口 netstat -at
+
+复制代码
+# netstat -at
+ Active Internet connections (servers and established)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ tcp        0      0 localhost:30037         *:*                     LISTEN
+ tcp        0      0 localhost:ipp           *:*                     LISTEN
+ tcp        0      0 *:smtp                  *:*                     LISTEN
+ tcp6       0      0 localhost:ipp           [::]:*                  LISTEN
+复制代码
+  列出所有 udp 端口 netstat -au
+
+# netstat -au
+ Active Internet connections (servers and established)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ udp        0      0 *:bootpc                *:*
+ udp        0      0 *:49119                 *:*
+ udp        0      0 *:mdns                  *:*
+ 
+2. 列出所有处于监听状态的 Sockets
+  只显示监听端口 netstat -l
+
+# netstat -l
+ Active Internet connections (only servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ tcp        0      0 localhost:ipp           *:*                     LISTEN
+ tcp6       0      0 localhost:ipp           [::]:*                  LISTEN
+ udp        0      0 *:49119                 *:*
+  只列出所有监听 tcp 端口 netstat -lt
+
+# netstat -lt
+ Active Internet connections (only servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ tcp        0      0 localhost:30037         *:*                     LISTEN
+ tcp        0      0 *:smtp                  *:*                     LISTEN
+ tcp6       0      0 localhost:ipp           [::]:*                  LISTEN
+  只列出所有监听 udp 端口 netstat -lu
+
+# netstat -lu
+ Active Internet connections (only servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ udp        0      0 *:49119                 *:*
+ udp        0      0 *:mdns                  *:*
+  只列出所有监听 UNIX 端口 netstat -lx
+
+复制代码
+# netstat -lx
+ Active UNIX domain sockets (only servers)
+ Proto RefCnt Flags       Type       State         I-Node   Path
+ unix  2      [ ACC ]     STREAM     LISTENING     6294     private/maildrop
+ unix  2      [ ACC ]     STREAM     LISTENING     6203     public/cleanup
+ unix  2      [ ACC ]     STREAM     LISTENING     6302     private/ifmail
+ unix  2      [ ACC ]     STREAM     LISTENING     6306     private/bsmtp
+复制代码
+
+
+3. 显示每个协议的统计信息
+  显示所有端口的统计信息 netstat -s
+
+复制代码
+# netstat -s
+ Ip:
+ 11150 total packets received
+ 1 with invalid addresses
+ 0 forwarded
+ 0 incoming packets discarded
+ 11149 incoming packets delivered
+ 11635 requests sent out
+ Icmp:
+ 0 ICMP messages received
+ 0 input ICMP message failed.
+ Tcp:
+ 582 active connections openings
+ 2 failed connection attempts
+ 25 connection resets received
+ Udp:
+ 1183 packets received
+ 4 packets to unknown port received.
+ .....
+复制代码
+  显示 TCP 或 UDP 端口的统计信息 netstat -st 或 -su
+
+# netstat -st 
+# netstat -su
+ 
+
+4. 在 netstat 输出中显示 PID 和进程名称 netstat -p
+netstat -p 可以与其它开关一起使用，就可以添加 “PID/进程名称” 到 netstat 输出中，这样 debugging 的时候可以很方便的发现特定端口运行的程序。
+
+# netstat -pt
+ Active Internet connections (w/o servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+ tcp        1      0 ramesh-laptop.loc:47212 192.168.185.75:www        CLOSE_WAIT  2109/firefox
+ tcp        0      0 ramesh-laptop.loc:52750 lax:www ESTABLISHED 2109/firefox
+5. 在 netstat 输出中不显示主机，端口和用户名 (host, port or user)
+当你不想让主机，端口和用户名显示，使用 netstat -n。将会使用数字代替那些名称。
+
+同样可以加速输出，因为不用进行比对查询。
+
+# netstat -an
+如果只是不想让这三个名称中的一个被显示，使用以下命令
+
+# netsat -a --numeric-ports
+# netsat -a --numeric-hosts
+# netsat -a --numeric-users
+ 
+
+6. 持续输出 netstat 信息
+netstat 将每隔一秒输出网络信息。
+
+复制代码
+# netstat -c
+ Active Internet connections (w/o servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ tcp        0      0 ramesh-laptop.loc:36130 101-101-181-225.ama:www ESTABLISHED
+ tcp        1      1 ramesh-laptop.loc:52564 101.11.169.230:www      CLOSING
+ tcp        0      0 ramesh-laptop.loc:43758 server-101-101-43-2:www ESTABLISHED
+ tcp        1      1 ramesh-laptop.loc:42367 101.101.34.101:www      CLOSING
+ ^C
+复制代码
+ 
+
+7. 显示系统不支持的地址族 (Address Families)
+netstat --verbose
+在输出的末尾，会有如下的信息
+
+netstat: no support for `AF IPX' on this system.
+netstat: no support for `AF AX25' on this system.
+netstat: no support for `AF X25' on this system.
+netstat: no support for `AF NETROM' on this system.
+ 
+
+8. 显示核心路由信息 netstat -r
+# netstat -r
+ Kernel IP routing table
+ Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+ 192.168.1.0     *               255.255.255.0   U         0 0          0 eth2
+ link-local      *               255.255.0.0     U         0 0          0 eth2
+ default         192.168.1.1     0.0.0.0         UG        0 0          0 eth2
+注意： 使用 netstat -rn 显示数字格式，不查询主机名称。
+
+ 
+
+9. 找出程序运行的端口
+并不是所有的进程都能找到，没有权限的会不显示，使用 root 权限查看所有的信息。
+
+# netstat -ap | grep ssh
+ tcp        1      0 dev-db:ssh           101.174.100.22:39213        CLOSE_WAIT  -
+ tcp        1      0 dev-db:ssh           101.174.100.22:57643        CLOSE_WAIT  -
+  找出运行在指定端口的进程
+
+# netstat -an | grep ':80'
+ 
+
+10. 显示网络接口列表
+# netstat -i
+ Kernel Interface table
+ Iface   MTU Met   RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg
+ eth0       1500 0         0      0      0 0             0      0      0      0 BMU
+ eth2       1500 0     26196      0      0 0         26883      6      0      0 BMRU
+ lo        16436 0         4      0      0 0             4      0      0      0 LRU
+显示详细信息，像是 ifconfig 使用 netstat -ie:
+
+复制代码
+# netstat -ie
+ Kernel Interface table
+ eth0      Link encap:Ethernet  HWaddr 00:10:40:11:11:11
+ UP BROADCAST MULTICAST  MTU:1500  Metric:1
+ RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+ TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+ collisions:0 txqueuelen:1000
+ RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+ Memory:f6ae0000-f6b00000
+复制代码
+ 
+11. IP和TCP分析
+  查看连接某服务端口最多的的IP地址
+
+复制代码
+wss8848@ubuntu:~$ netstat -nat | grep "192.168.1.15:22" |awk '{print $5}'|awk -F: '{print $1}'|sort|uniq -c|sort -nr|head -20
+18 221.136.168.36
+3 154.74.45.242
+2 78.173.31.236
+2 62.183.207.98
+2 192.168.1.14
+2 182.48.111.215
+2 124.193.219.34
+2 119.145.41.2
+2 114.255.41.30
+1 75.102.11.99
+复制代码
+  TCP各种状态列表
+
+复制代码
+wss8848@ubuntu:~$ netstat -nat |awk '{print $6}'
+established)
+Foreign
+LISTEN
+TIME_WAIT
+ESTABLISHED
+TIME_WAIT
+SYN_SENT
+复制代码
+  先把状态全都取出来,然后使用uniq -c统计，之后再进行排序。
+复制代码
+wss8848@ubuntu:~$ netstat -nat |awk '{print $6}'|sort|uniq -c
+143 ESTABLISHED
+1 FIN_WAIT1
+1 Foreign
+1 LAST_ACK
+36 LISTEN
+6 SYN_SENT
+113 TIME_WAIT
+1 established)
+复制代码
+  最后的命令如下:
+netstat -nat |awk '{print $6}'|sort|uniq -c|sort -rn
+分析access.log获得访问前10位的ip地址
+awk '{print $1}' access.log |sort|uniq -c|sort -nr|head -10
+参考资料:http://blog.maxiang.net/10-netstat-command-examples/139/
+
+            http://www.ipcpu.com/2011/07/netstat-linux/
+			
+			
+			
+			
+			
+			
+			
+			
+			
+
+系统连接状态篇：
+1.查看TCP连接状态
+netstat -nat |awk ‘{print $6}’|sort|uniq -c|sort -rn
+
+netstat -n | awk ‘/^tcp/ {++S[$NF]};END {for(a in S) print a, S[a]}’ 或
+netstat -n | awk ‘/^tcp/ {++state[$NF]}; END {for(key in state) print key,”t”,state[key]}’
+netstat -n | awk ‘/^tcp/ {++arr[$NF]};END {for(k in arr) print k,”t”,arr[k]}’
+
+netstat -n |awk ‘/^tcp/ {print $NF}’|sort|uniq -c|sort -rn
+
+netstat -ant | awk ‘{print $NF}’ | grep -v ‘[a-z]‘ | sort | uniq -c
+
+2.查找请求数请20个IP（常用于查找攻来源）：
+netstat -anlp|grep 80|grep tcp|awk ‘{print $5}’|awk -F: ‘{print $1}’|sort|uniq -c|sort -nr|head -n20
+
+netstat -ant |awk ‘/:80/{split($5,ip,”:”);++A[ip[1]]}END{for(i in A) print A[i],i}’ |sort -rn|head -n20
+
+3.用tcpdump嗅探80端口的访问看看谁最高
+tcpdump -i eth0 -tnn dst port 80 -c 1000 | awk -F”.” ‘{print $1″.”$2″.”$3″.”$4}’ | sort | uniq -c | sort -nr |head -20
+
+4.查找较多time_wait连接
+netstat -n|grep TIME_WAIT|awk ‘{print $5}’|sort|uniq -c|sort -rn|head -n20
+
+5.找查较多的SYN连接
+netstat -an | grep SYN | awk ‘{print $5}’ | awk -F: ‘{print $1}’ | sort | uniq -c | sort -nr | more
+
+6.根据端口列进程
+netstat -ntlp | grep 80 | awk ‘{print $7}’ | cut -d/ -f1
+
+网站日志分析篇1（Apache）：
+
+1.获得访问前10位的ip地址
+cat access.log|awk ‘{print $1}’|sort|uniq -c|sort -nr|head -10
+cat access.log|awk ‘{counts[$(11)]+=1}; END {for(url in counts) print counts[url], url}’
+
+2.访问次数最多的文件或页面,取前20
+cat access.log|awk ‘{print $11}’|sort|uniq -c|sort -nr|head -20
+
+3.列出传输最大的几个exe文件（分析下载站的时候常用）
+cat access.log |awk ‘($7~/.exe/){print $10 ” ” $1 ” ” $4 ” ” $7}’|sort -nr|head -20
+
+4.列出输出大于200000byte(约200kb)的exe文件以及对应文件发生次数
+cat access.log |awk ‘($10 > 200000 && $7~/.exe/){print $7}’|sort -n|uniq -c|sort -nr|head -100
+
+5.如果日志最后一列记录的是页面文件传输时间，则有列出到客户端最耗时的页面
+cat access.log |awk ‘($7~/.php/){print $NF ” ” $1 ” ” $4 ” ” $7}’|sort -nr|head -100
+
+6.列出最最耗时的页面(超过60秒的)的以及对应页面发生次数
+cat access.log |awk ‘($NF > 60 && $7~/.php/){print $7}’|sort -n|uniq -c|sort -nr|head -100
+
+7.列出传输时间超过 30 秒的文件
+cat access.log |awk ‘($NF > 30){print $7}’|sort -n|uniq -c|sort -nr|head -20
+
+8.统计网站流量（G)
+cat access.log |awk ‘{sum+=$10} END {print sum/1024/1024/1024}’
+
+9.统计404的连接
+awk ‘($9 ~/404/)’ access.log | awk ‘{print $9,$7}’ | sort
+
+10. 统计http status.
+cat access.log |awk ‘{counts[$(9)]+=1}; END {for(code in counts) print code, counts[code]}'
+cat access.log |awk '{print $9}'|sort|uniq -c|sort -rn
+
+10.蜘蛛分析
+查看是哪些蜘蛛在抓取内容。
+/usr/sbin/tcpdump -i eth0 -l -s 0 -w - dst port 80 | strings | grep -i user-agent | grep -i -E 'bot|crawler|slurp|spider'
+
+网站日分析2(Squid篇）
+
+2.按域统计流量
+zcat squid_access.log.tar.gz| awk '{print $10,$7}' |awk 'BEGIN{FS="[ /]"}{trfc[$4]+=$1}END{for(domain in trfc){printf "%st%dn",domain,trfc[domain]}}'
+
+效率更高的perl版本请到此下载:http://docs.linuxtone.org/soft/tools/tr.pl
+
+数据库篇
+1.查看数据库执行的sql
+/usr/sbin/tcpdump -i eth0 -s 0 -l -w - dst port 3306 | strings | egrep -i 'SELECT|UPDATE|DELETE|INSERT|SET|COMMIT|ROLLBACK|CREATE|DROP|ALTER|CALL'
+
+系统Debug分析篇
+
+1.调试命令
+strace -p pid
+
+2.跟踪指定进程的PID
+gdb -p pid
+
+更多的请参考：
+
+http://bbs.linuxtone.org/forum-14-1.html
+
+ 
+
+
+
+
+
+
+
+ linux 下大量TIME_WAIT 的处理 2008-04-16 09:51:06
+分类： LINUX
+
+Linux下高并发的Squid服务器，TCP TIME_WAIT套接字数量经常达到两、三万，服务器很容易被拖死。通过修改Linux内核参数，可以减少服务器的IME_WAIT套接字数量。
+
+　　
+
+vi /etc/sysctl.conf
+
+　　增加以下几行：
+
+net.ipv4.tcp_fin_timeout = 30
+
+net.ipv4.tcp_keepalive_time = 1200
+
+net.ipv4.tcp_syncookies = 1
+
+net.ipv4.tcp_tw_reuse = 1
+
+net.ipv4.tcp_tw_recycle = 1
+
+net.ipv4.ip_local_port_range = 1024    65000
+
+net.ipv4.tcp_max_syn_backlog = 8192
+
+net.ipv4.tcp_max_tw_buckets = 5000
+
+　　说明：
+
+　　net.ipv4.tcp_syncookies = 1 表示开启SYN Cookies。当出现SYN等待队列溢出时，启用cookies来处理，可防范少量SYN攻击，默认为0，表示关闭；
+
+　　net.ipv4.tcp_tw_reuse = 1 表示开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接，默认为0，表示关闭；
+
+　　net.ipv4.tcp_tw_recycle = 1 表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为0，表示关闭。
+
+　　net.ipv4.tcp_fin_timeout = 30 表示如果套接字由本端要求关闭，这个参数决定了它保持在FIN-WAIT-2状态的时间。
+
+　　net.ipv4.tcp_keepalive_time = 1200 表示当keepalive起用的时候，TCP发送keepalive消息的频度。缺省是2小时，改为20分钟。
+
+　　net.ipv4.ip_local_port_range = 1024    65000 表示用于向外连接的端口范围。缺省情况下很小：32768到61000，改为1024到65000。
+
+　　net.ipv4.tcp_max_syn_backlog = 8192 表示SYN队列的长度，默认为1024，加大队列长度为8192，可以容纳更多等待连接的网络连接数。 
+
+　　net.ipv4.tcp_max_tw_buckets = 5000 表示系统同时保持TIME_WAIT套接字的最大数量，如果超过这个数字，TIME_WAIT套接字将立刻被清除并打印警告信息。默认为180000，改为5000。对于Apache、Nginx等服务器，上几行的参数可以很好地减少TIME_WAIT套接字数量，但是对于Squid，效果却不大。此项参数可以控制TIME_WAIT套接字的最大数量，避免Squid服务器被大量的TIME_WAIT套接字拖死。
+
+
+
+　　执行以下命令使配置生效：
+
+/sbin/sysctl -p
+
+
+
+
+
+
+
+
+
+
+
+从问题看本质: 研究TCP close_wait的内幕
+分类： linux内核编程 2012-07-04 23:47 3561人阅读 评论(1) 收藏 举报
+tcpsocket服务器servertomcat浏览器
+最近遇到的一个关于socket.close的问题,在某个应用服务器出现的状况(执行netstat -np | grep tcp): 
+tcp        0      0 10.224.122.16:50158         10.224.112.58:8788          CLOSE_WAIT
+tcp        0      0 10.224.122.16:37655         10.224.112.58:8788          CLOSE_WAIT
+tcp        1      0 127.0.0.1:32713             127.0.0.1:8080              CLOSE_WAIT
+tcp       38      0 10.224.122.16:34538         10.224.125.42:443           CLOSE_WAIT
+tcp       38      0 10.224.122.16:33394         10.224.125.42:443           CLOSE_WAIT
+tcp        1      0 10.224.122.16:18882         10.224.125.10:80            CLOSE_WAIT
+tcp        1      0 10.224.122.16:18637         10.224.125.10:80            CLOSE_WAIT
+tcp        1      0 10.224.122.16:19655         10.224.125.12:80            CLOSE_WAIT
+........................................
+ 
+总共出现了200个CLOSE_WAIT的socket.而且这些socket长时间得不到释放.下面我们来看看为什么会出现这种大量socket的CLOSE_WAIT情况
+ 
+首先我们要搞清楚的是,这个socket是谁发起的,我们可以看到122.16这台机器开了很多端口,而且端口号都很大,125.12 或者125.10上的端口都是很常见服务器端口,所以122.16上这么多CLOSE_WAIT
+的socket是由122.16开启的,换句话说这台机器是传统的客户端,它会主动的请求其他机器的服务端口.
+ 
+要搞清楚为什么会出现CLOSE_WAIT,那么首先我们必须要清楚CLOSE_WAIT的机制和原理.
+ 
+假设我们有一个client, 一个server.
+ 
+当client主动发起一个socket.close()这个时候对应TCP来说,会发生什么事情呢?如下图所示.
+ 
+?
+ 
+ 
+client首先发送一个FIN信号给server, 这个时候client变成了FIN_WAIT_1的状态, server端收到FIN之后,返回ACK,然后server端的状态变成了CLOSE_WAIT.
+接着server端需要发送一个FIN给client,然后server端的状态变成了LAST_ACK,接着client返回一个ACK,然后server端的socket就被成功的关闭了.
+ 
+从这里可以看到,如果由客户端主动关闭一链接,那么客户端是不会出现CLOSE_WAIT状态的.客户端主动关闭链接,那么Server端将会出现CLOSE_WAIT的状态.
+而我们的服务器上,是客户端socket出现了CLOSE_WAIT,由此可见这个是由于server主动关闭了server上的socket.
+ 
+那么当server主动发起一个socket.close(),这个时候又发生了一些什么事情呢.
+?
+ 
+从图中我们可以看到,如果是server主动关闭链接,那么Client则有可能进入CLOSE_WAIT,如果Client不发送FIN包,那么client就一直会处在CLOSE_WAIT状态(后面我们可以看到有参数可以调整这个时间).
+ 
+那么现在我们要搞清楚的是,在第二中场景中,为什么Client不发送FIN包给server.要搞清楚这个问题,我们首先要搞清楚server是怎么发FIN包给client的,其实server就是调用了
+socket.close方法而已,也就是说如果要client发送FIN包,那么client就必须调用socket.close,否则就client就一直会处在CLOSE_WAIT(但事实上不同操作系统这点的实现还不一样,
+在ahuaxuan(ahuaxuan.iteye.com)的例子中也出现了这样的case).
+ 
+下面我们来做几个实验
+实验一:
+环境:
+服务器端:win7+tomcat,tomcat的keep-alive的时间为默认的15s.
+客户端:mac os
+实验步骤:服务器启动后,客户端向服务器发送一个get请求,然后客户端阻塞,等待服务器端的socket超时.通过netstat -np tcp可以看到的情况是发送get请求时,服务器和客户端链接是ESTABLISHED, 15s之后,客户端变成了CLOSE_WAIT,而服务器端变成了FIN_WAIT_2.这一点也在我们的预料之中,而这个时候由于客户端线程阻塞,客户端socket空置在那里,不做任何操作,2分钟过后,这个链接不管是在win7上,还是在mac os都看不到了.可见,FIN_WAIT_2或者CLOSE_WAIT有一个timeout.在后面的实验,可以证明,在这个例子中,其实是FIN_WAIT_2有一个超时,一旦过了2分钟,那么win7会发一个RST给mac os要求关闭双方的socket.
+
+ 
+总结, 当服务器的内核不一样上FIN_WAIT_2的超时时间和操作是不一样的.
+经查:控制FIN_WAIT_2的参数为:
+/proc/sys/net/ipv4/tcp_fin_timeout
+如 果套接字由本端要求关闭，这个参数决定了它保持在FIN-WAIT-2状态的时间。对端可以出错并永远不关闭连接，甚至意外当机。缺省值是60秒。2.2 内核的通常值是180秒，你可以按这个设置，但要记住的是，即使你的机器是一个轻载的WEB服务器，也有因为大量的死套接字而内存溢出的风险，FIN- WAIT-2的危险性比FIN-WAIT-1要小，因为它最多只能吃掉1.5K内存，但是它们的生存期长些。参见tcp_max_orphans。
+ 
+
+ 
+但是我们的问题是客户端有很多CLOSE_WAIT,而且我们的服务器不是windows,而是linux,所以CLOSE_WAIT有没有超时时间呢,肯定有,而且默认情况下这个超时时间应该是比较大的.否则不会一下子看到两百个CLOSE_WAIT的状态.
+ 
+客户端解决方案:
+ 
+1.由于socket.close()会导致FIN信号,而client的socket CLOSE_WAIT就是因为该socket该关的时候,我们没有关,所以我们需要一个线程池来检查空闲连接中哪些进入了超时状态(idleTIME),但进入超时
+的socket未必是CLOSE_WAIT的状态的.不过如果我们把空闲超时的socket关闭,那么CLOSE_WAIT的状态就会消失.(问题:像HttpClient这样的工具包中,如果要检查链接池,那么则需要锁定整个池,而这个时候,用户请求获取connection的操作只能等待,在高并发的时候会造成程序响应速度下降,具体参考IdleConnectionTimeoutThread.java(HttpClient3.1))
+ 
+2.经查,其实有参数可以调整CLOSE_WAIT的持续时间,如果我们改变这个时间,那么可以让CLOSE_WAIT只保持很短的时间(当然这个参数不只作用在CLOSE_WAIT上,缩短这个时间可能会带来其他的影响).在客户端机器上修改如下:
+sysctl -w net.ipv4.tcp_keepalive_time=60(缺省是2小时,现在改成了60秒)
+sysctl -w net.ipv4.tcp_keepalive_probes=2
+sysctl -w net.ipv4.tcp_keepalive_intvl=2
+我们将CLOSE_WAIT的检查时间设置为30s,这样一个CLOSE_WAIT只会存在30S.
+ 
+3. 当然,最重要的是我们要检查客户端链接的空闲时间,空闲时间可以由客户端自行定义,比如idleTimeout,也可由服务器来决定,服务器只需要每次在response.header中加入一个头信息,比如说名字叫做timeout头,当然一般情况下我们会用keep-alive这个头字段, 如果服务器设置了该字段,那么客户端拿到这个属性之后,就知道自己的connection最大的空闲时间,这样不会由于服务器关闭socket,而导致客户端socket一直close_wait在那里.
+ 
+服务器端解决方案
+ 
+4.前面讲到客户端出现CLOSE_WAIT是由于服务器端Socket的读超时,也是TOMCAT中的keep-alive参数.那么如果我们把这个超时时间设置的长点,会有什么影响?
+如果我们的tomcat既服务于浏览器,又服务于其他的APP,而且我们把connection的keep-alive时间设置为10分钟,那么带来的后果是浏览器打开一个页面,然后这个页面一直不关闭,那么服务器上的socket也不能关闭,它所占用的FD也不能服务于其他请求.如果并发一高,很快服务器的资源将会被耗尽.新的请求再也进不来. 那么如果把keep-alive的时间设置的短一点呢,比如15s? 那么其他的APP来访问这个服务器的时候,一旦这个socket, 15s之内没有新的请求,那么客户端APP的socket将出现大量的CLOSE_WAIT状态.
+所以如果出现这种情况,建议将你的server分开部署,服务于browser的部署到单独的JVM实例上,保持keep-alive为15s,而服务于架构中其他应用的功能部署到另外的JVM实例中,并且将keep-alive的时间设置的更
+长,比如说1个小时.这样客户端APP建立的connection,如果在一个小时之内都没有重用这条connection,那么客户端的socket才会进入CLOSE_WAIT的状态.针对不同的应用场景来设置不同的keep-alive时间,可以帮助我们提高程序的性能.
+ 
+5.如果我们的应用既服务于浏览器,又服务于其他的APP,那么我们还有一个终极解决方案.
+那就是配置多个connector, 如下:
+<!-- for browser -->
+ <Connector port="8080" protocol="HTTP/1.1" 
+               connectionTimeout="20000" 
+               redirectPort="8443" />
+ 
+<!-- for other APP -->
+<Connector port="8081" protocol="HTTP/1.1" 
+               connectionTimeout="20000" 
+               redirectPort="8443" keepAliveTimeout="330000" />
+ 
+访问的时候,浏览器使用8080端口,其他的APP使用8081端口.这样可以保证浏览器请求的socket在15s之内如果没有再次使用,那么tomcat会主动关闭该socket,而其他APP请求的socket在330s之内没有使用,才关闭该socket,这样做可以大大减少其他APP上出现CLOSE_WAIT的几率.
+ 
+你一定会问,如果我不设置keepAliveTimeout又怎么样呢,反正客户端有idleTimeout,客户端的close_wait不会持续太长时间,请注意看上图中标红的地方,一个是close_wait,还有一个是time_wait状态,也就是说谁主动发起请求,那么它将会最终进入time_wait状态,据说windows上这个time_wait将持续4分钟,我在linux上的测试表明,linux上它大概是60s左右,也就是说高并发下,也就是服务器也需要过60s左右才能真正的释放这个FD.所以我们如果提供http服务给其他APP,那么我们最好让客户端优先关闭socket,也就是将客户端的idleTimeout设置的比server的keepalivetimeout小一点.这样保证time_wait出现在客户端. 而不是资源较为紧张的服务器端.
+
+
+
+
+
+tcp_keepalive的设置 (2012-03-08 16:12:33)转载▼
+标签： tcp keepalive 设置 it	分类： linux
+1.参数设置
+查看相关的参数
+sysctl -a|grep tcp_keepalive
+net.ipv4.tcp_keepalive_intvl = 30
+net.ipv4.tcp_keepalive_probes = 2
+net.ipv4.tcp_keepalive_time = 160
+设置相关的参数
+sysctl -w net.ipv4.tcp_keepalive_time = 7500
+也可以直接打开/etc/sysctl.conf
+加入net.ipv4.tcp_keepalive_time = 7500，然后保存退出
+让参数生效
+sysctl -p
+
+查卡是否生效
+cat  /proc/sys/net/ipv4/tcp_keepalive_time
+
+
+
+2.参数相关的说明
+/proc/sys/net/ipv4/tcp_keepalive_time
+当keepalive起用的时候，TCP发送keepalive消息的频度。缺省是2小时。
+/proc/sys/net/ipv4/tcp_keepalive_intvl
+当探测没有确认时，重新发送探测的频度。缺省是75秒。
+/proc/sys/net/ipv4/tcp_keepalive_probes
+在认定连接失效之前，发送多少个TCP的keepalive探测包。缺省值是9。这个值乘以tcp_keepalive_intvl之后决定了，一个连接发送了keepalive之后可以有多少时间没有回应
+tcp_keepalive_time ：INTEGER
+默认值是7200(2小时)
+当keepalive打开的情况下，TCP发送keepalive消息的频率。(由于目前网络攻击等因素,造成了利用这个进行的攻击很频繁,曾经也有cu的朋友提到过,说如果2边建立了连接,然后不发送任何数据或者rst/fin消息,那么持续的时间是不是就是2小时,空连接攻击? tcp_keepalive_time就是预防此情形的.我个人在做nat服务的时候的修改值为1800秒)
+tcp_keepalive_probes：INTEGER
+默认值是9
+TCP发送keepalive探测以确定该连接已经断开的次数。(注意:保持连接仅在SO_KEEPALIVE套接字选项被打开是才发送.次数默认不需要修改,当然根据情形也可以适当地缩短此值.设置为5比较合适)
+tcp_keepalive_intvl：INTEGER
+默认值为75
+探测消息发送的频率，乘以tcp_keepalive_probes就得到对于从开始探测以来没有响应的连接杀除的时间。默认值为75秒，也就是没有活动的连接将在大约11分钟以后将被丢弃。(对于普通应用来说,这个值有一些偏大,可以根据需要改小.特别是web类服务器需要改小该值,15是个比较合适的值)
+$ /proc/sys/net/ipv4/tcp_keepalive_time
+$ /proc/sys/net/ipv4/tcp_keepalive_intvl
+$ /proc/sys/net/ipv4/tcp_keepalive_probes
+这3个参数与TCP KeepAlive有关.默认值是:
+tcp_keepalive_time = 7200 seconds (2 hours)
+tcp_keepalive_probes = 9
+tcp_keepalive_intvl = 75 seconds
+意思是如果某个TCP连接在idle 2个小时后,内核才发起probe.如果probe 9次(每次75秒)不成功,内核才彻底放弃,认为该连接已失效.对服务器而言,显然上述值太大. 可调整到:
+/proc/sys/net/ipv4/tcp_keepalive_time 1800
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------
+linux 下端口close_wait 过多  
+
+2009-08-28 11:17:25|  分类： 默认分类 |举报|字号 订阅
+    
+下载LOFTER客户端
+ 
+情景描述：系统产生大量“Too many open files” 
+原因分析：在服务器与客户端通信过程中，因服务器发生了socket未关导致的closed_wait发生，致使监听port打开的句柄数到了1024个，且均处于close_wait的状态，最终造成配置的port被占满出现“Too many open files”，无法再进行通信。 
+close_wait状态出现的原因是被动关闭方未关闭socket造成，如附件图所示： 
+
+解决办法：有两种措施可行 
+一、解决： 
+原因是因为调用ServerSocket类的accept()方法和Socket输入流的read()方法时会引起线程阻塞，所以应该用setSoTimeout()方法设置超时（缺省的设置是0，即超时永远不会发生）；超时的判断是累计式的，一次设置后，每次调用引起的阻塞时间都从该值中扣除，直至另一次超时设置或有超时异常抛出。 
+比如，某种服务需要三次调用read()，超时设置为1分钟，那么如果某次服务三次read()调用的总时间超过1分钟就会有异常抛出，如果要在同一个Socket上反复进行这种服务，就要在每次服务之前设置一次超时。 
+二、规避： 
+调整系统参数，包括句柄相关参数和TCP/IP的参数； 
+
+注意： 
+/proc/sys/fs/file-max 是整个系统可以打开的文件数的限制，由sysctl.conf控制； 
+ulimit修改的是当前shell和它的子进程可以打开的文件数的限制，由limits.conf控制； 
+lsof是列出系统所占用的资源,但是这些资源不一定会占用打开文件号的；比如：共享内存,信号量,消息队列,内存映射等,虽然占用了这些资源,但不占用打开文件号； 
+因此，需要调整的是当前用户的子进程打开的文件数的限制，即limits.conf文件的配置； 
+如果cat /proc/sys/fs/file-max值为65536或甚至更大，不需要修改该值； 
+若ulimit -a ；其open files参数的值小于4096（默认是1024), 则采用如下方法修改open files参数值为8192；方法如下： 
+1.使用root登陆，修改文件/etc/security/limits.conf 
+vi /etc/security/limits.conf 添加 
+xxx - nofile 8192 
+xxx 是一个用户，如果是想所有用户生效的话换成 * ，设置的数值与硬件配置有关，别设置太大了。 
+#<domain>      <type>     <item>         <value> 
+
+*         soft    nofile    8192 
+*         hard    nofile    8192 
+
+#所有的用户每个进程可以使用8192个文件描述符。 
+2.使这些限制生效 
+确定文件/etc/pam.d/login 和/etc/pam.d/sshd包含如下行： 
+session required pam_limits.so 
+然后用户重新登陆一下即可生效。 
+3. 在bash下可以使用ulimit -a 参看是否已经修改： 
+
+一、 修改方法：（暂时生效,重新启动服务器后,会还原成默认值） 
+sysctl -w net.ipv4.tcp_keepalive_time=600   
+sysctl -w net.ipv4.tcp_keepalive_probes=2 
+sysctl -w net.ipv4.tcp_keepalive_intvl=2 
+
+注意：Linux的内核参数调整的是否合理要注意观察，看业务高峰时候效果如何。 
+
+二、 若做如上修改后，可起作用；则做如下修改以便永久生效。 
+vi /etc/sysctl.conf 
+
+若配置文件中不存在如下信息，则添加： 
+net.ipv4.tcp_keepalive_time = 1800 
+net.ipv4.tcp_keepalive_probes = 3 
+net.ipv4.tcp_keepalive_intvl = 15 
+
+编辑完 /etc/sysctl.conf,要重启network 才会生效 
+/etc/rc.d/init.d/network restart 
+然后，执行sysctl命令使修改生效，基本上就算完成了。 
+
+------------------------------------------------------------ 
+修改原因： 
+
+当客户端因为某种原因先于服务端发出了FIN信号，就会导致服务端被动关闭，若服务端不主动关闭socket发FIN给Client，此时服务端Socket会处于CLOSE_WAIT状态（而不是LAST_ACK状态）。通常来说，一个CLOSE_WAIT会维持至少2个小时的时间（系统默认超时时间的是7200秒，也就是2小时）。如果服务端程序因某个原因导致系统造成一堆CLOSE_WAIT消耗资源，那么通常是等不到释放那一刻，系统就已崩溃。因此，解决这个问题的方法还可以通过修改TCP/IP的参数来缩短这个时间，于是修改tcp_keepalive_*系列参数： 
+tcp_keepalive_time： 
+/proc/sys/net/ipv4/tcp_keepalive_time 
+INTEGER，默认值是7200(2小时) 
+当keepalive打开的情况下，TCP发送keepalive消息的频率。建议修改值为1800秒。 
+
+tcp_keepalive_probes：INTEGER 
+/proc/sys/net/ipv4/tcp_keepalive_probes 
+INTEGER，默认值是9 
+TCP发送keepalive探测以确定该连接已经断开的次数。(注意:保持连接仅在SO_KEEPALIVE套接字选项被打开是才发送.次数默认不需要修改,当然根据情形也可以适当地缩短此值.设置为5比较合适) 
+
+tcp_keepalive_intvl：INTEGER 
+/proc/sys/net/ipv4/tcp_keepalive_intvl 
+INTEGER，默认值为75 
+当探测没有确认时，重新发送探测的频度。探测消息发送的频率（在认定连接失效之前，发送多少个TCP的keepalive探测包）。乘以tcp_keepalive_probes就得到对于从开始探测以来没有响应的连接杀除的时间。默认值为75秒，也就是没有活动的连接将在大约11分钟以后将被丢弃。(对于普通应用来说,这个值有一些偏大,可以根据需要改小.特别是web类服务器需要改小该值,15是个比较合适的值) 
+
+【检测办法】 
+1. 系统不再出现“Too many open files”报错现象。 
+
+2. 处于TIME_WAIT状态的sockets不会激长。 
+
+在 Linux 上可用以下语句看了一下服务器的TCP状态(连接状态数量统计)： 
+
+netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}' 
+
+返回结果范例如下： 
+
+ESTABLISHED 1423 
+FIN_WAIT1 1 
+FIN_WAIT2 262 
+SYN_SENT 1 
+TIME_WAIT 962
+
+
+netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}' 
+
+
+
+
+-----------------------------------------------------
+linux close_wait too many
+
+情景描述：系统产生大量“Too many open files”
+原 因分析：在服务器与客户端通信过程中，因服务器发生了socket未关导致的closed_wait发生，致使监听port打开的句柄数到了1024个， 且均处于close_wait的状态，最终造成配置的port被占满出现“Too many open files”，无法再进行通信。
+close_wait状态出现的原因是被动关闭方未关闭socket造成，如附件图所示：
+
+解决办法：有两种措施可行
+一、解决：
+原 因是因为调用ServerSocket类的accept()方法和Socket输入流的read()方法时会引起线程阻塞，所以应该用 setSoTimeout()方法设置超时（缺省的设置是0，即超时永远不会发生）；超时的判断是累计式的，一次设置后，每次调用引起的阻塞时间都从该值 中扣除，直至另一次超时设置或有超时异常抛出。
+比如，某种服务需要三次调用read()，超时设置为1分钟，那么如果某次服务三次read()调用的总时间超过1分钟就会有异常抛出，如果要在同一个Socket上反复进行这种服务，就要在每次服务之前设置一次超时。
+二、规避：
+调整系统参数，包括句柄相关参数和TCP/IP的参数；
+
+注意：
+/proc/sys/fs/file-max 是整个系统可以打开的文件数的限制，由sysctl.conf控制；
+ulimit修改的是当前shell和它的子进程可以打开的文件数的限制，由limits.conf控制；
+lsof是列出系统所占用的资源,但是这些资源不一定会占用打开文件号的；比如：共享内存,信号量,消息队列,内存映射等,虽然占用了这些资源,但不占用打开文件号；
+因此，需要调整的是当前用户的子进程打开的文件数的限制，即limits.conf文件的配置；
+如果cat /proc/sys/fs/file-max值为65536或甚至更大，不需要修改该值；
+若ulimit -a ；其open files参数的值小于4096（默认是1024), 则采用如下方法修改open files参数值为8192；方法如下：
+1.使用root登陆，修改文件/etc/security/limits.conf
+vi /etc/security/limits.conf 添加
+xxx - nofile 8192
+xxx 是一个用户，如果是想所有用户生效的话换成 * ，设置的数值与硬件配置有关，别设置太大了。
+#<domain>      <type>     <item>         <value>
+
+*         soft    nofile    8192
+*         hard    nofile    8192
+
+#所有的用户每个进程可以使用8192个文件描述符。
+2.使这些限制生效
+确定文件/etc/pam.d/login 和/etc/pam.d/sshd包含如下行：
+session required pam_limits.so
+然后用户重新登陆一下即可生效。
+3. 在bash下可以使用ulimit -a 参看是否已经修改：
+
+一、 修改方法：（暂时生效,重新启动服务器后,会还原成默认值）
+sysctl -w net.ipv4.tcp_keepalive_time=600  
+sysctl -w net.ipv4.tcp_keepalive_probes=2
+sysctl -w net.ipv4.tcp_keepalive_intvl=2
+
+注意：Linux的内核参数调整的是否合理要注意观察，看业务高峰时候效果如何。
+
+二、 若做如上修改后，可起作用；则做如下修改以便永久生效。
+vi /etc/sysctl.conf
+
+若配置文件中不存在如下信息，则添加：
+net.ipv4.tcp_keepalive_time = 1800
+net.ipv4.tcp_keepalive_probes = 3
+net.ipv4.tcp_keepalive_intvl = 15
+
+编辑完 /etc/sysctl.conf,要重启network 才会生效
+/etc/rc.d/init.d/network restart
+然后，执行sysctl命令使修改生效，基本上就算完成了。
+
+------------------------------------------------------------
+修改原因：
+
+当 客户端因为某种原因先于服务端发出了FIN信号，就会导致服务端被动关闭，若服务端不主动关闭socket发FIN给Client，此时服务端 Socket会处于CLOSE_WAIT状态（而不是LAST_ACK状态）。通常来说，一个CLOSE_WAIT会维持至少2个小时的时间（系统默认超 时时间的是7200秒，也就是2小时）。如果服务端程序因某个原因导致系统造成一堆CLOSE_WAIT消耗资源，那么通常是等不到释放那一刻，系统就已 崩溃。因此，解决这个问题的方法还可以通过修改TCP/IP的参数来缩短这个时间，于是修改tcp_keepalive_*系列参数：
+tcp_keepalive_time：
+/proc/sys/net/ipv4/tcp_keepalive_time
+INTEGER，默认值是7200(2小时)
+当keepalive打开的情况下，TCP发送keepalive消息的频率。建议修改值为1800秒。
+
+tcp_keepalive_probes：INTEGER
+/proc/sys/net/ipv4/tcp_keepalive_probes
+INTEGER，默认值是9
+TCP发送keepalive探测以确定该连接已经断开的次数。(注意:保持连接仅在SO_KEEPALIVE套接字选项被打开是才发送.次数默认不需要修改,当然根据情形也可以适当地缩短此值.设置为5比较合适)
+
+tcp_keepalive_intvl：INTEGER
+/proc/sys/net/ipv4/tcp_keepalive_intvl
+INTEGER，默认值为75
+当 探测没有确认时，重新发送探测的频度。探测消息发送的频率（在认定连接失效之前，发送多少个TCP的keepalive探测包）。乘以 tcp_keepalive_probes就得到对于从开始探测以来没有响应的连接杀除的时间。默认值为75秒，也就是没有活动的连接将在大约11分钟以 后将被丢弃。(对于普通应用来说,这个值有一些偏大,可以根据需要改小.特别是web类服务器需要改小该值,15是个比较合适的值)
+
+【检测办法】
+1. 系统不再出现“Too many open files”报错现象。
+
+2. 处于TIME_WAIT状态的sockets不会激长。
+
+在 Linux 上可用以下语句看了一下服务器的TCP状态(连接状态数量统计)：
+
+netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+
+返回结果范例如下：
+
+ESTABLISHED 1423
+FIN_WAIT1 1
+FIN_WAIT2 262
+SYN_SENT 1
+
+=========================== 减少close_wait的linux配置 =================================
+
+减少close_wait
+
+net.ipv4.tcp_fin_timeout = 10  net.ipv4.tcp_keepalive_time = 600  net.ipv4.tcp_keepalive_probes = 2  net.ipv4.tcp_keepalive_intvl = 2
+
+减少time_wait
+
+net.ipv4.tcp_fin_timeout = 30
+net.ipv4.tcp_keepalive_time = 1200
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_tw_recycle = 1
+net.ipv4.ip_local_port_range = 1024    65000
+net.ipv4.tcp_max_syn_backlog = 8192
+net.ipv4.tcp_max_tw_buckets = 5000
+
+net.ipv4.route.gc_timeout = 100
+
+net.ipv4.tcp_syn_retries = 1
+
+net.ipv4.tcp_synack_retries = 1
+
+
+　　说明：
+　　net.ipv4.tcp_syncookies = 1 表示开启SYN Cookies。当出现SYN等待队列溢出时，启用cookies来处理，可防范少量SYN攻击，默认为0，表示关闭；
+　　net.ipv4.tcp_tw_reuse = 1 表示开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接，默认为0，表示关闭；
+　　net.ipv4.tcp_tw_recycle = 1 表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为0，表示关闭。
+　　net.ipv4.tcp_fin_timeout = 30 表示如果套接字由本端要求关闭，这个参数决定了它保持在FIN-WAIT-2状态的时间。
+　　net.ipv4.tcp_keepalive_time = 1200 表示当keepalive起用的时候，TCP发送keepalive消息的频度。缺省是2小时，改为20分钟。
+　　net.ipv4.ip_local_port_range = 1024    65000 表示用于向外连接的端口范围。缺省情况下很小：32768到61000，改为1024到65000。
+　　net.ipv4.tcp_max_syn_backlog = 8192 表示SYN队列的长度，默认为1024，加大队列长度为8192，可以容纳更多等待连接的网络连接数。 
+　　net.ipv4.tcp_max_tw_buckets = 5000 表示系统同时保持TIME_WAIT套接字的最大数量，如果超过这个数字，TIME_WAIT套接字将立刻被清除并打印警告信息。默认为180000，改为5000。对于Apache、Nginx等服务器，上几行的参数可以很好地减少TIME_WAIT套接字数量，但是对于Squid，效果却不大。此项参数可以控制TIME_WAIT套接字的最大数量，避免Squid服务器被大量的TIME_WAIT套接字拖死。
+
+    net.ipv4.route.gc_timeout = 100   路由缓存刷新频率， 当一个路由失败后多长时间跳到另一个
+默认是300
+
+    net.ipv4.tcp_syn_retries = 1  对于一个新建连接，内核要发送多少个 SYN 连接请求才决定放弃。不应该大于255，默认值是5，对应于180秒左右。
+
+ 
+
+ 
+
+netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+
+连接状态数量统计
+
+
+
+------------------------------------
+
+I had the same problem on standalone Tomcat. Here is what I did to solve it:
+
+    Kill the tomcat process
+    Restart tomcat
+    On Windows: netstat -ano | find "your_tomcat_port" and taskkill /pid the_pid /F
+    On Linux: lsof -i:your_tomcat_port and kill -9 the_pid
+    Restart Tomcat
+
+You can create .bat or .sh script.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------
+
+http://www.cnblogs.com/sunxucool/p/3449068.html
+
+来自：http://blog.csdn.net/shootyou/article/details/6622226
+
+ 
+
+昨天解决了一个HttpClient调用错误导致的服务器异常，具体过程如下：
+
+http://blog.csdn.net/shootyou/article/details/6615051
+
+里头的分析过程有提到，通过查看服务器网络状态检测到服务器有大量的CLOSE_WAIT的状态。
+
+ 
+
+在服务器的日常维护过程中，会经常用到下面的命令：
+
+    netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'    
+
+它会显示例如下面的信息：
+
+TIME_WAIT 814
+CLOSE_WAIT 1
+FIN_WAIT1 1
+ESTABLISHED 634
+SYN_RECV 2
+LAST_ACK 1
+
+常用的三个状态是：ESTABLISHED 表示正在通信，TIME_WAIT 表示主动关闭，CLOSE_WAIT 表示被动关闭。
+
+ 
+
+具体每种状态什么意思，其实无需多说，看看下面这种图就明白了，注意这里提到的服务器应该是业务请求接受处理的一方：
+
+ 
+
+这么多状态不用都记住，只要了解到我上面提到的最常见的三种状态的意义就可以了。一般不到万不得已的情况也不会去查看网络状态，如果服务器出了异常，百分之八九十都是下面两种情况：
+
+1.服务器保持了大量TIME_WAIT状态
+
+2.服务器保持了大量CLOSE_WAIT状态
+
+因为linux分配给一个用户的文件句柄是有限的（可以参考：http://blog.csdn.net/shootyou/article/details/6579139），而TIME_WAIT和CLOSE_WAIT两种状态如果一直被保持，那么意味着对应数目的通道就一直被占着，而且是“占着茅坑不使劲”，一旦达到句柄数上限，新的请求就无法被处理了，接着就是大量Too Many Open Files异常，tomcat崩溃。。。
+
+下 面来讨论下这两种情况的处理方法，网上有很多资料把这两种情况的处理方法混为一谈，以为优化系统内核参数就可以解决问题，其实是不恰当的，优化系统内核参 数解决TIME_WAIT可能很容易，但是应对CLOSE_WAIT的情况还是需要从程序本身出发。现在来分别说说这两种情况的处理方法：
+
+ 
+
+1.服务器保持了大量TIME_WAIT状态
+
+这种情况比较常见，一些爬虫服务器或者WEB服务器（如果网管在安装的时候没有做内核参数优化的话）上经常会遇到这个问题，这个问题是怎么产生的呢？
+
+从 上面的示意图可以看得出来，TIME_WAIT是主动关闭连接的一方保持的状态，对于爬虫服务器来说他本身就是“客户端”，在完成一个爬取任务之后，他就 会发起主动关闭连接，从而进入TIME_WAIT的状态，然后在保持这个状态2MSL（max segment lifetime）时间之后，彻底关闭回收资源。为什么要这么做？明明就已经主动关闭连接了为啥还要保持资源一段时间呢？这个是TCP/IP的设计者规定 的，主要出于以下两个方面的考虑：
+
+1.防止上一次连接中的包，迷路后重新出现，影响新连接（经过2MSL，上一次连接中所有的重复包都会消失）
+2. 可靠的关闭TCP连接。在主动关闭方发送的最后一个 ack(fin) ，有可能丢失，这时被动方会重新发fin, 如果这时主动方处于 CLOSED 状态 ，就会响应 rst 而不是 ack。所以主动方要处于 TIME_WAIT 状态，而不能是 CLOSED 。另外这么设计TIME_WAIT 会定时的回收资源，并不会占用很大资源的，除非短时间内接受大量请求或者受到攻击。
+
+关于MSL引用下面一段话：
+
+    MSL 為 一個 TCP Segment (某一塊 TCP 網路封包) 從來源送到目的之間可續存的時間 (也就是一個網路封包在網路上傳輸時能存活的時間)，由 於 RFC 793 TCP 傳輸協定是在 1981 年定義的，當時的網路速度不像現在的網際網路那樣發達，你可以想像你從瀏覽器輸入網址等到第一 個 byte 出現要等 4 分鐘嗎？在現在的網路環境下幾乎不可能有這種事情發生，因此我們大可將 TIME_WAIT 狀態的續存時間大幅調低，好 讓 連線埠 (Ports) 能更快空出來給其他連線使用。  
+
+再引用网络资源的一段话：
+
+    值 得一说的是，对于基于TCP的HTTP协议，关闭TCP连接的是Server端，这样，Server端会进入TIME_WAIT状态，可 想而知，对于访 问量大的Web Server，会存在大量的TIME_WAIT状态，假如server一秒钟接收1000个请求，那么就会积压 240*1000=240，000个 TIME_WAIT的记录，维护这些状态给Server带来负担。当然现代操作系统都会用快速的查找算法来管理这些 TIME_WAIT，所以对于新的 TCP连接请求，判断是否hit中一个TIME_WAIT不会太费时间，但是有这么多状态要维护总是不好。  
+    HTTP协议1.1版规定default行为是Keep-Alive，也就是会重用TCP连接传输多个 request/response，一个主要原因就是发现了这个问题。  
+
+
+也就是说HTTP的交互跟上面画的那个图是不一样的，关闭连接的不是客户端，而是服务器，所以web服务器也是会出现大量的TIME_WAIT的情况的。
+ 
+现在来说如何来解决这个问题。
+ 
+解决思路很简单，就是让服务器能够快速回收和重用那些TIME_WAIT的资源。
+ 
+下面来看一下我们网管对/etc/sysctl.conf文件的修改：
+
+    #对于一个新建连接，内核要发送多少个 SYN 连接请求才决定放弃,不应该大于255，默认值是5，对应于180秒左右时间   
+    net.ipv4.tcp_syn_retries=2  
+    #net.ipv4.tcp_synack_retries=2  
+    #表示当keepalive起用的时候，TCP发送keepalive消息的频度。缺省是2小时，改为300秒  
+    net.ipv4.tcp_keepalive_time=1200  
+    net.ipv4.tcp_orphan_retries=3  
+    #表示如果套接字由本端要求关闭，这个参数决定了它保持在FIN-WAIT-2状态的时间  
+    net.ipv4.tcp_fin_timeout=30    
+    #表示SYN队列的长度，默认为1024，加大队列长度为8192，可以容纳更多等待连接的网络连接数。  
+    net.ipv4.tcp_max_syn_backlog = 4096  
+    #表示开启SYN Cookies。当出现SYN等待队列溢出时，启用cookies来处理，可防范少量SYN攻击，默认为0，表示关闭  
+    net.ipv4.tcp_syncookies = 1  
+      
+    #表示开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接，默认为0，表示关闭  
+    net.ipv4.tcp_tw_reuse = 1  
+    #表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为0，表示关闭  
+    net.ipv4.tcp_tw_recycle = 1  
+      
+    ##减少超时前的探测次数   
+    net.ipv4.tcp_keepalive_probes=5   
+    ##优化网络设备接收队列   
+    net.core.netdev_max_backlog=3000   
+
+      
+
+修改完之后执行/sbin/sysctl -p让参数生效。
+ 
+这里头主要注意到的是net.ipv4.tcp_tw_reuse 
+net.ipv4.tcp_tw_recycle 
+net.ipv4.tcp_fin_timeout 
+net.ipv4.tcp_keepalive_*
+这几个参数。
+ 
+net.ipv4.tcp_tw_reuse和net.ipv4.tcp_tw_recycle的开启都是为了回收处于TIME_WAIT状态的资源。
+net.ipv4.tcp_fin_timeout这个时间可以减少在异常情况下服务器从FIN-WAIT-2转到TIME_WAIT的时间。
+net.ipv4.tcp_keepalive_*一系列参数，是用来设置服务器检测连接存活的相关配置。
+关于keepalive的用途可以参考：http://hi.baidu.com/tantea/blog/item/580b9d0218f981793812bb7b.html
+ 
+2.服务器保持了大量CLOSE_WAIT状态
+休息一下，喘口气，一开始只是打算说说TIME_WAIT和CLOSE_WAIT的区别，没想到越挖越深，这也是写博客总结的好处，总可以有意外的收获。
+ 
+TIME_WAIT状态可以通过优化服务器参数得到解决，因为发生TIME_WAIT的情况是服务器自己可控的，要么就是对方连接的异常，要么就是自己没有迅速回收资源，总之不是由于自己程序错误导致的。
+但
+是CLOSE_WAIT就不一样了，从上面的图可以看出来，如果一直保持在CLOSE_WAIT状态，那么只有一种情况，就是在对方关闭连接之后服务器程
+序自己没有进一步发出ack信号。换句话说，就是在对方连接关闭之后，程序里没有检测到，或者程序压根就忘记了这个时候需要关闭连接，于是这个资源就一直
+被程序占着。个人觉得这种情况，通过服务器内核参数也没办法解决，服务器对于程序抢占的资源没有主动回收的权利，除非终止程序运行。
+ 
+如果你使用的是HttpClient并且你遇到了大量CLOSE_WAIT的情况，那么这篇日志也许对你有用：http://blog.csdn.net/shootyou/article/details/6615051
+在那边日志里头我举了个场景，来说明CLOSE_WAIT和TIME_WAIT的区别，这里重新描述一下：
+服 务器A是一台爬虫服务器，它使用简单的HttpClient去请求资源服务器B上面的apache获取文件资源，正常情况下，如果请求成功，那么在抓取完 资源后，服务器A会主动发出关闭连接的请求，这个时候就是主动关闭连接，服务器A的连接状态我们可以看到是TIME_WAIT。如果一旦发生异常呢？假设 请求的资源服务器B上并不存在，那么这个时候就会由服务器B发出关闭连接的请求，服务器A就是被动的关闭了连接，如果服务器A被动关闭连接之后程序员忘了 让HttpClient释放连接，那就会造成CLOSE_WAIT的状态了。
+ 
+所以如果将大量CLOSE_WAIT的解决办法总结为一句话那就是：查代码。因为问题出在服务器程序里头啊。
+ 
+参考资料：
+1.windows下的TIME_WAIT的处理可以参加这位大侠的日志：http://blog.miniasp.com/post/2010/11/17/How-to-deal-with-TIME_WAIT-problem-under-Windows.aspx
+2.WebSphere的服务器优化有一定参考价值：http://publib.boulder.ibm.com/infocenter/wasinfo/v6r0/index.jsp?topic=/com.ibm.websphere.express.doc/info/exp/ae/tprf_tunelinux.html
+3.各种内核参数的含义：http://haka.sharera.com/blog/BlogTopic/32309.htm
+4.linux服务器历险之sysctl优化linux网络：http://blog.csdn.net/chinalinuxzend/article/details/1792184

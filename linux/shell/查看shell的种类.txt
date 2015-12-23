@@ -1,0 +1,9 @@
+方法1
+cat /etc/shells
+
+
+方法2
+env | grep SHELL
+
+方法3
+echo $SHELL

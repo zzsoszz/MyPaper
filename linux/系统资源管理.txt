@@ -1,0 +1,2 @@
+Linux下使用ps对进程占用的内存进行排序 
+ps -eo pid,comm,vsz --sort vsz 

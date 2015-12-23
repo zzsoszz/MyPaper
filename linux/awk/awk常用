@@ -1,0 +1,20 @@
+{
+	system("ls");
+	print "myawk run..."|"cat>>1.txt" ;
+	print "1111">>"2.txt";
+	my();	
+}
+        function my()
+        {
+                print "test";
+		"date" |getline today;
+		print today;
+        }
+
+ls -t | awk '{"pwd" | getline dir;print dir"\/"$0}' #列出当前目录下文件的全路径
+
+删除文件
+for loop in `ls -lrt | grep 3000 | awk '{print $9}'` 
+do 
+	rm -f  $loop 
+done

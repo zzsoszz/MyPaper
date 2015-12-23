@@ -1,0 +1,94 @@
+Centos 6 上安装Git
+        本章中我们来学习如何在CentOS 6.4上安装Git。
+       第一步，在安装Git之前，我们先要安装一些依赖包：
+引用
+
+
+       # yum -y install zlib-devel openssl-devel perl cpio expat-devel gettext-devel 
+       # yum install autoconf
+       
+
+       当然在安装这些以来之前，可以先确认上面的那些以来已经安装了，shell命令如下：
+引用
+
+
+       # rpm -qa | grep zlib-devel
+       
+
+       第二步，下载git的tar文件和解压：
+引用
+
+
+       # wget http://git-core.googlecode.com/files/git-1.8.3.2.tar.gz
+       # chmod +x git-1.8.3.2.tar.gz
+       # tar xzvf git-1.8.3.2.tar.gz
+       
+       
+
+       第三步，开始安装：
+引用
+
+
+       # cd git-1.8.3.2
+       # autoconf
+       # ./configure --with-curl=/opt/git
+       # make
+       # make install
+       
+
+       ok，到这里git已经安装才成功了，下面我们来验证一下：
+引用
+
+
+       # git --version
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
+
+
+RHEL/CentOS/Scientific Linux 6
+
+Node.js and npm are available from the Fedora Extra Packages for Enterprise Linux (EPEL) repository. If you haven't already done so, first enable EPEL.
+
+To check if you have EPEL, run 
+yum repolist
+
+ if you don't see epel, install it via RPM (At the time of this writing, the last version is 6.8.).
+
+First import the key:
+sudo rpm --import https://fedoraproject.org/static/0608B895.txt
+
+ Then install
+sudo rpm -Uvh http://download-i2.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+
+ And then run the following command to install node and npm:
+sudo yum install nodejs npm --enablerepo=epel
+
+ or if this doesn't work for you install node separately:
+sudo yum install npm --enablerepo=epel
+
+
+
+npm install -g grunt-cli
+	   
+	   
+	 
+	 
+	 
+git pull   "https://github.com/kissyteam/kissy"
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   

@@ -1,0 +1,892 @@
+http://www.cnblogs.com/hnrainll/archive/2011/02/16/1956539.html
+
+
+http://www.cnblogs.com/hnrainll/archive/2011/02/16/1956538.html
+yum install vsftpd
+useradd  test
+usermod -s /sbin/nologin test
+
+
+
+
+listen=YES
+listen_port=21
+tcp_wrappers=YES
+write_enable=YES
+xferlog_enable=YES
+xferlog_file=/var/log/vsftpd.log
+xferlog_std_format=YES
+idle_session_timeout=600
+data_connection_timeout=120
+ftpd_banner=Welcome to bxtel.cn FTP service
+anonymous_enable=YES
+local_enable=yes
+chroot_local_user=yes
+pam_service_name=vsftpd
+userlist_deny=YES
+chroot_list_enable=YES
+chroot_list_file=/etc/vsftpd/vsftpd.chroot_list
+
+
+----------------------------180
+listen=YES
+listen_port=21
+tcp_wrappers=YES
+write_enable=YES
+xferlog_enable=YES
+xferlog_file=/var/log/vsftpd.log
+xferlog_std_format=YES
+idle_session_timeout=600
+data_connection_timeout=120
+chown_uploads=YES
+chown_username=daemon
+ftpd_banner=Welcome to bxtel.cn FTP service
+anonymous_enable=NO
+local_enable=yes
+chroot_local_user=yes
+pam_service_name=vsftpd
+userlist_enable=YES
+
+
+
+recordingftp
+ 
+ 
+ 
+ 
+ 
+listen=YES
+listen_port=21
+tcp_wrappers=YES
+write_enable=YES
+xferlog_enable=YES
+xferlog_file=/var/log/vsftpd.log
+xferlog_std_format=YES
+idle_session_timeout=600
+data_connection_timeout=120
+chown_uploads=YES
+chown_username=daemon
+ftpd_banner=Welcome to bxtel.cn FTP service
+anonymous_enable=NO
+local_enable=yes
+chroot_local_user=yes
+pam_service_name=vsftpd
+userlist_enable=YES
+pasv_promiscuous=YES
+
+
+
+ 在linux中添加ftp用户，并设置相应的权限
+
+在linux中添加ftp用户，并设置相应的权限，操作步骤如下：
+
+1、环境：ftp为vsftp。被限制用户名为test。被限制路径为/home/test
+
+2、建用户：在root用户下：
+
+useradd -d /home/test test //增加用户test，并制定test用户的主目录为/home/test
+passwd test //为test设置密码
+
+3、更改用户相应的权限设置：
+
+usermod -s /sbin/nologin test //限定用户test不能telnet，只能ftp
+usermod -s /sbin/bash test //用户test恢复正常
+usermod -d /test test //更改用户test的主目录为/test
+
+4、限制用户只能访问/home/test，不能访问其他路径
+
+修改/etc/vsftpd/vsftpd.conf如下：
+
+chroot_list_enable=YES //限制访问自身目录
+# (default follows)
+chroot_list_file=/etc/vsftpd/vsftpd.chroot_list
+
+编辑 vsftpd.chroot_list文件，将受限制的用户添加进去，每个用户名一行
+
+改完配置文件，不要忘记重启vsFTPd服务器
+[root@linuxsir001 root]# /etc/init.d/vsftpd restart
+
+5、如果需要允许用户修改密码，但是又没有telnet登录系统的权限：
+
+usermod -s /usr/bin/passwd test //用户telnet后将直接进入改密界面
+
+
+
+
+
+
+
+
+
+
+
+
+一.  FTP 说明
+
+     linux 系统下常用的FTP 是vsftp, 即Very Security File Transfer Protocol. 还有一个是proftp(Profession ftp)。 我们这里也是简单的说明下vsftp的配置。
+
+ vsftp提供3种远程的登录方式：
+
+ （1）匿名登录方式
+
+             就是不需要用户名，密码。就能登录到服务器电脑里面
+
+（2）本地用户方式
+
+              需要帐户名和密码才能登录。而且，这个帐户名和密码，都是在你linux系统里面，已经有的用户。
+
+ （3）虚拟用户方式
+
+      同样需要用户名和密码才能登录。但是和上面的区别就是，这个用户名和密码，在你linux系统中是没有的(没有该用户帐号)
+
+二.  Vsftp的安装配置
+
+2.1  安装
+
+vsftp 的安装包，可以在安装里找到。 用yum 安装过程也很简单。 具体参考：
+
+       Linux 搭建 YUM 服务器
+
+       http://blog.csdn.net/tianlesoftware/archive/2011/01/03/6113902.aspx
+
+       安装命令：yum install vsftpd
+
+2.2. 相关命令
+
+2.2.1 启动与关闭
+
+[root@singledb ~]# service vsftpd start
+
+Starting vsftpd for vsftpd:                                [  OK  ]
+
+[root@singledb ~]# service vsftpd stop
+
+Shutting down vsftpd:                                      [  OK  ]
+
+[root@singledb ~]# service vsftpd restart
+
+Shutting down vsftpd:                                      [FAILED]
+
+Starting vsftpd for vsftpd:                                [  OK  ]
+
+[root@singledb ~]# /etc/init.d/vsftpd start
+
+Starting vsftpd for vsftpd:                                [FAILED]
+
+[root@singledb ~]# /etc/init.d/vsftpd stop
+
+Shutting down vsftpd:                                      [  OK  ]
+
+[root@singledb ~]# /etc/init.d/vsftpd restart
+
+Shutting down vsftpd:                                      [FAILED]
+
+Starting vsftpd for vsftpd:                                [  OK  ]
+
+[root@singledb ~]# /etc/init.d/vsftpd status
+
+vsftpd (pid 3931) is running...
+
+[root@singledb ~]#
+
+2.2.2. 其他命令
+
+--查看vsftpd 启动状态
+
+[root@singledb ~]# chkconfig --list vsftpd
+
+vsftpd          0:off   1:off   2:off   3:off   4:off   5:off   6:off
+
+[root@singledb ~]# chkconfig  vsftpd on
+
+[root@singledb ~]# chkconfig --list vsftpd
+
+vsftpd          0:off   1:off   2:on    3:on    4:on    5:on    6:off
+
+       这里看到，默认情况下从2到5设置为on了。2到5是多用户级别。 这个对应的是linux不同的运行级别。
+
+我们也可以加level 选项来指定：
+
+[root@singledb ~]# chkconfig --level 0 vsftpd on   
+
+[root@singledb ~]# chkconfig --list vsftpd     
+
+vsftpd          0:on    1:off   2:on    3:on    4:on    5:on    6:off
+
+我们看到0已经设置为on了。
+
+我们可以使用man chkconfig 来查看帮助：
+
+--level levels
+
+    Specifies the run levels an operation should pertain to. It is  given  as  a string of numbers from 0 to 7. For example, --level 35 specifies runlevels 3              and 5.
+
+       传统的init 定义了7个运行级（run level），每一个级别都代表系统应该补充运行的某些特定服务：
+
+              （1）0级是完全关闭系统的级别
+
+              （2）1级或者S级代表单用户模式
+
+              （3）2-5 级 是多用户级别
+
+              （4）6级 是 重新引导的级别
+
+关于Linux 的运行级别，在我的Blog：
+
+       Linux 开机引导与关机过程（5.1 init 和运行级）
+
+       http://blog.csdn.net/tianlesoftware/archive/2010/10/24/5962460.aspx
+
+（1）查看防火墙
+
+    我一般都是把系统的防火墙关闭了。 因为开了会有很多限制。
+
+[root@singledb ~]# /etc/init.d/iptables status
+
+Table: nat
+
+Chain PREROUTING (policy ACCEPT)
+
+num  target     prot opt source               destination        
+
+Chain POSTROUTING (policy ACCEPT)
+
+num  target     prot opt source               destination        
+
+1    MASQUERADE  all  --  192.168.122.0/24    !192.168.122.0/24   
+
+Chain OUTPUT (policy ACCEPT)
+
+num  target     prot opt source               destination         
+
+Table: filter
+
+Chain INPUT (policy ACCEPT)
+
+num  target     prot opt source               destination        
+
+1    ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0           udp dpt:53
+
+2    ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:53
+
+3    ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0           udp dpt:67
+
+4    ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:67
+
+Chain FORWARD (policy ACCEPT)
+
+num  target     prot opt source               destination        
+
+1    ACCEPT     all  --  0.0.0.0/0            192.168.122.0/24    state RELATED,ESTABLISHED
+
+2    ACCEPT     all  --  192.168.122.0/24     0.0.0.0/0          
+
+3    ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0          
+
+4    REJECT     all  --  0.0.0.0/0            0.0.0.0/0           reject-with icmp-port-unreachable
+
+5    REJECT     all  --  0.0.0.0/0            0.0.0.0/0           reject-with icmp-port-unreachable
+
+Chain OUTPUT (policy ACCEPT)
+
+num  target     prot opt source               destination        
+
+You have new mail in /var/spool/mail/root
+
+--添加开放21号端口：
+
+[root@singledb ~]# /sbin/iptables -I INPUT -p tcp --dport 21 -j ACCEPT
+
+[root@singledb ~]# /etc/init.d/iptables status                        
+
+Table: nat
+
+Chain PREROUTING (policy ACCEPT)
+
+num  target     prot opt source               destination         
+
+Chain POSTROUTING (policy ACCEPT)
+
+num  target     prot opt source               destination        
+
+1    MASQUERADE  all  --  192.168.122.0/24    !192.168.122.0/24   
+
+Chain OUTPUT (policy ACCEPT)
+
+num  target     prot opt source               destination        
+
+Table: filter
+
+Chain INPUT (policy ACCEPT)
+
+num  target     prot opt source               destination        
+
+1    ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:21
+
+2    ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0           udp dpt:53
+
+3    ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:53
+
+4    ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0           udp dpt:67
+
+5    ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:67
+
+Chain FORWARD (policy ACCEPT)
+
+num  target     prot opt source               destination        
+
+1    ACCEPT     all  --  0.0.0.0/0            192.168.122.0/24    state RELATED,ESTABLISHED
+
+2    ACCEPT     all  --  192.168.122.0/24     0.0.0.0/0           
+
+3    ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0          
+
+4    REJECT     all  --  0.0.0.0/0            0.0.0.0/0           reject-with icmp-port-unreachable
+
+5    REJECT     all  --  0.0.0.0/0            0.0.0.0/0           reject-with icmp-port-unreachable
+
+Chain OUTPUT (policy ACCEPT)
+
+num  target     prot opt source               destination        
+
+--保存配置
+
+[root@singledb ~]# /etc/rc.d/init.d/iptables save
+
+Saving firewall rules to /etc/sysconfig/iptables:          [  OK  ]
+
+--重启防火墙：
+
+[root@singledb ~]# service iptables {start|stop|restart}
+
+（2）查看关闭selinux
+
+[root@singledb ~]# sestatus
+
+SELinux status:                 disabled
+
+我这里在安装操作系统的时候就关闭了selinux，如果没有关闭，可以修改如下文件来关闭：
+
+[root@singledb ~]# cat /etc/sysconfig/selinux
+
+# This file controls the state of SELinux on the system.
+
+# SELINUX= can take one of these three values:
+
+#       enforcing - SELinux security policy is enforced.
+
+#       permissive - SELinux prints warnings instead of enforcing.
+
+#       disabled - SELinux is fully disabled.
+
+SELINUX=disabled
+
+# SELINUXTYPE= type of policy in use. Possible values are:
+
+#       targeted - Only targeted network daemons are protected.
+
+#       strict - Full SELinux protection.
+
+SELINUXTYPE=targeted
+
+[root@singledb ~]#
+
+保存退出并重启系统reboot
+
+三.  FTP配置文件
+
+FTP 安装好之后，在/etc/vsftpd/目录下会有如下文件：
+
+[root@singledb ~]# cd /etc/vsftpd/
+
+[root@singledb vsftpd]# ls
+
+ftpusers  user_list  vsftpd.conf  vsftpd_conf_migrate.sh
+
+[root@singledb vsftpd]#
+
+vsftpd.conf: 主配置文件
+
+ftpusers: 指定哪些用户不能访问FTP服务器
+
+user_list: 指定的用户是否可以访问ftp服务器由vsftpd.conf文件中的userlist_deny的取值来决定。
+
+[root@singledb vsftpd]# cat user_list
+
+# vsftpd userlist
+
+# If userlist_deny=NO, only allow users in this file
+
+# If userlist_deny=YES (default), never allow users in this file, and
+
+# do not even prompt for a password.
+
+# Note that the default vsftpd pam config also checks /etc/vsftpd/ftpusers
+
+# for users that are denied.
+
+我们过滤掉#的注释后，查看一下vsftpd.conf 文件：
+
+[root@singledb ftp]# cat /etc/vsftpd/vsftpd.conf |grep -v '^#';
+
+anonymous_enable=YES
+
+local_enable=YES
+
+write_enable=YES
+
+local_umask=022
+
+dirmessage_enable=YES
+
+xferlog_enable=YES
+
+connect_from_port_20=YES
+
+xferlog_std_format=YES
+
+listen=YES
+
+pam_service_name=vsftpd
+
+userlist_enable=yes
+
+tcp_wrappers=YES
+
+至于这些参数的意思，在注释里有详细的说明。
+
+我们可以在vsftpd.conf 文件设置如下参数：
+
+（1）ftpd_banner=welcome to ftp service ：设置连接服务器后的欢迎信息
+
+（2）idle_session_timeout=60 ：限制远程的客户机连接后，所建立的控制连接，在多长时间没有做任何的操作就会中断(秒)
+
+（3）data_connection_timeout=120 ：设置客户机在进行数据传输时,设置空闲的数据中断时间
+
+（4）accept_timeout=60 设置在多长时间后自动建立连接
+
+（5）connect_timeout=60 设置数据连接的最大激活时间，多长时间断开，为别人所使用;
+
+（6）max_clients=200 指明服务器总的客户并发连接数为200
+
+（7）max_per_ip=3 指明每个客户机的最大连接数为3
+
+（8）local_max_rate=50000(50kbytes/sec)  本地用户最大传输速率限制
+
+（9）anon_max_rate=30000匿名用户的最大传输速率限制
+
+（10）pasv_min_port=端口
+
+（11）pasv-max-prot=端口号 定义最大与最小端口，为0表示任意端口;为客户端连接指明端口;
+
+（12）listen_address=IP地址 设置ftp服务来监听的地址，客户端可以用哪个地址来连接;
+
+（13）listen_port=端口号 设置FTP工作的端口号，默认的为21
+
+（14）chroot_local_user=YES 设置所有的本地用户可以chroot
+
+（15）chroot_local_user=NO 设置指定用户能够chroot
+
+（16）chroot_list_enable=YES
+
+（17）chroot_list_file=/etc/vsftpd/chroot_list(只有/etc/vsftpd/chroot_list中的指定的用户才能执行 )
+
+（18）local_root=path 无论哪个用户都能登录的用户，定义登录帐号的主目录, 若没有指定，则每一个用户则进入到个人用户主目录;
+
+（19）chroot_local_user=yes/no 是否锁定本地系统帐号用户主目录(所有);锁定后，用户只能访问用户的主目录/home/user,不能利用cd命令向上转;只能向下;
+
+（20）chroot_list_enable=yes/no 锁定指定文件中用户的主目录(部分),文件：/chroot_list_file=path 中指定;
+
+（21）userlist_enable=YES/NO 是否加载用户列表文件;
+
+（22）userlist_deny=YES 表示上面所加载的用户是否允许拒绝登录;
+
+（23）userlist_file=/etc/vsftpd/user_list 列表文件
+
+限制IP 访问FTP:
+
+#vi /etc/hosts.allow
+
+vsftpd:192.168.5.128:DENY 设置该IP地址不可以访问ftp服务
+
+FTP 访问时间限制：
+
+#cp /usr/share/doc/vsftpd-1.1.3/vsftpd.xinetd /etc/xinetd.d/vsftpd
+
+#vi /etc/xinetd.d/vsftpd/
+
+修改 disable = no
+
+access_time = hour:min-hour:min (添加配置访问的时间限制(注：与vsftpd.conf中listen=NO相对应)
+
+例: access_time = 8:30-11:30 17:30-21:30 表示只有这两个时间段可以访问ftp
+
+ftp的配置基本上只有这些了。
+
+       默认情况下，ftp根目录是/var/ftp。 如果要修改这个目录位置，可以更改/etc/passwd 文件：
+
+[root@singledb ftp]# cat /etc/passwd | grep ftp
+
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+
+创建一个用户来访问FTP,并指定该用户的FTP 目录：
+
+[root@singledb u02]# useradd -d /u02/qsftp qs
+
+[root@singledb u02]# passwd qs
+
+Changing password for user qs.
+
+New UNIX password:
+
+BAD PASSWORD: it is WAY too short
+
+Retype new UNIX password:
+
+passwd: all authentication tokens updated successfully.
+
+这里指定的是/u02/qsftp 这个目录，要注意个目录的权限。
+
+更改用户不能telnet，只能ftp：
+
+       usermod -s /sbin/nologin username   //用户只能ftp，不能telnet
+
+       usermod -s /sbin/bash username      //用户恢复正常
+
+禁止用户ssh登陆
+
+       useradd username -s /bin/false  
+
+更改用户主目录：
+
+       usermod -d /bbb username            //把用户的主目录定为/bbb
+
+然后用qs这个用户就可以访问了。
+
+       以上只是一些简单的设置。 在用户权限这块还有很多内容可以研究。 比如特定用户的特定权限。 安全性等。 以后在研究了。 
+	   
+	   
+一.vsftpd说明:
+
+LINUX下实现FTP服务的软件很多,最常见的有vsftpd,Wu-ftpd和Proftp等.Red Hat Enterprise Linux中默认安装的是vsftpd.
+
+  访问FTP服务器时需要经过验证,只有经过了FTP服务器的相关验证,用户才能访问和传输文件.vsftpd提供了3种ftp登录形式:
+
+   (1)anonymous(匿名帐号)
+
+使用anonymous是应用广泛的一种FTP服务器.如果用户在FTP服务器上没有帐号,那么用户可以以anonymous为用户名,以自己的电子邮件地址为密码进行登录.当匿名用户登录FTP服务器后,其登录目录为匿名FTP服务器的根目录/var/ftp.为了减轻FTP服务器的负载,一般情况下,应关闭匿名帐号的上传功能.
+
+  (2)real(真实帐号)
+
+real也称为本地帐号,就是以真实的用户名和密码进行登录,但前提条件是用户在FTP服务器上拥有自己的帐号.用真实帐号登录后,其登录的目录为用户自己的目录,该目录在系统建立帐号时系统就自动创建.
+
+  (3)guest(虚拟帐号)
+
+如果用户在FTP服务器上拥有帐号,但此帐号只能用于文件传输服务,那么该帐号就是guest,guest是真实帐号的一种形式,它们的不同之处在于,geust登录FTP服务器后,不能访问除宿主目录以外的内容.
+
+ 
+
+二.FTP相关配置文件说明
+
+其相关配置文件有/etc/vsftpd/vsftpd.conf,  /etc/vsftpd.ftpusers,  /etc/vsftpd.user_list,在配置FTP服务器时,主要是修改这些文件中的相关语句.
+
+1.vsftpd.conf文件说明
+
+# Example config file /etc/vsftpd/vsftpd.conf
+
+#
+
+# The default compiled in settings are fairly paranoid. This sample file
+
+# loosens things up a bit, to make the ftp daemon more usable.
+
+# Please see vsftpd.conf.5 for all compiled in defaults.
+
+#
+
+# READ THIS: This example file is NOT an exhaustive list of vsftpd options.
+
+# Please read the vsftpd.conf.5 manual page to get a full idea of vsftpd's
+
+# capabilities.
+
+#
+
+# Allow anonymous FTP? (Beware - allowed by default if you comment this out).
+
+anonymous_enable=YES  //是否允许anonymous登录FTP服务器,默认是允许的.
+
+#
+
+# Uncomment this to allow local users to log in.
+
+local_enable=YES //是否允许本地用户登录FTP服务器,默认是允许
+
+#
+
+# Uncomment this to enable any form of FTP write command.
+
+write_enable=YES  //是否允许用户具有在FTP服务器文件中执行写的权限,默认是允许
+
+#
+
+# Default umask for local users is 077. You may wish to change this to 022,
+
+# if your users expect that (022 is used by most other ftpd's)
+
+local_umask=022 //设置本地用户的文件生成掩码为022,默认是077
+
+#
+
+# Uncomment this to allow the anonymous FTP user to upload files. This only
+
+# has an effect if the above global write enable is activated. Also, you will
+
+# obviously need to create a directory writable by the FTP user.
+
+#anon_upload_enable=YES
+
+#
+
+# Uncomment this if you want the anonymous FTP user to be able to create
+
+# new directories.
+
+#anon_mkdir_write_enable=YES  //是否允许匿名账户在FTP服务器中创建目录
+
+#
+
+# Activate directory messages - messages given to remote users when they
+
+# go into a certain directory.
+
+dirmessage_enable=YES //激活目录信息,当远程用户更改目录时,将出现提示信息
+
+#
+
+# Activate logging of uploads/downloads.
+
+xferlog_enable=YES  //启用上传和下载日志功能
+
+#
+
+# Make sure PORT transfer connections originate from port 20 (ftp-data).
+
+connect_from_port_20=YES   //启用FTP数据端口的连接请求
+
+#
+
+# If you want, you can arrange for uploaded anonymous files to be owned by
+
+# a different user. Note! Using "root" for uploaded files is not
+
+# recommended!
+
+#chown_uploads=YES
+
+#chown_username=whoever
+
+#
+
+# You may override where the log file goes if you like. The default is shown
+
+# below.
+
+#xferlog_file=/var/log/vsftpd.log  //设置日志文件的文件名和存储路径,这是默认的
+
+#
+
+# If you want, you can have your log file in standard ftpd xferlog format
+
+xferlog_std_format=YES//是否使用标准的ftpd xferlog日志文件格式
+
+#
+
+# You may change the default value for timing out an idle session.
+
+#idle_session_timeout=600  //设置空闲的用户会话中断时间,默认是10分钟
+
+#
+
+# You may change the default value for timing out a data connection.
+
+#data_connection_timeout=120//设置数据连接超时时间,默认是120秒.
+
+#
+
+# It is recommended that you define on your system a unique user which the
+
+# ftp server can use as a totally isolated and unprivileged user.
+
+#nopriv_user=ftpsecure
+
+#
+
+# Enable this and the server will recognise asynchronous ABOR requests. Not
+
+# recommended for security (the code is non-trivial). Not enabling it,
+
+# however, may confuse older FTP clients.
+
+#async_abor_enable=YES
+
+#
+
+# By default the server will pretend to allow ASCII mode but in fact ignore
+
+# the request. Turn on the below options to have the server actually do ASCII
+
+# mangling on files when in ASCII mode.
+
+# Beware that turning on ascii_download_enable enables malicious remote parties
+
+# to consume your I/O resources, by issuing the command "SIZE /big/file" in
+
+# ASCII mode.
+
+# These ASCII options are split into upload and download because you may wish
+
+# to enable ASCII uploads (to prevent uploaded scripts etc. from breaking),
+
+# without the DoS risk of SIZE and ASCII downloads. ASCII mangling should be
+
+# on the client anyway..
+
+#ascii_upload_enable=YES
+
+#ascii_download_enable=YES //是否允许使用ASCII格式来上传和下载文件
+
+#
+
+# You may fully customise the login banner string:
+
+#ftpd_banner=Welcome to blah FTP service.//在FTP服务器中设置欢迎登录的信息.
+
+#
+
+# You may specify a file of disallowed anonymous e-mail addresses. Apparently
+
+# useful for combatting certain DoS attacks.
+
+#deny_email_enable=YES
+
+# (default follows)
+
+#banned_email_file=/etc/vsftpd.banned_emails
+
+#
+
+# You may specify an explicit list of local users to chroot() to their home
+
+# directory. If chroot_local_user is YES, then this list becomes a list of
+
+# users to NOT chroot().
+
+#chroot_list_enable=YES //如果希望用户登录后不能切换到自己目录以外的其它目录,需要设置该项,如果设置chroot_list_enable=YES,那么只允许/etc/vsftpd.chroot_list中列出的用户具有该功能.如果希望所有的本地用户都执行者chroot,可以增加一行:chroot_local_user=YES
+
+# (default follows)
+
+#chroot_list_file=/etc/vsftpd.chroot_list
+
+#
+
+# You may activate the "-R" option to the builtin ls. This is disabled by
+
+# default to avoid remote users being able to cause excessive I/O on large
+
+# sites. However, some broken FTP clients such as "ncftp" and "mirror" assume
+
+# the presence of the "-R" option, so there is a strong case for enabling it.
+
+#ls_recurse_enable=YES
+
+pam_service_name=vsftpd  //设置PAM认证服务的配置文件名称,该文件存放在/etc/pam.d/目录下.
+
+userlist_enable=YES //用户列表中的用户是否允许登录FTP服务器,默认是不允许
+
+#enable for standalone mode
+
+listen=YES  //使vsftpd 处于独立启动模式
+
+tcp_wrappers=YES  //使用tcp_wrqppers作为主机访问控制方式
+
+2.vsftpd.ftpusers文件说明
+
+这个文件是用来记录"不允许"登录到FTP服务器的用户,通常是一些系统默认的用户.
+
+下面是该文件中默认的不允许登录的名单:
+
+# Users that are not allowed to login via ftp
+
+root //默认情况下,root和它以下的用户是不允许登录FTP服务器的.可以将不允许登录的用户添加到这里来.但切记每个用户都要单独占用一行.
+
+bin
+
+daemon
+
+adm
+
+lp
+
+sync
+
+shutdown
+
+halt
+
+mail
+
+news
+
+uucp
+
+operator
+
+games
+
+nobody
+
+3.vsftpd.user_list文件说明
+
+其实它的内容跟上面那个文件内容一样,只是在系统对文件vsftpd.conf 进行检测时,会检测到"userlist_deny=YES",因此这个文件必须存在.下面是这个文件的内容.
+
+# vsftpd userlist
+
+# If userlist_deny=NO, only allow users in this file
+
+# If userlist_deny=YES (default), never allow users in this file, and
+
+# do not even prompt for a password.
+
+# Note that the default vsftpd pam config also checks /etc/vsftpd.ftpusers
+
+# for users that are denied.
+
+root
+
+bin
+
+daemon
+
+adm
+
+lp
+
+sync
+
+shutdown
+
+halt
+
+mail
+
+news
+
+uucp
+
+operator
+
+games
+
+nobody
+更多信息请参考：http://ming228.blog.51cto.com/421298/112083

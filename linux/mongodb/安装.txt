@@ -1,0 +1,7 @@
+
+tar  -zxvf  mongodb-linux-x86_64-3.0.1.tgz 
+chmod 777 mongodb-linux-x86_64-3.0.1/*
+cd mongodb-linux-x86_64-3.0.1
+mkdir db
+cd   bin
+/ftp/setup/tools/mongodb-linux-x86_64-3.0.1/bin/mongod  --fork  --dbpath   /ftp/setup/tools/mongodb-linux-x86_64-3.0.1/db   --logpath /var/log/mongodb.log --logappend 
