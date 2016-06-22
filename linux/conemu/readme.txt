@@ -1,0 +1,1 @@
+sublime_text  -new_console:s50H

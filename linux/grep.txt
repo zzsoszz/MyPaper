@@ -1,3 +1,6 @@
+grep -i 'ºÚÃûµ¥' /u01/tomcat-bxtask/logs/catalina.out 
+
+
 split -C 100m  catalina.out 
  
 grep -n  -E  '(Exception:)|(\:s*at)'  catalina.out  
