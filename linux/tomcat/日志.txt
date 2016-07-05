@@ -1,0 +1,30 @@
+Tomcat下使用Log4j接管生成日志文件
+
+
+主要内容：Tomcat下使用Log4j接管生成日志文件，按天存放，解决catalina.out日志文件过大问题。
+
+具体步骤：
+
+官方英文参考路径：http://tomcat.apache.org/tomcat-6.0-doc/logging.html#Using_Log4j
+
+以下是中文描述：
+
+1. 准备jar包：
+
+    log4j-1.2.17.jar （从 http://www.apache.org/dist/logging/log4j/1.2.17/ 下载）
+
+    tomcat-juli.jar, tomcat-juli-adapters.jar （从 http://www.apache.org/dist/tomcat/tomcat-7/v7.0.52/bin/extras/ 下载，根据你的Tomcat版本选择对应的分支）
+
+2. 将上面的三个jar包拷贝到 Tomcat 的 lib 目录下；
+
+3. 将 tomcat-juli.jar 拷贝到 Tomcat 的 bin 目录下，替换原有的jar包；
+
+4. 修改 Tomcat 的 conf/context.xml 文件，将<Context>为<Context swallowOutput="true">
+
+  （增加 swallowOutput="true" 的属性配置，只有这样才能完全的把tomcat的stdout给接管过来。这一步很关键 在官网及网上找了许多资料都没有提及。）；
+
+5. 删除 Tomcat 的 conf/logging.properties 文件（或者重命名-建议）；
+
+6. 在 Tomcat 的 lib 目录下创建 log4j.properties 文件：
+
+log4j.rootLogger=INFO, CATALINA# Define all the appenderslog4j.appender.CATALINA=org.apache.log4j.DailyRollingFileAppenderlog4j.appender.CATALINA.File=${catalina.base}/logs/catalina.log4j.appender.CATALINA.Append=truelog4j.appender.CATALINA.Encoding=UTF-8# Roll-over the log once per daylog4j.appender.CATALINA.DatePattern='.'yyyy-MM-dd'.log'log4j.appender.CATALINA.layout = org.apache.log4j.PatternLayoutlog4j.appender.CATALINA.layout.ConversionPattern = %d [%t] %-5p %c- %m%nlog4j.appender.LOCALHOST=org.apache.log4j.DailyRollingFileAppenderlog4j.appender.LOCALHOST.File=${catalina.base}/logs/localhost.log4j.appender.LOCALHOST.Append=truelog4j.appender.LOCALHOST.Encoding=UTF-8log4j.appender.LOCALHOST.DatePattern='.'yyyy-MM-dd'.log'log4j.appender.LOCALHOST.layout = org.apache.log4j.PatternLayoutlog4j.appender.LOCALHOST.layout.ConversionPattern = %d [%t] %-5p %c- %m%nlog4j.appender.MANAGER=org.apache.log4j.DailyRollingFileAppenderlog4j.appender.MANAGER.File=${catalina.base}/logs/manager.log4j.appender.MANAGER.Append=truelog4j.appender.MANAGER.Encoding=UTF-8log4j.appender.MANAGER.DatePattern='.'yyyy-MM-dd'.log'log4j.appender.MANAGER.layout = org.apache.log4j.PatternLayoutlog4j.appender.MANAGER.layout.ConversionPattern = %d [%t] %-5p %c- %m%nlog4j.appender.HOST-MANAGER=org.apache.log4j.DailyRollingFileAppenderlog4j.appender.HOST-MANAGER.File=${catalina.base}/logs/host-manager.log4j.appender.HOST-MANAGER.Append=truelog4j.appender.HOST-MANAGER.Encoding=UTF-8log4j.appender.HOST-MANAGER.DatePattern='.'yyyy-MM-dd'.log'log4j.appender.HOST-MANAGER.layout = org.apache.log4j.PatternLayoutlog4j.appender.HOST-MANAGER.layout.ConversionPattern = %d [%t] %-5p %c- %m%nlog4j.appender.CONSOLE=org.apache.log4j.ConsoleAppenderlog4j.appender.CONSOLE.Encoding=UTF-8log4j.appender.CONSOLE.layout = org.apache.log4j.PatternLayoutlog4j.appender.CONSOLE.layout.ConversionPattern = %d [%t] %-5p %c- %m%n# Configure which loggers log to which appenders# Configure which loggers log to which appenderslog4j.logger.org.apache.catalina.core.ContainerBase.[Catalina].[localhost]=INFO,LOCALHOSTlog4j.logger.org.apache.catalina.core.ContainerBase.[Catalina].[localhost].[/manager]=\INFO, MANAGERlog4j.logger.org.apache.catalina.core.ContainerBase.[Catalina].[localhost].[/hostmanager]=\INFO, HOST-MANAGER
