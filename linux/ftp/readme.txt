@@ -1,4 +1,14 @@
-﻿useradd -d /home/historyrecord historyrecord
+﻿-------------------------------------179
+useradd -d /home/ftpbx ftpbx
+passwd ftpbx
+ftpbx@119.254.84.179
+usermod -s /sbin/nologin 
+setsebool  ftp_home_dir  on
+
+
+
+
+useradd -d /home/historyrecord historyrecord
 passwd historyrecord
 usermod -s /sbin/nologin historyrecord
 
