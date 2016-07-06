@@ -23,7 +23,7 @@ mkdir /etc/dropbear
 openssl version
 tar -xvf openssl-1.0.2h.tar.gz
 cd openssl-1.0.2h
-./config --prefix=/usr/local/openssl  shared   && make && make install
+./config --prefix=/usr/local/openssl222  shared   && make && make install
 
 
 
@@ -157,3 +157,74 @@ strings /usr/local/lib64/libssl.so |grep OpenSSL
 在/etc/ld.so.conf文件中写入openssl库文件的搜索路径
 echo "/usr/local/ssl/lib" >> /etc/ld.so.conf
 使修改后的/etc/ld.so.conf生效
+
+
+
+
+    #!/bin/bash  
+    ############################################################  
+    ####      update openssl openssh script             ########  
+    ####              Author:hx10                        #######  
+    ####warining:start telnet service before use this script####  
+    ############################################################  
+    sleep 5  
+    export PATH=$PATH:/sbin/  
+    ####add yum source #####  
+    rm -rf /etc/yum.repos.d/*.repo  
+    wget http://192.168.0.141:8000/linux5_5_x86_64.repo -O /etc/yum.repos.d/linux5_5_x86_64.repo  
+    sed -i 's/yes/no/g' /etc/xinetd.d/telnet  
+    yum -y install telnet-server  
+     
+    service xinetd restart  
+    service sshd stop  
+    echo "exclude=*.i?86" >>/etc/yum.conf  
+    yum -y remove openssl-devel openssh  
+    yum -y install pam-devel  
+    cd /usr/local/src  
+    #wget http://www.openssl.org/source/openssl-1.0.0.tar.gz  
+    #wget http://openbsd.org.ar/pub/OpenBSD/OpenSSH/portable/openssh-5.5p1.tar.gz  
+    #wget http://www.sfr-fresh.com/unix/misc/zlib-1.2.5.tar.bz2  
+    wget http://192.168.0.21:8000/openssl-1.0.0.tar.gz  
+    wget http://192.168.0.21:8000/openssh-5.5p1.tar.gz  
+    wget http://192.168.0.21:8000/zlib-1.2.5.tar.bz2  
+    ####install zlib1.2.5########  
+    tar -jxvf zlib-1.2.5.tar.bz2  
+    cd zlib-1.2.5  
+    ./configure --prefix=/usr/local/zlib -share  
+    make && make install  
+    echo "/usr/local/zlib/lib" >>/etc/ld.so.conf  
+    ldconfig -v  
+    cd ..  
+    ####install openssl-1.0.0########  
+    tar -zxvf openssl-1.0.0.tar.gz  
+    cd openssl-1.0.0  
+    ./config shared zlib-dynamic --prefix=/usr/local/openssl --with-zlib-lib=/usr/local/zlib/lib --with-zlib-include=/usr/local/zlib/include  
+    make && make install  
+    echo "/usr/local/openssl/lib64" >>/etc/ld.so.conf  
+    ldconfig -v  
+    cd ..  
+    ####install openssh5.5p1########  
+    tar -zxvf openssh-5.5p1.tar.gz  
+    cd openssh-5.5p1  
+    mv /usr/bin/openssl /usr/bin/openssl.OFF  
+    mv /usr/include/openssl /usr/include/openssl.OFF  
+    ln -s /usr/local/openssl/bin/openssl /usr/bin/openssl  
+    ln -s /usr/local/openssl/include/openssl /usr/include/openssl  
+    mv /lib64/libcrypto.so.4  /lib64/libcrypto.so.4.OFF  
+    mv /lib64/libssl.so.4   /lib64/libssl.so.4.OFF  
+    ln -s /usr/local/openssl/lib64/libcrypto.so.1.0.0 /lib64/libcrypto.so.4  
+    ln -s /usr/local/openssl/lib64/libssl.so.1.0.0 /lib64/libssl.so.4  
+    mv /usr/lib64/libcrypto.so  /usr/lib64/libcrypto.so.OFF  
+    mv /usr/lib64/libssl.so   /usr/lib64/libssl.so.OFF  
+    ln -s /usr/local/openssl/lib64/libcrypto.so  /usr/lib64/libcrypto.so  
+    ln -s /usr/local/openssl/lib64/libssl.so  /usr/lib64/libssl.so  
+    ./configure --prefix=/usr --sysconfdir=/etc/ssh --with-pam --with-ssl-dir=/usr/local/openssl --with-md5-passwords --mandir=/usr/share/man --with-zlib=/usr/local/zlib --without-openssl-header-check  
+    make && make install  
+    cp ./contrib/redhat/sshd.init /etc/init.d/sshd  
+    chmod +x /etc/init.d/sshd  
+    chkconfig sshd on  
+    service sshd start  
+    openssl version -a  
+    ssh -v  
+    exit 
+
