@@ -1,0 +1,943 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>主机报表</title>
+<link rel="stylesheet" href="media/report/css/ns_report.css" />
+<link rel="stylesheet" href="media/report/css/ns_report_rsas.css" />
+<script src="media/report/js/jquery-1.7.2.js"></script>
+<script src="media/report/js/common.js"></script>
+</head>
+<body>
+<div id="report" class="wrapper">
+  <div class="report_tip"></div>
+  <div id="head" class="report_title">
+    <h1>绿盟科技&#34;远程安全评估系统&#34;安全评估报告-主机报表</h1>
+    <span class="note">&nbsp;</span> 
+  </div>
+  <!--head end,catalog start-->
+  <div id="catalog">
+    <div class="report_h1">目录</div>
+  </div>
+  <div id="content">
+    
+        <!-- host_info -->
+
+
+
+<div class="report_h report_h1">1.主机概况</div>
+<div class="report_content"><table class="report_table plumb">
+		<tbody>
+			<tr class="odd"">
+				<th width="120" style="vertical-align:middle">主机风险</th>
+				<td style="padding:6px;">  <img align="absmiddle" src="media/report/images/b_safe.gif"/><span class="level_danger safe"> 非常安全（1.0分） </span>  </td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<tr>
+			<td valign="top" style="width:50%;">
+			<table class="report_table plumb">
+				<tbody>
+					<tr class="even">
+						<th width="120">IP地址</th>
+						<td>119.254.84.180</td>
+					</tr>
+					
+					
+					
+					
+					
+					<tr class="odd">
+						<th>系统版本</th>
+						<td>V6.0R02F01SP02</td>
+					</tr>
+					
+					
+					<tr class="even">
+						<th>插件版本</th>
+						<td>V6.0R02F01.0200</td>
+					</tr>
+					
+					
+					<tr class="odd">
+						<th>扫描起始时间</th>
+						<td>2016-04-14 11:40:29</td>
+					</tr>
+					
+					
+					<tr class="even">
+						<th>扫描结束时间</th>
+						<td>2016-04-14 12:02:46</td>
+					</tr>
+					
+					
+					
+					
+				</tbody>
+			</table></td>
+			<td style="width:12px;"></td>
+			<td valign="top" style="width:50%;">
+			<table class="report_table plumb">
+				<tbody>
+					<tr class="even">
+						<th width="190">漏洞扫描检查模板</th>
+						<td>未知模板</td>
+					</tr>
+					
+					
+					
+					<tr class="odd">
+						<th width="190">漏洞风险评估分</th>
+						<td> 1.0分 </td>
+					</tr>
+					
+					
+					
+					<tr class="even">
+						<th>主机风险评估分</th>
+						<td>1.0分</td>
+					</tr>
+					
+					
+				</tbody>
+			</table></td>
+		</tr>
+	</table></div>
+        
+    
+
+     
+    
+        <!-- vuln info -->
+
+
+
+<div class="report_h report_h1">2.漏洞信息</div>
+<div class="report_content">
+
+	
+	
+    <div class="report_h report_h2" id="title2_1">2.1 漏洞概况</div>
+	<div>
+		<div style="text-align:right; vertical-align:middle;">
+			漏洞类别：<img align="absbottom" src="media/report/images/vuln_high.gif"/>高危险[<span id='level_high_span'>0</span>]&nbsp;&nbsp;<img align="absbottom" src="media/report/images/vuln_middle.gif"/>中危险[<span id='level_middle_span'>0</span>]&nbsp;&nbsp;<img align="absbottom" src="media/report/images/vuln_low.gif"/>低风险[<span id='level_low_span'>0</span>]
+		</div>
+		<table id="vuln_list" class="report_table">
+			<thead>
+				<tr class="second_title">
+					<th width="10%">端口</th>
+					<th width="15%">协议</th>
+					<th width="15%">服务</th>
+					<th>漏洞</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+				<tr class="even">
+					<td class="vul_port">22</td>
+					<td>TCP</td>
+					<td>ssh</td>
+					<td>
+					
+					<div class="vul_summary" data-id="50637" data-port="22">
+						
+						<img align="absmiddle" src="media/report/images/vuln_low.gif" />
+						<span class="level_danger_low" onclick="show_vul('2_280578','table_2_280578');" style="cursor:pointer">SSH版本信息可被获取</span>
+						
+						
+						<img align="absmiddle" src="media/report/images/response_msg.gif" onclick="jQuery(this).siblings('div.detail').toggle();" style="cursor:pointer"/>
+						
+						
+						<div class="detail" style="word-wrap:break-word;">
+							
+								SSH版本信息可被获取:
+								
+								<br/>
+								
+							
+								SSH-2.0-OpenSSH_5.3
+								
+							
+						</div>
+						</div>
+					 </td>
+				</tr>
+				
+			</tbody>
+		</table>
+        <script type="text/javascript">
+            //static vuln num
+            var $level_high_span = jQuery('#level_high_span');
+            var $level_middle_span = jQuery('#level_middle_span');
+            var $level_low_span = jQuery('#level_low_span');
+            var $vuln_list = jQuery('#vuln_list');
+            var low_num = 0;
+            var middle_num = 0;
+            var high_num = 0;
+            $vuln_list.find('tbody > tr').each(function() {
+                jQuery(this).find('td:last > div > span').each(function() {
+                    if (jQuery(this).hasClass('level_danger_low')) {
+                        low_num++;
+                    } else if (jQuery(this).hasClass('level_danger_middle')) {
+                        middle_num++;
+                    } else {
+                        high_num++;
+                    }
+                })
+            });
+            $level_high_span.html(high_num);
+            $level_middle_span.html(middle_num);
+            $level_low_span.html(low_num);
+        </script>
+	</div>
+	
+	
+	
+	<div class="report_h report_h2" id="title2_2">2.2 漏洞详情</div>
+	<div id="vul_detail">
+		<table class="report_table">
+			
+			<tr class="even" data-id="50637" data-port="22" >
+				<td onclick="no_toggle('2_280578','table_2_280578')" >
+					<img id="2_280578" class="ico plus" src="media/report/images/blank.gif" /> 
+					 
+                    <img align="absmiddle" src="media/report/images/vuln_low.gif" /><span class="level_danger_low" style="cursor:pointer">SSH版本信息可被获取</span> 
+                    
+                </td>
+            </tr>
+            <tr class="solution" id="table_2_280578" style="display:none;">
+				<td>
+					<table class="report_table plumb" width="100%">
+					 
+			          <tr class="odd">
+			              <th width="100">详细描述</th>
+			              <td>
+			              	
+								SSH服务允许远程攻击者获得ssh的具体信息，如版本号等等。这可能为攻击者发动进一步攻击提供帮助。
+								
+							
+			              </td>
+			          </tr>
+			          
+			          
+			          <tr class="even">
+			              <th width="100">解决办法</th>
+			              <td>
+			              	
+								NSFOCUS建议您采取以下措施以降低威胁：
+								
+								<br/>
+								
+							
+								
+								
+								<br/>
+								
+							
+								* 修改源代码或者配置文件改变SSH服务的缺省banner。
+								
+								
+			              </td>
+			          </tr>
+			          
+			          <tr class="odd">
+			              <th width="100">威胁分值</th>
+			              <td>1.0</td>
+			          </tr>
+			          <tr class="even">
+			              <th width="100">危险插件</th>
+			              <td style="text-align:left;">否</td>
+			          </tr>
+			          <tr class="odd">
+			              <th width="100">发现日期</th>
+			              <td>1999-01-01</td>
+			          </tr>
+			          
+			          <tr class="even">
+			              <th width="100">CVE编号</th>
+			              <td><a target="_blank" href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-1999-0634">CVE-1999-0634</a></td>
+			          </tr>
+			          
+			          
+			          
+			          
+			          
+			          
+			          
+			          
+			          </table>
+				</td>
+			</tr>
+			
+		</table>
+	</div>
+	
+
+</div>
+        
+    
+    
+
+    
+
+    
+        <!-- other info -->
+
+
+
+<div class="report_h report_h1">3.其他信息</div>
+<div class="report_content">
+	
+	
+    <div class="report_h report_h2" id="title3_1">3.1 端口Banner</div>
+	<div>
+        
+		<table class="report_table" style="word-wrap:break-word;">
+			<thead>
+				<tr>
+					
+					<th>端口</th>
+					
+					<th>Banner</th>
+					
+				</tr>
+			</thead>
+            
+			<tbody>
+				
+				
+				<tr class="even">
+					
+					
+					<td>
+                        
+                        21
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        220 Welcome to bxtel.cn FTP service
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+				<tr class="odd">
+					
+					
+					<td>
+                        
+                        80
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        nginx
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+				<tr class="even">
+					
+					
+					<td>
+                        
+                        8009
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        Apache Jserv
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+				<tr class="odd">
+					
+					
+					<td>
+                        
+                        9111
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        Apache Tomcat/Coyote JSP engine
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+				<tr class="even">
+					
+					
+					<td>
+                        
+                        8080
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        Tomcat/6.0.35
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+				<tr class="odd">
+					
+					
+					<td>
+                        
+                        22
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        SSH-2.0-OpenSSH_5.3
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+
+			</tbody>
+            
+		</table>
+        
+	</div>
+	
+	
+    <div class="report_h report_h2" id="title3_2">3.2 端口信息</div>
+	<div>
+        
+		<table class="report_table" style="word-wrap:break-word;">
+			<thead>
+				<tr>
+					
+					<th>端口</th>
+					
+					<th>协议</th>
+					
+					<th>服务</th>
+					
+					<th>状态</th>
+					
+				</tr>
+			</thead>
+            
+			<tbody>
+				
+				
+				<tr class="even">
+					
+					
+					<td>
+                        
+                        8009
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        tcp
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        ajp13
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        open
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+				<tr class="odd">
+					
+					
+					<td>
+                        
+                        2049
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        tcp
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        rpcbind
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        open
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+				<tr class="even">
+					
+					
+					<td>
+                        
+                        80
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        tcp
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        http
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        open
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+				<tr class="odd">
+					
+					
+					<td>
+                        
+                        111
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        tcp
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        rpcbind
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        open
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+				<tr class="even">
+					
+					
+					<td>
+                        
+                        21
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        tcp
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        ftp
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        open
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+				<tr class="odd">
+					
+					
+					<td>
+                        
+                        22
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        tcp
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        ssh
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        open
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+				<tr class="even">
+					
+					
+					<td>
+                        
+                        9111
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        tcp
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        http
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        open
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+				<tr class="odd">
+					
+					
+					<td>
+                        
+                        8080
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        tcp
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        www
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        open
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+
+			</tbody>
+            
+		</table>
+        
+	</div>
+	
+	
+    <div class="report_h report_h2" id="title3_3">3.3 操作系统类型</div>
+	<div>
+        
+		<table class="report_table" style="word-wrap:break-word;">
+			<thead>
+				<tr>
+					
+					<th>操作系统名字</th>
+					
+					<th>版本号</th>
+					
+				</tr>
+			</thead>
+            
+			<tbody>
+				
+				
+				<tr class="even">
+					
+					
+					<td>
+                        
+                        
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                         
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+
+			</tbody>
+            
+		</table>
+        
+	</div>
+	
+	
+    <div class="report_h report_h2" id="title3_4">3.4 安装软件信息</div>
+	<div>
+        
+		<table class="report_table" style="word-wrap:break-word;">
+			<thead>
+				<tr>
+					
+					<th>软件名称</th>
+					
+					<th>版本号</th>
+					
+				</tr>
+			</thead>
+            
+			<tbody>
+				
+				
+				<tr class="even">
+					
+					
+					<td>
+                        
+                        SSH Server
+                        
+                    </td>
+					
+					
+					<td>
+                        
+                        SSH-2.0-OpenSSH_5.3
+                        
+                    </td>
+					
+					
+				</tr>
+				
+				
+
+			</tbody>
+            
+		</table>
+        
+	</div>
+	
+	
+</div>
+        
+    
+    
+
+    
+        <!-- standards info -->
+
+
+
+<div class="report_h report_h1">4.参考标准</div>
+<div class="report_content"><div class="report_h report_h2" id="title4_1">4.1 单一漏洞风险等级评定标准</div>
+	<div>
+		<table class="report_table">
+			<tbody>
+				<tr class="second_title">
+					<td width="60px">危险程度</td>
+					<td width="150px">危险值区域</td>
+					<td>危险程度说明</td>
+				</tr>
+				<tr class="even">
+					<td><img src='media/report/images/vuln_high.gif'></img> 高</td>
+					<td>7 &lt;= 漏洞风险值 &lt;= 10</td>
+					<td>攻击者可以远程执行任意命令或者代码，或对系统进行远程拒绝服务攻击。</td>
+				</tr>
+				<tr class="odd">
+					<td><img src='media/report/images/vuln_middle.gif'></img> 中</td>
+					<td>4 &lt;= 漏洞风险值 &lt; 7</td>
+					<td>攻击者可以远程创建、修改、删除文件或数据，或对普通服务进行拒绝服务攻击。</td>
+				</tr>
+				<tr class="even">
+					<td><img src='media/report/images/vuln_low.gif'></img> 低</td>
+					<td>0 &lt;= 漏洞风险值 &lt; 4</td>
+					<td>攻击者可以获取某些系统、服务的信息，或读取系统文件和数据。</td>
+				</tr>
+			</tbody>
+		</table>
+		<p style="text-indent:0;">
+			说明：
+		</p>
+		<ol style="list-style:decimal;padding-left:20px;">
+			<li>
+				漏洞的风险值兼容CVSS评分标准。
+			</li>
+		</ol>
+	</div>
+	
+    <div class="report_h report_h2" id="title4_2">4.2 主机风险等级评定标准</div>
+	<div>
+		<table class="report_table">
+			<tbody>
+				<tr class="second_title">
+					<td width="200px">主机风险等级</td>
+					<td>主机风险值区域</td>
+				</tr>
+				<tr class="even">
+					<td><img src="media/report/images/d_high.gif"> 非常危险</td>
+					<td>7.0 &lt;= 主机风险值 &lt;= 10.0</td>
+				</tr>
+				<tr class="odd">
+					<td><img src="media/report/images/d_middle.gif"> 比较危险</td>
+					<td>5.0 &lt;= 主机风险值 &lt; 7.0</td>
+				</tr>
+				<tr class="even">
+					<td><img src="media/report/images/d_low.gif"> 比较安全</td>
+					<td>2.0 &lt;= 主机风险值 &lt; 5.0</td>
+				</tr>
+				<tr class="odd">
+					<td><img src="media/report/images/d_safe.gif"> 非常安全</td>
+					<td>0.0 &lt;= 主机风险值 &lt; 2.0</td>
+				</tr>
+			</tbody>
+		</table>
+		<p style="text-indent:0;">
+			说明：
+		</p>
+		<ol style="list-style:decimal;padding-left:20px;">
+			<li>
+				按照远程安全评估系统的主机风险评估模型计算主机风险值。根据得到的主机风险值参考“主机风险等级评定标准”标识主机风险等等级。
+			</li>
+			<li>
+				将主机风险等级按照风险值的高低进行排序，得到非常危险、比较危险、比较安全、非常安全四种主机风险等级。
+			</li>
+			<li>
+				用户可以根据自己的需要修订主机风险等级中的主机风险值范围。
+			</li>
+		</ol>
+	</div></div>
+    
+  </div>
+  <!--content end-->
+  <div class="report_tip"></div>
+</div>
+<script type="text/javascript">
+	function getPageY(element){
+	  	return element.offsetTop + (element.offsetParent ? arguments.callee(element.offsetParent) : 0) 
+	}
+	jQuery(function($){
+		//window.dialog = new UI.Dialog({name:'dialog'});
+		$("#catalog_tree").report_tree();
+		$("#report").catalog();
+		$('#catalog').delegate('a.link', 'click', function(event){
+        	event.preventDefault();
+		    $("#catalog").find("div.report_content").hide();
+            $("#catalog").find(".h1_dot").addClass("up");
+            jumpToHash(event.target.hash);
+		});
+		$.gotop();
+	});
+</script>
+</body>
+</html>

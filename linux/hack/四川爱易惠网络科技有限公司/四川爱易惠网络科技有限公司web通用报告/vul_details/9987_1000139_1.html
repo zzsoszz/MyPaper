@@ -1,0 +1,427 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>WVSS</title>
+    <link rel="stylesheet" href="../style/ns_report.css" />
+
+    <script src="../js/jquery.js"></script>
+    <style type='text/css'>
+      table.report_table td {word-wrap: break-word; word-break: break-all;}
+      .highlight {color: red;}
+      .indent {padding-left: 16px;}
+      div.vul-vh { color:#e42b00!important }
+      div.vul-vm { color:#9f6100!important }
+      div.vul-vl { color:#737373!important }
+    </style>
+  </head>
+  <body>
+    <div id="report" class="wrapper_w800">
+      <div class="report_tip" style="margin-top: 0;"></div>
+      <div id="content" style="overflow: auto;">
+        <div class="vul-vl">
+          <img src="../images/vl.gif" />检测到目标web应用表单密码类型输入启用了自动完成操作
+        </div>
+        
+     
+        <table class="report_table plumb" style="word-break:break-all">
+            <tr class="even">
+                <th width="80px;">URL</th>
+                <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+            </tr>
+            <tr class="odd">
+                <th>请求方式</th>
+                <td>GET</td>
+            </tr>
+            <tr class="even">
+                <th>问题参数</th>
+                <td></td>
+            </tr>
+        
+            <tr class="odd">
+                <th>判断标准</th>
+                <td>
+                
+                    根据原始请求的响应内容进行判断，如果密码类型input标签的“autocomplete”属性值为“on”，或者“autocomplete”属性未设置，则认为存在漏洞。<br />
+                
+                </td>
+            </tr>
+        
+        
+            <tr class="even">
+                <th>判断详情</th>
+                <td>
+                
+                  
+                  
+                    1、请求URL：
+                  
+                  
+                  
+                    <b class="highlight">http://www.eehui.cn/com/bxtel/index/activity.jsp</b>
+                  
+                  
+                  
+                    ； 
+                  
+                  
+                  <br />
+                
+                  
+                  
+                    2、查找到名称为：
+                  
+                  
+                  
+                    <b class="highlight">unnamed</b>
+                  
+                  
+                  
+                    、action为：
+                  
+                  
+                  
+                    <b class="highlight">/j_spring_security_check</b>
+                  
+                  
+                  
+                    的form表单中，密码名为：
+                  
+                  
+                  
+                    <b class="highlight">j_password</b>
+                  
+                  
+                  
+                     的input标签 
+                  
+                  
+                  
+                    <b class="highlight">autocomplete</b>
+                  
+                  
+                  
+                     属性值为 
+                  
+                  
+                  
+                    <b class="highlight">on</b>
+                  
+                  
+                  
+                    。
+                  
+                  
+                  
+                
+                </td>
+            </tr>
+        
+        
+          <tr class="odd">
+            <th>请求&响应</th>
+            <td>
+            
+            
+              
+              
+              <img src="images/blank.gif" class="ico plus" onClick="more_toggle(this, 'm3_750293_1', 1)"> <b>GET /com/bxtel/index/activity.jsp HTTP/1.1</b>
+              <div id="m3_750293_1" class="more hide">
+                <ul>
+                  <li class="indent"><b>Accept-Language</b>: zh-cn,en-us;q=0.7,en;q=0.3</li><li class="indent"><b>Accept-Encoding</b>: gzip,deflate</li><li class="indent"><b>Accept</b>: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</li><li class="indent"><b>User-Agent</b>: Mozilla/5.0 (Windows NT 6.1; rv:33.0) Gecko/20100101 Firefox/33.0</li><li class="indent"><b>Accept-Charset</b>: GBK,utf-8;q=0.7,*;q=0.3</li><li class="indent"><b>Host</b>: www.eehui.cn</li><li class="indent"><b>cookie</b>: </li><li class="indent"><b>Referer</b>: http://www.eehui.cn/com/bxtel/index/index.jsp</li>
+                </ul>
+              </div>
+              <br />
+              
+              
+              
+              
+              
+            
+            
+            </td>
+          </tr>
+        
+        </table>
+     
+  
+     
+        <table class="report_table plumb" style="word-break:break-all">
+            <tr class="even">
+                <th width="80px;">URL</th>
+                <td>http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+            </tr>
+            <tr class="odd">
+                <th>请求方式</th>
+                <td>GET</td>
+            </tr>
+            <tr class="even">
+                <th>问题参数</th>
+                <td></td>
+            </tr>
+        
+            <tr class="odd">
+                <th>判断标准</th>
+                <td>
+                
+                    根据原始请求的响应内容进行判断，如果密码类型input标签的“autocomplete”属性值为“on”，或者“autocomplete”属性未设置，则认为存在漏洞。<br />
+                
+                </td>
+            </tr>
+        
+        
+            <tr class="even">
+                <th>判断详情</th>
+                <td>
+                
+                  
+                  
+                    1、请求URL：
+                  
+                  
+                  
+                    <b class="highlight">http://www.eehui.cn/com/bxtel/index/index.jsp</b>
+                  
+                  
+                  
+                    ； 
+                  
+                  
+                  <br />
+                
+                  
+                  
+                    2、查找到名称为：
+                  
+                  
+                  
+                    <b class="highlight">unnamed</b>
+                  
+                  
+                  
+                    、action为：
+                  
+                  
+                  
+                    <b class="highlight">/j_spring_security_check</b>
+                  
+                  
+                  
+                    的form表单中，密码名为：
+                  
+                  
+                  
+                    <b class="highlight">j_password</b>
+                  
+                  
+                  
+                     的input标签 
+                  
+                  
+                  
+                    <b class="highlight">autocomplete</b>
+                  
+                  
+                  
+                     属性值为 
+                  
+                  
+                  
+                    <b class="highlight">on</b>
+                  
+                  
+                  
+                    。
+                  
+                  
+                  
+                
+                </td>
+            </tr>
+        
+        
+          <tr class="odd">
+            <th>请求&响应</th>
+            <td>
+            
+            
+              
+              
+              <img src="images/blank.gif" class="ico plus" onClick="more_toggle(this, 'm3_750306_1', 1)"> <b>GET /com/bxtel/index/index.jsp HTTP/1.1</b>
+              <div id="m3_750306_1" class="more hide">
+                <ul>
+                  <li class="indent"><b>Accept-Language</b>: zh-cn,en-us;q=0.7,en;q=0.3</li><li class="indent"><b>Accept-Encoding</b>: gzip,deflate</li><li class="indent"><b>Accept</b>: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</li><li class="indent"><b>User-Agent</b>: Mozilla/5.0 (Windows NT 6.1; rv:33.0) Gecko/20100101 Firefox/33.0</li><li class="indent"><b>Accept-Charset</b>: GBK,utf-8;q=0.7,*;q=0.3</li><li class="indent"><b>Host</b>: www.eehui.cn</li><li class="indent"><b>cookie</b>: </li>
+                </ul>
+              </div>
+              <br />
+              
+              
+              
+              
+              
+            
+            
+            </td>
+          </tr>
+        
+        </table>
+     
+  
+     
+        <table class="report_table plumb" style="word-break:break-all">
+            <tr class="even">
+                <th width="80px;">URL</th>
+                <td>http://www.eehui.cn/com/bxtel/index/</td>
+            </tr>
+            <tr class="odd">
+                <th>请求方式</th>
+                <td>GET</td>
+            </tr>
+            <tr class="even">
+                <th>问题参数</th>
+                <td></td>
+            </tr>
+        
+            <tr class="odd">
+                <th>判断标准</th>
+                <td>
+                
+                    根据原始请求的响应内容进行判断，如果密码类型input标签的“autocomplete”属性值为“on”，或者“autocomplete”属性未设置，则认为存在漏洞。<br />
+                
+                </td>
+            </tr>
+        
+        
+            <tr class="even">
+                <th>判断详情</th>
+                <td>
+                
+                  
+                  
+                    1、请求URL：
+                  
+                  
+                  
+                    <b class="highlight">http://www.eehui.cn/com/bxtel/index/</b>
+                  
+                  
+                  
+                    ； 
+                  
+                  
+                  <br />
+                
+                  
+                  
+                    2、查找到名称为：
+                  
+                  
+                  
+                    <b class="highlight">unnamed</b>
+                  
+                  
+                  
+                    、action为：
+                  
+                  
+                  
+                    <b class="highlight">/j_spring_security_check</b>
+                  
+                  
+                  
+                    的form表单中，密码名为：
+                  
+                  
+                  
+                    <b class="highlight">j_password</b>
+                  
+                  
+                  
+                     的input标签 
+                  
+                  
+                  
+                    <b class="highlight">autocomplete</b>
+                  
+                  
+                  
+                     属性值为 
+                  
+                  
+                  
+                    <b class="highlight">on</b>
+                  
+                  
+                  
+                    。
+                  
+                  
+                  
+                
+                </td>
+            </tr>
+        
+        
+          <tr class="odd">
+            <th>请求&响应</th>
+            <td>
+            
+            
+              
+              
+              <img src="images/blank.gif" class="ico plus" onClick="more_toggle(this, 'm3_750569_1', 1)"> <b>GET /com/bxtel/index/ HTTP/1.1</b>
+              <div id="m3_750569_1" class="more hide">
+                <ul>
+                  <li class="indent"><b>Accept-Language</b>: zh-cn,en-us;q=0.7,en;q=0.3</li><li class="indent"><b>Accept-Encoding</b>: gzip,deflate</li><li class="indent"><b>Accept</b>: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</li><li class="indent"><b>User-Agent</b>: Mozilla/5.0 (Windows NT 6.1; rv:33.0) Gecko/20100101 Firefox/33.0</li><li class="indent"><b>Accept-Charset</b>: GBK,utf-8;q=0.7,*;q=0.3</li><li class="indent"><b>Host</b>: www.eehui.cn</li><li class="indent"><b>cookie</b>: </li><li class="indent"><b>Referer</b>: http://www.eehui.cn/com/bxtel/index/index.jsp</li>
+                </ul>
+              </div>
+              <br />
+              
+              
+              
+              
+              
+            
+            
+            </td>
+          </tr>
+        
+        </table>
+     
+  
+      </div>
+      <div class="report_tip" style="margin-top: 0;"></div>
+    </div>
+
+    <script type="text/javascript">
+        function adjustHeight() {
+            var content = document.getElementById('content');
+            var clientHeight  = document.documentElement.clientHeight;
+            content.style.height = clientHeight - 76 + 'px';
+        }
+        
+        adjustHeight();
+        
+        window.onload = function() {
+            window.onresize = function() {
+                setTimeout(adjustHeight, 50);
+            };
+        };
+        
+        function more_toggle(o, id, same_bg) {
+            var tr_more = jQuery("#"+id)[0];
+            var tr_class = (o.parentNode.parentNode.className != "" && same_bg) ? (" " + o.parentNode.parentNode.className) : "";
+            if (jQuery("#"+id).hasClass("more hide")) {
+                o.className = "ico minus";
+                tr_more.className = "more" + tr_class.replace("hover", " ");
+            }
+            else {
+                o.className = "ico plus";
+                tr_more.className = "more hide" + tr_class.replace("hover", " ");
+            }
+        }
+    </script>
+
+  </body>
+</html>

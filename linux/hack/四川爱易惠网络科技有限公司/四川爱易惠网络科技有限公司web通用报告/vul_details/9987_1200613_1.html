@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>WVSS</title>
+    <link rel="stylesheet" href="../style/ns_report.css" />
+
+    <script src="../js/jquery.js"></script>
+    <style type='text/css'>
+      table.report_table td {word-wrap: break-word; word-break: break-all;}
+      .highlight {color: red;}
+      .indent {padding-left: 16px;}
+      div.vul-vh { color:#e42b00!important }
+      div.vul-vm { color:#9f6100!important }
+      div.vul-vl { color:#737373!important }
+    </style>
+  </head>
+  <body>
+    <div id="report" class="wrapper_w800">
+      <div class="report_tip" style="margin-top: 0;"></div>
+      <div id="content" style="overflow: auto;">
+        <div class="vul-vh">
+          <img src="../images/vh.gif" />SSLv3存在严重设计缺陷漏洞（CVE-2014-3566）
+        </div>
+        
+     
+       <table class="report_table plumb" style="word-break:break-all">
+       
+           <tr class="even">
+               <th width="80px;">请求方式</th>
+               <td>GET</td>
+           </tr>
+       
+           <tr class="odd">
+               <th width="80px;">URL</th>
+               <td>http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+           </tr>
+       
+           <tr class="even">
+               <th width="80px;">参考（验证）</th>
+               <td>IP:183.61.13.232 ; PORT:443</td>
+           </tr>
+       
+       </table>
+     
+  
+      </div>
+      <div class="report_tip" style="margin-top: 0;"></div>
+    </div>
+
+    <script type="text/javascript">
+        function adjustHeight() {
+            var content = document.getElementById('content');
+            var clientHeight  = document.documentElement.clientHeight;
+            content.style.height = clientHeight - 76 + 'px';
+        }
+        
+        adjustHeight();
+        
+        window.onload = function() {
+            window.onresize = function() {
+                setTimeout(adjustHeight, 50);
+            };
+        };
+        
+        function more_toggle(o, id, same_bg) {
+            var tr_more = jQuery("#"+id)[0];
+            var tr_class = (o.parentNode.parentNode.className != "" && same_bg) ? (" " + o.parentNode.parentNode.className) : "";
+            if (jQuery("#"+id).hasClass("more hide")) {
+                o.className = "ico minus";
+                tr_more.className = "more" + tr_class.replace("hover", " ");
+            }
+            else {
+                o.className = "ico plus";
+                tr_more.className = "more hide" + tr_class.replace("hover", " ");
+            }
+        }
+    </script>
+
+  </body>
+</html>

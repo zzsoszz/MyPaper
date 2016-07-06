@@ -1,0 +1,61 @@
+@charset "utf-8";
+html, body {
+    background-image: url(about:blank);
+    background-attachment: fixed;
+}
+
+.suspension {
+    position: fixed;
+    _position: absolute;
+    right: 50%;
+    top: 50%;
+    margin-top: -20px;
+    display: none;
+}
+
+.suspension .tp, .suspension .bt {
+    width: 60px;
+    height: 40px;
+    position: relative;
+    overflow: hidden;
+    background-color: #eee;
+}
+
+.suspension .tp {
+    border-radius: 8px 8px 0 0;
+}
+
+.suspension .bt {
+    border-radius: 0 0 8px 8px;
+}
+
+.suspension .a-wrap {
+
+    position: absolute;
+}
+
+.suspension a {
+    display: inline-block;
+    width: 60px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    outline: none;
+}
+
+.suspension .tp .page-img {
+    background: url(../images/previous_page.png) 50% 50% no-repeat;
+}
+.suspension .bt .page-img {
+    background: url(../images/next_page.png) 50% 50% no-repeat;
+}
+
+.suspension .pn {
+    width: 60px;
+    text-align: center;
+}

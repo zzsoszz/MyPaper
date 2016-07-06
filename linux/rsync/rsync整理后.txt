@@ -31,6 +31,8 @@ vi /etc/rsyncd.secrets
 test:123456
 ---------------------
 
+
+
 修改第三个文件
 vi /etc/rsyncd.motd 
 ---------------------

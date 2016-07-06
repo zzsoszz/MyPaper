@@ -1,0 +1,1471 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>绿盟科技WEB应用漏洞扫描报告</title>
+    <link rel="stylesheet" href="style/ns_report.css" />
+    <link rel="stylesheet" href="style/jquery.treeview.css" />
+    <script src="/jsi18n/medias/"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/iepngfix_tilebg.js"></script>
+  
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery.treeview.js"></script>
+    <script type="text/javascript" src="js/jquery.treeview.edit.js"></script>
+    <script type="text/javascript" src="js/9987.js"></script>
+  
+    <script type="text/javascript">
+        var taskSiteId = "9987";
+        showNextTr = function(t) {
+            var nextRow = t.nextElementSibling ? t.nextElementSibling : t.nextSibling;
+            var obj = t.getElementsByTagName("img")[0];
+            if (nextRow.style.display == "none") {
+                nextRow.style.display = "";
+                obj.src = "images/expand.gif";
+            }
+            else {
+                nextRow.style.display = "none";
+                obj.src = "images/shrink.gif";
+            }
+        };
+        
+        function more_toggle(o, id, same_bg) {
+            var tr_more = jQuery("#"+id)[0];
+            var tr_class = (o.parentNode.parentNode.className != "" && same_bg) ? (" " + o.parentNode.parentNode.className) : "";
+            if (jQuery("#"+id).hasClass("more hide")) {
+                o.className = "ico minus";
+                tr_more.className = "more" + tr_class.replace("hover", " ");
+            }
+            else {
+                o.className = "ico plus";
+                tr_more.className = "more hide" + tr_class.replace("hover", " ");
+            }
+        }
+      
+      
+        $(function() {
+            $("#siteTree").treeview();
+            appendChildNodes("/", $("#siteTree"));
+        });
+        
+        
+        appendChildNodes = function(url, obj) {
+            var branche = getChildNodes(url);
+            var branches = $(branche).appendTo($(obj));
+            $(obj).treeview({
+                add: branches
+            });
+        };
+      
+    </script>
+  
+    <script type="text/javascript" >
+      
+      function getChildNodes(url) {
+        isFloder = isFloderNode(url);
+        var branches = "";
+        if (isFloder) {
+          branches += "<ul>";
+          children = siteTreeData[url];
+          for (j = 0; j < children.length; j++) {
+            childValue = children[j];
+            if ("" == childValue) continue;
+            if ("/" == url) {
+              newUrl = childValue;
+            }
+            else {
+              newUrl = url + "/" + childValue;
+            }
+            flag = isFloderNode(newUrl);
+            if (flag) {
+              branches += addFolderNode(childValue, newUrl);
+            }
+            else {
+              branches += addFileNode(childValue);
+            }
+          }
+          branches += "</ul>";
+        }
+        return branches;
+      }
+      
+      
+      function isFloderNode(url) {
+        ret = false;
+        try {
+          data = siteTreeData[url];
+          if (data.length > 0) {
+            ret = true;
+          }
+        }
+        catch (e) {
+          ret = false;
+        }
+        return ret;
+      }
+      
+      
+      function addFileNode(brancheName) {
+        var branche = '<li><span class="file">' + brancheName +'</span></li>';
+        return branche;
+      }
+      
+      
+      function addFolderNode(brancheName, fullPath) {
+        var branche = '<li class="closed expandable" name="' + fullPath + '"><div class="hitarea closed-hitarea expandable-hitarea" onclick="expandFolder(this);"></div><span class="folder" onclick="expandFolder(this);">' + brancheName +'</span></li>';
+        return branche;
+      }
+      
+      
+      expandFolder = function(t) {
+        parentNode = $(t).parents("li")[0];
+        ulObjs = $(parentNode).children("ul");
+        if (0 == ulObjs.length) {
+          path = $(parentNode).attr("name");
+          appendChildNodes(path, parentNode);
+          divObj = $(parentNode).children("div")[0];
+          $(divObj).removeClass("expandable-hitarea").addClass("collapsable-hitarea");
+          $(parentNode).removeClass("expandable");
+        }
+        else {
+          ulObj = $(parentNode).children("ul")[0];
+          divObj = $(parentNode).children("div")[0];
+          if ("none" != $(ulObj).css("display")) {
+            $(ulObj).css("display", "none");
+            $(divObj).removeClass("collapsable-hitarea").addClass("expandable-hitarea");
+            $(parentNode).addClass("expandable");
+          }
+          else {
+            $(ulObj).css("display", "block");
+            $(divObj).removeClass("expandable-hitarea").addClass("collapsable-hitarea");
+            $(parentNode).removeClass("expandable");
+          }
+        }
+      };
+    </script>
+  
+    <style type='text/css'>
+      .numLinkHigh  {color:#ca443a;font-family:Verdana;font-size:13px; font-weight:bold;}
+      .numLinkMid  {color:#df8800;font-family:Verdana;font-size:13px; font-weight:bold;}
+      .numLinkLow  {color:#367c07;font-family:Verdana;font-size:13px; font-weight:bold;}
+      .numLinkAll  {font-size:13px; font-weight:bold;}
+      td.vul-vh { color:#e42b00!important }
+      td.vul-vm { color:#9f6100!important }
+      td.vul-vl { color:#737373!important }
+      table.report_table td {word-wrap: break-word; word-break: break-all;}
+      div,a{behavior: url("style/iepngfix.htc")}/*ie6 png fix*/
+      .highlight {color: red;}
+      .indent {padding-left: 16px;}
+    </style>
+  </head>
+  <body>
+    <div id="report" class="wrapper_w800">
+      <div class="report_tip"></div>
+      <div id="head" class="report_title">
+        <h1>绿盟科技WEB应用漏洞扫描报告</h1>
+        <span class="note">报表模板：web扫描通用模板</span>
+        <span class="note">2016-04-21 14:52:05 (UTC+08:00)</span>
+      </div>
+      <!--head end,catalog start-->
+      <div id="catalog">
+        <div class="report_h1">目录</div>
+      </div>
+      <!--catalog end,content start-->
+      <div id="content">
+    
+        <div class="report_h report_h1">1. 站点概况</div>
+        <div class="report_content">
+          <div class="block">
+          
+            
+            <table class="report_table plumb">
+              <tr class="even">
+                <th width="20%">站点URL</th>
+                <td width="80%">http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+              </tr>
+              <tr class="odd">
+                <th>风险值</th>
+                <td>8.1</td>
+              </tr>
+              <tr class="even">
+                <th>风险等级</th>
+                <td>非常危险</td>
+              </tr>
+              <tr class="odd">
+                <th>当前状态</th>
+                <td>任务完成</td>
+              </tr>
+              
+              <tr class="even">
+                <th>漏洞信息</th>
+                <td>
+                  高风险：2 次<br />
+                  中风险：0 次<br />
+                  低风险：16 次
+                </td>
+              </tr>
+              <tr class="odd">
+                <th>信息统计</th>
+                <td>
+                  已发现链接数：139<br />
+                  已扫描链接数：9<br />
+                  已发现文件数：13<br />
+                  有漏洞文件数：9
+                </td>
+              </tr>
+              <tr class="even">
+                <th>时间统计</th>
+                <td>
+                  开始：2016-04-20 11:32:48 (UTC+08:00)<br />
+                  结束：2016-04-20 11:48:27 (UTC+08:00)<br />
+                  耗时：15分钟35秒
+                </td>
+              </tr>
+            
+              <tr class="odd">
+                <th>版本信息</th>
+                <td>
+                
+                  系统版本：V6.0R03F01SP04<br />
+                
+                
+                  插件版本：V6.0R03F00.37
+                
+                </td>
+              </tr>
+            
+            </table>
+          
+            <table class="report_table">
+              <tr class="first_title">
+                <td width="140px">域名</td>
+                <td width="20%">IP</td>
+                <td width="15%">名称</td>
+                <td width="15%">Web服务器</td>
+                <td width="15%">脚本语言</td>
+                <td width="20%">WAF</td>
+              </tr>
+            
+              <tr class="even">
+                <td>www.eehui.cn</td>
+                <td>
+                
+                  183.61.13.232
+                  
+                
+                </td>
+                <td>
+                
+                  首页
+                
+                </td>
+                <td>
+                
+                  tengine 
+                  
+                
+                </td>
+                <td>
+                
+                  jsp 
+                  
+                
+                </td>
+                <td>
+                    
+                        --
+                    
+                </td>
+              </tr>
+            
+            </table>
+          
+          
+            <table class="report_table">
+              <thead>
+                <tr class="second_title">
+                  <td width="20%">服务端口</td>
+                  <td width="15%">服务名称</td>
+                  <td width="30%">所用产品</td>
+                  <td width="15%">服务版本</td>
+                  <td width="20%">操作系统类型</td>
+                </tr>
+              </thead>
+              
+                <tr class="even">
+                  <td>80</td>
+                  <td>http</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                </tr>
+              
+                <tr class="odd">
+                  <td>443</td>
+                  <td>https</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                </tr>
+              
+            </table>
+          
+          
+          
+          </div>
+        </div>
+    
+        <div class="report_h report_h1">2. 风险分类统计</div>
+        <div class="report_content">
+        
+          <div class="report_h report_h2">2.1 威胁</div>
+          <div class="block">
+            <div class="img"> <img src="images/Single_site_d4fcc05bd8205c41fbe4f2645bf0c6b8_vuln_view_zh-cn.png"/></div>
+            <table class="report_table">
+              <thead>
+                <tr>
+                  <th colspan="5">威胁</th>
+                </tr>
+                <tr>
+                  <th width="52%">分类名</th>
+                  <th width="12%">高风险</th>
+                  <th width="12%">中风险</th>
+                  <th width="12%">低风险</th>
+                  <th width="12%">总计</th>
+                </tr>
+              </thead>
+            
+              <tr class="even">
+                <td>认证不充分</td>
+                <td class="numLinkHigh">1</td>
+                <td class="numLinkMid">0</td>
+                <td class="numLinkLow">0</td>
+                <td class="numLinkAll">1</td>
+              </tr>
+            
+              <tr class="odd">
+                <td>远程信息泄露</td>
+                <td class="numLinkHigh">0</td>
+                <td class="numLinkMid">0</td>
+                <td class="numLinkLow">2</td>
+                <td class="numLinkAll">2</td>
+              </tr>
+            
+              <tr class="even">
+                <td>内容欺骗</td>
+                <td class="numLinkHigh">0</td>
+                <td class="numLinkMid">0</td>
+                <td class="numLinkLow">2</td>
+                <td class="numLinkAll">2</td>
+              </tr>
+            
+              <tr class="odd">
+                <td>信息泄露</td>
+                <td class="numLinkHigh">0</td>
+                <td class="numLinkMid">0</td>
+                <td class="numLinkLow">2</td>
+                <td class="numLinkAll">2</td>
+              </tr>
+            
+              <tr class="even">
+                <td>其他</td>
+                <td class="numLinkHigh">1</td>
+                <td class="numLinkMid">0</td>
+                <td class="numLinkLow">1</td>
+                <td class="numLinkAll">2</td>
+              </tr>
+            
+            </table>
+          </div>
+        
+        
+            
+            <div class="report_h report_h2">2.2 OWASP 2013</div>
+            <div class="block">
+                
+                <div class="img"><img src="images/Single_site_d4fcc05bd8205c41fbe4f2645bf0c6b8_industry_4_zh-cn.png" title="OWASP 2013风险分布图"/></div>
+                <table class="report_table">
+                    <thead>
+                        <tr>
+                            <th colspan="2">OWASP 2013</th>
+                        </tr>
+                        <tr>
+                            <th width="80%">分类名</th>
+                            <th width="20%">总计</th>
+                        </tr>
+                    </thead>
+                    
+                        <tr class="even">
+                            <td>A2-失效的身份认证和会话管理</td>
+                            <td>1</td>
+                        </tr>
+                    
+                        <tr class="odd">
+                            <td>A6-敏感数据泄露</td>
+                            <td>2</td>
+                        </tr>
+                    
+                        <tr class="even">
+                            <td>其它未分类</td>
+                            <td>6</td>
+                        </tr>
+                    
+                </table>
+                
+            </div>
+            
+            <div class="report_h report_h2">2.3 OWASP 2010</div>
+            <div class="block">
+                
+                <div class="img"><img src="images/Single_site_d4fcc05bd8205c41fbe4f2645bf0c6b8_industry_2_zh-cn.png" title="OWASP 2010风险分布图"/></div>
+                <table class="report_table">
+                    <thead>
+                        <tr>
+                            <th colspan="2">OWASP 2010</th>
+                        </tr>
+                        <tr>
+                            <th width="80%">分类名</th>
+                            <th width="20%">总计</th>
+                        </tr>
+                    </thead>
+                    
+                        <tr class="odd">
+                            <td>A3-无效的身份认证和会话管理</td>
+                            <td>1</td>
+                        </tr>
+                    
+                        <tr class="even">
+                            <td>A7-不安全的加密存储</td>
+                            <td>2</td>
+                        </tr>
+                    
+                        <tr class="odd">
+                            <td>其它未分类</td>
+                            <td>6</td>
+                        </tr>
+                    
+                </table>
+                
+            </div>
+            
+            <div class="report_h report_h2">2.4 WASC</div>
+            <div class="block">
+                
+                <div class="img"><img src="images/Single_site_d4fcc05bd8205c41fbe4f2645bf0c6b8_industry_3_zh-cn.png" title="WASC风险分布图"/></div>
+                <table class="report_table">
+                    <thead>
+                        <tr>
+                            <th colspan="2">WASC</th>
+                        </tr>
+                        <tr>
+                            <th width="80%">分类名</th>
+                            <th width="20%">总计</th>
+                        </tr>
+                    </thead>
+                    
+                        <tr class="even">
+                            <td>内容欺骗</td>
+                            <td>2</td>
+                        </tr>
+                    
+                        <tr class="odd">
+                            <td>信息泄露</td>
+                            <td>2</td>
+                        </tr>
+                    
+                        <tr class="even">
+                            <td>认证不充分</td>
+                            <td>1</td>
+                        </tr>
+                    
+                        <tr class="odd">
+                            <td>其它未分类</td>
+                            <td>4</td>
+                        </tr>
+                    
+                </table>
+                
+            </div>
+            
+        
+        </div>
+
+        <div class="report_h report_h1">3. Web风险分布</div>
+        <div class="report_content">
+
+        
+          
+          <div class="report_h report_h2">3.1 Web应用漏洞</div>
+          
+          <div class="block">
+            <table class="report_table">
+              <thead>
+                <tr>
+                  <th width="80%">漏洞名称</th>
+                  <th width="20%">出现次数</th>
+                </tr>
+              </thead>
+        
+          
+            
+              <tr class="even">
+                <td class="vul-vh">
+                  <img src="images/vh.gif" />
+                  SSLv3存在严重设计缺陷漏洞（CVE-2014-3566）
+                </td>
+                <td>
+                  <a target="_blank" href="vul_details/9987_1200613_1.html" style="text-decoration: underline;">1</a>
+                </td>
+              </tr>
+            
+          
+        
+        
+          
+            
+              <tr class="odd">
+                <td class="vul-vh">
+                  <img src="images/vh.gif" />
+                  SSL/TLS存在Bar Mitzvah Attack漏洞
+                </td>
+                <td>
+                  <a target="_blank" href="vul_details/9987_1200649_1.html" style="text-decoration: underline;">1</a>
+                </td>
+              </tr>
+            
+          
+        
+        
+          
+            
+              <tr class="even">
+                <td class="vul-vl">
+                  <img src="images/vl.gif" />
+                  检测到目标网站存在无效链接
+                </td>
+                <td>
+                  <a target="_blank" href="vul_details/9987_1000013_1.html" style="text-decoration: underline;">6</a>
+                </td>
+              </tr>
+            
+          
+        
+        
+          
+            
+              <tr class="odd">
+                <td class="vul-vl">
+                  <img src="images/vl.gif" />
+                  检测到基于HTTP连接的登录请求
+                </td>
+                <td>
+                  <a target="_blank" href="vul_details/9987_1000053_1.html" style="text-decoration: underline;">3</a>
+                </td>
+              </tr>
+            
+          
+        
+        
+          
+            
+              <tr class="even">
+                <td class="vul-vl">
+                  <img src="images/vl.gif" />
+                  检测到目标web应用表单密码类型输入启用了自动完成操作
+                </td>
+                <td>
+                  <a target="_blank" href="vul_details/9987_1000139_1.html" style="text-decoration: underline;">3</a>
+                </td>
+              </tr>
+            
+          
+        
+        
+          
+            
+              <tr class="odd">
+                <td class="vul-vl">
+                  <img src="images/vl.gif" />
+                  点击劫持：X-Frame-Options未配置
+                </td>
+                <td>
+                  <a target="_blank" href="vul_details/9987_1000145_1.html" style="text-decoration: underline;">1</a>
+                </td>
+              </tr>
+            
+          
+        
+        
+          
+            
+              <tr class="even">
+                <td class="vul-vl">
+                  <img src="images/vl.gif" />
+                  检测到目标URL启用了不安全的HTTP方法
+                </td>
+                <td>
+                  <a target="_blank" href="vul_details/9987_1000063_1.html" style="text-decoration: underline;">1</a>
+                </td>
+              </tr>
+            
+          
+        
+            </table>
+          </div>
+
+        
+
+          <div class="report_h report_h2">3.2 Web系统组件漏洞</div>
+          <div class="block">
+          
+            <table class="report_table">
+            
+              <tr class="even">
+                <td class="vul-vl">
+                  <img src="images/vl.gif" />
+                  可通过HTTP获取远端WWW服务信息
+                </td>
+              </tr>
+            
+              <tr class="odd">
+                <td class="vul-vl">
+                  <img src="images/vl.gif" />
+                  可通过HTTPS获取远端WWW服务信息
+                </td>
+              </tr>
+            
+            </table>
+          
+          </div>
+
+
+        </div>
+
+        <div class="report_h report_h1">4. 站点树</div>
+        <div class="report_content">
+          <div class="block">
+            <ul id="siteTree" class="filetree">
+            </ul>
+          </div>
+        </div>
+        <div class="report_h report_h1">5. 外部链接列表</div>
+        <div class="report_content">
+          <div class="block">
+            本站点外部链接总数为：45。
+          
+            <table class="report_table">
+              <thead>
+                <tr class="second_title">
+                  <td width="80%">站点</td>
+                  <td width="20%">外链数目</td>
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr class="even" style="cursor:pointer" onclick="showNextTr(this);">
+                  <td>
+                    <img src="images/shrink.gif" />
+                    http://www.jiathis.com
+                  </td>
+                  <td>1</td>
+                </tr>
+                <tr style="display:none">
+                  <td colspan="2">
+                    <table width="100%" cellspacing="1" class="report_table">
+                        <tr>
+                            <th width="50%">外部链接URL</th>
+                            <th width="40%">来源页面URL</th>
+                            <th width="10%">请求方式</th>
+                        </tr>
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://www.jiathis.com/share</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                    </table>
+                  </td>
+                </tr>
+              
+                <tr class="odd" style="cursor:pointer" onclick="showNextTr(this);">
+                  <td>
+                    <img src="images/shrink.gif" />
+                    http://v3.jiathis.com
+                  </td>
+                  <td>1</td>
+                </tr>
+                <tr style="display:none">
+                  <td colspan="2">
+                    <table width="100%" cellspacing="1" class="report_table">
+                        <tr>
+                            <th width="50%">外部链接URL</th>
+                            <th width="40%">来源页面URL</th>
+                            <th width="10%">请求方式</th>
+                        </tr>
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://v3.jiathis.com/code/jia.js</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                    </table>
+                  </td>
+                </tr>
+              
+                <tr class="even" style="cursor:pointer" onclick="showNextTr(this);">
+                  <td>
+                    <img src="images/shrink.gif" />
+                    http://119.254.84.182:9011
+                  </td>
+                  <td>2</td>
+                </tr>
+                <tr style="display:none">
+                  <td colspan="2">
+                    <table width="100%" cellspacing="1" class="report_table">
+                        <tr>
+                            <th width="50%">外部链接URL</th>
+                            <th width="40%">来源页面URL</th>
+                            <th width="10%">请求方式</th>
+                        </tr>
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://119.254.84.182:9011/ehui/upload/shopping/e69966ea-ded0-4575-a61d-082ac2af0c33.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://119.254.84.182:9011/ehui/upload/shopping/fa6dac7b-129e-4aeb-b922-486d57d11bd5.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                    </table>
+                  </td>
+                </tr>
+              
+                <tr class="odd" style="cursor:pointer" onclick="showNextTr(this);">
+                  <td>
+                    <img src="images/shrink.gif" />
+                    http://hm.baidu.com
+                  </td>
+                  <td>5</td>
+                </tr>
+                <tr style="display:none">
+                  <td colspan="2">
+                    <table width="100%" cellspacing="1" class="report_table">
+                        <tr>
+                            <th width="50%">外部链接URL</th>
+                            <th width="40%">来源页面URL</th>
+                            <th width="10%">请求方式</th>
+                        </tr>
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://hm.baidu.com/hm.gif?cc=0&amp;ck=1&amp;cl=24-bit&amp;ds=0x0&amp;et=0&amp;ja=0&amp;ln=C&amp;lo=0&amp;nv=1&amp;rnd=414811975&amp;si=2982f9e100f0df26ebc85ed719fe7fe4&amp;st=1&amp;v=1.1.26&amp;lv=1</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://hm.baidu.com/hm.gif?cc=0&amp;ck=1&amp;cl=24-bit&amp;ds=0x0&amp;et=0&amp;ja=0&amp;ln=C&amp;lo=0&amp;nv=1&amp;rnd=1143745713&amp;si=2e43e144dbe5992b7d6344a54ac798ac&amp;st=1&amp;v=1.1.26&amp;lv=1&amp;tt=返利宝—网购省钱助手，购物、酒店、机票、团购，吃喝玩乐返利多，各种返利无处不在！</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://hm.baidu.com/hm.gif?cc=0&amp;ck=1&amp;cl=24-bit&amp;ds=0x0&amp;et=0&amp;ja=0&amp;ln=C&amp;lo=0&amp;nv=1&amp;rnd=1534595861&amp;si=2e43e144dbe5992b7d6344a54ac798ac&amp;st=1&amp;su=http://www.eehui.cn/com/bxtel/index/index.jsp&amp;v=1.1.26&amp;lv=1&amp;tt=返利宝—双11活动</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://hm.baidu.com/hm.gif?cc=0&amp;ck=1&amp;cl=24-bit&amp;ds=0x0&amp;et=0&amp;ja=0&amp;ln=C&amp;lo=0&amp;nv=1&amp;rnd=312867669&amp;si=2982f9e100f0df26ebc85ed719fe7fe4&amp;st=1&amp;su=http://www.eehui.cn/com/bxtel/index/index.jsp&amp;v=1.1.26&amp;lv=1</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://hm.baidu.com/hm.js?2e43e144dbe5992b7d6344a54ac798ac</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                    </table>
+                  </td>
+                </tr>
+              
+                <tr class="even" style="cursor:pointer" onclick="showNextTr(this);">
+                  <td>
+                    <img src="images/shrink.gif" />
+                    http://int.dpool.sina.com.cn
+                  </td>
+                  <td>1</td>
+                </tr>
+                <tr style="display:none">
+                  <td colspan="2">
+                    <table width="100%" cellspacing="1" class="report_table">
+                        <tr>
+                            <th width="50%">外部链接URL</th>
+                            <th width="40%">来源页面URL</th>
+                            <th width="10%">请求方式</th>
+                        </tr>
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                    </table>
+                  </td>
+                </tr>
+              
+                <tr class="odd" style="cursor:pointer" onclick="showNextTr(this);">
+                  <td>
+                    <img src="images/shrink.gif" />
+                    http://libs.baidu.com
+                  </td>
+                  <td>1</td>
+                </tr>
+                <tr style="display:none">
+                  <td colspan="2">
+                    <table width="100%" cellspacing="1" class="report_table">
+                        <tr>
+                            <th width="50%">外部链接URL</th>
+                            <th width="40%">来源页面URL</th>
+                            <th width="10%">请求方式</th>
+                        </tr>
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://libs.baidu.com/jquery/1.7.0/jquery.js</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                    </table>
+                  </td>
+                </tr>
+              
+                <tr class="even" style="cursor:pointer" onclick="showNextTr(this);">
+                  <td>
+                    <img src="images/shrink.gif" />
+                    http://fusion.qq.com
+                  </td>
+                  <td>1</td>
+                </tr>
+                <tr style="display:none">
+                  <td colspan="2">
+                    <table width="100%" cellspacing="1" class="report_table">
+                        <tr>
+                            <th width="50%">外部链接URL</th>
+                            <th width="40%">来源页面URL</th>
+                            <th width="10%">请求方式</th>
+                        </tr>
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://fusion.qq.com/app_download?appid=1104575567&amp;platform=qzone&amp;via=QZ.MOBILEDETAIL.QRCODE&amp;u=2632840780</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                    </table>
+                  </td>
+                </tr>
+              
+                <tr class="odd" style="cursor:pointer" onclick="showNextTr(this);">
+                  <td>
+                    <img src="images/shrink.gif" />
+                    http://img04.taobaocdn.com
+                  </td>
+                  <td>12</td>
+                </tr>
+                <tr style="display:none">
+                  <td colspan="2">
+                    <table width="100%" cellspacing="1" class="report_table">
+                        <tr>
+                            <th width="50%">外部链接URL</th>
+                            <th width="40%">来源页面URL</th>
+                            <th width="10%">请求方式</th>
+                        </tr>
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img04.taobaocdn.com/bao/uploaded/i4/TB1fWSELVXXXXcvXFXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img04.taobaocdn.com/bao/uploaded/i4/TB1LbqxKVXXXXXoXFXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img04.taobaocdn.com/bao/uploaded/i4/TB1dxjaFVXXXXbvXFXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img04.taobaocdn.com/bao/uploaded/i4/TB18kpKJVXXXXcGXXXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img04.taobaocdn.com/bao/uploaded/i4/TB1j0UJMXXXXXXUXFXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img04.taobaocdn.com/bao/uploaded/i4/TB1_RzpMXXXXXXKXXXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img04.taobaocdn.com/bao/uploaded/i4/TB1no_FIFXXXXcYXVXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img04.taobaocdn.com/bao/uploaded/i4/TB1Z.gmHpXXXXbwXXXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img04.taobaocdn.com/bao/uploaded/i4/TB1JGnALVXXXXXWXXXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img04.taobaocdn.com/bao/uploaded/i4/TB1YmNYKXXXXXanXpXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img04.taobaocdn.com/bao/uploaded/i4/TB1B7r8MpXXXXXgXFXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img04.taobaocdn.com/bao/uploaded/i4/TB1oaXZJXXXXXbgXFXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                    </table>
+                  </td>
+                </tr>
+              
+                <tr class="even" style="cursor:pointer" onclick="showNextTr(this);">
+                  <td>
+                    <img src="images/shrink.gif" />
+                    http://redirect.simba.taobao.com
+                  </td>
+                  <td>3</td>
+                </tr>
+                <tr style="display:none">
+                  <td colspan="2">
+                    <table width="100%" cellspacing="1" class="report_table">
+                        <tr>
+                            <th width="50%">外部链接URL</th>
+                            <th width="40%">来源页面URL</th>
+                            <th width="10%">请求方式</th>
+                        </tr>
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://redirect.simba.taobao.com/rd?w=unionnojs&amp;f=http://ai.taobao.com/auction/edetail.htm?e=mtQMrsEEIR7ghojqVNxKse1je666sllOPKJZXwqcKKCLltG5xFicOdXrTUTgh9sMDPIwxrc30rgq8JvVJrYyL74XTR8lGDhiScBVYs1hzErfhdJTWLY0A23abJM7sDg2YnGuMRZeoANQdrr7YpGMZA%3D%3D&amp;ptype=100010&amp;from=basic&amp;k=5ccfdb950740ca16&amp;c=un&amp;b=alimm_0&amp;p=mm_49689324_6498800_22698713</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://redirect.simba.taobao.com/rd?&amp;f=http://s.click.taobao.com/t?e=m%3D2%26s%3DfBiwlMZm068cQipKwQzePOeEDrYVVa64yK8Cckff7TVuwRIiPOGbYPfJcEK6PVsHxq3IhSJN6GQIux6MirPcxbx7itLHd2Z2YcPtgfBzDAVUhm7%2ByrqcgnqRLY9ZIXh8DcIOSVeJpF9xiZWw8aT18DCkrlpkNiidk66ym8daRjqiZ%2BQMlGz6FQ%3D%3D&amp;k=7ca9e08409870ccd&amp;p=mm_49689324_6498800_22318105&amp;pvid=82c5eccf176004e1f3e5554879932020&amp;posid=&amp;b=display_1_7_0_0_0&amp;w=unionapijs&amp;c=un</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://redirect.simba.taobao.com/rd?&amp;f=http://ai.taobao.com/auction/edetail.htm?e=RaiggOY7Ul%2FuDAZjWhpTWPYZ%2F84Fryo%2BrUWIIOme95JBWJVBnwmj7rIcGym4S3j1mjXyGiP6gLu50VDmyluWgtORgHzl6N9fQu03meH6WyxXX%2FwP3oqDCVRmtaud%2B0v%2Bf9%2FQK2k6iW%2FprVdy6GTn5g%3D%3D&amp;ptype=100011&amp;rType=1&amp;from=goldenlink&amp;eid=&amp;k=5ccfdb950740ca16&amp;p=mm_49689324_6498800_22318105&amp;pvid=ae4ca1c65b85aca0ba2bf62a979b9b2b&amp;posid=&amp;b=display_1_7_0_0_0&amp;w=unionapijs&amp;c=un</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                    </table>
+                  </td>
+                </tr>
+              
+                <tr class="odd" style="cursor:pointer" onclick="showNextTr(this);">
+                  <td>
+                    <img src="images/shrink.gif" />
+                    http://img01.taobaocdn.com
+                  </td>
+                  <td>6</td>
+                </tr>
+                <tr style="display:none">
+                  <td colspan="2">
+                    <table width="100%" cellspacing="1" class="report_table">
+                        <tr>
+                            <th width="50%">外部链接URL</th>
+                            <th width="40%">来源页面URL</th>
+                            <th width="10%">请求方式</th>
+                        </tr>
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img01.taobaocdn.com/bao/uploaded/i1/TB1VPTEKpXXXXbOXpXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img01.taobaocdn.com/bao/uploaded/i1/TB1KVl2IpXXXXcIXXXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img01.taobaocdn.com/bao/uploaded/i1/T17DHTXkNcXXbtYaza_090144.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img01.taobaocdn.com/bao/uploaded/i1/TB1M6edIpXXXXbZXXXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img01.taobaocdn.com/bao/uploaded/i1/1581911996/TB2HpgekXXXXXanXXXXXXXXXXXX_!!1581911996.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img01.taobaocdn.com/bao/uploaded/i1/TB1ehaqKFXXXXarXXXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                    </table>
+                  </td>
+                </tr>
+              
+                <tr class="even" style="cursor:pointer" onclick="showNextTr(this);">
+                  <td>
+                    <img src="images/shrink.gif" />
+                    http://image.taobao.com
+                  </td>
+                  <td>1</td>
+                </tr>
+                <tr style="display:none">
+                  <td colspan="2">
+                    <table width="100%" cellspacing="1" class="report_table">
+                        <tr>
+                            <th width="50%">外部链接URL</th>
+                            <th width="40%">来源页面URL</th>
+                            <th width="10%">请求方式</th>
+                        </tr>
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://image.taobao.com/bao/uploaded/i1/TB1c2c5JpXXXXXXXVXXYXGcGpXX_M2.SS2</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                    </table>
+                  </td>
+                </tr>
+              
+                <tr class="odd" style="cursor:pointer" onclick="showNextTr(this);">
+                  <td>
+                    <img src="images/shrink.gif" />
+                    http://img03.taobaocdn.com
+                  </td>
+                  <td>6</td>
+                </tr>
+                <tr style="display:none">
+                  <td colspan="2">
+                    <table width="100%" cellspacing="1" class="report_table">
+                        <tr>
+                            <th width="50%">外部链接URL</th>
+                            <th width="40%">来源页面URL</th>
+                            <th width="10%">请求方式</th>
+                        </tr>
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img03.taobaocdn.com/bao/uploaded/i3/TB1KxTILpXXXXaaapXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img03.taobaocdn.com/bao/uploaded/i3/TB1m6_dLVXXXXXzXFXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img03.taobaocdn.com/bao/uploaded/i3/TB1xFMaHFXXXXXoXVXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img03.taobaocdn.com/bao/uploaded/i3/TB1HlzXIFXXXXcJXpXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img03.taobaocdn.com/bao/uploaded/i3/TB1qpGbLXXXXXbfXpXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img03.taobaocdn.com/bao/uploaded/i3/TB1fSmdLVXXXXbiaXXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                    </table>
+                  </td>
+                </tr>
+              
+                <tr class="even" style="cursor:pointer" onclick="showNextTr(this);">
+                  <td>
+                    <img src="images/shrink.gif" />
+                    http://img02.taobaocdn.com
+                  </td>
+                  <td>4</td>
+                </tr>
+                <tr style="display:none">
+                  <td colspan="2">
+                    <table width="100%" cellspacing="1" class="report_table">
+                        <tr>
+                            <th width="50%">外部链接URL</th>
+                            <th width="40%">来源页面URL</th>
+                            <th width="10%">请求方式</th>
+                        </tr>
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img02.taobaocdn.com/bao/uploaded/i2/TB1zT3xJVXXXXX9XVXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img02.taobaocdn.com/bao/uploaded/i2/TB1.WB8LXXXXXXaaXXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img02.taobaocdn.com/bao/uploaded/i2/TB1GVtvLFXXXXabXXXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://img02.taobaocdn.com/bao/uploaded/i2/TB1JHwqKpXXXXcrXXXXXXXXXXXX_!!0-item_pic.jpg</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                    </table>
+                  </td>
+                </tr>
+              
+                <tr class="odd" style="cursor:pointer" onclick="showNextTr(this);">
+                  <td>
+                    <img src="images/shrink.gif" />
+                    http://www.miitbeian.gov.cn
+                  </td>
+                  <td>1</td>
+                </tr>
+                <tr style="display:none">
+                  <td colspan="2">
+                    <table width="100%" cellspacing="1" class="report_table">
+                        <tr>
+                            <th width="50%">外部链接URL</th>
+                            <th width="40%">来源页面URL</th>
+                            <th width="10%">请求方式</th>
+                        </tr>
+                    
+                      
+                      <tr class="odd">
+                        <td rowspan="1">http://www.miitbeian.gov.cn/</td>
+                        <td>http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+                        <td>GET</td>
+                      </tr>
+                      
+                    
+                    </table>
+                  </td>
+                </tr>
+              
+              </tbody>
+            </table>
+          
+          </div>
+        </div>
+
+        <div class="report_h report_h1">6. 所有链接列表</div>
+        <div class="report_content">
+          <div class="block">
+              本站点所有链接总数为：94，具体链接见 <a href="links/9987.txt" target="_blank" style="text-decoration: underline;">9987.txt</a>。
+          </div>
+        </div>
+
+				<div class="report_h report_h1">7. 参考标准</div>
+				<div class="report_content">
+				
+					<div class="report_h report_h2">7.1 单一漏洞危险等级评定标准</div>
+					<div class="block">
+						<table class="report_table">
+							<thead>
+								<tr>
+									<th width="11%">危险程度</th>
+									<th width="20%">危险值区域</th>
+									<th width="69%">危险程度说明</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="even">
+									<td><img src="images/vh.gif"/>高 </td>
+									<td>7 &lt;= 漏洞风险值 &lt;= 10</td>
+									<td>攻击者可以远程操作系统文件、读写后台数据库、执行任意命令或进行远程拒绝服务攻击。</td>
+								</tr>
+								<tr class="odd">
+									<td><img src="images/vm.gif"/>中 </td>
+									<td>4 &lt;= 漏洞风险值 &lt; 7</td>
+									<td>攻击者可以利用Web网站攻击其他用户，读取系统文件或后台数据库。</td>
+								</tr>
+								<tr class="even">
+									<td><img src="images/vl.gif"/>低 </td>
+									<td>1 &lt;= 漏洞风险值 &lt; 4</td>
+									<td>攻击者可以获取某些系统、文件的信息或冒用身份。</td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="report_table">
+							<thead>
+								<th width="11%">分值</th>
+								<th width="89%">评估标准</th>
+							</thead>
+							<tbody>
+								<tr class="even">
+									<td>1</td>
+									<td>可远程获取Web服务器组件的版本信息。</td>
+								</tr>
+								<tr class="odd">
+									<td>2</td>
+									<td>目标Web服务器开放了不必要的服务。</td>
+								</tr>
+								<tr class="even">
+									<td>3</td>
+									<td>可远程访问到某些不在目录树中的文件或读取服务器动态脚本的源码。</td>
+								</tr>
+								<tr class="odd">
+									<td>4</td>
+									<td>可远程因为会话管理的问题导致身份冒用。</td>
+								</tr>
+								<tr class="even">
+									<td>5</td>
+									<td>可远程利用受影响的Web服务器攻击其他浏览网站的用户。</td>
+								</tr>
+								<tr class="odd">
+									<td>6</td>
+									<td>可远程读取系统文件或后台数据库。</td>
+								</tr>
+								<tr class="even">
+									<td>7</td>
+									<td>可远程读写系统文件、操作后台数据库。</td>
+								</tr>
+								<tr class="odd">
+									<td>8</td>
+									<td>可远程以普通用户身份执行命令或进行拒绝服务攻击。</td>
+								</tr>
+								<tr class="even">
+									<td>9</td>
+									<td>可远程以管理用户身份执行命令（受限、不太容易利用）。</td>
+								</tr>
+								<tr class="odd">
+									<td>10</td>
+									<td>可远程以管理用户身份执行命令（不受限、容易利用）。</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				
+				
+					<div class="report_h report_h2">7.2 站点风险等级评定标准</div>
+					<div class="block">
+						<table class="report_table">
+							<thead>
+								<th width="20%">站点风险等级</th>
+								<th width="80%">站点风险值区域</th>
+							</thead>
+							<tbody>
+								<tr class="even">
+									<td><img src="images/dangerousest.gif"/>非常危险</td>
+									<td>8 &lt;= 站点风险值 &lt;= 10</td>
+								</tr>
+								<tr class="odd">
+									<td><img src="images/dangerous.gif"/>比较危险</td>
+									<td>5 &lt;= 站点风险值 &lt; 8</td>
+								</tr>
+								<tr class="even">
+									<td><img src="images/safe.gif"/>比较安全</td>
+									<td>1 &lt;= 站点风险值 &lt; 5</td>
+								</tr>
+								<tr class="odd">
+									<td><img src="images/safest.gif"/>非常安全</td>
+									<td>0 &lt;= 站点风险值 &lt; 1</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				
+				
+					<div class="report_h report_h2">7.3 安全建议</div>
+					<div class="block">
+						<p>
+							随着越来越多的网络访问通过Web界面进行操作，Web安全已经成为互联网安全的一个热点，基于Web的攻击广为流行，SQL注入、跨站脚本等Web应用层漏洞的存在使得网站沦陷、页面篡改、网页挂马等攻击行为困扰着网站管理者并威胁着网站以及直接用户的安全。基于此，我们可从如下几个方面来消除这些风险，做到防患于未然：
+						</p>
+						<ul>
+							<li>
+								<p>
+									对网站的开发人员进行安全编码方面的培训，在开发过程避免漏洞的引入能起到事半功倍的效果。
+								</p>
+							</li>
+							<li>
+								<p>
+									请专业的安全研究人员或安全公司对架构网站的程序和代码做全面的源码审计，修补所有发现的安全漏洞，这种白盒安全测试比较全面、深入，能发现绝大部分的安全问题。
+								</p>
+							</li>
+							<li>
+								<p>
+									在网站上线前，使用Web应用漏洞扫描系统进行安全评估，并修补发现的问题；在网站上线后，坚持更新并使用网站安全监测系统，对整站以及关键页面进行周期和实时监测，及时消除发现的隐患。
+								</p>
+							</li>
+							<li>
+								<p>
+									采用专业的Web安全防火墙产品，可以在不修改网站本身的情况下对大多数的Web攻击起到有效的阻断作用，绿盟科技提供了功能强大的WAF产品，可以满足用户在这方面的需求。
+								</p>
+							</li>
+							<li>
+								<p>
+									建议网络管理员、系统管理员、安全管理员关注安全信息、安全动态及最新的严重漏洞，特别是影响到Web站点所使用的系统和软件的漏洞，应该在事前设计好应对规划，一旦发现系统受漏洞影响及时采取措施。
+								</p>
+							</li>
+						</ul>
+					</div>
+				
+				</div>      </div>
+      <!--content end-->
+      <div class="report_tip"></div>
+    </div>
+  </body>
+</html>

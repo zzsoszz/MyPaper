@@ -1,0 +1,3 @@
+yum install strace
+strace -f -F -o /tmp/strace.output.txt yum search wget
+grep libssl /tmp/strace.output.txt

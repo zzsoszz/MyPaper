@@ -1,0 +1,650 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>报表</title>
+<link rel="stylesheet" href="reportfiles/css/ns_report.css" />
+<link rel="stylesheet" href="reportfiles/css/ns_report_rsas.css" />
+<link rel="stylesheet" href="reportfiles/js/datepicker/skin/WdatePicker.css" />
+<script src="reportfiles/js/jquery.js"></script>
+<script src="reportfiles/js/common.js"></script>
+<script src="reportfiles/js/datepicker/WdatePicker.js"></script>
+</head>
+<body>
+<div id="report" class="wrapper_w800">
+  <div class="report_tip"></div>
+  <div  id="head"  class="report_title">
+    <h1>绿盟科技&#34;远程安全评估系统&#34;安全评估报告</h1>
+    <span class="note">&nbsp;</span> </div>
+  <!--head end,catalog start-->
+  <div id="catalog">
+    <div class="report_h1">目录</div>
+  </div>
+  <div id="content"><div class="report_h report_h1">1.综述信息</div>
+<div class="report_content"><div class="report_h report_h2" id="title00">1.1任务信息</div>
+  <div>
+    <table class="report_table plumb">
+      <tbody>
+        <tr class="odd" >
+          <th width="120" style="vertical-align:middle">网络风险</th>
+          <td style="padding:6px;"><img align='absmiddle' src='reportfiles/images/b_low.gif' title='比较危险'></img><span class="level_danger middle" style='color:#396DC3'>比较安全（1.0分）</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <table width="100%">
+      <tr>
+        <td width="50%" valign='top'>
+        <table class="report_table plumb">
+            <tbody><tr class="odd" >
+                <th width="120">任务名称</th>
+                <td>新业务新技术-弱口令</td>
+              </tr>
+              <tr class="even" >
+                <th>任务类型</th>
+                <td>口令猜测</td>
+              </tr>
+              <tr class="odd" >
+                <th width="120">任务状态</th>
+                <td>扫描完成</td>
+              </tr><tr class="even" >
+                <th>下达任务用户</th>
+                <td>admin</td>
+              </tr>
+              <tr class="odd" >
+                <th>任务数据来源</th>
+                <td>本地扫描</td>
+              </tr>
+              <tr class="even" >
+                <th>任务说明</th>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          </td>
+        <td width="20px"></td>
+        <td width="50%" valign='top'>
+        <table class="report_table plumb">
+            <tbody><tr class="odd">
+                <th width="120px" >时间统计</th>
+                <td>
+                    开始：2016-04-14 11:40:27<br />
+                    结束：2016-04-14 12:42:16</td>
+              </tr>
+              <tr class="even">
+                  <th>主机统计</th>
+                  <td>
+                  存活主机：2<br />
+                  成功扫描主机：2<br />
+                  失败扫描主机：0<br />
+                  未扫描主机：0</td>
+              </tr>
+              <tr class="odd">
+                  <th>系统版本信息</th>
+                  <td>V6.0R02F01SP02</td>
+              </tr>
+            </tbody>
+          </table>
+          </td>
+      </tr>
+    </table>
+  </div><div class="report_h report_h2" id="title01">1.2风险分布</div>
+  <div>
+    <div class="report_h report_h3">1.2.1主机风险分布</div>
+    <div class="center"><img  src="reportfiles/images/b8d837c8cee8f37e975c335fed2756df.png"></img></div>
+    <div class="report_h report_h3">1.2.2详细风险分布</div>
+    <div class="center">-</div>
+  </div><div class="report_h report_h2" id="title02">1.3资产综述</div>
+  <div><div class="report_h report_h3">1.3.1操作系统</div>
+    <table  width="100%">
+      <tr>
+        <td width="50%" ><div class="center"><img  src="reportfiles/images/c2ce1f5ea1f1c149894278ee9cbb9458.png"></img></div></td>
+        <td width="50%"><table class="report_table ">
+            <thead>
+              <tr>
+                <th>操作系统</th>
+                <th>主机数量</th>
+                <th>比率</th>
+              </tr>
+            </thead>
+            <tbody><tr class="odd">
+                <td>others</td>
+                <td>2</td>
+                <td>100%</td>
+            </tr></tbody>
+            <tfoot>
+            <tr>
+                <th>合计</th>
+                <th>2</th>
+                <th>100%</th>
+            </tr>
+            </tfoot>
+          </table>
+        </td>
+      </tr>
+    </table></div></div><div class="report_h report_h1">2.风险类别</div>
+<div class="report_content"><div class="report_h report_h2" id="vuln_risk_category">2.1漏洞风险类别</div>
+  <div><div class="report_h report_h3">2.1.1服务</div>
+    <table  width="100%">
+      <tr>
+        <td width="50%" ><div class="center"><img src="reportfiles/images/6e0d21534122e849cb97c92eec044b31.png"/></div></td>
+        <td width="50%" ><table class="report_table ">
+            <thead>
+            <tr class="second_title">
+                <th>服务</th>
+                <th width="40px">高风险</th>
+                <th width="40px">中风险</th>
+                <th width="40px">低风险</th>
+                <th width="40px">总计</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="even">
+            <td>数据库</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+            </tr><tr class="odd">
+            <td>SSH</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr class="second_title" >
+                <td>合计</td>
+                <td width="40px">0</td>
+                <td width="40px">0</td>
+                <td width="40px">2</td>
+                <td width="40px">2</td>
+            </tr>
+            </tfoot>
+          </table></td>
+      </tr>
+    </table><div class="report_h report_h3">2.1.2应用</div>
+    <table  width="100%">
+      <tr>
+        <td width="50%" ><div class="center"><img src="reportfiles/images/b13567748463a25d235f11f78bc67e01.png"/></div></td>
+        <td width="50%" ><table class="report_table ">
+            <thead>
+            <tr class="second_title">
+                <th>应用</th>
+                <th width="40px">高风险</th>
+                <th width="40px">中风险</th>
+                <th width="40px">低风险</th>
+                <th width="40px">总计</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="even">
+            <td>MySQL</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+            </tr><tr class="odd">
+            <td>其他</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr class="second_title" >
+                <td>合计</td>
+                <td width="40px">0</td>
+                <td width="40px">0</td>
+                <td width="40px">2</td>
+                <td width="40px">2</td>
+            </tr>
+            </tfoot>
+          </table></td>
+      </tr>
+    </table><div class="report_h report_h3">2.1.3系统</div>
+    <table  width="100%">
+      <tr>
+        <td width="50%" ><div class="center"><img src="reportfiles/images/20581564b02bb38b9e717e6b1fad0353.png"/></div></td>
+        <td width="50%" ><table class="report_table ">
+            <thead>
+            <tr class="second_title">
+                <th>系统</th>
+                <th width="40px">高风险</th>
+                <th width="40px">中风险</th>
+                <th width="40px">低风险</th>
+                <th width="40px">总计</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="even">
+            <td>系统无关</td>
+            <td>0</td>
+            <td>0</td>
+            <td>2</td>
+            <td>2</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr class="second_title" >
+                <td>合计</td>
+                <td width="40px">0</td>
+                <td width="40px">0</td>
+                <td width="40px">2</td>
+                <td width="40px">2</td>
+            </tr>
+            </tfoot>
+          </table></td>
+      </tr>
+    </table><div class="report_h report_h3">2.1.4威胁</div>
+    <table  width="100%">
+      <tr>
+        <td width="50%" ><div class="center"><img src="reportfiles/images/f23283b43ff5cd425094a91d7091578c.png"/></div></td>
+        <td width="50%" ><table class="report_table ">
+            <thead>
+            <tr class="second_title">
+                <th>威胁</th>
+                <th width="40px">高风险</th>
+                <th width="40px">中风险</th>
+                <th width="40px">低风险</th>
+                <th width="40px">总计</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="even">
+            <td>远程信息泄露</td>
+            <td>0</td>
+            <td>0</td>
+            <td>2</td>
+            <td>2</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr class="second_title" >
+                <td>合计</td>
+                <td width="40px">0</td>
+                <td width="40px">0</td>
+                <td width="40px">2</td>
+                <td width="40px">2</td>
+            </tr>
+            </tfoot>
+          </table></td>
+      </tr>
+    </table><div class="report_h report_h3">2.1.5时间</div>
+    <table  width="100%">
+      <tr>
+        <td width="50%" ><div class="center"><img src="reportfiles/images/0d63e0cff1eebafefeedd59841963359.png"/></div></td>
+        <td width="50%" ><table class="report_table ">
+            <thead>
+            <tr class="second_title">
+                <th>时间</th>
+                <th width="40px">高风险</th>
+                <th width="40px">中风险</th>
+                <th width="40px">低风险</th>
+                <th width="40px">总计</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="even">
+            <td>1999年</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+            </tr><tr class="odd">
+            <td>2001年</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr class="second_title" >
+                <td>合计</td>
+                <td width="40px">0</td>
+                <td width="40px">0</td>
+                <td width="40px">2</td>
+                <td width="40px">2</td>
+            </tr>
+            </tfoot>
+          </table></td>
+      </tr>
+    </table><div class="report_h report_h3">2.1.6CVE年份</div>
+    <table  width="100%">
+      <tr>
+        <td width="50%" ><div class="center"><img src="reportfiles/images/56c21615d4b26d075bfaa2233baf964e.png"/></div></td>
+        <td width="50%" ><table class="report_table ">
+            <thead>
+            <tr class="second_title">
+                <th>CVE年份</th>
+                <th width="40px">高风险</th>
+                <th width="40px">中风险</th>
+                <th width="40px">低风险</th>
+                <th width="40px">总计</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="even">
+            <td>CVE-1999</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+            </tr><tr class="odd">
+            <td>Others</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr class="second_title" >
+                <td>合计</td>
+                <td width="40px">0</td>
+                <td width="40px">0</td>
+                <td width="40px">2</td>
+                <td width="40px">2</td>
+            </tr>
+            </tfoot>
+          </table></td>
+      </tr>
+    </table></div></div><div class="report_h report_h1">3.主机信息</div>
+<div class="report_content">
+  <div class="report_h report_h2" id="title00">3.1主机风险等级列表</div>
+  <div>
+    <table class="report_table">
+      <thead>
+      <tr class="first_title">
+        <td width="130px" rowspan="2">IP地址</td>
+        <td rowspan="2">主机名</td>
+        <td rowspan="2">操作系统</td><th rowspan='2' width="40px" style="white-space:pre-wrap;">主机
+风险值</th>
+      </tr></thead>
+      <tbody>
+      
+      <tr style="cursor:pointer;" class="odd" onclick="no_toggle('3_1_1','3_1_1_1')" >
+        <td><img align='absmiddle' src='reportfiles/images/d_safe.gif' title='非常安全'></img><a href="host/119.254.84.182.html" target="_blank">119.254.84.182</a></td>
+        <td></td>
+        <td></td><td><span class="font_bold">1.0</span></td>
+      </tr>
+      
+      <tr style="cursor:pointer;" class="even" onclick="no_toggle('3_1_2','3_1_2_1')" >
+        <td><img align='absmiddle' src='reportfiles/images/d_safe.gif' title='非常安全'></img><a href="host/119.254.84.180.html" target="_blank">119.254.84.180</a></td>
+        <td></td>
+        <td></td><td><span class="font_bold">1.0</span></td>
+      </tr>
+      
+      </tbody>
+      <tfoot>
+      <tr class="second_title">
+        <td colspan="3">合计</td><td>1.0</td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+<div class="report_h report_h1">4.漏洞信息</div>
+<div class="report_content"><div class="report_h report_h2" id="title00">4.1漏洞分布</div>
+  <div>
+    <div style="text-align:right; vertical-align:middle;">漏洞类别：<img align="absbottom" src="reportfiles/images/vuln_low.gif">低风险[2]&nbsp;&nbsp;</div>
+    <table id="vuln_distribution" class="report_table">
+    <thead>
+    <tr class="second_title">
+        <th style='width:40px'>序号</th>
+        <th >漏洞名称</th>
+        <th style='width:60px'>影响主机个数</th>
+        <th style='width:40px'>影响主机百分比</th>
+        <th style='width:30px'>出现次数</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+    <tr class="odd vuln_low" style="cursor:pointer;" onclick="no_toggle('4_1_1','table_4_1_1')">
+        <td>1</td>
+        <td>
+        <img id="4_1_1" class="ico plus" src="reportfiles/images/blank.gif">
+        <img align='absmiddle' src='reportfiles/images/vuln_low.gif' ></img>
+        <span style='color:#737373'>SSH版本信息可被获取</span>
+        <!--<span class="level_danger_high">SSH版本信息可被获取</span></td>-->
+        </td>
+        <td>2/2</td>
+        <td>100%</td>
+        <td>2</td>
+    </tr>
+    <tr class="more hide odd" id="table_4_1_1">
+        <th></th>
+        <td style="padding-left:20px" class="extend" colspan='4'>
+            <table style="white-space:pre-wrap;" class="report_table" width="100%"><tr class="odd">
+                <th width="20%">受影响主机</th>
+                <td width="80%"><a href="host/119.254.84.180.html" target="_blank">119.254.84.180</a>;&nbsp<a href="host/119.254.84.182.html" target="_blank">119.254.84.182</a>;&nbsp</td>
+            </tr>
+            
+            
+    <tr class="even">
+        <th>详细描述</th>
+        <td>SSH服务允许远程攻击者获得ssh的具体信息，如版本号等等。这可能为攻击者发动进一步攻击提供帮助。</td>
+    </tr>
+    
+    
+    <tr class="odd">
+        <th>解决办法</th>
+        <td>NSFOCUS建议您采取以下措施以降低威胁：
+
+* 修改源代码或者配置文件改变SSH服务的缺省banner。</td>
+    </tr>
+    
+    <tr class="even">
+        <th>威胁分值</th>
+        <td>1.0</td>
+    </tr>
+    <tr class="odd">
+        <th>危险插件</th>
+        <td>否</td>
+    </tr>
+    <tr class="even">
+        <th>发现日期</th>
+        <td>1999-01-01</td>
+    </tr>
+    
+    <tr class="odd">
+        <th>CVE编号</th>
+        <td><a target="_blank" href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-1999-0634">CVE-1999-0634</a></a></td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+            </table>
+        </td>
+    </tr><tr class="even vuln_low" style="cursor:pointer;" onclick="no_toggle('4_1_2','table_4_1_2')">
+        <td>2</td>
+        <td>
+        <img id="4_1_2" class="ico plus" src="reportfiles/images/blank.gif">
+        <img align='absmiddle' src='reportfiles/images/vuln_low.gif' ></img>
+        <span style='color:#737373'>远程MySQL/MariaDB/Percona Server版本泄露</span>
+        <!--<span class="level_danger_high">远程MySQL/MariaDB/Percona Server版本泄露</span></td>-->
+        </td>
+        <td>1/2</td>
+        <td>50%</td>
+        <td>1</td>
+    </tr>
+    <tr class="more hide even" id="table_4_1_2">
+        <th></th>
+        <td style="padding-left:20px" class="extend" colspan='4'>
+            <table style="white-space:pre-wrap;" class="report_table" width="100%"><tr class="odd">
+                <th width="20%">受影响主机</th>
+                <td width="80%"><a href="host/119.254.84.182.html" target="_blank">119.254.84.182</a>;&nbsp</td>
+            </tr>
+            
+            
+    <tr class="even">
+        <th>详细描述</th>
+        <td>远程MySQL/MariaDB/Percona Server的版本信息可以获取。这允许攻击者根据版本信息来进行相应的攻击。您应当尽可能的改变或者隐藏这些信息。</td>
+    </tr>
+    
+    <tr class="odd">
+        <th>解决办法</th>
+        <td></td>
+    </tr>
+    
+    <tr class="even">
+        <th>威胁分值</th>
+        <td>1.0</td>
+    </tr>
+    <tr class="odd">
+        <th>危险插件</th>
+        <td>否</td>
+    </tr>
+    <tr class="even">
+        <th>发现日期</th>
+        <td>2001-01-01</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+            </table>
+        </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr class="first_title">
+        <td colspan="4">合计</td>
+        <td>3</td>
+    </tr>
+    </tfoot>
+    </table>
+  </div></div><div class="report_h report_h1">5.脆弱帐号</div>
+<div class="report_content"></div><div class="report_h report_h1">6.参考标准</div>
+<div class="report_content"><div class="report_h report_h2" id="title00">6.1单一漏洞风险等级评定标准</div>
+    <div>
+      <table class="report_table">
+        <tbody>
+          <tr class="second_title">
+            <td width="80">危险程度</td>
+            <td width="150">危险值区域</td>
+            <td>危险程度说明</td>
+          </tr>
+          <tr class="even">
+            <td><img src="reportfiles/images/vuln_high.gif"> 高</td>
+            <td>7 &lt;= 漏洞风险值 &lt;= 10</td>
+            <td>攻击者可以远程执行任意命令或者代码，或对系统进行远程拒绝服务攻击。</td>
+          </tr>
+          <tr class="odd">
+            <td><img src="reportfiles/images/vuln_middle.gif"> 中</td>
+            <td>4 &lt;= 漏洞风险值 &lt; 7</td>
+            <td>攻击者可以远程创建、修改、删除文件或数据，或对普通服务进行拒绝服务攻击。</td>
+          </tr>
+          <tr class="even">
+            <td><img src="reportfiles/images/vuln_low.gif"> 低</td>
+            <td>0 &lt;= 漏洞风险值 &lt; 4</td>
+            <td>攻击者可以获取某些系统、服务的信息，或读取系统文件和数据。</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>说明：</p>
+      <p>漏洞的风险值兼容CVSS评分标准。</p>
+    </div><div class="report_h report_h2" id="title00">6.2主机风险等级评定标准</div>
+    <div>
+      <table class="report_table">
+        <tbody>
+          <tr class="second_title">
+            <td width="200px">主机风险等级</td>
+            <td>主机风险值区域</td>
+          </tr>
+          <tr class="even">
+            <td><img src="reportfiles/images/d_high.gif"> 非常危险</td>
+            <td>7.0 &lt;= 主机风险值 &lt;= 10.0</td>
+          </tr>
+          <tr class="odd">
+            <td><img src="reportfiles/images/d_middle.gif"> 比较危险</td>
+            <td>5.0 &lt;= 主机风险值 &lt; 7.0</td>
+          </tr>
+          <tr class="even">
+            <td><img src="reportfiles/images/d_low.gif"> 比较安全</td>
+            <td>2.0 &lt;= 主机风险值 &lt; 5.0</td>
+          </tr>
+          <tr class="odd">
+            <td><img src="reportfiles/images/d_safe.gif"> 非常安全</td>
+            <td>0.0 &lt;= 主机风险值 &lt; 2.0</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>说明：</p>
+      <ol style="list-style:decimal;padding-left:40px;">
+      <li>按照远程安全评估系统的主机风险评估模型计算主机风险值。根据得到的主机风险值参考“主机风险等级评定标准”标识主机风险等等级。</li>
+      <li>将主机风险等级按照风险值的高低进行排序，得到非常危险、比较危险、比较安全、非常安全四种主机风险等级。</li>
+      <li>用户可以根据自己的需要修订主机风险等级中的主机风险值范围。</li>
+      </ol>
+    </div><div class="report_h report_h2" id="title00">6.3网络风险等级评定标准</div>
+    <div>
+      <table class="report_table">
+        <tbody>
+          <tr class="second_title">
+            <td width="200px">网络风险等级</td>
+            <td>网络风险值区域</td>
+          </tr>
+          <tr class="even">
+            <td><img src="reportfiles/images/d_high.gif"> 非常危险</td>
+            <td>8.0 &lt;= 网络风险值 &lt;= 10.0</td>
+          </tr>
+          <tr class="odd">
+            <td><img src="reportfiles/images/d_middle.gif"> 比较危险</td>
+            <td>5.0 &lt;= 网络风险值 &lt; 8.0</td>
+          </tr>
+          <tr class="even">
+            <td><img src="reportfiles/images/d_low.gif"> 比较安全</td>
+            <td>1.0 &lt;= 网络风险值 &lt; 5.0</td>
+          </tr>
+          <tr class="odd">
+            <td><img src="reportfiles/images/d_safe.gif"> 非常安全</td>
+            <td>0.0 &lt;= 网络风险值 &lt; 1.0</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>说明：</p>
+      <ol style="list-style:decimal;padding-left:40px;">
+      <li>按照远程安全评估系统的网络风险评估模型计算该网络风险值。根据得到的网络风险值参考“网络风险等级评定标准“标识网络风险等等级。</li>
+      <li>将网络风险等级按照风险值的高低进行排序，得到非常危险、比较危险、比较安全、非常安全四种网络风险等级。</li>
+      <li>用户可以根据自己的需要修订网络风险等级中的网络风险值范围。</li>
+      </ol>
+    </div><div class="report_h report_h2" id="title00">6.4安全建议</div>
+        <div><p>据市场研究公司 Gartner 研究报告称&#34;实施漏洞管理的企业会避免近 90% 的攻击&#34;。可以看出，及时的漏洞修补可以在一定程度上防止病毒、攻击者的威胁。</p>
+            <p>远程安全评估系统建议对存在漏洞的主机参考附件中提出的解决方案进行漏洞修补、安全增强。</p>
+            <ul style="list-style:circle; padding-left:60px;">
+              <li>建议所有 Windows 系统使用&#34;Windows Update&#34;进行更新。</li>
+              <li>对于大量终端用户而言，可以采用 WSUS 进行自动补丁更新，也可以采用补丁分发系统及时对终端用户进行补丁更新。</li>
+              <li>对于存在弱口令的系统，需在加强使用者安全意识的前提下，督促其修改密码，或者使用策略来强制限制密码长度和复杂性。</li>
+              <li>对于存在弱口令或是空口令的服务，在一些关键服务上，应加强口令强度，同时需使用加密传输方式，对于一些可关闭的服务来说，建议关闭该服务以达到安全目的。</li>
+              <li>对于UNIX系统订阅厂商的安全公告，与厂商技术人员确认后进行漏洞修补、补丁安装、停止服务等。</li>
+              <li>由于其他原因不能及时安装补丁的系统，考虑在网络边界、路由器、防火墙上设置严格的访问控制策略，以保证网络的动态安全。</li>
+              <li>建议网络管理员、系统管理员、安全管理员关注安全信息、安全动态及最新的严重漏洞，攻与防的循环，伴随每个主流操作系统、应用服务的生命周期。</li>
+              <li>建议采用远程安全评估系统定期对网络进行评估，真正做到未雨绸缪。</li>
+            </ul><p>远程安全评估系统建议对存在不合规检查项的主机参考对应的检查点详情中提出的调整方案和标准值进行修正。</p>
+            <!--
+            <ul style="list-style:circle; padding-left:60px;">
+              <li>建议......</li>
+            </ul>
+            --></div></div>
+  </div>
+  <div class="report_tip"></div>
+</div>
+<!--content end-->
+</div>
+</body>
+</html>

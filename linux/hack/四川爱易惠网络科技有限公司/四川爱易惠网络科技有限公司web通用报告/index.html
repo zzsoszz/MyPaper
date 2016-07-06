@@ -1,0 +1,1842 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>绿盟科技WEB应用漏洞扫描报告</title>
+		<link rel="stylesheet" href="style/ns_report.css" />
+		<script src="js/ui.js"></script>
+		<script src="js/jquery.js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/iepngfix_tilebg.js"></script>
+		<script type="text/javascript">
+			var $j =jQuery.noConflict();
+        	showNextTr = function(t) {
+        		var nextRow = t.nextElementSibling ? t.nextElementSibling : t.nextSibling;
+        		var obj = t.getElementsByTagName("img")[0];
+        		if (nextRow.style.display == "none") {
+        			nextRow.style.display = "";
+        			obj.src = "images/expand.gif";
+        		}
+        		else {
+        			nextRow.style.display = "none";
+        			obj.src = "images/shrink.gif";
+        		}
+        	};
+            $j(function() {
+                $j("table[name='plugin_info'] tr:even").addClass("even");
+                $j("table[name='plugin_info'] tr:odd").addClass("odd");
+            });
+		</script>
+		<style type='text/css'>
+			.numLinkHigh  {color:#ca443a;font-family:Verdana;font-size:13px; font-weight:bold;}
+			.numLinkMid  {color:#df8800;font-family:Verdana;font-size:13px; font-weight:bold;}
+			.numLinkLow  {color:#367c07;font-family:Verdana;font-size:13px; font-weight:bold;}
+			.numLinkAll  {font-size:13px; font-weight:bold;}
+			a.vul-vh,td.vul-vh { color:#e42b00!important }
+			a.vul-vm,td.vul-vm { color:#9f6100!important }
+			a.vul-vl,td.vul-vl { color:#737373!important }
+			div,a{behavior: url("style/iepngfix.htc")}/*ie6 png fix*/
+			table.report_table td {word-wrap: break-word; word-break: break-all;}
+			.highlight {color: red;}
+			.indent {padding-left: 16px;}
+		</style>
+	</head>
+	<body>
+		<div id="report" class="wrapper_w800">
+			<div class="report_tip"></div>
+			<div id="head" class="report_title">
+				<h1>绿盟科技WEB应用漏洞扫描报告</h1>
+				<span class="note">报表模板：web扫描通用模板</span>
+				<span class="note">2016-04-21 14:52:03 (UTC+08:00)</span>
+			</div>
+			<!--head end,catalog start-->
+			<div id="catalog">
+				<div class="report_h1">目录</div>
+			</div>
+			<!--catalog end,content start-->
+			<div id="content">
+
+				<div class="report_h report_h1">1. 综述</div>
+				<div class="report_content">
+					
+					<div class="report_h report_h2">1.1 任务风险概况</div>
+						<div class="block">
+							<table class="report_table plumb">
+								<tr class="even">
+									<th width="20%">任务名称</th>
+									<td width="80%" style="word-break:break-all">四川爱易惠网络科技有限公司</td>
+								</tr>
+								<tr class="odd">
+									<th>扫描目标</th>
+									<td style="word-break:break-all">http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+								</tr>
+								<tr class="even">
+									<th>网络风险</th>
+									<td>
+										<img src="images/d_high_big.gif" title="非常危险" />
+										<br />风险值：8.1
+									</td>
+								</tr>
+								<tr class="odd">
+									<th>插件模板</th>
+									<td>自动模板匹配</td>
+								</tr>
+								<tr class="even">
+									<th>站点统计</th>
+									<td>
+										已扫描站点数：1<br />
+										未扫描站点数：0<br />
+										非常危险站点数：1
+									</td>
+								</tr>
+								<tr class="odd">
+									<th>信息统计</th>
+									<td>
+										已发现链接数：139<br />
+										已扫描链接数：9<br />
+										已发现文件数：13<br />
+										有漏洞文件数：9
+									</td>
+								</tr>
+								<tr class="even">
+									<th>时间统计</th>
+									<td>
+										开始：2016-04-20 11:32:48 (UTC+08:00)<br />
+										结束：2016-04-20 11:48:29 (UTC+08:00)<br />
+										耗时：15分钟39秒
+									</td>
+								</tr>
+								<tr class="odd">
+									<th>下达任务的用户</th>
+									<td>jiangwenxiao</td>
+								</tr>
+								<tr class="even">
+									<th>任务数据来源</th>
+									<td>本地任务</td>
+								</tr>
+								<tr class="odd">
+								    <th>任务状态</th>
+								    <td>任务完成</td>
+								</tr>
+								<tr class="even">
+									<th>版本信息</th>
+									<td>
+										系统版本：V6.0R03F01SP04<br />
+										插件版本：V6.0R03F00.37
+									</td>
+								</tr>
+								<tr class="odd">
+								  <th>任务说明</th>
+								  <td>
+								  
+								  </td>
+								</tr>
+							</table>
+						</div>
+					
+					
+					<div class="report_h report_h2">1.2 风险分布</div>
+					<div>
+					
+					    <div class="report_h report_h3">1.2.1 站点风险等级分布</div>
+					    <div class="block">
+					    
+					        <div class="img"> <img src="images/Summary_384babc3e7faa44cf1ca671b74499c3b_site_risk_dist_zh-cn.png"/></div>
+					    
+					    </div>
+						<div class="report_h report_h3">1.2.2 高中低风险分布</div>
+						<div class="block">
+						
+							<div class="img"> <img src="images/Summary_384babc3e7faa44cf1ca671b74499c3b_risk_dist_zh-cn.png"/></div>
+						
+						</div>
+						<div class="report_h report_h3">1.2.3 页面风险分布</div>
+						<div class="block">
+						
+							<div class="img"> <img src="images/Summary_384babc3e7faa44cf1ca671b74499c3b_page_dist_zh-cn.png"/></div>
+						
+						</div>
+					
+						<div class="report_h report_h3">1.2.4 站点列表</div>
+						<div class="block">
+							<table class="report_table">
+								<thead>
+									<tr>
+										<th width="52%">站点URL</th>
+										<th width="12%">高风险</th>
+										<th width="12%">中风险</th>
+										<th width="12%">低风险</th>
+										<th width="12%">风险值</th>
+									</tr>
+								</thead>
+							
+								<tr class="even">
+									<td style="word-break:break-all">
+										<img src="images/dangerousest.gif" title="非常危险" />
+									
+										<a href="http_www.eehui.cn_com_bxtel_index_index.jsp.html" target="_blank">
+                                		http://www.eehui.cn/com/bxtel/index/index.jsp
+                                		</a>
+                                	
+                                	</td>
+                                	<td>2</td>
+                                	<td>0</td>
+                                	<td>16</td>
+                                	<td>8.1</td>
+                                </tr>
+                                
+							</table>
+						</div>
+					</div>
+					
+					
+					<div class="report_h report_h2">1.3 风险分类统计</div>
+					<div>
+						<div class="report_h report_h3">1.3.1 威胁</div>
+						<div class="block">
+						
+							<div class="img"> <img src="images/Summary_384babc3e7faa44cf1ca671b74499c3b_vuln_view_zh-cn.png"/></div>
+							<table class="report_table">
+								<thead>
+									<tr>
+										<th colspan="5">威胁</th>
+									</tr>
+									<tr>
+										<th width="52%">分类名</th>
+										<th width="12%">高风险</th>
+										<th width="12%">中风险</th>
+										<th width="12%">低风险</th>
+										<th width="12%">总计</th>
+									</tr>
+								</thead>
+							
+								<tr class="even">
+									<td>认证不充分</td>
+									<td class="numLinkHigh">1</td>
+									<td class="numLinkMid">0</td>
+									<td class="numLinkLow">0</td>
+									<td class="numLinkAll">1</td>
+								</tr>
+							
+								<tr class="odd">
+									<td>远程信息泄露</td>
+									<td class="numLinkHigh">0</td>
+									<td class="numLinkMid">0</td>
+									<td class="numLinkLow">2</td>
+									<td class="numLinkAll">2</td>
+								</tr>
+							
+								<tr class="even">
+									<td>内容欺骗</td>
+									<td class="numLinkHigh">0</td>
+									<td class="numLinkMid">0</td>
+									<td class="numLinkLow">2</td>
+									<td class="numLinkAll">2</td>
+								</tr>
+							
+								<tr class="odd">
+									<td>信息泄露</td>
+									<td class="numLinkHigh">0</td>
+									<td class="numLinkMid">0</td>
+									<td class="numLinkLow">2</td>
+									<td class="numLinkAll">2</td>
+								</tr>
+							
+								<tr class="even">
+									<td>其他</td>
+									<td class="numLinkHigh">1</td>
+									<td class="numLinkMid">0</td>
+									<td class="numLinkLow">1</td>
+									<td class="numLinkAll">2</td>
+								</tr>
+							
+							</table>
+						
+						</div>
+					
+					    <div class="report_h report_h3">1.3.2 OWASP 2013</div>
+					    <div class="block">
+					        <div class="img"><img src="images/Summary_384babc3e7faa44cf1ca671b74499c3b_industry_4_zh-cn.png"/></div>
+					        <table class="report_table">
+					            <thead>
+					                <tr>
+					                    <th colspan="2">OWASP 2013</th>
+					                </tr>
+					                <tr>
+					                    <th width="80%">分类名</th>
+					                    <th width="20%">总计</th>
+					                </tr>
+					            </thead>
+					            
+					                <tr class="even">
+					                    <td>A2-失效的身份认证和会话管理</td>
+					                    <td>1</td>
+					                </tr>
+					            
+					                <tr class="odd">
+					                    <td>A6-敏感数据泄露</td>
+					                    <td>2</td>
+					                </tr>
+					            
+					                <tr class="even">
+					                    <td>其它未分类</td>
+					                    <td>6</td>
+					                </tr>
+					            
+					        </table>
+					    </div>
+					
+					    <div class="report_h report_h3">1.3.3 OWASP 2010</div>
+					    <div class="block">
+					        <div class="img"><img src="images/Summary_384babc3e7faa44cf1ca671b74499c3b_industry_2_zh-cn.png"/></div>
+					        <table class="report_table">
+					            <thead>
+					                <tr>
+					                    <th colspan="2">OWASP 2010</th>
+					                </tr>
+					                <tr>
+					                    <th width="80%">分类名</th>
+					                    <th width="20%">总计</th>
+					                </tr>
+					            </thead>
+					            
+					                <tr class="odd">
+					                    <td>A3-无效的身份认证和会话管理</td>
+					                    <td>1</td>
+					                </tr>
+					            
+					                <tr class="even">
+					                    <td>A7-不安全的加密存储</td>
+					                    <td>2</td>
+					                </tr>
+					            
+					                <tr class="odd">
+					                    <td>其它未分类</td>
+					                    <td>6</td>
+					                </tr>
+					            
+					        </table>
+					    </div>
+					
+					    <div class="report_h report_h3">1.3.4 WASC</div>
+					    <div class="block">
+					        <div class="img"><img src="images/Summary_384babc3e7faa44cf1ca671b74499c3b_industry_3_zh-cn.png"/></div>
+					        <table class="report_table">
+					            <thead>
+					                <tr>
+					                    <th colspan="2">WASC</th>
+					                </tr>
+					                <tr>
+					                    <th width="80%">分类名</th>
+					                    <th width="20%">总计</th>
+					                </tr>
+					            </thead>
+					            
+					                <tr class="even">
+					                    <td>内容欺骗</td>
+					                    <td>2</td>
+					                </tr>
+					            
+					                <tr class="odd">
+					                    <td>信息泄露</td>
+					                    <td>2</td>
+					                </tr>
+					            
+					                <tr class="even">
+					                    <td>认证不充分</td>
+					                    <td>1</td>
+					                </tr>
+					            
+					                <tr class="odd">
+					                    <td>其它未分类</td>
+					                    <td>4</td>
+					                </tr>
+					            
+					        </table>
+					    </div>
+					
+						<div class="report_h report_h3">1.3.5 风险值最高的页面Top10</div>
+						<div class="block">
+						
+							<table class="report_table">
+								<thead>
+									<tr>
+										<th width="50%">页面url</th>
+										<th width="10%">风险值</th>
+										<th width="10%">高风险</th>
+										<th width="10%">中风险</th>
+										<th width="10%">低风险</th>
+										<th width="10%">总计</th>
+									</tr>
+								</thead>
+							
+								<tr class="even">
+									<td style="word-break:break-all">http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+									<td>8.1</td>
+									<td>2</td>
+									<td>0</td>
+									<td>3</td>
+									<td>5</td>
+								</tr>
+							
+								<tr class="odd">
+									<td style="word-break:break-all">http://www.eehui.cn/com/bxtel/index/activity.jsp</td>
+									<td>0.1</td>
+									<td>0</td>
+									<td>0</td>
+									<td>2</td>
+									<td>2</td>
+								</tr>
+							
+								<tr class="even">
+									<td style="word-break:break-all">http://www.eehui.cn/com/bxtel/index/www.eehui.cn</td>
+									<td>0.1</td>
+									<td>0</td>
+									<td>0</td>
+									<td>1</td>
+									<td>1</td>
+								</tr>
+							
+								<tr class="odd">
+									<td style="word-break:break-all">http://www.eehui.cn/com/bxtel/index/旅游</td>
+									<td>0.1</td>
+									<td>0</td>
+									<td>0</td>
+									<td>2</td>
+									<td>2</td>
+								</tr>
+							
+								<tr class="even">
+									<td style="word-break:break-all">http://www.eehui.cn/com/bxtel/index/休闲娱乐</td>
+									<td>0.1</td>
+									<td>0</td>
+									<td>0</td>
+									<td>1</td>
+									<td>1</td>
+								</tr>
+							
+								<tr class="odd">
+									<td style="word-break:break-all">http://www.eehui.cn/com/bxtel/index/电影</td>
+									<td>0.1</td>
+									<td>0</td>
+									<td>0</td>
+									<td>1</td>
+									<td>1</td>
+								</tr>
+							
+								<tr class="even">
+									<td style="word-break:break-all">http://www.eehui.cn/com/bxtel/index/美食</td>
+									<td>0.1</td>
+									<td>0</td>
+									<td>0</td>
+									<td>1</td>
+									<td>1</td>
+								</tr>
+							
+								<tr class="odd">
+									<td style="word-break:break-all">http://www.eehui.cn/com/bxtel/index</td>
+									<td>0.1</td>
+									<td>0</td>
+									<td>0</td>
+									<td>2</td>
+									<td>2</td>
+								</tr>
+							
+								<tr class="even">
+									<td style="word-break:break-all">http://www.eehui.cn/com/bxtel/index/丽人</td>
+									<td>0.1</td>
+									<td>0</td>
+									<td>0</td>
+									<td>1</td>
+									<td>1</td>
+								</tr>
+							
+							</table>
+						
+						</div>
+					</div>
+					
+				</div>
+				<div class="report_h report_h1">2. 漏洞列表</div>
+				<div class="report_content">
+				
+				    <div class="report_h report_h2">2.1 认证类型:认证不充分</div>
+					<div class="block">
+						<table class="report_table">
+							<thead>
+								<tr>
+									<th width="80%">漏洞名称</th>
+									<th width="20%">出现次数</th>
+								</tr>
+							</thead>
+						
+							<tr class="even"  style="cursor:pointer" onclick="showNextTr(this);">
+								<td>
+									<img src="images/shrink.gif" />
+									<img src="images/vh.gif" />
+									<a class="vul-vh" onclick="return false;" href="#">SSLv3存在严重设计缺陷漏洞（CVE-2014-3566）</a>
+                                </td>
+                                <td class="num-link-vh">1</td>
+                            </tr>
+                            <tr class="even vh_site" style="display:none">
+                            	<td colspan="2">
+                            		<!--plugin start-->
+                            		<table width="100%" class="report_table plumb" name="plugin_info">
+                                							<tr>
+                                								<th width="20%">受影响站点</th>
+                                								<td>
+                                								
+                                									
+                                									<a href="">
+                                										http://www.eehui.cn/com/bxtel/index/index.jsp
+                                									</a>&nbsp;
+                                									
+                                								
+                                								</td>
+                                							</tr>
+                                                        
+                                							<tr>
+                                								<th valign="top"  width="20%">详细描述</th>
+                                								<td valign="top">
+                                									
+                                									SSLv3漏洞（CVE-2014-3566），该漏洞贯穿于所有的SSLv3版本中，利用该漏洞，黑客可以通过中间人攻击等类似的方式(只要劫持到的数据加密两端均使用SSL3.0)，便可以成功获取到传输数据(例如cookies)。<br />
+                                									
+                                									针对此漏洞，需要服务器端和客户端均停用SSLv3协议。<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">解决办法</th>
+                                								<td valign="top">
+                                									
+                                									目前厂商尚未出补丁。<br />
+                                									
+                                									==========================================<br />
+                                									
+                                									临时解决办法：<br />
+                                									
+                                									修改apache配置文件，使其不支持SSLv3协议：<br />
+                                									
+                                									 /etc/apache2/vhosts.d/00_default_ssl_vhost.conf<br />
+                                									
+                                									在SSLCipherSuite HIGH:!ADH:!aNULL<br />
+                                									
+                                									上面添加：<br />
+                                									
+                                									SSLProtocol all -SSLv2 -SSLv3<br />
+                                									
+                                									SSLHonorCipherOrder on<br />
+                                									
+                                									 保存后，重启apache。<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">威胁分值</th>
+                                								<td valign="top">8</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">危险插件</th>
+                                								<td valign="top">否</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">发现日期</th>
+                                								<td valign="top">2014-10-15</td>
+                                							</tr>
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                	</table>
+                                	<!--plugin end-->
+								</td>
+              				</tr>
+						
+						</table>
+					</div>
+				
+				    <div class="report_h report_h2">2.2 信息泄露类型:信息泄露</div>
+					<div class="block">
+						<table class="report_table">
+							<thead>
+								<tr>
+									<th width="80%">漏洞名称</th>
+									<th width="20%">出现次数</th>
+								</tr>
+							</thead>
+						
+							<tr class="odd"  style="cursor:pointer" onclick="showNextTr(this);">
+								<td>
+									<img src="images/shrink.gif" />
+									<img src="images/vl.gif" />
+									<a class="vul-vl" onclick="return false;" href="#">检测到目标web应用表单密码类型输入启用了自动完成操作</a>
+                                </td>
+                                <td class="num-link-vl">3</td>
+                            </tr>
+                            <tr class="even vl_site" style="display:none">
+                            	<td colspan="2">
+                            		<!--plugin start-->
+                            		<table width="100%" class="report_table plumb" name="plugin_info">
+                                							<tr>
+                                								<th width="20%">受影响站点</th>
+                                								<td>
+                                								
+                                									
+                                									<a href="">
+                                										http://www.eehui.cn/com/bxtel/index/index.jsp
+                                									</a>&nbsp;
+                                									
+                                								
+                                								</td>
+                                							</tr>
+                                                        
+                                							<tr>
+                                								<th valign="top"  width="20%">详细描述</th>
+                                								<td valign="top">
+                                									
+                                									在web应用form表单中，如果input标签没有指定“autocomplete”属性为“off”，则“autocomplete”的属性会自动默认为“on”。当web应用form表单中的密码类型的input标签的“autocomplete”属性为“on”时，用户若提交了一个新的用户名和密码时，浏览器将会询问用户是否保存该用户名和密码信息。如果用户选择保存，则之后在显示该web应用表单时，用户名和密码将会被自动填充到对应的输入框中。用户一但保存密码，攻击者就可以通过本地从浏览器缓存中获取明文密码，导致用户敏感信息泄露。<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">解决办法</th>
+                                								<td valign="top">
+                                									
+                                									修改web应用form表单中密码类型input标签的“autocomplete”属性为“off”。<br />
+                                									
+                                									<br />
+                                									
+                                									示例：<br />
+                                									
+                                									<br />
+                                									
+                                									1）当密码类型的input标签没有“autocomplete”属性名时，如：<br />
+                                									
+                                									   &lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;<br />
+                                									
+                                									   则增加“autocomplete”属性为“off”即可，修改为：<br />
+                                									
+                                									   &lt;input type=&quot;password&quot; name=&quot;password&quot; autocomplete=&quot;off&quot;&gt;<br />
+                                									
+                                									<br />
+                                									
+                                									2) 当密码类型的input标签有“autocomplete”属性名，但其属性值为“on”时，如：<br />
+                                									
+                                									   &lt;input type=&quot;password&quot; name=&quot;password&quot; autocomplete=&quot;on&quot;&gt;<br />
+                                									
+                                									   则修改“autocomplete”属性为“off”即可，修改为：<br />
+                                									
+                                									   &lt;input type=&quot;password&quot; name=&quot;password&quot; autocomplete=&quot;off&quot;&gt;<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">威胁分值</th>
+                                								<td valign="top">1</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">危险插件</th>
+                                								<td valign="top">否</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">发现日期</th>
+                                								<td valign="top">2001-01-01</td>
+                                							</tr>
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                	</table>
+                                	<!--plugin end-->
+								</td>
+              				</tr>
+						
+							<tr class="even"  style="cursor:pointer" onclick="showNextTr(this);">
+								<td>
+									<img src="images/shrink.gif" />
+									<img src="images/vl.gif" />
+									<a class="vul-vl" onclick="return false;" href="#">检测到基于HTTP连接的登录请求</a>
+                                </td>
+                                <td class="num-link-vl">3</td>
+                            </tr>
+                            <tr class="even vl_site" style="display:none">
+                            	<td colspan="2">
+                            		<!--plugin start-->
+                            		<table width="100%" class="report_table plumb" name="plugin_info">
+                                							<tr>
+                                								<th width="20%">受影响站点</th>
+                                								<td>
+                                								
+                                									
+                                									<a href="">
+                                										http://www.eehui.cn/com/bxtel/index/index.jsp
+                                									</a>&nbsp;
+                                									
+                                								
+                                								</td>
+                                							</tr>
+                                                        
+                                							<tr>
+                                								<th valign="top"  width="20%">详细描述</th>
+                                								<td valign="top">
+                                									
+                                									检测到目标应用程序使用HTTP连接接受客户端的登录请求，如果登录请求数据没有加密处理，有可能被攻击者嗅探到客户端提交的请求数据，请求数据中一般包含用户名和密码，导致信息泄露。<br />
+                                									
+                                									本漏洞属于Web应用安全常见漏洞.<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">解决办法</th>
+                                								<td valign="top">
+                                									
+                                									在提交登录请求数据前加密请求数据；建议使用HTTPS连接发送登录请求数据。<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">威胁分值</th>
+                                								<td valign="top">1</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">危险插件</th>
+                                								<td valign="top">否</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">发现日期</th>
+                                								<td valign="top">2001-01-01</td>
+                                							</tr>
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                	</table>
+                                	<!--plugin end-->
+								</td>
+              				</tr>
+						
+						</table>
+					</div>
+				
+				    <div class="report_h report_h2">2.3 远程信息泄露</div>
+					<div class="block">
+						<table class="report_table">
+							<thead>
+								<tr>
+									<th width="80%">漏洞名称</th>
+									<th width="20%">出现次数</th>
+								</tr>
+							</thead>
+						
+							<tr class="odd"  style="cursor:pointer" onclick="showNextTr(this);">
+								<td>
+									<img src="images/shrink.gif" />
+									<img src="images/vl.gif" />
+									<a class="vul-vl" onclick="return false;" href="#">可通过HTTPS获取远端WWW服务信息</a>
+                                </td>
+                                <td class="num-link-vl">1</td>
+                            </tr>
+                            <tr class="even vl_site" style="display:none">
+                            	<td colspan="2">
+                            		<!--plugin start-->
+                            		<table width="100%" class="report_table plumb" name="plugin_info">
+                                							<tr>
+                                								<th width="20%">受影响站点</th>
+                                								<td>
+                                								
+                                									
+                                									<a href="">
+                                										http://www.eehui.cn/com/bxtel/index/index.jsp
+                                									</a>&nbsp;
+                                									
+                                								
+                                								</td>
+                                							</tr>
+                                                        
+                                							<tr>
+                                								<th valign="top"  width="20%">详细描述</th>
+                                								<td valign="top">
+                                									
+                                									可通过HTTPS获取远端HTTP服务器信息。这可能使得攻击者了解远程系统类型以便进行下一步的攻击。<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">解决办法</th>
+                                								<td valign="top">
+                                									
+                                									NSFOCUS建议您采取以下措施以降低威胁：<br />
+                                									
+                                									<br />
+                                									
+                                									* 改变您的HTTP服务器的缺省banner。<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">威胁分值</th>
+                                								<td valign="top">1</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">危险插件</th>
+                                								<td valign="top">否</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">发现日期</th>
+                                								<td valign="top">1999-01-01</td>
+                                							</tr>
+                                                        
+                                                        
+                                							
+                                							<tr>
+                                								<th valign="top">CVE编号</th>
+                                								<td valign="top">
+                                								
+                                									<a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-1999-0633" target="_blank">CVE-1999-0633</a>&nbsp;
+                                								
+                                								</td>
+                                							</tr>
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                	</table>
+                                	<!--plugin end-->
+								</td>
+              				</tr>
+						
+							<tr class="even"  style="cursor:pointer" onclick="showNextTr(this);">
+								<td>
+									<img src="images/shrink.gif" />
+									<img src="images/vl.gif" />
+									<a class="vul-vl" onclick="return false;" href="#">可通过HTTP获取远端WWW服务信息</a>
+                                </td>
+                                <td class="num-link-vl">1</td>
+                            </tr>
+                            <tr class="even vl_site" style="display:none">
+                            	<td colspan="2">
+                            		<!--plugin start-->
+                            		<table width="100%" class="report_table plumb" name="plugin_info">
+                                							<tr>
+                                								<th width="20%">受影响站点</th>
+                                								<td>
+                                								
+                                									
+                                									<a href="">
+                                										http://www.eehui.cn/com/bxtel/index/index.jsp
+                                									</a>&nbsp;
+                                									
+                                								
+                                								</td>
+                                							</tr>
+                                                        
+                                							<tr>
+                                								<th valign="top"  width="20%">详细描述</th>
+                                								<td valign="top">
+                                									
+                                									本插件检测远端HTTP Server信息。这可能使得攻击者了解远程系统类型以便进行下一步的攻击。<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">解决办法</th>
+                                								<td valign="top">
+                                									
+                                									NSFOCUS建议您采取以下措施以降低威胁：<br />
+                                									
+                                									<br />
+                                									
+                                									* 改变您的HTTP服务器的缺省banner。<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">威胁分值</th>
+                                								<td valign="top">1</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">危险插件</th>
+                                								<td valign="top">否</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">发现日期</th>
+                                								<td valign="top">1999-01-01</td>
+                                							</tr>
+                                                        
+                                                        
+                                							
+                                							<tr>
+                                								<th valign="top">CVE编号</th>
+                                								<td valign="top">
+                                								
+                                									<a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-1999-0633" target="_blank">CVE-1999-0633</a>&nbsp;
+                                								
+                                								</td>
+                                							</tr>
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                	</table>
+                                	<!--plugin end-->
+								</td>
+              				</tr>
+						
+						</table>
+					</div>
+				
+				    <div class="report_h report_h2">2.4 客户端攻击类型:内容欺骗</div>
+					<div class="block">
+						<table class="report_table">
+							<thead>
+								<tr>
+									<th width="80%">漏洞名称</th>
+									<th width="20%">出现次数</th>
+								</tr>
+							</thead>
+						
+							<tr class="odd"  style="cursor:pointer" onclick="showNextTr(this);">
+								<td>
+									<img src="images/shrink.gif" />
+									<img src="images/vl.gif" />
+									<a class="vul-vl" onclick="return false;" href="#">点击劫持：X-Frame-Options未配置</a>
+                                </td>
+                                <td class="num-link-vl">1</td>
+                            </tr>
+                            <tr class="even vl_site" style="display:none">
+                            	<td colspan="2">
+                            		<!--plugin start-->
+                            		<table width="100%" class="report_table plumb" name="plugin_info">
+                                							<tr>
+                                								<th width="20%">受影响站点</th>
+                                								<td>
+                                								
+                                									
+                                									<a href="">
+                                										http://www.eehui.cn/com/bxtel/index/index.jsp
+                                									</a>&nbsp;
+                                									
+                                								
+                                								</td>
+                                							</tr>
+                                                        
+                                							<tr>
+                                								<th valign="top"  width="20%">详细描述</th>
+                                								<td valign="top">
+                                									
+                                									点击劫持（ClickJacking）是一种视觉上的欺骗手段。攻击者使用一个透明的、不可见的iframe，覆盖在一个网页上，然后诱使用户在该网页上进行操作，此时用户将在不知情的情况下点击透明的iframe页面。通过调整iframe页面的位置，可以诱使用户恰好点击在iframe页面的一些功能性按钮上。<br />
+                                									
+                                									HTTP 响应头信息中的X-Frame-Options，可以指示浏览器是否应该加载一个 iframe 中的页面。如果服务器响应头信息中没有X-Frame-Options，则该网站存在ClickJacking攻击风险。网站可以通过设置 X-Frame-Options 阻止站点内的页面被其他页面嵌入从而防止点击劫持。<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">解决办法</th>
+                                								<td valign="top">
+                                									
+                                									修改web服务器配置，添加X-Frame-Options响应头。赋值有如下三种：<br />
+                                									
+                                									1、DENY：不能被嵌入到任何iframe或者frame中。<br />
+                                									
+                                									2、SAMEORIGIN:页面只能被本站页面嵌入到iframe或者frame中。<br />
+                                									
+                                									3、ALLOW-FROM uri：只能被嵌入到指定域名的框架中。<br />
+                                									
+                                									例如：<br />
+                                									
+                                									apache可配置http.conf如下：<br />
+                                									
+                                									&lt;IfModule headers_module&gt;<br />
+                                									
+                                										Header always append X-Frame-Options &quot;DENY&quot;<br />
+                                									
+                                									&lt;/IfModule&gt;<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">威胁分值</th>
+                                								<td valign="top">1</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">危险插件</th>
+                                								<td valign="top">否</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">发现日期</th>
+                                								<td valign="top">2001-01-01</td>
+                                							</tr>
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                	</table>
+                                	<!--plugin end-->
+								</td>
+              				</tr>
+						
+							<tr class="even"  style="cursor:pointer" onclick="showNextTr(this);">
+								<td>
+									<img src="images/shrink.gif" />
+									<img src="images/vl.gif" />
+									<a class="vul-vl" onclick="return false;" href="#">检测到目标URL启用了不安全的HTTP方法</a>
+                                </td>
+                                <td class="num-link-vl">1</td>
+                            </tr>
+                            <tr class="even vl_site" style="display:none">
+                            	<td colspan="2">
+                            		<!--plugin start-->
+                            		<table width="100%" class="report_table plumb" name="plugin_info">
+                                							<tr>
+                                								<th width="20%">受影响站点</th>
+                                								<td>
+                                								
+                                									
+                                									<a href="">
+                                										http://www.eehui.cn/com/bxtel/index/index.jsp
+                                									</a>&nbsp;
+                                									
+                                								
+                                								</td>
+                                							</tr>
+                                                        
+                                							<tr>
+                                								<th valign="top"  width="20%">详细描述</th>
+                                								<td valign="top">
+                                									
+                                									检测到目标Web服务器配置成允许下列其中一个（或多个）HTTP 方法：DELETE, SEARCH,COPY,MOVE, PROPFIND, PROPPATCH, MKCOL ,LOCK ,UNLOCK .<br />
+                                									
+                                									  这些方法表示可能在服务器上使用了 WebDAV.由于dav方法允许客户端操纵服务器上的文件，如果没有合理配置dav，有可能允许未授权的用户对其进行利用，修改服务器上的文件。<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">解决办法</th>
+                                								<td valign="top">
+                                									
+                                									如果服务器不需要支持 WebDAV，请务必禁用它。<br />
+                                									
+                                									或者为允许webdav的目录配置严格的访问权限，如认证方法，认证需要的用户名，密码。<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">威胁分值</th>
+                                								<td valign="top">1</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">危险插件</th>
+                                								<td valign="top">否</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">发现日期</th>
+                                								<td valign="top">2001-01-01</td>
+                                							</tr>
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                	</table>
+                                	<!--plugin end-->
+								</td>
+              				</tr>
+						
+						</table>
+					</div>
+				
+				    <div class="report_h report_h2">2.5 其他</div>
+					<div class="block">
+						<table class="report_table">
+							<thead>
+								<tr>
+									<th width="80%">漏洞名称</th>
+									<th width="20%">出现次数</th>
+								</tr>
+							</thead>
+						
+							<tr class="odd"  style="cursor:pointer" onclick="showNextTr(this);">
+								<td>
+									<img src="images/shrink.gif" />
+									<img src="images/vh.gif" />
+									<a class="vul-vh" onclick="return false;" href="#">SSL/TLS存在Bar Mitzvah Attack漏洞</a>
+                                </td>
+                                <td class="num-link-vh">1</td>
+                            </tr>
+                            <tr class="even vh_site" style="display:none">
+                            	<td colspan="2">
+                            		<!--plugin start-->
+                            		<table width="100%" class="report_table plumb" name="plugin_info">
+                                							<tr>
+                                								<th width="20%">受影响站点</th>
+                                								<td>
+                                								
+                                									
+                                									<a href="">
+                                										http://www.eehui.cn/com/bxtel/index/index.jsp
+                                									</a>&nbsp;
+                                									
+                                								
+                                								</td>
+                                							</tr>
+                                                        
+                                							<tr>
+                                								<th valign="top"  width="20%">详细描述</th>
+                                								<td valign="top">
+                                									
+                                									该漏洞是由功能较弱而且已经过时的RC4加密算法中一个问题所导致的。它能够在某些情况下泄露SSL/TLS加密流量中的密文，从而将账户用户名密码、信用卡数据和其他敏感信息泄露给黑客。<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">解决办法</th>
+                                								<td valign="top">
+                                									
+                                									1、服务器端禁止使用RC4加密算法。<br />
+                                									
+                                									2、客户端应在浏览器TLS配置中禁止RC4。<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">威胁分值</th>
+                                								<td valign="top">9</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">危险插件</th>
+                                								<td valign="top">否</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">发现日期</th>
+                                								<td valign="top">2015-03-29</td>
+                                							</tr>
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                	</table>
+                                	<!--plugin end-->
+								</td>
+              				</tr>
+						
+							<tr class="even"  style="cursor:pointer" onclick="showNextTr(this);">
+								<td>
+									<img src="images/shrink.gif" />
+									<img src="images/vl.gif" />
+									<a class="vul-vl" onclick="return false;" href="#">检测到目标网站存在无效链接</a>
+                                </td>
+                                <td class="num-link-vl">6</td>
+                            </tr>
+                            <tr class="even vl_site" style="display:none">
+                            	<td colspan="2">
+                            		<!--plugin start-->
+                            		<table width="100%" class="report_table plumb" name="plugin_info">
+                                							<tr>
+                                								<th width="20%">受影响站点</th>
+                                								<td>
+                                								
+                                									
+                                									<a href="">
+                                										http://www.eehui.cn/com/bxtel/index/index.jsp
+                                									</a>&nbsp;
+                                									
+                                								
+                                								</td>
+                                							</tr>
+                                                        
+                                							<tr>
+                                								<th valign="top"  width="20%">详细描述</th>
+                                								<td valign="top">
+                                									
+                                									无效链接是指存在于页面中，但其指向的资源已经不存在。<br />
+                                									
+                                									本漏洞属于Web应用安全常见漏洞。<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">解决办法</th>
+                                								<td valign="top">
+                                									
+                                									<br />
+                                									
+                                								</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">威胁分值</th>
+                                								<td valign="top">1</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">危险插件</th>
+                                								<td valign="top">否</td>
+                                							</tr>
+                                                        
+                                                        
+                                							<tr>
+                                								<th valign="top">发现日期</th>
+                                								<td valign="top">2001-01-01</td>
+                                							</tr>
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                                        
+                                							
+                                                        
+                                	</table>
+                                	<!--plugin end-->
+								</td>
+              				</tr>
+						
+						</table>
+					</div>
+				
+				</div>
+
+
+
+<div class="report_h report_h1">3. 站点详情</div>
+<div class="report_content">
+
+    <div class="report_h report_h2">3.1 http://www.eehui.cn/com/bxtel/index/index.jsp</div>
+    <div>
+        <div class="report_h report_h3">3.1.1 站点概况</div>
+        <div class="block">
+          
+            
+            <table class="report_table plumb">
+              <tr class="even">
+                <th width="20%">站点URL</th>
+                <td width="80%">http://www.eehui.cn/com/bxtel/index/index.jsp</td>
+              </tr>
+              <tr class="odd">
+                <th>风险值</th>
+                <td>8.1</td>
+              </tr>
+              <tr class="even">
+                <th>风险等级</th>
+                <td>非常危险</td>
+              </tr>
+              <tr class="odd">
+                <th>当前状态</th>
+                <td>任务完成</td>
+              </tr>
+              
+              <tr class="even">
+                <th>漏洞信息</th>
+                <td>
+                  高风险：2 次<br />
+                  中风险：0 次<br />
+                  低风险：16 次
+                </td>
+              </tr>
+              <tr class="odd">
+                <th>信息统计</th>
+                <td>
+                  已发现链接数：139<br />
+                  已扫描链接数：9<br />
+                  已发现文件数：13<br />
+                  有漏洞文件数：9
+                </td>
+              </tr>
+              <tr class="even">
+                <th>时间统计</th>
+                <td>
+                  开始：2016-04-20 11:32:48 (UTC+08:00)<br />
+                  结束：2016-04-20 11:48:27 (UTC+08:00)<br />
+                  耗时：15分钟35秒
+                </td>
+              </tr>
+            
+              <tr class="odd">
+                <th>版本信息</th>
+                <td>
+                
+                  系统版本：V6.0R03F01SP04<br />
+                
+                
+                  插件版本：V6.0R03F00.37
+                
+                </td>
+              </tr>
+            
+            </table>
+          
+            <table class="report_table">
+              <tr class="first_title">
+                <td width="140px">域名</td>
+                <td width="20%">IP</td>
+                <td width="15%">名称</td>
+                <td width="15%">Web服务器</td>
+                <td width="15%">脚本语言</td>
+                <td width="20%">WAF</td>
+              </tr>
+            
+              <tr class="even">
+                <td>www.eehui.cn</td>
+                <td>
+                
+                  183.61.13.232
+                  
+                
+                </td>
+                <td>
+                
+                  首页
+                
+                </td>
+                <td>
+                
+                  tengine 
+                  
+                
+                </td>
+                <td>
+                
+                  jsp 
+                  
+                
+                </td>
+                <td>
+                    
+                        --
+                    
+                </td>
+              </tr>
+            
+            </table>
+          
+          
+            <table class="report_table">
+              <thead>
+                <tr class="second_title">
+                  <td width="20%">服务端口</td>
+                  <td width="15%">服务名称</td>
+                  <td width="30%">所用产品</td>
+                  <td width="15%">服务版本</td>
+                  <td width="20%">操作系统类型</td>
+                </tr>
+              </thead>
+              
+                <tr class="even">
+                  <td>80</td>
+                  <td>http</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                </tr>
+              
+                <tr class="odd">
+                  <td>443</td>
+                  <td>https</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                </tr>
+              
+            </table>
+          
+          
+          
+        </div>
+
+        
+          
+          <div class="report_h report_h3">3.1.2 Web应用漏洞</div>
+          
+          <div class="block">
+            <table class="report_table">
+              <thead>
+                <tr>
+                  <th width="80%">漏洞名称</th>
+                  <th width="20%">出现次数</th>
+                </tr>
+              </thead>
+        
+          
+            
+              <tr class="even">
+                <td class="vul-vh">
+                  <img src="images/vh.gif" />
+                  SSLv3存在严重设计缺陷漏洞（CVE-2014-3566）
+                </td>
+                <td>
+                  <a target="_blank" href="vul_details/9987_1200613_1.html" style="text-decoration: underline;">1</a>
+                </td>
+              </tr>
+            
+          
+        
+        
+          
+            
+              <tr class="odd">
+                <td class="vul-vh">
+                  <img src="images/vh.gif" />
+                  SSL/TLS存在Bar Mitzvah Attack漏洞
+                </td>
+                <td>
+                  <a target="_blank" href="vul_details/9987_1200649_1.html" style="text-decoration: underline;">1</a>
+                </td>
+              </tr>
+            
+          
+        
+        
+          
+            
+              <tr class="even">
+                <td class="vul-vl">
+                  <img src="images/vl.gif" />
+                  检测到目标网站存在无效链接
+                </td>
+                <td>
+                  <a target="_blank" href="vul_details/9987_1000013_1.html" style="text-decoration: underline;">6</a>
+                </td>
+              </tr>
+            
+          
+        
+        
+          
+            
+              <tr class="odd">
+                <td class="vul-vl">
+                  <img src="images/vl.gif" />
+                  检测到基于HTTP连接的登录请求
+                </td>
+                <td>
+                  <a target="_blank" href="vul_details/9987_1000053_1.html" style="text-decoration: underline;">3</a>
+                </td>
+              </tr>
+            
+          
+        
+        
+          
+            
+              <tr class="even">
+                <td class="vul-vl">
+                  <img src="images/vl.gif" />
+                  检测到目标web应用表单密码类型输入启用了自动完成操作
+                </td>
+                <td>
+                  <a target="_blank" href="vul_details/9987_1000139_1.html" style="text-decoration: underline;">3</a>
+                </td>
+              </tr>
+            
+          
+        
+        
+          
+            
+              <tr class="odd">
+                <td class="vul-vl">
+                  <img src="images/vl.gif" />
+                  点击劫持：X-Frame-Options未配置
+                </td>
+                <td>
+                  <a target="_blank" href="vul_details/9987_1000145_1.html" style="text-decoration: underline;">1</a>
+                </td>
+              </tr>
+            
+          
+        
+        
+          
+            
+              <tr class="even">
+                <td class="vul-vl">
+                  <img src="images/vl.gif" />
+                  检测到目标URL启用了不安全的HTTP方法
+                </td>
+                <td>
+                  <a target="_blank" href="vul_details/9987_1000063_1.html" style="text-decoration: underline;">1</a>
+                </td>
+              </tr>
+            
+          
+        
+            </table>
+          </div>
+</div>
+        
+
+</div>
+
+				<div class="report_h report_h1">4. 参考标准</div>
+				<div class="report_content">
+				
+					<div class="report_h report_h2">4.1 单一漏洞危险等级评定标准</div>
+					<div class="block">
+						<table class="report_table">
+							<thead>
+								<tr>
+									<th width="11%">危险程度</th>
+									<th width="20%">危险值区域</th>
+									<th width="69%">危险程度说明</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="even">
+									<td><img src="images/vh.gif"/>高 </td>
+									<td>7 &lt;= 漏洞风险值 &lt;= 10</td>
+									<td>攻击者可以远程操作系统文件、读写后台数据库、执行任意命令或进行远程拒绝服务攻击。</td>
+								</tr>
+								<tr class="odd">
+									<td><img src="images/vm.gif"/>中 </td>
+									<td>4 &lt;= 漏洞风险值 &lt; 7</td>
+									<td>攻击者可以利用Web网站攻击其他用户，读取系统文件或后台数据库。</td>
+								</tr>
+								<tr class="even">
+									<td><img src="images/vl.gif"/>低 </td>
+									<td>1 &lt;= 漏洞风险值 &lt; 4</td>
+									<td>攻击者可以获取某些系统、文件的信息或冒用身份。</td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="report_table">
+							<thead>
+								<th width="11%">分值</th>
+								<th width="89%">评估标准</th>
+							</thead>
+							<tbody>
+								<tr class="even">
+									<td>1</td>
+									<td>可远程获取Web服务器组件的版本信息。</td>
+								</tr>
+								<tr class="odd">
+									<td>2</td>
+									<td>目标Web服务器开放了不必要的服务。</td>
+								</tr>
+								<tr class="even">
+									<td>3</td>
+									<td>可远程访问到某些不在目录树中的文件或读取服务器动态脚本的源码。</td>
+								</tr>
+								<tr class="odd">
+									<td>4</td>
+									<td>可远程因为会话管理的问题导致身份冒用。</td>
+								</tr>
+								<tr class="even">
+									<td>5</td>
+									<td>可远程利用受影响的Web服务器攻击其他浏览网站的用户。</td>
+								</tr>
+								<tr class="odd">
+									<td>6</td>
+									<td>可远程读取系统文件或后台数据库。</td>
+								</tr>
+								<tr class="even">
+									<td>7</td>
+									<td>可远程读写系统文件、操作后台数据库。</td>
+								</tr>
+								<tr class="odd">
+									<td>8</td>
+									<td>可远程以普通用户身份执行命令或进行拒绝服务攻击。</td>
+								</tr>
+								<tr class="even">
+									<td>9</td>
+									<td>可远程以管理用户身份执行命令（受限、不太容易利用）。</td>
+								</tr>
+								<tr class="odd">
+									<td>10</td>
+									<td>可远程以管理用户身份执行命令（不受限、容易利用）。</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				
+				
+					<div class="report_h report_h2">4.2 站点风险等级评定标准</div>
+					<div class="block">
+						<table class="report_table">
+							<thead>
+								<th width="20%">站点风险等级</th>
+								<th width="80%">站点风险值区域</th>
+							</thead>
+							<tbody>
+								<tr class="even">
+									<td><img src="images/dangerousest.gif"/>非常危险</td>
+									<td>8 &lt;= 站点风险值 &lt;= 10</td>
+								</tr>
+								<tr class="odd">
+									<td><img src="images/dangerous.gif"/>比较危险</td>
+									<td>5 &lt;= 站点风险值 &lt; 8</td>
+								</tr>
+								<tr class="even">
+									<td><img src="images/safe.gif"/>比较安全</td>
+									<td>1 &lt;= 站点风险值 &lt; 5</td>
+								</tr>
+								<tr class="odd">
+									<td><img src="images/safest.gif"/>非常安全</td>
+									<td>0 &lt;= 站点风险值 &lt; 1</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				
+				
+					<div class="report_h report_h2">4.3 安全建议</div>
+					<div class="block">
+						<p>
+							随着越来越多的网络访问通过Web界面进行操作，Web安全已经成为互联网安全的一个热点，基于Web的攻击广为流行，SQL注入、跨站脚本等Web应用层漏洞的存在使得网站沦陷、页面篡改、网页挂马等攻击行为困扰着网站管理者并威胁着网站以及直接用户的安全。基于此，我们可从如下几个方面来消除这些风险，做到防患于未然：
+						</p>
+						<ul>
+							<li>
+								<p>
+									对网站的开发人员进行安全编码方面的培训，在开发过程避免漏洞的引入能起到事半功倍的效果。
+								</p>
+							</li>
+							<li>
+								<p>
+									请专业的安全研究人员或安全公司对架构网站的程序和代码做全面的源码审计，修补所有发现的安全漏洞，这种白盒安全测试比较全面、深入，能发现绝大部分的安全问题。
+								</p>
+							</li>
+							<li>
+								<p>
+									在网站上线前，使用Web应用漏洞扫描系统进行安全评估，并修补发现的问题；在网站上线后，坚持更新并使用网站安全监测系统，对整站以及关键页面进行周期和实时监测，及时消除发现的隐患。
+								</p>
+							</li>
+							<li>
+								<p>
+									采用专业的Web安全防火墙产品，可以在不修改网站本身的情况下对大多数的Web攻击起到有效的阻断作用，绿盟科技提供了功能强大的WAF产品，可以满足用户在这方面的需求。
+								</p>
+							</li>
+							<li>
+								<p>
+									建议网络管理员、系统管理员、安全管理员关注安全信息、安全动态及最新的严重漏洞，特别是影响到Web站点所使用的系统和软件的漏洞，应该在事前设计好应对规划，一旦发现系统受漏洞影响及时采取措施。
+								</p>
+							</li>
+						</ul>
+					</div>
+				
+				</div>			</div>
+			<!--content end-->
+			<div class="report_tip"></div>
+		</div>
+	</body>
+</html>
