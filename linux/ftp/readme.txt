@@ -4,13 +4,18 @@ passwd ftpbx
 ftpbx@119.254.84.179
 usermod -s /sbin/nologin 
 setsebool  ftp_home_dir  on
-
+setsebool  allow_ftpd_full_access on
 
 
 
 useradd -d /home/historyrecord historyrecord
 passwd historyrecord
 usermod -s /sbin/nologin historyrecord
+
+
+
+
+local_root=/var/ftp
 
 
 http://www.cnblogs.com/bienfantaisie/archive/2011/12/04/2275203.html
@@ -219,4 +224,115 @@ Linux环境下使用vsftpd搭建ftpd服务器
  pkill vsftpd /usr/sbin/vsftpd &
  
  6 到此，整个小巧的ftp服务器搭建成功。可以使用FileZilla FTP或FlashFXP等客户端软件登陆ftp server了。
+
+
+
+
+
+
+vsftpd的配置说明，以及553 Could not create file.错误的解决
+更新时间:2011-11-10 11:15:46来源:未知 作者:goldpony 点击:181次
+VSFTP文件与目录 /usr/sbin/vsftp vsftp的主程序 /etc/rc.d/init.d/vsftp vsftp的启动脚本 /etc/vsftpd/vsftpd.conf vsftp的配置文件 /etc/pamd/vsftpd PAM认证文件 /etc/vsftpd/vsftpd.ftpuser 禁止使用FTP的用户 /etc/vsftpd/vsftpd.user_lis
+      VSFTP文件与目录
+      /usr/sbin/vsftp      vsftp的主程序
+      /etc/rc.d/init.d/vsftp          vsftp的启动脚本
+      /etc/vsftpd/vsftpd.conf        vsftp的配置文件
+      /etc/pamd/vsftpd PAM认证文件
+      /etc/vsftpd/vsftpd.ftpuser 禁止使用FTP的用户
+      /etc/vsftpd/vsftpd.user_list 禁止或允许使用ftp的用户列表
+      /var/ftp ftp匿名主目录
+      /varftp/pub ftp匿名上传主目录
+
+      VSFTP启动
+      Standalone方式
+      用于ftp访问频繁的环境 VSFTP进程始终运行监听端口
+      Service vsftp start|stop|restart|status
+      /etc/rc.d/init.d/vsftpd start|stop|restart
+      或者在/etc/vsftpd/vsftpd.conf中 加入listen=yes 表示以standalone运行
+      在inet.d守护进程中运行
+      用于ftp访问量很小的情况 vsftp在inet.d守护进程中运行 
+      运行/etc/inet.d/vsftp中的脚本
+      VSFTP的配置文件 /etc/vsftpd/vsftpd.conf
+
+      主动模式设置
+      Port_enable=YES               开启主动模式
+      Connect_from_port_20=YES      当主动模式开启的时候 是否启用默认的20端口监听
+      Ftp_date_port=%portnumber%    上一选项使用NO参数是 指定数据传输端口
+
+      被动模式
+      PASV_enable=YES   开启被动模式
+      PASV_min_port=%number% 被动模式最低端口
+      PASV_max_port=%number% 被动模式最高端口
+
+      匿名上传设置
+      anonymous_enable=YES   启用匿名帐户
+      anon_world_readable_only=NO 关闭匿名全局浏览
+      anon_upload_enable=YES   匿名上传开启
+      anon_mkdir_write_enable=YES 允许匿名用户创建目录
+      write_enable=YES   全局写入权限开启
+      
+      限制本地用户访问文件系统
+      chroot_local_user=YES    将本地用户浏览限制在其FTP根目录下
+
+      限制部分用户访问文件系统
+      chroot_list_enable=YES    启用列表（不可以与上条命令同时开启）
+      chroot_list_file=%file path%   限制用户的列表文件
+
+      连接限制
+      Max_client=%number%   最大连接数
+      max_per_ip=%number%   每ip最大连接数
+      anon_max_rate=%number%    匿名用户最大速率 单位kbps
+      local_max_rate=%number%   本地用户最大速率 单位kbps
+      user_config_dir=%file path%/%username% 针对不同用户的连接速率设置
+      %username%文件的内容为 local_max_rate=%number%
+      
+      用户主目录设置
+      本地用户的主目录定义在/etc/passwd文件中
+      其中FTP user：________为定义行
+      全局重定向localuser的ftp主目录
+      local_root=%path%
+
+      安全设置
+      hide_ids=YES   隐藏用户的UID和GID
+      改变原有banner
+      ftpd_banner=%message%
+      或者
+      banner_file=%file path%
+
+      虚拟FTP站点设置
+      首先创建2套conf文件
+      #cp /etc/vsftpd/vsftpd.conf /etc/vsftp/vsftp2.conf
+      创建ftp2的主目录
+      #mkdir /var/ftp2 
+      #useradd -d /var/ftp2 -M FTP2
+      #service vsftpd restart
+      
+      单独启动某一站点
+      /user/sbin/vsftpd /etc/vsftpd/vsftp2.conf&
+
+      另附：553 Could not create file.错误的解决
+      在RedHat 5上配置了Vsftpd,一切都是没有问题,用户也可以正常登陆,但是在上传文件的时候总是提示：
+      553 Could not create file.的错误,百思不得其解,在网上搜了一下,原来是：
+      Fedora Core 4缺省状态是打开selinux的,在这个状态下,vsftp会出现本地用户无法上传的问题（可能是本地用户的home目录,或者是整个目录）,错误信息为：
+      553 Could not create file.
+      要解决这个问题只要：
+      1. setsebool -P ftpd_disable_trans 1
+      2. service vsftpd restart
+      就可以了。
+
+      FTP用户一般是不能登录系统的，这也是为了安全。在系统中，没有权限登录系统的用户一般也被称之为虚拟用户；虚拟用户也是要写进/etc
+      /passwd中；这只是一种虚拟用户的方法，但说实在的并不是真正的虚拟用户，只是把他登录SHELL的权限去掉了，所以他没有能力登录系统；
+      如果我们想把beinan这个用户目录定位在/opt/beinan这个目录中，并且不能登录系统；我们应该如下操作
+      [root@localhost ~]# adduser -d /opt/beinan -g ftp -s /sbin/nologin beinan
+      [root@localhost ~]# passwd beinan
+      Changing password for user beinan.
+      New password:
+      Retype new password:
+      passwd: all authentication tokens updated successfully.
+      [root@localhost ~]#
+      其实这还是不够的，还要改一下配置文件vsFTPd.conf ，以确保本地虚拟用户能有读写权限；
+      local_enable=YES
+      write_enable=YES
+      local_umask=022
+(责任编辑：admin)
 

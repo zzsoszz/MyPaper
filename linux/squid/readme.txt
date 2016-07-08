@@ -2,7 +2,7 @@
 vi  /etc/resolv.conf
 
 
-
+cp  /etc/squid/squid.conf  /etc/squid/squid.conf_bak
 squid -f /etc/squid/squid.conf
 vi /etc/squid/squid.conf
 tail -f   /var/log/squid/cache.log
@@ -37,15 +37,6 @@ cache_effective_group squid
 dns_nameservers 192.168.1.1
 
 debug_options ALL,1 33,2
-~
-
-
-
-
-
-
-
-
 
 
 
