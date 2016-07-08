@@ -4,4 +4,46 @@ chmod 777 mongodb-linux-x86_64-3.0.1/*
 cd mongodb-linux-x86_64-3.0.1
 mkdir db
 cd   bin
-/ftp/setup/tools/mongodb-linux-x86_64-3.0.1/bin/mongod  --fork  --dbpath   /ftp/setup/tools/mongodb-linux-x86_64-3.0.1/db   --logpath /var/log/mongodb.log --logappend 
+/ftp/setup/tools/mongodb-linux-x86_64-3.0.1/bin/mongod  --auth --fork  --dbpath   /ftp/setup/tools/mongodb-linux-x86_64-3.0.1/db   --logpath /var/log/mongodb.log --logappend 
+
+
+
+/ftp/setup/tools/mongodb-linux-x86_64-3.0.1/bin/mongo 127.0.0.1:27017
+db.createUser(
+   {
+     user: "hotel",
+     pwd: "bx123456@119.254.84.182",
+     roles: [ "readWrite", "dbAdmin" ]
+   }
+)
+
+db.createUser(
+  {
+    user: "hotel",
+    pwd: "bx123456@119.254.84.182",
+    roles:
+    [
+      {
+        role: "userAdminAnyDatabase",
+        db: "admin"
+      }
+    ]
+  }
+)
+db.system.users.remove({user:"hotel"});
+
+
+
+use admin
+db.createUser(
+  {
+    user:"superuser",
+    pwd:"bx123456",
+    roles:["root"]
+  }
+)
+
+db.auth("superuser","bx123456")
+
+db.auth("hotel","bx123456@119.254.84.182")
+

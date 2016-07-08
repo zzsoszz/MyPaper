@@ -1,0 +1,99 @@
+mysqldump -uroot -pbx123456 sms2  > ./all.sql
+
+
+
+先备份数据库
+使用 
+mysqldump -u root -plvtao 数据库 > /home/bak.sql
+再把备份的数据库还原就可以了
+导入数据库 常用source 命令
+
+进入mysql数据库控制台，
+
+如mysql -u root -p
+
+mysql>use 数据库名
+
+然后使用source命令，后面参数为脚本文件(如这里用到的.sql)
+
+mysql>source /home/bak.sql
+
+ 
+
+ 
+
+常见选项：
+--all-databases, -A： 备份所有数据库
+--databases, -B： 用于备份多个数据库，如果没有该选项，mysqldump把第一个名字参数作为数据库名，后面的作为表名。使用该选项，mysqldum把每个名字都当作为数据库名。
+
+--force, -f：即使发现sql错误，仍然继续备份
+--host=host_name, -h host_name：备份主机名，默认为localhost
+--no-data, -d：只导出表结构
+--password[=password], -p[password]：密码
+--port=port_num, -P port_num：制定TCP/IP连接时的端口号
+--quick, -q：快速导出
+--tables：覆盖 --databases or -B选项，后面所跟参数被视作表名
+--user=user_name, -u user_name：用户名
+--xml, -X：导出为xml文件
+
+1.备份全部数据库的数据和结构
+
+mysqldump -uroot -p123456 -A >F:\all.sql
+
+2.备份全部数据库的结构（加 -d 参数）
+
+mysqldump -uroot -p123456 -A-d>F:\all_struct.sql
+
+3.备份全部数据库的数据(加 -t 参数)
+
+mysqldump -uroot -p123456 -A-t>F:\all_data.sql
+
+4.备份单个数据库的数据和结构(,数据库名mydb)
+
+mysqldump -uroot-p123456 mydb>F:\mydb.sql
+
+5.备份单个数据库的结构
+
+mysqldump -uroot -p123456 mydb-d>F:\mydb.sql
+
+6.备份单个数据库的数据
+
+mysqldump -uroot -p123456 mydb-t>F:\mydb.sql
+
+7.备份多个表的数据和结构（数据，结构的单独备份方法与上同）
+
+mysqldump -uroot -p123456 mydb t1 t2>f:\multables.sql
+
+8.一次备份多个数据库
+
+mysqldump -uroot -p123456 --databases db1 db2>f:\muldbs.sql
+
+还原部分分（1）mysql命令行source方法 和 （2）系统命令行方法
+
+1.还原全部数据库:
+
+(1) mysql命令行：mysql>source f:\all.sql
+
+(2) 系统命令行： mysql -uroot -p123456 <f:\all.sql
+
+2.还原单个数据库(需指定数据库)
+
+(1) mysql>use mydb
+
+mysql>source f:\mydb.sql
+
+(2) mysql -uroot -p123456 mydb <f:\mydb.sql
+
+3.还原单个数据库的多个表(需指定数据库)
+
+(1) mysql>use mydb
+
+mysql>source f:\multables.sql
+
+(2) mysql -uroot -p123456 mydb<f:\multables.sql
+
+4.还原多个数据库，（一个备份文件里有多个数据库的备份，此时不需要指定数据库）
+
+(1) mysql命令行：mysql>source f:\muldbs.sql
+
+(2) 系统命令行： mysql -uroot -p123456<f:\muldbs.sql
