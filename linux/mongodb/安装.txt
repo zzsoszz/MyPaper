@@ -39,11 +39,111 @@ db.createUser(
   {
     user:"superuser",
     pwd:"bx123456",
-    roles:["root"]
+    roles:["userAdminAnyDatabase"]
   }
 )
 
 db.auth("superuser","bx123456")
+db.auth("admin","admin")
+
+
+db.createUser(
+  {
+    user:"superuser",
+    pwd:"bx123456",
+    roles:["dbAdmin"]
+  }
+)
+
 
 db.auth("hotel","bx123456@119.254.84.182")
+
+
+
+
+
+use admin
+db.createUser(
+  {
+    user: "admin",
+    pwd: "admin",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  }
+)
+
+
+
+
+
+最近用到mongodb，在阿里云服务器上面直接
+
+wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.0.6.tgz 下载安装包，安装的linux-64bit,version：3.0.6
+
+安装完成之后，根据网上设置了用户和密码
+
+dbpath=/usr/mongodb/data
+logpath=/usr/mongodb/logs/mongodb.log
+bind_ip=0.0.0.0
+logappend=true
+port=27017
+fork=true
+auth=false //设置用户之前，先不要设置认证，否则启动后，设置用户需要各种权限，建议用户角色分配好后再改成ture。重启后这样就可以正常使用权限
+
+
+开始设置好用户直接重启，本地登录认证都ok，远程认证总是失败，网上找了各种资料，都没有进行说明，找了很久，终于发现一篇文章告诉mongodb3.0认证信息需要修改才能进行连接
+修改命令如下，进入shell:
+
+> use admin 
+switched to db admin 
+>  var schema = db.system.version.findOne({"_id" : "authSchema"}) 
+> schema.currentVersion = 3 
+3 
+> db.system.version.save(schema) 
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 }) 
+
+在修改完成之后再创建用户。下面附带创建数据库用户的shell：
+
+1 创建一个root用户：
+
+use admin
+db.createUser(
+    {
+      user: "root",
+      pwd: "123456",
+      roles: [ "root" ]
+    }
+)
+
+2 创建admin用户
+
+use admin
+db.createUser(
+  {
+    user: "admin",
+    pwd: "admin",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  }
+)
+
+3 创建具体数据库的用户
+
+use test
+db.createUser(
+  {
+    user: "test",
+    pwd: "password",
+    roles: [ { role: "userAdmin", db: "test" } ]
+  }
+)
+
+最后都要认证一下
+
+db.auth("user", "pwd")
+
+返回1代表成功，0代表失败。
+
+ 
+
+然后把mongodb.conf文件中的auth=true，再重新启动mongodb。就可以进行远程连接了
+
 
